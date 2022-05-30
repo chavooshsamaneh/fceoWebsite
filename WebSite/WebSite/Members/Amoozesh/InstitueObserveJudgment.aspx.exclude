@@ -1,0 +1,624 @@
+﻿<%@ Page Language="C#" MasterPageFile="~/MasterPagePortals.master" AutoEventWireup="true" CodeFile="InstitueObserveJudgment.aspx.cs" Inherits="Members_Amoozesh_InstitueObserveJudgment" Title="Untitled Page" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxdv" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxhf" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxcp" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxp" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxuc" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxrp" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxm" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxpc" %>
+<%@ Register Assembly="TSP.WebControls" Namespace="TSP.WebControls" TagPrefix="TSPControls" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxe" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxwgv" %>
+<%@ Register Assembly="PersianDateControls 2.0" Namespace="PersianDateControls" TagPrefix="pdc" %>
+<%@ Register Assembly="AjaxControls" Namespace="AjaxControls" TagPrefix="asp" %>
+<%@ Register Assembly="PersianDateControls 2.0" Namespace="PersianDateControls" TagPrefix="pdc" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+    <div align="center" style="width: 100%">
+        <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+            <ContentTemplate>
+                <div style="width: 600px" align="center">
+                    <div id="DivReport" runat="server" class="DivErrors" style="text-align: right" visible="true">
+                        <asp:Label ID="LabelWarning" runat="server" Text="Label"></asp:Label>[<a class="closeLink"
+                            href="#">بستن</a>]</div>
+                    <div id="DIV1" dir="ltr" onclick="return DIV1_onclick()" style="width: 100%; text-align: right">
+                        <dxrp:ASPxRoundPanel ID="RoundPanelHeader" runat="server" BackColor="#EBF2F4" 
+                             HorizontalAlign="Right" ShowHeader="False" Width="100%">
+                            <LeftEdge>
+                                <BackgroundImage ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif" Repeat="RepeatX"
+                                    VerticalPosition="bottom" />
+                            </LeftEdge>
+                            <BottomRightCorner Height="5px" Url="~/App_Themes/Glass/Web/rpBottomRightCorner.png"
+                                Width="5px" />
+                            <HeaderContent>
+                                <BackgroundImage ImageUrl="~/App_Themes/Glass/Web/rpHeaderBack.gif" Repeat="RepeatX"
+                                    VerticalPosition="bottom" />
+                            </HeaderContent>
+                            <ContentPaddings Padding="0px" PaddingBottom="0px" PaddingLeft="0px" PaddingTop="0px" />
+                            <NoHeaderTopRightCorner Height="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopRightCorner.png"
+                                Width="5px" />
+                            <RightEdge>
+                                <BackgroundImage ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif" Repeat="RepeatX"
+                                    VerticalPosition="bottom" />
+                            </RightEdge>
+                            <HeaderRightEdge>
+                                <BackgroundImage ImageUrl="~/App_Themes/Glass/Web/rpHeaderRightEdge.gif" VerticalPosition="bottom" />
+                            </HeaderRightEdge>
+                            <Border BorderColor="#7EACB1" BorderStyle="Solid" BorderWidth="1px" />
+                            <HeaderStyle BackColor="White" Height="23px">
+                                <Paddings PaddingBottom="0px" PaddingLeft="2px" PaddingTop="0px" />
+                                <BorderBottom BorderStyle="None" />
+                            </HeaderStyle>
+                            <Content>
+                                <BackgroundImage ImageUrl="~/App_Themes/Glass/Web/rpContentBack.gif" Repeat="RepeatX"
+                                    VerticalPosition="bottom" />
+                            </Content>
+                            <HeaderLeftEdge>
+                                <BackgroundImage ImageUrl="~/App_Themes/Glass/Web/rpHeaderLeftEdge.gif" Repeat="RepeatX"
+                                    VerticalPosition="bottom" />
+                            </HeaderLeftEdge>
+                            <BottomEdge BackColor="#D7E9F1">
+                            </BottomEdge>
+                            <TopRightCorner Height="5px" Url="~/App_Themes/Glass/Web/rpTopRightCorner.png" Width="5px" />
+                            <NoHeaderTopLeftCorner Height="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopLeftCorner.png"
+                                Width="5px" />
+                            <PanelCollection>
+                                <dxp:PanelContent runat="server">
+                                    <div dir="rtl" style="width: 100%">
+                                        <table cellpadding="0" dir="rtl" style="border-collapse: collapse; background-color: transparent">
+                                            <tbody>
+                                                <tr>
+                                                    <td >
+                                                        <TSPControls:CustomTextBox ID="btnSave" runat="server" AutoPostBack="False" 
+                                                            EnableTheming="False" EnableViewState="False" OnClick="btnSave_Click" Text=" "
+                                                            ToolTip="ذخیره" UseSubmitBehavior="False" Width="25px">
+                                                            <ClientSideEvents Click="function(s, e) {
+	
+	
+}" />
+                                                            <HoverStyle BackColor="#FFE0C0">
+                                                                <Border BorderColor="Gray" BorderStyle="Outset" BorderWidth="1px" />
+                                                            </HoverStyle>
+                                                            <Image Height="25px" Url="~/Images/icons/save.png" Width="25px" />
+                                                        </TSPControls:CustomTextBox>
+                                                    </td>
+                                                    <td >
+                                                        <TSPControls:CustomTextBox ID="btnBack" runat="server" CausesValidation="False" 
+                                                            EnableTheming="False" EnableViewState="False" OnClick="btnBack_Click" Text=" "
+                                                            ToolTip="بازگشت" UseSubmitBehavior="False">
+                                                            <HoverStyle BackColor="#FFE0C0">
+                                                                <Border BorderColor="Gray" BorderStyle="Outset" BorderWidth="1px" />
+                                                            </HoverStyle>
+                                                            <Image Height="25px" Url="~/Images/icons/Back.png" Width="25px" />
+                                                        </TSPControls:CustomTextBox>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </dxp:PanelContent>
+                            </PanelCollection>
+                            <TopLeftCorner Height="5px" Url="~/App_Themes/Glass/Web/rpTopLeftCorner.png" Width="5px" />
+                            <NoHeaderTopEdge BackColor="#EBF2F4">
+                            </NoHeaderTopEdge>
+                            <BottomLeftCorner Height="5px" Url="~/App_Themes/Glass/Web/rpBottomLeftCorner.png"
+                                Width="5px" />
+                        </dxrp:ASPxRoundPanel>
+                    </div>
+                    <br />
+                    <div dir="ltr">
+                    <dxrp:ASPxRoundPanel ID="RoundPanelInsInfo" runat="server" BackColor="#EBF2F4" 
+                         HeaderText="اطلاعات مؤسسه" HorizontalAlign="Right" Width="100%">
+                        <LeftEdge>
+                            <BackgroundImage ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif" Repeat="RepeatX"
+                                VerticalPosition="bottom" />
+                        </LeftEdge>
+                        <BottomRightCorner Height="5px" Url="~/App_Themes/Glass/Web/rpBottomRightCorner.png"
+                            Width="5px" />
+                        <HeaderContent>
+                            <BackgroundImage ImageUrl="~/App_Themes/Glass/Web/rpHeaderBack.gif" Repeat="RepeatX"
+                                VerticalPosition="bottom" />
+                        </HeaderContent>
+                        <ContentPaddings PaddingBottom="10px" PaddingLeft="4px" PaddingTop="10px" />
+                        <NoHeaderTopRightCorner Height="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopRightCorner.png"
+                            Width="5px" />
+                        <RightEdge>
+                            <BackgroundImage ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif" Repeat="RepeatX"
+                                VerticalPosition="bottom" />
+                        </RightEdge>
+                        <HeaderRightEdge>
+                            <BackgroundImage ImageUrl="~/App_Themes/Glass/Web/rpHeaderRightEdge.gif" VerticalPosition="bottom" />
+                        </HeaderRightEdge>
+                        <Border BorderColor="#7EACB1" BorderStyle="Solid" BorderWidth="1px" />
+                        <HeaderStyle BackColor="White" Height="23px" HorizontalAlign="Right">
+                            <Paddings PaddingBottom="0px" PaddingLeft="2px" PaddingTop="0px" />
+                            <BorderBottom BorderStyle="None" />
+                        </HeaderStyle>
+                        <Content>
+                            <BackgroundImage ImageUrl="~/App_Themes/Glass/Web/rpContentBack.gif" Repeat="RepeatX"
+                                VerticalPosition="bottom" />
+                        </Content>
+                        <HeaderLeftEdge>
+                            <BackgroundImage ImageUrl="~/App_Themes/Glass/Web/rpHeaderLeftEdge.gif" Repeat="RepeatX"
+                                VerticalPosition="bottom" />
+                        </HeaderLeftEdge>
+                        <BottomEdge BackColor="#D7E9F1">
+                        </BottomEdge>
+                        <TopRightCorner Height="5px" Url="~/App_Themes/Glass/Web/rpTopRightCorner.png" Width="5px" />
+                        <NoHeaderTopLeftCorner Height="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopLeftCorner.png"
+                            Width="5px" />
+                        <PanelCollection>
+                            <dxp:PanelContent runat="server">
+                                <div dir="rtl">
+                                    <table width="100%">
+                                        <tbody>
+                                            <tr>
+                                                <td style="vertical-align: top; width: 100px; text-align: right">
+                                                    <dxe:ASPxLabel ID="ASPxLabel14" runat="server" Text="نام مؤسسه:">
+                                                    </dxe:ASPxLabel>
+                                                </td>
+                                                <td style="vertical-align: top; width: 100px; text-align: right">
+                                                    <TSPControls:CustomTextBox ID="txtxInsName" runat="server" 
+                                                         Enabled="False" Width="170px">
+                                                        <ValidationSettings>
+                                                            
+                                                            <ErrorFrameStyle ImageSpacing="4px">
+                                                                <ErrorTextPaddings PaddingLeft="4px" />
+                                                            </ErrorFrameStyle>
+                                                        </ValidationSettings>
+                                                    </TSPControls:CustomTextBox>
+                                                </td>
+                                                <td style="vertical-align: top; width: 100px; text-align: right">
+                                                    <dxe:ASPxLabel ID="ASPxLabel15" runat="server" Text="نام مدیر مؤسسه:" Width="94px">
+                                                    </dxe:ASPxLabel>
+                                                </td>
+                                                <td style="vertical-align: top; width: 100px; text-align: right">
+                                                    <TSPControls:CustomTextBox ID="txtInsManager" runat="server" 
+                                                         Enabled="False" Width="170px">
+                                                        <ValidationSettings>
+                                                            
+                                                            <ErrorFrameStyle ImageSpacing="4px">
+                                                                <ErrorTextPaddings PaddingLeft="4px" />
+                                                            </ErrorFrameStyle>
+                                                        </ValidationSettings>
+                                                    </TSPControls:CustomTextBox>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="vertical-align: top; width: 100px; text-align: right">
+                                                    <dxe:ASPxLabel ID="ASPxLabel16" runat="server" Text="آدرس:">
+                                                    </dxe:ASPxLabel>
+                                                </td>
+                                                <td colspan="3" style="vertical-align: top; text-align: right">
+                                                    <TSPControls:CustomASPXMemo ID="txtInsAddress" runat="server" 
+                                                         Enabled="False" Height="37px" Width="458px">
+                                                        <ValidationSettings>
+                                                            
+                                                            <ErrorFrameStyle ImageSpacing="4px">
+                                                                <ErrorTextPaddings PaddingLeft="4px" />
+                                                            </ErrorFrameStyle>
+                                                        </ValidationSettings>
+                                                    </TSPControls:CustomASPXMemo>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </dxp:PanelContent>
+                        </PanelCollection>
+                        <TopLeftCorner Height="5px" Url="~/App_Themes/Glass/Web/rpTopLeftCorner.png" Width="5px" />
+                        <NoHeaderTopEdge BackColor="#EBF2F4">
+                        </NoHeaderTopEdge>
+                        <BottomLeftCorner Height="5px" Url="~/App_Themes/Glass/Web/rpBottomLeftCorner.png"
+                            Width="5px" />
+                    </dxrp:ASPxRoundPanel>
+                    </div>
+                    <br />
+                    <div dir="ltr">
+                    <dxrp:ASPxRoundPanel ID="RoundPanelJudgment" runat="server" BackColor="#EBF2F4" 
+                         HeaderText="مشاهده" HorizontalAlign="Right" Width="100%">
+                        <LeftEdge>
+                            <BackgroundImage ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif" Repeat="RepeatX"
+                                VerticalPosition="bottom" />
+                        </LeftEdge>
+                        <BottomRightCorner Height="5px" Url="~/App_Themes/Glass/Web/rpBottomRightCorner.png"
+                            Width="5px" />
+                        <HeaderContent>
+                            <BackgroundImage ImageUrl="~/App_Themes/Glass/Web/rpHeaderBack.gif" Repeat="RepeatX"
+                                VerticalPosition="bottom" />
+                        </HeaderContent>
+                        <ContentPaddings PaddingBottom="10px" PaddingLeft="4px" PaddingTop="10px" />
+                        <NoHeaderTopRightCorner Height="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopRightCorner.png"
+                            Width="5px" />
+                        <RightEdge>
+                            <BackgroundImage ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif" Repeat="RepeatX"
+                                VerticalPosition="bottom" />
+                        </RightEdge>
+                        <HeaderRightEdge>
+                            <BackgroundImage ImageUrl="~/App_Themes/Glass/Web/rpHeaderRightEdge.gif" VerticalPosition="bottom" />
+                        </HeaderRightEdge>
+                        <Border BorderColor="#7EACB1" BorderStyle="Solid" BorderWidth="1px" />
+                        <HeaderStyle BackColor="White" Height="23px" HorizontalAlign="Right">
+                            <Paddings PaddingBottom="0px" PaddingLeft="2px" PaddingTop="0px" />
+                            <BorderBottom BorderStyle="None" />
+                        </HeaderStyle>
+                        <Content>
+                            <BackgroundImage ImageUrl="~/App_Themes/Glass/Web/rpContentBack.gif" Repeat="RepeatX"
+                                VerticalPosition="bottom" />
+                        </Content>
+                        <HeaderLeftEdge>
+                            <BackgroundImage ImageUrl="~/App_Themes/Glass/Web/rpHeaderLeftEdge.gif" Repeat="RepeatX"
+                                VerticalPosition="bottom" />
+                        </HeaderLeftEdge>
+                        <BottomEdge BackColor="#D7E9F1">
+                        </BottomEdge>
+                        <TopRightCorner Height="5px" Url="~/App_Themes/Glass/Web/rpTopRightCorner.png" Width="5px" />
+                        <NoHeaderTopLeftCorner Height="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopLeftCorner.png"
+                            Width="5px" />
+                        <PanelCollection>
+                            <dxp:PanelContent runat="server">
+                            <div dir="rtl">
+                                &nbsp;</div>
+                                <table width="100">
+                                    <tr>
+                                        <td dir="rtl" style="width: 100px; vertical-align: top; height: 16px; text-align: right;">
+                                            <dxe:ASPxRadioButtonList ID="rbtnSituation" runat="server" RepeatDirection="Horizontal"
+                                                Width="359px" Font-Size="X-Small">
+                                                <Items>
+                                                    <dxe:ListEditItem Text="خیلی خوب" Value="0" />
+                                                    <dxe:ListEditItem Text="خوب" Value="1" />
+                                                    <dxe:ListEditItem Text="متوسط" Value="3" />
+                                                    <dxe:ListEditItem Text="ضعیف" Value="3" />
+                                                    <dxe:ListEditItem Text="خیلی ضعیف" Value="4" />
+                                                    <dxe:ListEditItem Text="ندارد" Value="5" />
+                                                </Items>
+                                            </dxe:ASPxRadioButtonList>
+                                        </td>
+                                        <td style="vertical-align: top; width: 100px; text-align: right">
+                                            <dxe:ASPxLabel ID="ASPxLabel3" runat="server" Font-Size="X-Small" Text="موقعیت قرارگیری موسسه به لحاظ دسترسی"
+                                                Width="190px">
+                                            </dxe:ASPxLabel>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td dir="rtl" style="width: 100px; vertical-align: top; height: 16px; text-align: right;">
+                                            <dxe:ASPxRadioButtonList ID="rbtnLight" runat="server" RepeatDirection="Horizontal"
+                                                Width="359px" Font-Size="X-Small">
+                                                <Items>
+                                                    <dxe:ListEditItem Text="خیلی خوب" Value="0" />
+                                                    <dxe:ListEditItem Text="خوب" Value="1" />
+                                                    <dxe:ListEditItem Text="متوسط" Value="3" />
+                                                    <dxe:ListEditItem Text="ضعیف" Value="3" />
+                                                    <dxe:ListEditItem Text="خیلی ضعیف" Value="4" />
+                                                    <dxe:ListEditItem Text="ندارد" Value="5" />
+                                                </Items>
+                                            </dxe:ASPxRadioButtonList>
+                                        </td>
+                                        <td style="vertical-align: top; width: 100px; text-align: right" dir="rtl">
+                                            <dxe:ASPxLabel ID="ASPxLabel4" runat="server" Font-Size="X-Small" Text="شرایط محیط آموزش از نظر نور" Width="137px">
+                                            </dxe:ASPxLabel>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td dir="rtl" style="width: 100px; vertical-align: top; height: 16px; text-align: right;">
+                                            <dxe:ASPxRadioButtonList ID="rbtnAirCondition" runat="server" RepeatDirection="Horizontal"
+                                                Width="359px" Font-Size="X-Small">
+                                                <Items>
+                                                    <dxe:ListEditItem Text="خیلی خوب" Value="0" />
+                                                    <dxe:ListEditItem Text="خوب" Value="1" />
+                                                    <dxe:ListEditItem Text="متوسط" Value="3" />
+                                                    <dxe:ListEditItem Text="ضعیف" Value="3" />
+                                                    <dxe:ListEditItem Text="خیلی ضعیف" Value="4" />
+                                                    <dxe:ListEditItem Text="ندارد" Value="5" />
+                                                </Items>
+                                            </dxe:ASPxRadioButtonList>
+                                        </td>
+                                        <td style="vertical-align: top; width: 100px; text-align: right" dir="rtl">
+                                            <dxe:ASPxLabel ID="ASPxLabel5" runat="server" Font-Size="X-Small" Text="شرایط محیط آموزش از نظر تهویه مطبوع"
+                                                Width="170px">
+                                            </dxe:ASPxLabel>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td dir="rtl" style="width: 100px; vertical-align: top; height: 16px; text-align: right;">
+                                            <dxe:ASPxRadioButtonList ID="rbtnBeauty" runat="server" RepeatDirection="Horizontal"
+                                                Width="359px" Font-Size="X-Small">
+                                                <Items>
+                                                    <dxe:ListEditItem Text="خیلی خوب" Value="0" />
+                                                    <dxe:ListEditItem Text="خوب" Value="1" />
+                                                    <dxe:ListEditItem Text="متوسط" Value="3" />
+                                                    <dxe:ListEditItem Text="ضعیف" Value="3" />
+                                                    <dxe:ListEditItem Text="خیلی ضعیف" Value="4" />
+                                                    <dxe:ListEditItem Text="ندارد" Value="5" />
+                                                </Items>
+                                            </dxe:ASPxRadioButtonList>
+                                        </td>
+                                        <td style="vertical-align: top; width: 100px; text-align: right" dir="rtl">
+                                            <dxe:ASPxLabel ID="ASPxLabel7" runat="server" Font-Size="X-Small" Text="شرایط محیط آموزش از نظر آراستگی"
+                                                Width="155px">
+                                            </dxe:ASPxLabel>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td dir="rtl" style="width: 100px; height: 16px; vertical-align: top; text-align: right;">
+                                            <dxe:ASPxRadioButtonList ID="rbtnInternet" runat="server" RepeatDirection="Horizontal"
+                                                Width="359px" Font-Size="X-Small">
+                                                <Items>
+                                                    <dxe:ListEditItem Text="خیلی خوب" Value="0" />
+                                                    <dxe:ListEditItem Text="خوب" Value="1" />
+                                                    <dxe:ListEditItem Text="متوسط" Value="3" />
+                                                    <dxe:ListEditItem Text="ضعیف" Value="3" />
+                                                    <dxe:ListEditItem Text="خیلی ضعیف" Value="4" />
+                                                    <dxe:ListEditItem Text="ندارد" Value="5" />
+                                                </Items>
+                                            </dxe:ASPxRadioButtonList>
+                                        </td>
+                                        <td style="vertical-align: top; width: 100px; text-align: right" dir="rtl">
+                                            <dxe:ASPxLabel ID="ASPxLabel8" runat="server" Font-Size="X-Small" Text="وضعیت اینترنت پر سرعت"
+                                                Width="120px">
+                                            </dxe:ASPxLabel>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td dir="rtl" style="width: 100px; vertical-align: top; height: 16px; text-align: right;">
+                                            <dxe:ASPxRadioButtonList ID="rbtnLearningEquipment" runat="server" RepeatDirection="Horizontal"
+                                                Width="359px" Font-Size="X-Small">
+                                                <Items>
+                                                    <dxe:ListEditItem Text="خیلی خوب" Value="0" />
+                                                    <dxe:ListEditItem Text="خوب" Value="1" />
+                                                    <dxe:ListEditItem Text="متوسط" Value="3" />
+                                                    <dxe:ListEditItem Text="ضعیف" Value="3" />
+                                                    <dxe:ListEditItem Text="خیلی ضعیف" Value="4" />
+                                                    <dxe:ListEditItem Text="ندارد" Value="5" />
+                                                </Items>
+                                            </dxe:ASPxRadioButtonList>
+                                        </td>
+                                        <td style="vertical-align: top; width: 100px; text-align: right">
+                                            <dxe:ASPxLabel ID="ASPxLabel9" runat="server" Font-Size="X-Small" Text="برخورداری مؤسسه از امکانات و وسائل آموزشی"
+                                                Width="192px">
+                                            </dxe:ASPxLabel>
+                                            <br />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td dir="rtl" style="width: 100px; height: 16px; vertical-align: top; text-align: right;">
+                                            <dxe:ASPxRadioButtonList ID="rbtnComputerLab" runat="server" RepeatDirection="Horizontal"
+                                                Width="359px" Font-Size="X-Small">
+                                                <Items>
+                                                    <dxe:ListEditItem Text="خیلی خوب" Value="0" />
+                                                    <dxe:ListEditItem Text="خوب" Value="1" />
+                                                    <dxe:ListEditItem Text="متوسط" Value="3" />
+                                                    <dxe:ListEditItem Text="ضعیف" Value="3" />
+                                                    <dxe:ListEditItem Text="خیلی ضعیف" Value="4" />
+                                                    <dxe:ListEditItem Text="ندارد" Value="5" />
+                                                </Items>
+                                            </dxe:ASPxRadioButtonList>
+                                        </td>
+                                        <td style="vertical-align: top; width: 100px; text-align: right" dir="rtl">
+                                            <dxe:ASPxLabel ID="ASPxLabel1" runat="server" Font-Size="X-Small" Text="وضعیت کارگاه رایانه"
+                                                Width="120px">
+                                            </dxe:ASPxLabel>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td dir="rtl" style="width: 100px; height: 16px; vertical-align: top; text-align: right;">
+                                            <dxe:ASPxRadioButtonList ID="rbtnOfficeAutomation" runat="server" RepeatDirection="Horizontal"
+                                                Width="359px" Font-Size="X-Small">
+                                                <Items>
+                                                    <dxe:ListEditItem Text="خیلی خوب" Value="0" />
+                                                    <dxe:ListEditItem Text="خوب" Value="1" />
+                                                    <dxe:ListEditItem Text="متوسط" Value="3" />
+                                                    <dxe:ListEditItem Text="ضعیف" Value="3" />
+                                                    <dxe:ListEditItem Text="خیلی ضعیف" Value="4" />
+                                                    <dxe:ListEditItem Text="ندارد" Value="5" />
+                                                </Items>
+                                            </dxe:ASPxRadioButtonList>
+                                        </td>
+                                        <td style="vertical-align: top; width: 100px; height: 16px; text-align: right">
+                                            <dxe:ASPxLabel ID="ASPxLabel2" runat="server" Font-Size="X-Small" Text="وضعیت استفاده از اتوماسیون اداری در انجام امور اداری"
+                                                Width="192px">
+                                            </dxe:ASPxLabel>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td dir="rtl" style="width: 100px; height: 16px; vertical-align: top; text-align: right;">
+                                            <dxe:ASPxRadioButtonList ID="rbtnStore" runat="server" RepeatDirection="Horizontal"
+                                                Width="359px" Font-Size="X-Small">
+                                                <Items>
+                                                    <dxe:ListEditItem Text="خیلی خوب" Value="0" />
+                                                    <dxe:ListEditItem Text="خوب" Value="1" />
+                                                    <dxe:ListEditItem Text="متوسط" Value="3" />
+                                                    <dxe:ListEditItem Text="ضعیف" Value="3" />
+                                                    <dxe:ListEditItem Text="خیلی ضعیف" Value="4" />
+                                                    <dxe:ListEditItem Text="ندارد" Value="5" />
+                                                </Items>
+                                            </dxe:ASPxRadioButtonList>
+                                        </td>
+                                        <td dir="rtl" style="vertical-align: top; width: 100px; height: 16px; text-align: right">
+                                            <dxe:ASPxLabel ID="ASPxLabel10" runat="server" Font-Size="X-Small" Text="وضعیت بوفه"
+                                                Width="77px">
+                                            </dxe:ASPxLabel>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td dir="rtl" style="width: 100px; height: 16px; vertical-align: top; text-align: right;">
+                                            <dxe:ASPxRadioButtonList ID="rbtnParking" runat="server" RepeatDirection="Horizontal"
+                                                Width="359px" Font-Size="X-Small">
+                                                <Items>
+                                                    <dxe:ListEditItem Text="خیلی خوب" Value="0" />
+                                                    <dxe:ListEditItem Text="خوب" Value="1" />
+                                                    <dxe:ListEditItem Text="متوسط" Value="3" />
+                                                    <dxe:ListEditItem Text="ضعیف" Value="3" />
+                                                    <dxe:ListEditItem Text="خیلی ضعیف" Value="4" />
+                                                    <dxe:ListEditItem Text="ندارد" Value="5" />
+                                                </Items>
+                                            </dxe:ASPxRadioButtonList>
+                                        </td>
+                                        <td dir="rtl" style="vertical-align: top; width: 100px; height: 16px; text-align: right">
+                                            <dxe:ASPxLabel ID="ASPxLabel11" runat="server" Font-Size="X-Small" Text="موقعیت مؤسسه از نظر پارکینگ"
+                                                Width="146px">
+                                            </dxe:ASPxLabel>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td dir="rtl" style="width: 100px; height: 16px; vertical-align: top; text-align: right;">
+                                            <dxe:ASPxRadioButtonList ID="rbtnChair" runat="server" RepeatDirection="Horizontal"
+                                                Width="359px" Font-Size="X-Small">
+                                                <Items>
+                                                    <dxe:ListEditItem Text="خیلی خوب" Value="0" />
+                                                    <dxe:ListEditItem Text="خوب" Value="1" />
+                                                    <dxe:ListEditItem Text="متوسط" Value="3" />
+                                                    <dxe:ListEditItem Text="ضعیف" Value="3" />
+                                                    <dxe:ListEditItem Text="خیلی ضعیف" Value="4" />
+                                                    <dxe:ListEditItem Text="ندارد" Value="5" />
+                                                </Items>
+                                            </dxe:ASPxRadioButtonList>
+                                        </td>
+                                        <td dir="rtl" style="vertical-align: top; width: 100px; height: 16px; text-align: right">
+                                            <dxe:ASPxLabel ID="ASPxLabel12" runat="server" Font-Size="X-Small" Text="وضعیت صندلیهای کلاسهای آموزشی"
+                                                Width="162px">
+                                            </dxe:ASPxLabel>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td dir="rtl" style="vertical-align: top; width: 100px; height: 16px; text-align: right">
+                                            <TSPControls:CustomASPXMemo ID="txtViewPoint" runat="server" 
+                                                 Height="37px" Width="363px">
+                                                <ValidationSettings>
+                                                    
+                                                    <ErrorFrameStyle ImageSpacing="4px">
+                                                        <ErrorTextPaddings PaddingLeft="4px" />
+                                                    </ErrorFrameStyle>
+                                                </ValidationSettings>
+                                            </TSPControls:CustomASPXMemo>
+                                        </td>
+                                        <td dir="rtl" style="vertical-align: top; width: 100px; height: 16px; text-align: right">
+                                            <dxe:ASPxLabel ID="ASPxLabel13" runat="server" Font-Size="X-Small" Text="توضیحات"
+                                                Width="48px">
+                                            </dxe:ASPxLabel>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </dxp:PanelContent>
+                        </PanelCollection>
+                        <TopLeftCorner Height="5px" Url="~/App_Themes/Glass/Web/rpTopLeftCorner.png" Width="5px" />
+                        <NoHeaderTopEdge BackColor="#EBF2F4">
+                        </NoHeaderTopEdge>
+                        <BottomLeftCorner Height="5px" Url="~/App_Themes/Glass/Web/rpBottomLeftCorner.png"
+                            Width="5px" />
+                    </dxrp:ASPxRoundPanel>
+                    </div>
+                    <br />
+                    <br />
+                    <div dir="ltr" style="width: 100%; text-align: right">
+                        <dxrp:ASPxRoundPanel ID="ASPxRoundPanel1" runat="server" BackColor="#EBF2F4" 
+                             HorizontalAlign="Right" ShowHeader="False" Width="100%">
+                            <LeftEdge>
+                                <BackgroundImage ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif" Repeat="RepeatX"
+                                    VerticalPosition="bottom" />
+                            </LeftEdge>
+                            <BottomRightCorner Height="5px" Url="~/App_Themes/Glass/Web/rpBottomRightCorner.png"
+                                Width="5px" />
+                            <HeaderContent>
+                                <BackgroundImage ImageUrl="~/App_Themes/Glass/Web/rpHeaderBack.gif" Repeat="RepeatX"
+                                    VerticalPosition="bottom" />
+                            </HeaderContent>
+                            <ContentPaddings Padding="0px" PaddingBottom="0px" PaddingLeft="0px" PaddingTop="0px" />
+                            <NoHeaderTopRightCorner Height="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopRightCorner.png"
+                                Width="5px" />
+                            <RightEdge>
+                                <BackgroundImage ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif" Repeat="RepeatX"
+                                    VerticalPosition="bottom" />
+                            </RightEdge>
+                            <HeaderRightEdge>
+                                <BackgroundImage ImageUrl="~/App_Themes/Glass/Web/rpHeaderRightEdge.gif" VerticalPosition="bottom" />
+                            </HeaderRightEdge>
+                            <Border BorderColor="#7EACB1" BorderStyle="Solid" BorderWidth="1px" />
+                            <HeaderStyle BackColor="White" Height="23px">
+                                <Paddings PaddingBottom="0px" PaddingLeft="2px" PaddingTop="0px" />
+                                <BorderBottom BorderStyle="None" />
+                            </HeaderStyle>
+                            <Content>
+                                <BackgroundImage ImageUrl="~/App_Themes/Glass/Web/rpContentBack.gif" Repeat="RepeatX"
+                                    VerticalPosition="bottom" />
+                            </Content>
+                            <HeaderLeftEdge>
+                                <BackgroundImage ImageUrl="~/App_Themes/Glass/Web/rpHeaderLeftEdge.gif" Repeat="RepeatX"
+                                    VerticalPosition="bottom" />
+                            </HeaderLeftEdge>
+                            <BottomEdge BackColor="#D7E9F1">
+                            </BottomEdge>
+                            <TopRightCorner Height="5px" Url="~/App_Themes/Glass/Web/rpTopRightCorner.png" Width="5px" />
+                            <NoHeaderTopLeftCorner Height="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopLeftCorner.png"
+                                Width="5px" />
+                            <PanelCollection>
+                                <dxp:PanelContent runat="server">
+                                    <div dir="rtl" style="width: 100%">
+                                        <table cellpadding="0" dir="rtl" style="border-collapse: collapse; background-color: transparent">
+                                            <tbody>
+                                                <tr>
+                                                    <td >
+                                                        <TSPControls:CustomTextBox ID="btnSave2" runat="server" AutoPostBack="False" 
+                                                            EnableTheming="False" EnableViewState="False" OnClick="btnSave_Click" Text=" "
+                                                            ToolTip="ذخیره" UseSubmitBehavior="False" Width="25px">
+                                                            <ClientSideEvents Click="function(s, e) {
+	
+	
+}" />
+                                                            <HoverStyle BackColor="#FFE0C0">
+                                                                <Border BorderColor="Gray" BorderStyle="Outset" BorderWidth="1px" />
+                                                            </HoverStyle>
+                                                            <Image Height="25px" Url="~/Images/icons/save.png" Width="25px" />
+                                                        </TSPControls:CustomTextBox>
+                                                    </td>
+                                                    <td >
+                                                        <TSPControls:CustomTextBox ID="btnBack2" runat="server" CausesValidation="False" 
+                                                            EnableTheming="False" EnableViewState="False" OnClick="btnBack_Click" Text=" "
+                                                            ToolTip="بازگشت" UseSubmitBehavior="False">
+                                                            <HoverStyle BackColor="#FFE0C0">
+                                                                <Border BorderColor="Gray" BorderStyle="Outset" BorderWidth="1px" />
+                                                            </HoverStyle>
+                                                            <Image Height="25px" Url="~/Images/icons/Back.png" Width="25px" />
+                                                        </TSPControls:CustomTextBox>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <dxhf:ASPxHiddenField ID="HiddenFieldInstitueObserve" runat="server" ClientInstanceName="HiddenFieldInstitueObserve">
+                                        </dxhf:ASPxHiddenField>
+                                    </div>
+                                </dxp:PanelContent>
+                            </PanelCollection>
+                            <TopLeftCorner Height="5px" Url="~/App_Themes/Glass/Web/rpTopLeftCorner.png" Width="5px" />
+                            <NoHeaderTopEdge BackColor="#EBF2F4">
+                            </NoHeaderTopEdge>
+                            <BottomLeftCorner Height="5px" Url="~/App_Themes/Glass/Web/rpBottomLeftCorner.png"
+                                Width="5px" />
+                        </dxrp:ASPxRoundPanel>
+                    </div>
+                    <asp:ModalUpdateProgress ID="ModalUpdateProgress2" runat="server" AssociatedUpdatePanelID="UpdatePanel1"
+                        BackgroundCssClass="modalProgressGreyBackground" DisplayAfter="0">
+                        <ProgressTemplate>
+                            <div class="modalPopup">
+                                لطفا صبر نمایید
+                                <img align="middle" src="../../Image/indicator.gif" />
+                            </div>
+                        </ProgressTemplate>
+                    </asp:ModalUpdateProgress>
+                </div>
+            </ContentTemplate>
+        </asp:UpdatePanel>
+    </div>
+</asp:Content>
+

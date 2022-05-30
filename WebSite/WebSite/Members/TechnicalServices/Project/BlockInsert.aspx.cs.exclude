@@ -1,0 +1,310 @@
+﻿using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+
+public partial class Members_TechnicalServices_Project_BlockInsert : System.Web.UI.Page
+{
+    string PageMode;
+    string ProjectId;
+    string PrjReId;
+    string BlockId;
+
+    bool IsPageRefresh = false;
+
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        this.DivReport.Attributes.Add("onclick", "ChangeVisible(this)");
+        this.DivReport.Attributes.Add("onmouseover", "ChangeIcon(this)");
+        this.DivReport.Visible = false;
+
+        if (!IsPostBack)
+        {
+            ViewState["postids"] = System.Guid.NewGuid().ToString();
+            Session["postid"] = ViewState["postids"].ToString();
+        }
+        else
+        {
+            if (!IsCallback && Session["postid"] != null)
+            {
+                if (ViewState["postids"].ToString() != Session["postid"].ToString()) { IsPageRefresh = true; }
+                Session["postid"] = System.Guid.NewGuid().ToString(); ViewState["postids"] = Session["postid"];
+            }
+        }
+
+        if (!IsPostBack)
+        {
+            if ((string.IsNullOrEmpty(Request.QueryString["ProjectId"])) || (string.IsNullOrEmpty(Request.QueryString["PrjReId"])))
+            {
+                Response.Redirect("Project.aspx");
+                return;
+            }
+
+            if ((string.IsNullOrEmpty(Request.QueryString["PageMode"])) || (string.IsNullOrEmpty(Request.QueryString["BlockId"])))
+            {
+                Response.Redirect("Block.aspx?ProjectId=" + Server.HtmlDecode(Request.QueryString["ProjectId"]) + "&PrjReId=" + Server.HtmlDecode(Request.QueryString["PrjReId"]));
+                return;
+            }
+
+            Session["FoundationManager"] = null;
+            Session["FoundationManager"] = CreateFoundationManager();
+
+            Session["WallsManager"] = null;
+            Session["WallsManager"] = CreateWallsManager();
+
+            Session["EntranceManager"] = null;
+            Session["EntranceManager"] = CreateEntranceManager();
+
+            SetKeys();
+            FillGrid();
+            FillWallsGrid();
+            FillEntranceGrid();
+        }
+    }
+
+    protected void btnBack_Click(object sender, EventArgs e)
+    {
+        string Qs = "ProjectId=" + PkProjectId.Value + "&PrjReId=" + PkPrjReId.Value + "&PageMode=" + MPgMode.Value;
+        Response.Redirect("Block.aspx?" + Qs);
+    }
+
+    /*******************************************************************************************************************************************/
+    private TSP.DataManager.TechnicalServices.FoundationManager CreateFoundationManager()
+    {
+        TSP.DataManager.TechnicalServices.FoundationManager manager = new TSP.DataManager.TechnicalServices.FoundationManager();
+        return manager;
+    }
+
+    private void FillGrid(int BlockId)
+    {
+        TSP.DataManager.TechnicalServices.FoundationManager manager = (TSP.DataManager.TechnicalServices.FoundationManager)Session["FoundationManager"];
+        manager.FindByBlockId(BlockId);
+        CustomAspxDevGridView1.DataSource = manager.DataTable;
+        CustomAspxDevGridView1.DataBind();
+    }
+
+    private void FillGrid()
+    {
+        TSP.DataManager.TechnicalServices.FoundationManager manager = (TSP.DataManager.TechnicalServices.FoundationManager)Session["FoundationManager"];
+        if (Utility.DecryptQS(PgMode.Value) != "New")
+        {
+            BlockId = Utility.DecryptQS(PkBlockId.Value);
+            manager.FindByBlockId(Convert.ToInt32(BlockId));
+        }
+
+        CustomAspxDevGridView1.DataSource = manager.DataTable;
+        CustomAspxDevGridView1.DataBind();
+    }
+
+    /*******************************************************************************************************************************************/
+    private TSP.DataManager.TechnicalServices.WallsManager CreateWallsManager()
+    {
+        TSP.DataManager.TechnicalServices.WallsManager manager = new TSP.DataManager.TechnicalServices.WallsManager();
+        return manager;
+    }
+
+    private void FillWallsGrid(int BlockId)
+    {
+        TSP.DataManager.TechnicalServices.WallsManager manager = (TSP.DataManager.TechnicalServices.WallsManager)Session["WallsManager"];
+        manager.FindByBlockId(BlockId);
+        CustomAspxDevGridViewWall.DataSource = manager.DataTable;
+        CustomAspxDevGridViewWall.DataBind();
+    }
+
+    private void FillWallsGrid()
+    {
+        TSP.DataManager.TechnicalServices.WallsManager manager = (TSP.DataManager.TechnicalServices.WallsManager)Session["WallsManager"];
+        if (Utility.DecryptQS(PgMode.Value) != "New")
+        {
+            BlockId = Utility.DecryptQS(PkBlockId.Value);
+            manager.FindByBlockId(Convert.ToInt32(BlockId));
+        }
+
+        CustomAspxDevGridViewWall.DataSource = manager.DataTable;
+        CustomAspxDevGridViewWall.DataBind();
+    }
+
+    /*******************************************************************************************************************************************/
+    private TSP.DataManager.TechnicalServices.EntranceManager CreateEntranceManager()
+    {
+        TSP.DataManager.TechnicalServices.EntranceManager manager = new TSP.DataManager.TechnicalServices.EntranceManager();
+        return manager;
+    }
+
+    private void FillEntranceGrid(int BlockId)
+    {
+        TSP.DataManager.TechnicalServices.EntranceManager manager = (TSP.DataManager.TechnicalServices.EntranceManager)Session["EntranceManager"];
+        manager.FindByBlockId(BlockId);
+        CustomAspxDevGridViewEntrance.DataSource = manager.DataTable;
+        CustomAspxDevGridViewEntrance.DataBind();
+    }
+
+    private void FillEntranceGrid()
+    {
+        TSP.DataManager.TechnicalServices.EntranceManager manager = (TSP.DataManager.TechnicalServices.EntranceManager)Session["EntranceManager"];
+        if (Utility.DecryptQS(PgMode.Value) != "New")
+        {
+            BlockId = Utility.DecryptQS(PkBlockId.Value);
+            manager.FindByBlockId(Convert.ToInt32(BlockId));
+        }
+
+        CustomAspxDevGridViewEntrance.DataSource = manager.DataTable;
+        CustomAspxDevGridViewEntrance.DataBind();
+    }
+
+    /*******************************************************************************************************************************************/
+    private int GetPlansMethodId(TSP.DataManager.TechnicalServices.PlansMethodManager PlansMethodManager)
+    {
+        ProjectId = Utility.DecryptQS(PkProjectId.Value);
+
+        if (ProjectId == "-1")
+            return -1;
+        
+        PlansMethodManager.FindByProjectId(Convert.ToInt32(ProjectId));
+        if (PlansMethodManager.Count > 0)
+            return Convert.ToInt32(PlansMethodManager[0]["PlansMethodId"]);
+        else
+            return -1;
+    }
+
+    private bool CheckStageNum(int Count)
+    {
+        if (Count != Convert.ToInt32(ASPxTextBoxStageNum.Text))
+            return false;
+        return true;
+    }
+
+    private bool CheckFoundation(TSP.DataManager.TechnicalServices.FoundationManager FoundationManager)
+    {
+        double Foundation = 0;
+        for (int i = 0; i < FoundationManager.Count; i++)
+            Foundation += Convert.ToDouble(FoundationManager[i]["Area"]);
+        if (Foundation != Convert.ToDouble(ASPxTextBoxFoundation.Text))
+            return false;
+        return true;
+    }
+
+    /*************************************************************************************************************/    
+    private void SetKeys()
+    {
+        try
+        {
+            MPgMode.Value = Server.HtmlDecode(Request.QueryString["MPgMode"].ToString());
+            PgMode.Value = Server.HtmlDecode(Request.QueryString["PageMode"].ToString());
+            PkProjectId.Value = Server.HtmlDecode(Request.QueryString["ProjectId"]).ToString();
+            PkBlockId.Value = Server.HtmlDecode(Request.QueryString["BlockId"]).ToString();
+            PkPrjReId.Value = Server.HtmlDecode(Request.QueryString["PrjReId"]).ToString();
+        }
+        catch
+        {
+            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+            return;
+        }
+
+        PageMode = Utility.DecryptQS(PgMode.Value);
+        PrjReId = Utility.DecryptQS(PkPrjReId.Value);
+
+        if (string.IsNullOrEmpty(PageMode))
+        {
+            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+            return;
+        }
+
+        SetMode();
+    }
+
+    private void SetMode()
+    {
+        PageMode = Utility.DecryptQS(PgMode.Value);
+
+        if (string.IsNullOrEmpty(PageMode))
+        {
+            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+            return;
+        }
+
+        switch (PageMode)
+        {
+            case "View":
+                SetViewModeKeys();
+                break;
+        }
+    }
+
+    private void SetViewModeKeys()
+    {
+        ASPxTextBoxFoundation.ReadOnly = true;
+        ASPxTextBoxStageNum.ReadOnly = true;
+        ASPxComboBoxStructureSystem.ReadOnly = true;
+        ASPxTextBoxOtherStructureSystem.ReadOnly = true;
+        ASPxComboBoxStructureSkeleton.ReadOnly = true;
+        ASPxTextBoxOtherStructureSkeleton.ReadOnly = true;
+        ASPxComboBoxRoofType.ReadOnly = true;
+        ASPxTextBoxOtherRoofType.ReadOnly = true;
+        CustomAspxDevGridView1.Columns[12].Visible = false;
+        CustomAspxDevGridViewWall.Columns[5].Visible = false;
+        CustomAspxDevGridViewEntrance.Columns[5].Visible = false;
+
+        SetValues();
+
+        ASPxRoundPanel2.HeaderText = "مشاهده";
+    }
+
+    private void SetValues()
+    {
+        PageMode = Utility.DecryptQS(PgMode.Value);
+        BlockId = Utility.DecryptQS(PkBlockId.Value);
+
+        if ((string.IsNullOrEmpty(BlockId)) || (string.IsNullOrEmpty(PageMode)))
+        {
+            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+            return;
+        }
+
+        TSP.DataManager.TechnicalServices.BlockManager Manager = new TSP.DataManager.TechnicalServices.BlockManager();
+        Manager.FindByBlockId(Convert.ToInt32(BlockId));
+        if (Manager.Count == 1)
+        {
+            ASPxTextBoxFoundation.Text = Manager[0]["Foundation"].ToString();
+            ASPxTextBoxStageNum.Text = Manager[0]["StageNum"].ToString();
+            ASPxComboBoxStructureSystem.DataBind();
+            ASPxComboBoxStructureSystem.SelectedIndex = ASPxComboBoxStructureSystem.Items.IndexOfValue(Manager[0]["StructureSystemId"]);
+            ASPxTextBoxOtherStructureSystem.Text = Manager[0]["StructureSystem"].ToString();
+            ASPxComboBoxStructureSkeleton.DataBind();
+            ASPxComboBoxStructureSkeleton.SelectedIndex = ASPxComboBoxStructureSkeleton.Items.IndexOfValue(Manager[0]["StructureSkeletonId"]);
+            ASPxTextBoxOtherStructureSkeleton.Text = Manager[0]["StructureSkeleton"].ToString();
+            ASPxComboBoxRoofType.DataBind();
+            ASPxComboBoxRoofType.SelectedIndex = ASPxComboBoxRoofType.Items.IndexOfValue(Manager[0]["RoofTypeId"]);
+            ASPxTextBoxOtherRoofType.Text = Manager[0]["RoofType"].ToString();
+
+            if (ASPxComboBoxStructureSystem.Text == ASPxTextBoxOtherStructureSystem.Text)
+                ASPxTextBoxOtherStructureSystem.Text = "";
+
+            if (ASPxComboBoxStructureSkeleton.Text == ASPxTextBoxOtherStructureSkeleton.Text)
+                ASPxTextBoxOtherStructureSkeleton.Text = "";
+
+            if (ASPxComboBoxRoofType.Text == ASPxTextBoxOtherRoofType.Text)
+                ASPxTextBoxOtherRoofType.Text = "";
+
+            FillGrid();
+            FillEntranceGrid();
+            FillWallsGrid();
+        }
+        else
+        {
+            this.DivReport.Visible = true;
+            this.LabelWarning.Text = "چنین رکوردی وجود ندارد";
+        }
+    }
+
+    /*****************************************************************************************************************************/    
+}

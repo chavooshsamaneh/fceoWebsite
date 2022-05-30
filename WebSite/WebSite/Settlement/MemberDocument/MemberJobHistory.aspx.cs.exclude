@@ -1,0 +1,178 @@
+﻿using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+
+public partial class Settlement_MemberDocument_MemberJobHistory : System.Web.UI.Page
+{
+    #region Events
+    protected void Page_Load(object sender, EventArgs e)
+    {
+
+        if (Request.QueryString["MFId"] == null || Request.QueryString["PgMd"] == null || Request.QueryString["DocType"] == null)
+        {
+            //Response.Redirect("MemberFile.aspx");
+            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+        }
+        if (!IsPostBack)
+        {
+            HiddenFieldJobHistory["PrePageMode"] = Request.QueryString["PgMd"];
+            HiddenFieldJobHistory["MFId"] = Request.QueryString["MFId"];
+            HiddenFieldJobHistory["DocType"] = Request.QueryString["DocType"];
+
+            #region Set Page By Document Type
+            string DocType = Utility.DecryptQS(HiddenFieldJobHistory["DocType"].ToString());
+            string MFId = Utility.DecryptQS(HiddenFieldJobHistory["MFId"].ToString());
+            TSP.DataManager.DocMemberFileManager DocMemberFileManager = new TSP.DataManager.DocMemberFileManager();
+            DocMemberFileManager.FindByCode(int.Parse(MFId), int.Parse(DocType));
+            string MeId = "";
+            if (DocMemberFileManager.Count == 1)
+            {
+                TSP.DataManager.MemberManager MemberManager = new TSP.DataManager.MemberManager();
+                DocType = DocMemberFileManager[0]["DocType"].ToString();
+                if (int.Parse(DocType) == (int)TSP.DataManager.DocumentTypesOfMember.DocMemberFile)
+                {
+                    MenuImpDoc.Visible = false;
+                    MenuMemberFile.Visible = true;
+                    MeId = DocMemberFileManager[0]["MeId"].ToString();
+                    HiddenFieldJobHistory["MeId"] = Utility.EncryptQS(MeId);
+                    MemberManager.FindByCode(int.Parse(MeId));
+                    if (MemberManager.Count == 1)
+                    {
+                        RoundPanelJobHistory.HeaderText = "پروانه اشتغال به کار: " + MemberManager[0]["FirstName"].ToString() + " " + MemberManager[0]["LastName"].ToString();
+                    }
+                    //RoundPanelValues.Visible = false;
+
+
+                }
+                else if (int.Parse(DocType) == (int)TSP.DataManager.DocumentTypesOfMember.DocMemberFileImp)
+                {
+                    MenuImpDoc.Visible = true;
+                    MenuMemberFile.Visible = false;
+                    int MemberFileId = int.Parse(DocMemberFileManager[0]["MeId"].ToString());
+                    DocMemberFileManager.FindByCode(MemberFileId, 0);
+                    if (DocMemberFileManager.Count == 1)
+                    {
+                        MeId = DocMemberFileManager[0]["MeId"].ToString();
+                        HiddenFieldJobHistory["MeId"] = Utility.EncryptQS(MeId);
+                        MemberManager.FindByCode(int.Parse(MeId));
+                        if (MemberManager.Count == 1)
+                        {
+                            RoundPanelJobHistory.HeaderText = "مجوز مجری حقیقی: " + MemberManager[0]["FirstName"].ToString() + " " + MemberManager[0]["LastName"].ToString();
+                        }
+                    }
+                    //RoundPanelValues.Visible = true;
+                    //ObjectDataSourceFactorValues.SelectParameters[0].DefaultValue = MeId;
+
+                }
+            }
+            else
+            {
+                this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+                //Response.Redirect("MemberFile.aspx");
+            }
+            #endregion
+
+            ObjdsJobHistory.SelectParameters[0].DefaultValue = MeId;
+            ObjdsJobHistory.SelectParameters[1].DefaultValue = ((int)TSP.DataManager.TableCodes.DocMemberFile).ToString();
+            ObjdsJobHistory.SelectParameters[2].DefaultValue = MFId;
+        }
+        this.DivReport.Visible = false;
+        this.DivReport.Attributes.Add("onclick", "ChangeVisible(this)");
+        this.DivReport.Attributes.Add("onmouseover", "ChangeIcon(this)");
+
+    }
+
+    protected void btnBack_Click(object sender, EventArgs e)
+    {
+        int DocType = int.Parse(Utility.DecryptQS(HiddenFieldJobHistory["DocType"].ToString()));
+        if (DocType == (int)TSP.DataManager.DocumentTypesOfMember.DocMemberFile)
+        {
+            Response.Redirect("~/Settlement/MemberDocument/MemberFile.aspx");
+        }
+        else if (DocType == (int)TSP.DataManager.DocumentTypesOfMember.DocMemberFileImp)
+        {
+            Response.Redirect("~/Settlement/ImplementDoc/ImplementDoc.aspx");
+        }
+
+    }
+
+    protected void MenuMemberFile_ItemClick(object source, DevExpress.Web.MenuItemEventArgs e)
+    {
+        switch (e.Item.Name)
+        {
+            case "Exam":
+                Response.Redirect("MemberExam.aspx?MFId=" + HiddenFieldJobHistory["MFId"].ToString() + "&PgMd=" + HiddenFieldJobHistory["PrePageMode"].ToString() + "&DocType=" + Utility.EncryptQS(((int)TSP.DataManager.DocumentTypesOfMember.DocMemberFile).ToString()));
+                break;
+            case "Attachment":
+                Response.Redirect("DocumentAttachment.aspx?MFId=" + HiddenFieldJobHistory["MFId"].ToString() + "&PgMd=" + HiddenFieldJobHistory["PrePageMode"].ToString() + "&DocType=" + Utility.EncryptQS(((int)TSP.DataManager.DocumentTypesOfMember.DocMemberFile).ToString()));
+                break;
+            case "MeDetail":
+                Response.Redirect("DocResponsibility.aspx?MFId=" + HiddenFieldJobHistory["MFId"].ToString() + "&PgMd=" + HiddenFieldJobHistory["PrePageMode"].ToString() + "&DocType=" + Utility.EncryptQS(((int)TSP.DataManager.DocumentTypesOfMember.DocMemberFile).ToString()));
+                break;
+            case "Periods":
+                Response.Redirect("MemberPeriods.aspx?MeId=" + HiddenFieldJobHistory["MeId"].ToString() + "&MFId=" + HiddenFieldJobHistory["MFId"].ToString() + "&PgMd=" + HiddenFieldJobHistory["PrePageMode"].ToString() + "&DocType=" + Utility.EncryptQS(((int)TSP.DataManager.DocumentTypesOfMember.DocMemberFile).ToString()));
+                break;
+            case "Major":
+                Response.Redirect("MemberFileBasicInfo.aspx?MFId=" + HiddenFieldJobHistory["MFId"].ToString() + "&MeId=" + HiddenFieldJobHistory["MeId"].ToString() + "&PgMd=" + HiddenFieldJobHistory["PrePageMode"].ToString() + "&DocType=" + Utility.EncryptQS(((int)TSP.DataManager.DocumentTypesOfMember.DocMemberFile).ToString()));
+                break;
+        }
+    }
+
+    protected void MenuImpDoc_ItemClick(object source, DevExpress.Web.MenuItemEventArgs e)
+    {
+        switch (e.Item.Name)
+        {
+            //case "JobHistory":
+            //    Response.Redirect("~/Settlement/MemberDocument/MemberJobHistory.aspx?MFId=" + HiddenFieldJobHistory["MfId"].ToString() + "&PgMd=" + HiddenFieldFinantialStatus["PageMode"].ToString());
+            //    break;
+            case "ImplDoc":
+                Response.Redirect("~/Settlement/ImplementDoc/ImplementDocBasicInfo.aspx?MFId=" + HiddenFieldJobHistory["MFId"].ToString() + "&PgMd=" + HiddenFieldJobHistory["PrePageMode"].ToString() + "&DocType=" + Utility.EncryptQS(((int)TSP.DataManager.DocumentTypesOfMember.DocMemberFileImp).ToString()));
+                break;
+            case "Financial":
+                Response.Redirect("~/Settlement/ImplementDoc/FinancialStatus.aspx?MFId=" + HiddenFieldJobHistory["MFId"].ToString() + "&PgMd=" + HiddenFieldJobHistory["PrePageMode"].ToString() + "&DocType=" + Utility.EncryptQS(((int)TSP.DataManager.DocumentTypesOfMember.DocMemberFileImp).ToString()));
+                break;
+        }
+    }
+
+    protected void GridViewJobhistory_AutoFilterCellEditorInitialize(object sender, DevExpress.Web.ASPxGridViewEditorEventArgs e)
+    {
+        switch (e.Column.FieldName)
+        {
+            case "StartCorporateDate":
+                e.Editor.Style["direction"] = "ltr";
+                break;
+            case "EndCorporateDate":
+                e.Editor.Style["direction"] = "ltr";
+                break;
+
+        }
+    }
+
+    protected void GridViewJobhistory_HtmlDataCellPrepared(object sender, DevExpress.Web.ASPxGridViewTableDataCellEventArgs e)
+    {
+        switch (e.DataColumn.FieldName)
+        {
+            case "ْStartCorporateDate":
+                e.Cell.Style["direction"] = "ltr";
+                break;
+            case "EndCorporateDate":
+                e.Cell.Style["direction"] = "ltr";
+                break;
+
+        }
+
+    }
+    #endregion
+
+    #region Methods
+
+    #endregion
+
+}

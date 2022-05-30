@@ -1,0 +1,115 @@
+﻿using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+
+public partial class Members_TechnicalServices_Project_JobHistory : System.Web.UI.Page
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        this.DivReport.Visible = false;
+        this.DivReport.Attributes.Add("onclick", "ChangeVisible(this)");
+        this.DivReport.Attributes.Add("onmouseover", "ChangeIcon(this)");
+
+        if (!IsPostBack)
+        {
+            if (string.IsNullOrEmpty(Request.QueryString["ProjectId"]) || string.IsNullOrEmpty(Request.QueryString["PrjImpId"]))
+            {
+                Response.Redirect("Project.aspx");
+            }
+
+            HDProjectId.Value = Server.HtmlDecode(Request.QueryString["ProjectId"].ToString());
+            PgMode.Value = Server.HtmlDecode(Request.QueryString["PageMode"]).ToString();
+            RequestId.Value = Server.HtmlDecode(Request.QueryString["PrjReId"]).ToString();
+            HDImpId.Value = Server.HtmlDecode(Request.QueryString["PrjImpId"]).ToString();
+            string ImpId = Utility.DecryptQS(HDImpId.Value);
+
+            if (string.IsNullOrEmpty(ImpId))
+            {
+                this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+                return;
+            }
+            TSP.DataManager.TechnicalServices.Project_ImplementerManager ProjectImpManager = new TSP.DataManager.TechnicalServices.Project_ImplementerManager();
+            ProjectImpManager.FindByPrjImpId(int.Parse(ImpId));
+            if (ProjectImpManager.Count > 0)
+            {
+                int MemberTypeId = int.Parse(ProjectImpManager[0]["MemberTypeId"].ToString());
+                string MeOfficeId = ProjectImpManager[0]["MeOfficeId"].ToString();
+
+                if (MemberTypeId == (int)TSP.DataManager.TSMemberType.Member)
+                {
+                    ObjectDataSource1.SelectParameters[0].DefaultValue = MeOfficeId;
+                    ObjectDataSource1.SelectParameters[4].DefaultValue = ((int)TSP.DataManager.TableCodes.MemberRequest).ToString();
+                }
+                else if (MemberTypeId == (int)TSP.DataManager.TSMemberType.Office)
+                {
+                    ObjectDataSource1.SelectParameters[0].DefaultValue = MeOfficeId;
+                    ObjectDataSource1.SelectParameters[4].DefaultValue = ((int)TSP.DataManager.TableCodes.OfficeRequest).ToString();
+                }
+            }
+            else
+            {
+                this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+                return;
+            }
+
+
+
+        }
+
+    }
+    protected void btnView_Click(object sender, EventArgs e)
+    {
+        int JhId = -1;
+
+        if (CustomAspxDevGridView1.FocusedRowIndex > -1)
+        {
+            DataRow row = CustomAspxDevGridView1.GetDataRow(CustomAspxDevGridView1.FocusedRowIndex);
+            JhId = (int)row["JhId"];
+
+        }
+        if (JhId == -1)
+        {
+            this.DivReport.Visible = true;
+            this.LabelWarning.Text = "لطفاً ابتدا یک رکورد را انتخاب نمائید";
+
+        }
+        else
+        {
+            Response.Redirect("JobHistoryShow.aspx?ProjectId=" + HDProjectId.Value + "&PrjImpId=" + HDImpId.Value + "&PageMode=" + PgMode.Value + "&PrjReId=" + RequestId.Value + "&JhId=" + Utility.EncryptQS(JhId.ToString()));
+
+        }
+    }
+    protected void btnBack_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("ImplementerInsert.aspx?ProjectId=" + HDProjectId.Value + "&PrjImpId=" + HDImpId.Value + "&PageMode=" + PgMode.Value + "&PrjReId=" + RequestId.Value);
+    }
+    protected void ASPxMenu1_ItemClick(object source, DevExpress.Web.MenuItemEventArgs e)
+    {
+        switch (e.Item.Name)
+        {
+            case "Job":
+                Response.Redirect("JobHistory.aspx?ProjectId=" + HDProjectId.Value + "&PageMode=" + PgMode.Value + "&PrjReId=" + RequestId.Value + "&PrjImpId=" + HDImpId.Value);
+                break;
+            case "Entezami":
+
+                break;
+            case "Control":
+                Response.Redirect("ProjectQC.aspx?ProjectId=" + HDProjectId.Value + "&PageMode=" + PgMode.Value + "&PrjReId="
+                    + RequestId.Value + "&PrjImpId=" + HDImpId.Value + "&MemberTypeId=" + Request.QueryString["MemberTypeId"]);
+                break;
+            case "ImpInfo":
+                Response.Redirect("ImplementerInsert.aspx?ProjectId=" + HDProjectId.Value + "&PageMode=" + PgMode.Value + "&PrjReId="
+                    + RequestId.Value + "&PrjImpId=" + HDImpId.Value + "&MemberTypeId=" + Request.QueryString["MemberTypeId"]);
+                break;
+        }
+    }
+}

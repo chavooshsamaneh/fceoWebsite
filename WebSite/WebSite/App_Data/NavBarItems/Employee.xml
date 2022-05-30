@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Groups>
+  <NavBarGroup Expanded="False" Text="جستجو" Name="grpSearch"  Target="1820">
+    <NavBarItem NavigateUrl="/Search/MemberSearch.aspx" Text="اعضاي حقيقي سازمان" Name="1821">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Search/OfficeSearch.aspx" Text="اعضاي حقوقي سازمان" Name="1822">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Search/EngOfficeSearch.aspx" Text="دفاتر" Name="1823">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Search/MemberInfoReport.aspx" Text="خلاصه پرونده عضو حقیقی" Name="119">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Employee/Groups.aspx" Text="مديريت گروه ها" Name="522">
+    </NavBarItem>
+
+  </NavBarGroup>
+  <NavBarGroup Expanded="False" Text="مدیریت کاربران" Name="grpControlUserOperations"  Target="300">
+
+    <NavBarItem  NavigateUrl="/Employee/Employee/Employee.aspx" Text="مديريت کارمندان" Name="301">
+      مديريت کارمندان
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Employee/ControlUserOperations/UserLogs.aspx" Text="کنترل ورود و خروج کاربران" Name="1801">
+    </NavBarItem>از
+    <NavBarItem NavigateUrl="/Employee/ControlUserOperations/WorkFlowUserTask.aspx" Text="کنترل گردش پرونده ها" Name="1802">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Employee/ControlUserOperations/TempPassSetting.aspx" Text="تنظیمات رمز یکبار عبور" Name="1803">
+    </NavBarItem>
+  </NavBarGroup>
+
+  <NavBarGroup Expanded="False" Text="عضویت" Name="grpMembers" Target="100" >
+
+    <NavBarItem NavigateUrl="/Employee/MembersRegister/Members.aspx" Text="مديريت اعضای حقیقی" Name="101">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Employee/MembersRegister/MembersTemp.aspx" Text="مديريت اعضای موقت" Name="101">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Employee/OfficeRegister/Office.aspx" Text="مديريت اعضای حقوقی" Name="150">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Employee/TechniciansManagement/Technicians.aspx" Text="مديريت کاردان ها و معماران تجربی" Name="200">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Employee/TechniciansManagement/OtherPerson.aspx" Text="مديريت دیگر اشخاص" Name="204">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Employee/MembersRegister/MemberCards.aspx" Text="صدور کارت عضویت"  Name="106">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Employee/MembersRegister/MembersAgent.aspx" Text="درخواست تغییرات نمایندگی اعضا" Name="117">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Employee/MembersRegister/MembersBankAccNo.aspx" Text="درخواست تغییرات شماره حساب اعضا" Name="120">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Employee/MembersRegister/CancelMembership.aspx" Text="درخواست قطع عضویت" Name="123">
+    </NavBarItem>
+    
+    <NavBarItem NavigateUrl="/Employee/MembersRegister/MemberLicenceReport.aspx" Text="گزارش مدارک تحصیلی اعضا" Name="121">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Employee/MembersRegister/ReportMemberRequestCard.aspx" Text="گزارش چاپ درخواست های کارت عضویت" Name="114">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Employee/MembersRegister/ReportMemberLicenceInquery.aspx" Text="گزارش چاپ درخواست های استعلام مدرک تحصیلی" Name="116">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/EPayment/EpaymentFishes.aspx?P=M" Text="گزارش پرداخت های ثبت نام عضویت" Name="1173">
+    </NavBarItem>
+  </NavBarGroup>
+
+  <NavBarGroup Expanded="False" Text="واحد صدور پروانه" Name="grpDocument" Target="400">
+    <NavBarItem NavigateUrl="/Employee/Document/ResponsibilityTypes.aspx" Text="مدیریت صلاحیت ها" Name="466">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Employee/Document/DocMemberFileAcceptTypes.aspx" Text="مدیریت شیوه اخذ پروانه" Name="467">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Employee/Document/DocRespomsibilityRange.aspx" Text="مدیریت محدوده صلاحیت" Name="469">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Employee/Document/TestTypes.aspx" Text="مدیریت زمینه های آزمون" Name="452">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Employee/Document/MajorTestTypes.aspx" Text="مدیریت زمینه های آزمون براساس رشته" Name="468">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Employee/Document/TestCondition.aspx" Text="مدیریت شرایط آزمون" Name="453">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Employee/Document/ConfirmedGrade.aspx" Text="مدیریت پایه های تایید شده" Name="451">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Employee/Document/UpGradePoint.aspx" Text="مدیریت امتیازات ارتقاء پایه/تمدید" Name="454">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Employee/Document/MemberFile.aspx" Text="مدیریت پروانه اشتغال به کار" Name="462">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Employee/Document/MemberConfirmJobEditDate.aspx" Text="مدیریت سوابق کار بدون تاریخ" Name="474">
+    </NavBarItem>
+    
+    <NavBarItem NavigateUrl="/Employee/Document/AccountingUnitDocConfirm.aspx" Text="مدیریت تایید اسناد مالی پروانه اشتغال" Name="471">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Employee/ImplementDoc/ImplementDoc.aspx" Text="مدیریت مجوز فعالیت مجری حقیقی" Name="463">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Employee/Document/ObservationDoc.aspx" Text="مدیریت مجوز فعالیت ناظر حقیقی(به تنهایی)" Name="464">
+    </NavBarItem>
+    <NavBarItem  NavigateUrl="/Employee/OfficeRegister/OfficeDocument.aspx" Text="مدیریت پروانه شرکت های حقوقی" Name="405">
+    </NavBarItem>
+    <NavBarItem  NavigateUrl="/Employee/Document/GasOfficeMembersManagement.aspx" Text="مدیریت اعضای دفتر گاز" Name="475">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Employee/Document/EngOffice/EngOffice.aspx" Text="مدیریت دفاتر" Name="401">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Employee/Document/Delivery.aspx" Text="مدیریت تحویل پروانه شخص حقیقی" Name="476">
+    </NavBarItem>
+    
+    <NavBarItem NavigateUrl="/Employee/Document/Reports/MemberFilePrintingHistory.aspx" Text="گزارش چاپ کارت های پروانه شخص حقیقی" Name="465">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Employee/Document/Reports/OfficePrintingHistory.aspx" Text="گزارش چاپ کارت های پروانه شرکت های حقوقی" Name="417">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Employee/Document/Reports/EngOfficePrintingHistory.aspx" Text="گزارش چاپ کارت های پروانه دفاتر مهندسی" Name="418">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Employee/Document/Reports/MemberImpDocPrintingHistory.aspx" Text="گزارش چاپ کارت های مجوز فعالیت مجری حقیقی" Name="418">
+    </NavBarItem>
+
+    
+  </NavBarGroup>
+
+  <NavBarGroup Text="ماده 27" Expanded="False" Name="grpM27" Target="900">
+
+    <NavBarItem NavigateUrl="/Employee/27/ExpertFile.aspx" Text="مدیریت کارشناسان ماده 27" Name="951">
+    </NavBarItem>
+  </NavBarGroup>
+
+  <NavBarGroup Expanded="False" Text="آموزش" Name="grpAmoozesh" Target="1000" >
+    <NavBarItem NavigateUrl="/Employee/Amoozesh/TrainingGroups.aspx" Text="گروه های آموزشی" Name="1048">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Employee/Amoozesh/Course.aspx" Text="مدیریت دروس مورد تایید نظام مهندسی" Name="1001">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Employee/Amoozesh/Periods.aspx" Text="مدیریت دوره های آموزشی" Name="1016">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Employee/Amoozesh/Seminar.aspx" Text="مدیریت دوره های غیر مصوب و سمینارهای آموزشی" Name="1027">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Employee/Amoozesh/Institue.aspx" Text="مدیریت مؤسسه ها" Name="1031">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Employee/Amoozesh/Teachers.aspx" Text="مدیریت اساتید" Name="1005">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Employee/Amoozesh/MemberLicence.aspx" Text="مدیریت گواهینامه های آموزشی" Name="1015">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Employee/Amoozesh/TeachersSalary.aspx" Text="مدیریت حق الزحمه اساتید" Name="1047">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Employee/Amoozesh/TeachingCertificateGrade.aspx"
+				Text="مدیریت امتیازات استاد" Name="1009">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Employee/Amoozesh/PreRegister.aspx" Text="نیازسنجی دوره های آموزشی" Name="1025">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Employee/Amoozesh/TrainingQuestions.aspx" Text="آرشیو سؤالات امتحانی" Name="1041">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Employee/Amoozesh/Questions.aspx" Text="آرشیو سؤالات نظر سنجی" Name="1045">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Employee/Amoozesh/MemberResearchActivity.aspx" Text="مدیریت تالیفات وتحقیقات" Name="1046">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/EPayment/EpaymentFishes.aspx?P=L" Text="گزارش پرداخت های ثبت نام دوره" Name="1172">
+    </NavBarItem>
+    <NavBarItem  NavigateUrl="/Employee/Amoozesh/Lecturer.aspx" Text="مدیریت سخنران" Name="1051">
+    </NavBarItem>
+    <NavBarItem  NavigateUrl="/Employee/Amoozesh/ReportMemberPeriods.aspx" Text="گزارش دورهای گذرانده" Name="1052">
+    </NavBarItem>
+       <NavBarItem NavigateUrl="/Employee/Management/ResearchActivity.aspx" Text="مدیریت انواع مقالات و تحقیقات"  Name="516">
+    </NavBarItem>
+    <NavBarItem  NavigateUrl="/Employee/Amoozesh/HomePageFiles.aspx" Text="مدیریت فایل های صفحه نخست" Name="1215">
+    </NavBarItem>
+  </NavBarGroup>
+
+  <NavBarGroup Expanded="False" Text="خدمات مهندسی" Name="grpTechnicalServices" Target="1500">
+    <NavBarItem NavigateUrl="/Employee/TechnicalServices/BaseInfo/Setting.aspx" Text="مدیریت تنظیمات خدمات مهندسی" Name="1554"/>
+    <NavBarItem NavigateUrl="/Employee/TechnicalServices/BaseInfo/MemberDsgnCapacity.aspx" Text="مدیریت ظرفیت اشتغال طراحی/نظارت" Name="1550"/>
+    <NavBarItem NavigateUrl="/Employee/TechnicalServices/Capacity/UrbanistQualification.aspx" Text="مدیریت ظرفیت اشتغال شهرسازی(طراحی)" Name="1576"/>
+    <NavBarItem NavigateUrl="/Employee/TechnicalServices/BaseInfo/MemberImpCapacity.aspx" Text="مدیریت ظرفیت اشتغال اجرا" Name="1552"/>
+    <NavBarItem NavigateUrl="/Employee/TechnicalServices/Capacity/CapacityMunicipality.aspx" Text="مدیریت محدوده ی ظرفیت شهرداری شیراز"  Name="1574"/>
+    <NavBarItem NavigateUrl="/Employee/TechnicalServices/BaseInfo/StructureGroupsAndObserverGrade.aspx" Text="مدیریت گروه ساختمانی و پایه ناظران" Name="1570"/>
+    <NavBarItem NavigateUrl="/Employee/TechnicalServices/BaseInfo/DiscountPercent.aspx" Text="مدیریت درصد تخفیف برای پروژه های خاص" Name="1520"/>
+    <NavBarItem NavigateUrl="/Employee/TechnicalServices/BaseInfo/ProjectIngridientMajors.aspx" Text="مدیریت رشته های مجاز عوامل پروِژه" Name="1548"/>
+    <NavBarItem NavigateUrl="/Employee/TechnicalServices/Capacity/CapacityAssignment.aspx" Text="مدیریت بازگشایی سال کاری" Name="1559"/>
+    <NavBarItem NavigateUrl="/Employee/TechnicalServices/PriceArchive/PriceArchive.aspx" Text="مدیریت تعرفه خدمات مهندسی طراحی و نظارت"  Name="1502"/>
+    <NavBarItem NavigateUrl="/Employee/TechnicalServices/BaseInfo/ObserverInsurance.aspx" Text="مدیریت بیمه ناظران"  Name="1569"/>
+    <NavBarItem NavigateUrl="/Employee/TechnicalServices/Capacity/ObserverRestriction.aspx" Text="مدیریت اعضای محروم از ثبت آماده به کاری" Name="1571"/>
+    <NavBarItem NavigateUrl="/Employee/TechnicalServices/Plan/PlanControler.aspx" Text="مدیریت بازبین نقشه های ساختمانی" Name="1530"/>
+    <NavBarItem NavigateUrl="/Employee/TechnicalServices/Capacity/ConditionalCapacity.aspx" Text="مدیریت کاهش/افزایش ظرفیت"  Name="1542"/>
+    <NavBarItem NavigateUrl="/Employee/TechnicalServices/Project/PlansChooseControler.aspx" Text="مدیریت اختصاص بازبین نقشه ها"  Name="1529"/>
+    <NavBarItem NavigateUrl="/Employee/TechnicalServices/Project/ImplementerOffice.aspx" Text="مدیریت مجریان انبوه ساز/پیمانکار"  Name="1637"/>
+    <NavBarItem NavigateUrl="/Employee/TechnicalServices/Capacity/ObserverWorkRequest.aspx" Text="مدیریت اعلام آماده به کاری "  Name="1577"/>    
+    <NavBarItem NavigateUrl="/Employee/TechnicalServices/Project/Project.aspx" Text="مدیریت پروژه ها"  Name="1501"/>
+    <NavBarItem NavigateUrl="/Employee/TechnicalServices/Capacity/CapacityRelease.aspx" Text="مدیریت بازگشت ظرفیت نظارت "  Name="1518"/>
+    <NavBarItem NavigateUrl="/Employee/TechnicalServices/Report/ReportObserverSelected.aspx" Text="گزارش ارجاع کار ناظران"  Name="1573"/>
+    <NavBarItem NavigateUrl="/Employee/TechnicalServices/Project/TraceObserverSelected.aspx" Text="پیگیری ارجاع کار به ناظران"  Name="1585"/>
+    <NavBarItem NavigateUrl="/Employee/TechnicalServices/Report/ProjectObserverReportList.aspx" Text="لیست پرداخت حق الزحمه ناظرین و مانده واریزی"  Name="1555" />
+    <NavBarItem NavigateUrl="/Employee/TechnicalServices/Report/ProjectObserverReport.aspx" Text="گزارش ناظران پروژه" Name="1556"/>
+    <NavBarItem NavigateUrl="/Employee/TechnicalServices/Report/MemberOperationReport.aspx" Text="گزارش ریز کارکرد اعضا" Name="1561"/>
+    <NavBarItem NavigateUrl="/Employee/TechnicalServices/Report/ReportPlans.aspx" Text="گزارش نقشه ها"  Name="1598"/>
+    <NavBarItem NavigateUrl="/Employee/TechnicalServices/Report/ReportPlansControler.aspx" Text="گزارش بازبین های نقشه ها"  Name="1632"/>    
+    <NavBarItem NavigateUrl="/Employee/TechnicalServices/Report/ReportDesignersCity.aspx" Text="گزارش طراحان پروژه"  Name="1567"/>
+    <NavBarItem NavigateUrl="/Employee/TechnicalServices/Report/KardanProjectReport.aspx" Text="گزارش کارکرد کاردان ها"  Name="1591"/>
+    <NavBarItem NavigateUrl="/Employee/TechnicalServices/Report/ReportProjectOwner.aspx" Text="گزارش مالکین پروژه"  Name="1592"/>
+    <NavBarItem NavigateUrl="/Employee/TechnicalServices/Report/ReportAccountingFishHistory.aspx" Text="گزارش چاپ فیش های بانکی" Name="1562" />
+    <NavBarItem NavigateUrl="/Employee/TechnicalServices/Report/ReportEpaymentObserverFish.aspx" Text="گزارش فیش های پرداخت الکترونیکی نظارت" Name="1596" />
+    <NavBarItem NavigateUrl="/Employee/TechnicalServices/Report/ReportEpaymentDesignerFish.aspx" Text="گزارش فیش های پرداخت الکترونیکی طراحی" Name="1597" />
+    <NavBarItem NavigateUrl="/Employee/TechnicalServices/Capacity/QueueListMunicipality.aspx" Text="لیست اولویت ارجاع کار نظارت شهرداری شیراز"  Name="1599"/>
+    <NavBarItem NavigateUrl="/Employee/Ticketing/ConflictManagment.aspx" Text="مدیریت مغایرت ها"  Name="631"/>        
+  </NavBarGroup>
+
+  <NavBarGroup Expanded="False" Text="مدیریت پیام های کوتاه" Name="grpAutomation" Target="600">
+    <NavBarItem NavigateUrl="/Employee/SMS/ConfirmedSMS.aspx" Text="مدیریت پیام های کوتاه(SMS)" Name="620">
+    </NavBarItem>
+    <NavBarItem  Text="پیام های کوتاه رسیده" NavigateUrl="/Employee/SMS/SMSInbox.aspx" Name="630">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Employee/SMS/SMSType.aspx" Text="مدیریت نوع پیام کوتاه" Name="623">
+    </NavBarItem>
+    <NavBarItem  NavigateUrl="/Employee/SMS/SMSCost.aspx" Text="مدیریت هزینه پیام کوتاه" Name="622">
+    </NavBarItem>
+    <NavBarItem Text="تنظیمات پیام کوتاه" NavigateUrl="/Employee/SMS/Setting.aspx" Name="629">
+    </NavBarItem>
+  </NavBarGroup>
+
+  <NavBarGroup Expanded="False" Text="گردش کار" Name="grpWorkFlow" Target="1400">
+
+    <NavBarItem NavigateUrl="/Employee/WorkFlow/WorkFlowTask.aspx" Text="مدیریت گردش کار" Name="1401">
+    </NavBarItem>
+  </NavBarGroup>
+
+  <NavBarGroup Expanded="False" Text="تعاریف سازمانی" Name="grpNezam" Target="700">
+
+    <NavBarItem NavigateUrl="/Employee/Nezam/Nezam.aspx" Text="مشخصات سازمان" Name="702">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Employee/Nezam/Agent.aspx" Text="مدیریت نمایندگی ها" Name="707">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Employee/Nezam/Partition.aspx" Text="مدیریت بخش ها" Name="706">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Employee/Nezam/NezamMemberChart.aspx" Text="چارت سازمانی" Name="701">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Employee/Nezam/GovManagerTitle.aspx" Text="مدیریت سمت های استانی/كشوری"  Name="709">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Employee/Nezam/GovManagerName.aspx" Text="مدیریت مديران استانی/كشوری"  Name="708">
+    </NavBarItem>
+
+  </NavBarGroup>
+
+  <NavBarGroup Expanded="False" Text="تنظیمات و مدیریت سامانه" Name="grpManagement"  Target="500">
+    <NavBarItem NavigateUrl="/Employee/Management/country.aspx" Text="مدیریت کشورها"  Name="507">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Employee/Management/Province.aspx" Text="مدیریت استانها"  Name="514">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Employee/Management/RegionOfCity.aspx" Text="مدیریت شهرستان" Name="526">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Employee/Management/City.aspx" Text="مدیریت شهرها"  Name="505">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Employee/Management/University.aspx" Text="مدیریت دانشگاه ها"  Name="520">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Employee/Management/Commission.aspx" Text="مدیریت کمیسیون های همکاری"  Name="506">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Employee/Management/ActivitySubject.aspx" Text="مدیریت زمینه های فعالیت"  Name="501">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Employee/Management/Language.aspx" Text="مدیریت زبان ها"  Name="508">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Employee/Management/Major.aspx" Text="مدیریت رشته های تحصیلی"  Name="511">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Employee/Management/SettlementAgent.aspx" Text="مدیریت اعضای مسکن"  Name="525">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Employee/Management/Municipality.aspx" Text="مدیریت شهرداری ها"  Name="527">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Employee/Management/MunEmployee.aspx" Text="کارمندان شهرداری" Name="527">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Employee/Management/Organization.aspx" Text="مدیریت ديگر سازمان ها" Name="528">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Employee/Management/ContactUsSettings.aspx" Text="تنظیمات تماس با ما"  Name="604">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Employee/Management/DefaultThemes.aspx"   Text="مدیریت طرح های پیش فرض"  Name="530">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Employee/Management/PrintSetting.aspx"   Text="مدیریت امضاکنندگان گواهینامه ها"  Name="533">
+    </NavBarItem>
+  </NavBarGroup>
+  <NavBarGroup Expanded="False" Text="تشکل ها" Name="grpExGroup" Target="1700">
+    <NavBarItem NavigateUrl="/Employee/ExGroup/ExGroup.aspx" Text="مدیریت انواع تشکل ها" Name="1701">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Employee/ExGroup/ExGroupPeriod.aspx" Text="مدیریت دوره ها" Name="1702">
+    </NavBarItem>
+  </NavBarGroup>
+
+
+  <NavBarGroup Expanded="False" Text="نظر سنجی" Name="grpPoll" Target="2000">
+    <NavBarItem NavigateUrl="/Employee/Poll/Poll.aspx" Text="مدیریت نظر سنجی ها" Name="2006">
+    </NavBarItem>
+  </NavBarGroup>
+
+  <NavBarGroup Expanded="False" Text="مدیریت وب سایت" Name="grpFileManager" Target="1200">
+    <NavBarItem NavigateUrl="/Employee/HomePage/IntroductionInsert.aspx" Text="مدیریت معرفی سازمان"  Name="1205">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Employee/HomePage/FormsType.aspx" Text="مدیریت نوع فرم ها"  Name="1209">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Employee/HomePage/Forms.aspx" Text="مدیریت فرم ها"  Name="1201">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Employee/HomePage/Tender.aspx" Text="مدیریت مناقصات"  Name="1203">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Employee/HomePage/RulsType.aspx" Text="مدیریت نوع بخشنامه ها" Name="1210">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Employee/HomePage/Rules.aspx" Text="مدیریت قوانین و بخشنامه ها" Name="1204">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Employee/HomePage/Links.aspx" Text="مدیریت لینک های مرتبط" Name="1202">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Employee/HomePage/NewsSubject1.aspx" Text="مدیریت موضوعات خبر" Name="1303">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Employee/HomePage/News.aspx" Text="مدیریت اخبار" Name="1301">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Employee/HomePage/HomePageAttachments.aspx" Text="مدیریت صفحه نخست" Name="1208">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Employee/HomePage/imageGalleryalbum.aspx" Text="مدیریت گزارش تصویری" Name="1206">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Employee/HomePage/Videos.aspx"   Text="مدیریت گزارشات ویدیویی"  Name="1213">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Employee/HomePage/Podcast.aspx"   Text="مدیریت گزارشات صوتی"  Name="1214">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Employee/HomePage/Condolence.aspx"   Text="مدیریت تبریک و تسلیت"  Name="535">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Employee/HomePage/SubSystems.aspx"   Text="مدیریت سامانه ها"  Name="1211">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Employee/Management/FAQ.aspx"   Text="مدیریت سوالات متداول"  Name="1212">
+    </NavBarItem>
+  </NavBarGroup>
+
+  <NavBarGroup Expanded="False" Text="امور مالی"  Target="1100">
+    <NavBarItem Text="مدیریت تنظیم هزینه های دریافتی"  NavigateUrl="/Accounting/BaseInfo/CostSettings.aspx" Name="1157">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Accounting/Reports/AccountingFishes.aspx"  Text="گزارش خزانه" Name="1171">
+    </NavBarItem>
+
+  </NavBarGroup>
+
+</Groups>

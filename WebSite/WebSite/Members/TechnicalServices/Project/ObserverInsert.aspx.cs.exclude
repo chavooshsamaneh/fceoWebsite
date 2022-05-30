@@ -1,0 +1,263 @@
+﻿using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+
+public partial class Members_TechnicalServices_Project_ObserverInsert : System.Web.UI.Page
+{
+    Boolean IsPageRefresh = false;
+
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        this.DivReport.Visible = false;
+        this.DivReport.Attributes.Add("onclick", "ChangeVisible(this)");
+        this.DivReport.Attributes.Add("onmouseover", "ChangeIcon(this)");
+
+
+        if (!IsPostBack)
+        {
+
+            if (string.IsNullOrEmpty(Request.QueryString["ProjectId"]) || string.IsNullOrEmpty(Request.QueryString["PrjObsId"]))
+            {
+                Response.Redirect("Project.aspx");
+            }
+
+            try
+            {
+                PgMode.Value = Server.HtmlDecode(Request.QueryString["PageMode2"].ToString());
+                HDProjectId.Value = Server.HtmlDecode(Request.QueryString["ProjectId"]).ToString();
+                HDObsId.Value = Server.HtmlDecode(Request.QueryString["PrjObsId"]).ToString();
+                RequestId.Value = Server.HtmlDecode(Request.QueryString["PrjReId"]).ToString();
+
+
+            }
+            catch
+            {
+                this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+                return;
+            }
+
+            string PageMode = Utility.DecryptQS(PgMode.Value);
+            string ProjectId = Utility.DecryptQS(HDProjectId.Value);
+            string PrjObsId = Utility.DecryptQS(HDObsId.Value);
+            string PrjReId = Utility.DecryptQS(RequestId.Value);
+
+            if (string.IsNullOrEmpty(PageMode) || string.IsNullOrEmpty(ProjectId))
+            {
+                this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+                return;
+            }
+
+            FillProjectInfo(int.Parse(PrjReId));
+            FillForm(int.Parse(PrjObsId), int.Parse(ProjectId));
+
+        }
+
+    }
+    protected void SetMember()
+    {
+        ASPxLabelFatherName.ClientVisible = true;
+        ASPxLabelFirstName.ClientVisible = true;
+        ASPxLabelLastName.ClientVisible = true;
+        ASPxLabelSSN.ClientVisible = true;
+        txtFatherName.ClientVisible = true;
+        txtFirstName.ClientVisible = true;
+        txtLastName.ClientVisible = true;
+        txtSSN.ClientVisible = true;
+
+        txtManager.ClientVisible = false;
+        txtOrgName.ClientVisible = false;
+        ASPxLabelManager.ClientVisible = false;
+        ASPxLabelOrgName.ClientVisible = false;
+
+        CmbType.SelectedIndex = 0;
+        txtObsId.ClientVisible = true;
+
+    }
+    protected void SetKardan()
+    {
+        ASPxLabelFatherName.ClientVisible = true;
+        ASPxLabelFirstName.ClientVisible = true;
+        ASPxLabelLastName.ClientVisible = true;
+        ASPxLabelSSN.ClientVisible = true;
+        txtFatherName.ClientVisible = true;
+        txtFirstName.ClientVisible = true;
+        txtLastName.ClientVisible = true;
+        txtSSN.ClientVisible = true;
+
+        txtManager.ClientVisible = false;
+        txtOrgName.ClientVisible = false;
+        ASPxLabelManager.ClientVisible = false;
+        ASPxLabelOrgName.ClientVisible = false;
+
+        CmbType.Value = 3;
+        //CmbType.SelectedIndex = 2;
+        txtObsId.ClientVisible = true;
+
+    }
+    protected void SetOffice()
+    {
+        ASPxLabelFatherName.ClientVisible = false;
+        ASPxLabelFirstName.ClientVisible = false;
+        ASPxLabelLastName.ClientVisible = false;
+        ASPxLabelSSN.ClientVisible = false;
+        txtFatherName.ClientVisible = false;
+        txtFirstName.ClientVisible = false;
+        txtLastName.ClientVisible = false;
+        txtSSN.ClientVisible = false;
+
+        txtManager.ClientVisible = true;
+        txtOrgName.ClientVisible = true;
+        ASPxLabelManager.ClientVisible = true;
+        ASPxLabelOrgName.ClientVisible = true;
+
+        CmbType.Value = 2;
+        //CmbType.SelectedIndex = 1;
+        txtObsId.ClientVisible = false;
+
+    }
+    protected void SetMemar()
+    {
+        ASPxLabelFatherName.ClientVisible = true;
+        ASPxLabelFirstName.ClientVisible = true;
+        ASPxLabelLastName.ClientVisible = true;
+        ASPxLabelSSN.ClientVisible = true;
+        txtFatherName.ClientVisible = true;
+        txtFirstName.ClientVisible = true;
+        txtLastName.ClientVisible = true;
+        txtSSN.ClientVisible = true;
+
+        txtManager.ClientVisible = false;
+        txtOrgName.ClientVisible = false;
+        ASPxLabelManager.ClientVisible = false;
+        ASPxLabelOrgName.ClientVisible = false;
+
+        CmbType.Value = 4;
+        //CmbType.SelectedIndex = 2;
+        txtObsId.ClientVisible = true;
+
+    }
+    protected void FillForm(int PrjObsId, int ProjectId)
+    {
+        TSP.DataManager.TechnicalServices.Project_ObserversManager ProjectObsManager = new TSP.DataManager.TechnicalServices.Project_ObserversManager();
+        TSP.DataManager.TechnicalServices.ProjectCapacityDecrementManager CapacityDecrementManager = new TSP.DataManager.TechnicalServices.ProjectCapacityDecrementManager();
+
+        try
+        {
+            ProjectObsManager.FindByProjectObserversId(PrjObsId);
+            if (ProjectObsManager.Count > 0)
+            {
+                string TypeValue = ProjectObsManager[0]["MemberTypeId"].ToString();
+                CmbType.DataBind();
+                CmbType.SelectedIndex = CmbType.Items.IndexOfValue(TypeValue);
+                txtID.Text = ProjectObsManager[0]["MeOfficeOthPEngOId"].ToString();
+                txtFatherName.Text = ProjectObsManager[0]["FatherName"].ToString();
+                txtFileDate.Text = ProjectObsManager[0]["FileDate"].ToString();
+                txtFileNo.Text = ProjectObsManager[0]["No"].ToString();
+                txtFirstName.Text = ProjectObsManager[0]["FirstName"].ToString();
+                txtLastName.Text = ProjectObsManager[0]["LastName"].ToString();
+                txtManager.Text = ProjectObsManager[0]["Manager"].ToString();
+                txtOrgName.Text = ProjectObsManager[0]["Name"].ToString();
+                txtSSN.Text = ProjectObsManager[0]["SSN"].ToString();
+                ChbMother.Checked = Convert.ToBoolean(ProjectObsManager[0]["IsMother"]);
+                txtObsId.Text = ProjectObsManager[0]["ObsGrdName"].ToString();
+
+                cmbObsType.DataBind();
+                cmbObsType.SelectedIndex = cmbObsType.Items.IndexOfValue(ProjectObsManager[0]["ObserversTypeId"].ToString());
+                int MeOfficeOthPEngOId = Convert.ToInt32(ProjectObsManager[0]["MeOfficeOthPEngOId"]);
+                switch (TypeValue)
+                {
+                    case "1":
+                        FillCapacity((int)TSP.DataManager.TSMemberType.Member, MeOfficeOthPEngOId);
+                        FillProjectIngridientCapacityInfo(TSP.DataManager.TSMemberType.Member, MeOfficeOthPEngOId);
+                        SetMember();
+                        break;
+                    case "2":
+                        SetOffice();
+                        FillCapacity((int)TSP.DataManager.TSMemberType.Office, MeOfficeOthPEngOId);
+                        FillProjectIngridientCapacityInfo(TSP.DataManager.TSMemberType.Office, MeOfficeOthPEngOId);
+                        break;
+                    case "3":
+                        SetKardan();
+                        break;
+                    case "4":
+                        SetMemar();
+                        break;
+
+                }
+
+                CapacityDecrementManager.FindByPrjImpObsDsgnIdAndIngridientTypeId(PrjObsId, (int)TSP.DataManager.TSProjectIngridientType.Observer);
+                if (CapacityDecrementManager.Count > 0)
+                {
+                    SetCapacityDecrement(CapacityDecrementManager[0]["CapacityDecrement"].ToString());
+                    SetCapacityWage(CapacityDecrementManager[0]["Wage"].ToString());
+                }
+
+            }
+            else
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "امکان مشاهده اطلاعات وجود ندارد.اطلاعات توسط کاربر دیگری تغییر یافته است";
+            }
+        }
+        catch (Exception)
+        {
+            this.DivReport.Visible = true;
+            this.LabelWarning.Text = "خطایی در مشاهده اطلاعات رخ داده است";
+        }
+    }
+    protected void btnBack_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("Observers.aspx?ProjectId=" + HDProjectId.Value + "&PageMode=" + Request.QueryString["PageMode"] + "&PrjReId=" + RequestId.Value);
+
+    }
+
+    #region Fill Capacity Info
+    /// <summary>
+    /// پر کردن اطلاعات ظرفیت شرکت یا دفتر
+    /// </summary>
+    /// <param name="TSMemberTypeId"></param>
+    /// <param name="ProjectIngridientId"></param>
+    private void FillProjectIngridientCapacityInfo(TSP.DataManager.TSMemberType TSMemberTypeId, int ProjectIngridientId)
+    {
+        FillCapacityInfo();
+        CapacityUserControl.FillProjectIngridienCapacityInfo(TSMemberTypeId, ProjectIngridientId);
+    }
+
+    private void FillCapacityInfo()
+    {
+        int ProjectId = Convert.ToInt32(Utility.DecryptQS(HDProjectId.Value));
+        CapacityUserControl.ProjectId = ProjectId;
+        CapacityUserControl.ProjectIngridientTypeId = TSP.DataManager.TSProjectIngridientType.Observer;
+    }
+
+    private void FillCapacity(int MemberTypeId, int MeId)
+    {
+        Capacity capacity = new Capacity();
+        capacity.GetCapacityInformation((int)TSP.DataManager.TSProjectIngridientType.Observer, MemberTypeId, MeId, true);
+    }
+
+    private void SetCapacityDecrement(string CapacityDecrement)
+    {
+        CapacityUserControl.CapacityDecrement = CapacityDecrement;
+    }
+
+    private void SetCapacityWage(string CapacityWage)
+    {
+        CapacityUserControl.CapacityWage = CapacityWage;
+    }
+    #endregion
+
+    private void FillProjectInfo(int Id)
+    {
+        prjInfo.Fill(Id);
+    }
+
+}

@@ -1,0 +1,541 @@
+.dxscControl_Metropolis
+{
+    background: #c0c0c0;
+    font: 12px 'Segoe UI', Helvetica, 'Droid Sans', Tahoma, Geneva, sans-serif;
+    color: #333333;
+}
+.dxscLoadingPanel_Metropolis
+{
+    border: 1px solid #C3C3C3;
+    background-color: white;
+    font: 12px 'Segoe UI', Helvetica, 'Droid Sans', Tahoma, Geneva, sans-serif;
+    color: #333333;
+}
+.dxscLoadingPanel_Metropolis td.dx
+{
+    font-size: 1.17em;
+    white-space: nowrap;
+    text-align: center;
+    padding: 10px 14px;
+}
+.dxscLoadingPanel_Metropolis .dxlp-loadingImage
+{
+    background-image: url('../Web/Loading.gif');
+    height: 32px;
+    width: 32px;
+}
+/* Headers */
+.dxscDateHeader_Metropolis,
+.dxscAlternateDateHeader_Metropolis,
+.dxscDayHeader_Metropolis,
+.dxscDateCellHeader_Metropolis,
+.dxscTodayCellHeader_Metropolis,
+.dxscTimelineDateHeader_Metropolis,
+.dxscHorizontalResourceHeader_Metropolis,
+.dxscVerticalResourceHeader_Metropolis
+{
+    background: white;
+    border: solid 1px #c0c0c0;
+    border-width: 0 1px 1px 0;
+    padding: 4px;
+    text-align: center;
+    vertical-align: top;
+    cursor: default;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.dxscAlternateTimelineDateHeader_Metropolis,
+.dxscAlternateDateHeader_Metropolis
+{
+    background: #F7DC76;
+}
+.dxscDayHeader_Metropolis
+{
+    border-width: 1px 1px 0 0;
+}
+.dxscDateCellHeader_Metropolis
+{
+    border-width: 1px;
+}
+.dxscTodayCellHeader_Metropolis
+{
+    border-top-width: 1px;
+    background: #F7DC76;
+}
+.dxscTimelineDateHeader_Metropolis
+{
+    border-width: 1px 1px 1px 0;
+}
+.dxscHorizontalResourceHeader_Metropolis
+{
+    border-width: 1px 1px 1px 0;
+    background: white;
+}
+.dxscVerticalResourceHeader_Metropolis
+{
+    border-width: 1px 1px 0 0;
+    background: white;
+    white-space: normal;
+}
+.dxscSelectionBar_Metropolis
+{
+    border-style: solid;
+    border-width: 0 1px 0 0;
+    height: 30px;
+}
+.dxscControl_Metropolis .dxscSel
+{
+    opacity: 0.25;
+}
+/* Corners */
+.dxscLeftTopCorner_Metropolis,
+.dxscRightTopCorner_Metropolis,
+.dxscBottomLeftCorner_Metropolis,
+.dxscControl_Metropolis .dxsc-timeline-resourcesContainer
+{
+    background: white;
+}
+.dxscLeftTopCorner_Metropolis,
+.dxscRightTopCorner_Metropolis
+{
+    width: 1px;
+    border-style: solid;
+    border-color: #c0c0c0;
+    border-width: 0 0 1px;
+}
+.dxscLeftTopCorner_Metropolis
+{
+    border-width: 1px 1px 1px 0;
+    font-size: 0.91em;
+    text-align: center;
+    padding: 2px;
+    overflow: hidden;
+}
+/* Separators */
+.dxscGroupSeparatorVertical_Metropolis,
+.dxscGroupSeparatorHorizontal_Metropolis
+{
+    background: white;
+    border: solid 1px #c0c0c0;
+}
+.dxscGroupSeparatorVertical_Metropolis
+{
+    width: 1px;
+    border-width: 0 1px;
+}
+.dxscGroupSeparatorHorizontal_Metropolis
+{
+    height: 1px;
+    border-width: 1px 0 0;
+    font-size: 0;
+}
+/* Apts Area */
+.dxscAllDayArea_Metropolis
+{
+    background: white;
+    border: solid 1px #c0c0c0;
+    border-width: 0 1px 1px 0;
+}
+.dxscDateCellBody_Metropolis
+{
+    height: 100px;
+    border: solid 1px;
+    border-width: 0 1px 0 0;
+}
+.dxscTimeCellBody_Metropolis
+{
+    border: 1px solid;
+    border-top-width: 0;
+    background-color: White;
+}
+.dxscTimelineCellBody_Metropolis
+{
+    height: 300px;
+    border-style: solid;
+    border-width: 1px 1px 0 0;
+}
+.dxscAppointment_Metropolis
+{
+    font-size: 0.91em;
+    padding: 0;
+    margin: 0;
+    cursor: default;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+}
+.dxscAppointmentInnerBorders_Metropolis
+{
+    padding: 0px;
+}
+.dxscAppointmentHorizontalSeparator_Metropolis
+{
+    height: 1px;
+    width: 100%;
+    overflow: hidden;
+    border-bottom-style: none;
+    border-left-style: none;
+    border-right-style: none;
+}
+.dxscAppointment_Metropolis .dxsc-apt-left-container > img,
+.dxscAppointment_Metropolis .dxsc-apt-right-container > img,
+.dxscAppointment_Metropolis .dxsc-apt-images-container
+{
+    opacity: .3;
+}
+.dxscApt.dxsc-selected .dxscAppointment_Metropolis .dxsc-apt-left-container > img,
+.dxscApt.dxsc-selected .dxscAppointment_Metropolis .dxsc-apt-right-container > img,
+.dxscApt.dxsc-selected .dxscAppointment_Metropolis .dxsc-apt-images-container
+{
+    opacity: 1;
+}
+.dxscMoreButton_Metropolis
+{
+    font-size: 0.91em;
+    color: #F7A233;
+    text-decoration: underline;
+    padding: 0;
+}
+/* Rulers */
+.dxscTimeRulerHoursItem_Metropolis, .dxscTimeRulerMinuteItem_Metropolis
+{
+    color: #6f6f6f;
+    background: white;
+    border: solid 1px #c0c0c0;
+    border-width: 0px 1px 1px 0;
+    vertical-align: top;
+    white-space: nowrap;
+}
+.dxscTimeRulerHoursItem_Metropolis
+{
+    border-right-width: 0;
+    border-left-color: #c0c0c0;
+    font-size: 1.42em;
+    text-align: right;
+    width: 45px;
+    padding: 2px 4px 0px;
+}
+.dxscTimeRulerMinuteItem_Metropolis
+{
+    border-left-width: 0px;
+    text-align: center;
+    width: 18px;
+    font-size: 0.91em;
+    padding: 4px 1px 4px 1px;
+}
+.dxscTimeRulerHeaderHourItem_Metropolis
+{
+    width: 55px;
+}
+.dxscTimeRulerHeaderMinuteItem_Metropolis
+{
+    width: 16px;
+}
+.dxscScrollHeaderItem_Metropolis
+{
+    width: 16px;
+}
+/* Control elements */
+.dxscToolbarContainer_Metropolis
+{
+    padding: 8px 0;
+    border: 0px none;
+    background-color: White;
+}
+.dxscToolbar_Metropolis
+{
+    border: none;
+    padding: 4px 7px;
+}
+.dxscToolbar_Metropolis .dxeCalendar_Metropolis,
+.dxscToolbar_Metropolis .dxeCalendar_Metropolis.dxeFocused_Metropolis
+{
+    border: 1px Solid Silver;
+}
+.dxscResourceNavigator_Metropolis
+{
+    background: white;
+    padding: 7px;
+    border: solid 1px #c0c0c0;
+}
+.dxscViewVisibleInterval_Metropolis
+{
+    white-space: nowrap;
+    font-size: 1.5em;
+    color: #F7A233;
+}
+.dxscInplaceEditor_Metropolis
+{
+    background: #fdfdfd;
+    border: solid 2px #303030;
+    padding: 0;
+    color: #303030;
+}
+.dxscControlAreaForm_Metropolis
+{
+    font-size: 1.33em;
+    background-color: #efefef;
+    border: none;
+    white-space: normal;
+    padding: 9px 12px;
+}
+.dxscErrorInfo_Metropolis
+{
+    background: #f1abab;
+    color: #853a3a;
+    padding: 10px;
+}
+/* Buttons */
+.dxscViewNavigatorButton_Metropolis,
+.dxscViewNavigatorGotoDateButton_Metropolis
+{
+    font-size: 1.17em;
+    line-height: 100%;
+    padding: 0 4px;
+    min-height: 1em;
+    display: block !important;
+}
+.dxscViewNavigatorGotoDateButton_Metropolis
+{
+    padding: 0 0 0 4px;
+}
+.dxscViewNavigatorButton_Metropolis.dxscViewNavigatorGotoTodayButton
+{
+    padding: 3px 4px;
+}
+.dxscViewNavigatorButtonHover_Metropolis.dxscViewNavigatorGotoTodayButton
+{
+    text-decoration: underline;
+}
+.dxscResourceNavigatorButton_Metropolis,
+.dxscNavigationButton_Metropolis,
+.dxscDVTopMoreButton_Metropolis,
+.dxscDVBottomMoreButton_Metropolis
+{
+    cursor: pointer;
+    padding: 2px;
+}
+.dxscResourceNavigator_Metropolis table td:nth-child(6) table td.dxscResourceNavigatorButton_Metropolis
+{
+    padding: 2px 8px 2px 2px;
+}
+.dxscSmartTagButton_Metropolis
+{
+    border: solid 1px black;
+    background: #ffffee;
+    padding: 4px 5px;
+    cursor: pointer;
+}
+.dxscViewSelectorButton_Metropolis
+{
+    padding: 6px 18px;
+    border: 1px solid White;
+}
+.dxscViewSelectorButtonHover_Metropolis
+{
+    background-color: #F7A233;
+    color: White;
+}
+.dxscViewSelectorButtonPressed_Metropolis
+{
+    background-color: #C0C0C0;
+    color: White;
+}
+.dxscViewSelectorButtonChecked_Metropolis
+{
+    background: #F7A233;
+    color: White;
+}
+.dxscNoBorderButton_Metropolis
+{
+    border: solid 1px #FDFDFD;
+    background: none;
+    cursor: pointer;
+}
+.dxscNoBorderButtonHover_Metropolis
+{
+    border: solid 1px #A8A8A8;
+}
+.dxscToolTipRoundedCornersTopBottomRow_Metropolis
+{
+    font-size: 0;
+}
+.dxscToolTipRoundedCornersTopSide_Metropolis
+{
+    border-top: 1px black solid;
+    vertical-align: bottom;
+    height: 1px;
+    background-color: #fafad2;
+}
+.dxscToolTipRoundedCornersLeftSide_Metropolis
+{
+    border-left: 1px black solid;
+    vertical-align: bottom;
+    background-color: #fafad2;
+}
+.dxscToolTipRoundedCornersRightSide_Metropolis
+{
+    border-right: 1px black solid;
+    vertical-align: bottom;
+    background-color: #fafad2;
+}
+.dxscToolTipRoundedCornersBottomSide_Metropolis
+{
+    border-bottom: 1px black solid;
+    vertical-align: bottom;
+    height: 1px;
+    background-color: #fafad2;
+}
+.dxscToolTipRoundedCornersContent_Metropolis
+{
+    background-color: #fafad2;
+    padding: 0;
+}
+.dxscToolTipSquaredCorners_Metropolis
+{
+    background: #f9f9cd;
+    padding: 1px 1px;
+    font-size: 0;
+    color: #303030;
+    white-space: nowrap;
+    border: solid 1px black;
+}
+.dxscTimeMarker_Metropolis
+{
+    top: -4px;
+}
+.dxscTimeMarkerLine_Metropolis
+{
+    top: -2px;
+    background-color: Red;
+    height: 3px;
+    font-size: 0;
+}
+.dxscTimeMarkerLineV_Metropolis
+{
+    position: absolute;
+    background-color: #4E4E4E;
+    width: 1px;
+    font-size: 0;
+    border: solid 1px #F7CD54;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    box-sizing: content-box;
+}
+.dxscTimeMarkerLineH_Metropolis
+{
+    position: absolute;
+    top: -2px;
+    background-color: #4E4E4E;
+    height: 1px;
+    font-size: 0;
+    border: solid 1px #F7CD54;
+    border-left-width: 0;
+    border-right-width: 0;
+}
+.dxscHiddenContainer td.dxscTimeRulerHoursItem_Metropolis,
+.dxscHiddenContainer td.dxscTimeRulerMinuteItem_Metropolis,
+.dxscHiddenContainer td.dxscTimeCellBody_Metropolis
+{
+    height: 1px;
+    border-top-width: 0px;
+    border-bottom-width: 0px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    border-color: white;
+    background-color: white;
+}
+.dxscClientRendering td.dxscTimeCellBody_Metropolis:last-child,
+.dxscClientRendering td.dxscDateCellBody_Metropolis.dxscLastCell,
+.dxscRendererTable.dxscClientRendering td.dxscDayHeader_Metropolis:last-child,
+.dxscRendererTable.dxscClientRendering td.dxscDateCellHeader_Metropolis.dxscLastCell,
+.dxscClientRendering.dxscTimelineView td.dxscTimelineDateHeader_Metropolis:last-child,
+.dxscClientRendering.dxscTimelineView td.dxscTimelineCellBody_Metropolis:last-child,
+.dxscRendererTable.dxscClientRendering td.dxscHorizontalResourceHeader_Metropolis,
+.dxscHiddenContainer td.dxscGroupSeparatorVertical_Metropolis
+{
+    border-right-width: 0px;
+}
+.dxscRendererTable.dxscClientRendering td.dxscHorizontalResourceHeader_Metropolis,
+.dxscClientRendering.dxscDayView td.dxscLeftTopCorner_Metropolis,
+.dxscClientRendering.dxscWeekView td.dxscLeftTopCorner_Metropolis
+{
+    border-bottom-width: 0px;
+}
+.dxscRendererTable.dxscClientRendering td.dxscDateCellHeader_Metropolis,
+.dxscRendererTable.dxscClientRendering td.dxscDateCellHeader_Metropolis.dxscCompressed.dxscFirstCell,
+.dxscRendererTable.dxscClientRendering td.dxscTodayCellHeader_Metropolis.dxscCompressed.dxscFirstCell
+{
+    border-left-width: 0px;
+}
+.dxscRendererTable.dxscClientRendering td.dxscDateCellHeader_Metropolis.dxscCompressed,
+.dxscRendererTable.dxscClientRendering td.dxscTodayCellHeader_Metropolis.dxscCompressed
+{
+    border-left-width: 1px;
+}
+.dxscClientRendering.dxscDayView .dxscLeftTopCorner_Metropolis,
+.dxscClientRendering.dxscDayView .dxscHorizontalResourceHeader_Metropolis,
+.dxscClientRendering.dxscTimelineView .dxscVerticalResourceHeader_Metropolis.dxscFirstVerticalResourceHeader,
+.dxscClientRendering.dxscTimelineView .dxscTimelineDateHeader_Metropolis.dxscAlternateTimelineDateHeader_Metropolis,
+.dxscClientRendering.dxscTimelineView .dxscTimelineDateHeader_Metropolis
+{
+    border-top-width: 0px;
+}
+.dxscClientRendering.dxscTimelineView .dxscFirstScale .dxscTimelineDateHeader_Metropolis.dxscAlternateTimelineDateHeader_Metropolis,
+.dxscClientRendering.dxscTimelineView .dxscFirstScale .dxscTimelineDateHeader_Metropolis
+{
+    border-top-width: 1px;
+}
+.dxscAgendaView .dxscEmptyCell_Metropolis
+{
+    height: 65px;
+    text-align: center;
+    color: #6f6f6f;
+    font-size: 14px;
+    border-top: 0;
+}
+.dxscAgendaView .dxscDateCell_Metropolis
+{
+    border-bottom: solid 1px #c0c0c0;
+}
+.dxscAgendaView .dxscAppointmentStatusCell_Metropolis
+{
+    border-left-color: #c0c0c0;
+    border-right-color: #c0c0c0;
+}
+.dxscControl_Metropolis .dxscAgendaView .dxsc-apt-status-cell,
+.dxscControl_Metropolis .dxscAgendaView .dxsc-apt-start-arrow-cell,
+.dxscControl_Metropolis .dxscAgendaView .dxsc-apt-time-cell,
+.dxscControl_Metropolis .dxscAgendaView .dxsc-apt-end-arrow-cell,
+.dxscControl_Metropolis .dxscAgendaView .dxsc-apt-icon-cell,
+.dxscControl_Metropolis .dxscAgendaView .dxsc-apt-main-content-cell,
+.dxscControl_Metropolis .dxscAgendaView .dxsc-apt-resource-cell,
+.dxscControl_Metropolis .dxscAgendaViewScrollContainer,
+.dxscControl_Metropolis .dxsc-scroll .dxscDayScrollContent,
+.dxscControl_Metropolis .dxsc-scroll .dxscRendererTable.dxscAgendaView,
+.dxscControl_Metropolis .dxscRendererTable
+{
+    border-bottom: solid 1px #c0c0c0;
+}
+.dxscControl_Metropolis .dxsc-agenda-apt.dxsc-apt-no-status .dxsc-apt-start-arrow-cell
+{
+    border-left: 1px solid #c0c0c0;
+}
+.dxscControl_Metropolis .dxscDayScrollContainer,
+.dxscControl_Metropolis .dxscAgendaViewScrollContainer,
+.dxscControl_Metropolis .dxsc-timeline-scrollLimiter
+{
+    background: white;
+}
+.dxscControl_Metropolis .dxscAgendaViewScrollContainer.dxsc-scroll,
+.dxscControl_Metropolis .dxscRendererTable.dxsc-scroll,
+.dxscControl_Metropolis .dxscRendererTable.dxscAgendaView
+{
+    border-bottom: 0;
+}
+.dxscControl_Metropolis .dxscAgendaViewScrollContainer
+{
+    border-top: 1px solid #c0c0c0;
+}

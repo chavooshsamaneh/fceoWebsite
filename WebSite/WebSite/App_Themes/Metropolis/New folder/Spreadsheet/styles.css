@@ -1,0 +1,238 @@
+.dxssControl_Metropolis
+{
+    border-style: none;
+    font: 12px 'Segoe UI', Helvetica, 'Droid Sans', Tahoma, Geneva, sans-serif;
+}
+.dxssControl_Metropolis .dxss-gl .dxss-v,
+.dxssControl_Metropolis .dxss-gl .dxss-h
+{
+    border-color: #c0c0c0;
+}
+.dxssControl_Metropolis .dxss-rowHeader
+{
+    border-right: 1px solid #c0c0c0;
+    border-top: 1px solid #c0c0c0;
+}
+.dxssControl_Metropolis .dxss-colHeader
+{
+    border-bottom: 1px solid #c0c0c0;
+    border-left: 1px solid #c0c0c0;
+}
+.dxssControl_Metropolis .dxss-crse
+{
+    background-color: #FF8800;
+    opacity: .20;
+}
+.dxssControl_Metropolis .dxss-trbe
+{
+    border-top-color: #FF8800;
+}
+.dxssControl_Metropolis .dxss-rrbe
+{
+    border-right-color: #FF8800;
+}
+.dxssControl_Metropolis .dxss-brbe
+{
+    border-bottom-color: #FF8800;
+}
+.dxssControl_Metropolis .dxss-lrbe
+{
+    border-left-color: #FF8800;
+}
+.dxssControl_Metropolis .dxss-fh
+{
+    background-color: #FF8800;
+}
+.dxssControl_Metropolis .dxss-sbe
+{
+    border-color: #FF8800;
+}
+.dxssControl_Metropolis .dxss-crs
+{
+    border-color: #FF8800;
+}
+.dxssControl_Metropolis .dxrControl_Metropolis .dxtcLite_Metropolis.dxtc-top .dxtc-leftIndent
+{
+    width: 3px;
+}
+.dxssControl_Metropolis .dxtcLite_Metropolis.dxtc-bottom .dxtc-leftIndent
+{
+    width: 8px;
+}
+.dxssControl_Metropolis .dxss-hrg,
+.dxssControl_Metropolis .dxss-vrg
+{
+    background-color: #FF8800;
+}
+.dxssControl_Metropolis .dxss-md
+{
+    border-left: 1px solid #c0c0c0 !important;
+    border-right: 1px solid #c0c0c0 !important;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.dxssControl_Metropolis .dxrControl_Metropolis .dxr-minBtn
+{
+    padding-right: 7px;
+}
+.dxssControl_Metropolis .dxss-tse
+{
+    border-color: #FF8800;
+}
+.dxssControl_Metropolis .dxss-tre
+{
+    background: url('TouchResize.png');
+}
+.dxssControl_Metropolis .dxss-ddp,
+.dxssControl_Metropolis .dxss-ddb
+{
+    border: 1px solid #c0c0c0;
+}
+.dxssControl_Metropolis .dxss-ddp tr:hover
+{
+    background-color: #e0e0e0;
+}
+/* Loading panel */
+.dxssLoadingDiv_Metropolis
+{
+    background: white;
+    opacity: 0.85 !important;
+    filter: alpha(opacity=85);
+}
+.dxssLoadingPanel_Metropolis
+{
+    border: 1px solid #c0c0c0;
+    background-color: white;
+    font: 12px 'Segoe UI', Helvetica, 'Droid Sans', Tahoma, Geneva, sans-serif;
+    color: #333333;
+}
+.dxssLoadingPanel_Metropolis td.dx
+{
+    font-size: 1.17em;
+    white-space: nowrap;
+    text-align: center;
+    padding: 10px 14px;
+}
+.dxheControl_Metropolis
+{
+    font: 12px 'Segoe UI', Helvetica, 'Droid Sans', Tahoma, Geneva, sans-serif;
+}
+.dxssLoadingPanel_Metropolis .dxlp-loadingImage
+{
+    background-image: url('../Web/Loading.gif');
+    height: 32px;
+    width: 32px;
+}
+/* --------------Dialogs----------------- */
+.dxpcLite_Metropolis .dxssDlgFooter
+{
+    border-top: 1px #c0c0c0 solid;
+}
+.dxpcLite_Metropolis .dxssDlgInsertImageForm .dxssDlgImagePreviewCell
+{
+    color: #878787;
+    border: dashed 1px #cac8c8;
+}
+.dxssModifyChartStyleContenPanel .dxbButtonHover_Metropolis
+{
+    color: white;
+    background-color: #ff8800;
+    border: 1px solid #ff8800;
+}
+.dxssModifyChartStyleContenPanel .dxbButtonChecked_Metropolis
+{
+    color: #333333;
+    background-color: #C0C0C0;
+}
+.dxssModifyChartStyleContenPanel .dxbButtonPressed_Metropolis
+{
+    color: white;
+    background-color: #C0C0C0;
+}
+/* DX Spreadsheet Cell Editor Element, Formula Bar, IntelliSense elements */
+.dxssControl_Metropolis .dxss-ctve
+{
+    border: 2px solid #FF8800;
+    /*the same -dxss-cfe */
+}
+.dxssControl_Metropolis .dxss-fb
+{
+    height: 21px;
+    padding: 10px;
+    border: 1px solid #c0c0c0;
+    border-top-width: 0;
+}
+.dxssControl_Metropolis .dxss-fbw
+{
+    border: 1px solid #c0c0c0;
+    background-color: white;
+    padding: 1px 3px 2px 3px;
+}
+.dxFirefox .dxssControl_Metropolis .dxss-fbw
+{
+    padding: 1px 3px 1px 3px;
+}
+.dxssControl_Metropolis .dxmLite_Metropolis .dxss-fbMenu
+{
+    height: 21px;
+    border: 0;
+    background-color: transparent;
+    background-image: none;
+}
+.dxssControl_Metropolis .dxss-fbMenu .dxm-content
+{
+    padding-top: 3px !important;
+}
+.dxssControl_Metropolis .dxss-Hint
+{
+    border: 1px solid #c0c0c0;
+    background-color: #FFFFFF;
+    padding: 3px 8px 4px 8px;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    -o-border-radius: 3px;
+    -khtml-border-radius: 3px;
+    -webkit-box-shadow: rgba(0,0,0,0.1) 0 1px 3px;
+    -moz-box-shadow: rgba(0,0,0,0.1) 0 1px 3px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+.dxssControl_Metropolis .dxss-Hint.dxss-funcInfo
+{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.dxssDlgPageSetupForm .dxtcLite_Metropolis > .dxtc-stripContainer .dxtc-link
+{
+    padding: 4px 25px;
+}
+.dxssControlSys .dxmLite_Metropolis .dxm-popup .dxm-checked img[class*="ssRibbonGWIcons_PageMarginsNormal"],
+.dxssControlSys .dxmLite_Metropolis .dxm-popup .dxm-checked img[class*="ssRibbonGWIcons_PageMarginsWide"],
+.dxssControlSys .dxmLite_Metropolis .dxm-popup .dxm-checked img[class*="ssRibbonGWIcons_PageMarginsNarrow"],
+.dxssControlSys .dxmLite_Metropolis .dxm-popup .dxm-checked span[class*="ssRibbonGWIcons_PageMarginsNormal"],
+.dxssControlSys .dxmLite_Metropolis .dxm-popup .dxm-checked span[class*="ssRibbonGWIcons_PageMarginsWide"],
+.dxssControlSys .dxmLite_Metropolis .dxm-popup .dxm-checked span[class*="ssRibbonGWIcons_PageMarginsNarrow"]
+{
+    margin-top: 3px !important;
+}
+.dxssControlSys .dxmLite_Metropolis .dxm-popup img[class*="ssRibbonGWIcons_PageMarginsNormal"],
+.dxssControlSys .dxmLite_Metropolis .dxm-popup img[class*="ssRibbonGWIcons_PageMarginsWide"],
+.dxssControlSys .dxmLite_Metropolis .dxm-popup img[class*="ssRibbonGWIcons_PageMarginsNarrow"],
+.dxssControlSys .dxmLite_Metropolis .dxm-popup span[class*="ssRibbonGWIcons_PageMarginsNormal"],
+.dxssControlSys .dxmLite_Metropolis .dxm-popup span[class*="ssRibbonGWIcons_PageMarginsWide"],
+.dxssControlSys .dxmLite_Metropolis .dxm-popup span[class*="ssRibbonGWIcons_PageMarginsNarrow"]
+{
+    margin-top: 4px !important;
+}
+/* Cell Editing */
+.dxssControl_Metropolis.icbem .dxss-inputTarget
+{
+    border: 2px solid #FF8800;
+}
+/*Cell position hint*/
+.dxssControl_Metropolis .dxss-cell-pos-hint
+{
+    background-color: #FF8800;
+    color: white;
+}

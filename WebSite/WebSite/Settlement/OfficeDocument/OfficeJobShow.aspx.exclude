@@ -1,0 +1,440 @@
+﻿<%@ Page Language="C#" MasterPageFile="~/Settlement/OfficeDocument/SettlmentMaster.master" AutoEventWireup="true" CodeFile="OfficeJobShow.aspx.cs" Inherits="Settlement_OfficeDocument_OfficeJobShow" Title="مشخصات سابقه کاری" %>
+
+
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxp" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxuc" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxrp" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxm" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxpc" %>
+
+<%@ Register Assembly="TSP.WebControls" Namespace="TSP.WebControls" TagPrefix="TSPControls" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxe" %>
+
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxwgv" %>
+<%@ Register Assembly="PersianDateControls 2.0" Namespace="PersianDateControls" TagPrefix="pdc" %>
+
+<%@ Register Assembly="AjaxControls" Namespace="AjaxControls" TagPrefix="asp" %>
+<%@ Register Assembly="PersianDateControls 2.0" Namespace="PersianDateControls" TagPrefix="pdc" %>
+<%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="cc1" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxhf" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+<div id="Content" runat="server" style="width:100% ; display: block;" align="center">
+       <pdc:PersianDateScriptManager ID="PersianDateScriptManager" runat="server" CalendarCSS="PickerCalendarCSS"
+           CalendarDayWidth="50" FooterCSS="PickerFooterCSS" ForbidenCSS="PickerForbidenCSS"
+           FrameCSS="PickerCSS" HeaderCSS="PickerHeaderCSS" SelectedCSS="PickerSelectedCSS"
+           WeekDayCSS="PickerWeekDayCSS" WorkDayCSS="PickerWorkDayCSS">
+           
+       </pdc:PersianDateScriptManager>
+    <asp:UpdatePanel id="UpdatePanel1" runat="server">
+        <contenttemplate>
+<DIV style="TEXT-ALIGN: right" id="DivReport" class="DivErrors" runat="server" visible="true"><asp:Label id="LabelWarning" runat="server" Text="Label"></asp:Label>[<A class="closeLink" href="#">بستن</A>]</DIV><DIV style="WIDTH: 100%" dir=ltr align=right><dxrp:ASPxRoundPanel id="ASPxRoundPanel1" runat="server" Width="100%" ShowHeader="False"  BackColor="#EBF2F4" >
+<LeftEdge>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif"></BackgroundImage>
+</LeftEdge>
+
+<BottomRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpBottomRightCorner.png"></BottomRightCorner>
+
+<HeaderContent>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderBack.gif"></BackgroundImage>
+</HeaderContent>
+
+<ContentPaddings Padding="0px"></ContentPaddings>
+
+<NoHeaderTopRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopRightCorner.png"></NoHeaderTopRightCorner>
+
+<RightEdge>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif"></BackgroundImage>
+</RightEdge>
+
+<HeaderRightEdge>
+<BackgroundImage VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderRightEdge.gif"></BackgroundImage>
+</HeaderRightEdge>
+
+<Border BorderWidth="1px" BorderStyle="Solid" BorderColor="#7EACB1"></Border>
+
+<HeaderStyle BackColor="White" Height="23px">
+<Paddings PaddingTop="0px" PaddingBottom="0px" PaddingLeft="2px"></Paddings>
+
+<BorderBottom BorderStyle="None"></BorderBottom>
+</HeaderStyle>
+
+<Content>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpContentBack.gif"></BackgroundImage>
+</Content>
+
+<HeaderLeftEdge>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderLeftEdge.gif"></BackgroundImage>
+</HeaderLeftEdge>
+
+<BottomEdge BackColor="#D7E9F1"></BottomEdge>
+
+<TopRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpTopRightCorner.png"></TopRightCorner>
+
+<NoHeaderTopLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopLeftCorner.png"></NoHeaderTopLeftCorner>
+<PanelCollection>
+<dxp:PanelContent runat="server"><DIV dir=rtl><TABLE style="DISPLAY: block; OVERFLOW: hidden; BORDER-COLLAPSE: collapse" cellPadding=0 width="100%"><TBODY><TR><TD align=right><TABLE style="BORDER-COLLAPSE: collapse; BACKGROUND-COLOR: transparent" dir=rtl cellPadding=0><TBODY><TR><TD ><TSPControls:CustomTextBox runat="server" Text=" "  ToolTip="بازگشت" CausesValidation="False" ID="btnBack" UseSubmitBehavior="False" EnableViewState="False" EnableTheming="False" OnClick="btnBack_Click">
+<HoverStyle BackColor="#FFE0C0">
+<Border BorderWidth="1px" BorderStyle="Outset" BorderColor="Gray"></Border>
+</HoverStyle>
+
+<Image  Url="~/Images/icons/Back.png"></Image>
+</TSPControls:CustomTextBox>
+ </TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></DIV></dxp:PanelContent>
+</PanelCollection>
+
+<TopLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpTopLeftCorner.png"></TopLeftCorner>
+
+<NoHeaderTopEdge BackColor="#EBF2F4"></NoHeaderTopEdge>
+
+<BottomLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpBottomLeftCorner.png"></BottomLeftCorner>
+</dxrp:ASPxRoundPanel> </DIV> <DIV style="WIDTH: 100%" dir=rtl align=right><TSPControls:CustomAspxMenuHorizontal id="MenuPrj" runat="server"    __designer:wfdid="w2" SeparatorColor="#A5A6A8" SeparatorHeight="100%" AutoSeparators="RootOnly" SeparatorWidth="1px" ItemSpacing="0px" OnItemClick="MenuPrj_ItemClick"><Items>
+<dxm:MenuItem Text="مشخصات سابقه کار" Selected="True"></dxm:MenuItem>
+<dxm:MenuItem Text="مطلوبیت کار" Name="Quality"></dxm:MenuItem>
+</Items>
+
+<RootItemSubMenuOffset X="-1" LastItemY="-2" LastItemX="-1" FirstItemY="-2" FirstItemX="-1" Y="-2"></RootItemSubMenuOffset>
+
+<Border BorderWidth="1px" BorderStyle="Solid" BorderColor="#A5A6A8"></Border>
+
+<VerticalPopOutImage Height="8px" Width="4px"></VerticalPopOutImage>
+
+<ItemStyle VerticalAlign="Middle" ImageSpacing="5px" PopOutImageSpacing="7px" DropDownButtonSpacing="12px"></ItemStyle>
+
+<SubMenuItemStyle ImageSpacing="7px"></SubMenuItemStyle>
+
+<SubMenuStyle BackColor="#EDF3F4" GutterWidth="0px" SeparatorColor="#7EACB1"></SubMenuStyle>
+
+<HorizontalPopOutImage Height="7px" Width="7px"></HorizontalPopOutImage>
+</TSPControls:CustomAspxMenuHorizontal></DIV><BR /><DIV style="WIDTH: 100%; TEXT-ALIGN: right"><dxe:ASPxLabel id="ASPxLabel1" runat="server" Text="شرکت :">
+                </dxe:ASPxLabel> <dxe:ASPxLabel id="lblOfName" runat="server">
+                </dxe:ASPxLabel> </DIV><BR /><DIV dir=ltr><dxrp:ASPxRoundPanel id="ASPxRoundPanel2" runat="server" Width="100%"  BackColor="#EBF2F4"  HeaderText="مشاهده">
+<LeftEdge>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif"></BackgroundImage>
+</LeftEdge>
+
+<BottomRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpBottomRightCorner.png"></BottomRightCorner>
+
+<HeaderContent>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderBack.gif"></BackgroundImage>
+</HeaderContent>
+
+<ContentPaddings PaddingTop="10px" PaddingBottom="10px" PaddingLeft="4px"></ContentPaddings>
+
+<NoHeaderTopRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopRightCorner.png"></NoHeaderTopRightCorner>
+
+<RightEdge>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif"></BackgroundImage>
+</RightEdge>
+
+<HeaderRightEdge>
+<BackgroundImage VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderRightEdge.gif"></BackgroundImage>
+</HeaderRightEdge>
+
+<Border BorderWidth="1px" BorderStyle="Solid" BorderColor="#7EACB1"></Border>
+
+<HeaderStyle HorizontalAlign="Right" BackColor="White">
+<Paddings PaddingTop="0px" PaddingBottom="0px" PaddingLeft="2px"></Paddings>
+
+<BorderBottom BorderStyle="None"></BorderBottom>
+</HeaderStyle>
+
+<Content>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpContentBack.gif"></BackgroundImage>
+</Content>
+
+<HeaderLeftEdge>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderLeftEdge.gif"></BackgroundImage>
+</HeaderLeftEdge>
+
+<BottomEdge BackColor="#D7E9F1"></BottomEdge>
+
+<TopRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpTopRightCorner.png"></TopRightCorner>
+
+<NoHeaderTopLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopLeftCorner.png"></NoHeaderTopLeftCorner>
+<PanelCollection>
+<dxp:PanelContent runat="server"><TABLE dir=rtl width="100%"><TBODY><TR><TD vAlign=top align=right><dxe:ASPxLabel runat="server" Text="نام پروژه" ID="ASPxLabel9"></dxe:ASPxLabel>
+ </TD><TD vAlign=top align=right colSpan=3><TSPControls:CustomTextBox runat="server" ID="txtjPrName"  Width="282px" ReadOnly="True" ClientInstanceName="TextPrName" >
+<ValidationSettings Display="Dynamic" ErrorText="" ValidationGroup="j" ErrorTextPosition="Bottom">
+<ErrorImage Height="14px" Url="~/App_Themes/Glass/Editors/edtError.png"></ErrorImage>
+
+<RequiredField IsRequired="True" ErrorText="نام پروژه را وارد نمایید"></RequiredField>
+
+<ErrorFrameStyle ImageSpacing="4px">
+<ErrorTextPaddings PaddingLeft="4px"></ErrorTextPaddings>
+</ErrorFrameStyle>
+</ValidationSettings>
+</TSPControls:CustomTextBox>
+ </TD></TR><TR><TD vAlign=top align=right><dxe:ASPxLabel runat="server" Text="نام کارفرما" ID="ASPxLabel11"></dxe:ASPxLabel>
+ </TD><TD vAlign=top align=right colSpan=3><TSPControls:CustomTextBox runat="server" ID="txtjEmployer"  Width="170px" ReadOnly="True" ClientInstanceName="TextEmployer" >
+<ValidationSettings ValidateOnLeave="False" Display="Dynamic" ValidationGroup="j" ErrorTextPosition="Bottom">
+<ErrorImage Height="14px" Url="~/App_Themes/Glass/Editors/edtError.png"></ErrorImage>
+
+<RequiredField IsRequired="True" ErrorText="نام کارفرما را وارد نمایید"></RequiredField>
+
+<ErrorFrameStyle ImageSpacing="4px">
+<ErrorTextPaddings PaddingLeft="4px"></ErrorTextPaddings>
+</ErrorFrameStyle>
+</ValidationSettings>
+</TSPControls:CustomTextBox>
+ </TD></TR><TR><TD vAlign=top align=right><dxe:ASPxLabel runat="server" Text="نوع پروژه" ID="ASPxLabel8"></dxe:ASPxLabel>
+ </TD><TD dir=ltr vAlign=top align=right><TSPControls:CustomAspxComboBox runat="server"  LoadingPanelText="لطفاً صبر نمایید"  TextField="Name" ID="CombojPrType" DataSourceID="OdbPrType" ReadOnly="True" ValueType="System.String" ValueField="PrtId" ClientInstanceName="CmbPrType" >
+<ClientSideEvents SelectedIndexChanged="function(s, e) {
+   if(CmbPrType.GetValue() == '1')
+	{
+	TextArea.SetVisible(true);
+	TextFloor.SetVisible(true);
+	lbl1.SetVisible(true);
+	lbl2.SetVisible(true);
+	CmbSazeType.SetVisible(true);
+	lbl3.SetVisible(true);
+	}
+	else
+	{
+	TextArea.SetVisible(false);
+	TextFloor.SetVisible(false);
+	lbl1.SetVisible(false);
+	lbl2.SetVisible(false);
+	CmbSazeType.SetVisible(false);
+	lbl3.SetVisible(false);
+	}
+}"></ClientSideEvents>
+
+<ValidationSettings ValidateOnLeave="False" Display="Dynamic" ValidationGroup="j" ErrorTextPosition="Bottom">
+<ErrorImage Height="14px" Url="~/App_Themes/Glass/Editors/edtError.png"></ErrorImage>
+
+<RequiredField IsRequired="True" ErrorText="نوع پروژه را انتخاب نمایید"></RequiredField>
+
+<ErrorFrameStyle ImageSpacing="4px">
+<ErrorTextPaddings PaddingLeft="4px"></ErrorTextPaddings>
+</ErrorFrameStyle>
+</ValidationSettings>
+</TSPControls:CustomAspxComboBox>
+ </TD><TD vAlign=top align=right>&nbsp;<dxe:ASPxLabel runat="server" Text="نوع سازه" ClientVisible="False" ID="ASPxLabel10" ClientInstanceName="lbl3"></dxe:ASPxLabel>
+ </TD><TD dir=ltr vAlign=top align=right><TSPControls:CustomAspxComboBox runat="server" ClientVisible="False"  LoadingPanelText="لطفاً صبر نمایید"  TextField="Name" ID="CombojSazeType" DataSourceID="OdbSazeType" ReadOnly="True" ValueType="System.String" ValueField="SztId" ClientInstanceName="CmbSazeType" >
+<ValidationSettings ValidateOnLeave="False" Display="Dynamic" ValidationGroup="j" ErrorTextPosition="Bottom">
+<ErrorImage Height="14px" Url="~/App_Themes/Glass/Editors/edtError.png"></ErrorImage>
+
+<RequiredField IsRequired="True" ErrorText="نوع سازه را انتخاب نمایید"></RequiredField>
+
+<ErrorFrameStyle ImageSpacing="4px">
+<ErrorTextPaddings PaddingLeft="4px"></ErrorTextPaddings>
+</ErrorFrameStyle>
+</ValidationSettings>
+</TSPControls:CustomAspxComboBox>
+ </TD></TR><TR><TD vAlign=top align=right><dxe:ASPxLabel runat="server" Text="سمت" ID="ASPxLabel14"></dxe:ASPxLabel>
+ </TD><TD dir=ltr vAlign=top align=right><TSPControls:CustomAspxComboBox runat="server"  LoadingPanelText="لطفاً صبر نمایید"  TextField="PName" ID="ComboPosition" DataSourceID="OdbJobPosition" ReadOnly="True" ValueType="System.String" ValueField="PJPId" ClientInstanceName="CmbPosition" >
+<ClientSideEvents SelectedIndexChanged="function(s, e) {
+
+   if(CmbPosition.GetValue()=='8' || CmbPosition.GetValue()=='9')
+		rdpJob.SetVisible(true);
+	else
+		rdpJob.SetVisible(false);
+}"></ClientSideEvents>
+
+<ValidationSettings ValidateOnLeave="False" Display="Dynamic" ValidationGroup="j" ErrorTextPosition="Bottom">
+<ErrorImage Height="14px" Url="~/App_Themes/Glass/Editors/edtError.png"></ErrorImage>
+
+<RequiredField IsRequired="True" ErrorText="سمت را انتخاب نمایید"></RequiredField>
+
+<ErrorFrameStyle ImageSpacing="4px">
+<ErrorTextPaddings PaddingLeft="4px"></ErrorTextPaddings>
+</ErrorFrameStyle>
+</ValidationSettings>
+</TSPControls:CustomAspxComboBox>
+ </TD><TD vAlign=top align=right>&nbsp;<dxe:ASPxLabel runat="server" Text="نحوه مشارکت" ID="ASPxLabel24"></dxe:ASPxLabel>
+ </TD><TD dir=ltr vAlign=top align=right><TSPControls:CustomAspxComboBox runat="server"  LoadingPanelText="لطفاً صبر نمایید"  TextField="CorName" ID="CombojIsCorporate" DataSourceID="OdbCorType" ReadOnly="True" ValueType="System.String" ValueField="CortId" ClientInstanceName="CmbCorporate" >
+<ValidationSettings ValidateOnLeave="False" Display="Dynamic" ValidationGroup="j" ErrorTextPosition="Bottom">
+<ErrorImage Height="14px" Url="~/App_Themes/Glass/Editors/edtError.png"></ErrorImage>
+
+<RequiredField IsRequired="True" ErrorText="نحوه مشارکت را انتخاب نمایید"></RequiredField>
+
+<ErrorFrameStyle ImageSpacing="4px">
+<ErrorTextPaddings PaddingLeft="4px"></ErrorTextPaddings>
+</ErrorFrameStyle>
+</ValidationSettings>
+<Columns>
+<dxe:ListBoxColumn FieldName="CorName" Caption="نام" Width="200px"></dxe:ListBoxColumn>
+<dxe:ListBoxColumn FieldName="Rate" Caption="ضریب"></dxe:ListBoxColumn>
+</Columns>
+</TSPControls:CustomAspxComboBox>
+ </TD></TR><TR><TD vAlign=top align=right><dxe:ASPxLabel runat="server" Text="کشور" ID="ASPxLabel12"></dxe:ASPxLabel>
+ </TD><TD dir=ltr vAlign=top align=right><TSPControls:CustomAspxComboBox runat="server"  LoadingPanelText="لطفاً صبر نمایید"  TextField="CounName" ID="CombojCountry" DataSourceID="ODBJobCountry" ReadOnly="True" ValueType="System.String" ValueField="CounId" ClientInstanceName="CmbCountry" >
+<ValidationSettings ValidateOnLeave="False" Display="Dynamic" ValidationGroup="j" ErrorTextPosition="Bottom">
+<ErrorImage Height="14px" Url="~/App_Themes/Glass/Editors/edtError.png"></ErrorImage>
+
+<RequiredField IsRequired="True" ErrorText="کشور را انتخاب نمایید"></RequiredField>
+
+<ErrorFrameStyle ImageSpacing="4px">
+<ErrorTextPaddings PaddingLeft="4px"></ErrorTextPaddings>
+</ErrorFrameStyle>
+</ValidationSettings>
+</TSPControls:CustomAspxComboBox>
+ </TD><TD vAlign=top align=right>&nbsp;<dxe:ASPxLabel runat="server" Text="شهر" ID="ASPxLabel13"></dxe:ASPxLabel>
+ </TD><TD vAlign=top align=right><TSPControls:CustomTextBox runat="server" ID="txtjCity"  Width="170px" ReadOnly="True" ClientInstanceName="TextCity" >
+<ValidationSettings ValidateOnLeave="False" Display="Dynamic" ValidationGroup="j" ErrorTextPosition="Bottom">
+<RequiredField IsRequired="True" ErrorText="شهر را وارد نمایید"></RequiredField>
+</ValidationSettings>
+</TSPControls:CustomTextBox>
+ </TD></TR><TR><TD vAlign=top align=right><dxe:ASPxLabel runat="server" Text="تاریخ شروع پروژه" ID="ASPxLabel16"></dxe:ASPxLabel>
+ </TD><TD vAlign=top align=right><pdc:PersianDateTextBox runat="server" ReadOnly="True" DefaultDate="" Width="185px" ShowPickerOnTop="True" ID="txtjStartDate" PickerDirection="ToRight" RightToLeft="False" IconUrl="~/Image/Calendar.gif" style="DIRECTION:ltr;TEXT-ALIGN:right;"></pdc:PersianDateTextBox>
+ </TD><TD vAlign=top align=right>&nbsp;<dxe:ASPxLabel runat="server" Text="حجم پروژه" ID="ASPxLabel21"></dxe:ASPxLabel>
+ </TD><TD vAlign=top align=right><TSPControls:CustomTextBox runat="server" ID="txtjPrVolume"  Width="170px" ReadOnly="True" ClientInstanceName="TextVolume" >
+<ValidationSettings Display="Dynamic" ErrorTextPosition="Bottom">
+<RequiredField ErrorText=""></RequiredField>
+</ValidationSettings>
+</TSPControls:CustomTextBox>
+ </TD></TR><TR><TD vAlign=top align=right><dxe:ASPxLabel runat="server" Text="تاریخ شروع همکاری" ID="ASPxLabel17"></dxe:ASPxLabel>
+ </TD><TD vAlign=top align=right><pdc:PersianDateTextBox runat="server" ReadOnly="True" DefaultDate="" Width="185px" ShowPickerOnTop="True" ID="txtjCoStartDate" PickerDirection="ToRight" RightToLeft="False" IconUrl="~/Image/Calendar.gif" style="DIRECTION:ltr;TEXT-ALIGN:right;"></pdc:PersianDateTextBox>
+ </TD><TD vAlign=top align=right>&nbsp;<dxe:ASPxLabel runat="server" Text="تاریخ پایان همکاری" ID="ASPxLabel19"></dxe:ASPxLabel>
+ </TD><TD vAlign=top align=right><pdc:PersianDateTextBox runat="server" ReadOnly="True" DefaultDate="" Width="185px" ShowPickerOnTop="True" ID="txtjCoEndDate" PickerDirection="ToRight" RightToLeft="False" IconUrl="~/Image/Calendar.gif" style="DIRECTION:ltr;TEXT-ALIGN:right;"></pdc:PersianDateTextBox>
+ </TD></TR><TR><TD vAlign=top align=right><dxe:ASPxLabel runat="server" Text="وضعیت پروژه در زمان شروع همکاری" Width="110px" ID="ASPxLabel18"></dxe:ASPxLabel>
+ </TD><TD vAlign=top align=right><TSPControls:CustomTextBox runat="server" ID="txtjStartStatus"  Width="170px" ReadOnly="True" ClientInstanceName="TextSStatus" ></TSPControls:CustomTextBox>
+ </TD><TD vAlign=top align=right><dxe:ASPxLabel runat="server" Text="وضعیت پروژه در زمان پایان همکاری" Width="110px" ID="ASPxLabel20"></dxe:ASPxLabel>
+ </TD><TD vAlign=top align=right><TSPControls:CustomTextBox runat="server" ID="txtjEndStatus"  Width="170px" ReadOnly="True" ClientInstanceName="TextEStatus" ></TSPControls:CustomTextBox>
+ </TD></TR><TR><TD vAlign=top align=right><dxe:ASPxLabel runat="server" Text="زیربنا" ClientVisible="False" ID="ASPxLabel22" ClientInstanceName="lbl1"></dxe:ASPxLabel>
+ </TD><TD vAlign=top align=right><TSPControls:CustomTextBox runat="server" ID="txtjArea"  ClientVisible="False" Width="170px" ReadOnly="True" ClientInstanceName="TextArea" >
+<ValidationSettings Display="Dynamic" ValidationGroup="j" ErrorTextPosition="Bottom">
+<RequiredField IsRequired="True" ErrorText="زبر بنا را وارد نمایید"></RequiredField>
+
+<RegularExpression ErrorText="مقدار زیربنا را صحیح وارد نمایید" ValidationExpression="\d*"></RegularExpression>
+</ValidationSettings>
+</TSPControls:CustomTextBox>
+ </TD><TD vAlign=top align=right>&nbsp;<dxe:ASPxLabel runat="server" Text="تعداد طبقات" ClientVisible="False" ID="ASPxLabel23" ClientInstanceName="lbl2"></dxe:ASPxLabel>
+ </TD><TD vAlign=top align=right><TSPControls:CustomTextBox runat="server" ID="txtjFloor"  ClientVisible="False" Width="170px" ReadOnly="True" ClientInstanceName="TextFloor" >
+<ValidationSettings Display="Dynamic" ValidationGroup="j" ErrorTextPosition="Bottom">
+<RequiredField IsRequired="True" ErrorText="تعداد طبقات را وارد نمایید"></RequiredField>
+
+<RegularExpression ErrorText="تعداد طبقات را صحیح وارد نمایید" ValidationExpression="\d*"></RegularExpression>
+</ValidationSettings>
+</TSPControls:CustomTextBox>
+ </TD></TR><TR><TD vAlign=top align=right><dxe:ASPxLabel runat="server" Text="توضیحات" ID="ASPxLabel25"></dxe:ASPxLabel>
+ </TD><TD vAlign=top align=right colSpan=3><TSPControls:CustomASPXMemo runat="server" Height="33px" ID="txtjDesc"  Width="530px" ReadOnly="True" ClientInstanceName="TextDesc" ></TSPControls:CustomASPXMemo>
+ </TD></TR></TBODY></TABLE></dxp:PanelContent>
+</PanelCollection>
+
+<TopLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpTopLeftCorner.png"></TopLeftCorner>
+
+<NoHeaderTopEdge BackColor="#EBF2F4"></NoHeaderTopEdge>
+
+<BottomLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpBottomLeftCorner.png"></BottomLeftCorner>
+</dxrp:ASPxRoundPanel><BR /><DIV style="WIDTH: 100%" dir=ltr align=right>&nbsp; <dxrp:ASPxRoundPanel id="ASPxRoundPanel3" runat="server" Width="100%" ShowHeader="False"  BackColor="#EBF2F4" >
+<LeftEdge>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif"></BackgroundImage>
+</LeftEdge>
+
+<BottomRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpBottomRightCorner.png"></BottomRightCorner>
+
+<HeaderContent>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderBack.gif"></BackgroundImage>
+</HeaderContent>
+
+<ContentPaddings Padding="0px"></ContentPaddings>
+
+<NoHeaderTopRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopRightCorner.png"></NoHeaderTopRightCorner>
+
+<RightEdge>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif"></BackgroundImage>
+</RightEdge>
+
+<HeaderRightEdge>
+<BackgroundImage VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderRightEdge.gif"></BackgroundImage>
+</HeaderRightEdge>
+
+<Border BorderWidth="1px" BorderStyle="Solid" BorderColor="#7EACB1"></Border>
+
+<HeaderStyle BackColor="White" Height="23px">
+<Paddings PaddingTop="0px" PaddingBottom="0px" PaddingLeft="2px"></Paddings>
+
+<BorderBottom BorderStyle="None"></BorderBottom>
+</HeaderStyle>
+
+<Content>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpContentBack.gif"></BackgroundImage>
+</Content>
+
+<HeaderLeftEdge>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderLeftEdge.gif"></BackgroundImage>
+</HeaderLeftEdge>
+
+<BottomEdge BackColor="#D7E9F1"></BottomEdge>
+
+<TopRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpTopRightCorner.png"></TopRightCorner>
+
+<NoHeaderTopLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopLeftCorner.png"></NoHeaderTopLeftCorner>
+<PanelCollection>
+<dxp:PanelContent runat="server"><DIV dir=rtl><TABLE style="DISPLAY: block; OVERFLOW: hidden; BORDER-COLLAPSE: collapse" cellPadding=0 width="100%"><TBODY><TR><TD align=right><TABLE style="BORDER-COLLAPSE: collapse; BACKGROUND-COLOR: transparent" dir=rtl cellPadding=0><TBODY><TR><TD><TSPControls:CustomTextBox runat="server" Text=" "  ToolTip="بازگشت" CausesValidation="False" ID="ASPxButton6" UseSubmitBehavior="False" EnableViewState="False" EnableTheming="False" OnClick="btnBack_Click">
+<HoverStyle BackColor="#FFE0C0">
+<Border BorderWidth="1px" BorderStyle="Outset" BorderColor="Gray"></Border>
+</HoverStyle>
+
+<Image  Url="~/Images/icons/Back.png"></Image>
+</TSPControls:CustomTextBox>
+ </TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></DIV></dxp:PanelContent>
+</PanelCollection>
+
+<TopLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpTopLeftCorner.png"></TopLeftCorner>
+
+<NoHeaderTopEdge BackColor="#EBF2F4"></NoHeaderTopEdge>
+
+<BottomLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpBottomLeftCorner.png"></BottomLeftCorner>
+</dxrp:ASPxRoundPanel> </DIV></DIV>
+</contenttemplate>
+    </asp:UpdatePanel><asp:ModalUpdateProgress id="ModalUpdateProgress2" runat="server"
+        AssociatedUpdatePanelID="UpdatePanel1" BackgroundCssClass="modalProgressGreyBackground" 
+        DisplayAfter="0">
+        <progresstemplate>
+                        <div class="modalPopup">
+                            لطفا صبر نمایید
+                            <img src="../../Image/indicator.gif" align="middle" />
+                        </div>
+                    </progresstemplate>
+    </asp:ModalUpdateProgress><asp:HiddenField ID="OfficeId" runat="server" Visible="False" /><asp:HiddenField ID="OfficeRequest" runat="server" Visible="False" />
+    <asp:HiddenField ID="JobId" runat="server" Visible="False" />
+    <asp:HiddenField ID="PgMode" runat="server" Visible="False" />
+    <asp:ObjectDataSource ID="ODBJobCountry" runat="server" SqlCacheDependency="NezamFars:tblCountry" CacheExpirationPolicy="Sliding" DeleteMethod="Delete"
+        EnableCaching="True" InsertMethod="Insert" OldValuesParameterFormatString="original_{0}"
+        SelectMethod="GetData" TypeName="TSP.DataManager.CountryManager" UpdateMethod="Update">
+        <InsertParameters>
+            <asp:Parameter Name="CounCode" Type="String" />
+            <asp:Parameter Name="CounName" Type="String" />
+            <asp:Parameter Name="Description" Type="String" />
+            <asp:Parameter Name="ModifiedDate" Type="DateTime" />
+        </InsertParameters>
+        <DeleteParameters>
+            <asp:Parameter Name="Original_CounId" Type="Int32" />
+            <asp:Parameter Name="Original_LastTimeStamp" Type="Object" />
+        </DeleteParameters>
+        <UpdateParameters>
+            <asp:Parameter Name="CounCode" Type="String" />
+            <asp:Parameter Name="CounName" Type="String" />
+            <asp:Parameter Name="Description" Type="String" />
+            <asp:Parameter Name="ModifiedDate" Type="DateTime" />
+            <asp:Parameter Name="Original_CounId" Type="Int32" />
+            <asp:Parameter Name="Original_LastTimeStamp" Type="Object" />
+            <asp:Parameter Name="CounId" Type="Int32" />
+        </UpdateParameters>
+    </asp:ObjectDataSource>
+    <asp:ObjectDataSource ID="OdbPrType" runat="server" OldValuesParameterFormatString="original_{0}"
+        SelectMethod="GetData" TypeName="TSP.DataManager.ProjectTypeManager"></asp:ObjectDataSource>
+    <asp:ObjectDataSource ID="OdbSazeType" runat="server" OldValuesParameterFormatString="original_{0}"
+        SelectMethod="GetData" TypeName="TSP.DataManager.SazeTypeManager"></asp:ObjectDataSource>
+    <asp:ObjectDataSource ID="OdbCorType" runat="server" OldValuesParameterFormatString="original_{0}"
+        SelectMethod="GetData" TypeName="TSP.DataManager.CorporationTypeManager"></asp:ObjectDataSource>
+    <asp:ObjectDataSource ID="OdbJobPosition" runat="server" OldValuesParameterFormatString="original_{0}"
+        SelectMethod="GetData" TypeName="TSP.DataManager.ProjectJobPositionManager"></asp:ObjectDataSource>
+   
+       </div>
+</asp:Content>
+
+
+
+

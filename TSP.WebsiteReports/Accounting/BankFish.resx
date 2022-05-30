@@ -1,0 +1,604 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="lblPaymentIdProvinceDown.Dpi" type="System.Single, mscorlib">
+    <value>254</value>
+  </data>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="lblPaymentIdProvinceDown.Font" type="System.Drawing.Font, System.Drawing">
+    <value>B Nazanin, 12pt, style=Bold</value>
+  </data>
+  <assembly alias="DevExpress.Data.v17.1" name="DevExpress.Data.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+  <data name="lblPaymentIdProvinceDown.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v17.1">
+    <value>391.605957, 1796.45691</value>
+  </data>
+  <data name="lblPaymentIdProvinceDown.SizeF" type="System.Drawing.SizeF, System.Drawing">
+    <value>886.354858, 79.58649</value>
+  </data>
+  <data name="lblPaymentIdProvinceDown.Text" xml:space="preserve">
+    <value>شناسه استان</value>
+  </data>
+  <data name="lblPaymentIdProvinceTop.Dpi" type="System.Single, mscorlib">
+    <value>254</value>
+  </data>
+  <data name="lblPaymentIdProvinceTop.Font" type="System.Drawing.Font, System.Drawing">
+    <value>B Nazanin, 12pt, style=Bold</value>
+  </data>
+  <data name="lblPaymentIdProvinceTop.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v17.1">
+    <value>391.605957, 789.27356</value>
+  </data>
+  <data name="lblPaymentIdProvinceTop.SizeF" type="System.Drawing.SizeF, System.Drawing">
+    <value>886.354858, 79.58649</value>
+  </data>
+  <data name="lblPaymentIdProvinceTop.Text" xml:space="preserve">
+    <value>شناسه استان</value>
+  </data>
+  <data name="lblPaymentIdPOSDown.Dpi" type="System.Single, mscorlib">
+    <value>254</value>
+  </data>
+  <data name="lblPaymentIdPOSDown.Font" type="System.Drawing.Font, System.Drawing">
+    <value>B Nazanin, 12pt, style=Bold</value>
+  </data>
+  <data name="lblPaymentIdPOSDown.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v17.1">
+    <value>120.060905, 1699.92529</value>
+  </data>
+  <data name="lblPaymentIdPOSDown.SizeF" type="System.Drawing.SizeF, System.Drawing">
+    <value>886.355347, 74.29492</value>
+  </data>
+  <data name="lblPaymentIdPOSDown.Text" xml:space="preserve">
+    <value>شناسه کارت خوان</value>
+  </data>
+  <data name="lblPaymentIdPOSTop.Dpi" type="System.Single, mscorlib">
+    <value>254</value>
+  </data>
+  <data name="lblPaymentIdPOSTop.Font" type="System.Drawing.Font, System.Drawing">
+    <value>B Nazanin, 12pt, style=Bold</value>
+  </data>
+  <data name="lblPaymentIdPOSTop.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v17.1">
+    <value>120.060905, 694.333435</value>
+  </data>
+  <data name="lblPaymentIdPOSTop.SizeF" type="System.Drawing.SizeF, System.Drawing">
+    <value>886.354858, 79.58649</value>
+  </data>
+  <data name="lblPaymentIdPOSTop.Text" xml:space="preserve">
+    <value>شناسه کارت خوان</value>
+  </data>
+  <data name="lblDesignerMesg.Dpi" type="System.Single, mscorlib">
+    <value>254</value>
+  </data>
+  <data name="lblDesignerMesg.Font" type="System.Drawing.Font, System.Drawing">
+    <value>B Nazanin, 9pt, style=Bold</value>
+  </data>
+  <data name="lblDesignerMesg.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v17.1">
+    <value>609.9993, 889</value>
+  </data>
+  <data name="lblDesignerMesg.SizeF" type="System.Drawing.SizeF, System.Drawing">
+    <value>605.709167, 50.4823</value>
+  </data>
+  <data name="lblDesignerMesg.Text" xml:space="preserve">
+    <value>پرداخت وجه 5% به عهده مهندس طراح مربوطه می باشد</value>
+  </data>
+  <data name="lblDesignerMesg.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="lblDesignerMesg2.Dpi" type="System.Single, mscorlib">
+    <value>254</value>
+  </data>
+  <data name="lblDesignerMesg2.Font" type="System.Drawing.Font, System.Drawing">
+    <value>B Nazanin, 9pt, style=Bold</value>
+  </data>
+  <data name="lblDesignerMesg2.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v17.1">
+    <value>609.9993, 1893.28271</value>
+  </data>
+  <data name="lblDesignerMesg2.SizeF" type="System.Drawing.SizeF, System.Drawing">
+    <value>605.709167, 50.4823</value>
+  </data>
+  <data name="lblDesignerMesg2.Text" xml:space="preserve">
+    <value>پرداخت وجه 5% به عهده مهندس طراح مربوطه می باشد</value>
+  </data>
+  <data name="lblDesignerMesg2.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="xrLine1.Dpi" type="System.Single, mscorlib">
+    <value>254</value>
+  </data>
+  <data name="xrLine1.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v17.1">
+    <value>0, 1030</value>
+  </data>
+  <data name="xrLine1.SizeF" type="System.Drawing.SizeF, System.Drawing">
+    <value>1739.91, 5</value>
+  </data>
+  <data name="xrLine1.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="lblPaymentIdDown.Dpi" type="System.Single, mscorlib">
+    <value>254</value>
+  </data>
+  <data name="lblPaymentIdDown.Font" type="System.Drawing.Font, System.Drawing">
+    <value>B Nazanin, 12pt, style=Bold</value>
+  </data>
+  <data name="lblPaymentIdDown.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v17.1">
+    <value>1006.4162, 1699.92542</value>
+  </data>
+  <data name="lblPaymentIdDown.SizeF" type="System.Drawing.SizeF, System.Drawing">
+    <value>629.709045, 74.29492</value>
+  </data>
+  <data name="lblPaymentIdDown.Text" xml:space="preserve">
+    <value>شناسه پرداخت</value>
+  </data>
+  <data name="lblPaymentIdTop.Dpi" type="System.Single, mscorlib">
+    <value>254</value>
+  </data>
+  <data name="lblPaymentIdTop.Font" type="System.Drawing.Font, System.Drawing">
+    <value>B Nazanin, 12pt, style=Bold</value>
+  </data>
+  <data name="lblPaymentIdTop.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v17.1">
+    <value>1006.41577, 694.333435</value>
+  </data>
+  <data name="lblPaymentIdTop.SizeF" type="System.Drawing.SizeF, System.Drawing">
+    <value>629.709045, 79.5864258</value>
+  </data>
+  <data name="lblPaymentIdTop.Text" xml:space="preserve">
+    <value>شناسه پرداخت</value>
+  </data>
+  <data name="lblSSN2.Dpi" type="System.Single, mscorlib">
+    <value>254</value>
+  </data>
+  <data name="lblSSN2.Font" type="System.Drawing.Font, System.Drawing">
+    <value>B Nazanin, 10pt, style=Bold</value>
+  </data>
+  <data name="lblSSN2.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v17.1">
+    <value>609.9993, 1558.73645</value>
+  </data>
+  <data name="lblSSN2.SizeF" type="System.Drawing.SizeF, System.Drawing">
+    <value>343.145569, 82.2325439</value>
+  </data>
+  <data name="lblSSN2.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v17.1">
+    <value>TopLeft</value>
+  </data>
+  <data name="lblSSN.Dpi" type="System.Single, mscorlib">
+    <value>254</value>
+  </data>
+  <data name="lblSSN.Font" type="System.Drawing.Font, System.Drawing">
+    <value>B Nazanin, 10pt, style=Bold</value>
+  </data>
+  <data name="lblSSN.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v17.1">
+    <value>607.999146, 544.312561</value>
+  </data>
+  <data name="lblSSN.SizeF" type="System.Drawing.SizeF, System.Drawing">
+    <value>343.145569, 82.23224</value>
+  </data>
+  <data name="lblSSN.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v17.1">
+    <value>TopLeft</value>
+  </data>
+  <data name="lblAccountNumber2.Dpi" type="System.Single, mscorlib">
+    <value>254</value>
+  </data>
+  <data name="lblAccountNumber2.Font" type="System.Drawing.Font, System.Drawing">
+    <value>B Nazanin, 12pt, style=Bold</value>
+  </data>
+  <data name="lblAccountNumber2.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v17.1">
+    <value>148.520859, 1275.11292</value>
+  </data>
+  <data name="lblAccountNumber2.SizeF" type="System.Drawing.SizeF, System.Drawing">
+    <value>500, 56.0002441</value>
+  </data>
+  <data name="lblAccountNumber2.Text" xml:space="preserve">
+    <value>578669363</value>
+  </data>
+  <data name="lblAccountNumber2.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v17.1">
+    <value>TopRight</value>
+  </data>
+  <data name="lblAmountAlph2.Dpi" type="System.Single, mscorlib">
+    <value>254</value>
+  </data>
+  <data name="lblAmountAlph2.Font" type="System.Drawing.Font, System.Drawing">
+    <value>B Nazanin, 10pt, style=Bold</value>
+  </data>
+  <data name="lblAmountAlph2.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v17.1">
+    <value>148.520859, 1372.19666</value>
+  </data>
+  <data name="lblAmountAlph2.SizeF" type="System.Drawing.SizeF, System.Drawing">
+    <value>650.5834, 67.99988</value>
+  </data>
+  <data name="lblAmountAlph2.Text" xml:space="preserve">
+    <value>دو میلیون و ششصد و شصت و نه هزار ریال</value>
+  </data>
+  <data name="lblPayerAddress2.Dpi" type="System.Single, mscorlib">
+    <value>254</value>
+  </data>
+  <data name="lblPayerAddress2.Font" type="System.Drawing.Font, System.Drawing">
+    <value>B Nazanin, 10pt, style=Bold</value>
+  </data>
+  <data name="lblPayerAddress2.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v17.1">
+    <value>953.144958, 1559.73633</value>
+  </data>
+  <data name="lblPayerAddress2.SizeF" type="System.Drawing.SizeF, System.Drawing">
+    <value>684.9802, 82.23242</value>
+  </data>
+  <data name="lblPayerAddress2.Text" xml:space="preserve">
+    <value>علیرضا دولتی شیراز خ زند کوچه 145 پلاک 432</value>
+  </data>
+  <data name="lblOwnerName2.Dpi" type="System.Single, mscorlib">
+    <value>254</value>
+  </data>
+  <data name="lblOwnerName2.Font" type="System.Drawing.Font, System.Drawing">
+    <value>B Nazanin, 10pt, style=Bold</value>
+  </data>
+  <data name="lblOwnerName2.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v17.1">
+    <value>769.521, 1474.733</value>
+  </data>
+  <data name="lblOwnerName2.SizeF" type="System.Drawing.SizeF, System.Drawing">
+    <value>624.4169, 69.00342</value>
+  </data>
+  <data name="lblOwnerName2.Text" xml:space="preserve">
+    <value>علیرضا دولتی شیراز خ زند کوچه 145 پلاک 432</value>
+  </data>
+  <data name="lblBranch2.Dpi" type="System.Single, mscorlib">
+    <value>254</value>
+  </data>
+  <data name="lblBranch2.Font" type="System.Drawing.Font, System.Drawing">
+    <value>B Nazanin, 9pt, style=Bold</value>
+  </data>
+  <data name="lblBranch2.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v17.1">
+    <value>507.0627, 1168.8009</value>
+  </data>
+  <data name="lblBranch2.SizeF" type="System.Drawing.SizeF, System.Drawing">
+    <value>400.520721, 52.7084961</value>
+  </data>
+  <data name="lblBranch2.Text" xml:space="preserve">
+    <value>نظام مهندسی ساختمان استان فارس</value>
+  </data>
+  <data name="lblDate2.Dpi" type="System.Single, mscorlib">
+    <value>254</value>
+  </data>
+  <data name="lblDate2.Font" type="System.Drawing.Font, System.Drawing">
+    <value>B Nazanin, 12pt, style=Bold</value>
+  </data>
+  <data name="lblDate2.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v17.1">
+    <value>1402.00012, 1168.80078</value>
+  </data>
+  <data name="lblDate2.SizeF" type="System.Drawing.SizeF, System.Drawing">
+    <value>236.125, 68</value>
+  </data>
+  <data name="lblDate2.Text" xml:space="preserve">
+    <value>9999/99/99</value>
+  </data>
+  <data name="lblDate2.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v17.1">
+    <value>TopCenter</value>
+  </data>
+  <data name="lblAmount2.Dpi" type="System.Single, mscorlib">
+    <value>254</value>
+  </data>
+  <data name="lblAmount2.Font" type="System.Drawing.Font, System.Drawing">
+    <value>B Nazanin, 12pt, style=Bold</value>
+  </data>
+  <data name="lblAmount2.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v17.1">
+    <value>1178.959, 1372.19666</value>
+  </data>
+  <data name="lblAmount2.SizeF" type="System.Drawing.SizeF, System.Drawing">
+    <value>304.2706, 67.99988</value>
+  </data>
+  <data name="lblAmount2.Text" xml:space="preserve">
+    <value>2669333</value>
+  </data>
+  <data name="lblAmount2.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v17.1">
+    <value>TopLeft</value>
+  </data>
+  <data name="lblAccountName2.Dpi" type="System.Single, mscorlib">
+    <value>254</value>
+  </data>
+  <data name="lblAccountName2.Font" type="System.Drawing.Font, System.Drawing">
+    <value>B Nazanin, 10pt, style=Bold</value>
+  </data>
+  <data name="lblAccountName2.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v17.1">
+    <value>999.999939, 1267.52966</value>
+  </data>
+  <data name="lblAccountName2.SizeF" type="System.Drawing.SizeF, System.Drawing">
+    <value>450, 63.5834961</value>
+  </data>
+  <data name="lblAccountName2.Text" xml:space="preserve">
+    <value>نظام مهندسی ساختمان استان فارس</value>
+  </data>
+  <data name="lblPayerAddress.Dpi" type="System.Single, mscorlib">
+    <value>254</value>
+  </data>
+  <data name="lblPayerAddress.Font" type="System.Drawing.Font, System.Drawing">
+    <value>B Nazanin, 10pt, style=Bold</value>
+  </data>
+  <data name="lblPayerAddress.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v17.1">
+    <value>951.1448, 544.312561</value>
+  </data>
+  <data name="lblPayerAddress.SizeF" type="System.Drawing.SizeF, System.Drawing">
+    <value>684.9801, 82.2323</value>
+  </data>
+  <data name="lblPayerAddress.Text" xml:space="preserve">
+    <value>علیرضا دولتی شیراز خ زند کوچه 145 پلاک 432</value>
+  </data>
+  <data name="lblOwnerName.Dpi" type="System.Single, mscorlib">
+    <value>254</value>
+  </data>
+  <data name="lblOwnerName.Font" type="System.Drawing.Font, System.Drawing">
+    <value>B Nazanin, 10pt, style=Bold</value>
+  </data>
+  <data name="lblOwnerName.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v17.1">
+    <value>759.520935, 444.4966</value>
+  </data>
+  <data name="lblOwnerName.SizeF" type="System.Drawing.SizeF, System.Drawing">
+    <value>624.4169, 69.00339</value>
+  </data>
+  <data name="lblOwnerName.Text" xml:space="preserve">
+    <value>علیرضا دولتی شیراز خ زند کوچه 145 پلاک 432</value>
+  </data>
+  <data name="lblAccountNumber.Dpi" type="System.Single, mscorlib">
+    <value>254</value>
+  </data>
+  <data name="lblAccountNumber.Font" type="System.Drawing.Font, System.Drawing">
+    <value>B Nazanin, 12pt, style=Bold</value>
+  </data>
+  <data name="lblAccountNumber.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v17.1">
+    <value>148.520813, 221.249985</value>
+  </data>
+  <data name="lblAccountNumber.SizeF" type="System.Drawing.SizeF, System.Drawing">
+    <value>500, 66.229126</value>
+  </data>
+  <data name="lblAccountNumber.Text" xml:space="preserve">
+    <value>65456453</value>
+  </data>
+  <data name="lblAccountNumber.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v17.1">
+    <value>TopRight</value>
+  </data>
+  <data name="lblAmountAlph.Dpi" type="System.Single, mscorlib">
+    <value>254</value>
+  </data>
+  <data name="lblAmountAlph.Font" type="System.Drawing.Font, System.Drawing">
+    <value>B Nazanin, 10pt, style=Bold</value>
+  </data>
+  <data name="lblAmountAlph.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v17.1">
+    <value>158.520813, 345.729248</value>
+  </data>
+  <data name="lblAmountAlph.SizeF" type="System.Drawing.SizeF, System.Drawing">
+    <value>650.5834, 68.22922</value>
+  </data>
+  <data name="lblAmountAlph.Text" xml:space="preserve">
+    <value>دو میلیون و ششصد و شصت و نه هزار ریال</value>
+  </data>
+  <data name="lblAmount.Dpi" type="System.Single, mscorlib">
+    <value>254</value>
+  </data>
+  <data name="lblAmount.Font" type="System.Drawing.Font, System.Drawing">
+    <value>B Nazanin, 12pt, style=Bold</value>
+  </data>
+  <data name="lblAmount.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v17.1">
+    <value>1178.95886, 346.729248</value>
+  </data>
+  <data name="lblAmount.SizeF" type="System.Drawing.SizeF, System.Drawing">
+    <value>304.27063, 68.22925</value>
+  </data>
+  <data name="lblAmount.Text" xml:space="preserve">
+    <value>2669333</value>
+  </data>
+  <data name="lblAmount.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v17.1">
+    <value>TopLeft</value>
+  </data>
+  <data name="lblAccountName.Dpi" type="System.Single, mscorlib">
+    <value>254</value>
+  </data>
+  <data name="lblAccountName.Font" type="System.Drawing.Font, System.Drawing">
+    <value>B Nazanin, 10pt, style=Bold</value>
+  </data>
+  <data name="lblAccountName.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v17.1">
+    <value>999.999939, 221.249985</value>
+  </data>
+  <data name="lblAccountName.SizeF" type="System.Drawing.SizeF, System.Drawing">
+    <value>450, 66.22916</value>
+  </data>
+  <data name="lblAccountName.Text" xml:space="preserve">
+    <value>نظام مهندسی ساختمان استان فارس</value>
+  </data>
+  <data name="lblBranch.Dpi" type="System.Single, mscorlib">
+    <value>254</value>
+  </data>
+  <data name="lblBranch.Font" type="System.Drawing.Font, System.Drawing">
+    <value>B Nazanin, 9pt, style=Bold</value>
+  </data>
+  <data name="lblBranch.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v17.1">
+    <value>507.0627, 108.166641</value>
+  </data>
+  <data name="lblBranch.SizeF" type="System.Drawing.SizeF, System.Drawing">
+    <value>400.520721, 63.5833435</value>
+  </data>
+  <data name="lblBranch.Text" xml:space="preserve">
+    <value>نظام مهندسی ساختمان استان فارس</value>
+  </data>
+  <data name="lblDate.Dpi" type="System.Single, mscorlib">
+    <value>254</value>
+  </data>
+  <data name="lblDate.Font" type="System.Drawing.Font, System.Drawing">
+    <value>B Nazanin, 12pt, style=Bold</value>
+  </data>
+  <data name="lblDate.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v17.1">
+    <value>1402.00012, 114.166641</value>
+  </data>
+  <data name="lblDate.SizeF" type="System.Drawing.SizeF, System.Drawing">
+    <value>236.125, 67.42</value>
+  </data>
+  <data name="lblDate.Text" xml:space="preserve">
+    <value>9999/99/99</value>
+  </data>
+  <data name="lblDate.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v17.1">
+    <value>TopCenter</value>
+  </data>
+  <data name="Detail.Dpi" type="System.Single, mscorlib">
+    <value>254</value>
+  </data>
+  <data name="Detail.HeightF" type="System.Single, mscorlib">
+    <value>2200</value>
+  </data>
+  <data name="Detail.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v17.1">
+    <value>TopRight</value>
+  </data>
+  <data name="TopMargin.Dpi" type="System.Single, mscorlib">
+    <value>254</value>
+  </data>
+  <data name="TopMargin.HeightF" type="System.Single, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="TopMargin.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v17.1">
+    <value>TopLeft</value>
+  </data>
+  <data name="BottomMargin.Dpi" type="System.Single, mscorlib">
+    <value>254</value>
+  </data>
+  <data name="BottomMargin.HeightF" type="System.Single, mscorlib">
+    <value>0</value>
+  </data>
+  <data name="BottomMargin.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v17.1">
+    <value>TopLeft</value>
+  </data>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="$this.Dpi" type="System.Single, mscorlib">
+    <value>254</value>
+  </data>
+  <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
+    <value>B Nazanin, 9.75pt, style=Bold</value>
+  </data>
+  <data name="$this.Margins" type="System.Drawing.Printing.Margins, System.Drawing">
+    <value>0, 0, 0, 0</value>
+  </data>
+  <data name="$this.PageHeight" type="System.Int32, mscorlib">
+    <value>2200</value>
+  </data>
+  <data name="$this.PageWidth" type="System.Int32, mscorlib">
+    <value>1750</value>
+  </data>
+  <data name="$this.PaperKind" type="System.Drawing.Printing.PaperKind, System.Drawing">
+    <value>Custom</value>
+  </data>
+  <assembly alias="DevExpress.XtraReports.v17.1" name="DevExpress.XtraReports.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+  <data name="$this.ReportUnit" type="DevExpress.XtraReports.UI.ReportUnit, DevExpress.XtraReports.v17.1">
+    <value>TenthsOfAMillimeter</value>
+  </data>
+  <data name="$this.SnapGridSize" type="System.Single, mscorlib">
+    <value>31.75</value>
+  </data>
+</root>

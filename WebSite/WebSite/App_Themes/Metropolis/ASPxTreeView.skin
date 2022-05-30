@@ -1,0 +1,10 @@
+<%@ Register TagPrefix="dx" Namespace="DevExpress.Data" Assembly="DevExpress.Data.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<%@ Register TagPrefix="dx" Namespace="DevExpress.Web" Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+
+<dx:ASPxTreeView runat="server" ShowTreeLines="False">
+    <Images SpriteCssFilePath="{0}/sprite.css">
+        <NodeLoadingPanel Url="Web/tvNodeLoading.gif" />
+    </Images>
+    <Styles CssPostfix="Metropolis" CssFilePath="{0}/styles.css" />
+</dx:ASPxTreeView>
+

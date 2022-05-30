@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://schemas.datacontract.org/2004/07/Biz.Engineering.EngineerClass" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Biz.Engineering.EngineerClass" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://saraweb.shiraz.ir/EngineerToOthers/srvEngineerToOthers.svc?xsd=xsd8" namespace="http://schemas.datacontract.org/2004/07/DataAccess.Engineers" />
+  <xs:import schemaLocation="http://saraweb.shiraz.ir/EngineerToOthers/srvEngineerToOthers.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Biz.Error" />
+  <xs:import schemaLocation="http://saraweb.shiraz.ir/EngineerToOthers/srvEngineerToOthers.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:complexType name="ClsEngineer">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CI_City" type="xs:int" />
+      <xs:element minOccurs="0" name="CityName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ClsEngineerCapacity" nillable="true" type="tns:ClsEngineerCapacity" />
+      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/DataAccess.Engineers" minOccurs="0" name="EngList_InCondition" nillable="true" type="q1:ArrayOfSrvGetEngList_InWhere_Result" />
+      <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/DataAccess.Engineers" minOccurs="0" name="EngOrgan_OfficeInfo" nillable="true" type="q2:EngOrgan_OfficeInfo" />
+      <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/DataAccess.Engineers" minOccurs="0" name="Eng_Card" nillable="true" type="q3:ArrayOfEng_Card" />
+      <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/DataAccess.Engineers" minOccurs="0" name="Eng_Competence" nillable="true" type="q4:ArrayOfEng_Competence" />
+      <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/DataAccess.Engineers" minOccurs="0" name="Eng_Holidays" nillable="true" type="q5:ArrayOfEng_Holidays" />
+      <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/DataAccess.Engineers" minOccurs="0" name="Eng_Info" nillable="true" type="q6:Eng_Info" />
+      <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/DataAccess.Engineers" minOccurs="0" name="Eng_JobAgreement" nillable="true" type="q7:ArrayOfEng_JobAgreement" />
+      <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/DataAccess.Engineers" minOccurs="0" name="Eng_OrganOffCity" nillable="true" type="q8:ArrayOfEng_OrganOffCity" />
+      <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/DataAccess.Engineers" minOccurs="0" name="Eng_OtherData" nillable="true" type="q9:ArrayOfEng_OtherData" />
+      <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/DataAccess.Engineers" minOccurs="0" name="Eng_OtherData_Temp" nillable="true" type="q10:ArrayOfEng_OtherData_Temp" />
+      <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/DataAccess.Engineers" minOccurs="0" name="Eng_Picture" nillable="true" type="q11:Eng_Picture" />
+      <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/DataAccess.Engineers" minOccurs="0" name="Eng_Picture_Change" nillable="true" type="q12:ArrayOfEng_Picture_Change" />
+      <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/Biz.Error" minOccurs="0" name="ErrorResult" nillable="true" type="q13:ClsErrorResult" />
+      <xs:element minOccurs="0" name="IsChangePass" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsNezam" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsShowBuildingReportAllEng" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsShowCommitment" type="xs:boolean" />
+      <xs:element name="NidEngineer" type="ser:guid" />
+      <xs:element minOccurs="0" name="NidUser" type="ser:guid" />
+      <xs:element minOccurs="0" name="ProvinceName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SecurityPass" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SecurityRequestID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SecurityUserName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SendByAfagh" type="xs:boolean" />
+      <xs:element minOccurs="0" name="UserName" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ClsEngineer" nillable="true" type="tns:ClsEngineer" />
+  <xs:complexType name="ClsEngineerCapacity">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CI_Year" type="xs:int" />
+      <xs:element xmlns:q14="http://schemas.datacontract.org/2004/07/DataAccess.Engineers" minOccurs="0" name="EngOrgan_OfficeInfo" nillable="true" type="q14:EngOrgan_OfficeInfo" />
+      <xs:element xmlns:q15="http://schemas.datacontract.org/2004/07/DataAccess.Engineers" minOccurs="0" name="Eng_CapacityReq" nillable="true" type="q15:ArrayOfEng_CapacityReq" />
+      <xs:element xmlns:q16="http://schemas.datacontract.org/2004/07/DataAccess.Engineers" minOccurs="0" name="Eng_CapacityReqList" nillable="true" type="q16:ArrayOfSrvGetEng_CapacityReq_Result" />
+      <xs:element xmlns:q17="http://schemas.datacontract.org/2004/07/DataAccess.Engineers" minOccurs="0" name="Eng_Card" nillable="true" type="q17:ArrayOfEng_Card" />
+      <xs:element xmlns:q18="http://schemas.datacontract.org/2004/07/DataAccess.Engineers" minOccurs="0" name="Eng_Competence" nillable="true" type="q18:ArrayOfEng_Competence" />
+      <xs:element xmlns:q19="http://schemas.datacontract.org/2004/07/DataAccess.Engineers" minOccurs="0" name="Eng_Holidays" nillable="true" type="q19:ArrayOfEng_Holidays" />
+      <xs:element xmlns:q20="http://schemas.datacontract.org/2004/07/DataAccess.Engineers" minOccurs="0" name="Eng_Info" nillable="true" type="q20:Eng_Info" />
+      <xs:element xmlns:q21="http://schemas.datacontract.org/2004/07/DataAccess.Engineers" minOccurs="0" name="Eng_JobAgreement" nillable="true" type="q21:ArrayOfEng_JobAgreement" />
+      <xs:element xmlns:q22="http://schemas.datacontract.org/2004/07/DataAccess.Engineers" minOccurs="0" name="Eng_OrganOffCity" nillable="true" type="q22:ArrayOfEng_OrganOffCity" />
+      <xs:element xmlns:q23="http://schemas.datacontract.org/2004/07/DataAccess.Engineers" minOccurs="0" name="Eng_OtherData" nillable="true" type="q23:ArrayOfEng_OtherData" />
+      <xs:element xmlns:q24="http://schemas.datacontract.org/2004/07/DataAccess.Engineers" minOccurs="0" name="Eng_Picture" nillable="true" type="q24:Eng_Picture" />
+      <xs:element xmlns:q25="http://schemas.datacontract.org/2004/07/Biz.Error" minOccurs="0" name="ErrorResult" nillable="true" type="q25:ClsErrorResult" />
+      <xs:element minOccurs="0" name="IsCancel" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsConfirm" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsRevoke" type="xs:boolean" />
+      <xs:element name="NidEngineer" type="ser:guid" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ClsEngineerCapacity" nillable="true" type="tns:ClsEngineerCapacity" />
+</xs:schema>

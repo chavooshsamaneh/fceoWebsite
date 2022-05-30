@@ -1,0 +1,163 @@
+.dxCardView_CTClearFilter_Metropolis,
+.dxCardView_CTClearFilterDisabled_Metropolis,
+.dxCardView_CTDeleteRow_Metropolis,
+.dxCardView_CTDeleteRowDisabled_Metropolis,
+.dxCardView_CTEditRow_Metropolis,
+.dxCardView_CTEditRowDisabled_Metropolis,
+.dxCardView_CTNewRow_Metropolis,
+.dxCardView_CTNewRowDisabled_Metropolis,
+.dxCardView_CTRefresh_Metropolis,
+.dxCardView_CTRefreshDisabled_Metropolis,
+.dxCardView_CTShowCustomizationWindow_Metropolis,
+.dxCardView_CTShowCustomizationWindowDisabled_Metropolis,
+.dxCardView_CTShowFilterEditor_Metropolis,
+.dxCardView_CTShowFilterEditorDisabled_Metropolis,
+.dxCardView_CTShowSearchPanel_Metropolis,
+.dxCardView_CTShowSearchPanelDisabled_Metropolis,
+.dxCardView_gvCellError_Metropolis,
+.dxCardView_gvFilterRowButton_Metropolis,
+.dxCardView_gvHeaderFilter_Metropolis,
+.dxCardView_gvHeaderFilterActive_Metropolis,
+.dxCardView_gvHeaderSortDown_Metropolis,
+.dxCardView_gvHeaderSortUp_Metropolis
+{
+    background-image: url('sprite.png');
+    background-repeat: no-repeat;
+    background-color: transparent;
+}
+.dxCardView_CTClearFilter_Metropolis
+{
+    background-position: 0px 0px;
+    width: 16px;
+    height: 16px;
+}
+.dxCardView_CTClearFilterDisabled_Metropolis
+{
+    background-position: 0px -221px;
+    width: 16px;
+    height: 16px;
+}
+.dxCardView_CTDeleteRow_Metropolis
+{
+    background-position: 0px -85px;
+    width: 16px;
+    height: 16px;
+}
+.dxCardView_CTDeleteRowDisabled_Metropolis
+{
+    background-position: 0px -102px;
+    width: 16px;
+    height: 16px;
+}
+.dxCardView_CTEditRow_Metropolis
+{
+    background-position: 0px -34px;
+    width: 16px;
+    height: 16px;
+}
+.dxCardView_CTEditRowDisabled_Metropolis
+{
+    background-position: 0px -187px;
+    width: 16px;
+    height: 16px;
+}
+.dxCardView_CTNewRow_Metropolis
+{
+    background-position: 0px -136px;
+    width: 16px;
+    height: 16px;
+}
+.dxCardView_CTNewRowDisabled_Metropolis
+{
+    background-position: 0px -51px;
+    width: 16px;
+    height: 16px;
+}
+.dxCardView_CTRefresh_Metropolis
+{
+    background-position: 0px -68px;
+    width: 16px;
+    height: 16px;
+}
+.dxCardView_CTRefreshDisabled_Metropolis
+{
+    background-position: 0px -255px;
+    width: 16px;
+    height: 16px;
+}
+.dxCardView_CTShowCustomizationWindow_Metropolis
+{
+    background-position: 0px -119px;
+    width: 16px;
+    height: 16px;
+}
+.dxCardView_CTShowCustomizationWindowDisabled_Metropolis
+{
+    background-position: 0px -170px;
+    width: 16px;
+    height: 16px;
+}
+.dxCardView_CTShowFilterEditor_Metropolis
+{
+    background-position: 0px -204px;
+    width: 16px;
+    height: 16px;
+}
+.dxCardView_CTShowFilterEditorDisabled_Metropolis
+{
+    background-position: 0px -153px;
+    width: 16px;
+    height: 16px;
+}
+.dxCardView_CTShowSearchPanel_Metropolis
+{
+    background-position: 0px -17px;
+    width: 16px;
+    height: 16px;
+}
+.dxCardView_CTShowSearchPanelDisabled_Metropolis
+{
+    background-position: 0px -238px;
+    width: 16px;
+    height: 16px;
+}
+.dxCardView_gvCellError_Metropolis
+{
+    background-position: 0px -321px;
+    width: 14px;
+    height: 14px;
+}
+.dxCardView_gvFilterRowButton_Metropolis
+{
+    background-position: 0px -306px;
+    width: 14px;
+    height: 14px;
+}
+.dxCardView_gvHeaderFilter_Metropolis
+{
+    background-position: 0px -272px;
+    width: 14px;
+    height: 16px;
+}
+.dxCardView_gvHeaderFilterActive_Metropolis
+{
+    background-position: 0px -289px;
+    width: 14px;
+    height: 16px;
+}
+.dxCardView_gvHeaderSortDown_Metropolis
+{
+    background-position: -8px -336px;
+    width: 7px;
+    height: 5px;
+}
+.dxCardView_gvHeaderSortUp_Metropolis
+{
+    background-position: 0px -336px;
+    width: 7px;
+    height: 5px;
+}
+.dxCardView_gvHeaderFilterActive_Metropolis
+{
+	background-color: #F7A233;
+}

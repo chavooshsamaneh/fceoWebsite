@@ -1,0 +1,428 @@
+﻿<%@ Page Language="C#" MasterPageFile="TSMasterPage.master" AutoEventWireup="true"
+    CodeFile="Project.aspx.cs" Inherits="Office_TechnicalServices_Project_Project"
+    Title="مدیریت پروژه ها" %>
+
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxp" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxuc" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxrp" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxm" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxpc" %>
+<%@ Register Assembly="TSP.WebControls" Namespace="TSP.WebControls" TagPrefix="TSPControls" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxe" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxwgv" %>
+<%@ Register Assembly="PersianDateControls 2.0" Namespace="PersianDateControls" TagPrefix="pdc" %>
+<%@ Register Assembly="AjaxControls" Namespace="AjaxControls" TagPrefix="asp" %>
+<%@ Register Assembly="PersianDateControls 2.0" Namespace="PersianDateControls" TagPrefix="pdc" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
+
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxcp" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+    <div id="divcontent" style="width: 100%" align="center" dir="rtl">
+        <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+            <ContentTemplate>
+                <div dir="rtl" id="DivReport" class="DivErrors" align="right" runat="server">
+                    <asp:Label ID="LabelWarning" runat="server" Text="Label"></asp:Label>[<a class="closeLink"
+                        href="#">بستن</a>]</div>
+                <div dir="ltr">
+                    <dxrp:ASPxRoundPanel ID="ASPxRoundPanel1" runat="server" Width="100%" 
+                         BackColor="#EBF2F4" ShowHeader="False">
+                        <LeftEdge>
+                            <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif">
+                            </BackgroundImage>
+                        </LeftEdge>
+                        <BottomRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpBottomRightCorner.png">
+                        </BottomRightCorner>
+                        <HeaderContent>
+                            <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderBack.gif">
+                            </BackgroundImage>
+                        </HeaderContent>
+                        <ContentPaddings Padding="0px"></ContentPaddings>
+                        <NoHeaderTopRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopRightCorner.png">
+                        </NoHeaderTopRightCorner>
+                        <RightEdge>
+                            <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif">
+                            </BackgroundImage>
+                        </RightEdge>
+                        <HeaderRightEdge>
+                            <BackgroundImage VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderRightEdge.gif">
+                            </BackgroundImage>
+                        </HeaderRightEdge>
+                        <Border BorderWidth="1px" BorderStyle="Solid" BorderColor="#7EACB1"></Border>
+                        <HeaderStyle BackColor="White" Height="23px">
+                            <Paddings PaddingTop="0px" PaddingBottom="0px" PaddingLeft="2px"></Paddings>
+                            <BorderBottom BorderStyle="None"></BorderBottom>
+                        </HeaderStyle>
+                        <Content>
+                            <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpContentBack.gif">
+                            </BackgroundImage>
+                        </Content>
+                        <HeaderLeftEdge>
+                            <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderLeftEdge.gif">
+                            </BackgroundImage>
+                        </HeaderLeftEdge>
+                        <BottomEdge BackColor="#D7E9F1">
+                        </BottomEdge>
+                        <TopRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpTopRightCorner.png">
+                        </TopRightCorner>
+                        <NoHeaderTopLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopLeftCorner.png">
+                        </NoHeaderTopLeftCorner>
+                        <PanelCollection>
+                            <dxp:PanelContent ID="PanelContent1" runat="server">
+                                <div dir="rtl">
+                                    <table style="display: block; overflow: hidden; border-collapse: collapse" cellpadding="0"
+                                        width="100%" align="right">
+                                        <tbody>
+                                            <tr>
+                                                <td style="vertical-align: top" align="right">
+                                                    <table style="border-collapse: collapse; background-color: transparent" dir="rtl"
+                                                        cellpadding="0" align="right">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>
+                                                                    <TSPControls:CustomTextBox runat="server" Text=" "  ToolTip="مشاهده"
+                                                                        ID="btnView" UseSubmitBehavior="False" EnableViewState="False" EnableTheming="False"
+                                                                        OnClick="btnView_Click">
+                                                                        <HoverStyle BackColor="#FFE0C0">
+                                                                            <Border BorderWidth="1px" BorderStyle="Outset" BorderColor="Gray"></Border>
+                                                                        </HoverStyle>
+                                                                        <Image  Url="~/Images/icons/view.png">
+                                                                        </Image>
+                                                                        <ClientSideEvents Click="function(s, e) {
+	if (mygrid.GetFocusedRowIndex()&lt;0)
+ 	{
+   		e.processOnServer=false;
+   		alert('ردیفی انتخاب نشده است');
+	}
+}" />
+                                                                    </TSPControls:CustomTextBox>
+                                                                </td>
+                                                                <td>
+                                                                    <TSPControls:CustomTextBox runat="server" Text=" "  ToolTip="خلاصه پرونده"
+                                                                        ID="btnSummary" UseSubmitBehavior="False" EnableViewState="False" EnableTheming="False"
+                                                                        OnClick="btnSummary_Click">
+                                                                        <ClientSideEvents Click="function(s, e) {
+	if (mygrid.GetFocusedRowIndex()&lt;0)
+ 	{
+   		e.processOnServer=false;
+   		alert('ردیفی انتخاب نشده است');
+	}
+}" />
+                                                                        <HoverStyle BackColor="#FFE0C0">
+                                                                            <Border BorderColor="Gray" BorderStyle="Outset" BorderWidth="1px" />
+                                                                        </HoverStyle>
+                                                                        <Image Height="25px" Url="~/Images/icons/Summary.png" Width="25px" />
+                                                                    </TSPControls:CustomTextBox>
+                                                                </td>
+                                                                <td>
+                                                                    <TSPControls:CustomTextBox runat="server" Text=" "  ToolTip="چاپ"
+                                                                        ID="btnPrint" AutoPostBack="False" UseSubmitBehavior="False" EnableViewState="False"
+                                                                        EnableTheming="False">
+                                                                        <ClientSideEvents Click="function(s, e) {	
+	e.processOnServer=false;
+	window.open('../../../Print.aspx');
+}"></ClientSideEvents>
+                                                                        <HoverStyle BackColor="#FFE0C0">
+                                                                            <Border BorderWidth="1px" BorderStyle="Outset" BorderColor="Gray"></Border>
+                                                                        </HoverStyle>
+                                                                        <Image  Url="~/Images/icons/printers.png">
+                                                                        </Image>
+                                                                    </TSPControls:CustomTextBox>
+                                                                </td>
+                                                                <td>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </dxp:PanelContent>
+                        </PanelCollection>
+                        <TopLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpTopLeftCorner.png">
+                        </TopLeftCorner>
+                        <NoHeaderTopEdge BackColor="#EBF2F4">
+                        </NoHeaderTopEdge>
+                        <BottomLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpBottomLeftCorner.png">
+                        </BottomLeftCorner>
+                    </dxrp:ASPxRoundPanel>
+                </div>
+                <br />
+                <TSPControls:CustomAspxDevGridView ID="GridViewProject" runat="server" DataSourceID="ObjectDataSourceProject"
+                    Width="100%"  
+                    ClientInstanceName="mygrid" OnDetailRowExpandedChanged="GridViewProject_DetailRowExpandedChanged"
+                    KeyFieldName="ProjectId" AutoGenerateColumns="False">
+                    <ClientSideEvents FocusedRowChanged="function(s, e) {
+	mygrid.ExpandDetailRow(mygrid.GetFocusedRowIndex());
+}"></ClientSideEvents>
+                    <Templates>
+                        <DetailRow>
+                            <TSPControls:CustomAspxDevGridView ID="GridViewProjectRequest" runat="server" DataSourceID="ObjdsProjectRequest"
+                                  AutoGenerateColumns="False"
+                                KeyFieldName="PrjReId" OnBeforePerformDataSelect="GridViewProjectRequest_BeforePerformDataSelect">
+                                <SettingsBehavior ConfirmDelete="True" AllowFocusedRow="True"></SettingsBehavior>
+                                <Styles  >
+                                    <GroupPanel ForeColor="Black">
+                                    </GroupPanel>
+                                    <Header HorizontalAlign="Center">
+                                    </Header>
+                                </Styles>
+                                <Columns>
+                                    <dxwgv:GridViewDataTextColumn VisibleIndex="0" FieldName="RequestDate" Caption="تاریخ درخواست">
+                                        <CellStyle Wrap="False" HorizontalAlign="Center">
+                                        </CellStyle>
+                                    </dxwgv:GridViewDataTextColumn>
+                                    <dxwgv:GridViewDataTextColumn VisibleIndex="1" FieldName="MailDate" Caption="تاریخ نامه">
+                                        <CellStyle Wrap="False" HorizontalAlign="Center">
+                                        </CellStyle>
+                                    </dxwgv:GridViewDataTextColumn>
+                                    <dxwgv:GridViewDataTextColumn VisibleIndex="2" FieldName="MailNo" Caption="شماره نامه">
+                                        <CellStyle Wrap="False" HorizontalAlign="Center">
+                                        </CellStyle>
+                                    </dxwgv:GridViewDataTextColumn>
+                                    <dxwgv:GridViewDataTextColumn VisibleIndex="3" FieldName="PrjReTypeTittle" Caption="نوع درخواست">
+                                        <CellStyle Wrap="False" HorizontalAlign="Center">
+                                        </CellStyle>
+                                    </dxwgv:GridViewDataTextColumn>
+                                    <dxwgv:GridViewDataTextColumn VisibleIndex="4" FieldName="ConfirmState" Caption="وضعیت پروژه">
+                                        <CellStyle Wrap="False" HorizontalAlign="Center">
+                                        </CellStyle>
+                                    </dxwgv:GridViewDataTextColumn>
+                                    <dxwgv:GridViewDataTextColumn VisibleIndex="5" FieldName="TaskName" Width="300px"
+                                        Caption="وضعیت درخواست">
+                                    </dxwgv:GridViewDataTextColumn>
+                                </Columns>
+                                <Settings ShowGroupPanel="True"></Settings>
+                                <SettingsDetail IsDetailGrid="True"></SettingsDetail>
+                            </TSPControls:CustomAspxDevGridView>
+                        </DetailRow>
+                    </Templates>
+                    <Columns>
+                        <dxwgv:GridViewDataTextColumn VisibleIndex="0" Width="100px" FieldName="ProjectId"
+                            Caption="کد پروژه" Name="ProjectId">
+                            <CellStyle Wrap="True" HorizontalAlign="Center">
+                            </CellStyle>
+                        </dxwgv:GridViewDataTextColumn>
+                        <dxwgv:GridViewDataTextColumn VisibleIndex="1" Width="150px" FieldName="ProjectName"
+                            Caption="نام پروژه" Name="ProjectName">
+                            <CellStyle Wrap="True" HorizontalAlign="Right">
+                            </CellStyle>
+                        </dxwgv:GridViewDataTextColumn>
+                        <dxwgv:GridViewDataTextColumn VisibleIndex="2" FieldName="ProjectIngridientType"
+                            Caption="سمت" Name="ProjectIngridientType" Width="100px">
+                            <CellStyle Wrap="True" HorizontalAlign="Center">
+                            </CellStyle>
+                        </dxwgv:GridViewDataTextColumn>
+                        <dxwgv:GridViewDataTextColumn VisibleIndex="3" Width="50px" FieldName="GroupName"
+                            Caption="گروه ساختمان" Name="GroupName">
+                            <CellStyle Wrap="True" HorizontalAlign="Center">
+                            </CellStyle>
+                        </dxwgv:GridViewDataTextColumn>
+                        <dxwgv:GridViewDataTextColumn VisibleIndex="4" Width="100px" FieldName="RegisteredNo"
+                            Caption="پلاک ثبتی" Name="RegisteredNo">
+                            <CellStyle Wrap="True" HorizontalAlign="Center">
+                            </CellStyle>
+                        </dxwgv:GridViewDataTextColumn>
+                        <dxwgv:GridViewDataTextColumn VisibleIndex="5" Width="100px" FieldName="FileNo" Caption="شماره پرونده"
+                            Name="FileNo">
+                            <CellStyle Wrap="True" HorizontalAlign="Center">
+                            </CellStyle>
+                        </dxwgv:GridViewDataTextColumn>
+                        <dxwgv:GridViewDataMemoColumn VisibleIndex="6" Width="150px" FieldName="PlansMethodNo"
+                            Caption="شماره دستور نقشه" Name="PlansMethodNo">
+                            <CellStyle Wrap="True" HorizontalAlign="Center">
+                            </CellStyle>
+                        </dxwgv:GridViewDataMemoColumn>
+                        <dxwgv:GridViewDataTextColumn VisibleIndex="7" Width="70px" FieldName="Date" Caption="تاریخ ایجاد"
+                            Name="Date">
+                            <CellStyle Wrap="True" HorizontalAlign="Center">
+                            </CellStyle>
+                        </dxwgv:GridViewDataTextColumn>
+                        <dxwgv:GridViewDataTextColumn VisibleIndex="8" Width="100px" FieldName="ComputerCode"
+                            Caption="کد کامپیوتری" Name="ComputerCode">
+                            <CellStyle Wrap="True" HorizontalAlign="Center">
+                            </CellStyle>
+                        </dxwgv:GridViewDataTextColumn>
+                        <dxwgv:GridViewDataTextColumn VisibleIndex="9" FieldName="ProjectStatus" Caption="وضعیت پروژه"
+                            Name="ProjectStatus" Width="150px">
+                            <PropertiesTextEdit EnableFocusedStyle="False">
+                            </PropertiesTextEdit>
+                            <CellStyle Wrap="True" HorizontalAlign="Center">
+                            </CellStyle>
+                        </dxwgv:GridViewDataTextColumn>
+                        <dxwgv:GridViewCommandColumn VisibleIndex="10" Caption=" ">
+                            <ClearFilterButton Visible="True">
+                            </ClearFilterButton>
+                        </dxwgv:GridViewCommandColumn>
+                    </Columns>
+                    <Settings ShowGroupPanel="True" ShowFilterRow="True" ShowHorizontalScrollBar="true">
+                    </Settings>
+                    <SettingsDetail ShowDetailRow="True" AllowOnlyOneMasterRowExpanded="True"></SettingsDetail>
+                </TSPControls:CustomAspxDevGridView>
+                <br />
+                <div dir="ltr" align="right">
+                    <dxrp:ASPxRoundPanel ID="ASPxRoundPanel2" runat="server" Width="100%" 
+                         BackColor="#EBF2F4" ShowHeader="False">
+                        <LeftEdge>
+                            <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif">
+                            </BackgroundImage>
+                        </LeftEdge>
+                        <BottomRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpBottomRightCorner.png">
+                        </BottomRightCorner>
+                        <HeaderContent>
+                            <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderBack.gif">
+                            </BackgroundImage>
+                        </HeaderContent>
+                        <ContentPaddings Padding="0px"></ContentPaddings>
+                        <NoHeaderTopRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopRightCorner.png">
+                        </NoHeaderTopRightCorner>
+                        <RightEdge>
+                            <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif">
+                            </BackgroundImage>
+                        </RightEdge>
+                        <HeaderRightEdge>
+                            <BackgroundImage VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderRightEdge.gif">
+                            </BackgroundImage>
+                        </HeaderRightEdge>
+                        <Border BorderWidth="1px" BorderStyle="Solid" BorderColor="#7EACB1"></Border>
+                        <HeaderStyle BackColor="White" Height="23px">
+                            <Paddings PaddingTop="0px" PaddingBottom="0px" PaddingLeft="2px"></Paddings>
+                            <BorderBottom BorderStyle="None"></BorderBottom>
+                        </HeaderStyle>
+                        <Content>
+                            <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpContentBack.gif">
+                            </BackgroundImage>
+                        </Content>
+                        <HeaderLeftEdge>
+                            <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderLeftEdge.gif">
+                            </BackgroundImage>
+                        </HeaderLeftEdge>
+                        <BottomEdge BackColor="#D7E9F1">
+                        </BottomEdge>
+                        <TopRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpTopRightCorner.png">
+                        </TopRightCorner>
+                        <NoHeaderTopLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopLeftCorner.png">
+                        </NoHeaderTopLeftCorner>
+                        <PanelCollection>
+                            <dxp:PanelContent ID="PanelContent2" runat="server">
+                                <div dir="rtl">
+                                    <table style="display: block; overflow: hidden; border-collapse: collapse" cellpadding="0"
+                                        width="100%" align="right">
+                                        <tbody>
+                                            <tr>
+                                                <td style="vertical-align: top" align="right">
+                                                    <table style="border-collapse: collapse; background-color: transparent" dir="rtl"
+                                                        cellpadding="0" align="right">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>
+                                                                    <TSPControls:CustomTextBox runat="server" Text=" "  ToolTip="مشاهده"
+                                                                        ID="btnView2" UseSubmitBehavior="False" EnableViewState="False" EnableTheming="False"
+                                                                        OnClick="btnView_Click">
+                                                                        <HoverStyle BackColor="#FFE0C0">
+                                                                            <Border BorderWidth="1px" BorderStyle="Outset" BorderColor="Gray"></Border>
+                                                                        </HoverStyle>
+                                                                        <Image  Url="~/Images/icons/view.png">
+                                                                        </Image>
+                                                                        <ClientSideEvents Click="function(s, e) {
+	if (mygrid.GetFocusedRowIndex()&lt;0)
+ 	{
+   		e.processOnServer=false;
+   		alert('ردیفی انتخاب نشده است');
+	}
+}" />
+                                                                    </TSPControls:CustomTextBox>
+                                                                </td>
+                                                                <td>
+                                                                    <TSPControls:CustomTextBox runat="server" Text=" "  ToolTip="خلاصه پرونده"
+                                                                        ID="btnSummary2" UseSubmitBehavior="False" EnableViewState="False" EnableTheming="False"
+                                                                        OnClick="btnSummary_Click">
+                                                                        <ClientSideEvents Click="function(s, e) {
+	if (mygrid.GetFocusedRowIndex()&lt;0)
+ 	{
+   		e.processOnServer=false;
+   		alert('ردیفی انتخاب نشده است');
+	}
+}" />
+                                                                        <HoverStyle BackColor="#FFE0C0">
+                                                                            <Border BorderColor="Gray" BorderStyle="Outset" BorderWidth="1px" />
+                                                                        </HoverStyle>
+                                                                        <Image Height="25px" Url="~/Images/icons/Summary.png" Width="25px" />
+                                                                    </TSPControls:CustomTextBox>
+                                                                </td>
+                                                                <td>
+                                                                    <TSPControls:CustomTextBox runat="server" Text=" "  ToolTip="چاپ"
+                                                                        ID="btnPrint2" AutoPostBack="False" UseSubmitBehavior="False" EnableViewState="False"
+                                                                        EnableTheming="False">
+                                                                        <ClientSideEvents Click="function(s, e) {
+	e.processOnServer=false;
+	window.open('../../../Print.aspx');
+}"></ClientSideEvents>
+                                                                        <HoverStyle BackColor="#FFE0C0">
+                                                                            <Border BorderWidth="1px" BorderStyle="Outset" BorderColor="Gray"></Border>
+                                                                        </HoverStyle>
+                                                                        <Image  Url="~/Images/icons/printers.png">
+                                                                        </Image>
+                                                                    </TSPControls:CustomTextBox>
+                                                                </td>
+                                                                <td>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </dxp:PanelContent>
+                        </PanelCollection>
+                        <TopLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpTopLeftCorner.png">
+                        </TopLeftCorner>
+                        <NoHeaderTopEdge BackColor="#EBF2F4">
+                        </NoHeaderTopEdge>
+                        <BottomLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpBottomLeftCorner.png">
+                        </BottomLeftCorner>
+                    </dxrp:ASPxRoundPanel>
+                </div>
+            </ContentTemplate>
+        </asp:UpdatePanel>
+        <asp:ModalUpdateProgress ID="ModalUpdateProgress2" runat="server" DisplayAfter="0"
+            AssociatedUpdatePanelID="UpdatePanel1" BackgroundCssClass="modalProgressGreyBackground">
+            <ProgressTemplate>
+                <div class="modalPopup" style="font-family: Tahoma; font-size: 9pt">
+                    <img id="IMG1" src="../../../Image/indicator.gif" align="middle" />
+                    لطفا صبر نمایید ...</div>
+            </ProgressTemplate>
+        </asp:ModalUpdateProgress>
+        <asp:ObjectDataSource ID="ObjectDataSourceProject" runat="server" OldValuesParameterFormatString="original_{0}"
+            SelectMethod="SelectProjectForOffice" TypeName="TSP.DataManager.TechnicalServices.ProjectManager">
+            <SelectParameters>
+                <asp:Parameter DefaultValue="-1" Name="OfficeId" Type="Int32" />
+            </SelectParameters>
+        </asp:ObjectDataSource>
+        <asp:ObjectDataSource ID="ObjdsWorkFlowTask" runat="server" SelectMethod="SelectByWorkId"
+            TypeName="TSP.DataManager.WorkFlowTaskManager">
+            <SelectParameters>
+                <asp:Parameter DefaultValue="-1" Name="WorkFlowId" Type="Int32" />
+                <asp:Parameter DefaultValue="-1" Name="TaskOrder" Type="Int32" />
+            </SelectParameters>
+        </asp:ObjectDataSource>
+        <asp:ObjectDataSource ID="ObjdsProjectRequest" runat="server" OldValuesParameterFormatString="original_{0}"
+            SelectMethod="SelectRequestByProject" TypeName="TSP.DataManager.TechnicalServices.ProjectRequestManager">
+            <SelectParameters>
+                <asp:SessionParameter DefaultValue="-1" Name="ProjectId" SessionField="ProjectId"
+                    Type="Int32" />
+            </SelectParameters>
+        </asp:ObjectDataSource>
+    </div>
+</asp:Content>

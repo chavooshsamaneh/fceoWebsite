@@ -1,0 +1,295 @@
+﻿using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+using DevExpress.Web;
+using System.IO;
+
+public partial class Members_TechnicalServices_Project_ProjectInsert : System.Web.UI.Page
+{
+    string PageMode;
+    string ProjectId;
+    string PrjReId;
+
+    bool IsPageRefresh = false;
+
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        this.DivReport.Attributes.Add("onclick", "ChangeVisible(this)");
+        this.DivReport.Attributes.Add("onmouseover", "ChangeIcon(this)");
+        this.DivReport.Visible = false;
+
+        if (!IsPostBack)
+        {
+            ViewState["postids"] = System.Guid.NewGuid().ToString();
+            Session["postid"] = ViewState["postids"].ToString();
+        }
+        else
+        {
+            if (!IsCallback && Session["postid"] != null)
+            {
+                if (ViewState["postids"].ToString() != Session["postid"].ToString()) { IsPageRefresh = true; }
+                Session["postid"] = System.Guid.NewGuid().ToString(); ViewState["postids"] = Session["postid"];
+            }
+        }
+
+        if (!IsPostBack)
+        {
+            if ((string.IsNullOrEmpty(Request.QueryString["PageMode"])) || (string.IsNullOrEmpty(Request.QueryString["ProjectId"])))
+            {
+                Response.Redirect("Project.aspx");
+                return;
+            }
+
+            ObjectDataSourceCity.SelectParameters[0].DefaultValue = Utility.GetCurrentProvinceId().ToString();
+
+            SetKeys();
+            SetProjectMenuEnabled();
+            SetProjectMainMenuEnabled();
+
+        }
+    }
+
+    protected void btnBack_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("Project.aspx");
+    }
+
+
+    /*************************************************************************************************************/
+    private void SetKeys()
+    {
+        try
+        {
+            PgMode.Value = Server.HtmlDecode(Request.QueryString["PageMode"].ToString());
+            PkProjectId.Value = Server.HtmlDecode(Request.QueryString["ProjectId"]).ToString();
+            PkPrjReId.Value = Server.HtmlDecode(Request.QueryString["PrjReId"]).ToString();
+        }
+        catch
+        {
+            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+            return;
+        }
+
+        PageMode = Utility.DecryptQS(PgMode.Value);
+        ProjectId = Utility.DecryptQS(PkProjectId.Value);
+        PrjReId = Utility.DecryptQS(PkPrjReId.Value);
+
+        if (string.IsNullOrEmpty(PageMode))
+        {
+            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+            return;
+        }
+
+        SetMode();
+    }
+
+    private void SetMode()
+    {
+        PageMode = Utility.DecryptQS(PgMode.Value);
+
+        if (string.IsNullOrEmpty(PageMode))
+        {
+            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+            return;
+        }
+
+        switch (PageMode)
+        {
+            case "View":
+                SetViewModeKeys();
+                break;
+        }
+    }
+
+    private void SetViewModeKeys()
+    {
+        PageMode = Utility.DecryptQS(PgMode.Value);
+        ProjectId = Utility.DecryptQS(PkProjectId.Value);
+
+        if ((string.IsNullOrEmpty(ProjectId)) || (string.IsNullOrEmpty(PageMode)))
+        {
+            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+            return;
+        }
+
+        ASPxTextBoxCode.ReadOnly = true;
+        ASPxTextBoxProjectName.ReadOnly = true;
+        RegDate.ReadOnly = true;
+        ASPxComboBoxDiscountPercent.ReadOnly = true;
+        ASPxComboBoxProjectStatus.ReadOnly = true;
+        ASPxTextBoxDecrementPercent.ReadOnly = true;
+        ASPxTextBoxWagePercent.ReadOnly = true;
+        ASPxComboBoxAgent.ReadOnly = true;
+        ASPxTextBoxFileNo.ReadOnly = true;
+        FileDate.ReadOnly = true;
+        ASPxComboBoxMunicipality.ReadOnly = true;
+        ASPxComboBoxCity.ReadOnly = true;
+        ASPxTextBoxReconstructionCode.ReadOnly = true;
+        ASPxTextBoxComputerCode.ReadOnly = true;
+        ASPxComboBoxUsage.ReadOnly = true;
+        ASPxComboBoxStructureGroups.ReadOnly = true;
+        ASPxTextBoxFoundation.ReadOnly = true;
+        ASPxTextBoxArea.ReadOnly = true;
+        ASPxTextBoxRecessArea.ReadOnly = true;
+        ASPxTextBoxRemainArea.ReadOnly = true;
+        ASPxTextBoxDocumentArea.ReadOnly = true;
+        TextBoxAddress.ReadOnly = true;
+
+        SetValues();
+
+        ASPxRoundPanel2.HeaderText = "مشاهده";
+    }
+
+    private void SetValues()
+    {
+        ProjectId = Utility.DecryptQS(PkProjectId.Value);
+
+        if ((string.IsNullOrEmpty(ProjectId)))
+        {
+            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+            return;
+        }
+
+        TSP.DataManager.TechnicalServices.ProjectManager Manager = new TSP.DataManager.TechnicalServices.ProjectManager();
+        TSP.DataManager.TechnicalServices.AttachmentsManager AttachmentsManager = new TSP.DataManager.TechnicalServices.AttachmentsManager();
+        TSP.DataManager.TechnicalServices.BlockManager BlockManager = new TSP.DataManager.TechnicalServices.BlockManager();
+
+        Manager.FindByProjectId(Convert.ToInt32(ProjectId));
+        if (Manager.Count == 1)
+        {
+            ASPxComboBoxDiscountPercent.DataBind();
+            //ASPxComboBoxDiscountPercent.SelectedIndex = ASPxComboBoxDiscountPercent.Items.IndexOfValue(Convert.ToInt32(Manager[0]["DiscountPercentId"]));
+            ASPxComboBoxDiscountPercent.Value = Convert.ToInt32(Manager[0]["DiscountPercentId"]);
+            SetDiscountItems();
+
+            ASPxTextBoxCode.Text = ProjectId;
+            ASPxTextBoxProjectName.Text = Manager[0]["ProjectName"].ToString();
+            RegDate.Text = Manager[0]["Date"].ToString();
+            ASPxComboBoxProjectStatus.Value = Convert.ToInt32(Manager[0]["ProjectStatusId"]);
+            ASPxComboBoxAgent.Value = Convert.ToInt32(Manager[0]["AgentId"]);
+            ASPxTextBoxFileNo.Text = Manager[0]["FileNo"].ToString();
+            FileDate.Text = Manager[0]["FileDate"].ToString();
+            ASPxComboBoxCity.DataBind();
+            ASPxComboBoxCity.Value = Convert.ToInt32(Manager[0]["CitId"]);
+            ASPxComboBoxMunicipality.DataBind();
+            ASPxComboBoxMunicipality.Value = Convert.ToInt32(Manager[0]["MunId"]);
+            ASPxTextBoxReconstructionCode.Text = Manager[0]["ReconstructionCode"].ToString();
+            ASPxTextBoxComputerCode.Text = Manager[0]["ComputerCode"].ToString();
+            ASPxComboBoxUsage.DataBind();
+            ASPxComboBoxUsage.Value = Convert.ToInt32(Manager[0]["UsageId"]);
+            ASPxComboBoxStructureGroups.DataBind();
+            ASPxComboBoxStructureGroups.Value = Convert.ToInt32(Manager[0]["GroupId"]);
+            ASPxTextBoxFoundation.Text = Manager[0]["Foundation"].ToString();
+            ASPxTextBoxArea.Text = Manager[0]["Area"].ToString();
+            ASPxTextBoxRecessArea.Text = Manager[0]["RecessArea"].ToString();
+            ASPxTextBoxRemainArea.Text = Manager[0]["RemainArea"].ToString();
+            ASPxTextBoxDocumentArea.Text = Manager[0]["DocumentArea"].ToString();
+            TextBoxAddress.Text = Manager[0]["Address"].ToString();
+
+            AttachmentsManager.FindByTableTypeId(Convert.ToInt32(ProjectId), (int)TSP.DataManager.TableCodes.TSProject, (int)TSP.DataManager.TSAttachType.Croquis);
+            if (AttachmentsManager.Count > 0)
+            {
+                ASPxHyperLinkCroquis.ClientVisible = true;
+                ASPxHyperLinkCroquis.NavigateUrl = AttachmentsManager[0]["FilePath"].ToString();
+                ASPxHyperLinkCroquis.Text = AttachmentsManager[0]["FileName"].ToString();
+                ASPxHiddenFieldCroquis["name"] = 1;
+            }
+
+            BlockManager.FindByProjectId(Convert.ToInt32(ProjectId));
+            if (BlockManager.Count > 0)
+            {
+                ASPxComboBoxStructureGroups.Visible = true;
+                LblGroup.Visible = true;
+            }
+            else
+            {
+                ASPxComboBoxStructureGroups.Visible = false;
+                LblGroup.Visible = false;
+            }
+        }
+        else
+        {
+            this.DivReport.Visible = true;
+            this.LabelWarning.Text = "چنین رکوردی وجود ندارد";
+        }
+    }
+
+    /*****************************************************************************************************************************/
+    private void SetDiscountItems()
+    {
+        TSP.DataManager.TechnicalServices.DiscountPercentManager DiscountPercentManager = new TSP.DataManager.TechnicalServices.DiscountPercentManager();
+        DiscountPercentManager.FindByDiscountPercentId(Convert.ToInt32(ASPxComboBoxDiscountPercent.Value));
+        if (DiscountPercentManager.Count > 0)
+        {
+            ASPxTextBoxDecrementPercent.Text = DiscountPercentManager[0]["DecrementPercent"].ToString();
+            ASPxTextBoxWagePercent.Text = DiscountPercentManager[0]["WagePercent"].ToString();
+        }
+    }
+
+    /***************************************************** ProjectMainMenu *************************************************************/
+    protected void MainMenu_ItemClick(object source, DevExpress.Web.MenuItemEventArgs e)
+    {
+        ProjectId = Utility.DecryptQS(PkProjectId.Value);
+        PrjReId = PkPrjReId.Value;
+        PageMode = PgMode.Value;
+
+        PrjMainMenu MainMenu = new PrjMainMenu("Project", Convert.ToInt32(ProjectId));
+        Response.Redirect(MainMenu.GetRedirectLink(e.Item.Name, PrjReId, PageMode));
+    }
+
+    private void SetProjectMainMenuEnabled()
+    {
+        ProjectId = Utility.DecryptQS(PkProjectId.Value);
+        if (ProjectId == "-1")
+            ProjectId = "-2";
+
+        PrjMainMenu PrjMainMenu = new PrjMainMenu("Project", Convert.ToInt32(ProjectId));
+        MainMenu.Items.FindByName("Project").Selected = true;
+        MainMenu.Items.FindByName("BuildingsLicense").Enabled = PrjMainMenu.GetEnabled("BuildingsLicense");
+        MainMenu.Items.FindByName("Timing").Enabled = PrjMainMenu.GetEnabled("Timing");
+        MainMenu.Items.FindByName("Contract").Enabled = PrjMainMenu.GetEnabled("Contract");
+        MainMenu.Items.FindByName("Implementer").Enabled = PrjMainMenu.GetEnabled("Implementer");
+        MainMenu.Items.FindByName("Observers").Enabled = PrjMainMenu.GetEnabled("Observers");
+        MainMenu.Items.FindByName("Plans").Enabled = PrjMainMenu.GetEnabled("Plans");
+        MainMenu.Items.FindByName("Owner").Enabled = PrjMainMenu.GetEnabled("Owner");
+        MainMenu.Items.FindByName("Project").Enabled = PrjMainMenu.GetEnabled("Project");
+        MainMenu.Items.FindByName("Accounting").Enabled = PrjMainMenu.GetEnabled("Accounting");
+        MainMenu.Items.FindByName("Designer").Enabled = PrjMainMenu.GetEnabled("Designer");
+    }
+    /******************************************************* ProjectMenu *************************************************************/
+    protected void ProjectMenu_ItemClick(object source, DevExpress.Web.MenuItemEventArgs e)
+    {
+        ProjectId = Utility.DecryptQS(PkProjectId.Value);
+        PrjReId = PkPrjReId.Value;
+        PageMode = PgMode.Value;
+
+        PrjMenu PrjMenu = new PrjMenu("BaseInfo", Convert.ToInt32(ProjectId));
+        Response.Redirect(PrjMenu.GetRedirectLink(e.Item.Name, PrjReId, PageMode));
+    }
+
+    private void SetProjectMenuEnabled()
+    {
+        ProjectId = Utility.DecryptQS(PkProjectId.Value);
+        if (ProjectId == "-1")
+            ProjectId = "-2";
+
+        PrjMenu PrjMenu = new PrjMenu("BaseInfo", Convert.ToInt32(ProjectId));
+        ProjectMenu.Items[4].Selected = true; //BaseInfo
+        ProjectMenu.Items[0].Enabled = PrjMenu.GetEnabled("Insurance");
+        ProjectMenu.Items[1].Enabled = PrjMenu.GetEnabled("Block");
+        ProjectMenu.Items[2].Enabled = PrjMenu.GetEnabled("PlansMethod");
+        ProjectMenu.Items[3].Enabled = PrjMenu.GetEnabled("RegisteredNo");
+        ProjectMenu.Items[4].Enabled = PrjMenu.GetEnabled("BaseInfo");
+    }
+}

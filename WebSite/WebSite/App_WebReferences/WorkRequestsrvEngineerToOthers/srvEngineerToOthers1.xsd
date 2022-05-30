@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/Biz.Engineering" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/Biz.Engineering" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://esup.shiraz.ir/EngineerToOther/srvEngineerToOthers.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Biz.Error" />
+  <xs:complexType name="ClsExportFicheInOtherServices">
+    <xs:sequence>
+      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Biz.Error" minOccurs="0" name="ErrorResult" nillable="true" type="q1:ClsErrorResult" />
+      <xs:element minOccurs="0" name="InfoForFicheOtherServices" nillable="true" type="tns:ClsDtoFil_InfoForFicheOtherServices" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ClsExportFicheInOtherServices" nillable="true" type="tns:ClsExportFicheInOtherServices" />
+  <xs:complexType name="ClsDtoFil_InfoForFicheOtherServices">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Apartment" type="xs:int" />
+      <xs:element minOccurs="0" name="Block" type="xs:int" />
+      <xs:element minOccurs="0" name="Building" type="xs:int" />
+      <xs:element minOccurs="0" name="CI_FilesType" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="CI_RequestType" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="CI_SazehType" type="xs:int" />
+      <xs:element minOccurs="0" name="District" type="xs:int" />
+      <xs:element minOccurs="0" name="Floor" type="xs:short" />
+      <xs:element minOccurs="0" name="GreenCachetDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="House" type="xs:int" />
+      <xs:element minOccurs="0" name="OwnerAddress" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OwnerName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RefEngineer" nillable="true" type="tns:ArrayOfClsDtoRef_InfoForFicheOtherServices" />
+      <xs:element minOccurs="0" name="Region" type="xs:int" />
+      <xs:element minOccurs="0" name="Shop" type="xs:int" />
+      <xs:element minOccurs="0" name="infrastructure" type="xs:decimal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ClsDtoFil_InfoForFicheOtherServices" nillable="true" type="tns:ClsDtoFil_InfoForFicheOtherServices" />
+  <xs:complexType name="ArrayOfClsDtoRef_InfoForFicheOtherServices">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ClsDtoRef_InfoForFicheOtherServices" nillable="true" type="tns:ClsDtoRef_InfoForFicheOtherServices" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfClsDtoRef_InfoForFicheOtherServices" nillable="true" type="tns:ArrayOfClsDtoRef_InfoForFicheOtherServices" />
+  <xs:complexType name="ClsDtoRef_InfoForFicheOtherServices">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ApplyPercent" type="xs:decimal" />
+      <xs:element minOccurs="0" name="CI_Ability" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="CI_Ability_Title" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CI_Base" type="xs:int" />
+      <xs:element minOccurs="0" name="CI_Base_Title" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CI_StudyField" type="xs:int" />
+      <xs:element minOccurs="0" name="CI_StudyField_Title" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DateOfRefrence" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EngAccountNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EngFamily" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EngName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IdNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IsCoordinator" type="xs:boolean" />
+      <xs:element minOccurs="0" name="JobAgreementExportDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Meter" type="xs:decimal" />
+      <xs:element minOccurs="0" name="NationalCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OfficeAccountNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OfficeCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="identityCode" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ClsDtoRef_InfoForFicheOtherServices" nillable="true" type="tns:ClsDtoRef_InfoForFicheOtherServices" />
+  <xs:complexType name="ArrayOfClsQtaInputs">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ClsQtaInputs" nillable="true" type="tns:ClsQtaInputs" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfClsQtaInputs" nillable="true" type="tns:ArrayOfClsQtaInputs" />
+  <xs:complexType name="ClsQtaInputs">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CI_Ability" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="ChangeBaseDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Date" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Meter" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Time" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ClsQtaInputs" nillable="true" type="tns:ClsQtaInputs" />
+</xs:schema>

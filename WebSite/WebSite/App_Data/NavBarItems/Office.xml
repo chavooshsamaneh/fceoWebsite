@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Groups>
+  <NavBarGroup Text="اطلاعات عضو" Name="grpMemberInfo" Target="">
+
+    <NavBarItem Name ="OffMeShipReq"  NavigateUrl="/Office/OfficeMembershipRequest.aspx" Text="درخواست های عضويت">
+    </NavBarItem>
+
+  </NavBarGroup>
+
+  <NavBarGroup Text="واحد پروانه" Name="grpDocument" Target="">
+
+    <NavBarItem NavigateUrl="/Office/OfficeRequest.aspx" Text="درخواست های پروانه عضو حقوقی">
+    </NavBarItem>
+
+  </NavBarGroup>
+
+ 
+</Groups>

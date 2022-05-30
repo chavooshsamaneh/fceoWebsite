@@ -1,0 +1,317 @@
+﻿<%@ Page Title="نقشه های پروژه" Language="C#" MasterPageFile="~/Office/TechnicalServices/Project/TSMasterPage.master" AutoEventWireup="true" CodeFile="Plans.aspx.cs" Inherits="Office_TechnicalServices_Project_Plans" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxhf" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxp" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxuc" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxrp" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxm" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxpc" %>
+<%@ Register Assembly="TSP.WebControls" Namespace="TSP.WebControls" TagPrefix="TSPControls" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxe" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxwgv" %>
+<%@ Register Assembly="AjaxControls" Namespace="AjaxControls" TagPrefix="asp" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
+<%@ Register Src="~/UserControl/ProjectInfoUserControl.ascx" TagPrefix="TSP" TagName="ProjectInfo" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+<asp:UpdatePanel ID="UpdatePanel1" runat="server">
+        <ContentTemplate>
+            <div style="text-align: right" id="DivReport" class="DivErrors" runat="server">
+                <asp:Label ID="LabelWarning" runat="server" Text="Label"></asp:Label>[<a class="closeLink"
+                    href="#">بستن</a>]</div>
+            <TSPControls:CustomASPxRoundPanelMenu ID="CustomASPxRoundPanelMenu1" runat="server"
+                Width="100%">
+                <PanelCollection>
+                    <dxp:PanelContent>
+                        <table width="100%">
+                            <table style="border-collapse: collapse; background-color: transparent" dir="rtl"
+                                cellpadding="0">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <TSPControls:CustomTextBox runat="server" Text=" "  ToolTip="مشاهده"
+                                                ID="btnView" UseSubmitBehavior="False" EnableViewState="False" EnableTheming="False"
+                                                OnClick="btnView_Click">
+                                                <HoverStyle BackColor="#FFE0C0">
+                                                    <Border BorderWidth="1px" BorderStyle="Outset" BorderColor="Gray"></Border>
+                                                </HoverStyle>
+                                                <Image  Url="~/Images/icons/view.png">
+                                                </Image>
+                                                <ClientSideEvents Click="function(s, e) {
+            
+	if (GridViewPlans.GetFocusedRowIndex()&lt;0)
+ 	{
+   		e.processOnServer=false;
+   		alert(&quot;ردیفی انتخاب نشده است&quot;);
+ 	}
+ 	
+}"></ClientSideEvents>
+                                            </TSPControls:CustomTextBox>
+                                        </td>
+                                        <td>
+                                            <TSPControls:CustomTextBox runat="server" Text=" "  ToolTip="بازگشت"
+                                                ID="btnback" UseSubmitBehavior="False" EnableViewState="False" EnableTheming="False"
+                                                OnClick="btnback_Click">
+                                                <HoverStyle BackColor="#FFE0C0">
+                                                    <Border BorderWidth="1px" BorderStyle="Outset" BorderColor="Gray"></Border>
+                                                </HoverStyle>
+                                                <Image  Url="~/Images/icons/Back.png">
+                                                </Image>
+                                            </TSPControls:CustomTextBox>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                    </dxp:PanelContent>
+                </PanelCollection>
+            </TSPControls:CustomASPxRoundPanelMenu>
+            <div align="right" style="width: 100%">
+                <TSPControls:CustomAspxMenuHorizontal ID="MainMenu" runat="server" 
+                     SeparatorWidth="1px" SeparatorHeight="100%" SeparatorColor="#A5A6A8"
+                    OnItemClick="MainMenu_ItemClick" ItemSpacing="0px" AutoSeparators="RootOnly"
+                     Font-Size="11px" RightToLeft="True">
+                    <Items>
+                        <dxm:MenuItem Name="Project" Text="مشخصات پروژه">
+                        </dxm:MenuItem>
+                        <dxm:MenuItem Text="مالک" Name="Owner">
+                        </dxm:MenuItem>
+                        <dxm:MenuItem Text="مالی پروژه" Name="Accounting">
+                        </dxm:MenuItem>
+                        <dxm:MenuItem Text="نقشه" Name="Plans" Selected="true">
+                        </dxm:MenuItem>
+                        <dxm:MenuItem Text="طراح" Name="Designer">
+                        </dxm:MenuItem>
+                        <dxm:MenuItem Text="ناظر" Name="Observers">
+                        </dxm:MenuItem>
+                        <dxm:MenuItem Text="مجری" Name="Implementer">
+                        </dxm:MenuItem>
+                        <dxm:MenuItem Text="قرارداد" Name="Contract">
+                        </dxm:MenuItem>
+                        <dxm:MenuItem Text="زمان بندی" Name="Timing">
+                        </dxm:MenuItem>
+                        <dxm:MenuItem Text="پروانه ساخت" Name="BuildingsLicense">
+                        </dxm:MenuItem>
+                    </Items>
+                </TSPControls:CustomAspxMenuHorizontal>
+            </div>
+            <br />
+            <TSP:ProjectInfo ID="prjInfo" runat="server"></TSP:ProjectInfo>
+            <br />
+            <TSPControls:CustomAspxDevGridView ID="GridViewPlans" runat="server" DataSourceID="ObjdsPlans"
+                Width="100%"  
+                KeyFieldName="PlansId" AutoGenerateColumns="False" ClientInstanceName="GridViewPlans">
+                <ClientSideEvents FocusedRowChanged="function(s, e) {
+	
+	if(GridViewPlans.cpIsPostBack==0)
+	{
+		GridViewPlans.ExpandDetailRow(GridViewPlans.GetFocusedRowIndex());
+		GridViewPlans.cpIsPostBack=0;
+	}
+	else
+	{
+		GridViewPlans.cpIsPostBack=0;
+	}
+}"></ClientSideEvents>
+                <Templates>
+                    <DetailRow>
+                        <TSPControls:CustomAspxDevGridView ID="GridViewPlanSubRe" runat="server" DataSourceID="ObjdsPlanDesigner"
+                            Width="100%"  
+                            KeyFieldName="PlansId" AutoGenerateColumns="False" OnBeforePerformDataSelect="GridViewPlanSubRe_BeforePerformDataSelect">
+                            <Columns>
+                                <dxwgv:GridViewDataCheckColumn VisibleIndex="0" FieldName="IsMaster" Caption="نماینده اصلی"
+                                    Name="IsMaster">
+                                </dxwgv:GridViewDataCheckColumn>
+                                <dxwgv:GridViewDataTextColumn VisibleIndex="1" FieldName="MeType" Caption="نوع طراح">
+                                    <CellStyle Wrap="False">
+                                    </CellStyle>
+                                </dxwgv:GridViewDataTextColumn>
+                                <dxwgv:GridViewDataTextColumn VisibleIndex="2" FieldName="OfficeEngOId" Caption="کد طراح">
+                                    <CellStyle Wrap="False">
+                                    </CellStyle>
+                                </dxwgv:GridViewDataTextColumn>
+                                <dxwgv:GridViewDataTextColumn VisibleIndex="3" FieldName="DesignerName" Caption="نام">
+                                    <CellStyle Wrap="False">
+                                    </CellStyle>
+                                </dxwgv:GridViewDataTextColumn>
+                                <dxwgv:GridViewDataTextColumn VisibleIndex="4" FieldName="Date" Caption="تاریخ">
+                                    <CellStyle Wrap="False">
+                                    </CellStyle>
+                                </dxwgv:GridViewDataTextColumn>
+                                <dxwgv:GridViewDataTextColumn VisibleIndex="5" FieldName="CapacityDecrement" Caption="متراژ کسر ظرفیت">
+                                </dxwgv:GridViewDataTextColumn>
+                                <dxwgv:GridViewDataTextColumn VisibleIndex="6" FieldName="Wage" Caption="متراژ دستمزد">
+                                </dxwgv:GridViewDataTextColumn>
+                            </Columns>
+                            <SettingsDetail IsDetailGrid="True"></SettingsDetail>
+                        </TSPControls:CustomAspxDevGridView>
+                    </DetailRow>
+                </Templates>
+                <SettingsBehavior ConfirmDelete="True" AllowFocusedRow="True"></SettingsBehavior>
+                <Columns>
+                    <dxwgv:GridViewDataTextColumn VisibleIndex="0" Visible="False" FieldName="Status"
+                        Width="150px" Caption="Status">
+                        <HeaderStyle Wrap="True"></HeaderStyle>
+                    </dxwgv:GridViewDataTextColumn>
+                    <dxwgv:GridViewDataTextColumn VisibleIndex="0" FieldName="WorkFlowName" Width="200px"
+                        Caption="نوع درخواست">
+                        <HeaderStyle Wrap="True"></HeaderStyle>
+                        <CellStyle Wrap="True">
+                        </CellStyle>
+                    </dxwgv:GridViewDataTextColumn>
+                    <dxwgv:GridViewDataTextColumn VisibleIndex="1" FieldName="No" Width="150px" Caption="شماره نقشه">
+                        <HeaderStyle Wrap="True"></HeaderStyle>
+                    </dxwgv:GridViewDataTextColumn>
+                    <dxwgv:GridViewDataTextColumn VisibleIndex="2" FieldName="PlanVersion2" Width="50px"
+                        Caption="ورژن">
+                    </dxwgv:GridViewDataTextColumn>
+                    <dxwgv:GridViewDataComboBoxColumn FieldName="PlansTypeId" Caption="نوع نقشه" VisibleIndex="3"
+                        Width="150px">
+                        <HeaderStyle Wrap="True"></HeaderStyle>
+                        <CellStyle HorizontalAlign="Right">
+                        </CellStyle>
+                        <PropertiesComboBox ValueType="System.String" TextField="Title" DataSourceID="ObjdsPlansType"
+                            ValueField="PlansTypeId">
+                        </PropertiesComboBox>
+                        <CellStyle Wrap="False">
+                        </CellStyle>
+                    </dxwgv:GridViewDataComboBoxColumn>
+                    <dxwgv:GridViewDataTextColumn VisibleIndex="4" FieldName="PlanDate" Caption="تاریخ ثبت">
+                        <HeaderStyle Wrap="True"></HeaderStyle>
+                        <CellStyle Wrap="False">
+                        </CellStyle>
+                    </dxwgv:GridViewDataTextColumn>
+                    <dxwgv:GridViewDataTextColumn VisibleIndex="5" FieldName="FileNo" Caption="شماره پرونده پروژه"
+                        Name="FileNo">
+                        <HeaderStyle Wrap="True"></HeaderStyle>
+                        <CellStyle Wrap="False">
+                        </CellStyle>
+                    </dxwgv:GridViewDataTextColumn>
+                    <dxwgv:GridViewDataTextColumn VisibleIndex="6" FieldName="RegisteredNo" Caption="پلاک ثبتی پروژه"
+                        Name="RegisteredNo">
+                        <HeaderStyle Wrap="True"></HeaderStyle>
+                    </dxwgv:GridViewDataTextColumn>
+                    <dxwgv:GridViewDataTextColumn VisibleIndex="7" FieldName="LicenseNo" Caption="شماره پروانه ساخت"
+                        Name="LicenseNo">
+                        <HeaderStyle Wrap="True"></HeaderStyle>
+                    </dxwgv:GridViewDataTextColumn>
+                    <dxwgv:GridViewDataTextColumn VisibleIndex="8" FieldName="Foundation" Caption="متراژ پروژه">
+                        <HeaderStyle Wrap="True"></HeaderStyle>
+                    </dxwgv:GridViewDataTextColumn>
+                    <dxwgv:GridViewDataTextColumn VisibleIndex="11" Width="100px" FieldName="DesAcceptPlan"
+                        Caption="وضعیت تایید">
+                        <HeaderStyle Wrap="True"></HeaderStyle>
+                    </dxwgv:GridViewDataTextColumn>
+                    <dxwgv:GridViewDataTextColumn VisibleIndex="12" FieldName="InActives" Caption="وضعیت">
+                    </dxwgv:GridViewDataTextColumn>
+                    <dxwgv:GridViewDataTextColumn VisibleIndex="12" Visible="False" FieldName="TaskName"
+                        Width="150px" Caption="وضعیت درخواست">
+                        <HeaderStyle Wrap="True"></HeaderStyle>
+                    </dxwgv:GridViewDataTextColumn>
+                    <dxwgv:GridViewDataComboBoxColumn Caption="مرحله" FieldName="TaskId" Name="WFState"
+                        Width="50px" VisibleIndex="13">
+                        <DataItemTemplate>
+                            <div align="center">
+                                <dxe:ASPxImage ID="btnWFState" runat="server" Width="16px" Height="16px" ImageUrl="~/Images/WFStart.png">
+                                </dxe:ASPxImage>
+                            </div>
+                        </DataItemTemplate>
+                        <PropertiesComboBox DataSourceID="ObjdsWorkFlowTask" TextField="TaskName" ValueField="TaskId"
+                            ValueType="System.String">
+                        </PropertiesComboBox>
+                    </dxwgv:GridViewDataComboBoxColumn>
+                    <dxwgv:GridViewCommandColumn VisibleIndex="14" Caption=" ">
+                        <ClearFilterButton Visible="True">
+                        </ClearFilterButton>
+                    </dxwgv:GridViewCommandColumn>
+                </Columns>
+                <Settings ShowHorizontalScrollBar="true"></Settings>
+                <SettingsDetail ShowDetailRow="True" AllowOnlyOneMasterRowExpanded="True"></SettingsDetail>
+            </TSPControls:CustomAspxDevGridView>
+            <br />
+            <TSPControls:CustomASPxRoundPanelMenu ID="CustomASPxRoundPanelMenu2" runat="server"
+                Width="100%">
+                <PanelCollection>
+                    <dxp:PanelContent>
+                        <table style="border-collapse: collapse; background-color: transparent" dir="rtl"
+                            cellpadding="0">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <TSPControls:CustomTextBox runat="server" Text=" "  ToolTip="مشاهده"
+                                            ID="btnView2" UseSubmitBehavior="False" EnableViewState="False" EnableTheming="False"
+                                            OnClick="btnView_Click">
+                                            <HoverStyle BackColor="#FFE0C0">
+                                                <Border BorderWidth="1px" BorderStyle="Outset" BorderColor="Gray"></Border>
+                                            </HoverStyle>
+                                            <Image  Url="~/Images/icons/view.png">
+                                            </Image>
+                                            <ClientSideEvents Click="function(s, e) {
+            
+	if (GridViewPlans.GetFocusedRowIndex()&lt;0)
+ 	{
+   		e.processOnServer=false;
+   		alert(&quot;ردیفی انتخاب نشده است&quot;);
+ 	}
+ 	
+}"></ClientSideEvents>
+                                        </TSPControls:CustomTextBox>
+                                    </td>
+                                    <td>
+                                        <TSPControls:CustomTextBox runat="server" Text=" "  ToolTip="بازگشت"
+                                            ID="ASPxButton1" UseSubmitBehavior="False" EnableViewState="False" EnableTheming="False"
+                                            OnClick="btnback_Click">
+                                            <HoverStyle BackColor="#FFE0C0">
+                                                <Border BorderWidth="1px" BorderStyle="Outset" BorderColor="Gray"></Border>
+                                            </HoverStyle>
+                                            <Image  Url="~/Images/icons/Back.png">
+                                            </Image>
+                                        </TSPControls:CustomTextBox>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <dxhf:ASPxHiddenField runat="server" ID="HiddenFieldPlan" ClientInstanceName="HDPlan">
+                        </dxhf:ASPxHiddenField>
+                    </dxp:PanelContent>
+                </PanelCollection>
+            </TSPControls:CustomASPxRoundPanelMenu>
+            <asp:ObjectDataSource ID="ObjdsWorkFlowTask" runat="server" TypeName="TSP.DataManager.WorkFlowTaskManager"
+                SelectMethod="SelectByWorkCode">
+                <SelectParameters>
+                    <asp:Parameter DefaultValue="-1" Name="WorkFlowCode" Type="Int32" />
+                </SelectParameters>
+            </asp:ObjectDataSource>
+            <asp:ObjectDataSource ID="ObjdsPlans" runat="server" TypeName="TSP.DataManager.TechnicalServices.PlansManager"
+                SelectMethod="SelectById" OldValuesParameterFormatString="original_{0}">
+                <SelectParameters>
+                    <asp:Parameter DefaultValue="-1" Name="PlansId" Type="Int32" />
+                    <asp:Parameter DefaultValue="-1" Name="ProjectId" Type="Int32" />
+                </SelectParameters>
+            </asp:ObjectDataSource>
+            <asp:ObjectDataSource ID="ObjdsPlanDesigner" runat="server" TypeName="TSP.DataManager.TechnicalServices.Designer_PlansManager"
+                SelectMethod="SelectDesignerByPlansId" OldValuesParameterFormatString="original_{0}">
+                <SelectParameters>
+                    <asp:SessionParameter SessionField="PlansId" Type="Int32" DefaultValue="-1" Name="PlansId">
+                    </asp:SessionParameter>
+                </SelectParameters>
+            </asp:ObjectDataSource>
+            <asp:ObjectDataSource ID="ObjdsPlansType" runat="server" TypeName="TSP.DataManager.TechnicalServices.PlansTypeManager"
+                SelectMethod="GetData"></asp:ObjectDataSource>
+                       <asp:ModalUpdateProgress ID="ModalUpdateProgress2" runat="server" DisplayAfter="0"
+            AssociatedUpdatePanelID="UpdatePanel1" BackgroundCssClass="modalProgressGreyBackground">
+            <ProgressTemplate>
+                <div class="modalPopup" style="font-family: Tahoma; font-size: 9pt">
+                    <img id="IMG1" src="../../../Image/indicator.gif" align="middle" />
+                    لطفا صبر نمایید ...</div>
+            </ProgressTemplate>
+        </asp:ModalUpdateProgress>
+        </ContentTemplate>
+    </asp:UpdatePanel>
+</asp:Content>
+

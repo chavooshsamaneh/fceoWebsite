@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Groups>
+	<NavBarGroup Text="اطلاعات عضو" Name="grpMemberInfo" Target="">
+		<NavBarItem Name="WFTracing" NavigateUrl="/Teachers/TeacherInfo/WorkFlowReport.aspx" Text="پیگیری پروانه اشتغال به کار استاد">
+		</NavBarItem>
+		<NavBarItem Name="Licence"  NavigateUrl="/Teachers/TeacherInfo/TeacherCertificate.aspx"  Text="مدیریت پروانه آموزشی">
+		</NavBarItem>
+	</NavBarGroup>
+	<NavBarGroup Expanded="False" Text="واحد آموزش" Name="grpAmoozesh" Target="">
+
+		<NavBarItem Name="Period"  NavigateUrl="/Teachers/Amoozesh/Period.aspx"  Text="دوره های آموزشی">
+		</NavBarItem>
+		<NavBarItem Name="Seminar" NavigateUrl="/Teachers/Amoozesh/TrainingQuestions.aspx" Text="آرشیو سؤالات امتحانی">
+		</NavBarItem>
+	</NavBarGroup>
+	
+</Groups>

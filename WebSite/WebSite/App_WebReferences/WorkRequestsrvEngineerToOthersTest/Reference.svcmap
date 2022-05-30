@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="c016166e-29a7-4260-965a-1a9b23270d8a" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>true</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://saraweb.shiraz.ir/EngineerToOthers/srvEngineerToOthers.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="srvEngineerToOthers.xsd" MetadataType="Schema" ID="7159900c-a0ca-4a0f-b9e1-5bb52c8f8786" SourceId="1" SourceUrl="http://saraweb.shiraz.ir/EngineerToOthers/srvEngineerToOthers.svc?xsd=xsd8" />
+    <MetadataFile FileName="srvEngineerToOthers1.xsd" MetadataType="Schema" ID="6eb19651-503f-4f55-ad63-1404e32fcf92" SourceId="1" SourceUrl="http://saraweb.shiraz.ir/EngineerToOthers/srvEngineerToOthers.svc?xsd=xsd3" />
+    <MetadataFile FileName="srvEngineerToOthers2.xsd" MetadataType="Schema" ID="d7591c70-e0ef-46ec-a1d7-5fc782b00b0d" SourceId="1" SourceUrl="http://saraweb.shiraz.ir/EngineerToOthers/srvEngineerToOthers.svc?xsd=xsd7" />
+    <MetadataFile FileName="srvEngineerToOthers3.xsd" MetadataType="Schema" ID="97a0ee5f-b1de-421f-9fcc-c61b0d72afc6" SourceId="1" SourceUrl="http://saraweb.shiraz.ir/EngineerToOthers/srvEngineerToOthers.svc?xsd=xsd2" />
+    <MetadataFile FileName="srvEngineerToOthers4.xsd" MetadataType="Schema" ID="4b095a81-cf22-4e52-ba7e-37aa01d2226d" SourceId="1" SourceUrl="http://saraweb.shiraz.ir/EngineerToOthers/srvEngineerToOthers.svc?xsd=xsd6" />
+    <MetadataFile FileName="srvEngineerToOthers.disco" MetadataType="Disco" ID="5e70658d-4095-411b-bcd0-eaec6de0cd3e" SourceId="1" SourceUrl="http://saraweb.shiraz.ir/EngineerToOthers/srvEngineerToOthers.svc?disco" />
+    <MetadataFile FileName="srvEngineerToOthers.wsdl" MetadataType="Wsdl" ID="4c37546c-eb3d-4078-b088-716378b64870" SourceId="1" SourceUrl="http://saraweb.shiraz.ir/EngineerToOthers/srvEngineerToOthers.svc?wsdl" />
+    <MetadataFile FileName="srvEngineerToOthers5.xsd" MetadataType="Schema" ID="44b44049-72a9-42b4-95ad-57d70092a45a" SourceId="1" SourceUrl="http://saraweb.shiraz.ir/EngineerToOthers/srvEngineerToOthers.svc?xsd=xsd1" />
+    <MetadataFile FileName="srvEngineerToOthers6.xsd" MetadataType="Schema" ID="db330ad0-82a2-447c-b3f3-e428d707d5ca" SourceId="1" SourceUrl="http://saraweb.shiraz.ir/EngineerToOthers/srvEngineerToOthers.svc?xsd=xsd5" />
+    <MetadataFile FileName="srvEngineerToOthers7.xsd" MetadataType="Schema" ID="9bca9463-d2a3-4620-bdab-0fecdad35df2" SourceId="1" SourceUrl="http://saraweb.shiraz.ir/EngineerToOthers/srvEngineerToOthers.svc?xsd=xsd9" />
+    <MetadataFile FileName="srvEngineerToOthers8.xsd" MetadataType="Schema" ID="f12e44af-3801-46ed-bc7d-091a4c8c0402" SourceId="1" SourceUrl="http://saraweb.shiraz.ir/EngineerToOthers/srvEngineerToOthers.svc?xsd=xsd0" />
+    <MetadataFile FileName="srvEngineerToOthers9.xsd" MetadataType="Schema" ID="9c45353e-fb44-4581-bc4c-3ccc0a5f39dd" SourceId="1" SourceUrl="http://saraweb.shiraz.ir/EngineerToOthers/srvEngineerToOthers.svc?xsd=xsd4" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

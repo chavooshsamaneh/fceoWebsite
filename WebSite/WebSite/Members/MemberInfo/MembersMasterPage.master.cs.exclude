@@ -1,0 +1,84 @@
+﻿using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+
+public partial class Employee_EmpMasterPage : System.Web.UI.MasterPage
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (Page.User.Identity.IsAuthenticated == true)
+        {
+            //if (Session["MemberManager"] == null)
+            //{
+            //    TSP.DataManager.MemberManager MemberManager = new TSP.DataManager.MemberManager();
+            //    MemberManager.FindByCode(Utility.GetCurrentUser_MeId());
+            //    Session["MemberManager"] = MemberManager;
+
+            //    if ((bool)MemberManager[0]["IsLock"] == true)
+            //    {
+            //        TSP.DataManager.LockHistoryManager lockHistoryManager = new TSP.DataManager.LockHistoryManager();
+            //        Session["MemberLockers"] = lockHistoryManager.FindLockers(Utility.GetCurrentUser_MeId(), 0, 1);
+            //    }
+            //}
+            //TSP.DataManager.MemberManager MemManager = Session["MemberManager"] as TSP.DataManager.MemberManager;
+            //if (MemManager[0]["MrsId"].ToString() != "1")
+            //    Response.Redirect("~/Members/MemberHome.aspx?MeId=" + Utility.EncryptQS(Session["MeId"].ToString()));
+        }
+
+        if (IsPostBack == false)
+        {
+            ASPxNavBar1.DataBind();
+            ASPxNavBar1.Groups.FindByName("grpMemberInfo").Expanded = true;
+            //TSP.DataManager.MemberManager MemManager = Session["MemberManager"] as TSP.DataManager.MemberManager;
+           // if (MemManager[0]["MrsId"].ToString() != "1")
+                //Response.Redirect("~/Members/MemberHome.aspx?MeId=" + Utility.EncryptQS(Session["MeId"].ToString()));
+              //  ASPxNavBar1.Enabled = false;
+
+
+            if (Utility.GetCurrentUser_LoginType() == (int)TSP.DataManager.UserType.TemporaryMembers)
+            {
+                foreach (DevExpress.Web.NavBarGroup grp in ASPxNavBar1.Groups)
+                {
+                    if (grp.Name != "grpMemberInfo" && grp.Name != "grpAccounting")
+                        grp.Enabled = false;
+                    else if(grp.Name == "grpMemberInfo")
+                    {
+                        grp.Enabled = true;
+                        foreach (DevExpress.Web.NavBarItem item in grp.Items)
+                        {
+                            if (!string.IsNullOrEmpty(item.Name) && item.Name == "MeRequest" )
+                            {
+                                item.Enabled = true;
+                            }
+                            else
+                                item.Enabled = false;
+                        }
+                    }
+                    else if (grp.Name == "grpAccounting")
+                    {
+                        grp.Enabled = true;
+
+                    }
+                }
+            }
+        }
+        TSP.DataManager.MessageManager MesManager = new TSP.DataManager.MessageManager();
+        TSP.DataManager.LoginManager LoManager = new TSP.DataManager.LoginManager();
+        LoManager.FindByCode(Utility.GetCurrentUser_UserId());
+        if (LoManager.Count > 0)
+        {
+            int Count = MesManager.CountOfUnRead(int.Parse(LoManager[0]["MeId"].ToString()), int.Parse(LoManager[0]["UltId"].ToString()), false);
+            ASPxNavBar1.Items.FindByName("NbiRecieve").Text = "پیام های رسیده" + "(" + Count.ToString() + ")";
+
+            Count = MesManager.CountOfUnRead2(int.Parse(LoManager[0]["MeId"].ToString()), int.Parse(LoManager[0]["UltId"].ToString()), false);
+            Count = MesManager.CountOfUnRead(9, 1, false);
+        }
+    }
+}

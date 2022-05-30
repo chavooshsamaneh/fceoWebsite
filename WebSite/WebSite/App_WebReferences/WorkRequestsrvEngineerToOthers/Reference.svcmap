@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="b2c788db-c799-452a-bcf5-d94aa4c0517d" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>true</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://esup.shiraz.ir/EngineerToOther/srvEngineerToOthers.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="srvEngineerToOthers.xsd" MetadataType="Schema" ID="c0781863-16e2-4fbe-b3f3-f23e819251fe" SourceId="1" SourceUrl="http://esup.shiraz.ir/EngineerToOther/srvEngineerToOthers.svc?xsd=xsd9" />
+    <MetadataFile FileName="srvEngineerToOthers1.xsd" MetadataType="Schema" ID="633ca428-e4ed-4272-afb4-c83e49b4cfff" SourceId="1" SourceUrl="http://esup.shiraz.ir/EngineerToOther/srvEngineerToOthers.svc?xsd=xsd2" />
+    <MetadataFile FileName="srvEngineerToOthers2.xsd" MetadataType="Schema" ID="6a91b823-6313-4516-9609-6fb68a1c2926" SourceId="1" SourceUrl="http://esup.shiraz.ir/EngineerToOther/srvEngineerToOthers.svc?xsd=xsd6" />
+    <MetadataFile FileName="srvEngineerToOthers3.xsd" MetadataType="Schema" ID="4dccff20-79c8-4371-8f6c-33754606b952" SourceId="1" SourceUrl="http://esup.shiraz.ir/EngineerToOther/srvEngineerToOthers.svc?xsd=xsd1" />
+    <MetadataFile FileName="srvEngineerToOthers4.xsd" MetadataType="Schema" ID="17221a35-87fe-4ef3-9bcf-8e6108b31460" SourceId="1" SourceUrl="http://esup.shiraz.ir/EngineerToOther/srvEngineerToOthers.svc?xsd=xsd5" />
+    <MetadataFile FileName="srvEngineerToOthers.wsdl" MetadataType="Wsdl" ID="0a87f575-aa39-4ff3-9c08-f2aa1d3b5568" SourceId="1" SourceUrl="http://esup.shiraz.ir/EngineerToOther/srvEngineerToOthers.svc?wsdl" />
+    <MetadataFile FileName="srvEngineerToOthers5.xsd" MetadataType="Schema" ID="539ef02b-d854-47a4-ab8c-4d78a67e41df" SourceId="1" SourceUrl="http://esup.shiraz.ir/EngineerToOther/srvEngineerToOthers.svc?xsd=xsd0" />
+    <MetadataFile FileName="srvEngineerToOthers6.xsd" MetadataType="Schema" ID="c628d5de-03f8-4c17-9d95-47c84022544c" SourceId="1" SourceUrl="http://esup.shiraz.ir/EngineerToOther/srvEngineerToOthers.svc?xsd=xsd4" />
+    <MetadataFile FileName="srvEngineerToOthers7.xsd" MetadataType="Schema" ID="87a95921-d336-42ef-8d91-8eb292e233c0" SourceId="1" SourceUrl="http://esup.shiraz.ir/EngineerToOther/srvEngineerToOthers.svc?xsd=xsd8" />
+    <MetadataFile FileName="srvEngineerToOthers.disco" MetadataType="Disco" ID="cbe74566-2c8e-4d44-bdcf-081e8930ed20" SourceId="1" SourceUrl="http://esup.shiraz.ir/EngineerToOther/srvEngineerToOthers.svc?disco" />
+    <MetadataFile FileName="srvEngineerToOthers8.xsd" MetadataType="Schema" ID="de907463-7b97-4e4a-96c5-07a9332076dc" SourceId="1" SourceUrl="http://esup.shiraz.ir/EngineerToOther/srvEngineerToOthers.svc?xsd=xsd3" />
+    <MetadataFile FileName="srvEngineerToOthers9.xsd" MetadataType="Schema" ID="f8967815-e5e0-487b-bc78-be375ce6e635" SourceId="1" SourceUrl="http://esup.shiraz.ir/EngineerToOther/srvEngineerToOthers.svc?xsd=xsd7" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

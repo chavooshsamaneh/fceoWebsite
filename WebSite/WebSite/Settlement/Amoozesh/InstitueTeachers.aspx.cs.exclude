@@ -1,0 +1,205 @@
+﻿using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+
+public partial class Settlement_Amoozesh_InstitueTeachers : System.Web.UI.Page
+{
+    #region Events
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (Session["Login"] == null || Session["Login"].ToString() == "0")
+        {
+            Response.Redirect("../../Login.aspx?ReferPage=" + Request.Url.AbsoluteUri);
+            return;
+        }
+        this.DivReport.Visible = false;
+        this.DivReport.Attributes.Add("onclick", "ChangeVisible(this)");
+        this.DivReport.Attributes.Add("onmouseover", "ChangeIcon(this)");
+
+        if (!IsPostBack)
+        {
+            if (string.IsNullOrEmpty(Request.QueryString["InsId"]))
+            {
+                Response.Redirect("Institue.aspx");
+                return;
+            }
+            TSP.DataManager.Permission per = TSP.DataManager.InstitueTeachersManager.GetUserPermission(int.Parse(Session["Login"].ToString()), (TSP.DataManager.UserType)int.Parse(Session["LoginType"].ToString()));          
+            btnView.Enabled = per.CanView;
+            btnView2.Enabled = per.CanView;
+            this.ViewState["BtnView"] = btnView.Enabled;
+            HiddenFieldInsTeacher["InsId"] = Request.QueryString["InsId"].ToString();
+            string InsId = Utility.DecryptQS(HiddenFieldInsTeacher["InsId"].ToString());
+            TSP.DataManager.InstitueManager InstitueManager = new TSP.DataManager.InstitueManager();
+            InstitueManager.FindByCode(int.Parse(InsId));
+            if (InstitueManager.Count == 1)
+            {
+                lblInstitueName.Text = "مؤسسه: " + InstitueManager[0]["InsName"].ToString();
+            }
+        }
+        if (this.ViewState["BtnView"] != null)
+            this.btnView.Enabled = this.btnView2.Enabled = (bool)this.ViewState["BtnView"];
+    }
+
+    protected void btnBack_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("Institue.aspx");
+    }
+
+    protected void btnNew_Click(object sender, EventArgs e)
+    {
+        NextPage("New");
+    }
+
+    protected void btnEdit_Click(object sender, EventArgs e)
+    {
+        NextPage("Edit");
+    }
+
+    protected void btnView_Click(object sender, EventArgs e)
+    {
+        NextPage("View");
+    }
+
+    protected void btnDisActive_Click(object sender, EventArgs e)
+    {
+        int InsTeacherId = -1;
+        if (GridViewInsTeacher.FocusedRowIndex > -1)
+        {
+            DataRow InsTeacherRow = GridViewInsTeacher.GetDataRow(GridViewInsTeacher.FocusedRowIndex);
+            InsTeacherId = int.Parse(InsTeacherRow["InsTeacherId"].ToString());
+            DisAcStive(InsTeacherId);
+            GridViewInsTeacher.DataBind();
+        }
+    }
+    #endregion
+
+    #region Methods
+    private void NextPage(string Mode)
+    {
+        int InsTeacherId = -1;
+        int FocucedIndex = GridViewInsTeacher.FocusedRowIndex;
+
+        if (FocucedIndex > -1)
+        {
+            string InsId = Utility.DecryptQS(HiddenFieldInsTeacher["InsId"].ToString());
+
+            DataRow row = GridViewInsTeacher.GetDataRow(FocucedIndex);
+            InsTeacherId = (int)(row["InsTeacherId"]);
+        }
+        if (InsTeacherId == -1 && Mode != "New")
+        {
+            this.DivReport.Visible = true;
+            this.LabelWarning.Text = "لطفاً برای مشاهده اطلاعات ابتدا یک رکورد را انتخاب نمائید";
+        }
+        else
+        {
+            if (Mode == "New")
+            {
+                InsTeacherId = -1;
+                Response.Redirect("InstitueTeachersView.aspx?InsTeId=" + Utility.EncryptQS(InsTeacherId.ToString()) + "&PgMd=" + Utility.EncryptQS(Mode) + "&InsId=" + HiddenFieldInsTeacher["InsId"]);
+            }
+            else
+            {
+                Response.Redirect("InstitueTeachersView.aspx?InsTeId=" + Utility.EncryptQS(InsTeacherId.ToString()) + "&PgMd=" + Utility.EncryptQS(Mode) + "&InsId=" + HiddenFieldInsTeacher["InsId"]);
+            }
+        }
+    }
+
+    private void DisAcStive(int InsTeacherId)
+    {
+        try
+        {
+            TSP.DataManager.InstitueTeachersManager InstitueTeachersManager = new TSP.DataManager.InstitueTeachersManager();
+            InstitueTeachersManager.FindByCode(InsTeacherId);
+            if (InstitueTeachersManager.Count > 0)
+            {
+                InstitueTeachersManager[0].BeginEdit();
+
+                InstitueTeachersManager[0]["InActive"] = 1;
+                InstitueTeachersManager[0].EndEdit();
+
+                int cn = InstitueTeachersManager.Save();
+                if (cn > 0)
+                {
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "ذخیره انجام شد.";
+                }
+                else
+                {
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است.";
+                }
+            }
+        }
+        catch (Exception err)
+        {
+            SetError(err);
+        }
+    }
+
+    private void SetDeleteError(Exception err)
+    {
+
+        if (err.GetType() == typeof(System.Data.SqlClient.SqlException))
+        {
+            System.Data.SqlClient.SqlException se = (System.Data.SqlClient.SqlException)err;
+            if (se.Number == 547)
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "به علت وجود اطلاعات وابسته امکان حذف نمی باشد.";
+            }
+            else
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "خطایی در حذف انجام گرفته است";
+            }
+        }
+        else
+        {
+            this.DivReport.Visible = true;
+            this.LabelWarning.Text = "خطایی در حذف انجام گرفته است";
+        }
+    }
+
+    private void SetError(Exception err)
+    {
+        if (err.GetType() == typeof(System.Data.SqlClient.SqlException))
+        {
+            System.Data.SqlClient.SqlException se = (System.Data.SqlClient.SqlException)err;
+
+            if (se.Number == 2601)
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "اطلاعات تکراری می باشد";
+            }
+            else if (se.Number == 2627)
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "کد تکراری می باشد";
+            }
+            else if (se.Number == 547)
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "به علت وجود اطلاعات وابسته امکان حذف نمی باشد.";
+            }
+            else
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+            }
+        }
+        else
+        {
+            this.DivReport.Visible = true;
+            this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+        }
+    }
+    #endregion
+}

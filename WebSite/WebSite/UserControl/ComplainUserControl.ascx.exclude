@@ -1,0 +1,91 @@
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="ComplainUserControl.ascx.cs"
+    Inherits="UserControl_ComplainUserControl" %>
+<%@ Register Assembly="DevExpress.Web.v11.2, Version=11.2.10.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web.ASPxPanel" TagPrefix="dx" %>
+<%@ Register Assembly="AjaxControls" Namespace="AjaxControls" TagPrefix="asp" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
+<%@ Register Assembly="DevExpress.Web.ASPxEditors.v11.2, Version=11.2.10.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web.ASPxEditors" TagPrefix="dx" %>
+<%@ Register Assembly="TSP.WebControls" Namespace="TSP.WebControls" TagPrefix="TSPControls" %>
+<%@ Register Assembly="DevExpress.Web.v11.2, Version=11.2.10.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web.ASPxRoundPanel" TagPrefix="dx" %>
+<%@ Register Assembly="DevExpress.Web.ASPxEditors.v11.2, Version=11.2.10.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web.ASPxEditors" TagPrefix="dxe" %>
+<dx:ASPxRoundPanel runat="server" 
+    ID="RoundPanelComplain"  RightToLeft="True" HeaderText="مشخصات پرونده"
+    Width="100%" GroupBoxCaptionOffsetY="-24px" CssFilePath="~/App_Themes/Glass/{0}/styles.css">
+    <HeaderRightEdge>
+        <BackgroundImage VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderRightEdge.gif">
+        </BackgroundImage>
+    </HeaderRightEdge>
+    <RightEdge>
+        <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif">
+        </BackgroundImage>
+    </RightEdge>
+    <Border BorderWidth="1px" BorderStyle="Solid" BorderColor="#7EACB1"></Border>
+    <HeaderLeftEdge>
+        <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderLeftEdge.gif">
+        </BackgroundImage>
+    </HeaderLeftEdge>
+    <NoHeaderTopRightCorner Width="5px" Height="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopRightCorner.png">
+    </NoHeaderTopRightCorner>
+    <ContentPaddings Padding="0px"></ContentPaddings>
+    <BottomEdge BackColor="#D7E9F1">
+    </BottomEdge>
+    <BottomRightCorner Width="5px" Height="5px" Url="~/App_Themes/Glass/Web/rpBottomRightCorner.png">
+    </BottomRightCorner>
+    <PanelCollection>
+        <dx:PanelContent ID="PanelContent5" runat="server">
+            <table width="100%" cellpadding="5">
+                <tr>
+                    <td valign="top" align="right" width="15%">
+                        <dx:ASPxLabel runat="server" Text="شماره پرونده" ID="ASPxLabel2">
+                        </dx:ASPxLabel>
+                    </td>
+                    <td valign="top" align="right" width="35%">
+                        <dx:ASPxLabel runat="server" Font-Bold="true" ID="txtComplainCode">
+                        </dx:ASPxLabel>
+                    </td>
+                    <td valign="top" align="right" width="15%">
+                        <dx:ASPxLabel runat="server" Text="وضعیت پرونده" ID="ASPxLabel13">
+                        </dx:ASPxLabel>
+                    </td>
+                    <td valign="top" align="right" width="35%">
+                        <dx:ASPxLabel runat="server" Font-Bold="true" ID="txtComplainStatus">
+                        </dx:ASPxLabel>
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top" align="right" width="15%">
+                        <dx:ASPxLabel runat="server" Text="موضوع شکایت" ID="ASPxLabel14">
+                        </dx:ASPxLabel>
+                    </td>
+                    <td colspan="3" valign="top" align="right" width="35%">
+                        <dx:ASPxLabel runat="server" Font-Bold="true" ID="MemoComplainSubject">
+                        </dx:ASPxLabel>
+                    </td>
+                </tr>
+            </table>
+        </dx:PanelContent>
+    </PanelCollection>
+    <NoHeaderTopLeftCorner Width="5px" Height="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopLeftCorner.png">
+    </NoHeaderTopLeftCorner>
+    <HeaderStyle HorizontalAlign="Right" BackColor="White" Height="23px">
+        <Paddings PaddingTop="0px" PaddingBottom="0px" PaddingLeft="2px"></Paddings>
+        <BorderBottom BorderStyle="None"></BorderBottom>
+    </HeaderStyle>
+    <Content>
+        <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpContentBack.gif">
+        </BackgroundImage>
+    </Content>
+    <LeftEdge>
+        <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif">
+        </BackgroundImage>
+    </LeftEdge>
+    <TopRightCorner Width="5px" Height="5px" Url="~/App_Themes/Glass/Web/rpTopRightCorner.png">
+    </TopRightCorner>
+    <HeaderContent>
+        <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderBack.gif">
+        </BackgroundImage>
+    </HeaderContent>
+</dx:ASPxRoundPanel>

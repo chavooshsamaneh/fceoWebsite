@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Groups>
+	<NavBarGroup Text="اطلاعات پایه" Expanded="False" Name="grpBaseInfo">		
+		<NavBarItem NavigateUrl="~/Employee/TechnicalServices/BaseInfo/DiscountPercent.aspx" Text="درصد تخفیف برای پروژه های خاص">
+		</NavBarItem>
+    <NavBarItem NavigateUrl="~/Employee/TechnicalServices/BaseInfo/ProjectIngridientMajors.aspx" Text="مدیریت رشته های مجاز عوامل پروِژه">
+    </NavBarItem>
+		<NavBarItem NavigateUrl="~/Employee/TechnicalServices/Plan/PlanControler.aspx" Text="مدیریت کنترل کنندگان نقشه">
+		</NavBarItem>
+    <NavBarItem NavigateUrl="~/Employee/TechnicalServices/BaseInfo/MemberDsgnCapacity.aspx" Text="مدیریت ظرفیت اشتغال طراحی/نظارت">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="~/Employee/TechnicalServices/BaseInfo/MemberImpCapacity.aspx" Text="مدیریت ظرفیت اشتغال اجرا">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="~/Employee/TechnicalServices/PriceArchive/PriceArchive.aspx" Text="نرخ خدمات مهندسی">
+    </NavBarItem>
+	</NavBarGroup>
+
+	<NavBarGroup Text="ظرفیت" Expanded="False" Name="grpCapacity">
+		<NavBarItem NavigateUrl="~/Employee/TechnicalServices/Capacity/CapacityAssignment.aspx" Text="مدیریت اختصاص ظرفیت"/>
+		<NavBarItem NavigateUrl="~/Employee/TechnicalServices/Capacity/ConditionalCapacity.aspx" Text="مدیریت کاهش/افزایش ظرفیت"/>
+    <NavBarItem NavigateUrl="~/Employee/TechnicalServices/Capacity/OffDsgnCapacityInfo.aspx" Text="اطلاعات ظرفیت طراحی"/>
+    <NavBarItem NavigateUrl="~/Employee/TechnicalServices/Capacity/MemberObsCapacityInfo.aspx" Text="اطلاعات ظرفیت نظارت"/>
+    <NavBarItem NavigateUrl="~/Employee/TechnicalServices/Capacity/MemberImpCapacityInfo.aspx" Text="اطلاعات ظرفیت اجرا"/>
+  </NavBarGroup>
+	
+	<!--<NavBarGroup Text="نرخ خدمات مهندسی" Expanded="False" Name="grpPriceArchive">
+		<NavBarItem NavigateUrl="~/Employee/TechnicalServices/PriceArchive/PriceArchive.aspx" Text="نرخ خدمات مهندسی">
+		</NavBarItem>
+	</NavBarGroup>-->
+
+	<NavBarGroup Text="اطلاعات پروژه" Expanded="False" Name="grpProject">
+		<NavBarItem NavigateUrl="~/Employee/TechnicalServices/Project/Project.aspx" Text="مدیریت پروژه ها">
+		</NavBarItem>
+		<!--<NavBarItem NavigateUrl="~/Employee/TechnicalServices/Project/Owner.aspx" Text="مدیریت مالکین">
+		</NavBarItem>-->
+		<!--<NavBarItem Name="nbiPlans"  NavigateUrl="~/Employee/TechnicalServices/Project/Plans.aspx" Text="مدیریت نقشه ها">
+		</NavBarItem>-->
+		<NavBarItem NavigateUrl="~/Employee/TechnicalServices/Project/DevelopmentPercent.aspx" Text="اعلام های پیشرفت کار">
+		</NavBarItem>
+	</NavBarGroup>
+
+  <NavBarGroup Text="گزارشات" Expanded="False" Name="grpReport">
+    <NavBarItem NavigateUrl="~/Employee/TechnicalServices/Report/Summary.aspx" Text="خلاصه پرونده"/>
+    <NavBarItem NavigateUrl="~/Employee/TechnicalServices/Report/DesignerCurrentProjects.aspx" Text="پروژه های در دست اجرا طراح"/>
+    <NavBarItem NavigateUrl="~/Employee/TechnicalServices/Report/ObserversCurrentProjects.aspx" Text="پروژه های در دست اجرا ناظر"/>
+    <NavBarItem NavigateUrl="~/Employee/TechnicalServices/Report/ImplementersCurrentProjects.aspx" Text="پروژه های در دست اجرا مجری"/>
+    <NavBarItem NavigateUrl="~/Employee/TechnicalServices/Report/OffDsgnCapacity.aspx" Text="گزارش ظرفیت طراحی"/>
+    <NavBarItem NavigateUrl="~/Employee/TechnicalServices/Report/MemberObsCapacity.aspx" Text="گزارش ظرفیت نظارت"/>
+    <NavBarItem NavigateUrl="~/Employee/TechnicalServices/Report/MemberImpCapacity.aspx" Text="گزارش ظرفیت اجرا"/>
+  </NavBarGroup>
+  
+</Groups>

@@ -1,0 +1,420 @@
+﻿using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+using DevExpress.Web;
+
+public partial class Settlement_Amoozesh_Seminar : System.Web.UI.Page
+{
+    #region Events
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (Session["Login"] == null || Session["Login"].ToString() == "0")
+        {
+            Response.Redirect("../../Login.aspx?ReferPage=" + Request.Url.AbsoluteUri);
+            return;
+        }
+
+        if (!IsPostBack)
+        {
+            TSP.DataManager.WorkFlowTaskManager WorkFlowTaskManager = new TSP.DataManager.WorkFlowTaskManager();
+            int TaskCode = (int)TSP.DataManager.WorkFlowTask.SaveSeminarInfo;
+            WorkFlowTaskManager.FindByTaskCode(TaskCode);
+            if (WorkFlowTaskManager.Count > 0)
+            {
+                string WorkFlowId = WorkFlowTaskManager[0]["WorkFlowId"].ToString();
+                ObjdsWorkFlowTask.SelectParameters[0].DefaultValue = WorkFlowId;
+            }
+
+
+            int SettlementConfirmingTaskCode = (int)TSP.DataManager.WorkFlowTask.SeminarSettlementAgentConfirming;
+            OdbSeminar.SelectParameters[0].DefaultValue = SettlementConfirmingTaskCode.ToString();
+
+
+            Session["SendBackDataTable_SettSe"] = null;
+
+            // CheckWorkFlowPermission();
+            //TSP.DataManager.Permission per = TSP.DataManager.SeminarManager.GetUserPermission(int.Parse(Session["Login"].ToString()), (TSP.DataManager.UserType)int.Parse(Session["LoginType"].ToString()));
+
+            //btnView.Enabled = per.CanView;
+            //btnView1.Enabled = per.CanView;
+
+            //CustomAspxDevGridView1.Visible = per.CanView;
+        }
+        this.DivReport.Visible = false;
+        this.DivReport.Attributes.Add("onclick", "ChangeVisible(this)");
+        this.DivReport.Attributes.Add("onmouseover", "ChangeIcon(this)");
+
+    }
+
+    protected void btnView_Click(object sender, EventArgs e)
+    {
+        int SeId = -1;
+        if (CustomAspxDevGridView1.FocusedRowIndex > -1)
+        {
+            DataRow row = CustomAspxDevGridView1.GetDataRow(CustomAspxDevGridView1.FocusedRowIndex);
+            SeId = (int)row["SeId"];
+        }
+        if (SeId == -1)
+        {
+            this.DivReport.Visible = true;
+            this.LabelWarning.Text = "لطفاً برای مشاهده اطلاعات ابتدا یک رکورد را انتخاب نمائید";
+
+        }
+        else
+        {
+            Response.Redirect("SeminarView.aspx?SeId=" + Utility.EncryptQS(SeId.ToString()) + "&PageMode=" + Utility.EncryptQS("View"));
+        }
+    }
+
+    protected void CustomAspxDevGridView1_CustomCallback(object sender, DevExpress.Web.ASPxGridViewCustomCallbackEventArgs e)
+    {
+        CustomAspxDevGridView1.DataBind();
+    }
+
+    protected void btnJudge_Click(object sender, EventArgs e)
+    {
+        int SeId = -1;
+        if (CustomAspxDevGridView1.FocusedRowIndex > -1)
+        {
+            DataRow row = CustomAspxDevGridView1.GetDataRow(CustomAspxDevGridView1.FocusedRowIndex);
+            SeId = (int)row["SeId"];
+        }
+        if (SeId == -1)
+        {
+            this.DivReport.Visible = true;
+            this.LabelWarning.Text = "لطفاً ابتدا یک رکورد را انتخاب نمائید";
+
+        }
+        else
+        {
+            //Response.Redirect("SeminarView.aspx?SeId=" + Utility.EncryptQS(SeId.ToString()) + "&PageMode=" + Utility.EncryptQS("Judge"));
+            CheckWorkFlowPermission(SeId);
+            
+
+        }
+    }    
+
+    protected void CustomAspxDevGridView1_OnAutoFilterCellEditorInitialize(object sender, ASPxGridViewEditorEventArgs e)
+    {
+        if (e.Column.FieldName == "StartDate")
+            e.Editor.Style["direction"] = "ltr";
+    }
+
+    protected void CustomAspxDevGridView1_OnHtmlDataCellPrepared(object sender, ASPxGridViewTableDataCellEventArgs e)
+    {
+        if (e.DataColumn.FieldName == "StartDate")
+        {
+            e.Cell.Style["direction"] = "ltr";
+        }
+    }
+    #endregion
+
+    #region Methods
+    #region WorkflowMethods
+    protected void CallbackPanelWorkFlow_Callback(object source, DevExpress.Web.CallbackEventArgsBase e)
+    {
+        if (CustomAspxDevGridView1.FocusedRowIndex > -1)
+        {
+            DataRow Row = CustomAspxDevGridView1.GetDataRow(CustomAspxDevGridView1.FocusedRowIndex);
+            int SeId = int.Parse(Row["SeId"].ToString());
+            int PPTableType = (int)TSP.DataManager.TableCodes.Seminar;
+            if (e.Parameter == "Send")
+            {
+                SendSeminarDocToNextStep(SeId);
+
+            }
+            else
+            {
+                SelectSendBackTask(PPTableType, SeId);
+            }
+        }
+        else
+        {
+            lblError.Text = "ردیفی انتخاب نشده است.";
+        }
+    }
+
+    //private void SelectSendBackTask(int TableType, int TableId)
+    //{
+    //    TSP.DataManager.WorkFlowStateManager WorkFlowStateManager = new TSP.DataManager.WorkFlowStateManager();
+    //    TSP.DataManager.WorkFlowManager WorkFlowManager = new TSP.DataManager.WorkFlowManager();
+    //    WorkFlowManager.FindByTableType(TableType);
+    //    if (WorkFlowManager.Count > 0)
+    //    {
+    //        int SendBackTask = WorkFlowStateManager.CalculateSendBackTask(TableType, TableId, (int)Session["Login"]);
+    //        switch (SendBackTask)
+    //        {
+    //            case -1:
+    //                PanelSaveSuccessfully.Visible = true;
+    //                PanelMain.Visible = false;
+    //                lblPeriodWarning.ForeColor = System.Drawing.Color.Red;
+    //                lblPeriodWarning.Text = "امکان ارسال پرونده به مرحله بعد برای شما وجود ندارد.";
+    //                break;
+    //            case -2:
+    //                PanelSaveSuccessfully.Visible = true;
+    //                PanelMain.Visible = false;
+    //                lblPeriodWarning.ForeColor = System.Drawing.Color.Red;
+    //                lblPeriodWarning.Text = "جریان کار پرونده سمینار انتخاب شده به اتمام رسیده است.";
+    //                break;
+    //            case -3:
+    //                PanelSaveSuccessfully.Visible = true;
+    //                PanelMain.Visible = false;
+    //                lblPeriodWarning.ForeColor = System.Drawing.Color.Red;
+    //                lblPeriodWarning.Text = "عملیاتی برای پرونده سمینار انتخاب شده انجام نشده است.";
+    //                break;
+    //            default:
+    //                int WorkFlowId = int.Parse(WorkFlowManager[0]["WorkFlowId"].ToString());
+    //                DataTable dtSendBackTask = WorkFlowStateManager.SelectSendBackTask(SendBackTask, WorkFlowId);
+    //                if (dtSendBackTask.Rows.Count > 0)
+    //                {
+    //                    Session["SendBackDataTable_SettSe"] = dtSendBackTask;
+    //                    cmbSendBackTask.DataSource = dtSendBackTask;
+    //                    cmbSendBackTask.ValueField = "TaskId";
+    //                    cmbSendBackTask.TextField = "TaskName";
+    //                    cmbSendBackTask.DataBind();
+    //                    cmbSendBackTask.SelectedIndex = 0;
+    //                    PanelSaveSuccessfully.Visible = false;
+    //                    PanelMain.Visible = true;
+    //                }
+    //                break;
+    //        }
+    //    }
+    //    else
+    //    {
+    //        PanelSaveSuccessfully.Visible = true;
+    //        PanelMain.Visible = false;
+    //        lblPeriodWarning.ForeColor = System.Drawing.Color.Red;
+    //        lblPeriodWarning.Text = "اطلاعات جریان کار تغییر یافته است.";
+    //    }
+    //}
+
+    private void SelectSendBackTask(int TableType, int TableId)
+    {
+        TSP.DataManager.WorkFlowStateManager WorkFlowStateManager = new TSP.DataManager.WorkFlowStateManager();
+        TSP.DataManager.WorkFlowManager WorkFlowManager = new TSP.DataManager.WorkFlowManager();
+        DataTable dtWorkFlowState = WorkFlowStateManager.SelectLastState(TableType, TableId);
+        if (dtWorkFlowState.Rows.Count > 0)
+        {
+            int CurrentWorkFlowCode = int.Parse(dtWorkFlowState.Rows[0]["WorkFlowCode"].ToString());
+            WorkFlowManager.FindByTableType(TableType, CurrentWorkFlowCode);
+            if (WorkFlowManager.Count > 0)
+            {
+                int SendBackTask = WorkFlowStateManager.CalculateSendBackTask(TableType, TableId, (int)Session["Login"]);
+                switch (SendBackTask)
+                {
+                    case -1:
+                        PanelSaveSuccessfully.Visible = true;
+                        PanelMain.Visible = false;
+                        lblPeriodWarning.ForeColor = System.Drawing.Color.Red;
+                        lblPeriodWarning.Text = "امکان ارسال پرونده به مرحله بعد برای شما وجود ندارد.";
+                        break;
+                    case -2:
+                        PanelSaveSuccessfully.Visible = true;
+                        PanelMain.Visible = false;
+                        lblPeriodWarning.ForeColor = System.Drawing.Color.Red;
+                        lblPeriodWarning.Text = "جریان کار پرونده دوره انتخاب شده به اتمام رسیده است.";
+                        break;
+                    case -3:
+                        PanelSaveSuccessfully.Visible = true;
+                        PanelMain.Visible = false;
+                        lblPeriodWarning.ForeColor = System.Drawing.Color.Red;
+                        lblPeriodWarning.Text = "عملیاتی برای پرونده دوره انتخاب شده انجام نشده است.";
+                        break;
+                    default:
+                        int WorkFlowId = int.Parse(WorkFlowManager[0]["WorkFlowId"].ToString());
+                        DataTable dtSendBackTask = WorkFlowStateManager.SelectSendBackTask(SendBackTask, WorkFlowId);
+                        if (dtSendBackTask.Rows.Count > 0)
+                        {
+                            txtDescription.Text = "";
+                            Session["SendBackDataTable_SettSe"] = dtSendBackTask;
+                            cmbSendBackTask.DataSource = dtSendBackTask;
+                            cmbSendBackTask.ValueField = "TaskId";
+                            cmbSendBackTask.TextField = "TaskName";
+                            cmbSendBackTask.DataBind();
+                            cmbSendBackTask.SelectedIndex = 0;
+                            PanelSaveSuccessfully.Visible = false;
+                            PanelMain.Visible = true;
+                        }
+                        break;
+                }
+            }
+            else
+            {
+                PanelSaveSuccessfully.Visible = true;
+                PanelMain.Visible = false;
+                lblPeriodWarning.ForeColor = System.Drawing.Color.Red;
+                lblPeriodWarning.Text = "اطلاعات جریان کار تغییر یافته است.";
+            }
+        }
+    }
+
+    private void SendSeminarDocToNextStep(int SeId)
+    {
+        DataTable dtSendBack = (DataTable)Session["SendBackDataTable_SettSe"];
+        cmbSendBackTask.DataSource = dtSendBack;
+        cmbSendBackTask.ValueField = "TaskId";
+        cmbSendBackTask.TextField = "TaskName";
+        cmbSendBackTask.DataBind();
+        int SelectedTaskId = int.Parse(cmbSendBackTask.SelectedItem.Value.ToString());
+        TSP.DataManager.WorkFlowStateManager WorkFlowStateManager = new TSP.DataManager.WorkFlowStateManager();
+        int NmcId = FindNmcId();
+        int TableType = (int)TSP.DataManager.TableCodes.Seminar;
+        int SendDoc = WorkFlowStateManager.SendDocToNextStep(TableType, SeId, SelectedTaskId, txtDescription.Text, NmcId, int.Parse(Session["Login"].ToString()));
+        switch (SendDoc)
+        {
+            case -6:
+                DivReport.Visible = true;
+                LabelWarning.Text = "امکان ارسال پرونده سمینار به مرحله جاری وجود ندارد.";
+                break;
+            case -4:
+                lblPeriodWarning.ForeColor = System.Drawing.Color.Red;
+                lblError.Text = "خطایی در ذخیره انجام شد.";
+                break;
+            case -5:
+                DivReport.Visible = true;
+                LabelWarning.Text = "برای پرونده انتخاب شده هیچ عملیاتی انجام نشده است.";
+                break;
+            default:
+                lblPeriodWarning.ForeColor = System.Drawing.Color.Green;
+                lblError.Text = "ذخیره انجام شد.";
+                PanelMain.ClientVisible = false;
+                PanelSaveSuccessfully.ClientVisible = true;
+                break;
+        }
+        CustomAspxDevGridView1.DataBind();
+    }
+
+    private int FindNmcId()
+    {
+        int UserId = (int)Session["Login"];
+        TSP.DataManager.NezamChartManager NezamChartManager = new TSP.DataManager.NezamChartManager();
+        TSP.DataManager.LoginManager LoginManager = new TSP.DataManager.LoginManager();
+
+        LoginManager.FindByCode(UserId);
+        int NmcId = -1;
+        if (LoginManager.Count > 0)
+        {
+            int EmpId = int.Parse(LoginManager[0]["MeId"].ToString());
+            int UltId = int.Parse(LoginManager[0]["UltId"].ToString());
+            NezamChartManager.FindByEmpId(EmpId, UltId);
+            if (NezamChartManager.Count > 0)
+            {
+                NmcId = int.Parse(NezamChartManager[0]["NmcId"].ToString());
+            }
+            else
+            {
+                DivReport.Visible = true;
+                LabelWarning.Text = "کاربری با مشخصات جاری در چارت سازمانی وجود ندارد.";
+            }
+        }
+        else
+        {
+            Response.Redirect("../Login.aspx?ReferPage=" + Request.Url.AbsoluteUri);
+            return (-1);
+        }
+        return (NmcId);
+    }
+    #endregion
+    private void CheckWorkFlowPermission(int SeId)
+    {
+        int SeminarExpertCode = (int)TSP.DataManager.WorkFlowTask.SeminarSettlementAgentConfirming;
+        int WFCode =(int)TSP.DataManager.WorkFlows.SeminarConfirming;
+        TSP.DataManager.WFPermission WfPer = TSP.DataManager.WorkFlowPermission.CheckWFPermissionForEditForManagementPage(SeminarExpertCode, WFCode, SeId, Utility.GetCurrentUser_UserId());
+        if (WfPer.BtnNew)
+        {            
+            Response.Redirect("SeminarView.aspx?SeId=" + Utility.EncryptQS(SeId.ToString()) + "&PageMode=" + Utility.EncryptQS("Judge"));
+        }
+
+        else
+        {
+            this.DivReport.Visible = true;
+            this.LabelWarning.Text = " امکان ثبت نظر برای شما وجود ندارد ";
+            return;
+        }
+        //int CurrentSubOrder = -1;
+        //TSP.DataManager.WorkFlowTaskManager WorkFlowTaskManager = new TSP.DataManager.WorkFlowTaskManager();
+        //WorkFlowTaskManager.ClearBeforeFill = true;
+        //int SeminarExpertOrder = -1;
+
+        //WorkFlowTaskManager.FindByTaskCode(SeminarExpertCode);
+        //if (WorkFlowTaskManager.Count > 0)
+        //{
+        //    SeminarExpertOrder = int.Parse(WorkFlowTaskManager[0]["TaskOrder"].ToString());
+        //}
+
+     
+        //int CurrentStateOrder = -1;
+
+        //TSP.DataManager.WorkFlowStateManager WorkFlowStateManager = new TSP.DataManager.WorkFlowStateManager();
+        //int TableType = (int)(TSP.DataManager.TableCodes.Seminar);
+        
+        //int TableId = SeId;
+        //DataTable dtWorkState = WorkFlowStateManager.SelectLastState(TableType, TableId);
+        //if (dtWorkState.Rows.Count > 0)
+        //{
+        //    CurrentStateOrder = int.Parse(dtWorkState.Rows[0]["TaskOrder"].ToString());
+        //    CurrentSubOrder = int.Parse(dtWorkState.Rows[0]["SubOrder"].ToString());
+        //}
+
+        //if ((CurrentStateOrder == SeminarExpertOrder) || (CurrentStateOrder != -1))
+        //{
+            
+        //    if (SeminarExpertOrder != 0)
+        //    {
+        //        Boolean CommitteeGradingper = CheckWorkFlowPermissionForSettlement(CurrentSubOrder);
+        //        if (CommitteeGradingper)
+        //        {
+        //            //  btnJudge.Enabled = true;
+        //            Response.Redirect("SeminarView.aspx?SeId=" + Utility.EncryptQS(SeId.ToString()) + "&PageMode=" + Utility.EncryptQS("Judge"));
+
+        //        }
+
+        //        else
+        //        {
+        //            this.DivReport.Visible = true;
+        //            this.LabelWarning.Text = "امکان ثبت نظر برای شما وجود ندارد ";
+        //            return;
+        //            //btnJudge.Enabled = false;
+        //        }
+
+        //    }
+            
+           
+        //}
+        //else
+        //{
+        //    this.DivReport.Visible = true;
+        //    this.LabelWarning.Text = "امکان ثبت نظر برای شما وجود ندارد ";
+        //    return;
+        //    //btnJudge.Enabled = false;
+
+        //}
+       
+    }
+
+    private Boolean CheckWorkFlowPermissionForSettlement(int CurrentSubOrder)
+    {
+        TSP.DataManager.TaskDoerManager TaskDoerManager = new TSP.DataManager.TaskDoerManager();
+        TSP.DataManager.WorkFlowTaskManager WorkFlowTaskManager = new TSP.DataManager.WorkFlowTaskManager();
+        int SeminarConfirmingCode = (int)TSP.DataManager.WorkFlowTask.SeminarSettlementAgentConfirming;
+        WorkFlowTaskManager.FindByTaskCode(SeminarConfirmingCode);
+        int DoerId = -1;
+        DoerId = TaskDoerManager.CheckWorkFlowPermissionForTask(SeminarConfirmingCode, CurrentSubOrder, int.Parse(Session["Login"].ToString()), true);
+        if (DoerId > 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    #endregion
+}

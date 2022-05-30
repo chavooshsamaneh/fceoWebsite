@@ -1,0 +1,221 @@
+﻿<%@ Page Language="C#" MasterPageFile="~/MasterPagePortals.master"  AutoEventWireup="true" CodeFile="Default2.aspx.cs" Inherits="Members_Default2" %>
+
+<asp:Content ID="Content1" runat="server" ContentPlaceHolderID="ContentPlaceHolder1">
+    <asp:DataList ID="DataList1" runat="server" DataSourceID="OdbMember">
+        <ItemTemplate>
+            &nbsp;<table style="width: 599px">
+                <tr>
+                    <td style="width: 100px">
+                        <asp:Label ID="Label1" runat="server" Text="نام"></asp:Label></td>
+                    <td style="width: 100px">
+                        <asp:Label ID="Label2" runat="server" Text='<%# Bind("FirstName") %>'></asp:Label></td>
+                    <td style="width: 100px">
+                        <asp:Label ID="Label3" runat="server" Text="نام خانوادگی"></asp:Label></td>
+                    <td style="width: 100px">
+                        <asp:Label ID="Label4" runat="server" Text='<%# Bind("LastName") %>'></asp:Label></td>
+                </tr>
+                <tr>
+                    <td style="width: 100px; height: 18px">
+                        <asp:Label ID="Label5" runat="server" Text="نام (انگلیسی)"></asp:Label></td>
+                    <td style="width: 100px; height: 18px">
+                        <asp:Label ID="Label6" runat="server" Text='<%# Bind("FirstNameEn") %>'></asp:Label></td>
+                    <td style="width: 100px; height: 18px">
+                        <asp:Label ID="Label7" runat="server" Text="نام خانوادگی(انگلیسی)"></asp:Label></td>
+                    <td style="width: 100px; height: 18px">
+                        <asp:Label ID="Label8" runat="server" Text='<%# Bind("LastNameEn") %>'></asp:Label></td>
+                </tr>
+                <tr>
+                    <td style="width: 100px">
+                        <asp:Label ID="Label9" runat="server" Text="نام پدر"></asp:Label></td>
+                    <td style="width: 100px">
+                        <asp:Label ID="Label10" runat="server" Text='<%# Bind("FatherName") %>'></asp:Label></td>
+                    <td style="width: 100px">
+                        <asp:Label ID="Label11" runat="server" Text="تاریخ تولد"></asp:Label></td>
+                    <td style="width: 100px">
+                        <asp:Label ID="Label12" runat="server" Text='<%# Bind("BirhtDate") %>'></asp:Label></td>
+                </tr>
+                <tr>
+                    <td style="width: 100px">
+                        <asp:Label ID="Label13" runat="server" Text="محل تولد"></asp:Label></td>
+                    <td style="width: 100px">
+                        <asp:Label ID="Label14" runat="server" Text='<%# Bind("BirthPlace") %>'></asp:Label></td>
+                    <td style="width: 100px">
+                        <asp:Label ID="Label15" runat="server" Text="شماره شناسنامه"></asp:Label></td>
+                    <td style="width: 100px">
+                        <asp:Label ID="Label16" runat="server" Text='<%# Bind("IdNo") %>'></asp:Label></td>
+                </tr>
+                <tr>
+                    <td style="width: 100px">
+                        <asp:Label ID="Label17" runat="server" Text="محل صدور"></asp:Label></td>
+                    <td style="width: 100px">
+                        <asp:Label ID="Label18" runat="server" Text='<%# Bind("IssuePlace") %>'></asp:Label></td>
+                    <td style="width: 100px">
+                        <asp:Label ID="Label19" runat="server" Text="شماره ملی"></asp:Label></td>
+                    <td style="width: 100px">
+                        <asp:Label ID="Label20" runat="server" Text='<%# Bind("SSN") %>'></asp:Label></td>
+                </tr>
+                <tr>
+                    <td style="width: 100px">
+                        <asp:Label ID="Label21" runat="server" Text="شماره تلفن همراه"></asp:Label></td>
+                    <td style="width: 100px">
+                        <asp:Label ID="Label22" runat="server" Text='<%# Bind("MobileNo") %>'></asp:Label></td>
+                    <td style="width: 100px">
+                        <asp:Label ID="Label23" runat="server" Text="تلفن منزل"></asp:Label></td>
+                    <td style="width: 100px">
+                        <asp:Label ID="Label24" runat="server" Text='<%# Bind("HomeTel") %>'></asp:Label></td>
+                </tr>
+                <tr>
+                    <td style="width: 100px">
+                        <asp:Label ID="Label25" runat="server" Text="آدرس منزل"></asp:Label></td>
+                    <td colspan="3">
+                        &nbsp;<asp:Label ID="Label26" runat="server" Text='<%# Bind("HomeAdr") %>'></asp:Label></td>
+                </tr>
+                <tr>
+                    <td style="width: 100px">
+                        <asp:Label ID="Label27" runat="server" Text="کدپستی محل کار"></asp:Label></td>
+                    <td style="width: 100px">
+                        <asp:Label ID="Label28" runat="server" Text='<%# Bind("HomePO") %>'></asp:Label></td>
+                    <td style="width: 100px">
+                        <asp:Label ID="Label29" runat="server" Text="تلفن محل کار"></asp:Label></td>
+                    <td style="width: 100px">
+                        <asp:Label ID="Label30" runat="server" Text='<%# Bind("WorkTel") %>'></asp:Label></td>
+                </tr>
+                <tr>
+                    <td style="width: 100px">
+                        <asp:Label ID="Label31" runat="server" Text="آدرس محل کار"></asp:Label></td>
+                    <td colspan="3">
+                        <asp:Label ID="Label32" runat="server" Text='<%# Bind("WorkAdr") %>'></asp:Label></td>
+                </tr>
+                <tr>
+                    <td style="width: 100px; height: 18px">
+                        <asp:Label ID="Label33" runat="server" Text="کد پستی محل کار"></asp:Label></td>
+                    <td style="width: 100px; height: 18px">
+                        <asp:Label ID="Label34" runat="server" Text='<%# Bind("WorkPO") %>'></asp:Label></td>
+                    <td style="width: 100px; height: 18px">
+                        <asp:Label ID="Label35" runat="server" Text="شماره فکس"></asp:Label></td>
+                    <td style="width: 100px; height: 18px">
+                        <asp:Label ID="Label36" runat="server" Text='<%# Bind("FaxNo") %>'></asp:Label></td>
+                </tr>
+                <tr>
+                    <td style="width: 100px">
+                        <asp:Label ID="Label37" runat="server" Text="شماره حساب بانکی"></asp:Label></td>
+                    <td style="width: 100px">
+                        <asp:Label ID="Label38" runat="server" Text='<%# Bind("BankAccNo") %>'></asp:Label></td>
+                    <td style="width: 100px">
+                        <asp:Label ID="Label39" runat="server" Text="وضعیت سربازی"></asp:Label></td>
+                    <td style="width: 100px">
+                        <asp:Label ID="Label40" runat="server" Text='<%# Bind("SexName") %>'></asp:Label></td>
+                </tr>
+                <tr>
+                    <td style="width: 100px">
+                        <asp:Label ID="Label41" runat="server" Text="جنسیت"></asp:Label></td>
+                    <td style="width: 100px">
+                        <asp:Label ID="Label42" runat="server" Text="Label"></asp:Label></td>
+                    <td style="width: 100px">
+                        <asp:Label ID="Label43" runat="server" Text="Label"></asp:Label></td>
+                    <td style="width: 100px">
+                        <asp:Label ID="Label44" runat="server" Text="Label"></asp:Label></td>
+                </tr>
+                <tr>
+                    <td style="width: 100px">
+                        <asp:Label ID="Label45" runat="server" Text="Label"></asp:Label></td>
+                    <td style="width: 100px">
+                        <asp:Label ID="Label46" runat="server" Text="Label"></asp:Label></td>
+                    <td style="width: 100px">
+                        <asp:Label ID="Label47" runat="server" Text="Label"></asp:Label></td>
+                    <td style="width: 100px">
+                        <asp:Label ID="Label48" runat="server" Text="Label"></asp:Label></td>
+                </tr>
+                <tr>
+                    <td style="width: 100px">
+                        <asp:Label ID="Label49" runat="server" Text="Label"></asp:Label></td>
+                    <td style="width: 100px">
+                        <asp:Label ID="Label50" runat="server" Text="Label"></asp:Label></td>
+                    <td style="width: 100px">
+                        <asp:Label ID="Label51" runat="server" Text="Label"></asp:Label></td>
+                    <td style="width: 100px">
+                        <asp:Label ID="Label52" runat="server" Text="Label"></asp:Label></td>
+                </tr>
+                <tr>
+                    <td style="width: 100px">
+                    </td>
+                    <td style="width: 100px">
+                    </td>
+                    <td style="width: 100px">
+                    </td>
+                    <td style="width: 100px">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 100px">
+                    </td>
+                    <td style="width: 100px">
+                    </td>
+                    <td style="width: 100px">
+                    </td>
+                    <td style="width: 100px">
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 100px">
+                    </td>
+                    <td style="width: 100px">
+                    </td>
+                    <td style="width: 100px">
+                    </td>
+                    <td style="width: 100px">
+                    </td>
+                </tr>
+            </table>
+            &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;
+        </ItemTemplate>
+    </asp:DataList>
+    &nbsp;
+    <asp:ObjectDataSource ID="OdbMember" runat="server" DeleteMethod="Delete" InsertMethod="Insert"
+        SelectMethod="GetData" TypeName="TSP.DataManager.MessageManager" UpdateMethod="Update">
+        <DeleteParameters>
+            <asp:Parameter Name="Original_MsgId" Type="Int32" />
+            <asp:Parameter Name="Original_LastTimeStamp" Type="Object" />
+        </DeleteParameters>
+        <UpdateParameters>
+            <asp:Parameter Name="SenderId" Type="Int32" />
+            <asp:Parameter Name="SenderType" Type="Int16" />
+            <asp:Parameter Name="IsSenderPart" Type="Boolean" />
+            <asp:Parameter Name="RecieverId" Type="Int32" />
+            <asp:Parameter Name="RecieverType" Type="Int16" />
+            <asp:Parameter Name="IsRecieverPart" Type="Boolean" />
+            <asp:Parameter Name="MsgTypeId" Type="Int16" />
+            <asp:Parameter Name="NeedConfirm" Type="Boolean" />
+            <asp:Parameter Name="MsgBody" Type="String" />
+            <asp:Parameter Name="Date" Type="String" />
+            <asp:Parameter Name="IsRead" Type="Byte" />
+            <asp:Parameter Name="RefMsg" Type="Int32" />
+            <asp:Parameter Name="TableType" Type="Int32" />
+            <asp:Parameter Name="TableId" Type="Int32" />
+            <asp:Parameter Name="UserId" Type="Int32" />
+            <asp:Parameter Name="ModifiedDate" Type="DateTime" />
+            <asp:Parameter Name="Original_MsgId" Type="Int32" />
+            <asp:Parameter Name="Original_LastTimeStamp" Type="Object" />
+            <asp:Parameter Name="MsgId" Type="Int32" />
+        </UpdateParameters>
+        <InsertParameters>
+            <asp:Parameter Name="SenderId" Type="Int32" />
+            <asp:Parameter Name="SenderType" Type="Int16" />
+            <asp:Parameter Name="IsSenderPart" Type="Boolean" />
+            <asp:Parameter Name="RecieverId" Type="Int32" />
+            <asp:Parameter Name="RecieverType" Type="Int16" />
+            <asp:Parameter Name="IsRecieverPart" Type="Boolean" />
+            <asp:Parameter Name="MsgTypeId" Type="Int16" />
+            <asp:Parameter Name="NeedConfirm" Type="Boolean" />
+            <asp:Parameter Name="MsgBody" Type="String" />
+            <asp:Parameter Name="Date" Type="String" />
+            <asp:Parameter Name="IsRead" Type="Byte" />
+            <asp:Parameter Name="RefMsg" Type="Int32" />
+            <asp:Parameter Name="TableType" Type="Int32" />
+            <asp:Parameter Name="TableId" Type="Int32" />
+            <asp:Parameter Name="UserId" Type="Int32" />
+            <asp:Parameter Name="ModifiedDate" Type="DateTime" />
+        </InsertParameters>
+    </asp:ObjectDataSource>
+</asp:Content>
+

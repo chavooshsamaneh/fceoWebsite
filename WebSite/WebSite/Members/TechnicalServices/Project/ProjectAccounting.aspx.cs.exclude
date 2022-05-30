@@ -1,0 +1,135 @@
+﻿using System;
+using System.Data;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+public partial class Members_TechnicalServices_Project_ProjectAccounting : System.Web.UI.Page
+{
+    #region Properties
+    private string PageMode
+    {
+        get
+        {
+            return Utility.DecryptQS(HiddenFieldAcc["PageMode"].ToString());
+        }
+        set
+        {
+            HiddenFieldAcc["PageMode"] = Utility.EncryptQS(value.ToString());
+        }
+    }
+
+    private string PrjReId
+    {
+        get
+        {
+            return Utility.DecryptQS(HiddenFieldAcc["PrjReId"].ToString());
+        }
+        set
+        {
+            HiddenFieldAcc["PrjReId"] = Utility.EncryptQS(value.ToString());
+        }
+    }
+
+    private string ProjectId
+    {
+        get
+        {
+            return Utility.DecryptQS(HiddenFieldAcc["PrjId"].ToString());
+        }
+        set
+        {
+            HiddenFieldAcc["PrjId"] = Utility.EncryptQS(value.ToString());
+        }
+    }
+    #endregion
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        this.DivReport.Visible = false;
+        this.DivReport.Attributes.Add("onclick", "ChangeVisible(this)");
+        this.DivReport.Attributes.Add("onmouseover", "ChangeIcon(this)");
+
+        if (!IsPostBack)
+        {
+            if (string.IsNullOrEmpty(Request.QueryString["ProjectId"]) || string.IsNullOrEmpty(Request.QueryString["PageMode"]) || string.IsNullOrEmpty(Request.QueryString["PrjReId"]))
+            {
+                Response.Redirect("Project.aspx");
+            }
+
+            SetKeys();
+        }
+    }
+
+    protected void btnback_Click(object sender, EventArgs e)
+    {
+        string QS = "ProjectId=" + HiddenFieldAcc["ProjectId"].ToString()
+            + "&PrjReId=" + HiddenFieldAcc["PrjReId"].ToString()
+            + "&PageMode=" + HiddenFieldAcc["PageMode"].ToString();
+        Response.Redirect("ProjectInsert.aspx?" + QS);
+    }
+
+    private void SetKeys()
+    {
+        try
+        {
+            HiddenFieldAcc["PageMode"] = Request.QueryString["PageMode"];
+            HiddenFieldAcc["PrjReId"] = Request.QueryString["PrjReId"];
+            HiddenFieldAcc["ProjectId"] = Request.QueryString["ProjectId"];
+
+            PrjReId = Utility.DecryptQS(Request.QueryString["PrjReId"].ToString());
+            ProjectId = Utility.DecryptQS(Request.QueryString["ProjectId"].ToString());
+            PageMode = Utility.DecryptQS(Request.QueryString["PageMode"].ToString());
+
+            if (Utility.IsDBNullOrNullValue(ProjectId) || Utility.IsDBNullOrNullValue(PrjReId) || Utility.IsDBNullOrNullValue(PageMode))
+            {
+                this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+                return;
+            }
+
+            ObjectDataSourceTsAcc.SelectParameters["ProjectId"].DefaultValue = ProjectId.ToString();
+            ObjectDataSourceTsAcc.SelectParameters["FishPayerId"].DefaultValue = Utility.GetCurrentUser_MeId().ToString();
+            DevGridViewOwnerAccounting.DataBind();
+
+            FillProjectInfo(int.Parse(PrjReId));
+            SetProjectMainMenuEnabled();
+        }
+        catch (Exception err)
+        {
+            Utility.SaveWebsiteError(err);
+            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+            return;
+        }
+    }
+
+    protected void FillProjectInfo(int Id)
+    {
+        prjInfo.Fill(Id);
+    }
+
+    private void SetProjectMainMenuEnabled()
+    {
+        if (ProjectId == "-1")
+            ProjectId = "-2";
+
+        PrjMainMenu PrjMainMenu = new PrjMainMenu("Accounting", Convert.ToInt32(ProjectId));
+        MainMenu.Items.FindByName("Accounting").Selected = true;
+        MainMenu.Items.FindByName("BuildingsLicense").Enabled = PrjMainMenu.GetEnabled("BuildingsLicense");
+        MainMenu.Items.FindByName("Timing").Enabled = PrjMainMenu.GetEnabled("Timing");
+        MainMenu.Items.FindByName("Contract").Enabled = PrjMainMenu.GetEnabled("Contract");
+        MainMenu.Items.FindByName("Implementer").Enabled = PrjMainMenu.GetEnabled("Implementer");
+        MainMenu.Items.FindByName("Observers").Enabled = PrjMainMenu.GetEnabled("Observers");
+        MainMenu.Items.FindByName("Plans").Enabled = PrjMainMenu.GetEnabled("Plans");
+        MainMenu.Items.FindByName("Owner").Enabled = PrjMainMenu.GetEnabled("Owner");
+        MainMenu.Items.FindByName("Project").Enabled = PrjMainMenu.GetEnabled("Project");
+        MainMenu.Items.FindByName("Accounting").Enabled = PrjMainMenu.GetEnabled("Accounting");
+        MainMenu.Items.FindByName("Designer").Enabled = PrjMainMenu.GetEnabled("Designer");
+    }
+
+    protected void MainMenu_ItemClick(object source, DevExpress.Web.MenuItemEventArgs e)
+    {
+        PrjMainMenu MainMenu = new PrjMainMenu("Accounting", Convert.ToInt32(ProjectId));
+        Response.Redirect(MainMenu.GetRedirectLink(e.Item.Name, Utility.EncryptQS(PrjReId), Utility.EncryptQS(PageMode)));
+    }
+}

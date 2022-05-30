@@ -1,0 +1,51 @@
+﻿<%@ Page Language="C#"  MasterPageFile="~/MasterPagePortals.master" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="Members_Default" %>
+
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxm" %>
+
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxuc" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxe" %>
+
+<asp:Content ID="Content1" runat="server" ContentPlaceHolderID="ContentPlaceHolder1">
+    <asp:Button ID="Button1" runat="server" OnClick="Button1_Click" Text="Button" />&nbsp;
+    <dxuc:ASPxUploadControl ID="flpEmza_ot" runat="server" ClientInstanceName="oflp">
+    </dxuc:ASPxUploadControl><dxe:ASPxLabel ID="ASPxLabel2" runat="server" ClientInstanceName="Klbl" ClientVisible="False"
+        Text="تصویر امضا">
+    </dxe:ASPxLabel>
+    <TSPControls:CustomASPxCheckBox ID="ASPxCheckBox1" runat="server" ClientInstanceName="chb" EnableClientSideAPI="True">
+        <ClientSideEvents CheckedChanged="function(s, e) {
+	if(chb.GetChecked()==true)
+	flp.SetVisible(true);
+else
+flp.SetVisible(false);
+}" />
+    </TSPControls:CustomASPxCheckBox>
+    <TSPControls:CustomTextBox ID="ASPxButton1" runat="server" AutoPostBack="False" CausesValidation="False"
+        EnableClientSideAPI="True" Text="click" UseSubmitBehavior="False" Width="62px" ClientInstanceName="but1" ClientVisible="False">
+        <ClientSideEvents Click="function(s, e) {
+flp.SetVisible(false);
+}" />
+    </TSPControls:CustomTextBox>
+    <TSPControls:CustomASPxCheckBox ID="chbHaghEmza_ot" runat="server" ClientInstanceName="ochb" EnableClientSideAPI="True"
+        Text="دارای حق امضا">
+        <ClientSideEvents CheckedChanged="function(s, e) {
+	if(Kchb.GetChecked()==true)
+{
+	kflp.SetVisible(true);
+Klbl.SetVisible(true);
+}
+else
+{
+kflp.SetVisible(false);
+Klbl.SetVisible(false);
+}
+}" />
+    </TSPControls:CustomASPxCheckBox>
+    <dxe:ASPxLabel ID="ASPxLabel1" runat="server" ClientInstanceName="Klbl" ClientVisible="False"
+        Text="تصویر امضا">
+    </dxe:ASPxLabel>
+</asp:Content>
+
+

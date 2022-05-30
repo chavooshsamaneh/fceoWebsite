@@ -1,0 +1,19 @@
+<%@ Register TagPrefix="dx" Namespace="DevExpress.Data" Assembly="DevExpress.Data.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<%@ Register TagPrefix="dx" Namespace="DevExpress.Web" Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %> 
+
+<dx:ASPxVerticalGrid runat="server" CssFilePath="{0}/styles.css" CssPostfix="Metropolis">
+    <SettingsPager CurrentPageNumberFormat="{0}">
+        <PageSizeItemSettings ShowPopupShadow="False" />
+    </SettingsPager>
+    <Images SpriteCssFilePath="{0}/sprite.css" />
+    <Styles CssPostfix="Metropolis" CssFilePath="{0}/styles.css" />
+    <StylesPager>
+        <Pager ItemSpacing="0px" Spacing="0px" />
+    </StylesPager>
+    <StylesEditors>
+        <Calendar>
+            <Border BorderColor="Silver" BorderStyle="Solid" BorderWidth="1px" />
+        </Calendar>
+    </StylesEditors>
+</dx:ASPxVerticalGrid>
+

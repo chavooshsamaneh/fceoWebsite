@@ -1,0 +1,305 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="Verify" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xs:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:import namespace="http://schemas.datacontract.org/2004/07/VerifyPayment" />
+      <xs:element name="KicccPaymentsVerification">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="token" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="merchantId" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="referenceNumber" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="sha1Key" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="KicccPaymentsVerificationResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="KicccPaymentsVerificationResult" type="xs:long" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="getTransaction">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="merchantId" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="invoiceNo" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="referenceNo" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="getTransactionResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/VerifyPayment" minOccurs="0" name="getTransactionResult" nillable="true" type="q1:transactionModel" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="getLimitedTransacction">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="merchantId" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="invoiceNo" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="amount" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="getLimitedTransacctionResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/VerifyPayment" minOccurs="0" name="getLimitedTransacctionResult" nillable="true" type="q2:transactionModel" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="getDailyTransaction">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="merchantId" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="offset" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="limit" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="getDailyTransactionResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/VerifyPayment" minOccurs="0" name="getDailyTransactionResult" nillable="true" type="q3:ArrayOftransactionModel" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="getOfflineTransaction">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="merchantId" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="fromDate" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="toDate" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="offset" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="limit" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="getOfflineTransactionResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/VerifyPayment" minOccurs="0" name="getOfflineTransactionResult" nillable="true" type="q4:ArrayOftransactionModel" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="getTransactionByIban">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="merchantId" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="IbanNo" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="fromDate" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="toDate" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="offset" nillable="true" type="xs:string" />
+            <xs:element minOccurs="0" name="limit" nillable="true" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="getTransactionByIbanResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/VerifyPayment" minOccurs="0" name="getTransactionByIbanResult" nillable="true" type="q5:ArrayOftransactionModel" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+    <xs:schema xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="anyType" nillable="true" type="xs:anyType" />
+      <xs:element name="anyURI" nillable="true" type="xs:anyURI" />
+      <xs:element name="base64Binary" nillable="true" type="xs:base64Binary" />
+      <xs:element name="boolean" nillable="true" type="xs:boolean" />
+      <xs:element name="byte" nillable="true" type="xs:byte" />
+      <xs:element name="dateTime" nillable="true" type="xs:dateTime" />
+      <xs:element name="decimal" nillable="true" type="xs:decimal" />
+      <xs:element name="double" nillable="true" type="xs:double" />
+      <xs:element name="float" nillable="true" type="xs:float" />
+      <xs:element name="int" nillable="true" type="xs:int" />
+      <xs:element name="long" nillable="true" type="xs:long" />
+      <xs:element name="QName" nillable="true" type="xs:QName" />
+      <xs:element name="short" nillable="true" type="xs:short" />
+      <xs:element name="string" nillable="true" type="xs:string" />
+      <xs:element name="unsignedByte" nillable="true" type="xs:unsignedByte" />
+      <xs:element name="unsignedInt" nillable="true" type="xs:unsignedInt" />
+      <xs:element name="unsignedLong" nillable="true" type="xs:unsignedLong" />
+      <xs:element name="unsignedShort" nillable="true" type="xs:unsignedShort" />
+      <xs:element name="char" nillable="true" type="tns:char" />
+      <xs:simpleType name="char">
+        <xs:restriction base="xs:int" />
+      </xs:simpleType>
+      <xs:element name="duration" nillable="true" type="tns:duration" />
+      <xs:simpleType name="duration">
+        <xs:restriction base="xs:duration">
+          <xs:pattern value="\-?P(\d*D)?(T(\d*H)?(\d*M)?(\d*(\.\d*)?S)?)?" />
+          <xs:minInclusive value="-P10675199DT2H48M5.4775808S" />
+          <xs:maxInclusive value="P10675199DT2H48M5.4775807S" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:element name="guid" nillable="true" type="tns:guid" />
+      <xs:simpleType name="guid">
+        <xs:restriction base="xs:string">
+          <xs:pattern value="[\da-fA-F]{8}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{12}" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:attribute name="FactoryType" type="xs:QName" />
+      <xs:attribute name="Id" type="xs:ID" />
+      <xs:attribute name="Ref" type="xs:IDREF" />
+    </xs:schema>
+    <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/VerifyPayment" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/VerifyPayment" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:complexType name="transactionModel">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="AMOUNT" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="CARDNO" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="EXTRAPARAM1" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="EXTRAPARAM2" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="EXTRAPARAM3" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="EXTRAPARAM4" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="MERCHANTID" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="PAYMENTID" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="REFERENCENUMBER" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="RESULTCODE" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="ROWNUMBER" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="SETTLEMENTDATE" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="SPECIALPAYMENTID" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="TRANSDATE" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="VERIFYDATE" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="VERIFYRESPONSE" nillable="true" type="xs:string" />
+          <xs:element minOccurs="0" name="invoceNo" nillable="true" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="transactionModel" nillable="true" type="tns:transactionModel" />
+      <xs:complexType name="ArrayOftransactionModel">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="transactionModel" nillable="true" type="tns:transactionModel" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ArrayOftransactionModel" nillable="true" type="tns:ArrayOftransactionModel" />
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="IVerify_KicccPaymentsVerification_InputMessage">
+    <wsdl:part name="parameters" element="tns:KicccPaymentsVerification" />
+  </wsdl:message>
+  <wsdl:message name="IVerify_KicccPaymentsVerification_OutputMessage">
+    <wsdl:part name="parameters" element="tns:KicccPaymentsVerificationResponse" />
+  </wsdl:message>
+  <wsdl:message name="IVerify_getTransaction_InputMessage">
+    <wsdl:part name="parameters" element="tns:getTransaction" />
+  </wsdl:message>
+  <wsdl:message name="IVerify_getTransaction_OutputMessage">
+    <wsdl:part name="parameters" element="tns:getTransactionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IVerify_getLimitedTransacction_InputMessage">
+    <wsdl:part name="parameters" element="tns:getLimitedTransacction" />
+  </wsdl:message>
+  <wsdl:message name="IVerify_getLimitedTransacction_OutputMessage">
+    <wsdl:part name="parameters" element="tns:getLimitedTransacctionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IVerify_getDailyTransaction_InputMessage">
+    <wsdl:part name="parameters" element="tns:getDailyTransaction" />
+  </wsdl:message>
+  <wsdl:message name="IVerify_getDailyTransaction_OutputMessage">
+    <wsdl:part name="parameters" element="tns:getDailyTransactionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IVerify_getOfflineTransaction_InputMessage">
+    <wsdl:part name="parameters" element="tns:getOfflineTransaction" />
+  </wsdl:message>
+  <wsdl:message name="IVerify_getOfflineTransaction_OutputMessage">
+    <wsdl:part name="parameters" element="tns:getOfflineTransactionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IVerify_getTransactionByIban_InputMessage">
+    <wsdl:part name="parameters" element="tns:getTransactionByIban" />
+  </wsdl:message>
+  <wsdl:message name="IVerify_getTransactionByIban_OutputMessage">
+    <wsdl:part name="parameters" element="tns:getTransactionByIbanResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IVerify">
+    <wsdl:operation name="KicccPaymentsVerification">
+      <wsdl:input wsaw:Action="http://tempuri.org/IVerify/KicccPaymentsVerification" message="tns:IVerify_KicccPaymentsVerification_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IVerify/KicccPaymentsVerificationResponse" message="tns:IVerify_KicccPaymentsVerification_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="getTransaction">
+      <wsdl:input wsaw:Action="http://tempuri.org/IVerify/getTransaction" message="tns:IVerify_getTransaction_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IVerify/getTransactionResponse" message="tns:IVerify_getTransaction_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="getLimitedTransacction">
+      <wsdl:input wsaw:Action="http://tempuri.org/IVerify/getLimitedTransacction" message="tns:IVerify_getLimitedTransacction_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IVerify/getLimitedTransacctionResponse" message="tns:IVerify_getLimitedTransacction_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="getDailyTransaction">
+      <wsdl:input wsaw:Action="http://tempuri.org/IVerify/getDailyTransaction" message="tns:IVerify_getDailyTransaction_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IVerify/getDailyTransactionResponse" message="tns:IVerify_getDailyTransaction_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="getOfflineTransaction">
+      <wsdl:input wsaw:Action="http://tempuri.org/IVerify/getOfflineTransaction" message="tns:IVerify_getOfflineTransaction_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IVerify/getOfflineTransactionResponse" message="tns:IVerify_getOfflineTransaction_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="getTransactionByIban">
+      <wsdl:input wsaw:Action="http://tempuri.org/IVerify/getTransactionByIban" message="tns:IVerify_getTransactionByIban_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IVerify/getTransactionByIbanResponse" message="tns:IVerify_getTransactionByIban_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IVerify" type="tns:IVerify">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="KicccPaymentsVerification">
+      <soap:operation soapAction="http://tempuri.org/IVerify/KicccPaymentsVerification" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getTransaction">
+      <soap:operation soapAction="http://tempuri.org/IVerify/getTransaction" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getLimitedTransacction">
+      <soap:operation soapAction="http://tempuri.org/IVerify/getLimitedTransacction" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getDailyTransaction">
+      <soap:operation soapAction="http://tempuri.org/IVerify/getDailyTransaction" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getOfflineTransaction">
+      <soap:operation soapAction="http://tempuri.org/IVerify/getOfflineTransaction" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getTransactionByIban">
+      <soap:operation soapAction="http://tempuri.org/IVerify/getTransactionByIban" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Verify">
+    <wsdl:port name="BasicHttpBinding_IVerify" binding="tns:BasicHttpBinding_IVerify">
+      <soap:address location="https://ikc.shaparak.ir/TVerify/Verify.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

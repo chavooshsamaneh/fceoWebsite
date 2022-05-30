@@ -1,0 +1,223 @@
+﻿using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+
+public partial class Office_TechnicalServices_Project_OwnerInsert : System.Web.UI.Page
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        this.DivReport.Visible = false;
+        this.DivReport.Attributes.Add("onclick", "ChangeVisible(this)");
+        this.DivReport.Attributes.Add("onmouseover", "ChangeIcon(this)");
+
+        if (!IsPostBack)
+        {
+            if (string.IsNullOrEmpty(Request.QueryString["ProjectId"]) || string.IsNullOrEmpty(Request.QueryString["OwnerId"]))
+            {
+                Response.Redirect("Project.aspx");
+            }
+
+            try
+            {
+                PgMode.Value = Server.HtmlDecode(Request.QueryString["PageMode"].ToString());
+                HDProjectId.Value = Server.HtmlDecode(Request.QueryString["ProjectId"]).ToString();
+                HDOwnerId.Value = Server.HtmlDecode(Request.QueryString["OwnerId"]).ToString();
+                RequestId.Value = Server.HtmlDecode(Request.QueryString["PrjReId"]).ToString();
+
+            }
+            catch
+            {
+                this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+                return;
+            }
+
+            string PageMode = Utility.DecryptQS(PgMode.Value);
+            string ProjectId = Utility.DecryptQS(HDProjectId.Value);
+            string OwnerId = Utility.DecryptQS(HDOwnerId.Value);
+            string PrjReId = Utility.DecryptQS(RequestId.Value);
+
+            if (string.IsNullOrEmpty(OwnerId) || string.IsNullOrEmpty(ProjectId))
+            {
+                this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+                return;
+            }
+            FillProjectInfo(int.Parse(PrjReId));
+
+            FillForm(int.Parse(OwnerId));
+
+        }
+    }
+ 
+    protected void SetOtherPerson()
+    {
+        //txtoAddress.ClientVisible = true;
+        //txtoMobileNo.ClientVisible = true;
+        //txtoTel.ClientVisible = true;
+        txtoBirthPlace.ClientVisible = true;
+        txtoFatherName.ClientVisible = true;
+        txtoFirstName.ClientVisible = true;
+        txtoIdNo.ClientVisible = true;
+        txtoLastName.ClientVisible = true;
+        txtoSSN.ClientVisible = true;
+        txtoManager.ClientVisible = false;
+        txtoOrgName.ClientVisible = false;
+
+        ASPxlbloBirthPlace.ClientVisible = true;
+        ASPxlbloFatherName.ClientVisible = true;
+        ASPxlbloFirstName.ClientVisible = true;
+        ASPxlbloIdNo.ClientVisible = true;
+        ASPxlbloLastName.ClientVisible = true;
+        ASPxlbloSSN.ClientVisible = true;
+        ASPxlbloManager.ClientVisible = false;
+        ASPxlbloOrgName.ClientVisible = false;
+
+    }
+    protected void SetOrganization()
+    {
+        //txtoAddress.ClientVisible = true;
+        //txtoMobileNo.ClientVisible = true;
+        //txtoTel.ClientVisible = true;
+        txtoBirthPlace.ClientVisible = false;
+        txtoFatherName.ClientVisible = false;
+        txtoFirstName.ClientVisible = false;
+        txtoIdNo.ClientVisible = false;
+        txtoLastName.ClientVisible = false;
+        txtoSSN.ClientVisible = false;
+        txtoManager.ClientVisible = true;
+        txtoOrgName.ClientVisible = true;
+
+        ASPxlbloBirthPlace.ClientVisible = false;
+        ASPxlbloFatherName.ClientVisible = false;
+        ASPxlbloFirstName.ClientVisible = false;
+        ASPxlbloIdNo.ClientVisible = false;
+        ASPxlbloLastName.ClientVisible = false;
+        ASPxlbloSSN.ClientVisible = false;
+        ASPxlbloManager.ClientVisible = true;
+        ASPxlbloOrgName.ClientVisible = true;
+    }
+    protected void SetHaveLawyerTrue()
+    {
+        txtlAddess.ClientVisible = true;
+        txtlBirthPlace.ClientVisible = true;
+        txtlFatherName.ClientVisible = true;
+        txtlFirstName.ClientVisible = true;
+        txtlIdNo.ClientVisible = true;
+        txtlLastName.ClientVisible = true;
+        txtlMobileNo.ClientVisible = true;
+        txtlSSN.ClientVisible = true;
+        txtlTel.ClientVisible = true;
+
+        ASPxlblAddess.ClientVisible = true;
+        ASPxlblBirthPlace.ClientVisible = true;
+        ASPxlblFatherName.ClientVisible = true;
+        ASPxlblFirstName.ClientVisible = true;
+        ASPxlblIdNo.ClientVisible = true;
+        ASPxlblLastName.ClientVisible = true;
+        ASPxlblMobileNo.ClientVisible = true;
+        ASPxlblSSN.ClientVisible = true;
+        ASPxlblTel.ClientVisible = true;
+    }
+    protected void SetHaveLawyerFalse()
+    {
+        txtlAddess.ClientVisible = false;
+        txtlBirthPlace.ClientVisible = false;
+        txtlFatherName.ClientVisible = false;
+        txtlFirstName.ClientVisible = false;
+        txtlIdNo.ClientVisible = false;
+        txtlLastName.ClientVisible = false;
+        txtlMobileNo.ClientVisible = false;
+        txtlSSN.ClientVisible = false;
+        txtlTel.ClientVisible = false;
+
+        ASPxlblAddess.ClientVisible = false;
+        ASPxlblBirthPlace.ClientVisible = false;
+        ASPxlblFatherName.ClientVisible = false;
+        ASPxlblFirstName.ClientVisible = false;
+        ASPxlblIdNo.ClientVisible = false;
+        ASPxlblLastName.ClientVisible = false;
+        ASPxlblMobileNo.ClientVisible = false;
+        ASPxlblSSN.ClientVisible = false;
+        ASPxlblTel.ClientVisible = false;
+    }
+    protected void FillForm(int OwnerId)
+    {
+        try
+        {
+            TSP.DataManager.TechnicalServices.OwnerManager OwnerManager = new TSP.DataManager.TechnicalServices.OwnerManager();
+            OwnerManager.FindByOwnerId(OwnerId);
+            if (OwnerManager.Count == 1)
+            {
+                CmbType.DataBind();
+                CmbType.SelectedIndex = CmbType.Items.IndexOfValue(OwnerManager[0]["Type"].ToString());
+                if (OwnerManager[0]["Type"].ToString() == "1")//otherperson
+                {
+                    SetOtherPerson();
+                    txtoBirthPlace.Text = OwnerManager[0]["BirthPlace"].ToString();
+                    txtoFatherName.Text = OwnerManager[0]["FMName"].ToString();
+                    txtoFirstName.Text = OwnerManager[0]["FirstName"].ToString();
+                    txtoIdNo.Text = OwnerManager[0]["IdNo"].ToString();
+                    txtoLastName.Text = OwnerManager[0]["LastName"].ToString();
+                    txtoSSN.Text = OwnerManager[0]["SSN"].ToString();
+                }
+                else //organization
+                {
+                    SetOrganization();                  
+                    txtoManager.Text = OwnerManager[0]["FMName"].ToString();
+                    txtoOrgName.Text = OwnerManager[0]["Name"].ToString();
+
+                }
+                txtoAddress.Text = OwnerManager[0]["Address"].ToString();
+                txtoMobileNo.Text = OwnerManager[0]["MobileNo"].ToString();
+                txtoTel.Text = OwnerManager[0]["Tel"].ToString();
+
+                ChbHaveLawyer.Checked = Convert.ToBoolean(OwnerManager[0]["HaveLawyer"]);
+                if (ChbHaveLawyer.Checked == true)
+                {
+                    SetHaveLawyerTrue();
+
+                    txtlAddess.Text = OwnerManager[0]["LAddress"].ToString();
+                    txtlBirthPlace.Text = OwnerManager[0]["LBirthPlace"].ToString();
+                    txtlFatherName.Text = OwnerManager[0]["LFatherName"].ToString();
+                    txtlFirstName.Text = OwnerManager[0]["LFirstName"].ToString();
+                    txtlIdNo.Text = OwnerManager[0]["LIdNo"].ToString();
+                    txtlLastName.Text = OwnerManager[0]["LLastName"].ToString();
+                    txtlMobileNo.Text = OwnerManager[0]["LMobileNo"].ToString();
+                    txtlSSN.Text = OwnerManager[0]["LSSN"].ToString();
+                    txtlTel.Text = OwnerManager[0]["LTel"].ToString();
+                }
+                
+               
+            }
+            else
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "اطلاعات توسط کاربر دیگری تغییر یافته است";
+            }
+        }
+        catch (Exception)
+        {
+            this.DivReport.Visible = true;
+            this.LabelWarning.Text = "خطایی در مشاهده اطلاعات رخ داده است";
+        }
+
+
+    }
+    protected void btnBack_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("Owner.aspx?ProjectId=" + HDProjectId.Value + "&PageMode=" + PgMode.Value + "&PrjReId=" + RequestId.Value);
+
+    }
+    private void FillProjectInfo(int Id)
+    {
+        prjInfo.Fill(Id);
+    }
+  
+}

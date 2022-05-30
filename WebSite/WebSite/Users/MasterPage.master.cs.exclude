@@ -1,0 +1,68 @@
+using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+
+public partial class Users_MasterPage : System.Web.UI.MasterPage
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (IsPostBack == false)
+        {            
+            if (Utility.GetCurrentUser_LoginType() != (int)TSP.DataManager.UserType.Member)
+            {
+                MenuUserSettings.Items.FindByName("MemberPrivateInfoSetting").Visible = false;
+                MenuUserSettings.Items.FindByName("RecieveMagazineSetting").Visible = false;
+                RoundPanelUserSettings.Visible = false;
+            }
+
+            SetXmlDataSource();
+
+            if (Utility.GetCurrentUser_LoginType() == (int)TSP.DataManager.UserType.Employee)
+                Utility.SetNavigationBarUserAccess(ASPxNavBar1);
+        }
+    }
+
+    void SetXmlDataSource()
+    {
+        switch (Utility.GetCurrentUser_LoginType())
+        {
+            case (int)TSP.DataManager.UserType.Member:
+                XmlDataSource1.DataFile = "~/App_Data/NavBarItems/Members.xml";
+                ASPxNavBar1.DataBind();
+                ASPxNavBar1.Groups.FindByName("grpMemberInfo").Expanded = true;
+                break;
+            case (int)TSP.DataManager.UserType.Office:
+                XmlDataSource1.DataFile = "~/App_Data/NavBarItems/Office.xml";
+                ASPxNavBar1.DataBind();
+                break;
+            case (int)TSP.DataManager.UserType.Employee:
+                XmlDataSource1.DataFile = "~/App_Data/NavBarItems/Employee.xml";
+                ASPxNavBar1.DataBind();
+                break;
+            case (int)TSP.DataManager.UserType.Teacher:
+                XmlDataSource1.DataFile = "~/App_Data/NavBarItems/Teachers.xml";
+                ASPxNavBar1.DataBind();
+                break;
+            case (int)TSP.DataManager.UserType.Institute:
+                XmlDataSource1.DataFile = "~/App_Data/NavBarItems/Institue.xml";
+                ASPxNavBar1.DataBind();
+                break;
+            case (int)TSP.DataManager.UserType.Settlement:
+                XmlDataSource1.DataFile = "~/App_Data/NavBarItems/Settlement.xml";
+                ASPxNavBar1.DataBind();
+                break;
+            case (int)TSP.DataManager.UserType.TemporaryMembers:
+                XmlDataSource1.DataFile = "~/App_Data/NavBarItems/Members.xml";
+                ASPxNavBar1.DataBind();
+                ASPxNavBar1.Groups.FindByName("grpMemberInfo").Expanded = true;
+                break;
+        }
+    }
+}

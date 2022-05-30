@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Groups>
+  <NavBarGroup Text="واحد عضویت" Name="grpMemberInfo" Expanded="True">
+    <NavBarItem NavigateUrl="/Members/MemberInfo/MemberRequest.aspx" Text="مدیریت درخواست ها" Name="MeRequest">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Members/Office/Office.aspx" Text="سوابق عضویت در شرکت ها">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Members/EngOfficeView/EngOffice.aspx" Text="سوابق عضویت در دفاتر">
+    </NavBarItem>
+  </NavBarGroup>
+
+  <NavBarGroup Text="واحد مالی" Expanded="False" Name="grpAccounting" Visiblity = "true">
+    <NavBarItem NavigateUrl="/Members/Accounting/EpaymentFishes.aspx" Text="مدیریت فیش های پرداخت الکترونیکی">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Members/Accounting/EpaymentFishes.aspx?P=N" Name="EpayFishNotPayed" Text="مدیریت فیش های پرداخت نشده پرداخت الکترونیکی">
+    </NavBarItem>
+  </NavBarGroup>
+  <NavBarGroup Text="پیام ها" Expanded="False" Name="grpMessages" Target="">
+
+    <NavBarItem NavigateUrl="/Members/Message/Inbox.aspx" Text="پیام های رسیده"  Name="NbiRecieve">
+    </NavBarItem>
+
+    <NavBarItem NavigateUrl="/Members/Message/RecievedSms.aspx" Text="پیام های کوتاه"  Name="NbiSMS">
+    </NavBarItem>
+
+    <NavBarItem NavigateUrl="/Members/Message/ConflictManagment.aspx" Text="لیست اعلام مغایرت ها"  Name="NbiConflict">
+    </NavBarItem>
+  </NavBarGroup>
+
+  <NavBarGroup Text="واحد آموزش" Expanded="False" Name="grpAmoozesh" Target="">
+    <NavBarItem NavigateUrl="/Members/Amoozesh/Course.aspx" Text="واحدهای درسی مورد تایید نظام مهندسی">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Members/Amoozesh/UpGradePeriods.aspx" Text="لیست دوره های آموزشی جهت ارتقا پایه">
+    </NavBarItem>
+
+    <NavBarItem NavigateUrl="/Members/Amoozesh/PeriodRegister.aspx" Text="ثبت نام دوره های آموزشی">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Members/Amoozesh/SeminarRegister.aspx" Text="ثبت نام دوره های غیر مصوب و سمینارهای آموزشی">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Members/Amoozesh/PreRegister.aspx" Text="نیازسنجی دوره های آموزشی">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Members/Amoozesh/PeriodRegisterHome.aspx" Text="مدیریت دوره های آموزشی/سمینارهای سپری شده">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Members/Amoozesh/Licence.aspx" Text="گواهینامه های آموزشی">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Members/Amoozesh/MadrakForUpGrade.aspx" Text="مدیریت مدارک دوره/همایش خارج از سازمان">
+    </NavBarItem>
+  </NavBarGroup>
+
+  <NavBarGroup Text="واحد صدور پروانه" Expanded="False" Name="grpDocument" Enabled="true" Target="">
+    <NavBarItem NavigateUrl="/Members/Documents/MemberFiles.aspx" Text="مدیریت پروانه اشتغال به کار">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Members/ImplementDoc/ImplementDoc.aspx" Text="مدیریت مجوز مجری حقیقی">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Members/Documents/ObservationDoc.aspx" Text="مدیریت مجوز فعالیت ناظر حقیقی(به تنهایی)">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Members/EngOffice/EngOffice.aspx" Text="مدیریت دفاتر">
+    </NavBarItem>
+  </NavBarGroup>
+  <NavBarGroup Text="واحد خدمات مهندسی" Expanded="False" Name="grpTechnicalService" Visiblity = "true">
+    <NavBarItem NavigateUrl="/Members/TechnicalServices/Report/MemberOperationReport.aspx" Text="گزارش کارکرد خدمات مهندسی">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Members/TechnicalServices/Capacity/ObserverWorkRequest.aspx" Text="مدیریت آماده به کاری">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Members/TechnicalServices/Project/ObserverSelected.aspx"  Text="لیست ارجاع کار نظارت" >
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Members/TechnicalServices/Capacity/CapacityRelease.aspx" Text="مدیریت بازگشت ظرفیت نظارت ">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Members/TechnicalServices/Project/Project.aspx" Text="مدیریت پروژه ها">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Members/TechnicalServices/Project/MemberPlans.aspx" Text="مدیریت نقشه ها">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Members/TechnicalServices/Project/ControlPlans.aspx" Text="مدیریت بازبینی نقشه"></NavBarItem>
+  </NavBarGroup>
+</Groups>

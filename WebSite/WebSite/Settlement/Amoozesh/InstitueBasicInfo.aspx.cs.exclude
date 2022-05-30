@@ -1,0 +1,812 @@
+﻿using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+
+public partial class Settlement_Amoozesh_InstitueBasicInfo : System.Web.UI.Page
+{
+    #region Events
+    protected void Page_Load(object sender, EventArgs e)
+    {
+
+        if (Session["Login"] == null || Session["Login"].ToString() == "0")
+        {
+            Response.Redirect("../../Login.aspx?ReferPage=" + Request.Url.AbsoluteUri);
+            return;
+        }
+
+        this.DivReport.Visible = false;
+        this.DivReport.Attributes.Add("onclick", "ChangeVisible(this)");
+        this.DivReport.Attributes.Add("onmouseover", "ChangeIcon(this)");
+
+        if (!IsPostBack)
+        {
+            HiddenFieldInstitue["CitId"] = "";
+            if (string.IsNullOrEmpty(Request.QueryString["PageMode"]) || string.IsNullOrEmpty(Request.QueryString["InsId"]))
+            {
+                Response.Redirect("Institue.aspx");
+                return;
+            }
+
+            CheckUserPermission();
+            SetKey();
+        }
+    }
+
+    protected void BtnNew_Click(object sender, EventArgs e)
+    {
+        TSP.DataManager.Permission per = TSP.DataManager.InstitueManager.GetUserPermission(int.Parse(Session["Login"].ToString()), (TSP.DataManager.UserType)int.Parse(Session["LoginType"].ToString()));
+        MenuInstitue.Enabled = false;
+        InstitueId.Value = Utility.EncryptQS("");
+        PgMode.Value = Utility.EncryptQS("New");
+        ASPxRoundPanel2.HeaderText = "جدید";
+        ClearForm();
+    }
+
+    protected void btnBack_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("Institue.aspx");
+
+    }
+
+    protected void ASPxMenu1_ItemClick(object source, DevExpress.Web.MenuItemEventArgs e)
+    {
+        switch (e.Item.Name)
+        {
+            case "Facility":
+                Response.Redirect("InstituteFacilities.aspx?InsId=" + InstitueId.Value.ToString() + "&PgMd=" + PgMode.Value.ToString());
+                break;
+            case "Activity":
+                Response.Redirect("InstitueActivity.aspx?InsId=" + InstitueId.Value.ToString() + "&PgMd=" + PgMode.Value.ToString());
+                break;
+            case "Manager":
+                Response.Redirect("InstitueManager.aspx?InsId=" + InstitueId.Value.ToString() + "&PgMd=" + PgMode.Value.ToString());
+                break;
+            case "InsTeacher":
+                Response.Redirect("InstitueTeachers.aspx?InsId=" + InstitueId.Value.ToString() + "&PgMd=" + PgMode.Value.ToString());
+                break;
+
+            case "StlConfirm":
+                string InsId = Utility.DecryptQS(InstitueId.Value);
+                TSP.DataManager.InstitueCertificateManager InstitueCertificateManager = new TSP.DataManager.InstitueCertificateManager();
+                DataTable dtInstitueCertificate = InstitueCertificateManager.SelectLastVersion(int.Parse(InsId), -1);
+                if (dtInstitueCertificate.Rows.Count > 0)
+                {
+                    int IsConfirmed = int.Parse(dtInstitueCertificate.Rows[0]["IsConfirmed"].ToString());
+                    string InsCId = dtInstitueCertificate.Rows[0]["InsCId"].ToString();
+                    if (IsConfirmed == 0)
+                    {
+                        int CertificateType = int.Parse(dtInstitueCertificate.Rows[0]["Type"].ToString());
+                        if (CertificateType == 0)//*****صدور
+                        {
+                            Response.Redirect("SettlmentConfirmingInstitue.aspx?InsCId=" + Utility.EncryptQS(InsCId) + "&PgMd=" + Utility.EncryptQS("Edit"));
+                        }
+                        else
+                        {
+                            if (CertificateType == 1)//*****تمدید
+                            {
+                                Response.Redirect("SettlmentConfirmingInstitue.aspx?InsCId=" + Utility.EncryptQS(InsCId) + "&PgMd=" + Utility.EncryptQS("Revival"));
+                            }
+                            else
+                            {
+                                if (CertificateType == 2)//*****تغییرات
+                                {
+                                    Response.Redirect("SettlmentConfirmingInstitue.aspx?InsCId=" + Utility.EncryptQS(InsCId) + "&PgMd=" + Utility.EncryptQS("Change"));
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        if (IsConfirmed == 1 || IsConfirmed == 2)
+                        {
+                            Response.Redirect("SettlmentConfirmingInstitue.aspx?InsCId=" + Utility.EncryptQS(InsCId) + "&PgMd=" + Utility.EncryptQS("View"));
+                        }
+                    }
+
+                }
+                else
+                {
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "وضعیت پرونده انتخاب شده نامشخص است.";
+                }
+
+                break;
+        }
+    }
+    #endregion
+
+    #region Methods
+
+    private void SetKey()
+    {
+        try
+        {
+            PgMode.Value = Server.HtmlDecode(Request.QueryString["PageMode"].ToString());
+            InstitueId.Value = Server.HtmlDecode(Request.QueryString["InsId"]).ToString();
+        }
+        catch
+        {
+            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+            return;
+        }
+
+        string PageMode = Utility.DecryptQS(PgMode.Value);
+        string InsId = Utility.DecryptQS(InstitueId.Value);
+        if (string.IsNullOrEmpty(PageMode))
+        {
+            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+            return;
+        }
+        else
+        {
+            SetMode(PageMode);
+            CheckWorkFlowPermission();
+        }
+    }
+
+    private void SetMode(string Mode)
+    {
+        TSP.DataManager.Permission per = TSP.DataManager.InstitueManager.GetUserPermission(int.Parse(Session["Login"].ToString()), (TSP.DataManager.UserType)int.Parse(Session["LoginType"].ToString()));
+        string InsId = Utility.DecryptQS(InstitueId.Value);
+        switch (Mode)
+        {
+            case "View":
+                if (string.IsNullOrEmpty(InsId))
+                {
+                    this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+                    return;
+                }
+                FillForm(int.Parse(InsId));
+                ASPxRoundPanel2.HeaderText = "مشاهده";
+                break;
+        }
+    }
+
+    protected void FillForm(int InsId)
+    {
+        string PageMode = Utility.DecryptQS(PgMode.Value);
+        TSP.DataManager.InstitueCertificateManager InstitueCertificateManager = new TSP.DataManager.InstitueCertificateManager();
+        TSP.DataManager.InstitueManager manager = new TSP.DataManager.InstitueManager();
+        TSP.DataManager.CityManager CityManager = new TSP.DataManager.CityManager();
+
+        manager.FindByCode(InsId);
+        if (manager.Count == 1)
+        {
+            int CitId = int.Parse(manager[0]["CitId"].ToString());
+            CityManager.FindByCode(CitId);
+            if (CityManager.Count == 1)
+            {
+                if (!Utility.IsDBNullOrNullValue(CityManager[0]["CitName"]))
+                    txtCity.Text = CityManager[0]["CitName"].ToString();
+            }
+            if (!Utility.IsDBNullOrNullValue(manager[0]["InsName"]))
+                txtInsName.Text = manager[0]["InsName"].ToString();
+            if (!Utility.IsDBNullOrNullValue(manager[0]["Manager"]))
+                txtManager.Text = manager[0]["Manager"].ToString();
+            if (!Utility.IsDBNullOrNullValue(manager[0]["RegNo"]))
+                txtRegNo.Text = manager[0]["RegNo"].ToString();
+            if (!Utility.IsDBNullOrNullValue(manager[0]["RegDate"]))
+                txtRegDate.Text = manager[0]["RegDate"].ToString();
+            if (!Utility.IsDBNullOrNullValue(manager[0]["RegPlace"]))
+                txtRegPlace.Text = manager[0]["RegPlace"].ToString();
+            if (!Utility.IsDBNullOrNullValue(manager[0]["Tel1"]))
+                txtTel1.Text = manager[0]["Tel1"].ToString();
+            if (!Utility.IsDBNullOrNullValue(manager[0]["Tel2"]))
+                txtTel2.Text = manager[0]["Tel2"].ToString();
+            if (!Utility.IsDBNullOrNullValue(manager[0]["MobileNo"]))
+                txtMobileNo.Text = manager[0]["MobileNo"].ToString();
+            if (!Utility.IsDBNullOrNullValue(manager[0]["Address"]))
+                txtAddress.Text = manager[0]["Address"].ToString();
+            if (!Utility.IsDBNullOrNullValue(manager[0]["Email"]))
+                txtEmail.Text = manager[0]["Email"].ToString();
+            if (!Utility.IsDBNullOrNullValue(manager[0]["WebSite"]))
+                txtWebSite.Text = manager[0]["WebSite"].ToString();
+            if (!Utility.IsDBNullOrNullValue(manager[0]["Description"]))
+                txtDesc.Text = manager[0]["Description"].ToString();
+        }
+        DataTable dtInsCert = InstitueCertificateManager.SelectLastVersion(InsId, 1);
+        if (dtInsCert.Rows.Count > 0)
+        {
+            txtFileNo.Text = dtInsCert.Rows[0]["FileNo"].ToString();
+        }
+    }
+
+    protected void ClearForm()
+    {
+        txtRegDate.Text = "";
+        txtDesc.Text = "";
+        txtCity.Text = "";
+        // chbInActive.Checked = false;
+        for (int i = 0; i < ASPxRoundPanel2.Controls.Count; i++)
+        {
+
+
+            try
+            {
+                DevExpress.Web.ASPxTextBox co = (DevExpress.Web.ASPxTextBox)ASPxRoundPanel2.Controls[i];
+                co.Text = "";
+            }
+            catch
+            {
+            }
+        }
+
+
+    }
+
+    protected void Disable()
+    {
+        txtInsName.Enabled = false;
+        txtManager.Enabled = false;
+        txtFileNo.Enabled = false;
+        txtRegNo.Enabled = false;
+        txtRegDate.Enabled = false;
+        txtRegPlace.Enabled = false;
+        txtTel1.Enabled = false;
+        txtTel2.Enabled = false;
+        txtMobileNo.Enabled = false;
+        txtAddress.Enabled = false;
+        txtEmail.Enabled = false;
+        txtWebSite.Enabled = false;
+        txtDesc.Enabled = false;
+
+        // chbInActive.Enabled = false;
+
+    }
+
+    protected void Enable()
+    {
+        txtInsName.Enabled = true;
+        txtManager.Enabled = true;
+        txtFileNo.Enabled = true;
+        txtRegNo.Enabled = true;
+        txtRegDate.Enabled = true;
+        txtRegPlace.Enabled = true;
+        txtTel1.Enabled = true;
+        txtTel2.Enabled = true;
+        txtMobileNo.Enabled = true;
+        txtAddress.Enabled = true;
+        txtEmail.Enabled = true;
+        txtWebSite.Enabled = true;
+        txtDesc.Enabled = true;
+
+        //  chbInActive.Enabled = true;
+    }
+
+    private void CheckUserPermission()
+    {
+        //****Check table permission
+        TSP.DataManager.Permission per = TSP.DataManager.InstitueManager.GetUserPermission(int.Parse(Session["Login"].ToString()), (TSP.DataManager.UserType)int.Parse(Session["LoginType"].ToString()));
+    }
+
+    private void CheckWorkFlowPermission()
+    {
+        TSP.DataManager.WorkFlowTaskManager WorkFlowTaskManager = new TSP.DataManager.WorkFlowTaskManager();
+        int TaskOrder = -1;
+        int TaskCode = (int)TSP.DataManager.WorkFlowTask.SaveInstitueInfo;
+        WorkFlowTaskManager.FindByTaskCode(TaskCode);
+        if (WorkFlowTaskManager.Count > 0)
+        {
+            TaskOrder = int.Parse(WorkFlowTaskManager[0]["TaskOrder"].ToString());
+        }
+        if (TaskOrder != 0)
+        {
+            string PageMode = Utility.DecryptQS(PgMode.Value.ToString());
+            CheckWorkFlowPermissionForSave(PageMode);
+            if (PageMode != "New")
+                CheckWorkFlowPermissionForEdit(PageMode);
+        }
+    }
+
+    private void CheckWorkFlowPermissionForSave(string PageMode)
+    {
+
+        TSP.DataManager.TaskDoerManager TaskDoerManager = new TSP.DataManager.TaskDoerManager();
+
+        int SaveWorkCode = (int)TSP.DataManager.WorkFlowTask.SaveInstitueInfo;
+        int Permission = -1;
+        int TableType = (int)TSP.DataManager.TableCodes.Institue;
+        Permission = TaskDoerManager.CheckWorkFlowPermissionForSaveInfo(TableType, SaveWorkCode, int.Parse(Session["Login"].ToString()));
+        if (Permission > 0)
+        {
+            //BtnNew.Enabled = true;
+            //BtnNew2.Enabled = true;
+            switch (PageMode)
+            {
+                case "New":
+                    //btnSave.Enabled = true;
+                    //btnSave2.Enabled = true;
+                    break;
+                case "View":
+                    //btnSave.Enabled = false;
+                    //btnSave2.Enabled = false;
+                    break;
+            }
+        }
+        else
+        {
+            //BtnNew.Enabled = false;
+            //BtnNew2.Enabled = false;
+            //btnSave.Enabled = false;
+            //btnSave2.Enabled = false;
+        }
+        //this.ViewState["BtnSave"] = btnSave.Enabled;
+        //this.ViewState["BtnNew"] = BtnNew.Enabled;
+
+    }
+
+    private void CheckWorkFlowPermissionForEdit(string PageMode)
+    {
+        string SeId = Utility.DecryptQS(InstitueId.Value.ToString());
+        int TableType = (int)TSP.DataManager.TableCodes.Institue;
+        int TaskCode = (int)TSP.DataManager.WorkFlowTask.SaveInstitueInfo;
+        TSP.DataManager.TaskDoerManager TaskDoerManager = new TSP.DataManager.TaskDoerManager();
+        int Permisssion = -1;
+        Permisssion = TaskDoerManager.CheckWorkFlowPermissionForEditInfo(TableType, int.Parse(SeId), TaskCode, int.Parse(Session["Login"].ToString()));
+        if (Permisssion > 0)
+        {
+            switch (PageMode)
+            {
+                case "Edit":
+                    //btnSave.Enabled = true;
+                    //btnSave2.Enabled = true;
+                    break;
+                case "View":
+                    //btnEdit.Enabled = true;
+                    //btnEdit2.Enabled = true;
+                    //btnSave.Enabled = true;
+                    //btnSave2.Enabled = true;
+                    break;
+            }
+        }
+        else
+        {
+            switch (PageMode)
+            {
+                case "View":
+                    //btnEdit.Enabled = false;
+                    //btnEdit2.Enabled = false;
+                    break;
+            }
+            //btnSave.Enabled = false;
+            //btnSave2.Enabled = false;
+        }
+        //if (Permisssion < 0)
+        //{
+        //    btnEdit.Enabled = false;
+        //    btnEdit2.Enabled = false;
+        //    btnSave.Enabled = false;
+        //    btnSave2.Enabled = false;
+
+        //}
+
+        //this.ViewState["BtnSave"] = btnSave.Enabled;
+        //this.ViewState["BtnEdit"] = btnEdit.Enabled;
+
+    }
+
+    //private void CheckWorkFlowPermission(string PageMode)
+    //{
+    //    int LearningManagerConfirmingInstitueOrder = -1;
+    //    int ObserverConfrimingInstitueOrder = -1;
+    //    int CommitteeConfirmingInstitueOrder = -1;
+
+    //    TSP.DataManager.WorkFlowTaskManager WorkFlowTaskManager = new TSP.DataManager.WorkFlowTaskManager();
+    //    TSP.DataManager.WorkFlowStateManager WorkFlowStateManager = new TSP.DataManager.WorkFlowStateManager();
+    //    WorkFlowTaskManager.ClearBeforeFill = true;
+    //    if (PageMode != "New")
+    //    {
+    //        WorkFlowTaskManager.FindByTaskCode((int)TSP.DataManager.WorkFlowTask.LearningManagerConfirmingAndSpecifyObserverForInstitue);
+    //        if (WorkFlowTaskManager.Count != 0)
+    //            LearningManagerConfirmingInstitueOrder = int.Parse(WorkFlowTaskManager[0]["TaskOrder"].ToString());
+
+    //        WorkFlowTaskManager.FindByTaskCode((int)TSP.DataManager.WorkFlowTask.ObserverConfirmingInstitue);
+    //        if (WorkFlowTaskManager.Count != 0)
+    //            ObserverConfrimingInstitueOrder = int.Parse(WorkFlowTaskManager[0]["TaskOrder"].ToString());
+
+    //        WorkFlowTaskManager.FindByTaskCode((int)TSP.DataManager.WorkFlowTask.CommitteeConfirmingInstitue);
+    //        if (WorkFlowTaskManager.Count != 0)
+    //            CommitteeConfirmingInstitueOrder = int.Parse(WorkFlowTaskManager[0]["TaskOrder"].ToString());
+
+    //        //****Find Current State*****
+    //        int CurrentTaskOrder = -1;
+    //        //****TableId
+    //        string InsId = Utility.DecryptQS(InstitueId.Value.ToString());
+    //        //****TableType
+    //        int TableType = (int)TSP.DataManager.TableCodes.Institue;
+    //        DataTable dtWorkFlowState = WorkFlowStateManager.SelectLastState(TableType, int.Parse(InsId));
+    //        if (dtWorkFlowState.Rows.Count > 0)
+    //        {
+    //            CurrentTaskOrder = int.Parse(dtWorkFlowState.Rows[0]["TaskOrder"].ToString());
+
+    //            if (CurrentTaskOrder == LearningManagerConfirmingInstitueOrder)
+    //            {
+    //                if (CheckWorkFlowPermissionForLearningManagerConfirmingInstitue())
+    //                    MenuInstitue.Items[4].Enabled = true;
+    //                else
+    //                    MenuInstitue.Items[4].Enabled = false;
+    //            }
+    //            else
+    //            {
+    //                if (CurrentTaskOrder == ObserverConfrimingInstitueOrder)
+    //                {
+    //                    if (CheckWorkFlowPermissionForObserverConfrimingInstitue())
+    //                        MenuInstitue.Items[4].Enabled = true;
+    //                    else
+    //                        MenuInstitue.Items[4].Enabled = false;
+    //                }
+    //                else
+    //                {
+    //                    if (CurrentTaskOrder == CommitteeConfirmingInstitueOrder)
+    //                    {
+    //                        if (CheckWorkFlowPermissionForCommitteeConfirmingInstitue())
+    //                            MenuInstitue.Items[4].Enabled = true;
+    //                        else
+    //                            MenuInstitue.Items[4].Enabled = false;
+    //                    }
+    //                    else
+    //                        MenuInstitue.Items[4].Enabled = false;
+    //                }
+    //            }
+
+    //        }
+    //        else
+    //        {
+    //            MenuInstitue.Items[4].Enabled = false;
+    //        }
+    //    }
+    //    //*****
+    //    int TaskOrder = -1;
+    //    int TaskCode = (int)TSP.DataManager.WorkFlowTask.SaveInstitueInfo;
+    //    WorkFlowTaskManager.FindByTaskCode(TaskCode);
+    //    if (WorkFlowTaskManager.Count > 0)
+    //    {
+    //        TaskOrder = int.Parse(WorkFlowTaskManager[0]["TaskOrder"].ToString());
+    //    }
+    //    if (TaskOrder != 0)
+    //    {
+    //        CheckWorkFlowPermissionForSave();
+    //        if (PageMode != "New")
+    //            CheckWorkFlowPermissionForEdit();
+    //    }
+    //}
+
+    //private void CheckWorkFlowPermissionForSave()
+    //{
+    //    TSP.DataManager.TaskDoerManager TaskDoerManager = new TSP.DataManager.TaskDoerManager();
+    //    TSP.DataManager.WorkFlowTaskManager WorkFlowTaskManager = new TSP.DataManager.WorkFlowTaskManager();
+    //    TSP.DataManager.NezamMemberChartManager NezamMemberChartManager = new TSP.DataManager.NezamMemberChartManager();
+    //    TSP.DataManager.LoginManager LoginManager = new TSP.DataManager.LoginManager();
+
+
+    //    int SaveInstitueWorkCode = (int)TSP.DataManager.WorkFlowTask.SaveInstitueInfo;
+    //    WorkFlowTaskManager.FindByTaskCode(SaveInstitueWorkCode);
+    //    int TaskId = int.Parse(WorkFlowTaskManager[0]["TaskId"].ToString());
+    //    TaskDoerManager.FindByTaskId(TaskId);
+
+    //    if (TaskDoerManager.Count > 0)
+    //    {
+    //        int NcId = int.Parse(TaskDoerManager[0]["NcId"].ToString());
+    //        NezamMemberChartManager.FindByNcId(NcId);
+
+    //        int EmpId = int.Parse(NezamMemberChartManager[0]["EmpId"].ToString());
+
+    //        LoginManager.FindByMeIdUltId(EmpId, 4);
+    //        if (LoginManager.Count > 0)
+    //        {
+    //            int userId = int.Parse(LoginManager[0]["UserId"].ToString());
+    //            int CurrentUserId = (int)(Session["Login"]);
+    //            if (CurrentUserId == userId)
+    //            {
+    //                BtnNew.Enabled = true;
+    //                BtnNew2.Enabled = true;
+    //                btnSave.Enabled = true;
+    //                btnSave2.Enabled = true;
+    //            }
+    //            else
+    //            {
+
+    //                BtnNew.Enabled = false;
+    //                BtnNew2.Enabled = false;
+    //                btnSave.Enabled = false;
+    //                btnSave2.Enabled = false;
+    //            }
+    //        }
+    //        else
+    //        {
+    //            BtnNew.Enabled = false;
+    //            BtnNew2.Enabled = false;
+    //            btnSave.Enabled = false;
+    //            btnSave2.Enabled = false;
+    //        }
+    //    }
+    //    else
+    //    {
+    //        BtnNew.Enabled = false;
+    //        BtnNew2.Enabled = false;
+    //        btnSave.Enabled = false;
+    //        btnSave2.Enabled = false;
+    //    }
+
+    //    this.ViewState["BtnSave"] = btnSave.Enabled;
+    //    this.ViewState["BtnEdit"] = btnEdit.Enabled;
+    //    this.ViewState["BtnDisActive"] = btnEdit.Enabled;
+    //    //this.ViewState["BtnDelete"] = btnDelete.Enabled;
+    //    this.ViewState["BtnNew"] = BtnNew.Enabled;
+    //}
+
+    //private void CheckWorkFlowPermissionForEdit()
+    //{
+    //    int CurrentTaskOrder = -1;
+    //    int TaskOrder = -1;
+    //    //****TableId
+    //    string InsId = Utility.DecryptQS(InstitueId.Value.ToString());
+    //    //****TableType
+    //    int TableType = (int)TSP.DataManager.TableCodes.Institue;
+
+    //    TSP.DataManager.WorkFlowStateManager WorkFlowStateManager = new TSP.DataManager.WorkFlowStateManager();
+    //    TSP.DataManager.WorkFlowTaskManager WorkFlowTaskManager = new TSP.DataManager.WorkFlowTaskManager();
+
+    //    DataTable dtWorkFlowState = WorkFlowStateManager.SelectLastState(TableType, int.Parse(InsId));
+    //    if (dtWorkFlowState.Rows.Count > 0)
+    //    {
+    //        CurrentTaskOrder = int.Parse(dtWorkFlowState.Rows[0]["TaskOrder"].ToString());
+    //    }
+    //    int TaskCode = (int)TSP.DataManager.WorkFlowTask.SaveInstitueInfo;
+    //    WorkFlowTaskManager.FindByTaskCode(TaskCode);
+    //    if (WorkFlowTaskManager.Count > 0)
+    //    {
+    //        TaskOrder = int.Parse(WorkFlowTaskManager[0]["TaskOrder"].ToString());
+    //    }
+
+    //    if (TaskOrder != 0 && CurrentTaskOrder != TaskOrder && CurrentTaskOrder != -1)
+    //    {
+    //        btnEdit.Enabled = false;
+    //        btnEdit2.Enabled = false;
+    //        btnSave.Enabled = false;
+    //        btnSave2.Enabled = false;
+    //        btnDisActive.Enabled = false;
+    //        btnDisActive2.Enabled = false;
+    //    }
+    //    this.ViewState["BtnDisActive"] = btnDisActive.Enabled;
+    //    this.ViewState["BtnEdit"] = btnEdit.Enabled;
+
+    //}
+
+    private void StartWorkFlow(int TableId, int NmcId, TSP.DataManager.WorkFlowStateManager WorkFlowStateManager, TSP.DataManager.TransactionManager TransactionManager)
+    {
+        int TaskCode = (int)TSP.DataManager.WorkFlowTask.SaveInstitueInfo;
+        TSP.DataManager.WorkFlowTaskManager WorkFlowTaskManager = new TSP.DataManager.WorkFlowTaskManager();
+        WorkFlowTaskManager.FindByTaskCode(TaskCode);
+        if (WorkFlowTaskManager.Count > 0)
+        {
+            int TaskId = int.Parse(WorkFlowTaskManager[0]["TaskId"].ToString());
+
+            DataRow StateRow = WorkFlowStateManager.NewRow();
+            StateRow["TaskId"] = TaskId;
+            StateRow["TableId"] = TableId;
+            StateRow["NmcId"] = NmcId;
+            StateRow["SubOrder"] = 1;
+            //StateRow["Description"] = "";
+            StateRow["Type"] = 0;
+            StateRow["UserId"] = (int)(Session["Login"]);
+            StateRow["ModifiedDate"] = DateTime.Now;
+
+            WorkFlowStateManager.AddRow(StateRow);
+            int cn = WorkFlowStateManager.Save();
+            if (cn > 0)
+            {
+                DivReport.Visible = true;
+                LabelWarning.Text = "ذخیره انجام شد.";
+            }
+            else
+            {
+                TransactionManager.CancelSave();
+                DivReport.Visible = true;
+                LabelWarning.Text = "خطایی در ذخیره انجام شد.";
+                return;
+            }
+        }
+        else
+        {
+            TransactionManager.CancelSave();
+            DivReport.Visible = true;
+            LabelWarning.Text = "خطایی در ذخیره انجام شد.";
+            return;
+        }
+
+    }
+
+    private int FindNmcId(TSP.DataManager.LoginManager LoginManager, TSP.DataManager.TransactionManager TransactionManager)
+    {
+        int UserId = (int)Session["Login"];
+        TSP.DataManager.NezamChartManager NezamChartManager = new TSP.DataManager.NezamChartManager();
+        LoginManager.FindByCode(UserId);
+        int NmcId = -1;
+        if (LoginManager.Count > 0)
+        {
+            int EmpId = int.Parse(LoginManager[0]["MeId"].ToString());
+            int UltId = int.Parse(LoginManager[0]["UltId"].ToString());
+            NezamChartManager.FindByEmpId(EmpId, UltId);
+            if (NezamChartManager.Count > 0)
+            {
+                NmcId = int.Parse(NezamChartManager[0]["NmcId"].ToString());
+            }
+            else
+            {
+                TransactionManager.CancelSave();
+                DivReport.Visible = true;
+                LabelWarning.Text = "کاربری با مشخصات جاری در چارت سازمانی وجود ندارد.";
+            }
+        }
+        else
+        {
+            TransactionManager.CancelSave();
+            Response.Redirect("../../Login.aspx?ReferPage=" + Request.Url.AbsoluteUri);
+            return (-1);
+        }
+        return (NmcId);
+    }
+
+    private Boolean CheckWorkFlowPermissionForLearningManagerConfirmingInstitue()
+    {
+        TSP.DataManager.TaskDoerManager TaskDoerManager = new TSP.DataManager.TaskDoerManager();
+        TSP.DataManager.WorkFlowTaskManager WorkFlowTaskManager = new TSP.DataManager.WorkFlowTaskManager();
+        TSP.DataManager.NezamMemberChartManager NezamMemberChartManager = new TSP.DataManager.NezamMemberChartManager();
+        TSP.DataManager.LoginManager LoginManager = new TSP.DataManager.LoginManager();
+
+
+        int LearningManagerConfirmingInstitueCode = (int)TSP.DataManager.WorkFlowTask.LearningManagerConfirmingAndSpecifyObserverForInstitue;
+        WorkFlowTaskManager.FindByTaskCode(LearningManagerConfirmingInstitueCode);
+        int TaskId = int.Parse(WorkFlowTaskManager[0]["TaskId"].ToString());
+        TaskDoerManager.FindByTaskId(TaskId);
+
+        if (TaskDoerManager.Count > 0)
+        {
+            int NcId = int.Parse(TaskDoerManager[0]["NcId"].ToString());
+            NezamMemberChartManager.FindByNcId(NcId);
+
+            int EmpId = int.Parse(NezamMemberChartManager[0]["EmpId"].ToString());
+
+            LoginManager.FindByMeIdUltId(EmpId, 4);
+            if (LoginManager.Count > 0)
+            {
+                int userId = int.Parse(LoginManager[0]["UserId"].ToString());
+                int CurrentUserId = (int)(Session["Login"]);
+                if (CurrentUserId == userId)
+                {
+                    return true;
+                    // MenuTeacherInfo.Items[4].Enabled = true;
+                }
+                else
+                {
+                    return false;
+                    //  MenuTeacherInfo.Items[4].Enabled = false;
+                }
+            }
+            else
+            {
+                return false;
+                // MenuTeacherInfo.Items[4].Enabled = false;
+            }
+        }
+        else
+        {
+            return false;
+            //  MenuTeacherInfo.Items[4].Enabled = false;
+        }
+    }
+
+    private Boolean CheckWorkFlowPermissionForObserverConfrimingInstitue()
+    {
+        TSP.DataManager.TaskDoerManager TaskDoerManager = new TSP.DataManager.TaskDoerManager();
+        TSP.DataManager.WorkFlowTaskManager WorkFlowTaskManager = new TSP.DataManager.WorkFlowTaskManager();
+        TSP.DataManager.NezamMemberChartManager NezamMemberChartManager = new TSP.DataManager.NezamMemberChartManager();
+        TSP.DataManager.LoginManager LoginManager = new TSP.DataManager.LoginManager();
+
+
+        int LearningManagerConfirmingInstitueCode = (int)TSP.DataManager.WorkFlowTask.ObserverConfirmingInstitue;
+        WorkFlowTaskManager.FindByTaskCode(LearningManagerConfirmingInstitueCode);
+        int TaskId = int.Parse(WorkFlowTaskManager[0]["TaskId"].ToString());
+        TaskDoerManager.FindByTaskId(TaskId);
+
+        if (TaskDoerManager.Count > 0)
+        {
+            int NcId = int.Parse(TaskDoerManager[0]["NcId"].ToString());
+            NezamMemberChartManager.FindByNcId(NcId);
+
+            int EmpId = int.Parse(NezamMemberChartManager[0]["EmpId"].ToString());
+
+            LoginManager.FindByMeIdUltId(EmpId, 4);
+            if (LoginManager.Count > 0)
+            {
+                int userId = int.Parse(LoginManager[0]["UserId"].ToString());
+                if (Session["Login"] == null || Session["Login"].ToString() == "0")
+                {
+                    Response.Redirect("../../Login.aspx?ReferPage=" + Request.Url.AbsoluteUri);
+                }
+                int CurrentUserId = (int)(Session["Login"]);
+                if (CurrentUserId == userId)
+                {
+                    return true;
+                    // MenuTeacherInfo.Items[4].Enabled = true;
+                }
+                else
+                {
+                    return false;
+                    //  MenuTeacherInfo.Items[4].Enabled = false;
+                }
+            }
+            else
+            {
+                return false;
+                // MenuTeacherInfo.Items[4].Enabled = false;
+            }
+        }
+        else
+        {
+            return false;
+            //  MenuTeacherInfo.Items[4].Enabled = false;
+        }
+    }
+
+    private Boolean CheckWorkFlowPermissionForCommitteeConfirmingInstitue()
+    {
+        TSP.DataManager.TaskDoerManager TaskDoerManager = new TSP.DataManager.TaskDoerManager();
+        TSP.DataManager.WorkFlowTaskManager WorkFlowTaskManager = new TSP.DataManager.WorkFlowTaskManager();
+        TSP.DataManager.NezamMemberChartManager NezamMemberChartManager = new TSP.DataManager.NezamMemberChartManager();
+        TSP.DataManager.LoginManager LoginManager = new TSP.DataManager.LoginManager();
+
+
+        int LearningManagerConfirmingInstitueCode = (int)TSP.DataManager.WorkFlowTask.CommitteeConfirmingInstitue;
+        WorkFlowTaskManager.FindByTaskCode(LearningManagerConfirmingInstitueCode);
+        int TaskId = int.Parse(WorkFlowTaskManager[0]["TaskId"].ToString());
+        TaskDoerManager.FindByTaskId(TaskId);
+
+        if (TaskDoerManager.Count > 0)
+        {
+            int NcId = int.Parse(TaskDoerManager[0]["NcId"].ToString());
+            NezamMemberChartManager.FindByNcId(NcId);
+
+            int EmpId = int.Parse(NezamMemberChartManager[0]["EmpId"].ToString());
+
+            LoginManager.FindByMeIdUltId(EmpId, 4);
+            if (LoginManager.Count > 0)
+            {
+                int userId = int.Parse(LoginManager[0]["UserId"].ToString());
+                int CurrentUserId = (int)(Session["Login"]);
+                if (CurrentUserId == userId)
+                {
+                    return true;
+                    // MenuTeacherInfo.Items[4].Enabled = true;
+                }
+                else
+                {
+                    return false;
+                    //  MenuTeacherInfo.Items[4].Enabled = false;
+                }
+            }
+            else
+            {
+                return false;
+                // MenuTeacherInfo.Items[4].Enabled = false;
+            }
+        }
+        else
+        {
+            return false;
+            //  MenuTeacherInfo.Items[4].Enabled = false;
+        }
+    }
+
+    #endregion
+}

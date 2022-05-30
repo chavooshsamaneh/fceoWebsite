@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<discovery xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.xmlsoap.org/disco/">
+  <contractRef ref="http://sms.prdco.ir/api/send.asmx?wsdl" docRef="http://sms.prdco.ir/api/send.asmx" xmlns="http://schemas.xmlsoap.org/disco/scl/" />
+  <soap address="http://sms.prdco.ir/api/send.asmx" xmlns:q1="Send" binding="q1:SendSoap" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+  <soap address="http://sms.prdco.ir/api/send.asmx" xmlns:q2="Send" binding="q2:SendSoap12" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+</discovery>

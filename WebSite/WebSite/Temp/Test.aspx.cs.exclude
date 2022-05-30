@@ -1,0 +1,143 @@
+using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+
+public partial class Test : System.Web.UI.Page
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        //Capacity c = new Capacity();
+        //c.IngridientUsedDesignCapacityValue = 1;
+    }
+
+    protected void ButtonStart_Click(object sender, EventArgs e)
+    {
+        TSP.DataManager.TransactionManager TransactionManager = new TSP.DataManager.TransactionManager();
+        TSP.DataManager.MemberLicenceManager MemberLicenceManager = new TSP.DataManager.MemberLicenceManager();
+        TransactionManager.Add(MemberLicenceManager);
+        MemberLicenceManager.FindByIsInquiry(-1, 1, -1);
+        if (MemberLicenceManager.Count == 0)
+        {
+            //TransactionManager.CancelSave();
+            return;
+        }
+        MemberLicenceManager.CurrentFilter = "MeId not in(15912,14665,14706,15638)";
+        //MeId<=10560: Changed --> 10091,2896,2987,7597,3114
+        if (MemberLicenceManager.Count == 0)
+        {
+            // TransactionManager.CancelSave();
+            return;
+        }
+        try
+        {
+            TransactionManager.BeginSave();
+            for (int i = 0; i < MemberLicenceManager.Count; i++)
+            {
+                DateTime dt = DateTime.Now;
+                Utility.Date d = new Utility.Date(Convert.ToDateTime(MemberLicenceManager[0]["ModifiedDate"]));
+                DateTime ModifiedDate = Convert.ToDateTime(MemberLicenceManager[0]["ModifiedDate"]);
+
+                string InquerySaveDate = d.Year + "/" + d.Month.ToString().PadLeft(2, '0') + "/" + d.Day.ToString().PadLeft(2, '0');
+                MemberLicenceManager[i].BeginEdit();
+                MemberLicenceManager[i]["InquerySaveDate"] = InquerySaveDate;
+                MemberLicenceManager[i]["ModifiedDate"] = ModifiedDate;
+                MemberLicenceManager[i].EndEdit();
+                //if (i == 1)
+                //{
+                //    MemberLicenceManager.Save();
+                //    TransactionManager.EndSave();
+                //    return;
+                //}
+            }
+            MemberLicenceManager.Save();
+            TransactionManager.EndSave();
+
+            ASPxLabel1.Text = "OKKKKKKKK!!!!";
+        }
+        catch (Exception err)
+        {
+            TransactionManager.CancelSave();
+            ASPxLabel1.Text = "OPSSSSSSSSS!!!!";
+        }
+    }
+
+    protected void ButtonStart0_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            TSP.DataManager.MemberManager MemberManager = new TSP.DataManager.MemberManager();
+            MemberManager.Fill();
+            lblMsg.Text = "Fill";
+            DataTable dtMe = MemberManager.DataTable;
+            DataRow[] dr = dtMe.Select("MeId <=15060");
+            string MeList = "";
+            for (int i = 0; i < dr.Length; i++)
+            {
+                if (!System.IO.File.Exists(Server.MapPath(dtMe.Rows[i]["ImageURL"].ToString())))
+                    MeList += "," + dtMe.Rows[i]["MeId"];
+            }
+            txtMeIdWithoutImg.Text = MeList;
+            lblMsg.Text = "Success!!!";
+        }
+        catch (Exception err)
+        {
+            lblMsg.Text = err.Message;
+        }
+    }
+
+    protected void btnTestTransaction_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            TSP.DataManager.TransactionManager TransactionManager = new TSP.DataManager.TransactionManager();
+            
+            TSP.DataManager.MemberManager MemberManager = new TSP.DataManager.MemberManager();
+            //TSP.DataManager.WorkFlowStateManager WorkFlowStateManager = new TSP.DataManager.WorkFlowStateManager();
+            TransactionManager.Add(MemberManager);
+            //TransactionManager.Add(WorkFlowStateManager);
+            TransactionManager.BeginSave();
+            MemberManager.FindByCode(1);
+            MemberManager[0].BeginEdit();
+            MemberManager.FindAllMembers(2, -1, "%", "%");
+            MemberManager[0]["meT"] = 5;
+
+            // TransactionManager.EndSave();
+        }
+        catch (Exception err)
+        {
+
+        }
+
+        //int a;
+        //a = 0;
+        ////
+        //int a1 = 0;
+        //Capacity a;
+
+        //Capacity c = new Capacity();
+
+      
+
+    }
+    protected void btnInitString_Click(object sender, EventArgs e)
+    {        
+        String[] ErrorInSendingSMS = new String[Utility.GetMagfaSMSPacketSize()];
+        ErrorInSendingSMS = new String [] { "1" };
+              
+        //ErrorInSendingSMS = ((int)TSP.DataManager.ErrorSMSRequest.ErrorInSendingSMS).ToString();
+        
+
+    }
+
+    protected void CustomASPxMenu1_ItemClick(object source, DevExpress.Web.MenuItemEventArgs e)
+    {
+
+    }
+}

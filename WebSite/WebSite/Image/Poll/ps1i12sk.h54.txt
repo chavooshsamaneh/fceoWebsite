@@ -1,0 +1,1684 @@
+using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+
+public partial class Employee_TechnicalServices_Project_ObserverInsert : System.Web.UI.Page
+{
+    Boolean IsPageRefresh = false;
+
+    #region Events
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        this.DivReport.Visible = false;
+        this.DivReport.Attributes.Add("onclick", "ChangeVisible(this)");
+        this.DivReport.Attributes.Add("onmouseover", "ChangeIcon(this)");
+
+        if (!IsPostBack)
+        {
+            ViewState["postids"] = System.Guid.NewGuid().ToString();
+            Session["postid"] = ViewState["postids"].ToString();
+        }
+        else
+        {
+            if (!IsCallback && Session["postid"] != null)
+            {
+                if (ViewState["postids"].ToString() != Session["postid"].ToString()) { IsPageRefresh = true; }
+                Session["postid"] = System.Guid.NewGuid().ToString(); ViewState["postids"] = Session["postid"];
+            }
+        }
+
+        if (!IsPostBack)
+        {
+
+            if (string.IsNullOrEmpty(Request.QueryString["ProjectId"]) || string.IsNullOrEmpty(Request.QueryString["PrjReId"]) || string.IsNullOrEmpty(Request.QueryString["PageMode"]))
+            {
+                Response.Redirect("Project.aspx");
+            }
+
+            TSP.DataManager.Permission per = TSP.DataManager.TechnicalServices.Project_ObserversManager.GetUserPermission(Utility.GetCurrentUser_UserId(), (TSP.DataManager.UserType)Utility.GetCurrentUser_LoginType());
+            BtnNew.Enabled = per.CanNew;
+            BtnNew2.Enabled = per.CanNew;
+            btnEdit.Enabled = per.CanEdit;
+            btnEdit2.Enabled = per.CanEdit;
+            btnSave.Enabled = per.CanNew || per.CanEdit;
+            btnSave2.Enabled = per.CanNew || per.CanEdit;
+
+
+            if (Request.QueryString[TSP.DataManager.Automation.AttachPageToLetter.QueryName] != null)
+            {
+                //String QueryValue = Utility.DecryptQS(Request.QueryString[TSP.DataManager.Automation.AttachPageToLetter.QueryName]);
+                String QueryValue = Request.QueryString[TSP.DataManager.Automation.AttachPageToLetter.QueryName];
+                if (TSP.DataManager.Automation.AttachPageToLetter.CheckPageParameterValue(QueryValue) == false)
+                    this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+            }
+
+            if ((string.IsNullOrEmpty(Request.QueryString["PageMode2"])) || (string.IsNullOrEmpty(Request.QueryString["PrjObsId"])) || (!per.CanView && Utility.DecryptQS(Server.HtmlDecode(Request.QueryString["PageMode2"].ToString())) != "New"))
+            {
+                Response.Redirect("Observers.aspx?ProjectId=" + Server.HtmlDecode(Request.QueryString["ProjectId"]) + "&PageMode=" + Request.QueryString["PageMode"] + "&PrjReId=" + Server.HtmlDecode(Request.QueryString["PrjReId"]));
+                return;
+            }
+
+            SetKeys();
+
+            this.ViewState["BtnSave"] = btnSave.Enabled;
+            this.ViewState["BtnEdit"] = btnEdit.Enabled;
+            this.ViewState["BtnNew"] = BtnNew.Enabled;
+            this.ViewState["BtnLetter"] = btnShowPpcAttachPageToAutomationLetter.Enabled;
+
+        }
+        if (this.ViewState["BtnSave"] != null)
+            this.btnSave.Enabled = this.btnSave2.Enabled = (bool)this.ViewState["BtnSave"];
+        if (this.ViewState["BtnEdit"] != null)
+            this.btnEdit.Enabled = this.btnEdit2.Enabled = (bool)this.ViewState["BtnEdit"];
+        if (this.ViewState["BtnNew"] != null)
+            this.BtnNew.Enabled = this.BtnNew2.Enabled = (bool)this.ViewState["BtnNew"];
+        if (this.ViewState["BtnLetter"] != null)
+            this.btnShowPpcAttachPageToAutomationLetter.Enabled = this.btnShowPpcAttachPageToAutomationLetter2.Enabled = (bool)this.ViewState["BtnLetter"];
+
+    }
+
+    protected void btnEdit_Click(object sender, EventArgs e)
+    {
+        PgMode.Value = Utility.EncryptQS("Edit");
+        SetControlsEditMode();
+    }
+
+    protected void BtnNew_Click(object sender, EventArgs e)
+    {
+        HDObsId.Value = Utility.EncryptQS("-1");
+        PgMode.Value = Utility.EncryptQS("New");
+        SetControlsNewMode();
+    }
+
+    protected void btnSave_Click(object sender, EventArgs e)
+    {
+        string PageMode = Utility.DecryptQS(PgMode.Value);
+
+        if (string.IsNullOrEmpty(PageMode))
+        {
+            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+            return;
+        }
+
+        if (ChbMother.Checked && cmbObsType.Value != null && Convert.ToInt32(cmbObsType.Value) != (int)TSP.DataManager.TSObserversType.Sazeh)
+        {
+            SetLabelWarning("?????? ????? ???? ???? ???? ???? ????");
+            return;
+        }
+
+        switch (PageMode)
+        {
+            case "New":
+                Insert();
+                break;
+
+            case "Edit":
+                Update();
+                break;
+        }
+    }
+
+    protected void btnBack_Click(object sender, EventArgs e)
+    {
+        string GrdFlt = Request.QueryString["GrdFlt"].ToString();
+        string SrchFlt = Request.QueryString["SrchFlt"].ToString();
+        Response.Redirect("Observers.aspx?ProjectId=" + HDProjectId.Value
+            + "&PageMode=" + Request.QueryString["PageMode"]
+            + "&PrjReId=" + RequestId.Value
+            + "&GrdFlt=" + GrdFlt + "&SrchFlt=" + SrchFlt);
+    }
+
+    protected void txtID_TextChanged(object sender, EventArgs e)
+    {
+        TSP.DataManager.TechnicalServices.ProjectManager ProjectManager = new TSP.DataManager.TechnicalServices.ProjectManager();
+
+        TSP.DataManager.OfficeManager OffManager = new TSP.DataManager.OfficeManager();
+        TSP.DataManager.OtherPersonManager OthpManager = new TSP.DataManager.OtherPersonManager();
+        TSP.DataManager.DocOffMemberAcceptedGradeManager MemberAcceptedGradeManager = new TSP.DataManager.DocOffMemberAcceptedGradeManager();
+
+        int MeOfOthId = -1;
+        if (!string.IsNullOrEmpty(txtID.Text))
+        {
+            MeOfOthId = int.Parse(txtID.Text);
+            if (CmbType.Value != null)
+            {
+                string TypeValue = CmbType.Value.ToString();
+                switch (TypeValue)
+                {
+                    case "1"://Member
+                        FillMember(MeOfOthId);
+                        break;
+                    case "2"://Office
+                        OffManager.FindByCode(MeOfOthId);
+                        if (OffManager.Count == 1)
+                        {
+                            if (Convert.ToInt32(OffManager[0]["MrsId"]) != 1)
+                            {
+                                ClearForm();
+                                SetOffice();
+                                SetLabelWarning("????? ??? ???? ??? ????? ??? ??? ????");
+                                return;
+                            }
+                            txtOrgName.Text = OffManager[0]["OfName"].ToString();
+                            txtManager.Text = OffManager[0]["MName"].ToString();
+                            txtFileDate.Text = OffManager[0]["FileDate"].ToString();
+                            txtFileNo.Text = OffManager[0]["FileNo"].ToString();
+                            //   FillCapacity((int)TSP.DataManager.TSMemberType.Office, MeOfOthId);
+                            FillProjectIngridientCapacityInfo(TSP.DataManager.TSMemberType.Office, MeOfOthId);
+                            SetOffice();
+                        }
+                        else
+                        {
+                            ClearForm();
+                            SetOffice();
+                            SetLabelWarning("???? ?? ?????? ???? ?????.?????? ???? ??????");
+                            return;
+                        }
+                        break;
+                    case "3"://Kardan
+
+                        // OthpManager.SelectOtherPersonKardanAndMemar(MeOfOthId);
+                        OthpManager.FindKardanAndMemarByOtpCode(MeOfOthId.ToString(), (int)TSP.DataManager.OtherPersonType.Kardan);
+                        if (OthpManager.Count == 1)
+                        {
+                            if (Convert.ToBoolean(OthpManager[0]["InActive"]))
+                            {
+                                ClearForm();
+                                SetKardan();
+                                SetLabelWarning("??? ???? ??? ??? ???? ?? ????");
+                                return;
+                            }
+                            txtFatherName.Text = OthpManager[0]["FatherName"].ToString();
+                            txtFirstName.Text = OthpManager[0]["FirstName"].ToString();
+                            txtLastName.Text = OthpManager[0]["LastName"].ToString();
+                            txtSSN.Text = OthpManager[0]["SSN"].ToString();
+                            txtFileDate.Text = OthpManager[0]["FileNoDate"].ToString();
+                            txtFileNo.Text = OthpManager[0]["FileNo"].ToString();
+
+                            MemberAcceptedGradeManager.FindByOtpIdAndResId(Convert.ToInt32(OthpManager[0]["OtpId"]), (int)TSP.DataManager.DocumentResponsibilityType.Observation, 0);
+                            if (MemberAcceptedGradeManager.Count > 0)
+                                txtObsId.Text = MemberAcceptedGradeManager[0]["GrdName"].ToString();
+                            SetKardan();
+
+                        }
+                        else
+                        {
+                            ClearForm();
+                            SetKardan();
+                            SetLabelWarning("???? ?? ?????? ???? ?????.?????? ???? ??????");
+                            return;
+                        }
+                        break;
+
+                    case "4"://Memar
+
+                        OthpManager.FindKardanAndMemarByOtpCode(MeOfOthId.ToString(), (int)TSP.DataManager.OtherPersonType.Memar);
+                        if (OthpManager.Count == 1)
+                        {
+                            if (Convert.ToBoolean(OthpManager[0]["InActive"]))
+                            {
+                                ClearForm();
+                                SetMemar();
+                                SetLabelWarning("??? ???? ??? ??? ???? ?? ????");
+                                return;
+                            }
+                            txtFatherName.Text = OthpManager[0]["FatherName"].ToString();
+                            txtFirstName.Text = OthpManager[0]["FirstName"].ToString();
+                            txtLastName.Text = OthpManager[0]["LastName"].ToString();
+                            txtSSN.Text = OthpManager[0]["SSN"].ToString();
+                            txtFileDate.Text = OthpManager[0]["FileNoDate"].ToString();
+                            txtFileNo.Text = OthpManager[0]["FileNo"].ToString();
+
+                            MemberAcceptedGradeManager.FindByOtpIdAndResId(Convert.ToInt32(OthpManager[0]["OtpId"]), (int)TSP.DataManager.DocumentResponsibilityType.Observation, 0);
+                            if (MemberAcceptedGradeManager.Count > 0)
+                                txtObsId.Text = MemberAcceptedGradeManager[0]["GrdName"].ToString();
+                            SetMemar();
+
+                        }
+                        else
+                        {
+                            ClearForm();
+                            SetMemar();
+                            SetLabelWarning("???? ?? ?????? ???? ?????.?????? ???? ??????");
+                            return;
+                        }
+                        break;
+                }
+
+            }
+            else
+            {
+                SetLabelWarning("??? ???? ?? ?????? ??????");
+            }
+        }
+        else
+        {
+            SetLabelWarning("?? ????? ?? ???? ??????");
+        }
+    }
+
+    protected void txtFileNo_TextChanged(object sender, EventArgs e)
+    {
+        string FileNo = "";
+        if (!string.IsNullOrEmpty(txtFileNo.Text))
+        {
+            FileNo = txtFileNo.Text;
+            TSP.DataManager.DocMemberFileManager DocMemberFileManager = new TSP.DataManager.DocMemberFileManager();
+            DataTable dt = DocMemberFileManager.SelectMainRequestByMfNo(FileNo, 0);
+            if (dt.Rows.Count > 0)
+            {
+                int MeId = Convert.ToInt32(dt.Rows[0]["MeId"]);
+                FillMember(MeId);
+            }
+        }
+    }
+
+    protected void CallbackAttachPageToAutomationLetter_Callback(object source, DevExpress.Web.ASPxClasses.CallbackEventArgsBase e)
+    {
+        if (String.IsNullOrEmpty(txtLetterNumber_AttachPageToAutomationLetter.Text.Trim()))
+        {
+            lblErrorInputAttachPageToAutomationLetter.ClientVisible = true;
+            lblErrorInputAttachPageToAutomationLetter.Text = "????? ??? ???? ???? ???";
+            return;
+        }
+        string GrdFlt = Request.QueryString["GrdFlt"].ToString();
+        string SrchFlt = Request.QueryString["SrchFlt"].ToString();
+        String PageAddress = "~/Employee/TechnicalServices/Project/ObserverInsert.aspx";
+        String QuerySting = "?ProjectId=" + HDProjectId.Value
+            + "&PrjObsId=" + HDObsId.Value
+            + "&PrjReId=" + RequestId.Value
+            + "&PageMode=" + Request.QueryString["PageMode"]
+            + "&PageMode2=" + Utility.EncryptQS("View")
+            + "&GrdFlt=" + GrdFlt + "&SrchFlt=" + SrchFlt;
+
+        TSP.DataManager.Automation.AttachPageToLetter objAttachPageToLetter = new TSP.DataManager.Automation.AttachPageToLetter();
+        objAttachPageToLetter.AttachPage(txtLetterNumber_AttachPageToAutomationLetter.Text, PageAddress, QuerySting, txtLinkName_AttachPageToAutomationLetter.Text,
+            int.Parse(txtTimeOut_AttachPageToAutomationLetter.Text), Utility.GetCurrentUser_UserId());
+        if (objAttachPageToLetter.SaveState == true)
+        {
+            PanelAttachPageToAutomationLetterInputData.ClientVisible = false;
+            PanelAttachPageToAutomationLetterFinish.ClientVisible = true;
+            lblMessageAttachPageToAutomationLetter.Text = objAttachPageToLetter.Message;
+        }
+        else
+        {
+            lblErrorInputAttachPageToAutomationLetter.ClientVisible = true;
+            lblErrorInputAttachPageToAutomationLetter.Text = objAttachPageToLetter.Message;
+        }
+    }
+
+    protected void CallbackObserver_Callback(object source, DevExpress.Web.ASPxClasses.CallbackEventArgsBase e)
+    {
+        CallbackObserver.JSProperties["cpShowAlert"] = 1;
+        CallbackObserver.JSProperties["cpCondition"] = 0;
+        CallbackObserver.JSProperties["cpConditionMsg"] = "";
+        switch (e.Parameter)
+        {
+            case "CheckSaveCondition":
+                CheckSaveCondition();
+                break;
+            case "Save":
+                Save();
+                break;
+        }
+    }
+
+    #endregion
+
+    #region Methods
+
+    #region SetKey-Method
+    private void SetKeys()
+    {
+        try
+        {
+            PgMode.Value = Server.HtmlDecode(Request.QueryString["PageMode2"].ToString());
+            HDProjectId.Value = Server.HtmlDecode(Request.QueryString["ProjectId"]).ToString();
+            HDObsId.Value = Server.HtmlDecode(Request.QueryString["PrjObsId"]).ToString();
+            RequestId.Value = Server.HtmlDecode(Request.QueryString["PrjReId"]).ToString();
+
+            string PageMode = Utility.DecryptQS(PgMode.Value);
+            string ProjectId = Utility.DecryptQS(HDProjectId.Value);
+            string PrjObsId = Utility.DecryptQS(HDObsId.Value);
+            string PrjReId = Utility.DecryptQS(RequestId.Value);
+            string PrjPageMode = Utility.DecryptQS(Server.HtmlDecode(Request.QueryString["PageMode"].ToString()));
+
+            if (string.IsNullOrEmpty(PageMode) || string.IsNullOrEmpty(ProjectId) || string.IsNullOrEmpty(PrjObsId) || string.IsNullOrEmpty(PrjReId) || string.IsNullOrEmpty(PrjPageMode))
+            {
+                this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+                return;
+            }
+
+            FillProjectInfo(int.Parse(PrjReId));
+            FillCapacityInfo();
+            SetMode(PageMode);
+            CheckWorkFlowPermission();
+        }
+        catch (Exception err)
+        {
+            Utility.SaveWebsiteError(err);
+            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+            return;
+        }
+    }
+
+    private void SetMode(string PageMode)
+    {
+        switch (PageMode)
+        {
+            case "View":
+                SetViewModeKeys();
+                break;
+
+            case "New":
+                SetNewModeKeys();
+                break;
+
+            case "Edit":
+                SetEditModeKeys();
+                break;
+        }
+    }
+
+    private void SetNewModeKeys()
+    {
+        SetControlsNewMode();
+    }
+
+    private void SetEditModeKeys()
+    {
+        FillForm();
+        SetControlsEditMode();
+    }
+
+    private void SetViewModeKeys()
+    {
+        FillForm();
+        SetControlsViewMode();
+    }
+
+    private void SetControlsNewMode()
+    {
+        BtnNew.Enabled = true;
+        BtnNew2.Enabled = true;
+        btnSave.Enabled = true;
+        btnSave2.Enabled = true;
+        btnEdit.Enabled = false;
+        btnEdit2.Enabled = false;
+        btnShowPpcAttachPageToAutomationLetter.Enabled = false;
+        btnShowPpcAttachPageToAutomationLetter2.Enabled = false;
+        CheckAccess();
+
+        SetEnabl(true);
+        SetCapacityVisible(true);
+        ClearForm();
+        ClearCapacity();
+
+        ASPxRoundPanel2.HeaderText = "????";
+    }
+
+    private void SetControlsEditMode()
+    {
+        BtnNew.Enabled = true;
+        BtnNew2.Enabled = true;
+        btnSave.Enabled = true;
+        btnSave2.Enabled = true;
+        btnEdit.Enabled = false;
+        btnEdit2.Enabled = false;
+        btnShowPpcAttachPageToAutomationLetter.Enabled = true;
+        btnShowPpcAttachPageToAutomationLetter2.Enabled = true;
+        CheckAccess();
+
+        SetEnabl(false);
+        ChbMother.Enabled = true;
+        cmbObsType.Enabled = true;
+        txtArchitectorCode.Enabled = true;
+        SetCapcityUserControlEnable(true);
+
+        SetCapacityVisible(!IsDecreased());
+
+        ASPxRoundPanel2.HeaderText = "??????";
+    }
+
+    private void SetControlsViewMode()
+    {
+        BtnNew.Enabled = true;
+        BtnNew2.Enabled = true;
+        btnSave.Enabled = false;
+        btnSave2.Enabled = false;
+        btnEdit.Enabled = true;
+        btnEdit2.Enabled = true;
+        btnShowPpcAttachPageToAutomationLetter.Enabled = true;
+        btnShowPpcAttachPageToAutomationLetter2.Enabled = true;
+        CheckAccess();
+
+        SetEnabl(false);
+        SetCapacityVisible(!IsDecreased());
+
+        ASPxRoundPanel2.HeaderText = "??????";
+    }
+    #endregion
+
+    #region FillForm
+    private void FillForm()
+    {
+        int ProjectId = Convert.ToInt32(Utility.DecryptQS(HDProjectId.Value));
+        int PrjObsId = Convert.ToInt32(Utility.DecryptQS(HDObsId.Value));
+
+        TSP.DataManager.TechnicalServices.Project_ObserversManager ProjectObsManager = new TSP.DataManager.TechnicalServices.Project_ObserversManager();
+        TSP.DataManager.TechnicalServices.ProjectCapacityDecrementManager CapacityDecrementManager = new TSP.DataManager.TechnicalServices.ProjectCapacityDecrementManager();
+
+        try
+        {
+            ProjectObsManager.FindByProjectObserversId(PrjObsId);
+            if (ProjectObsManager.Count > 0)
+            {
+                string TypeValue = ProjectObsManager[0]["MemberTypeId"].ToString();
+                CmbType.DataBind();
+                CmbType.SelectedIndex = CmbType.Items.IndexOfValue(TypeValue);
+                txtID.Text = ProjectObsManager[0]["MeOfficeOthPEngOId"].ToString();
+                txtFatherName.Text = ProjectObsManager[0]["FatherName"].ToString();
+                txtFileDate.Text = ProjectObsManager[0]["FileDate"].ToString();
+                txtFileNo.Text = ProjectObsManager[0]["No"].ToString();
+                txtFirstName.Text = ProjectObsManager[0]["FirstName"].ToString();
+                txtLastName.Text = ProjectObsManager[0]["LastName"].ToString();
+                txtManager.Text = ProjectObsManager[0]["Manager"].ToString();
+                txtOrgName.Text = ProjectObsManager[0]["Name"].ToString();
+                txtSSN.Text = ProjectObsManager[0]["SSN"].ToString();
+                ChbMother.Checked = Convert.ToBoolean(ProjectObsManager[0]["IsMother"]);
+                // txtObsId.Text = ProjectObsManager[0]["ObsGrdName"].ToString();
+                if (!Utility.IsDBNullOrNullValue(ProjectObsManager[0]["ObsId"]) && Convert.ToInt32(ProjectObsManager[0]["ObsId"]) != -1)
+                    txtObsId.Text = ProjectObsManager[0]["ObsGrdName"].ToString();
+                else if (!Utility.IsDBNullOrNullValue(ProjectObsManager[0]["MappingId"]) && Convert.ToInt32(ProjectObsManager[0]["MappingId"]) != -1)
+                {
+                    ASPxLabelObsId.Text = "???? ???? ??????";
+                    txtObsId.Text = ProjectObsManager[0]["MappingGrdName"].ToString();
+                }
+                else
+                    txtObsId.Text = "---";
+
+                //string[] split = ProjectObsManager[0]["CreateDate"].ToString().Split(new Char[] { '/' });
+                //string Year = split[0];
+                txtArchitectorCode.Text = ProjectObsManager[0]["ArchitectorCode"].ToString();
+
+                cmbObsType.DataBind();
+                cmbObsType.SelectedIndex = cmbObsType.Items.IndexOfValue(ProjectObsManager[0]["ObserversTypeId"].ToString());
+
+                switch (TypeValue)
+                {
+                    case "1":
+                        FillCapacity((int)TSP.DataManager.TSMemberType.Member, Convert.ToInt32(ProjectObsManager[0]["MeOfficeOthPEngOId"]));
+                        SetMember();
+                        FillProjectIngridientCapacityInfo(TSP.DataManager.TSMemberType.Member, Convert.ToInt32(ProjectObsManager[0]["MeOfficeOthPEngOId"]));
+                        break;
+                    case "2":
+                        SetOffice();
+                        FillCapacity((int)TSP.DataManager.TSMemberType.Office, Convert.ToInt32(ProjectObsManager[0]["MeOfficeOthPEngOId"]));
+
+                        break;
+                    case "3":
+                        SetKardan();
+                        break;
+                    case "4":
+                        SetMemar();
+                        break;
+
+                }
+
+                CapacityDecrementManager.FindByPrjImpObsDsgnIdAndIngridientTypeId(PrjObsId, (int)TSP.DataManager.TSProjectIngridientType.Observer);
+                if (CapacityDecrementManager.Count > 0)
+                {
+                    SetCapacityDecrement(CapacityDecrementManager[0]["CapacityDecrement"].ToString());
+                    SetCapacityWage(CapacityDecrementManager[0]["Wage"].ToString());
+                }
+
+
+
+            }
+            else
+            {
+                SetLabelWarning("????? ?????? ??????? ???? ?????.??????? ???? ????? ????? ????? ????? ???");
+            }
+        }
+        catch (Exception)
+        {
+            SetLabelWarning("????? ?? ?????? ??????? ?? ???? ???");
+        }
+    }
+
+    private void FillProjectInfo(int Id)
+    {
+        prjInfo.Fill(Id);
+    }
+
+    private void FillCapacity(int MemberTypeId, int MeId)
+    {
+        Capacity capacity = new Capacity();
+        capacity.GetCapacityInformation((int)TSP.DataManager.TSProjectIngridientType.Observer, MemberTypeId, MeId, true);
+    }
+
+    void FillMember(int MeId)
+    {
+        TSP.DataManager.MemberManager MeManager = new TSP.DataManager.MemberManager();
+        MeManager.FindByCode(MeId);
+        if (MeManager.Count == 1)
+        {
+            txtID.Text = MeManager[0]["MeId"].ToString();
+            txtFatherName.Text = MeManager[0]["FatherName"].ToString();
+            txtFirstName.Text = MeManager[0]["FirstName"].ToString();
+            txtLastName.Text = MeManager[0]["LastName"].ToString();
+            txtSSN.Text = MeManager[0]["SSN"].ToString();
+            txtFileDate.Text = MeManager[0]["FileDate"].ToString();
+            txtFileNo.Text = MeManager[0]["FileNo"].ToString();
+            if (!Utility.IsDBNullOrNullValue(MeManager[0]["ObsId"]) && Convert.ToInt32(MeManager[0]["ObsId"]) != -1)
+                txtObsId.Text = MeManager[0]["ObsGrdName"].ToString();
+            else if (!Utility.IsDBNullOrNullValue(MeManager[0]["MappingId"]) && Convert.ToInt32(MeManager[0]["MappingId"]) != -1)
+            {
+                ASPxLabelObsId.Text = "???? ???? ??????";
+                txtObsId.Text = MeManager[0]["MappingGrdName"].ToString();
+            }
+            else
+                txtObsId.Text = "---";
+
+            txtArchitectorCode.Text = MeManager[0]["ArchitectorCode"].ToString();
+            //  FillCapacity((int)TSP.DataManager.TSMemberType.Member, MeOfOthId);
+            FillProjectIngridientCapacityInfo(TSP.DataManager.TSMemberType.Member, MeId);
+            SetMember();
+
+            if (Convert.ToInt32(MeManager[0]["MrsId"]) != 1)
+            {
+                //  ClearForm();
+                //  SetMember();
+                SetLabelWarning("????? ??? ???? ??? ????? ??? ??? ????");
+                return;
+            }
+            if (Convert.ToBoolean(MeManager[0]["InActive"]))
+            {
+                //  ClearForm();
+                //  SetMember();
+                SetLabelWarning("??? ???? ??? ??? ???? ?? ????");
+                return;
+            }
+        }
+        else
+        {
+            ClearForm();
+            SetMember();
+            SetLabelWarning("???? ?? ?????? ???? ?????.?????? ???? ??????");
+            return;
+        }
+    }
+    #endregion
+
+    #region Fill Capacity Info
+    /// <summary>
+    /// ?? ???? ??????? ????? ???? ?? ????
+    /// </summary>
+    /// <param name="TSMemberTypeId"></param>
+    /// <param name="ProjectIngridientId"></param>
+    private void FillProjectIngridientCapacityInfo(TSP.DataManager.TSMemberType TSMemberTypeId, int ProjectIngridientId)
+    {
+        FillCapacityInfo();
+        CapacityUserControl.FillProjectIngridienCapacityInfo(TSMemberTypeId, ProjectIngridientId);
+    }
+
+    private void FillCapacityInfo()
+    {
+        int ProjectId = Convert.ToInt32(Utility.DecryptQS(HDProjectId.Value));
+        CapacityUserControl.ProjectId = ProjectId;
+        CapacityUserControl.ProjectIngridientTypeId = TSP.DataManager.TSProjectIngridientType.Observer;
+    }
+    #endregion
+
+    #region Set Controls Visible-Enabled
+
+    private void SetEnabl(bool Enabled)
+    {
+        txtID.Enabled = Enabled;
+        CmbType.Enabled = Enabled;
+        txtFatherName.Enabled = Enabled;
+        txtFileDate.Enabled = Enabled;
+        txtFileNo.Enabled = Enabled;
+        txtFirstName.Enabled = Enabled;
+        txtLastName.Enabled = Enabled;
+        txtOrgName.Enabled = Enabled;
+        txtSSN.Enabled = Enabled;
+        txtManager.Enabled = Enabled;
+        ChbMother.Enabled = Enabled;
+        cmbObsType.Enabled = Enabled;
+        txtObsId.Enabled = Enabled;
+        SetCapcityUserControlEnable(Enabled);
+        txtArchitectorCode.Enabled = Enabled;
+    }
+
+    private void SetMember()
+    {
+        ASPxLabelFatherName.ClientVisible = true;
+        ASPxLabelFirstName.ClientVisible = true;
+        ASPxLabelLastName.ClientVisible = true;
+        ASPxLabelSSN.ClientVisible = true;
+        txtFatherName.ClientVisible = true;
+        txtFirstName.ClientVisible = true;
+        txtLastName.ClientVisible = true;
+        txtSSN.ClientVisible = true;
+
+        txtManager.ClientVisible = false;
+        txtOrgName.ClientVisible = false;
+        ASPxLabelManager.ClientVisible = false;
+        ASPxLabelOrgName.ClientVisible = false;
+
+        CmbType.SelectedIndex = 0;
+        txtObsId.ClientVisible = true;
+
+    }
+
+    private void SetKardan()
+    {
+        ASPxLabelFatherName.ClientVisible = true;
+        ASPxLabelFirstName.ClientVisible = true;
+        ASPxLabelLastName.ClientVisible = true;
+        ASPxLabelSSN.ClientVisible = true;
+        txtFatherName.ClientVisible = true;
+        txtFirstName.ClientVisible = true;
+        txtLastName.ClientVisible = true;
+        txtSSN.ClientVisible = true;
+
+        txtManager.ClientVisible = false;
+        txtOrgName.ClientVisible = false;
+        ASPxLabelManager.ClientVisible = false;
+        ASPxLabelOrgName.ClientVisible = false;
+
+        CmbType.SelectedIndex = 1;
+        //CmbType.SelectedIndex = 2;
+        txtObsId.ClientVisible = true;
+
+    }
+
+    private void SetOffice()
+    {
+        ASPxLabelFatherName.ClientVisible = false;
+        ASPxLabelFirstName.ClientVisible = false;
+        ASPxLabelLastName.ClientVisible = false;
+        ASPxLabelSSN.ClientVisible = false;
+        txtFatherName.ClientVisible = false;
+        txtFirstName.ClientVisible = false;
+        txtLastName.ClientVisible = false;
+        txtSSN.ClientVisible = false;
+
+        txtManager.ClientVisible = true;
+        txtOrgName.ClientVisible = true;
+        ASPxLabelManager.ClientVisible = true;
+        ASPxLabelOrgName.ClientVisible = true;
+
+        CmbType.Value = 2;
+        //CmbType.SelectedIndex = 1;
+        txtObsId.ClientVisible = false;
+
+    }
+
+    private void SetMemar()
+    {
+        ASPxLabelFatherName.ClientVisible = true;
+        ASPxLabelFirstName.ClientVisible = true;
+        ASPxLabelLastName.ClientVisible = true;
+        ASPxLabelSSN.ClientVisible = true;
+        txtFatherName.ClientVisible = true;
+        txtFirstName.ClientVisible = true;
+        txtLastName.ClientVisible = true;
+        txtSSN.ClientVisible = true;
+
+        txtManager.ClientVisible = false;
+        txtOrgName.ClientVisible = false;
+        ASPxLabelManager.ClientVisible = false;
+        ASPxLabelOrgName.ClientVisible = false;
+
+        CmbType.SelectedIndex = 2;
+        //CmbType.SelectedIndex = 2;
+        txtObsId.ClientVisible = true;
+
+    }
+
+    private void SetCapacityVisible(bool Visibility)
+    {
+        CapacityUserControl.Visible = Visibility;
+        //ASPxLabeTotalCapacity.Visible = Visibility;
+        //txtcTotalCapacity.Visible = Visibility;
+        //ASPxLabeRemainCapacity.Visible = Visibility;
+        //txtcRemainCapacity.Visible = Visibility;
+        //ASPxLabeTotalFunction.Visible = Visibility;
+        //txtcTotalFunction.Visible = Visibility;
+        //ASPxLabeProjectCount.Visible = Visibility;
+        //txtcProjectCount.Visible = Visibility;
+        //ASPxLabeReserve.Visible = Visibility;
+        //txtcReserve.Visible = Visibility;
+    }
+    #endregion
+
+    #region Clear Form
+    private void ClearForm()
+    {
+        txtID.Text = "";
+        CmbType.DataBind();
+        CmbType.SelectedIndex = 0;
+        SetMember();
+        txtFatherName.Text = "";
+        txtFileDate.Text = "";
+        txtFileNo.Text = "";
+        txtFirstName.Text = "";
+        txtLastName.Text = "";
+        txtOrgName.Text = "";
+        txtSSN.Text = "";
+        txtManager.Text = "";
+        txtArchitectorCode.Text = "";
+        ChbMother.Checked = false;
+        txtObsId.Text = "";
+        cmbObsType.DataBind();
+        cmbObsType.SelectedIndex = -1;
+    }
+
+    private void ClearCapacity()
+    {
+        //    txtcTotalCapacity.Text = "";
+        //    txtcRemainCapacity.Text = "";
+        //    txtcTotalFunction.Text = "";
+        //    txtcProjectCount.Text = "";
+        //    txtcReserve.Text = "";
+        //    txtcCapacityDecrement.Text = "";
+        //    txtcWage.Text = "";
+        SetCapacityDecrement("");
+        SetCapacityWage("");
+    }
+    #endregion
+
+    #region Insert-Update
+    private void CheckSaveCondition()
+    {
+        string PageMode = Utility.DecryptQS(PgMode.Value);
+        switch (PageMode)
+        {
+            case "New":
+                CheckConditionForInsert();
+                break;
+
+            case "Edit":
+
+                break;
+        }
+    }
+
+    private void CheckConditionForInsert()
+    {     
+        Capacity Capacity = new Capacity();
+        TSP.DataManager.TechnicalServices.Project_ObserversManager ProjectObsManager = new TSP.DataManager.TechnicalServices.Project_ObserversManager();
+        TSP.DataManager.MemberManager MeManager = new TSP.DataManager.MemberManager();        
+        TSP.DataManager.OfficeManager OffManager = new TSP.DataManager.OfficeManager();
+        TSP.DataManager.OtherPersonManager OthpManager = new TSP.DataManager.OtherPersonManager();
+        TSP.DataManager.OfficeMemberManager OfMeManager = new TSP.DataManager.OfficeMemberManager();
+        TSP.DataManager.DocOffMemberAcceptedGradeManager MemberGradeManager = new TSP.DataManager.DocOffMemberAcceptedGradeManager();
+        TSP.DataManager.TechniciansActivityAreasManager TechniciansActivityAreasManager = new TSP.DataManager.TechniciansActivityAreasManager();
+
+        int AccId = -1;
+        decimal Balance = 0;
+        string LockName = "";
+        Nullable<int> OfId = null;
+
+        string TypeValue = CmbType.Value.ToString();
+        int MeOfOthId = int.Parse(txtID.Text);
+        int OtpId = -1;
+        int ProjectId = Convert.ToInt32(Utility.DecryptQS(HDProjectId.Value));
+        #region Check
+        if (!string.IsNullOrEmpty(TypeValue) || !string.IsNullOrEmpty(MeOfOthId.ToString()))
+        {
+            switch (TypeValue)
+            {
+                case "1"://Member
+                    MeManager.FindByCode(MeOfOthId);
+
+                    #region CheckLock
+                    if (Convert.ToBoolean(MeManager[0]["IsLock"]))
+                    {
+                        LockName = FindLockers(MeOfOthId, (int)TSP.DataManager.LockMemberType.Member, 1);
+
+                        SetLabelWarning("????? ??? ??? ???? ??? ???? ?????.??? ???? ??? ???? " + LockName + " ??? ?? ???? ");                        
+                        return;
+                    }
+
+                    if (Convert.ToInt32(MeManager[0]["MrsId"]) != 1)
+                    {
+                        SetLabelWarning("????? ??? ???? ??? ????? ??? ??? ????");
+                        return;
+                    }
+                    if (Convert.ToBoolean(MeManager[0]["InActive"]))
+                    {
+                        SetLabelWarning("??? ???? ??? ??? ???? ?? ????");
+                        return;
+                    }
+                    #endregion
+
+                    #region CheckRepeat
+                    ProjectObsManager.FindByMemberIdTypeId(ProjectId, MeOfOthId, (int)TSP.DataManager.TSMemberType.Member);
+                    if (ProjectObsManager.Count > 0)
+                    {
+                        SetLabelWarning("??? ?????? ??? ???? ??? ????? ?????? ?? ????");
+                        return;
+                    }
+                    #endregion
+
+                    if (!CheckFileNo(MeOfOthId))
+                        return;
+
+                    #region CheckAccounting
+                    if (Utility.CreateAccount())
+                    {
+                        if (Utility.IsDBNullOrNullValue(MeManager[0]["AccId"]))
+                        {
+                            SetLabelWarning("???? ??? ?????? ??? ?????? ?? ????.");
+                            return;
+                        }
+                        AccId = int.Parse(MeManager[0]["AccId"].ToString());
+                        Balance = GetAccountBalance(AccId);
+                        if (Balance != 0)
+                        {
+                            SetLabelWarning("????? ??? ??? ???? ??? ?? ????? ???? ???? ?????.????? ???? ??? ??? ??? ????");
+                            return;
+                        }
+                    }
+                    #endregion
+
+                    if (!CheckCapacity(Capacity, (int)TSP.DataManager.TSMemberType.Member, MeOfOthId, int.Parse(GetCapacityDecrement())))
+                        return;
+                    #region ???????????????
+                    //if (!Capacity.CheckPersonForObservation(MeOfOthId))
+                    //{
+                    //    SetLabelWarning("????? ??? ??? ???? ??? ?? ????? ???? ???? ?????.??? ???? ??? ??? ????? ??? ?? ??? ????? ????? ???");
+                    //    return;
+                    //}
+                    #endregion???????????????
+                    OfMeManager.FindOffMemberByPersonId(MeOfOthId, 2);
+                    if (OfMeManager.Count > 0)
+                    {
+                        OffManager.FindByCode(Convert.ToInt32(OfMeManager[0]["OfId"]));
+                        if (OffManager.Count > 0)
+                        {
+                            if (!Utility.IsDBNullOrNullValue(OffManager[0]["MFType"]))
+                            {
+                                if ((Convert.ToInt32(OffManager[0]["MFType"]) == (int)TSP.DataManager.DocumentOfficeResponsibilityType.ObservationAndDesign) || (Convert.ToInt32(OffManager[0]["MFType"]) == (int)TSP.DataManager.DocumentOfficeResponsibilityType.ObservationAndDesignAndImplement))
+                                {
+                                    OfId = Convert.ToInt32(OfMeManager[0]["OfId"]);
+                                }
+                            }
+                        }
+                    }
+
+                    if (Utility.IsDBNullOrNullValue(txtArchitectorCode.Text))
+                    {
+                        SetLabelWarning("??? ?? ????? ??????? ??? ???  ????? ???? ?? ??????? ?????? ?? ???? ");
+                        return;
+                    }
+
+
+                    break;
+
+                case "2"://Office
+                    OffManager.FindByCode(MeOfOthId);
+
+                    #region CheckLock
+                    if (Convert.ToBoolean(OffManager[0]["IsLock"]))
+                    {
+                        LockName = FindLockers(MeOfOthId, (int)TSP.DataManager.LockMemberType.Office, 1);
+
+                        SetLabelWarning("????? ??? ??? ???? ??? ???? ?????.??? ???? ??? ???? " + LockName + " ??? ?? ???? ");
+                        return;
+                    }
+                    #endregion
+
+                    #region CheckRepeat
+                    ProjectObsManager.FindByMemberIdTypeId(ProjectId, MeOfOthId, (int)TSP.DataManager.TSMemberType.Office);
+                    if (ProjectObsManager.Count > 0)
+                    {
+                        SetLabelWarning("???? ?????? ??? ???? ??? ????? ?????? ?? ????");
+                        return;
+                    }
+                    #endregion
+
+                    #region CheckFileNo
+                    if (Convert.ToInt32(OffManager[0]["MFType"]) != (int)TSP.DataManager.DocumentOfficeResponsibilityType.ObservationAndDesign && Convert.ToInt32(OffManager[0]["MFType"].ToString()) != (int)TSP.DataManager.DocumentOfficeResponsibilityType.ObservationAndDesignAndImplement)
+                    {
+                        SetLabelWarning("????? ??? ???? ???? ??? ?? ????? ???? ???? ?????.???? ???? ??? ????? ?????? ????? ??? ????");
+                        return;
+
+                    }
+                    if (!string.IsNullOrEmpty(OffManager[0]["FileDate"].ToString()))
+                    {
+                        if (OffManager[0]["FileDate"].ToString().CompareTo(Utility.GetDateOfToday()) <= 0)
+                        {
+                            SetLabelWarning("????? ??? ???? ???? ??? ?? ????? ???? ???? ?????.??? ???? ?????? ?????? ?????? ???? ?? ????? ????? ???.");
+                            return;
+                        }
+                    }
+                    #endregion
+
+                    #region CheckAccounting
+                    if (Utility.CreateAccount())
+                    {
+                        if (Utility.IsDBNullOrNullValue(MeManager[0]["AccId"]))
+                        {
+                            SetLabelWarning("???? ??? ?????? ??? ?????? ?? ????.");
+                            return;
+                        }
+                        AccId = int.Parse(OffManager[0]["AccId"].ToString());
+                        Balance = GetAccountBalance(AccId);
+                        if (Balance != 0)
+                        {
+                            SetLabelWarning("????? ??? ??? ???? ??? ?? ????? ???? ???? ?????.????? ???? ??? ??? ??? ????");
+                            return;
+                        }
+                    }
+                    #endregion
+
+                    if (!CheckCapacity(Capacity, (int)TSP.DataManager.TSMemberType.Office, MeOfOthId, int.Parse(GetCapacityDecrement())))
+                        return;
+                    #region???????????????
+                    //if (!Capacity.CheckOfficeForObservation(MeOfOthId))
+                    //{
+                    //    SetLabelWarning("????? ??? ???? ???? ??? ?? ????? ???? ???? ?????.????? ???? ??? ????? ????? ???");
+                    //    return;
+                    //}
+                    #endregion???????????????
+                    break;
+
+                case "3"://Kardan                   
+                    OthpManager.FindKardanAndMemarByOtpCode(MeOfOthId.ToString(), (int)TSP.DataManager.OtherPersonType.Kardan);
+                    OtpId = Convert.ToInt32(OthpManager[0]["OtpId"]);
+                    #region CheckLock
+
+                    if (Convert.ToBoolean(OthpManager[0]["IsLock"]))
+                    {
+                        LockName = FindLockers(OtpId, (int)TSP.DataManager.LockMemberType.Kardan, 1);
+
+                        SetLabelWarning("????? ??? ??? ???? ??? ???? ?????.??? ???? ??? ???? " + LockName + " ??? ?? ???? ");
+                        return;
+                    }
+
+
+                    #endregion
+                    #region CheckFileNo
+                    if (Utility.IsDBNullOrNullValue(OthpManager[0]["FileNo"]))
+                    {
+                        SetLabelWarning("????? ??? ??? ???? ??? ?? ????? ???? ???? ?????.??? ?????? ??? ????? ?????? ?????? ?? ??? ??? ????.");
+                        return;
+                    }
+                    MemberGradeManager.FindByOtpIdAndResId(OtpId, (int)TSP.DataManager.DocumentResponsibilityType.Observation, 0);
+                    if (MemberGradeManager.Count == 0)
+                    {
+                        SetLabelWarning("????? ??? ??? ???? ??? ?? ????? ???? ???? ?????.??? ?????? ??? ????? ?????? ????? ??? ????.");
+                        return;
+                    }
+
+                    #endregion
+
+                    TechniciansActivityAreasManager.FindByOtpIdResIdCitId(OtpId, (int)TSP.DataManager.DocumentResponsibilityType.Observation, int.Parse(HDCitId.Value));
+                    if (TechniciansActivityAreasManager.Count == 0)
+                    {
+                        SetLabelWarning("????? ??? ??? ???? ??? ?? ????? ???? ???? ?????.??? ????? ?? ???? ?????? ??? ??? ????");
+                        return;
+                    }
+
+                    break;
+
+                case "4"://Memar                   
+                    OthpManager.FindKardanAndMemarByOtpCode(MeOfOthId.ToString(), (int)TSP.DataManager.OtherPersonType.Memar);
+                    OtpId = Convert.ToInt32(OthpManager[0]["OtpId"]);
+                    #region CheckLock
+
+                    if (Convert.ToBoolean(OthpManager[0]["IsLock"]))
+                    {
+                        LockName = FindLockers(OtpId, (int)TSP.DataManager.LockMemberType.Memar, 1);
+
+                        SetLabelWarning("????? ??? ??? ???? ??? ???? ?????.??? ???? ??? ???? " + LockName + " ??? ?? ???? ");
+                        return;
+                    }
+
+
+                    #endregion
+                    #region CheckFileNo
+                    if (Utility.IsDBNullOrNullValue(OthpManager[0]["FileNo"]))
+                    {
+                        SetLabelWarning("????? ??? ??? ???? ??? ?? ????? ???? ???? ?????.??? ?????? ??? ????? ?????? ?????? ?? ??? ??? ????.");
+                        return;
+                    }
+                    MemberGradeManager.FindByOtpIdAndResId(OtpId, (int)TSP.DataManager.DocumentResponsibilityType.Observation, 0);
+                    if (MemberGradeManager.Count == 0)
+                    {
+                        SetLabelWarning("????? ??? ??? ???? ??? ?? ????? ???? ???? ?????.??? ?????? ??? ????? ?????? ????? ??? ????.");
+                        return;
+                    }
+
+                    #endregion
+
+                    TechniciansActivityAreasManager.FindByOtpIdResIdCitId(OtpId, (int)TSP.DataManager.DocumentResponsibilityType.Observation, int.Parse(HDCitId.Value));
+                    if (TechniciansActivityAreasManager.Count == 0)
+                    {
+                        SetLabelWarning("????? ??? ??? ???? ??? ?? ????? ???? ???? ?????.??? ????? ?? ???? ?????? ??? ??? ????");
+                        return;
+                    }
+                    break;
+            }
+        }
+        else
+        {
+
+            SetLabelWarning("??? ???? ?? ?????? ??????");
+            return;
+        }
+
+        if (ChbMother.Checked && !CheckIsMother())
+            return;
+        #endregion
+        CallbackObserver.JSProperties["cpCondition"] = 1;
+    }
+
+    private void Save()
+    {
+        string PageMode = Utility.DecryptQS(PgMode.Value);
+
+        if (string.IsNullOrEmpty(PageMode))
+        {
+            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+            return;
+        }
+
+        if (ChbMother.Checked && cmbObsType.Value != null && Convert.ToInt32(cmbObsType.Value) != (int)TSP.DataManager.TSObserversType.Sazeh)
+        {
+            SetLabelWarning("?????? ????? ???? ???? ???? ???? ????");
+            return;
+        }
+
+        switch (PageMode)
+        {
+            case "New":
+                Insert();
+                break;
+
+            case "Edit":
+                Update();
+                break;
+        }
+    }
+
+    private void Insert()
+    {
+        if (IsPageRefresh)
+            return;
+        #region Define Managers
+        TSP.DataManager.TransactionManager trans = new TSP.DataManager.TransactionManager();
+        TSP.DataManager.TechnicalServices.Project_ObserversManager ProjectObsManager = new TSP.DataManager.TechnicalServices.Project_ObserversManager();
+        TSP.DataManager.TechnicalServices.ProjectCapacityDecrementManager CapacityDecrementManager = new TSP.DataManager.TechnicalServices.ProjectCapacityDecrementManager();
+
+        Capacity Capacity = new Capacity();
+
+        TSP.DataManager.MemberManager MeManager = new TSP.DataManager.MemberManager();
+        TSP.DataManager.MemberRequestManager MemberRequestManager = new TSP.DataManager.MemberRequestManager(trans);
+        //  TSP.DataManager.OfficeManager OffManager = new TSP.DataManager.OfficeManager();
+        // TSP.DataManager.OtherPersonManager OthpManager = new TSP.DataManager.OtherPersonManager();
+        //  TSP.DataManager.OfficeMemberManager OfMeManager = new TSP.DataManager.OfficeMemberManager();
+        /////
+        //  TSP.DataManager.DocOffMemberAcceptedGradeManager MemberGradeManager = new TSP.DataManager.DocOffMemberAcceptedGradeManager();
+        //  TSP.DataManager.TechniciansActivityAreasManager TechniciansActivityAreasManager = new TSP.DataManager.TechniciansActivityAreasManager();
+
+        trans.Add(ProjectObsManager);
+        trans.Add(CapacityDecrementManager);
+        //trans.Add(OfMeManager);
+        //trans.Add(OffManager);
+        trans.Add(MemberRequestManager);
+        #endregion
+
+        int AccId = -1;
+        decimal Balance = 0;
+        string LockName = "";
+        Nullable<int> OfId = null;
+
+        string TypeValue = CmbType.Value.ToString();
+        int MeOfOthId = int.Parse(txtID.Text);
+        int OtpId = -1;
+        int ProjectId = Convert.ToInt32(Utility.DecryptQS(HDProjectId.Value));
+
+        /////////////////////////////Check
+        ///////////////////////////////////
+
+        try
+        {
+            trans.BeginSave();
+            switch (TypeValue)
+            {
+                case "1"://Member
+                    MeManager.FindByCode(MeOfOthId);
+                    if (MeManager.Count != 1)
+                    {
+                        SetLabelWarning("????? ?? ????? ????? ????? ???");
+                        trans.CancelSave();
+                        return;
+                    }
+                    if (MeManager[0]["ArchitectorCode"].ToString() != txtArchitectorCode.Text.Trim())
+                    {
+                        if (MemberRequestManager.DoAutomaticConfirmChangeMemberData(MeOfOthId, Utility.GetCurrentUser_UserId(), txtArchitectorCode.Text.Trim(), MemberRequestManager) != 0)
+                        {
+                            SetLabelWarning("????? ?? ????? ????? ????? ???");
+                            trans.CancelSave();
+                            return;
+                        }
+                    }
+                    break;
+            }
+            DataRow drPrjObs = ProjectObsManager.NewRow();
+            drPrjObs["ProjectId"] = ProjectId;
+            drPrjObs["PrjReId"] = int.Parse(Utility.DecryptQS(RequestId.Value));
+
+            switch (TypeValue)
+            {
+                case "1"://Member
+                    drPrjObs["MeOfficeOthPEngOId"] = MeOfOthId;
+                    drPrjObs["MemberTypeId"] = (int)TSP.DataManager.TSMemberType.Member;
+                    break;
+                case "2":
+                    drPrjObs["MeOfficeOthPEngOId"] = MeOfOthId;
+                    drPrjObs["MemberTypeId"] = (int)TSP.DataManager.TSMemberType.Office;
+                    break;
+                case "3":
+                    drPrjObs["MeOfficeOthPEngOId"] = OtpId;
+                    drPrjObs["MemberTypeId"] = (int)TSP.DataManager.TSMemberType.OtherPerson;
+                    break;
+                case "4":
+                    drPrjObs["MeOfficeOthPEngOId"] = OtpId;
+                    drPrjObs["MemberTypeId"] = (int)TSP.DataManager.TSMemberType.ExpArchitect;
+                    break;
+            }
+
+            drPrjObs["IsMother"] = ChbMother.Checked;
+            drPrjObs["ObserversTypeId"] = cmbObsType.Value;
+            drPrjObs["CreateDate"] = Utility.GetDateOfToday();
+            drPrjObs["UserId"] = Utility.GetCurrentUser_UserId();
+            drPrjObs["ModifiedDate"] = DateTime.Now;
+            ProjectObsManager.AddRow(drPrjObs);
+            if (ProjectObsManager.Save() > 0)
+            {
+                int PrjObsId = Convert.ToInt32(ProjectObsManager[0]["ProjectObserversId"]);
+                HDObsId.Value = Utility.EncryptQS(PrjObsId.ToString());
+
+                Capacity.InsertProjectCapacityDecrement(CapacityDecrementManager, GetCapacityDecrement(), GetCapacityWage(), (int)TSP.DataManager.TSProjectIngridientType.Observer, PrjObsId, OfId, Utility.GetCurrentUser_UserId());
+                trans.EndSave();
+                PgMode.Value = Utility.EncryptQS("Edit");
+                SetControlsEditMode();
+                SetLabelWarning("????? ????? ??");
+            }
+
+            else
+            {
+                trans.CancelSave();
+                SetLabelWarning("????? ?? ????? ??????? ????? ????? ???");
+            }
+        }
+        catch (Exception err)
+        {
+            trans.CancelSave();
+            Utility.SaveWebsiteError(err);
+            SetError(err);
+        }
+
+        if (CmbType.Value.ToString() == "1")
+            SetMember();
+        else if (CmbType.Value.ToString() == "2")
+            SetOffice();
+        else if (CmbType.Value.ToString() == "3")
+            SetKardan();
+        else
+            SetMemar();
+
+    }
+
+    private void Update()
+    {
+        int ProjectId = Convert.ToInt32(Utility.DecryptQS(HDProjectId.Value));
+        int PrjObsId = Convert.ToInt32(Utility.DecryptQS(HDObsId.Value));
+
+        if (IsPageRefresh)
+            return;
+        #region Define Managers
+        TSP.DataManager.TransactionManager trans = new TSP.DataManager.TransactionManager();
+        TSP.DataManager.TechnicalServices.Project_ObserversManager ProjectObsManager = new TSP.DataManager.TechnicalServices.Project_ObserversManager();
+        TSP.DataManager.TechnicalServices.ProjectCapacityDecrementManager CapacityDecrementManager = new TSP.DataManager.TechnicalServices.ProjectCapacityDecrementManager();
+        TSP.DataManager.OfficeMemberManager OfMeManager = new TSP.DataManager.OfficeMemberManager();
+        TSP.DataManager.OfficeManager OffManager = new TSP.DataManager.OfficeManager();
+        TSP.DataManager.MemberManager MeManager = new TSP.DataManager.MemberManager();
+        TSP.DataManager.MemberRequestManager MemberRequestManager = new TSP.DataManager.MemberRequestManager(trans);
+
+        trans.Add(ProjectObsManager);
+        trans.Add(CapacityDecrementManager);
+        trans.Add(OfMeManager);
+        trans.Add(OffManager);
+        #endregion
+
+        Capacity Capacity = new Capacity();
+        Nullable<int> OfId = null;
+
+        if (ChbMother.Checked && !CheckIsMother())
+            return;
+
+        try
+        {
+            trans.BeginSave();
+
+            ProjectObsManager.FindByProjectObserversId(PrjObsId);
+            if (ProjectObsManager.Count != 1)
+            {
+                trans.CancelSave();
+                SetLabelWarning(Utility.Messages.GetMessage(Utility.Messages.MessageTypes.CanNotFindInformations));
+                return;
+            }
+            ProjectObsManager[0].BeginEdit();
+            ProjectObsManager[0]["ObserversTypeId"] = cmbObsType.Value;
+            ProjectObsManager[0]["IsMother"] = ChbMother.Checked;
+            ProjectObsManager[0]["UserId"] = Utility.GetCurrentUser_UserId();
+            ProjectObsManager[0]["ModifiedDate"] = DateTime.Now;
+            ProjectObsManager[0].EndEdit();
+
+            if (ProjectObsManager.Save() <= 0)
+            {
+                trans.CancelSave();
+                SetLabelWarning("????? ?? ????? ????? ????? ???");
+                return;
+            }
+
+            if (Convert.ToInt32(ProjectObsManager[0]["MemberTypeId"]) == (int)TSP.DataManager.TSMemberType.Member)
+            {
+                int MeId = Convert.ToInt32(ProjectObsManager[0]["MeOfficeOthPEngOId"]);
+                if (Utility.IsDBNullOrNullValue(txtArchitectorCode.Text))
+                {
+                    SetLabelWarning("??? ?? ????? ??????? ??? ???  ????? ???? ?? ??????? ?????? ?? ???? ");
+                    return;
+                }
+                MeManager.FindByCode(MeId);
+                if (MeManager.Count != 1)
+                {
+                    SetLabelWarning(Utility.Messages.GetMessage(Utility.Messages.MessageTypes.CanNotFindInformations));
+                    trans.CancelSave();
+                    return;
+                }
+                if (MeManager[0]["ArchitectorCode"].ToString() != txtArchitectorCode.Text.Trim())
+                {
+                    if (MemberRequestManager.DoAutomaticConfirmChangeMemberData(MeId, Utility.GetCurrentUser_UserId(), txtArchitectorCode.Text.Trim(), MemberRequestManager) != 0)
+                    {
+                        SetLabelWarning("????? ?? ????? ????? ????? ???");
+                        trans.CancelSave();
+                        return;
+                    }
+                }
+
+                OfMeManager.FindOffMemberByPersonId(MeId, 2);
+                if (OfMeManager.Count > 0)
+                {
+                    OffManager.FindByCode(Convert.ToInt32(OfMeManager[0]["OfId"]));
+                    if (OffManager.Count > 0)
+                    {
+                        if (!Utility.IsDBNullOrNullValue(OffManager[0]["MFType"]))
+                        {
+                            if ((Convert.ToInt32(OffManager[0]["MFType"]) == (int)TSP.DataManager.DocumentOfficeResponsibilityType.ObservationAndDesign) || (Convert.ToInt32(OffManager[0]["MFType"]) == (int)TSP.DataManager.DocumentOfficeResponsibilityType.ObservationAndDesignAndImplement))
+                            {
+                                OfId = Convert.ToInt32(OfMeManager[0]["OfId"]);
+                            }
+                        }
+                    }
+                }
+            }
+
+            CapacityDecrementManager.FindByPrjImpObsDsgnIdAndIngridientTypeId(PrjObsId, (int)TSP.DataManager.TSProjectIngridientType.Observer);
+            Capacity.UpdateProjectCapacityDecrement(CapacityDecrementManager, GetCapacityDecrement(), GetCapacityWage(), OfId, Utility.GetCurrentUser_UserId());
+            SetLabelWarning("????? ????? ??");
+            trans.EndSave();
+        }
+        catch (Exception err)
+        {
+            trans.CancelSave();
+            Utility.SaveWebsiteError(err);
+            SetError(err);
+        }
+
+        if (CmbType.Value.ToString() == "1")
+            SetMember();
+        else if (CmbType.Value.ToString() == "2")
+            SetOffice();
+        else if (CmbType.Value.ToString() == "3")
+            SetKardan();
+        else
+            SetMemar();
+
+    }
+    #endregion
+
+    #region Check Conditions
+    private bool IsDecreased()
+    {
+        int ProjectId = Convert.ToInt32(Utility.DecryptQS(HDProjectId.Value));
+        int PrjObsId = Convert.ToInt32(Utility.DecryptQS(HDObsId.Value));
+
+        TSP.DataManager.TechnicalServices.ProjectCapacityDecrementManager CapacityDecrementManager = new TSP.DataManager.TechnicalServices.ProjectCapacityDecrementManager();
+        CapacityDecrementManager.FindByPrjImpObsDsgnAndIngridientTypeId(ProjectId, PrjObsId, (int)TSP.DataManager.TSProjectIngridientType.Observer);
+        if (CapacityDecrementManager.Count > 0)
+            return Convert.ToBoolean(CapacityDecrementManager[0]["IsDecreased"]);
+        return false;
+    }
+
+    private bool CheckCapacity(Capacity Capacity, int MemberTypeId, int MeOfId, int CapacityValue)
+    {
+        string Err = Capacity.CheckCapacityAndJobCount((int)TSP.DataManager.TSProjectIngridientType.Observer, MemberTypeId, MeOfId, CapacityValue);
+        if (Err != "")
+        {
+            SetLabelWarning(Err);
+            return false;
+        }
+        return true;
+
+    }
+
+    private bool CheckFileNo(int MeId)
+    {
+        TSP.DataManager.MemberManager MeManager = new TSP.DataManager.MemberManager();
+        TSP.DataManager.OfficeManager OffManager = new TSP.DataManager.OfficeManager();
+        TSP.DataManager.OtherPersonManager OthpManager = new TSP.DataManager.OtherPersonManager();
+        TSP.DataManager.OfficeMemberManager OfMeManager = new TSP.DataManager.OfficeMemberManager();
+        TSP.DataManager.DocMemberFileManager DocMemberFileManager = new TSP.DataManager.DocMemberFileManager();
+        TSP.DataManager.DocMemberFileDetailManager DocMemberFileDetailManager = new TSP.DataManager.DocMemberFileDetailManager();
+        TSP.DataManager.DocImpDocCityManager DocImpDocCityManager = new TSP.DataManager.DocImpDocCityManager();
+        TSP.DataManager.TechnicalServices.ProjectManager ProjectManager = new TSP.DataManager.TechnicalServices.ProjectManager();
+        DocMemberFileManager.ClearBeforeFill = true;
+
+        DataTable dtMeFile = DocMemberFileManager.SelectLastVersion(MeId, 0);
+        if (dtMeFile.Rows.Count > 0)
+        {
+            int MemberFileId = int.Parse(dtMeFile.Rows[0]["MfId"].ToString());
+            string ExpireDate = dtMeFile.Rows[0]["ExpireDate"].ToString();
+
+            if (!Utility.IsDBNullOrNullValue(dtMeFile.Rows[0]["IsConfirm"]) && dtMeFile.Rows[0]["IsConfirm"].ToString() == "1")
+            {
+                DataTable dtMeDetail = DocMemberFileDetailManager.FindByResponsibility(MemberFileId, MeId, (int)TSP.DataManager.DocumentResponsibilityType.Observation);
+                if (dtMeDetail.Rows.Count == 0)
+                {
+                    if (cmbObsType.Value != null && Convert.ToInt32(cmbObsType.Value) == (int)TSP.DataManager.TSObserversType.Mapping)
+                    {
+                        DataTable dtMeDetailMapp = DocMemberFileDetailManager.FindByResponsibility(MemberFileId, MeId, (int)TSP.DataManager.DocumentResponsibilityType.Mapping);
+                        if (dtMeDetailMapp.Rows.Count == 0)
+                        {
+                            SetLabelWarning("????? ??? ??? ???? ??? ???? ?????.?????? ?????? ??? ???? ??? ?????? ???? ?????? ?????");
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        SetLabelWarning("????? ??? ??? ???? ??? ???? ?????.?????? ?????? ??? ???? ??? ?????? ????? ?????");
+                        return false;
+                    }
+                }
+
+            }
+            else
+            {
+                SetLabelWarning("????? ??? ??? ???? ??? ?? ????? ???? ???? ?????.????? ?????? ?????? ??? ?? ???? ?? ????.");
+                return false;
+            }
+
+            if (!string.IsNullOrEmpty(ExpireDate))
+            {
+                if (ExpireDate.CompareTo(Utility.GetDateOfToday()) <= 0)
+                {
+                    if (Utility.IsObserverDocExpireDateChecked())
+                    {
+                        SetLabelWarning("????? ??? ??? ???? ??? ?? ????? ???? ???? ?????.??? ???? ?????? ?????? ?????? ??? ?? ????? ????? ???.");
+                        return false;
+                    }
+                    else
+                    {
+                       // SetLabelWarning("?????: ??? ???? ?????? ?????? ?????? ??? ?? ????? ????? ???.");
+                        CallbackObserver.JSProperties["cpShowAlert"] = 1;
+                        CallbackObserver.JSProperties["cpConditionMsg"] = "?????: ??? ???? ?????? ?????? ?????? ??? ?? ????? ????? ???.??? ?? ????? ??????? ????? ?? ??????";
+                        return true;
+                    }
+                }
+            }
+
+        }
+        else
+        {
+            SetLabelWarning("????? ??? ??? ???? ??? ?? ????? ???? ???? ?????.??? ?????? ??? ????? ?????? ?????? ?? ??? ??? ????.");
+            return false;
+
+        }
+        DocMemberFileManager.SelectObsDocLastVersionByMeId(MeId, 1);
+        if (DocMemberFileManager.Count == 0)
+        {
+            SetLabelWarning("????? ??? ??? ???? ??? ?? ????? ???? ???? ?????.??? ?????? ??? ????? ???? ????? ??? ????.");
+            return false;
+        }
+
+        #region CheckCity
+        int ProjectId = Convert.ToInt32(Utility.DecryptQS(HDProjectId.Value));
+        int ProjectCitId = -1;
+        bool IsInCity = false;
+        ProjectManager.FindByProjectId(ProjectId);
+        if (ProjectManager.Count == 1)
+        {
+            ProjectCitId = Convert.ToInt32(ProjectManager[0]["CitId"]);
+        }
+        if (ProjectCitId == -1)
+        {
+            SetLabelWarning("????? ?? ???????? ??????? ?? ???? ???? ???.");
+            return false;
+        }
+
+        int ObserverCitId = -1;
+        DataTable dtCity = DocImpDocCityManager.FindMfId(Convert.ToInt32(DocMemberFileManager[0]["MfId"]));
+        if (dtCity.Rows.Count > 0)
+        {
+            for (int i = 0; i < dtCity.Rows.Count; i++)
+            {
+                ObserverCitId = Convert.ToInt32(DocImpDocCityManager[i]["CitId"]);
+                if (ProjectCitId == ObserverCitId)
+                    IsInCity = true;
+            }
+        }
+        if (!IsInCity)
+        {
+            SetLabelWarning("????? ????? ????? ??? ?? ???? ????? ???? ??? ??? ?? ??? ????? ??????? ?????.");
+            return false;
+        }
+        #endregion
+
+        return true;
+    }
+
+    private decimal GetAccountBalance(int AccId)
+    {
+        TSP.DataManager.AccountingDocBalanceDetailManager AccManager = new TSP.DataManager.AccountingDocBalanceDetailManager();
+        return AccManager.GetAccountBalance(AccId, Utility.GetDateOfToday());
+
+    }
+
+    private bool CheckIsMother()
+    {
+        int ProjectId = Convert.ToInt32(Utility.DecryptQS(HDProjectId.Value));
+        int PrjObsId = Convert.ToInt32(Utility.DecryptQS(HDObsId.Value));
+
+        TSP.DataManager.TechnicalServices.Project_ObserversManager ProjectObsManager = new TSP.DataManager.TechnicalServices.Project_ObserversManager();
+
+        if (ChbMother.Checked)
+        {
+            ProjectObsManager.FindByProjectId(ProjectId);
+            for (int i = 0; i < ProjectObsManager.Count; i++)
+            {
+                if (Convert.ToBoolean(ProjectObsManager[i]["IsMother"]))
+                {
+                    if (!Convert.ToBoolean(ProjectObsManager[i]["InActive"]) && PrjObsId != Convert.ToInt32(ProjectObsManager[i]["ProjectObserversId"]))
+                    {
+                        SetLabelWarning("???? ?????? ????? ????? ?????? ??? ???");
+                        return false;
+
+                        //ProjectObsManager[i].BeginEdit();
+                        //ProjectObsManager[i]["IsMother"] = 0;
+                        //ProjectObsManager[i]["UserId"] = Utility.GetCurrentUser_UserId();
+                        //ProjectObsManager[i].EndEdit();
+                        //ProjectObsManager.Save();
+                    }
+                }
+            }
+        }
+        return true;
+    }
+    #endregion
+
+    #region WF
+    private void CheckWorkFlowPermission()
+    {
+        string PageMode = Utility.DecryptQS(PgMode.Value);
+        CheckWorkFlowPermissionForEdit(PageMode);
+    }
+
+    private void CheckWorkFlowPermissionForEdit(string PageMode)
+    {
+        //*****TableId
+        string PrjReId = Utility.DecryptQS(RequestId.Value);
+        //*******Editing Task Code
+        int ProjectWFCode = (int)TSP.DataManager.WorkFlows.TSProjectConfirming;
+        int SaveTaskCode = (int)TSP.DataManager.WorkFlowTask.SaveObserverOfProject;
+
+        int ChangeWFCode = (int)TSP.DataManager.WorkFlows.TSObserverChangesConfirming;
+        int ChangeTaskCode = (int)TSP.DataManager.WorkFlowTask.SaveChangeProjectObserverRequestInfo;
+
+        TSP.DataManager.WFPermission SaveWFPer = TSP.DataManager.WorkFlowPermission.CheckPermissionForEdit(SaveTaskCode, ProjectWFCode, int.Parse(PrjReId), Utility.GetCurrentUser_UserId(), PageMode);
+        TSP.DataManager.WFPermission ChangeWFPer = TSP.DataManager.WorkFlowPermission.CheckPermissionForEdit(ChangeTaskCode, ChangeWFCode, int.Parse(PrjReId), Utility.GetCurrentUser_UserId(), PageMode);
+
+        this.ViewState["BtnEdit"] = btnEdit.Enabled = btnEdit2.Enabled = SaveWFPer.BtnEdit || ChangeWFPer.BtnEdit;
+        this.ViewState["BtnSave"] = btnSave.Enabled = btnSave2.Enabled = SaveWFPer.BtnSave || ChangeWFPer.BtnSave;
+        this.ViewState["BtnNew"] = BtnNew.Enabled = BtnNew2.Enabled = SaveWFPer.BtnNew || ChangeWFPer.BtnNew;
+    }
+    #endregion
+
+    #region Set Warning-Error
+    private void SetLabelWarning(string Warning)
+    {
+        this.DivReport.Visible = true;
+        //if (!string.IsNullOrEmpty(this.LabelWarning.Text))
+        //    this.LabelWarning.Text += Warning;
+        //else
+        this.LabelWarning.Text = Warning;
+
+    }
+
+    private void SetError(Exception err)
+    {
+        if (err.GetType() == typeof(System.Data.SqlClient.SqlException))
+        {
+            System.Data.SqlClient.SqlException se = (System.Data.SqlClient.SqlException)err;
+            if (se.Number == 2601)
+            {
+                SetLabelWarning("??????? ?????? ?? ????");
+            }
+            else if (se.Number == 2627)
+            {
+                SetLabelWarning("??????? ?????? ?? ????");
+            }
+            else if (se.Number == 547)
+            {
+                SetLabelWarning("??????? ?????? ????? ??? ????");
+            }
+            else
+            {
+                SetLabelWarning("????? ?? ????? ????? ????? ???");
+            }
+        }
+        else
+        {
+            SetLabelWarning("????? ?? ????? ????? ????? ???");
+        }
+    }
+    #endregion
+
+    private void CheckAccess()
+    {
+        string PageMode = Utility.DecryptQS(PgMode.Value);
+
+        TSP.DataManager.Permission per = TSP.DataManager.TechnicalServices.Project_ObserversManager.GetUserPermission(Utility.GetCurrentUser_UserId(), (TSP.DataManager.UserType)Utility.GetCurrentUser_LoginType());
+
+        if (BtnNew.Enabled == true)
+        {
+            BtnNew.Enabled = per.CanNew;
+            BtnNew2.Enabled = per.CanNew;
+        }
+
+        if (btnEdit.Enabled == true)
+        {
+            btnEdit.Enabled = per.CanEdit;
+            btnEdit2.Enabled = per.CanEdit;
+        }
+
+        if (PageMode == "New" && btnSave.Enabled == true)
+        {
+            btnSave.Enabled = per.CanNew;
+            btnSave2.Enabled = per.CanNew;
+        }
+        if (PageMode == "Edit" && btnSave.Enabled == true)
+        {
+            btnSave.Enabled = per.CanEdit;
+            btnSave2.Enabled = per.CanEdit;
+        }
+
+        this.ViewState["BtnSave"] = btnSave.Enabled;
+        this.ViewState["BtnEdit"] = btnEdit.Enabled;
+        this.ViewState["BtnNew"] = BtnNew.Enabled;
+        this.ViewState["BtnLetter"] = btnShowPpcAttachPageToAutomationLetter.Enabled;
+    }
+
+    private string FindLockers(int Id, int MemberTypeId, int IsLock)
+    {
+        TSP.DataManager.LockHistoryManager LockHistoryManager = new TSP.DataManager.LockHistoryManager();
+        return LockHistoryManager.FindLockers(Id, MemberTypeId, IsLock);
+
+    }
+
+    #region ???? ????? ? ?? ????? ?????? ????? ??? ????? ????/????? ?????? ???? ???? ??? ???? ?????
+    private void SetCapacityWage(string CapacityWage)
+    {
+        CapacityUserControl.CapacityWage = CapacityWage;
+    }
+
+    private string GetCapacityWage()
+    {
+        return CapacityUserControl.CapacityWage;
+    }
+
+    private void SetCapacityDecrement(string CapacityDecrement)
+    {
+        CapacityUserControl.CapacityDecrement = CapacityDecrement;
+    }
+
+    private string GetCapacityDecrement()
+    {
+        return CapacityUserControl.CapacityDecrement;
+    }
+
+    private void SetCapcityUserControlEnable(Boolean Enable)
+    {
+        CapacityUserControl.CapacityDecrementEnable = Enable;
+        CapacityUserControl.CapacityWageEnable = Enable;
+    }
+    #endregion
+    #endregion
+}

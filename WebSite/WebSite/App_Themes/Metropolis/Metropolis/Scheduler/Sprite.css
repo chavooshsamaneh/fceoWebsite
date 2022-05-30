@@ -1,0 +1,846 @@
+.dxsc-agenda-apt.dxsc-selected .dxScheduler_Appointment_NoRecurrence_Metropolis,
+.dxsc-agenda-apt.dxsc-selected .dxScheduler_Appointment_Recurrence_Metropolis,
+.dxsc-agenda-apt.dxsc-selected .dxScheduler_Appointment_Reminder_Metropolis,
+.dxScheduler_Appointment_DayClock_Metropolis,
+.dxScheduler_Appointment_EndArrow_Metropolis,
+.dxScheduler_Appointment_NightClock_Metropolis,
+.dxScheduler_Appointment_NoRecurrence_Metropolis,
+.dxScheduler_Appointment_Recurrence_Metropolis,
+.dxScheduler_Appointment_Reminder_Metropolis,
+.dxScheduler_Appointment_StartArrow_Metropolis,
+.dxScheduler_AppointmentClockArrows_day_hour_00_Metropolis,
+.dxScheduler_AppointmentClockArrows_day_hour_05_Metropolis,
+.dxScheduler_AppointmentClockArrows_day_hour_10_Metropolis,
+.dxScheduler_AppointmentClockArrows_day_hour_15_Metropolis,
+.dxScheduler_AppointmentClockArrows_day_hour_20_Metropolis,
+.dxScheduler_AppointmentClockArrows_day_hour_25_Metropolis,
+.dxScheduler_AppointmentClockArrows_day_hour_30_Metropolis,
+.dxScheduler_AppointmentClockArrows_day_hour_35_Metropolis,
+.dxScheduler_AppointmentClockArrows_day_hour_40_Metropolis,
+.dxScheduler_AppointmentClockArrows_day_hour_45_Metropolis,
+.dxScheduler_AppointmentClockArrows_day_hour_50_Metropolis,
+.dxScheduler_AppointmentClockArrows_day_hour_55_Metropolis,
+.dxScheduler_AppointmentClockArrows_day_minute_00_Metropolis,
+.dxScheduler_AppointmentClockArrows_day_minute_05_Metropolis,
+.dxScheduler_AppointmentClockArrows_day_minute_10_Metropolis,
+.dxScheduler_AppointmentClockArrows_day_minute_15_Metropolis,
+.dxScheduler_AppointmentClockArrows_day_minute_20_Metropolis,
+.dxScheduler_AppointmentClockArrows_day_minute_25_Metropolis,
+.dxScheduler_AppointmentClockArrows_day_minute_30_Metropolis,
+.dxScheduler_AppointmentClockArrows_day_minute_35_Metropolis,
+.dxScheduler_AppointmentClockArrows_day_minute_40_Metropolis,
+.dxScheduler_AppointmentClockArrows_day_minute_45_Metropolis,
+.dxScheduler_AppointmentClockArrows_day_minute_50_Metropolis,
+.dxScheduler_AppointmentClockArrows_day_minute_55_Metropolis,
+.dxScheduler_AppointmentClockArrows_night_hour_00_Metropolis,
+.dxScheduler_AppointmentClockArrows_night_hour_05_Metropolis,
+.dxScheduler_AppointmentClockArrows_night_hour_10_Metropolis,
+.dxScheduler_AppointmentClockArrows_night_hour_15_Metropolis,
+.dxScheduler_AppointmentClockArrows_night_hour_20_Metropolis,
+.dxScheduler_AppointmentClockArrows_night_hour_25_Metropolis,
+.dxScheduler_AppointmentClockArrows_night_hour_30_Metropolis,
+.dxScheduler_AppointmentClockArrows_night_hour_35_Metropolis,
+.dxScheduler_AppointmentClockArrows_night_hour_40_Metropolis,
+.dxScheduler_AppointmentClockArrows_night_hour_45_Metropolis,
+.dxScheduler_AppointmentClockArrows_night_hour_50_Metropolis,
+.dxScheduler_AppointmentClockArrows_night_hour_55_Metropolis,
+.dxScheduler_AppointmentClockArrows_night_minute_00_Metropolis,
+.dxScheduler_AppointmentClockArrows_night_minute_05_Metropolis,
+.dxScheduler_AppointmentClockArrows_night_minute_10_Metropolis,
+.dxScheduler_AppointmentClockArrows_night_minute_15_Metropolis,
+.dxScheduler_AppointmentClockArrows_night_minute_20_Metropolis,
+.dxScheduler_AppointmentClockArrows_night_minute_25_Metropolis,
+.dxScheduler_AppointmentClockArrows_night_minute_30_Metropolis,
+.dxScheduler_AppointmentClockArrows_night_minute_35_Metropolis,
+.dxScheduler_AppointmentClockArrows_night_minute_40_Metropolis,
+.dxScheduler_AppointmentClockArrows_night_minute_45_Metropolis,
+.dxScheduler_AppointmentClockArrows_night_minute_50_Metropolis,
+.dxScheduler_AppointmentClockArrows_night_minute_55_Metropolis,
+.dxScheduler_InplaceEditor_Cancel_Metropolis,
+.dxScheduler_InplaceEditor_EditForm_Metropolis,
+.dxScheduler_InplaceEditor_Save_Metropolis,
+.dxScheduler_Menu_Delete_Metropolis,
+.dxScheduler_Menu_GoToDate_Metropolis,
+.dxScheduler_Menu_NewAppointment_Metropolis,
+.dxScheduler_Menu_RecurringAppointment_Metropolis,
+.dxScheduler_MoreButton_Bottom_Metropolis,
+.dxScheduler_MoreButton_BottomHover_Metropolis,
+.dxScheduler_MoreButton_Top_Metropolis,
+.dxScheduler_MoreButton_TopHover_Metropolis,
+.dxScheduler_NavigationButton_Backward_Metropolis,
+.dxScheduler_NavigationButton_BackwardDisabled_Metropolis,
+.dxScheduler_NavigationButton_BackwardHover_Metropolis,
+.dxScheduler_NavigationButton_Forward_Metropolis,
+.dxScheduler_NavigationButton_ForwardDisabled_Metropolis,
+.dxScheduler_NavigationButton_ForwardHover_Metropolis,
+.dxScheduler_ResourceNavigator_Decrease_Metropolis,
+.dxScheduler_ResourceNavigator_DecreaseDisabled_Metropolis,
+.dxScheduler_ResourceNavigator_DecreaseHover_Metropolis,
+.dxScheduler_ResourceNavigator_First_Metropolis,
+.dxScheduler_ResourceNavigator_FirstDisabled_Metropolis,
+.dxScheduler_ResourceNavigator_FirstHover_Metropolis,
+.dxScheduler_ResourceNavigator_Increase_Metropolis,
+.dxScheduler_ResourceNavigator_IncreaseDisabled_Metropolis,
+.dxScheduler_ResourceNavigator_IncreaseHover_Metropolis,
+.dxScheduler_ResourceNavigator_Last_Metropolis,
+.dxScheduler_ResourceNavigator_LastDisabled_Metropolis,
+.dxScheduler_ResourceNavigator_LastHover_Metropolis,
+.dxScheduler_ResourceNavigator_Next_Metropolis,
+.dxScheduler_ResourceNavigator_NextDisabled_Metropolis,
+.dxScheduler_ResourceNavigator_NextHover_Metropolis,
+.dxScheduler_ResourceNavigator_NextPage_Metropolis,
+.dxScheduler_ResourceNavigator_NextPageDisabled_Metropolis,
+.dxScheduler_ResourceNavigator_NextPageHover_Metropolis,
+.dxScheduler_ResourceNavigator_Prev_Metropolis,
+.dxScheduler_ResourceNavigator_PrevDisabled_Metropolis,
+.dxScheduler_ResourceNavigator_PrevHover_Metropolis,
+.dxScheduler_ResourceNavigator_PrevPage_Metropolis,
+.dxScheduler_ResourceNavigator_PrevPageDisabled_Metropolis,
+.dxScheduler_ResourceNavigator_PrevPageHover_Metropolis,
+.dxScheduler_SmartTag_Metropolis,
+.dxScheduler_StatusInfo_Error_Metropolis,
+.dxScheduler_StatusInfo_Info_Metropolis,
+.dxScheduler_StatusInfo_Warning_Metropolis,
+.dxScheduler_TimeMarker_Metropolis,
+.dxScheduler_Tooltip_BottomLeft_Metropolis,
+.dxScheduler_Tooltip_BottomRight_Metropolis,
+.dxScheduler_Tooltip_BottomStem_Metropolis,
+.dxScheduler_Tooltip_Empty_Metropolis,
+.dxScheduler_Tooltip_TopLeft_Metropolis,
+.dxScheduler_Tooltip_TopRight_Metropolis,
+.dxScheduler_ViewNavigator_Backward_Metropolis,
+.dxScheduler_ViewNavigator_Down_Metropolis,
+.dxScheduler_ViewNavigator_Forward_Metropolis,
+.dxsc-selected .dxScheduler_Appointment_DayClock_Metropolis,
+.dxsc-selected .dxScheduler_Appointment_EndArrow_Metropolis,
+.dxsc-selected .dxScheduler_Appointment_NightClock_Metropolis,
+.dxsc-selected .dxScheduler_Appointment_NoRecurrence_Metropolis,
+.dxsc-selected .dxScheduler_Appointment_Recurrence_Metropolis,
+.dxsc-selected .dxScheduler_Appointment_Reminder_Metropolis,
+.dxsc-selected .dxScheduler_Appointment_StartArrow_Metropolis
+{
+    background-image: url('sprite.png');
+    background-repeat: no-repeat;
+    background-color: transparent;
+}
+.dxsc-agenda-apt.dxsc-selected .dxScheduler_Appointment_NoRecurrence_Metropolis
+{
+    background-position: -17px -358px;
+    width: 16px;
+    height: 16px;
+}
+.dxsc-agenda-apt.dxsc-selected .dxScheduler_Appointment_Recurrence_Metropolis
+{
+    background-position: -51px -358px;
+    width: 16px;
+    height: 16px;
+}
+.dxsc-agenda-apt.dxsc-selected .dxScheduler_Appointment_Reminder_Metropolis
+{
+    background-position: -84px -299px;
+    width: 16px;
+    height: 16px;
+}
+.dxScheduler_Appointment_DayClock_Metropolis
+{
+    background-position: -48px -408px;
+    width: 15px;
+    height: 15px;
+}
+.dxScheduler_Appointment_EndArrow_Metropolis
+{
+    background-position: -17px -341px;
+    width: 16px;
+    height: 16px;
+}
+.dxScheduler_Appointment_NightClock_Metropolis
+{
+    background-position: -80px -456px;
+    width: 15px;
+    height: 15px;
+}
+.dxScheduler_Appointment_NoRecurrence_Metropolis
+{
+    background-position: -81px -320px;
+    width: 16px;
+    height: 16px;
+}
+.dxScheduler_Appointment_Recurrence_Metropolis
+{
+    background-position: -84px -278px;
+    width: 16px;
+    height: 16px;
+}
+.dxScheduler_Appointment_Reminder_Metropolis
+{
+    background-position: -68px -358px;
+    width: 16px;
+    height: 16px;
+}
+.dxScheduler_Appointment_StartArrow_Metropolis
+{
+    background-position: -17px -375px;
+    width: 16px;
+    height: 16px;
+}
+.dxScheduler_AppointmentClockArrows_day_hour_00_Metropolis
+{
+    background-position: 0px -392px;
+    width: 15px;
+    height: 15px;
+}
+.dxScheduler_AppointmentClockArrows_day_hour_05_Metropolis
+{
+    background-position: -16px -456px;
+    width: 15px;
+    height: 15px;
+}
+.dxScheduler_AppointmentClockArrows_day_hour_10_Metropolis
+{
+    background-position: -48px -392px;
+    width: 15px;
+    height: 15px;
+}
+.dxScheduler_AppointmentClockArrows_day_hour_15_Metropolis
+{
+    background-position: -80px -488px;
+    width: 15px;
+    height: 15px;
+}
+.dxScheduler_AppointmentClockArrows_day_hour_20_Metropolis
+{
+    background-position: -64px -392px;
+    width: 15px;
+    height: 15px;
+}
+.dxScheduler_AppointmentClockArrows_day_hour_25_Metropolis
+{
+    background-position: -80px -472px;
+    width: 15px;
+    height: 15px;
+}
+.dxScheduler_AppointmentClockArrows_day_hour_30_Metropolis
+{
+    background-position: -16px -408px;
+    width: 15px;
+    height: 15px;
+}
+.dxScheduler_AppointmentClockArrows_day_hour_35_Metropolis
+{
+    background-position: -48px -456px;
+    width: 15px;
+    height: 15px;
+}
+.dxScheduler_AppointmentClockArrows_day_hour_40_Metropolis
+{
+    background-position: -16px -392px;
+    width: 15px;
+    height: 15px;
+}
+.dxScheduler_AppointmentClockArrows_day_hour_45_Metropolis
+{
+    background-position: -16px -504px;
+    width: 15px;
+    height: 15px;
+}
+.dxScheduler_AppointmentClockArrows_day_hour_50_Metropolis
+{
+    background-position: -48px -440px;
+    width: 15px;
+    height: 15px;
+}
+.dxScheduler_AppointmentClockArrows_day_hour_55_Metropolis
+{
+    background-position: -16px -472px;
+    width: 15px;
+    height: 15px;
+}
+.dxScheduler_AppointmentClockArrows_day_minute_00_Metropolis
+{
+    background-position: -85px -358px;
+    width: 15px;
+    height: 15px;
+}
+.dxScheduler_AppointmentClockArrows_day_minute_05_Metropolis
+{
+    background-position: -84px -375px;
+    width: 15px;
+    height: 15px;
+}
+.dxScheduler_AppointmentClockArrows_day_minute_10_Metropolis
+{
+    background-position: -16px -440px;
+    width: 15px;
+    height: 15px;
+}
+.dxScheduler_AppointmentClockArrows_day_minute_15_Metropolis
+{
+    background-position: 0px -456px;
+    width: 15px;
+    height: 15px;
+}
+.dxScheduler_AppointmentClockArrows_day_minute_20_Metropolis
+{
+    background-position: -48px -488px;
+    width: 15px;
+    height: 15px;
+}
+.dxScheduler_AppointmentClockArrows_day_minute_25_Metropolis
+{
+    background-position: -32px -424px;
+    width: 15px;
+    height: 15px;
+}
+.dxScheduler_AppointmentClockArrows_day_minute_30_Metropolis
+{
+    background-position: -32px -456px;
+    width: 15px;
+    height: 15px;
+}
+.dxScheduler_AppointmentClockArrows_day_minute_35_Metropolis
+{
+    background-position: -64px -504px;
+    width: 15px;
+    height: 15px;
+}
+.dxScheduler_AppointmentClockArrows_day_minute_40_Metropolis
+{
+    background-position: -64px -472px;
+    width: 15px;
+    height: 15px;
+}
+.dxScheduler_AppointmentClockArrows_day_minute_45_Metropolis
+{
+    background-position: -80px -424px;
+    width: 15px;
+    height: 15px;
+}
+.dxScheduler_AppointmentClockArrows_day_minute_50_Metropolis
+{
+    background-position: -32px -488px;
+    width: 15px;
+    height: 15px;
+}
+.dxScheduler_AppointmentClockArrows_day_minute_55_Metropolis
+{
+    background-position: -68px -375px;
+    width: 15px;
+    height: 15px;
+}
+.dxScheduler_AppointmentClockArrows_night_hour_00_Metropolis
+{
+    background-position: -64px -456px;
+    width: 15px;
+    height: 15px;
+}
+.dxScheduler_AppointmentClockArrows_night_hour_05_Metropolis
+{
+    background-position: -32px -392px;
+    width: 15px;
+    height: 15px;
+}
+.dxScheduler_AppointmentClockArrows_night_hour_10_Metropolis
+{
+    background-position: -16px -424px;
+    width: 15px;
+    height: 15px;
+}
+.dxScheduler_AppointmentClockArrows_night_hour_15_Metropolis
+{
+    background-position: 0px -488px;
+    width: 15px;
+    height: 15px;
+}
+.dxScheduler_AppointmentClockArrows_night_hour_20_Metropolis
+{
+    background-position: -32px -440px;
+    width: 15px;
+    height: 15px;
+}
+.dxScheduler_AppointmentClockArrows_night_hour_25_Metropolis
+{
+    background-position: -48px -504px;
+    width: 15px;
+    height: 15px;
+}
+.dxScheduler_AppointmentClockArrows_night_hour_30_Metropolis
+{
+    background-position: -64px -424px;
+    width: 15px;
+    height: 15px;
+}
+.dxScheduler_AppointmentClockArrows_night_hour_35_Metropolis
+{
+    background-position: 0px -440px;
+    width: 15px;
+    height: 15px;
+}
+.dxScheduler_AppointmentClockArrows_night_hour_40_Metropolis
+{
+    background-position: -16px -488px;
+    width: 15px;
+    height: 15px;
+}
+.dxScheduler_AppointmentClockArrows_night_hour_45_Metropolis
+{
+    background-position: 0px -504px;
+    width: 15px;
+    height: 15px;
+}
+.dxScheduler_AppointmentClockArrows_night_hour_50_Metropolis
+{
+    background-position: -64px -488px;
+    width: 15px;
+    height: 15px;
+}
+.dxScheduler_AppointmentClockArrows_night_hour_55_Metropolis
+{
+    background-position: 0px -424px;
+    width: 15px;
+    height: 15px;
+}
+.dxScheduler_AppointmentClockArrows_night_minute_00_Metropolis
+{
+    background-position: -80px -440px;
+    width: 15px;
+    height: 15px;
+}
+.dxScheduler_AppointmentClockArrows_night_minute_05_Metropolis
+{
+    background-position: -80px -408px;
+    width: 15px;
+    height: 15px;
+}
+.dxScheduler_AppointmentClockArrows_night_minute_10_Metropolis
+{
+    background-position: -32px -408px;
+    width: 15px;
+    height: 15px;
+}
+.dxScheduler_AppointmentClockArrows_night_minute_15_Metropolis
+{
+    background-position: 0px -408px;
+    width: 15px;
+    height: 15px;
+}
+.dxScheduler_AppointmentClockArrows_night_minute_20_Metropolis
+{
+    background-position: -64px -440px;
+    width: 15px;
+    height: 15px;
+}
+.dxScheduler_AppointmentClockArrows_night_minute_25_Metropolis
+{
+    background-position: -48px -472px;
+    width: 15px;
+    height: 15px;
+}
+.dxScheduler_AppointmentClockArrows_night_minute_30_Metropolis
+{
+    background-position: -32px -504px;
+    width: 15px;
+    height: 15px;
+}
+.dxScheduler_AppointmentClockArrows_night_minute_35_Metropolis
+{
+    background-position: -80px -504px;
+    width: 15px;
+    height: 15px;
+}
+.dxScheduler_AppointmentClockArrows_night_minute_40_Metropolis
+{
+    background-position: -32px -472px;
+    width: 15px;
+    height: 15px;
+}
+.dxScheduler_AppointmentClockArrows_night_minute_45_Metropolis
+{
+    background-position: -64px -408px;
+    width: 15px;
+    height: 15px;
+}
+.dxScheduler_AppointmentClockArrows_night_minute_50_Metropolis
+{
+    background-position: -80px -392px;
+    width: 15px;
+    height: 15px;
+}
+.dxScheduler_AppointmentClockArrows_night_minute_55_Metropolis
+{
+    background-position: 0px -472px;
+    width: 15px;
+    height: 15px;
+}
+.dxScheduler_InplaceEditor_Cancel_Metropolis
+{
+    background-position: -41px -320px;
+    width: 19px;
+    height: 19px;
+}
+.dxScheduler_InplaceEditor_EditForm_Metropolis
+{
+    background-position: -21px -320px;
+    width: 19px;
+    height: 19px;
+}
+.dxScheduler_InplaceEditor_Save_Metropolis
+{
+    background-position: -61px -320px;
+    width: 19px;
+    height: 19px;
+}
+.dxScheduler_Menu_Delete_Metropolis
+{
+    background-position: 0px -358px;
+    width: 16px;
+    height: 16px;
+}
+.dxScheduler_Menu_GoToDate_Metropolis
+{
+    background-position: -34px -358px;
+    width: 16px;
+    height: 16px;
+}
+.dxScheduler_Menu_NewAppointment_Metropolis
+{
+    background-position: -34px -341px;
+    width: 16px;
+    height: 16px;
+}
+.dxScheduler_Menu_RecurringAppointment_Metropolis
+{
+    background-position: 0px -375px;
+    width: 16px;
+    height: 16px;
+}
+.dxScheduler_MoreButton_Bottom_Metropolis
+{
+    background-position: 0px -299px;
+    width: 20px;
+    height: 20px;
+}
+.dxScheduler_MoreButton_BottomHover_Metropolis
+{
+    background-position: 0px -278px;
+    width: 20px;
+    height: 20px;
+}
+.dxScheduler_MoreButton_Top_Metropolis
+{
+    background-position: -21px -278px;
+    width: 20px;
+    height: 20px;
+}
+.dxScheduler_MoreButton_TopHover_Metropolis
+{
+    background-position: -75px -253px;
+    width: 20px;
+    height: 20px;
+}
+.dxScheduler_NavigationButton_Backward_Metropolis
+{
+    background-position: -63px -278px;
+    width: 20px;
+    height: 20px;
+}
+.dxScheduler_NavigationButton_BackwardDisabled_Metropolis
+{
+    background-position: -42px -299px;
+    width: 20px;
+    height: 20px;
+}
+.dxScheduler_NavigationButton_BackwardHover_Metropolis
+{
+    background-position: -21px -299px;
+    width: 20px;
+    height: 20px;
+}
+.dxScheduler_NavigationButton_Forward_Metropolis
+{
+    background-position: 0px -320px;
+    width: 20px;
+    height: 20px;
+}
+.dxScheduler_NavigationButton_ForwardDisabled_Metropolis
+{
+    background-position: -63px -299px;
+    width: 20px;
+    height: 20px;
+}
+.dxScheduler_NavigationButton_ForwardHover_Metropolis
+{
+    background-position: -42px -278px;
+    width: 20px;
+    height: 20px;
+}
+.dxScheduler_ResourceNavigator_Decrease_Metropolis
+{
+    background-position: 0px -253px;
+    width: 24px;
+    height: 24px;
+}
+.dxScheduler_ResourceNavigator_DecreaseDisabled_Metropolis
+{
+    background-position: -50px -178px;
+    width: 24px;
+    height: 24px;
+}
+.dxScheduler_ResourceNavigator_DecreaseHover_Metropolis
+{
+    background-position: -50px -103px;
+    width: 24px;
+    height: 24px;
+}
+.dxScheduler_ResourceNavigator_First_Metropolis
+{
+    background-position: -50px -203px;
+    width: 24px;
+    height: 24px;
+}
+.dxScheduler_ResourceNavigator_FirstDisabled_Metropolis
+{
+    background-position: -75px -128px;
+    width: 24px;
+    height: 24px;
+}
+.dxScheduler_ResourceNavigator_FirstHover_Metropolis
+{
+    background-position: -75px -153px;
+    width: 24px;
+    height: 24px;
+}
+.dxScheduler_ResourceNavigator_Increase_Metropolis
+{
+    background-position: -25px -128px;
+    width: 24px;
+    height: 24px;
+}
+.dxScheduler_ResourceNavigator_IncreaseDisabled_Metropolis
+{
+    background-position: -25px -103px;
+    width: 24px;
+    height: 24px;
+}
+.dxScheduler_ResourceNavigator_IncreaseHover_Metropolis
+{
+    background-position: -75px -103px;
+    width: 24px;
+    height: 24px;
+}
+.dxScheduler_ResourceNavigator_Last_Metropolis
+{
+    background-position: -75px -228px;
+    width: 24px;
+    height: 24px;
+}
+.dxScheduler_ResourceNavigator_LastDisabled_Metropolis
+{
+    background-position: -75px -178px;
+    width: 24px;
+    height: 24px;
+}
+.dxScheduler_ResourceNavigator_LastHover_Metropolis
+{
+    background-position: -75px -203px;
+    width: 24px;
+    height: 24px;
+}
+.dxScheduler_ResourceNavigator_Next_Metropolis
+{
+    background-position: -25px -203px;
+    width: 24px;
+    height: 24px;
+}
+.dxScheduler_ResourceNavigator_NextDisabled_Metropolis
+{
+    background-position: 0px -178px;
+    width: 24px;
+    height: 24px;
+}
+.dxScheduler_ResourceNavigator_NextHover_Metropolis
+{
+    background-position: -25px -253px;
+    width: 24px;
+    height: 24px;
+}
+.dxScheduler_ResourceNavigator_NextPage_Metropolis
+{
+    background-position: -50px -128px;
+    width: 24px;
+    height: 24px;
+}
+.dxScheduler_ResourceNavigator_NextPageDisabled_Metropolis
+{
+    background-position: -25px -228px;
+    width: 24px;
+    height: 24px;
+}
+.dxScheduler_ResourceNavigator_NextPageHover_Metropolis
+{
+    background-position: 0px -228px;
+    width: 24px;
+    height: 24px;
+}
+.dxScheduler_ResourceNavigator_Prev_Metropolis
+{
+    background-position: 0px -128px;
+    width: 24px;
+    height: 24px;
+}
+.dxScheduler_ResourceNavigator_PrevDisabled_Metropolis
+{
+    background-position: -25px -178px;
+    width: 24px;
+    height: 24px;
+}
+.dxScheduler_ResourceNavigator_PrevHover_Metropolis
+{
+    background-position: -50px -253px;
+    width: 24px;
+    height: 24px;
+}
+.dxScheduler_ResourceNavigator_PrevPage_Metropolis
+{
+    background-position: 0px -153px;
+    width: 24px;
+    height: 24px;
+}
+.dxScheduler_ResourceNavigator_PrevPageDisabled_Metropolis
+{
+    background-position: -25px -153px;
+    width: 24px;
+    height: 24px;
+}
+.dxScheduler_ResourceNavigator_PrevPageHover_Metropolis
+{
+    background-position: -50px -153px;
+    width: 24px;
+    height: 24px;
+}
+.dxScheduler_SmartTag_Metropolis
+{
+    background-position: -90px 0px;
+    width: 6px;
+    height: 9px;
+}
+.dxScheduler_StatusInfo_Error_Metropolis
+{
+    background-position: 0px -54px;
+    width: 48px;
+    height: 48px;
+}
+.dxScheduler_StatusInfo_Info_Metropolis
+{
+    background-position: -49px -54px;
+    width: 48px;
+    height: 48px;
+}
+.dxScheduler_StatusInfo_Warning_Metropolis
+{
+    background-position: -41px 0px;
+    width: 48px;
+    height: 48px;
+}
+.dxScheduler_TimeMarker_Metropolis
+{
+    background-position: 0px -520px;
+    width: 58px;
+    height: 7px;
+}
+.dxScheduler_Tooltip_BottomLeft_Metropolis
+{
+    background-position: -90px -22px;
+    width: 7px;
+    height: 7px;
+}
+.dxScheduler_Tooltip_BottomRight_Metropolis
+{
+    background-position: -93px -46px;
+    width: 7px;
+    height: 7px;
+}
+.dxScheduler_Tooltip_BottomStem_Metropolis
+{
+    background-position: 0px 0px;
+    width: 40px;
+    height: 53px;
+}
+.dxScheduler_Tooltip_Empty_Metropolis
+{
+    background-position: -97px 0px;
+    width: 1px;
+    height: 1px;
+}
+.dxScheduler_Tooltip_TopLeft_Metropolis
+{
+    background-position: -90px -38px;
+    width: 7px;
+    height: 7px;
+}
+.dxScheduler_Tooltip_TopRight_Metropolis
+{
+    background-position: -90px -30px;
+    width: 7px;
+    height: 7px;
+}
+.dxScheduler_ViewNavigator_Backward_Metropolis
+{
+    background-position: 0px -203px;
+    width: 24px;
+    height: 24px;
+}
+.dxScheduler_ViewNavigator_Down_Metropolis
+{
+    background-position: 0px -103px;
+    width: 24px;
+    height: 24px;
+}
+.dxScheduler_ViewNavigator_Forward_Metropolis
+{
+    background-position: -50px -228px;
+    width: 24px;
+    height: 24px;
+}
+.dxsc-selected .dxScheduler_Appointment_DayClock_Metropolis
+{
+    background-position: -85px -341px;
+    width: 15px;
+    height: 15px;
+}
+.dxsc-selected .dxScheduler_Appointment_EndArrow_Metropolis
+{
+    background-position: -51px -341px;
+    width: 16px;
+    height: 16px;
+}
+.dxsc-selected .dxScheduler_Appointment_NightClock_Metropolis
+{
+    background-position: -48px -424px;
+    width: 15px;
+    height: 15px;
+}
+.dxsc-selected .dxScheduler_Appointment_NoRecurrence_Metropolis
+{
+    background-position: -34px -375px;
+    width: 16px;
+    height: 16px;
+}
+.dxsc-selected .dxScheduler_Appointment_Recurrence_Metropolis
+{
+    background-position: 0px -341px;
+    width: 16px;
+    height: 16px;
+}
+.dxsc-selected .dxScheduler_Appointment_Reminder_Metropolis
+{
+    background-position: -51px -375px;
+    width: 16px;
+    height: 16px;
+}
+.dxsc-selected .dxScheduler_Appointment_StartArrow_Metropolis
+{
+    background-position: -68px -341px;
+    width: 16px;
+    height: 16px;
+}
+

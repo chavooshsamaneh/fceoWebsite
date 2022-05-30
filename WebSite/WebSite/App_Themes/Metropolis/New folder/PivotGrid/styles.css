@@ -1,0 +1,544 @@
+.dxpgControl_Metropolis, .dxpgCustForm_Metropolis
+{
+    color: #333333;
+    font: 12px 'Segoe UI', Helvetica, 'Droid Sans', Tahoma, Geneva, sans-serif;
+    border: solid 1px #c0c0c0;
+    background-color: white;
+}
+.dxpgContainerCell_Metropolis
+{
+    vertical-align: top;
+}
+.dxpgMainTable_Metropolis
+{
+    border: 0px;
+    border-collapse: separate;
+    width: 100%;
+    text-align: left;
+}
+div.dxpgMainTable_Metropolis
+{
+    -ms-touch-action: pinch-zoom;
+    touch-action: pinch-zoom;
+}
+.dxpgMainTable_Metropolis caption
+{
+    background: #ACACAC;
+    color: white;
+    border-bottom: Solid 1px #9F9F9F;
+    font-size: 1.25em;
+    font-weight: normal;
+    padding: 3px 3px 5px;
+    text-align: center;
+}
+.dxpgHeader_Metropolis
+{
+    border-width: 0px;
+    cursor: pointer;
+    white-space: nowrap;
+    text-align: left;
+}
+.dxpgHeaderTable_Metropolis
+{
+    border: solid 1px #c0c0c0;
+    width: 100%;
+    border-collapse: separate !important;
+}
+.dxpgMSDraggable_Metropolis .dxpgHeaderTable_Metropolis,
+.dxpgCustFieldsDiv_Metropolis .dxpgHeaderTable_Metropolis
+{
+    -ms-touch-action: pinch-zoom;
+    touch-action: pinch-zoom;
+}
+.dxpgHeaderGroupButton_Metropolis
+{
+    padding-left: 4px;
+    vertical-align: middle;
+}
+.dxpgHeaderText_Metropolis
+{
+    padding-left: 6px;
+    padding-right: 6px;
+    padding-top: 3px;
+    padding-bottom: 4px;
+}
+.dxpgHeaderSort_Metropolis
+{
+    padding-left: 0px;
+    padding-right: 4px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    vertical-align: middle;
+}
+.dxpgHeaderFilter_Metropolis
+{
+    padding-left: 0px;
+    padding-right: 2px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    vertical-align: middle;
+}
+.dxpgArea_Metropolis
+{
+    border: solid 1px #c0c0c0;
+    border-left-style: none;
+    border-top-style: none;
+    border-bottom-style: none;
+    border-right-style: none;
+}
+.dxpgColumnArea_Metropolis
+{
+    border-bottom-style: solid;
+}
+.dxpgFilterArea_Metropolis
+{
+    border-bottom-style: solid;
+}
+.dxpgEmptyArea_Metropolis
+{
+    cursor: default;
+    padding-top: 6px;
+    padding-left: 6px;
+    padding-bottom: 7px;
+    padding-right: 6px;
+}
+.dxpgColumnFieldValue_Metropolis
+{
+    border: solid 1px #c0c0c0;
+    border-left-style: solid;
+    border-bottom-style: solid;
+    border-right-style: none;
+    border-top-style: none;
+    padding: 4px 6px;
+    font-weight: normal;
+    text-align: left;
+}
+.dxpgColumnTotalFieldValue_Metropolis
+{
+    border-left-style: solid;
+    border-bottom-style: solid;
+    border-right-style: none;
+    border-top-style: none;
+}
+.dxpgColumnGrandTotalFieldValue_Metropolis
+{
+    border-left-style: solid;
+    border-bottom-style: solid;
+    border-right-style: none;
+    border-top-style: none;
+}
+.dxpgRowFieldValue_Metropolis
+{
+    border: solid 1px #c0c0c0;
+    border-left-style: none;
+    border-bottom-style: none;
+    border-right-style: solid;
+    border-top-style: solid;
+    padding: 3px 6px 4px 6px;
+    font-weight: normal;
+    text-align: left;
+}
+.dxpgRowTotalFieldValue_Metropolis
+{
+    border-left-style: none;
+    border-bottom-style: none;
+    border-right-style: solid;
+    border-top-style: solid;
+}
+.dxpgRowTreeFieldValue_Metropolis
+{
+    padding: 0;
+    font-size: 0;
+}
+.dxpgRowGrandTotalFieldValue_Metropolis
+{
+    border-left-style: none;
+    border-bottom-style: none;
+    border-right-style: solid;
+    border-top-style: solid;
+    padding-top: 5px;
+    padding-bottom: 6px;
+}
+.dxpgCollapsedButton_Metropolis
+{
+    vertical-align: -1px;
+    border: 0px;
+    margin-right: 5px;
+}
+.dxpgSortByColumnImage_Metropolis
+{
+    vertical-align: -1px;
+    border: 0px;
+    margin-left: 5px;
+}
+.dxpgCell_Metropolis
+{
+    text-align: right;
+    background-color: White;
+    border-color: #cecece;
+    border-width: 1px;
+    border-top-style: solid;
+    border-left-style: solid;
+    border-bottom-style: none;
+    border-right-style: none;
+    padding: 4px;
+    padding-top: 3px;
+    white-space: nowrap;
+}
+.dxpgKPICell_Metropolis
+{
+    text-align: center;
+    vertical-align: middle;
+}
+.dxpgCellsArea_Metropolis
+{
+    background-color: White;
+}
+.dxpgCellsSCContentTable_Metropolis
+{
+    border-color: #cecece;
+    border-width: 1px;
+    border-bottom-style: solid;
+}
+.dxpgRowSCContentTable_Metropolis
+{
+    border-color: #c0c0c0;
+    border-width: 1px;
+    border-bottom-style: solid;
+}
+.dxpgColumnSCContentTable_Metropolis
+{
+    border-color: #c0c0c0;
+    border-width: 1px;
+    border-right-style: solid;
+}
+.dxpgFilterItem_Metropolis
+{
+    white-space: nowrap;
+}
+.dxpgFilterButton_Metropolis
+{
+    padding: 2px 6px;
+}
+.dxpgTopPager_Metropolis
+{
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    border-bottom: solid 1px #c0c0c0;
+    padding: 4px 0;
+}
+.dxpgBottomPager_Metropolis
+{
+    border-top: solid 1px #c0c0c0;
+    border-bottom: none;
+    border-right: none;
+    border-left: none;
+    padding: 7px 0;
+}
+.dxpgTopPager_Metropolis,
+.dxpgBottomPager_Metropolis
+{
+    box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    -webkit-box-sizing: content-box;
+}
+.dxpgCustomizationFieldsHeader_Metropolis
+{
+    color: White;
+    font-size: 0.91em;
+    background-image: none !important;
+}
+.dxpgCustomizationFieldsContent_Metropolis
+{
+    padding: 0px !important;
+    min-width: 300px;
+}
+.dxpgDataHeadersImage_Metropolis
+{
+    margin-right: 5px;
+    vertical-align: -2px;
+}
+.dxpgPrefilterPanelContainer_Metropolis
+{
+    border-bottom-style: none;
+    border-left-style: none;
+    border-right-style: none;
+}
+.dxpgPrefilterPanel_Metropolis
+{
+    border: none;
+}
+.dxpgPrefilterPanelLink_Metropolis
+{
+    color: #ff8800;
+    text-decoration: underline;
+}
+.dxpgPrefilterPanelCheckBoxCell_Metropolis
+{
+    padding: 0 7px;
+}
+.dxpgPrefilterPanelImageCell_Metropolis
+{
+    padding: 0 3px;
+    padding-right: 1px;
+    cursor: pointer;
+}
+.dxpgPrefilterPanelExpressionCell_Metropolis
+{
+    padding: 5px 5px 8px 0;
+    white-space: nowrap;
+}
+.dxpgPrefilterPanelClearButtonCell_Metropolis
+{
+    padding: 5px 6px 8px;
+}
+.dxpgFilterBuilderMainArea_Metropolis
+{
+    background: white;
+    padding: 6px 2px;
+}
+.dxpgFilterBuilderButtonArea_Metropolis
+{
+    border-top: solid 1px #c0c0c0;
+    padding: 6px;
+    white-space: nowrap;
+}
+.dxpgGroupSeparator_Metropolis
+{
+    vertical-align: middle;
+}
+.dxpgCustFieldsFilterAreaHeaders_Metropolis,
+.dxpgCustFieldsRowAreaHeaders_Metropolis,
+.dxpgCustFieldsColumnAreaHeaders_Metropolis,
+.dxpgCustFieldsDataAreaHeaders_Metropolis,
+.BottomPanelOnly1by4 .dxpgFLFRDiv_Metropolis,
+.BottomPanelOnly1by4 .dxpgFLCDDiv_Metropolis
+{
+    width: 100%;
+    height: 50%;
+}
+.StackedDefault .dxpgCustFieldsFieldList_Metropolis
+{
+    height: 34%;
+}
+.StackedDefault .dxpgFLFRDiv_Metropolis
+{
+    width: 50%;
+    height: 66%;
+    float: left;
+}
+.StackedDefault .dxpgFLCDDiv_Metropolis
+{
+    width: 50%;
+    height: 66%;
+    float: right;
+}
+.StackedDefault .dxpgCustFieldsFilterAreaHeaders_Metropolis .dxpgFLTextDiv_Metropolis,
+.StackedDefault .dxpgCustFieldsColumnAreaHeaders_Metropolis .dxpgFLTextDiv_Metropolis
+{
+    height: 47px;
+}
+.TopPanelOnly .dxpgCustFieldsFieldList_Metropolis
+{
+    width: 100%;
+    height: 100%;
+}
+.TopPanelOnly .dxpgFLDefereDiv_Metropolis .dxeBase_Metropolis,
+.TopPanelOnly .dxpgFLDefereDiv_Metropolis .dxpgFLDefereDB_Metropolis,
+.TopPanelOnly .dxpgFLFRDiv_Metropolis,
+.TopPanelOnly .dxpgFLCDDiv_Metropolis,
+.BottomPanelOnly1by4 .dxpgCustFieldsFieldList_Metropolis,
+.BottomPanelOnly2by2 .dxpgCustFieldsFieldList_Metropolis,
+.TopPanelOnly .dxpgFLTextDiv_Metropolis div
+{
+    display: none;
+}
+.TopPanelOnly .dxpgFLTextDiv_Metropolis
+{
+    height: 19px;
+}
+.TopPanelOnly .dxpgFLDefereDiv_Metropolis
+{
+    height: 16px;
+}
+.BottomPanelOnly2by2 .dxpgFLFRDiv_Metropolis,
+.StackedSideBySide .dxpgCustFieldsFieldList_Metropolis
+{
+    width: 50%;
+    height: 100%;
+    float: left;
+}
+.BottomPanelOnly2by2 .dxpgFLCDDiv_Metropolis
+{
+    width: 50%;
+    height: 100%;
+    float: right;
+}
+.StackedSideBySide .dxpgFLFRDiv_Metropolis,
+.StackedSideBySide .dxpgFLCDDiv_Metropolis
+{
+    width: 50%;
+    height: 50%;
+    float: right;
+}
+.dxpgCustFields_Metropolis
+{
+    display: block;
+    position: relative;
+}
+.dxpgFLListDiv_Metropolis > div
+{
+    border: 1px solid #c0c0c0;
+    position: relative;
+    display: block;
+    height: 100%;
+    padding: 1px;
+    background: #FFFFFF;
+    overflow: hidden;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+.dxpgFLListDiv_Metropolis > div > div
+{
+    position: relative;
+    display: block;
+    background: #FFFFFF;
+    height: 100%;
+    padding: 0px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+.DragOver .dxpgFLListDiv_Metropolis > div
+{
+    background: #FFD83A;
+}
+.dxpgFLListDiv_Metropolis
+{
+    padding: 0px 3px 0px 3px;
+}
+.dxpgFLButtonDiv_Metropolis .dxbButton_Metropolis div.dxb
+{
+    border: dotted 1px transparent;
+    padding: 1px 7px 0px;
+}
+.dxpgFLButtonDiv_Metropolis .dxbButton_Metropolis div.dxbf
+{
+    padding: 1px 7px 0px;
+}
+.dxpgFLTextDiv_Metropolis
+{
+    height: 28px;
+}
+.dxpgFLTextDiv_Metropolis div
+{
+    display: block;
+    float: left;
+    margin: -17px 0px 3px 0px;
+    left: 6px;
+    top: 100%;
+    position: relative;
+}
+div.dxpgFLTextImgDiv_Metropolis
+{
+    display: block;
+    height: 16px;
+    width: 16px;
+    margin: -18px 0px 3px 0px;
+    left: 3px;
+}
+.dxpgFLButtonDiv_Metropolis
+{
+    float: right;
+    height: 28px;
+    position: relative;
+    z-index: 1;
+}
+.dxpgFLDefereDiv_Metropolis
+{
+    height: 50px;
+}
+.dxpgCustFieldsDiv_Metropolis
+{
+    clear: both;
+    padding: 0px 9px;
+}
+.dxpgFLButton_Metropolis
+{
+    margin: 12px 12px 0px 0px;
+    width: 40px;
+    height: 23px;
+}
+.dxpgFLDefereDiv_Metropolis .dxeBase_Metropolis
+{
+    float: left;
+    display: block;
+    border-collapse: separate;
+    padding: 17px 0px 0px 0px;
+    margin-left: 8px;
+}
+.dxpgFLDefereDB_Metropolis
+{
+    float: right;
+    display: block;
+    margin: 16px 12px 0 0;
+}
+.dxpgFLDefereDiv_Metropolis .dxbButton_Metropolis div.dxb
+{
+    padding: 1px 13px 1px 13px;
+    border: dotted 1px transparent;
+}
+.dxpgFLDefereDiv_Metropolis .dxbButton_Metropolis div.dxbf
+{
+    border: dotted 1px black;
+}
+.dxpgFLListDiv_Metropolis table
+{
+    width: 100%;
+    table-layout: fixed;
+    overflow: visible;
+}
+.dxpgFLListDiv_Metropolis table table td
+{
+    overflow: hidden;
+}
+/*Loading Panel*/
+.dxpgLoadingPanel_Metropolis
+{
+    border: 1px solid #C3C3C3;
+    background-color: white;
+    font: 12px 'Segoe UI', Helvetica, 'Droid Sans', Tahoma, Geneva, sans-serif;
+    color: #333333;
+}
+.dxpgLoadingPanel_Metropolis td.dx
+{
+    font-size: 1.17em;
+    white-space: nowrap;
+    text-align: center;
+    padding: 10px 14px;
+}
+.dxpgLoadingPanel_Metropolis .dxlp-loadingImage
+{
+    background-image: url('../Web/Loading.gif');
+    height: 32px;
+    width: 32px;
+}
+.dxpgVScrollBarAreaCell_Metropolis
+{
+    border-left: 1px solid #c0c0c0;
+    border-bottom: 1px solid #c0c0c0;
+}
+.dxpgHScrollBarAreaCell_Metropolis
+{
+    border-top: 1px solid #c0c0c0;
+    border-right: 1px solid #c0c0c0;
+}
+.dxpgScrollBarEdgeCell_Metropolis
+{
+    border-left: 1px solid #c0c0c0;
+    border-top: 1px solid #c0c0c0;
+}

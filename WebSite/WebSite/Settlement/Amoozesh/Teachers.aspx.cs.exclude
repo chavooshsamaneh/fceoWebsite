@@ -1,0 +1,679 @@
+﻿using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+using DevExpress.Web;
+
+public partial class Settlement_Amoozesh_Teachers : System.Web.UI.Page
+{
+    #region Events
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (!IsPostBack)
+        {
+            ObjdsWorkFlowTask.SelectParameters["WorkFlowCode"].DefaultValue = ((int)TSP.DataManager.WorkFlows.TeachersConfirming).ToString();
+            int SettlementConfirmingTaskCode = (int)TSP.DataManager.WorkFlowTask.settlementAgentConfiringTeacher;
+            OdbTeacher.SelectParameters[0].DefaultValue = SettlementConfirmingTaskCode.ToString();
+            this.ViewState["BtnView"] = btnView.Enabled;
+        }
+        if (this.ViewState["BtnView"] != null)
+            this.btnView.Enabled = this.btnView2.Enabled = (bool)this.ViewState["BtnView"];
+
+        this.DivReport.Visible = false;
+        this.DivReport.Attributes.Add("onclick", "ChangeVisible(this)");
+        this.DivReport.Attributes.Add("onmouseover", "ChangeIcon(this)");
+    }
+
+    protected void btnView_Click(object sender, EventArgs e)
+    {
+        int TeId = -1;
+        if (GridViewTeacher.FocusedRowIndex > -1)
+        {
+            DataRow row = GridViewTeacher.GetDataRow(GridViewTeacher.FocusedRowIndex);
+            TeId = (int)row["TeId"];
+        }
+        if (TeId == -1)
+        {
+            this.DivReport.Visible = true;
+            this.LabelWarning.Text = "لطفاً برای مشاهده اطلاعات ابتدا یک رکورد را انتخاب نمائید";
+            return;
+        }
+        
+        TSP.DataManager.TeacherCertificateManager TeacherCertificateManager = new TSP.DataManager.TeacherCertificateManager();
+        DataTable dtTeacherCertificate = TeacherCertificateManager.SelectLastVersion(TeId);
+        if (dtTeacherCertificate.Rows.Count > 0)
+        {  
+                Response.Redirect("SettlmentConfirmingTeacher.aspx?TcId=" + Utility.EncryptQS(dtTeacherCertificate.Rows[0]["TcId"].ToString()) + "&PgMd=" + Utility.EncryptQS("View"));                     
+        }
+        else
+        {
+            DivReport.Visible = true;
+            LabelWarning.Text = "وضعیت پروانه انتخاب شده نامشخص می باشد.";
+        }
+    }
+
+    protected void btnBack_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("SettlmentHomePage.aspx");
+    }
+
+    protected void btnEdit_Click(object sender, EventArgs e)
+    {
+        int TeId = -1;
+        if (GridViewTeacher.FocusedRowIndex > -1)
+        {
+            DataRow row = GridViewTeacher.GetDataRow(GridViewTeacher.FocusedRowIndex);
+            TeId = (int)row["TeId"];
+        }
+        if (TeId == -1)
+        {
+            this.DivReport.Visible = true;
+            this.LabelWarning.Text = "لطفاً برای مشاهده اطلاعات ابتدا یک رکورد را انتخاب نمائید";
+            return;
+        }
+        if (!CheckPermitionForEdit(TeId))
+        {
+            this.DivReport.Visible = true;
+            this.LabelWarning.Text = "با توجه به مرحله گردش کار و سطح دسترسی گردش کار قادر به ویرایش اطلاعات پروانه اشتغال آموزشی استاد انتخاب شده نمی باشید";
+            return;
+        }
+        TSP.DataManager.TeacherCertificateManager TeacherCertificateManager = new TSP.DataManager.TeacherCertificateManager();
+        DataTable dtTeacherCertificate = TeacherCertificateManager.SelectLastVersion(TeId);
+        if (dtTeacherCertificate.Rows.Count > 0)
+        {
+            int CertificateType = int.Parse(dtTeacherCertificate.Rows[0]["Type"].ToString());
+            if (CertificateType == 0)//*****صدور
+            {
+                Response.Redirect("SettlmentConfirmingTeacher.aspx?TcId=" + Utility.EncryptQS(dtTeacherCertificate.Rows[0]["TcId"].ToString()) + "&PgMd=" + Utility.EncryptQS("Edit"));
+            }
+            else
+            {
+                if (CertificateType == 1)//*****تمدید
+                {
+                    Response.Redirect("SettlmentConfirmingTeacher.aspx?TcId=" + Utility.EncryptQS(dtTeacherCertificate.Rows[0]["TcId"].ToString()) + "&PgMd=" + Utility.EncryptQS("Revival"));
+                }
+                else
+                {
+                    if (CertificateType == 2)//*****تغییرات
+                    {
+                        Response.Redirect("SettlmentConfirmingTeacher.aspx?TcId=" + Utility.EncryptQS(dtTeacherCertificate.Rows[0]["TcId"].ToString()) + "&PgMd=" + Utility.EncryptQS("Change"));
+                    }
+                }
+            }
+        }
+        else
+        {
+            DivReport.Visible = true;
+            LabelWarning.Text = "وضعیت پروانه استاد انتخاب شده نامشخص می باشد.";
+        }
+    }
+
+    protected void GridViewTeacher_CustomCallback(object sender, DevExpress.Web.ASPxGridViewCustomCallbackEventArgs e)
+    {
+        GridViewTeacher.DataBind();
+    }
+
+    protected void GridViewTeacher_HtmlDataCellPrepared(object sender, ASPxGridViewTableDataCellEventArgs e)
+    {
+
+        if (e.DataColumn.FieldName == "TaskId")
+        {
+            DevExpress.Web.ASPxImage btnWFState = (DevExpress.Web.ASPxImage)GridViewTeacher.FindRowCellTemplateControl(e.VisibleIndex, (DevExpress.Web.GridViewDataColumn)GridViewTeacher.Columns["WFState"], "btnWFState");
+            if (btnWFState != null)
+            {
+
+                if (Utility.IsDBNullOrNullValue(e.GetValue("WFTaskType")))
+                {
+                    btnWFState.ToolTip = "تعریف نشده";
+                    btnWFState.ImageUrl = "~/Images/WFUnNounState.png";
+                    return;
+                }
+
+                if (int.Parse(e.GetValue("WFTaskType").ToString()) == (int)TSP.DataManager.WorkFlowTaskType.StartingTask)
+                {
+                    btnWFState.ToolTip = e.GetValue("TaskName").ToString();
+                    btnWFState.ImageUrl = "~/Images/WFStart.png";
+                }
+                else if (int.Parse(e.GetValue("WFTaskType").ToString()) == (int)TSP.DataManager.WorkFlowTaskType.MeddleTask)
+                {
+                    btnWFState.ToolTip = e.GetValue("TaskName").ToString();
+                    btnWFState.ImageUrl = "~/Images/WFInProcess.png";
+                }
+                else if (int.Parse(e.GetValue("WFTaskType").ToString()) == (int)TSP.DataManager.WorkFlowTaskType.ConfirmingAndEndProccessTask)
+                {
+                    btnWFState.ToolTip = e.GetValue("TaskName").ToString();
+                    btnWFState.ImageUrl = "~/Images/WFConfirmAndEnd.png";
+                }
+                else if (int.Parse(e.GetValue("WFTaskType").ToString()) == (int)TSP.DataManager.WorkFlowTaskType.RejectingingAndEndProccessTask)
+                {
+                    btnWFState.ToolTip = e.GetValue("TaskName").ToString();
+                    btnWFState.ImageUrl = "~/Images/WFREjectAndEnd.png";
+                }
+                else
+                {
+                }
+            }
+        }
+    }
+
+    protected void CallbackPanelWorkFlow_Callback(object source, DevExpress.Web.CallbackEventArgsBase e)
+    {
+        if (GridViewTeacher.FocusedRowIndex > -1)
+        {
+            DataRow TeacherRow = GridViewTeacher.GetDataRow(GridViewTeacher.FocusedRowIndex);
+            int TeId = int.Parse(TeacherRow["TeId"].ToString());
+            int TeacherTableType = (int)TSP.DataManager.TableCodes.Teachers;
+            if (e.Parameter == "Send")
+            {
+                SendTeacherDocToNextStep(TeId);
+            }
+            else
+            {
+                SelectSendBackTask(TeacherTableType, TeId);
+            }
+        }
+        else
+        {
+            lblError.Text = "ردیفی انتخاب نشده است.";
+        }
+    }
+    #endregion
+
+    #region Methods
+    private void SelectSendBackTask(int TableType, int TableId)
+    {
+        TSP.DataManager.WorkFlowStateManager WorkFlowStateManager = new TSP.DataManager.WorkFlowStateManager();
+        TSP.DataManager.WorkFlowManager WorkFlowManager = new TSP.DataManager.WorkFlowManager();
+        DataTable dtWorkFlowState = WorkFlowStateManager.SelectLastState(TableType, TableId);
+        if (dtWorkFlowState.Rows.Count > 0)
+        {
+            int CurrentWorkFlowCode = int.Parse(dtWorkFlowState.Rows[0]["WorkFlowCode"].ToString());
+            WorkFlowManager.FindByTableType(TableType, CurrentWorkFlowCode);
+            if (WorkFlowManager.Count > 0)
+            {
+                int SendBackTask = WorkFlowStateManager.CalculateSendBackTask(TableType, TableId, Utility.GetCurrentUser_UserId());
+                switch (SendBackTask)
+                {
+                    case -1:
+                        PanelSaveSuccessfully.Visible = true;
+                        PanelMain.Visible = false;
+                        lblTeacherWarning.ForeColor = System.Drawing.Color.Red;
+                        lblTeacherWarning.Text = "امکان ارسال پرونده به مرحله بعد برای شما وجود ندارد.";
+                        break;
+                    case -2:
+                        PanelSaveSuccessfully.Visible = true;
+                        PanelMain.Visible = false;
+                        lblTeacherWarning.ForeColor = System.Drawing.Color.Red;
+                        lblTeacherWarning.Text = "جریان کار پرونده استاد انتخاب شده به اتمام رسیده است.";
+                        break;
+                    case -3:
+                        PanelSaveSuccessfully.Visible = true;
+                        PanelMain.Visible = false;
+                        lblTeacherWarning.ForeColor = System.Drawing.Color.Red;
+                        lblTeacherWarning.Text = "عملیاتی برای پرونده استاد انتخاب شده انجام نشده است.";
+                        break;
+                    default:
+                        int WorkFlowId = int.Parse(WorkFlowManager[0]["WorkFlowId"].ToString());
+                        DataTable dtSendBackTask = WorkFlowStateManager.SelectSendBackTask(SendBackTask, WorkFlowId);
+                        if (dtSendBackTask.Rows.Count > 0)
+                        {
+                            txtDescription.Text = "";
+                            Session["SendBackDataTable_Te"] = dtSendBackTask;
+                            cmbSendBackTask.DataSource = dtSendBackTask;
+                            cmbSendBackTask.ValueField = "TaskId";
+                            cmbSendBackTask.TextField = "TaskName";
+                            cmbSendBackTask.DataBind();
+                            cmbSendBackTask.SelectedIndex = 0;
+                            PanelSaveSuccessfully.Visible = false;
+                            PanelMain.Visible = true;
+                        }
+                        break;
+                }
+            }
+            else
+            {
+                PanelSaveSuccessfully.Visible = true;
+                PanelMain.Visible = false;
+                lblTeacherWarning.ForeColor = System.Drawing.Color.Red;
+                lblTeacherWarning.Text = "اطلاعات جریان کار تغییر یافته است.";
+            }
+        }
+        else
+        {
+            PanelSaveSuccessfully.Visible = true;
+            PanelMain.Visible = false;
+            lblTeacherWarning.ForeColor = System.Drawing.Color.Red;
+            lblTeacherWarning.Text = "عملیاتی برای پرونده استاد انتخاب شده انجام نشده است.";
+        }
+    }
+
+    private void SendTeacherDocToNextStep(int TeacherId)
+    {
+        TSP.DataManager.WorkFlowTaskManager WorkFlowTaskManager = new TSP.DataManager.WorkFlowTaskManager();
+        WorkFlowTaskManager.ClearBeforeFill = true;
+        int ConfirmProccessTaskCode = (int)TSP.DataManager.WorkFlowTask.ConfirmTeacherAndEndProccess;
+        int RejectProccessTaskCode = (int)TSP.DataManager.WorkFlowTask.RejectTeacherAndEndProccess;
+        int ConfirmProccessTaskId = -1;
+        int RejectProccessTaskId = -1;
+        WorkFlowTaskManager.FindByTaskCode(ConfirmProccessTaskCode);
+        if (WorkFlowTaskManager.Count == 1)
+        {
+            ConfirmProccessTaskId = int.Parse(WorkFlowTaskManager[0]["TaskId"].ToString());
+        }
+        WorkFlowTaskManager.FindByTaskCode(RejectProccessTaskCode);
+        if (WorkFlowTaskManager.Count == 1)
+        {
+            RejectProccessTaskId = int.Parse(WorkFlowTaskManager[0]["TaskId"].ToString());
+        }
+        DataTable dtSendBack = (DataTable)Session["SendBackDataTable_Te"];
+        cmbSendBackTask.DataSource = dtSendBack;
+        cmbSendBackTask.ValueField = "TaskId";
+        cmbSendBackTask.TextField = "TaskName";
+        cmbSendBackTask.DataBind();
+        int SelectedTaskId = int.Parse(cmbSendBackTask.SelectedItem.Value.ToString());
+        TSP.DataManager.TransactionManager TransactionManager = new TSP.DataManager.TransactionManager();
+        TSP.DataManager.WorkFlowStateManager WorkFlowStateManager = new TSP.DataManager.WorkFlowStateManager(TransactionManager);
+        TSP.DataManager.TeacherCertificateManager TeacherCertificateManager = new TSP.DataManager.TeacherCertificateManager();
+        TransactionManager.Add(WorkFlowStateManager);
+        TransactionManager.Add(TeacherCertificateManager);
+        TeacherCertificateManager.ClearBeforeFill = true;
+
+        int NmcId = FindNmcId();
+        int TableType = (int)TSP.DataManager.TableCodes.Teachers;
+        try
+        {
+            TransactionManager.BeginSave();
+            int SendDoc = WorkFlowStateManager.SendDocToNextStep(TableType, TeacherId, SelectedTaskId, txtDescription.Text, NmcId, Utility.GetCurrentUser_UserId());
+            switch (SendDoc)
+            {
+                case -6:
+                    TransactionManager.CancelSave();
+                    DivReport.Visible = true;
+                    lblError.Text = "امکان ارسال پرونده استاد به مرحله جاری وجود ندارد.";
+                    break;
+                case -4:
+                    TransactionManager.CancelSave();
+                    lblTeacherWarning.ForeColor = System.Drawing.Color.Red;
+                    LabelWarning.Text = "خطایی در ذخیره انجام شد.";
+                    break;
+                case -5:
+                    TransactionManager.CancelSave();
+                    DivReport.Visible = true;
+                    LabelWarning.Text = "برای پرونده انتخاب شده هیچ عملیاتی انجام نشده است.";
+                    break;
+                default:
+                    DataTable dtTeCert = TeacherCertificateManager.SelectLastVersion(TeacherId);
+                    if (dtTeCert.Rows.Count > 0)
+                    {
+                        int TeCrtId = int.Parse(dtTeCert.Rows[0]["TcId"].ToString());
+                        TeacherCertificateManager.FindByCode(TeCrtId);
+                        if (TeacherCertificateManager.Count > 0)
+                        {
+                            if (SelectedTaskId == ConfirmProccessTaskId)
+                            {
+                                if (Utility.IsDBNullOrNullValue(TeacherCertificateManager[0]["StartDate"]) || Utility.IsDBNullOrNullValue(TeacherCertificateManager[0]["EndDate"]) || Utility.IsDBNullOrNullValue(TeacherCertificateManager[0]["FileNo"]) || Utility.IsDBNullOrNullValue(TeacherCertificateManager[0]["SerialNo"]))
+                                {
+
+                                    TransactionManager.CancelSave();
+                                    lblTeacherWarning.ForeColor = System.Drawing.Color.Red;
+                                    lblTeacherWarning.Text = "نظر کارشناسی نماینده مسکن جهت صدور مجوز اشتغال به کار استاد ثبت نگردیده است.";
+                                    PanelMain.ClientVisible = false;
+                                    PanelSaveSuccessfully.ClientVisible = true;
+                                }
+                                else
+                                {
+                                    TeacherCertificateManager[0].BeginEdit();
+                                    TeacherCertificateManager[0]["IsConfirm"] = 1;
+                                    TeacherCertificateManager[0]["UserId"] = Utility.GetCurrentUser_UserId();
+                                    TeacherCertificateManager[0]["ModifiedDate"] = DateTime.Now;
+                                    TeacherCertificateManager[0].EndEdit();
+                                    int cnt = TeacherCertificateManager.Save();
+                                    if (cnt > 0)
+                                    {
+                                        TeacherCertificateManager.DataTable.AcceptChanges();
+                                        TransactionManager.EndSave();
+                                        lblTeacherWarning.ForeColor = System.Drawing.Color.Green;
+                                        lblTeacherWarning.Text = "ذخیره انجام شد.";
+                                        PanelMain.ClientVisible = false;
+                                        PanelSaveSuccessfully.ClientVisible = true;
+                                        GridViewTeacher.DataBind();
+                                    }
+                                    else
+                                    {
+                                        TransactionManager.CancelSave();
+                                        lblTeacherWarning.ForeColor = System.Drawing.Color.Red;
+                                        lblTeacherWarning.Text = "خطایی در ذخیره انجام شد.";
+                                        PanelMain.ClientVisible = false;
+                                        PanelSaveSuccessfully.ClientVisible = true;
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                if (SelectedTaskId == RejectProccessTaskId)
+                                {
+                                    TeacherCertificateManager[0].BeginEdit();
+                                    TeacherCertificateManager[0]["IsConfirm"] = 2;
+                                    TeacherCertificateManager[0]["UserId"] = Utility.GetCurrentUser_UserId();
+                                    TeacherCertificateManager[0]["ModifiedDate"] = DateTime.Now;
+                                    TeacherCertificateManager[0].EndEdit();
+                                    int cnt = TeacherCertificateManager.Save();
+                                    if (cnt > 0)
+                                    {
+                                        TransactionManager.EndSave();
+                                        lblTeacherWarning.ForeColor = System.Drawing.Color.Green;
+                                        lblTeacherWarning.Text = "ذخیره انجام شد.";
+                                        PanelMain.ClientVisible = false;
+                                        PanelSaveSuccessfully.ClientVisible = true;
+                                        GridViewTeacher.DataBind();
+                                    }
+                                    else
+                                    {
+                                        TransactionManager.CancelSave();
+                                        lblTeacherWarning.ForeColor = System.Drawing.Color.Red;
+                                        lblTeacherWarning.Text = "خطایی در ذخیره انجام شد.";
+                                        PanelMain.ClientVisible = false;
+                                        PanelSaveSuccessfully.ClientVisible = true;
+                                    }
+                                }
+                                else
+                                {
+                                    TransactionManager.EndSave();
+                                    lblTeacherWarning.ForeColor = System.Drawing.Color.Green;
+                                    lblTeacherWarning.Text = "ذخیره انجام شد.";
+                                    PanelMain.ClientVisible = false;
+                                    PanelSaveSuccessfully.ClientVisible = true;
+                                    GridViewTeacher.DataBind();
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        TransactionManager.CancelSave();
+                        lblTeacherWarning.ForeColor = System.Drawing.Color.Red;
+                        lblTeacherWarning.Text = "خطایی در ذخیره انجام شد.";
+                        PanelMain.ClientVisible = false;
+                        PanelSaveSuccessfully.ClientVisible = true;
+                    }
+                    break;
+            }
+            GridViewTeacher.DataBind();
+        }
+        catch (Exception err)
+        {
+            TransactionManager.CancelSave();
+            lblTeacherWarning.ForeColor = System.Drawing.Color.Green;
+            lblTeacherWarning.Text = "خطایی در ذخیره انجام شد.";
+            PanelMain.ClientVisible = false;
+            PanelSaveSuccessfully.ClientVisible = true;
+        }
+    }
+
+    private int FindNmcId()
+    {
+        int UserId = Utility.GetCurrentUser_UserId();
+        TSP.DataManager.NezamChartManager NezamChartManager = new TSP.DataManager.NezamChartManager();
+        TSP.DataManager.LoginManager LoginManager = new TSP.DataManager.LoginManager();
+
+        LoginManager.FindByCode(UserId);
+        int NmcId = -1;
+        if (LoginManager.Count > 0)
+        {
+            int EmpId = int.Parse(LoginManager[0]["MeId"].ToString());
+            int UltId = int.Parse(LoginManager[0]["UltId"].ToString());
+            NezamChartManager.FindByEmpId(EmpId, UltId);
+            if (NezamChartManager.Count > 0)
+            {
+                NmcId = int.Parse(NezamChartManager[0]["NmcId"].ToString());
+            }
+            else
+            {
+                DivReport.Visible = true;
+                LabelWarning.Text = "کاربری با مشخصات جاری در چارت سازمانی وجود ندارد.";
+            }
+        }
+        else
+        {
+            Response.Redirect("../../Login.aspx?ReferPage=" + Request.Url.AbsoluteUri);
+            return (-1);
+        }
+        return (NmcId);
+    }
+
+    private void SelectCurrentState(int TableType, int TableId)
+    {
+
+    }
+
+    //private void CheckWorkFlowPermission(int TeId)
+    //{
+    //    CheckWorkFlowPermissionForSave(TeId);
+    //}
+
+    //private void CheckWorkFlowPermissionForSave(int TeId)
+    //{
+
+    //    int CurrentTaskOrder = -1;
+    //    int TaskOrder = -1;
+    //    //****TableId
+    //    //int PPId = int.Parse(Utility.DecryptQS(PeriodId.Value));
+    //    //****TableType
+    //    int TableType = (int)TSP.DataManager.TableCodes.Teachers;
+
+    //    TSP.DataManager.WorkFlowStateManager WorkFlowStateManager = new TSP.DataManager.WorkFlowStateManager();
+    //    TSP.DataManager.WorkFlowTaskManager WorkFlowTaskManager = new TSP.DataManager.WorkFlowTaskManager();
+    //    TSP.DataManager.NezamMemberChartManager NezamMemberChartManager = new TSP.DataManager.NezamMemberChartManager();
+    //    TSP.DataManager.LoginManager LoginManager = new TSP.DataManager.LoginManager();
+    //    TSP.DataManager.TaskDoerManager TaskDoerManager = new TSP.DataManager.TaskDoerManager();
+
+    //    DataTable dtWorkFlowState = WorkFlowStateManager.SelectLastState(TableType, TeId);
+    //    if (dtWorkFlowState.Rows.Count > 0)
+    //    {
+    //        CurrentTaskOrder = int.Parse(dtWorkFlowState.Rows[0]["TaskOrder"].ToString());
+    //    }
+    //    int TaskCode = (int)TSP.DataManager.WorkFlowTask.SaveTeacherInfo;
+    //    WorkFlowTaskManager.FindByTaskCode(TaskCode);
+    //    if (WorkFlowTaskManager.Count > 0)
+    //    {
+    //        TaskOrder = int.Parse(WorkFlowTaskManager[0]["TaskOrder"].ToString());
+    //    }
+
+    //    if (TaskOrder != 0 && CurrentTaskOrder == TaskOrder)
+    //    {
+    //        int SaveTeacherWorkCode = (int)TSP.DataManager.WorkFlowTask.SaveTeacherInfo;
+    //        WorkFlowTaskManager.FindByTaskCode(SaveTeacherWorkCode);
+    //        int TaskId = int.Parse(WorkFlowTaskManager[0]["TaskId"].ToString());
+    //        TaskDoerManager.FindByTaskId(TaskId);
+
+    //        if (TaskDoerManager.Count > 0)
+    //        {
+    //            int NcId = int.Parse(TaskDoerManager[0]["NcId"].ToString());
+    //            NezamMemberChartManager.FindByNcId(NcId);
+
+    //            int EmpId = int.Parse(NezamMemberChartManager[0]["EmpId"].ToString());
+
+    //            LoginManager.FindByMeIdUltId(EmpId, 4);
+    //            if (LoginManager.Count > 0)
+    //            {
+    //                int userId = int.Parse(LoginManager[0]["UserId"].ToString());
+    //                int CurrentUserId = Utility.GetCurrentUser_UserId();
+    //                //  string PageMode = Utility.DecryptQS(HiddenFieldTeacher["PageMode"].ToString());
+    //                if (CurrentUserId == userId)
+    //                {
+    //                    Response.Redirect("AddTeachers.aspx?TeId=" + Utility.EncryptQS(TeId.ToString()) + "&PageMode=" + Utility.EncryptQS("Edit"));
+    //                }
+    //                else
+    //                {
+    //                    this.DivReport.Visible = true;
+    //                    this.LabelWarning.Text = "امکان ویرایش اطلاعات در این مرحله از جریان کار وجود ندارد";
+    //                }
+    //            }
+    //            else
+    //            {
+    //                this.DivReport.Visible = true;
+    //                this.LabelWarning.Text = "امکان ویرایش اطلاعات در این مرحله از جریان کار وجود ندارد";
+    //            }
+    //        }
+    //        else
+    //        {
+    //            this.DivReport.Visible = true;
+    //            this.LabelWarning.Text = "امکان ویرایش اطلاعات در این مرحله از جریان کار وجود ندارد";
+    //        }
+    //    }
+    //    else
+    //    {
+    //        this.DivReport.Visible = true;
+    //        this.LabelWarning.Text = "امکان ویرایش اطلاعات در این مرحله از جریان کار وجود ندارد";
+    //    }
+    //}
+
+    //private Boolean CheckWorkFlowPermissionFor(int TeId)
+    //{
+    //    Boolean Per = false;
+    //    int CurrentSubOrder = -1;
+    //    TSP.DataManager.WorkFlowTaskManager WorkFlowTaskManager = new TSP.DataManager.WorkFlowTaskManager();
+    //    WorkFlowTaskManager.ClearBeforeFill = true;
+    //    int SettlementAgentConfirmingTeacherOrder = -1;
+    //    int SettlementAgentConfirmingTeacherCode = (int)TSP.DataManager.WorkFlowTask.settlementAgentConfiringTeacher;
+    //    WorkFlowTaskManager.FindByTaskCode(SettlementAgentConfirmingTeacherCode);
+    //    if (WorkFlowTaskManager.Count > 0)
+    //    {
+    //        SettlementAgentConfirmingTeacherOrder = int.Parse(WorkFlowTaskManager[0]["TaskOrder"].ToString());
+    //    }
+
+    //    int CurrentStateOrder = -1;
+    //    TSP.DataManager.WorkFlowStateManager WorkFlowStateManager = new TSP.DataManager.WorkFlowStateManager();
+    //    int TableType = (int)(TSP.DataManager.TableCodes.Teachers);
+    //    int TableId = TeId;
+    //    DataTable dtWorkState = WorkFlowStateManager.SelectLastState(TableType, TableId);
+    //    if (dtWorkState.Rows.Count > 0)
+    //    {
+    //        CurrentStateOrder = int.Parse(dtWorkState.Rows[0]["TaskOrder"].ToString());
+    //        CurrentSubOrder = int.Parse(dtWorkState.Rows[0]["SubOrder"].ToString());
+    //    }
+    //    if ((CurrentStateOrder == SettlementAgentConfirmingTeacherOrder) || (CurrentStateOrder != -1))
+    //    {
+    //        if (SettlementAgentConfirmingTeacherOrder != 0)
+    //        {
+    //            Boolean SettlementAgentConfirmingTeacherPer = CheckWorkFlowPermissionForSettlementAgentConfirmingTeacher(CurrentSubOrder);
+    //            if (SettlementAgentConfirmingTeacherPer)
+    //                Per = true;
+    //            else
+    //                Per = false;
+    //        }
+    //    }
+    //    return Per;
+    //}
+
+
+    //private Boolean CheckWorkFlowPermissionForSettlementAgentConfirmingTeacher(int CurrentSubOrder)
+    //{
+    //    TSP.DataManager.TaskDoerManager TaskDoerManager = new TSP.DataManager.TaskDoerManager();
+    //    TSP.DataManager.WorkFlowTaskManager WorkFlowTaskManager = new TSP.DataManager.WorkFlowTaskManager();
+    //    int SettlementAgentConfirmingTeacherCode = (int)TSP.DataManager.WorkFlowTask.settlementAgentConfiringTeacher;
+    //    WorkFlowTaskManager.FindByTaskCode(SettlementAgentConfirmingTeacherCode);
+    //    int DoerId = -1;
+    //    DoerId = TaskDoerManager.CheckWorkFlowPermissionForTask(SettlementAgentConfirmingTeacherCode, CurrentSubOrder, Utility.GetCurrentUser_UserId(), true);
+    //    if (DoerId > 0)
+    //    {
+    //        return true;
+    //    }
+    //    else
+    //    {
+    //        return false;
+    //    }
+    //}
+
+    private Boolean CheckPermitionForEdit(int TableId)
+    {
+        TSP.DataManager.TaskDoerManager TaskDoerManager = new TSP.DataManager.TaskDoerManager();
+        TSP.DataManager.WorkFlowTaskManager WorkFlowTaskManager = new TSP.DataManager.WorkFlowTaskManager();
+        TSP.DataManager.WorkFlowStateManager WorkFlowStateManager = new TSP.DataManager.WorkFlowStateManager();
+        WorkFlowStateManager.ClearBeforeFill = true;
+        int TaskOrder = -1;
+        int TaskCode = (int)TSP.DataManager.WorkFlowTask.settlementAgentConfiringTeacher;
+        WorkFlowTaskManager.FindByTaskCode(TaskCode);
+        if (WorkFlowTaskManager.Count > 0)
+        {
+            TaskOrder = int.Parse(WorkFlowTaskManager[0]["TaskOrder"].ToString());
+            if (TaskOrder != 0)
+            {
+                int WFCode = (int)TSP.DataManager.WorkFlows.TeachersConfirming;
+                DataTable dtWorkFlowLastState = WorkFlowStateManager.SelectLastStateByWfCode(WFCode, TableId);
+                if (dtWorkFlowLastState.Rows.Count > 0)
+                {
+                    int CurrentTaskCode = int.Parse(dtWorkFlowLastState.Rows[0]["TaskCode"].ToString());                  
+                    if (CurrentTaskCode == TaskCode)
+                        return true;
+                }
+            }
+        }
+        return false;
+
+    }
+    private void SetDeleteError(Exception err)
+    {
+
+        if (err.GetType() == typeof(System.Data.SqlClient.SqlException))
+        {
+            System.Data.SqlClient.SqlException se = (System.Data.SqlClient.SqlException)err;
+            if (se.Number == 547)
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "به علت وجود اطلاعات وابسته امکان حذف نمی باشد.";
+            }
+            else
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "خطایی در حذف انجام گرفته است";
+            }
+        }
+        else
+        {
+            this.DivReport.Visible = true;
+            this.LabelWarning.Text = "خطایی در حذف انجام گرفته است";
+        }
+    }
+
+    private void SetError(Exception err)
+    {
+        if (err.GetType() == typeof(System.Data.SqlClient.SqlException))
+        {
+            System.Data.SqlClient.SqlException se = (System.Data.SqlClient.SqlException)err;
+
+            if (se.Number == 2601)
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "اطلاعات تکراری می باشد";
+            }
+            else if (se.Number == 2627)
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "کد تکراری می باشد";
+            }
+            else if (se.Number == 547)
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "به علت وجود اطلاعات وابسته امکان حذف نمی باشد.";
+            }
+            else
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+            }
+        }
+        else
+        {
+            this.DivReport.Visible = true;
+            this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+        }
+    }
+    #endregion
+}

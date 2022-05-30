@@ -1,0 +1,286 @@
+﻿using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+
+public partial class Employee_TechnicalServices_Project_DevelopmentPercent : System.Web.UI.Page
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        this.DivReport.Visible = false;
+        this.DivReport.Attributes.Add("onclick", "ChangeVisible(this)");
+        this.DivReport.Attributes.Add("onmouseover", "ChangeIcon(this)");
+
+        if (!IsPostBack)
+        {
+            TSP.DataManager.Permission per = TSP.DataManager.TechnicalServices.DevelopmentPercentManager.GetUserPermission(Utility.GetCurrentUser_UserId(), (TSP.DataManager.UserType)Utility.GetCurrentUser_LoginType());
+            BtnNew.Enabled = per.CanNew;
+            btnNew2.Enabled = per.CanNew;
+            btnDelete.Enabled = per.CanDelete;
+            btnDelete2.Enabled = per.CanDelete;
+            btnEdit.Enabled = per.CanEdit;
+            btnEdit2.Enabled = per.CanEdit;
+            btnView.Enabled = per.CanView;
+            btnView2.Enabled = per.CanView;
+            CustomAspxDevGridView1.ClientVisible = per.CanView;
+
+            //??????????????????
+            btnObservation.Enabled = per.CanEdit;
+            btnObservation2.Enabled = per.CanEdit;
+            btnObservers.Enabled = per.CanEdit;
+            btnObservers2.Enabled = per.CanEdit;
+
+
+            this.ViewState["BtnEdit"] = btnEdit.Enabled;
+            this.ViewState["BtnDelete"] = btnDelete.Enabled;
+            this.ViewState["BtnNew"] = BtnNew.Enabled;
+            this.ViewState["BtnView"] = btnView.Enabled;
+        }
+
+        if (this.ViewState["BtnView"] != null)
+            this.btnView.Enabled = this.btnView2.Enabled = CustomAspxDevGridView1.ClientVisible = (bool)this.ViewState["BtnView"];
+        if (this.ViewState["BtnEdit"] != null)
+            this.btnEdit.Enabled = this.btnEdit2.Enabled = (bool)this.ViewState["BtnEdit"];
+        if (this.ViewState["BtnDelete"] != null)
+            this.btnDelete.Enabled = this.btnDelete2.Enabled = (bool)this.ViewState["BtnDelete"];
+        if (this.ViewState["BtnNew"] != null)
+            this.BtnNew.Enabled = this.btnNew2.Enabled = (bool)this.ViewState["BtnNew"];
+
+    }
+    protected void BtnNew_Click(object sender, EventArgs e)
+    {
+      //  string GrdFlt = Request.QueryString["GrdFlt"].ToString();
+       // string SrchFlt = Request.QueryString["SrchFlt"].ToString();
+        Response.Redirect("DevelopmentPercentInsert.aspx?DevelopmentPercentId=" + Utility.EncryptQS("") + "&PageMode=" + Utility.EncryptQS("New")
+                 //+ "&GrdFlt=" + GrdFlt + "&SrchFlt=" + SrchFlt
+                 );
+    }
+    protected void btnEdit_Click(object sender, EventArgs e)
+    {
+        int DevelopmentPercentId = -1;
+        string GrdFlt = Request.QueryString["GrdFlt"].ToString();
+        string SrchFlt = Request.QueryString["SrchFlt"].ToString();
+
+        if (CustomAspxDevGridView1.FocusedRowIndex > -1)
+        {
+            DataRow row = CustomAspxDevGridView1.GetDataRow(CustomAspxDevGridView1.FocusedRowIndex);
+            DevelopmentPercentId = (int)row["DevelopmentPercentId"];
+
+        }
+        if (DevelopmentPercentId == -1)
+        {
+            this.DivReport.Visible = true;
+            this.LabelWarning.Text = "لطفاً ابتدا یک رکورد را انتخاب نمائید";
+
+        }
+        else
+        {
+            Response.Redirect("DevelopmentPercentInsert.aspx?DevelopmentPercentId=" + Utility.EncryptQS(DevelopmentPercentId.ToString())
+                + "&PageMode=" + Utility.EncryptQS("Edit") + "&GrdFlt=" + GrdFlt + "&SrchFlt=" + SrchFlt);
+
+        }
+
+    }
+    protected void btnView_Click(object sender, EventArgs e)
+    {
+        int DevelopmentPercentId = -1;
+        string GrdFlt = Request.QueryString["GrdFlt"].ToString();
+        string SrchFlt = Request.QueryString["SrchFlt"].ToString();
+        if (CustomAspxDevGridView1.FocusedRowIndex > -1)
+        {
+            DataRow row = CustomAspxDevGridView1.GetDataRow(CustomAspxDevGridView1.FocusedRowIndex);
+            DevelopmentPercentId = (int)row["DevelopmentPercentId"];
+
+        }
+        if (DevelopmentPercentId == -1)
+        {
+            this.DivReport.Visible = true;
+            this.LabelWarning.Text = "لطفاً ابتدا یک رکورد را انتخاب نمائید";
+
+        }
+        else
+        {
+            Response.Redirect("DevelopmentPercentInsert.aspx?DevelopmentPercentId=" + Utility.EncryptQS(DevelopmentPercentId.ToString())
+                + "&PageMode=" + Utility.EncryptQS("View") + "&GrdFlt=" + GrdFlt + "&SrchFlt=" + SrchFlt);
+
+        }
+
+    }
+    protected void btnDelete_Click(object sender, EventArgs e)
+    {
+        int DevelopmentPercentId = -1;
+
+        if (CustomAspxDevGridView1.FocusedRowIndex > -1)
+        {
+            DataRow row = CustomAspxDevGridView1.GetDataRow(CustomAspxDevGridView1.FocusedRowIndex);
+            DevelopmentPercentId = (int)row["DevelopmentPercentId"];
+
+        }
+        if (DevelopmentPercentId == -1)
+        {
+            this.DivReport.Visible = true;
+            this.LabelWarning.Text = "لطفاً ابتدا یک رکورد را انتخاب نمائید";
+
+        }
+        else
+        {
+
+            Delete(DevelopmentPercentId);
+        }
+
+    }
+    protected void Delete(int DevelopmentPercentId)
+    {
+        TSP.DataManager.TransactionManager trans = new TSP.DataManager.TransactionManager();
+        TSP.DataManager.TechnicalServices.DevelopmentPercentManager DevelopmentPercentManager = new TSP.DataManager.TechnicalServices.DevelopmentPercentManager();
+        TSP.DataManager.TechnicalServices.DevelopmentItemsStatusManager DevItemsStatusManager = new TSP.DataManager.TechnicalServices.DevelopmentItemsStatusManager();
+        TSP.DataManager.TechnicalServices.AttachmentsManager AttachManager = new TSP.DataManager.TechnicalServices.AttachmentsManager();
+
+        trans.Add(DevelopmentPercentManager);
+        trans.Add(DevItemsStatusManager);
+        trans.Add(AttachManager);
+
+
+        try
+        {
+            DevelopmentPercentManager.FindByDevelopmentPercentId(DevelopmentPercentId);
+            if (DevelopmentPercentManager.Count == 1)
+            {
+                trans.BeginSave();
+
+                DevItemsStatusManager.FindByDevelopmentPercentId(DevelopmentPercentId);
+                int Count = DevItemsStatusManager.Count;
+                for (int i = 0; i < Count; i++)
+                {
+                    DevItemsStatusManager[0].Delete();
+                }
+                DevItemsStatusManager.Save();
+
+                AttachManager.FindByTableTypeId(DevelopmentPercentId, (int)TSP.DataManager.TableCodes.TSDevelopmentPercent, (int)TSP.DataManager.TSAttachType.DevelopmentPercent);
+                int Counta = AttachManager.Count;
+                for (int i = 0; i < Counta; i++)
+                {
+                    AttachManager[0].Delete();
+                }
+                AttachManager.Save();
+
+                DevelopmentPercentManager[0].Delete();
+                int cn = DevelopmentPercentManager.Save();
+
+                if (cn > 0)
+                {
+                    CustomAspxDevGridView1.DataBind();
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "ذخیره انجام شد";
+                    trans.EndSave();
+
+                }
+                else
+                {
+                    trans.CancelSave();
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+                }
+
+            }
+            else
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "اطلاعات توسط کاربر دیگری تغییر یافته است";
+            }
+        }
+        catch (Exception err)
+        {
+            trans.CancelSave();
+
+            if (err.GetType() == typeof(System.Data.SqlClient.SqlException))
+            {
+                System.Data.SqlClient.SqlException se = (System.Data.SqlClient.SqlException)err;
+                if (se.Number == 547)
+                {
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "به علت وجود اطلاعات وابسته امکان حذف نمی باشد.";
+                }
+                else
+                {
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "خطایی در حذف انجام گرفته است";
+                }
+            }
+            else
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "خطایی در حذف انجام گرفته است";
+            }
+        }
+    }
+    protected void btnObservation_Click(object sender, EventArgs e)
+    {
+        int DevelopmentPercentId = -1;
+
+        if (CustomAspxDevGridView1.FocusedRowIndex > -1)
+        {
+            DataRow row = CustomAspxDevGridView1.GetDataRow(CustomAspxDevGridView1.FocusedRowIndex);
+            DevelopmentPercentId = (int)row["DevelopmentPercentId"];
+
+        }
+        if (DevelopmentPercentId == -1)
+        {
+            this.DivReport.Visible = true;
+            this.LabelWarning.Text = "لطفاً ابتدا یک رکورد را انتخاب نمائید";
+
+        }
+        else
+        {
+            TSP.DataManager.TechnicalServices.DevelopmentObserversManager ObserversManager = new TSP.DataManager.TechnicalServices.DevelopmentObserversManager();
+            ObserversManager.FindByDevelopmentPercentId(DevelopmentPercentId);
+            for (int i = 0; i < ObserversManager.Count; i++)
+            {
+                if (Convert.ToInt32(ObserversManager[i]["IsConfirm"]) == 0)
+                {
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "امکان ثبت نتیجه بررسی ناظر عالی برای درخواست مورد نظر وجود ندارد.تمامی ناظرین پاسخ خود را ثبت نکرده اند"; ;
+                    return;
+
+                }
+            }
+            string GrdFlt = Request.QueryString["GrdFlt"].ToString();
+            string SrchFlt = Request.QueryString["SrchFlt"].ToString();
+            Response.Redirect("DevelopmentPercentInsert.aspx?DevelopmentPercentId=" + Utility.EncryptQS(DevelopmentPercentId.ToString())
+                + "&PageMode=" + Utility.EncryptQS("Observation") + "&GrdFlt=" + GrdFlt + "&SrchFlt=" + SrchFlt);
+
+        }
+
+    }
+    protected void btnObservers_Click(object sender, EventArgs e)
+    {
+        int DevelopmentPercentId = -1;
+       // string GrdFlt = Request.QueryString["GrdFlt"].ToString();
+       // string SrchFlt = Request.QueryString["SrchFlt"].ToString();
+        if (CustomAspxDevGridView1.FocusedRowIndex > -1)
+        {
+            DataRow row = CustomAspxDevGridView1.GetDataRow(CustomAspxDevGridView1.FocusedRowIndex);
+            DevelopmentPercentId = (int)row["DevelopmentPercentId"];
+
+        }
+        if (DevelopmentPercentId == -1)
+        {
+            this.DivReport.Visible = true;
+            this.LabelWarning.Text = "لطفاً ابتدا یک رکورد را انتخاب نمائید";
+
+        }
+        else
+        {
+            Response.Redirect("DevelopmentObservers.aspx?DevelopmentPercentId=" + Utility.EncryptQS(DevelopmentPercentId.ToString())
+                // + "&GrdFlt=" + GrdFlt + "&SrchFlt=" + SrchFlt
+                 );
+
+        }
+    }
+}

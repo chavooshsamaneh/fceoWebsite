@@ -1,0 +1,440 @@
+/* ----------------- Main ----------------- */
+/* Loading panel */
+.dxheLoadingDiv_Metropolis
+{
+    background: white;
+    opacity: 0.85;
+    filter: alpha(opacity=85);
+}
+.dxheLoadingPanel_Metropolis
+{
+    border: 1px solid #C3C3C3;
+    background-color: white;
+    font: 12px 'Segoe UI', Helvetica, 'Droid Sans', Tahoma, Geneva, sans-serif;
+    color: #333333;
+}
+.dxheLoadingPanel_Metropolis td.dx
+{
+    font-size: 1.17em;
+    white-space: nowrap;
+    text-align: center;
+    padding: 10px 14px;
+}
+.dxheLoadingPanel_Metropolis .dxlp-loadingImage,
+.dxheDesignViewArea_Metropolis .dx-base64img-wrapper:after
+{
+    background-image: url('../Web/Loading.gif');
+    height: 32px;
+    width: 32px;
+}
+.dxheDesignViewArea_Metropolis .dx-base64img-wrapper:after
+{
+    margin: -16px 0px 0px -16px;
+}
+.dxheControl_Metropolis
+{
+    font: 12px 'Segoe UI', Helvetica, 'Droid Sans', Tahoma, Geneva, sans-serif;
+}
+/* Area */
+.dxheErrorFrame_Metropolis
+{
+    font: 12px 'Segoe UI', Helvetica, 'Droid Sans', Tahoma, Geneva, sans-serif;
+    color: #D00707;
+    background-color: #FFC8C8;
+    margin-bottom: 6px;
+}
+.dxheControl_Metropolis .dxeMemo_Metropolis .dxheErrorFrame_Metropolis .dxhe,
+.dxheControl_Metropolis.dxhe-rtl .dxeMemo_Metropolis .dxheErrorFrame_Metropolis .dxhe,
+.dxheErrorFrame_Metropolis .dxhe
+{
+    padding: 5px;
+}
+.dxheControl_Metropolis .dxeMemo_Metropolis .dxheErrorFrame_Metropolis .dxhe td,
+.dxheControl_Metropolis.dxhe-rtl .dxeMemo_Metropolis .dxheErrorFrame_Metropolis .dxhe td,
+.dxheErrorFrame_Metropolis .dxhe td
+{
+    padding: 0;
+}
+.dxheErrorFrame_Metropolis .dxheErrorFrameCloseButton_Metropolis
+{
+    cursor: pointer;
+}
+.dxheContentArea_Metropolis td.dxheViewArea_Metropolis
+{
+    line-height: 0;
+}
+.dxheContentArea_Metropolis td.dxheViewArea_Metropolis.dxheHtmlViewArea_Metropolis
+{
+    line-height: inherit;
+}
+.dxheDesignViewArea_Metropolis,
+.dxhePreviewArea_Metropolis
+{
+    background: none #FFFFFF;
+}
+.dxheControl_Metropolis .dxheHtmlViewArea_Metropolis,
+body.dxheDesignViewArea_Metropolis,
+body.dxhePreviewArea_Metropolis
+{
+    margin: 0px;
+    background: none #FFFFFF;
+    border: 0;
+    font-size: smaller;
+    font: 12px Arial, Helvetica, sans-serif;
+}
+.dxheControl_Metropolis .dxeMemo_Metropolis.dxheHtmlViewArea_Metropolis .dxeMemoEditArea_Metropolis,
+body.dxheDesignViewArea_Metropolis,
+body.dxhePreviewArea_Metropolis
+{
+    padding: 15px 20px 0 20px;
+}
+.dxheControl_Metropolis .dxeMemo_Metropolis.dxheHtmlViewArea_Metropolis td
+{
+    padding: 0 40px 0 0;
+}
+.dxheControl_Metropolis.dxhe-rtl .dxheContentArea_Metropolis .dxeMemo_Metropolis.dxheHtmlViewArea_Metropolis td
+{
+    padding: 0 0 0 40px;
+}
+.dxheControl_Metropolis .dxeMemo_Metropolis textarea
+{
+    resize: none;
+}
+.dxheControl_Metropolis td.dxheDesignViewArea_Metropolis .dxm-main.dxmtb
+{
+    border: 1px solid #C3C3C3;
+    background: #ffffff;
+}
+.dxheControl_Metropolis td.dxheDesignViewArea_Metropolis
+{
+    position: relative;
+}
+td.dxheDesignViewArea_Metropolis .dxmLite_Metropolis
+{
+    position: absolute;
+    right: 0;
+    padding-right: 24px;
+}
+td.dxheDesignViewArea_Metropolis .dxmLite_Metropolis.dxm-rtl
+{
+    right: inherit;
+    padding-right: 0px;
+    padding-left: 5px;
+}
+.dxheViewArea_Metropolis .dxheAudio
+{
+    background-image: url('dxheAudio.png');
+}
+.dxheViewArea_Metropolis .dxheFlash
+{
+    background-image: url('dxheFlash.png');
+}
+.dxheViewArea_Metropolis .dxheVideo
+{
+    background-image: url('dxheVideo.png');
+}
+.dxheViewArea_Metropolis .dxheYoutube
+{
+    background-image: url('dxheYoutube.png');
+}
+.dxheViewArea_Metropolis img.dxheNotSupported
+{
+    background-image: url('dxheNotSupported.png');
+}
+.dxheViewArea_Metropolis img.dxheAudio,
+.dxheViewArea_Metropolis img.dxheFlash,
+.dxheViewArea_Metropolis img.dxheVideo,
+.dxheViewArea_Metropolis img.dxheYoutube,
+.dxheViewArea_Metropolis img.dxheNotSupported
+{
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: #cfcfcf;
+    border: 1px dotted #FFFFFF;
+    opacity: 0.8;
+}
+.dxheViewArea_Metropolis .dxhePlaceholder
+{
+    cursor: default;
+    white-space: nowrap;
+}
+.dxheViewArea_Metropolis.dxheDesignViewArea_Metropolis .dxheSelected
+{
+    background-color: #E0E0E0;
+}
+.dxhe-insertPlaceholder .dxeListBox_Metropolis.dxeFocused_Metropolis
+{
+    border: 1px solid #C0C0C0;
+}
+.dxhe-insertPlaceholder .dxflGroup_Metropolis,
+.dxpc-contentWrapper .dxflFormLayout_Metropolis.dxhe-insertPlaceholder .dxflGroup_Metropolis .dxflGroupBox_Metropolis .dxflListBoxItemSys
+{
+    padding-top: 0;
+}
+.dxhe-insertPlaceholder .dxflGroup_Metropolis .dxhe-dialogLI.dxhe-dialogButtonsContainer
+{
+    padding-top: 10px;
+}
+.dxhe-insertPlaceholder .dxeListBox_Metropolis,
+.dxhe-insertPlaceholder .dxeListBox_Metropolis .dxlbd
+{
+    width: 220px;
+    height: 215px;
+}
+/* CodeMirror */
+.dxheHtmlViewArea_Metropolis .CodeMirror-activeline-background
+{
+    background: #e0e0e0;
+    opacity: 0.7;
+}
+.dxheHtmlViewArea_Metropolis .CodeMirror-foldgutter-open::after
+{
+    content: url('heFoldGutterOpen.png');
+}
+.dxheHtmlViewArea_Metropolis .CodeMirror-foldgutter-folded::after
+{
+    content: url('heFoldGutterFolded.png');
+}
+.dxheHtmlViewArea_Metropolis .CodeMirror-foldmarker::after
+{
+    content: url('dxheFoldMarker.png');
+}
+.dxheSourceEditorSys.dxheHtmlViewArea_Metropolis .CodeMirror-gutter.CodeMirror-linenumbers,
+.dxheHtmlViewArea_Metropolis .CodeMirror-gutter.CodeMirror-linenumbers
+{
+    border-left: 0;
+    border-right: 0;
+}
+/* Element appearance in DesignView */
+body.dxheDesignViewArea_Metropolis table.dxEmptyBorderTable,
+body.dxheDesignViewArea_Metropolis table.dxEmptyBorderTable td
+{
+    border: 1px dotted gray;
+}
+@media print
+{
+    body.dxheDesignViewArea_Metropolis table.dxEmptyBorderTable,
+    body.dxheDesignViewArea_Metropolis table.dxEmptyBorderTable td
+    {
+        border: 0px;
+    }
+}
+body.dxheDesignViewArea_Metropolis
+{
+    word-wrap: inherit;
+}
+body.dxheDesignViewArea_Metropolis pre
+{
+    word-wrap: break-word;
+    white-space: pre-wrap;
+}
+/* Status Bar */
+.dxheControl_Metropolis .dxheStatusBar_Metropolis .dxheStatusBarTab_Metropolis .dxtc-link
+{
+    padding: 4px 12px 5px 11px;
+}
+.dxHtmlEditor_heSizeGrip_Metropolis
+{
+    cursor: se-resize;
+}
+.dxHtmlEditor_heSizeGripRtl_Metropolis
+{
+    cursor: ne-resize;
+}
+.dxheSizeGripContainer_Metropolis
+{
+    width: 100%;
+    text-align: right;
+    font-size: 0;
+    margin-top: -16px;
+}
+.dxheControl_Metropolis.dxhe-rtl .dxheSizeGripContainer_Metropolis
+{
+    text-align: left;
+}
+/* ----------------- Dialog Forms ----------------- */
+.dxpcLite_Metropolis .dxheDlgFooter,
+.dxpcLite_Metropolis .dxheCustomDialog_Metropolis .dxhecd-Buttons
+{
+    background-color: white;
+    border-top: Solid 1px #E0E0E0;
+    padding: 10px 11px;
+    text-align: right;
+}
+.dxpcLite_Metropolis.dxRtl .dxheDlgFooter,
+.dxpcLite_Metropolis.dxRtl .dxheCustomDialog_Metropolis .dxhecd-Buttons
+{
+    text-align: left;
+}
+.dxpcLite_Metropolis .dxheDlgFooterBtn
+{
+    width: 80px;
+    margin-left: 8px;
+}
+.dxpcLite_Metropolis.dxRtl .dxheDlgFooterBtn
+{
+    margin-right: 8px;
+    margin-left: 0;
+}
+/* Insert Image Form */
+.dxpcLite_Metropolis .dxheDlgInsertImageForm .dxheDlgImagePreviewCell,
+.dxpcLite_Metropolis .dxheDlgSelectImageForm .dxheDlgImagePreviewCell
+{
+    color: #878787;
+    border: dashed 1px #cac8c8;
+}
+.dxpcLite_Metropolis .dxheDlgPasteFromWordForm .dxheDlgPasteContainerCell td
+{
+    border: Solid 1px #9F9F9F;
+}
+/*----------------- Toolbars -----------------*/
+.dxtbSpacing_Metropolis
+{
+    height: 1px;
+}
+.dxtbControl_Metropolis
+{
+    color: #333333;
+    width: 100%;
+    border-bottom: Solid 1px #c0c0c0;
+}
+.dxtbControl_Metropolis td.dxmMenu_Metropolis
+{
+    border-width: 0px;
+}
+.dxtbControl_Metropolis .dxmLite_Metropolis .dxm-main
+{
+    background-color: #FFFFFF;
+}
+.dxtbControl_Metropolis .dxmLite_Metropolis .dxmtb.dxm-horizontal .dxm-separator b
+{
+    background-color: #c0c0c0;
+}
+.dxtbComboBoxMenuItem_Metropolis
+{
+    padding-top: 2px;
+}
+.dxheControl_Metropolis .dxrControl_Metropolis .dxr-minBtn
+{
+    padding-right: 8px;
+}
+.dxheControl_Metropolis .dxtbControl_Metropolis.dxtbr_Metropolis,
+.dxheControl_Metropolis .dxrControl_Metropolis .dxpc-mainDiv.dxr-minPopup
+{
+    border: 0;
+}
+/* Toolbars Lightweight Mode */
+.dxtbControl_Metropolis .dxmLite_Metropolis .dxm-main
+{
+    border-width: 0px;
+}
+.dxmLite_Metropolis .dxhetipControl_Metropolis img
+{
+    vertical-align: top;
+}
+.dxtbControl_Metropolis .dxm-horizontal.dxmtb .dxm-dropDownMode .dxtcbColorDiv_Metropolis
+{
+    margin-top: -1px;
+    margin-bottom: -2px;
+}
+/* ToolbarColorButton */
+.dxtcbColorDiv_Metropolis
+{
+    width: 16px;
+    height: 3px;
+    font-size: 0;
+    background-color: Transparent;
+}
+/*----------------- RoundPanel -----------------*/
+.dxheRP.dxrpControl_Metropolis .dxrpcontent_Metropolis
+{
+    padding: 9px 10px 10px 10px !important;
+}
+/* InsertMediaDialogs */
+.dxflFormLayout_Metropolis .dxhe-dialogSettings
+{
+    width: 250px;
+    padding-left: 16px;
+}
+.dxflFormLayout_Metropolis.dxhe-mediaDialog
+{
+    width: 700px;
+}
+.dxflFormLayout_Metropolis.dxhe-mediaDialog .dxic-control,
+.dxflFormLayout_Metropolis.dxhe-mediaDialog .dxhe-dialogSettings
+{
+    height: 450px;
+}
+div.dxflFormLayout_Metropolis.dxhe-dialog table.dxhe-dialogLG
+{
+    padding-left: 32px;
+    padding-right: 32px;
+}
+div.dxflFormLayout_Metropolis.dxhe-dialog > table.dxhe-dialogLG.dxflGroupSys,
+div.dxflFormLayout_Metropolis.dxhe-dialog .dxhe-dialogButtonsContainer
+{
+    padding: 16px;
+}
+.dxflFormLayout_Metropolis.dxhe-dialog a.dxtc-link
+{
+    padding: 4px 10px;
+}
+div.dxflFormLayout_Metropolis.dxhe-mediaDialogStyleSettings > table.dxhe-dialogLG.dxflGroupSys,
+div.dxflFormLayout_Metropolis.dxhe-mediaDialogMainSettings > table.dxhe-dialogLG.dxflGroupSys
+{
+    padding: 32px;
+}
+/* tag inspector */
+.dxheDesignViewArea_Metropolis .dxhe-tiSelection
+{
+    box-sizing: border-box;
+    position: absolute;
+    border: 1px solid #2255FF;
+    background-color: #0066FF;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=30)";
+    opacity: 0.3;
+}
+.dxheDesignViewArea_Metropolis .dxhe-tiWrapper
+{
+    border-bottom: 1px solid #c0c0c0;
+}
+.dxheDesignViewArea_Metropolis .dxhe-tiSeparator,
+.dxheDesignViewArea_Metropolis .dxhe-tiTagName
+{
+    color: #333333;
+}
+.dxhe-intelliSenseSysWin .dxeListBox_Metropolis.dxeFocused_Metropolis
+{
+    border-color: #c0c0c0;
+}
+div.dxhe-searchQuick div.dxbButton_Metropolis,
+div.dxhe-searchQuick div.dxbButton_Metropolis .dxb
+{
+    background: none !important;
+    border: none !important;
+}
+.dxpcLite_Metropolis.dxhe-quickSearchSysWin .dxhe-flItem0
+{
+    padding-left: 2px !important;
+}
+.dxheViewArea_Metropolis
+{
+    border-bottom: 4px solid #F7A233;
+}
+.dxheStatusBarTab_Metropolis,
+.dxheStatusBar_Metropolis .dxtc-spacer
+{
+    border-top: 4px solid #F7A233;
+}
+.dxhe-dialogWrapperPanel .dxucTextBox_Metropolis
+{
+    padding: 0px 2px;
+}
+.dxhe-dialogWrapperPanel .dxucBrowseButton_Metropolis
+{
+    padding: 1px 8px 2px;
+}
+.dxflFormLayout_Metropolis.dxhe-insertTableDialog
+{
+    width: 470px;
+}

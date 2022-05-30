@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Groups>
+  <NavBarGroup Text="واحد مالی" Expanded="False" Name="grpAccounting" Visiblity = "true"  Target="">
+    <NavBarItem NavigateUrl="/Owner/ProjectAccounting.aspx" Text="مدیریت فیش های پرداخت الکترونیکی">
+    </NavBarItem>
+  </NavBarGroup>
+</Groups>

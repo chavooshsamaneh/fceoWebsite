@@ -1,0 +1,525 @@
+﻿<%@ Page Language="C#" MasterPageFile="~/MasterPagePortals.master" AutoEventWireup="true" CodeFile="DevelopmentObserverInsert.aspx.cs" Inherits="Employee_TechnicalServices_Project_DevelopmentObserverInsert" Title="مشخصات ناظر عالی" %>
+
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxhf" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxp" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxuc" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxrp" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxm" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxpc" %>
+
+<%@ Register Assembly="TSP.WebControls" Namespace="TSP.WebControls" TagPrefix="TSPControls" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxe" %>
+
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxwgv" %>
+
+<%@ Register Assembly="AjaxControls" Namespace="AjaxControls" TagPrefix="asp" %>
+<%@ Register Assembly="PersianDateControls 2.0" Namespace="PersianDateControls" TagPrefix="pdc" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
+
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxcp" %>
+
+
+<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+        <pdc:PersianDateScriptManager ID="PersianDateScriptManager" runat="server" CalendarCSS="PickerCalendarCSS"
+            CalendarDayWidth="33" CalendarDayHeight="15" FooterCSS="PickerFooterCSS" ForbidenCSS="PickerForbidenCSS"
+            FrameCSS="PickerCSS" HeaderCSS="PickerHeaderCSS" SelectedCSS="PickerSelectedCSS"
+            WeekDayCSS="PickerWeekDayCSS" WorkDayCSS="PickerWorkDayCSS">
+        </pdc:PersianDateScriptManager>
+        <script language="javascript">
+            function SetControlValues() {
+                grid.GetRowValues(grid.GetFocusedRowIndex(), 'TypeId;FirstName;LastName;FatherName;SSN;IdNo;BirthPlace;Tel;MobileNo;Address', SetValue);
+            }
+            function SetValue(values) {
+                cmbAgent.SetValue(values[0]);
+                oFirstName.SetText(values[1]);
+                oLastName.SetText(values[2]);
+                oFatherName.SetText(values[3]);
+                oSSN.SetText(values[4]);
+                oIdNo.SetText(values[5]);
+                oBirthPlace.SetText(values[6]);
+                oTel.SetText(values[7]);
+                oMobileNo.SetText(values[8]);
+                oAddress.SetText(values[9]);
+
+            }
+            function Clear() {
+                cmbAgent.SetSelectedIndex(-1);
+                oFirstName.SetText("");
+                oLastName.SetText("");
+                oFatherName.SetText("");
+                oSSN.SetText("");
+                oIdNo.SetText("");
+                oBirthPlace.SetText("");
+                oTel.SetText("");
+                oMobileNo.SetText("");
+                oAddress.SetText("");
+                btn.SetEnabled(true);
+            }
+        </script>
+        <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+            <ContentTemplate>
+                <div style="text-align: right" id="DivReport" class="DivErrors" runat="server" visible="true">
+                    <asp:Label ID="LabelWarning" runat="server" Text="Label"></asp:Label>[<a class="closeLink" href="#">بستن</a>]</div>
+                <TSPControls:CustomASPxRoundPanelMenu ID="CustomASPxRoundPanelMenu1" runat="server">
+                    <PanelCollection>
+                        <dxp:PanelContent>
+  
+                                                    <table >
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>
+                                                                    <TSPControls:CustomAspxButton IsMenuButton="true" runat="server" Text=" " ToolTip="جدید" CausesValidation="False" ID="BtnNew" UseSubmitBehavior="False" EnableViewState="False" EnableTheming="False" OnClick="BtnNew_Click">
+                                                                        <hoverstyle backcolor="#FFE0C0">
+<Border BorderWidth="1px" BorderStyle="Outset" BorderColor="Gray"></Border>
+</hoverstyle>
+
+                                                                        <image url="~/Images/icons/new.png"></image>
+                                                                    </TSPControls:CustomAspxButton>
+                                                                </td>
+                                                                <td>
+                                                                    <TSPControls:CustomAspxButton IsMenuButton="true" runat="server" Text=" " ToolTip="ذخیره" ID="btnSave" UseSubmitBehavior="False" EnableViewState="False" EnableTheming="False" OnClick="btnSave_Click">
+                                                                        <ClientSideEvents Click="function(s, e) {
+
+}"></ClientSideEvents>
+
+                                                                        <hoverstyle backcolor="#FFE0C0">
+<Border BorderWidth="1px" BorderStyle="Outset" BorderColor="Gray"></Border>
+</hoverstyle>
+
+                                                                        <image url="~/Images/icons/save.png"></image>
+                                                                    </TSPControls:CustomAspxButton>
+                                                                </td>
+                                                                <td>
+                                                                    <TSPControls:CustomAspxButton IsMenuButton="true" runat="server" Text=" " ToolTip="اضافه کردن صفحه به سند اتوماسیون اداری" CausesValidation="False" ID="btnShowPpcAttachPageToAutomationLetter" AutoPostBack="False" UseSubmitBehavior="False" EnableViewState="False" EnableTheming="False">
+                                                                        <ClientSideEvents Click="function(s,e){
+                                                            ppcAttachPageToAutomationLetter.Show();
+                                                            PanelAttachPageToAutomationLetterFinish.SetVisible(false);
+                                                            PanelAttachPageToAutomationLetterInputData.SetVisible(true);                                                          
+                                                            lblErrorInputAttachPageToAutomationLetter.SetVisible(false);
+                                                            txtLetterNumber_AttachPageToAutomationLetter.SetText('');
+                                                            txtLinkName_AttachPageToAutomationLetter.SetText('');
+                                                            txtTimeOut_AttachPageToAutomationLetter.SetText('7');
+                                                            txtLetterNumber_AttachPageToAutomationLetter.Focus();
+                                                            }"></ClientSideEvents>
+
+                                                                        <hoverstyle backcolor="#FFE0C0">
+<Border BorderWidth="1px" BorderStyle="Outset" BorderColor="Gray"></Border>
+</hoverstyle>
+
+                                                                        <image url="~/Images/AttachPage.png"></image>
+                                                                    </TSPControls:CustomAspxButton>
+                                                                </td>
+                                                                <td>
+                                                                    <TSPControls:CustomAspxButton IsMenuButton="true" runat="server" Text=" " ToolTip="بازگشت" CausesValidation="False" ID="btnBack" UseSubmitBehavior="False" EnableViewState="False" EnableTheming="False" OnClick="btnBack_Click">
+                                                                        <hoverstyle backcolor="#FFE0C0">
+<Border BorderWidth="1px" BorderStyle="Outset" BorderColor="Gray"></Border>
+</hoverstyle>
+
+                                                                        <image url="~/Images/icons/Back.png"></image>
+                                                                    </TSPControls:CustomAspxButton>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                               </dxp:PanelContent>
+                    </PanelCollection>
+                </TSPControls:CustomASPxRoundPanelMenu>
+                <br />
+                	<TSPControls:CustomASPxRoundPanel ID="ASPxRoundPanel2" HeaderText="مشاهده" runat="server">
+        <PanelCollection>
+            <dxp:PanelContent>
+                                <table dir="rtl" width="100%">
+                                    <tbody>
+                                        <tr>
+                                            <td valign="top" align="right">
+                                                <dxe:ASPxLabel runat="server" Text="کد عضویت" Width="59px" ID="ASPxLabel19"></dxe:ASPxLabel>
+                                            </td>
+                                            <td valign="top" align="right" colspan="3">
+                                                <TSPControls:CustomTextBox runat="server" ID="txtMeId" Width="160px" AutoPostBack="True" OnTextChanged="txtMeId_TextChanged">
+                                                    <ValidationSettings Display="Dynamic" ErrorTextPosition="Bottom">
+                                                        <ErrorImage Height="14px" Url="~/App_Themes/Glass/Editors/edtError.png"></ErrorImage>
+
+                                                        <RequiredField IsRequired="True" ErrorText="کد عضویت را وارد نمایید"></RequiredField>
+
+                                                        <ErrorFrameStyle ImageSpacing="4px">
+                                                            <ErrorTextPaddings PaddingLeft="4px"></ErrorTextPaddings>
+                                                        </ErrorFrameStyle>
+                                                    </ValidationSettings>
+                                                </TSPControls:CustomTextBox>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td valign="top" align="right">
+                                                <dxe:ASPxLabel runat="server" Text="نام" ID="ASPxLabelFirstName"></dxe:ASPxLabel>
+                                            </td>
+                                            <td valign="top" align="right">
+                                                <TSPControls:CustomTextBox runat="server" ID="txtFirstName" Width="160px" ReadOnly="True">
+                                                    <ValidationSettings Display="Dynamic" ErrorTextPosition="Bottom">
+                                                        <ErrorImage Height="14px" Url="~/App_Themes/Glass/Editors/edtError.png"></ErrorImage>
+
+                                                        <RequiredField ErrorText=""></RequiredField>
+
+                                                        <RegularExpression ErrorText=""></RegularExpression>
+
+                                                        <ErrorFrameStyle ImageSpacing="4px">
+                                                            <ErrorTextPaddings PaddingLeft="4px"></ErrorTextPaddings>
+                                                        </ErrorFrameStyle>
+                                                    </ValidationSettings>
+                                                </TSPControls:CustomTextBox>
+                                            </td>
+                                            <td valign="top" align="right">
+                                                <dxe:ASPxLabel runat="server" Text="نام خانوادگی" Width="77px" ID="ASPxLabel1"></dxe:ASPxLabel>
+                                            </td>
+                                            <td valign="top" align="right">
+                                                <TSPControls:CustomTextBox runat="server" ID="txtLastName" Width="160px" ReadOnly="True">
+                                                    <ValidationSettings Display="Dynamic" ErrorTextPosition="Bottom">
+                                                        <ErrorImage Height="14px" Url="~/App_Themes/Glass/Editors/edtError.png"></ErrorImage>
+
+                                                        <RequiredField ErrorText=""></RequiredField>
+
+                                                        <RegularExpression ErrorText=""></RegularExpression>
+
+                                                        <ErrorFrameStyle ImageSpacing="4px">
+                                                            <ErrorTextPaddings PaddingLeft="4px"></ErrorTextPaddings>
+                                                        </ErrorFrameStyle>
+                                                    </ValidationSettings>
+                                                </TSPControls:CustomTextBox>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td valign="top" align="right">
+                                                <dxe:ASPxLabel runat="server" Text="رشته" ID="ASPxLabel6"></dxe:ASPxLabel>
+                                            </td>
+                                            <td valign="top" align="right">
+                                                <TSPControls:CustomTextBox runat="server" ID="txtMajor" Width="160px" ReadOnly="True">
+                                                    <ValidationSettings Display="Dynamic" ErrorTextPosition="Bottom">
+                                                        <ErrorImage Height="14px" Url="~/App_Themes/Glass/Editors/edtError.png"></ErrorImage>
+
+                                                        <RequiredField ErrorText=""></RequiredField>
+
+                                                        <ErrorFrameStyle ImageSpacing="4px">
+                                                            <ErrorTextPaddings PaddingLeft="4px"></ErrorTextPaddings>
+                                                        </ErrorFrameStyle>
+                                                    </ValidationSettings>
+                                                </TSPControls:CustomTextBox>
+                                            </td>
+                                            <td valign="top" align="right">
+                                                <dxe:ASPxLabel runat="server" Text="مدرک تحصیلی" ID="ASPxLabel7"></dxe:ASPxLabel>
+                                            </td>
+                                            <td valign="top" align="right">
+                                                <TSPControls:CustomTextBox runat="server" ID="txtLicence" Width="160px" ReadOnly="True">
+                                                    <ValidationSettings Display="Dynamic" ErrorTextPosition="Bottom">
+                                                        <ErrorImage Height="14px" Url="~/App_Themes/Glass/Editors/edtError.png"></ErrorImage>
+
+                                                        <RequiredField ErrorText=""></RequiredField>
+
+                                                        <ErrorFrameStyle ImageSpacing="4px">
+                                                            <ErrorTextPaddings PaddingLeft="4px"></ErrorTextPaddings>
+                                                        </ErrorFrameStyle>
+                                                    </ValidationSettings>
+                                                </TSPControls:CustomTextBox>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td valign="top" align="right">
+                                                <dxe:ASPxLabel runat="server" Text="شماره پروانه اشتغال" Width="121px" ID="ASPxLabel8"></dxe:ASPxLabel>
+                                            </td>
+                                            <td valign="top" align="right">
+                                                <TSPControls:CustomTextBox runat="server" ID="txtFileNo" Style="direction: ltr" Width="160px" ReadOnly="True">
+                                                    <ValidationSettings Display="Dynamic" ErrorTextPosition="Bottom">
+                                                        <ErrorImage Height="14px" Url="~/App_Themes/Glass/Editors/edtError.png"></ErrorImage>
+
+                                                        <RequiredField ErrorText=""></RequiredField>
+
+                                                        <ErrorFrameStyle ImageSpacing="4px">
+                                                            <ErrorTextPaddings PaddingLeft="4px"></ErrorTextPaddings>
+                                                        </ErrorFrameStyle>
+                                                    </ValidationSettings>
+                                                </TSPControls:CustomTextBox>
+                                            </td>
+                                            <td valign="top" align="right">
+                                                <dxe:ASPxLabel runat="server" Text="صلاحیت اجرا" ID="ASPxLabel9"></dxe:ASPxLabel>
+                                            </td>
+                                            <td valign="top" align="right">
+                                                <TSPControls:CustomTextBox runat="server" ID="txtImpId" Width="160px" ReadOnly="True">
+                                                    <ValidationSettings Display="Dynamic" ErrorTextPosition="Bottom">
+                                                        <ErrorImage Height="14px" Url="~/App_Themes/Glass/Editors/edtError.png"></ErrorImage>
+
+                                                        <RequiredField ErrorText=""></RequiredField>
+
+                                                        <ErrorFrameStyle ImageSpacing="4px">
+                                                            <ErrorTextPaddings PaddingLeft="4px"></ErrorTextPaddings>
+                                                        </ErrorFrameStyle>
+                                                    </ValidationSettings>
+                                                </TSPControls:CustomTextBox>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td valign="top" align="right">
+                                                <dxe:ASPxLabel runat="server" Text="صلاحیت نظارت" ID="ASPxLabel13"></dxe:ASPxLabel>
+                                            </td>
+                                            <td valign="top" align="right">
+                                                <TSPControls:CustomTextBox runat="server" ID="txtObsId" Width="160px" ReadOnly="True">
+                                                    <ValidationSettings Display="Dynamic" ErrorTextPosition="Bottom">
+                                                        <ErrorImage Height="14px" Url="~/App_Themes/Glass/Editors/edtError.png"></ErrorImage>
+
+                                                        <RequiredField ErrorText=""></RequiredField>
+
+                                                        <ErrorFrameStyle ImageSpacing="4px">
+                                                            <ErrorTextPaddings PaddingLeft="4px"></ErrorTextPaddings>
+                                                        </ErrorFrameStyle>
+                                                    </ValidationSettings>
+                                                </TSPControls:CustomTextBox>
+                                            </td>
+                                            <td valign="top" align="right">
+                                                <dxe:ASPxLabel runat="server" Text="صلاحیت طراحی" Width="93px" ID="ASPxLabel20"></dxe:ASPxLabel>
+                                            </td>
+                                            <td valign="top" align="right">
+                                                <TSPControls:CustomTextBox runat="server" ID="txtDesId" Width="160px" ReadOnly="True">
+                                                    <ValidationSettings Display="Dynamic" ErrorTextPosition="Bottom">
+                                                        <ErrorImage Height="14px" Url="~/App_Themes/Glass/Editors/edtError.png"></ErrorImage>
+
+                                                        <RequiredField ErrorText=""></RequiredField>
+
+                                                        <ErrorFrameStyle ImageSpacing="4px">
+                                                            <ErrorTextPaddings PaddingLeft="4px"></ErrorTextPaddings>
+                                                        </ErrorFrameStyle>
+                                                    </ValidationSettings>
+                                                </TSPControls:CustomTextBox>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right" colspan="4" valign="top">
+                                                <br />
+                                                <TSPControls:CustomASPxCheckBox ID="ChbAgent" runat="server" Text="نماینده ناظرین عالی">
+                                                </TSPControls:CustomASPxCheckBox>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                          </dxp:PanelContent>
+        </PanelCollection>
+    </TSPControls:CustomASPxRoundPanel>
+                    <br />
+                 <TSPControls:CustomASPxRoundPanelMenu ID="CustomASPxRoundPanelMenu2" runat="server">
+                    <PanelCollection>
+                        <dxp:PanelContent>
+  
+                                                        <table >
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>
+                                                                        <TSPControls:CustomAspxButton IsMenuButton="true" runat="server" Text=" " ToolTip="جدید" CausesValidation="False" ID="BtnNew2" UseSubmitBehavior="False" EnableViewState="False" EnableTheming="False" OnClick="BtnNew_Click">
+                                                                            <hoverstyle backcolor="#FFE0C0">
+<Border BorderWidth="1px" BorderStyle="Outset" BorderColor="Gray"></Border>
+</hoverstyle>
+
+                                                                            <image url="~/Images/icons/new.png"></image>
+                                                                        </TSPControls:CustomAspxButton>
+                                                                    </td>
+                                                                    <td>
+                                                                        <TSPControls:CustomAspxButton IsMenuButton="true" runat="server" Text=" " ToolTip="ذخیره" ID="btnSave2" UseSubmitBehavior="False" EnableViewState="False" EnableTheming="False" OnClick="btnSave_Click">
+                                                                            <hoverstyle backcolor="#FFE0C0">
+<Border BorderWidth="1px" BorderStyle="Outset" BorderColor="Gray"></Border>
+</hoverstyle>
+
+                                                                            <image url="~/Images/icons/save.png"></image>
+                                                                        </TSPControls:CustomAspxButton>
+                                                                    </td>
+                                                                    <td>
+                                                                        <TSPControls:CustomAspxButton IsMenuButton="true" runat="server" Text=" " ToolTip="اضافه کردن صفحه به سند اتوماسیون اداری" CausesValidation="False" ID="btnShowPpcAttachPageToAutomationLetter2" AutoPostBack="False" UseSubmitBehavior="False" EnableViewState="False" EnableTheming="False">
+                                                                            <ClientSideEvents Click="function(s,e){
+                                                            ppcAttachPageToAutomationLetter.Show();
+                                                            PanelAttachPageToAutomationLetterFinish.SetVisible(false);
+                                                            PanelAttachPageToAutomationLetterInputData.SetVisible(true);                                                          
+                                                            lblErrorInputAttachPageToAutomationLetter.SetVisible(false);
+                                                            txtLetterNumber_AttachPageToAutomationLetter.SetText('');
+                                                            txtLinkName_AttachPageToAutomationLetter.SetText('');
+                                                            txtTimeOut_AttachPageToAutomationLetter.SetText('7');
+                                                            txtLetterNumber_AttachPageToAutomationLetter.Focus();
+                                                            }"></ClientSideEvents>
+
+                                                                            <hoverstyle backcolor="#FFE0C0">
+<Border BorderWidth="1px" BorderStyle="Outset" BorderColor="Gray"></Border>
+</hoverstyle>
+
+                                                                            <image url="~/Images/AttachPage.png"></image>
+                                                                        </TSPControls:CustomAspxButton>
+                                                                    </td>
+                                                                    <td>
+                                                                        <TSPControls:CustomAspxButton IsMenuButton="true" runat="server" Text=" " ToolTip="بازگشت" CausesValidation="False" ID="ASPxButton6" UseSubmitBehavior="False" EnableViewState="False" EnableTheming="False" OnClick="btnBack_Click">
+                                                                            <hoverstyle backcolor="#FFE0C0">
+<Border BorderWidth="1px" BorderStyle="Outset" BorderColor="Gray"></Border>
+</hoverstyle>
+
+                                                                            <image url="~/Images/icons/Back.png"></image>
+                                                                        </TSPControls:CustomAspxButton>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                   </dxp:PanelContent>
+                    </PanelCollection>
+                </TSPControls:CustomASPxRoundPanelMenu>
+                <asp:HiddenField ID="HDdevelopmentPercentId" runat="server" Visible="False"></asp:HiddenField>
+                <asp:HiddenField ID="HDDevObsId" runat="server" Visible="False"></asp:HiddenField>
+                <asp:HiddenField ID="PgMode" runat="server" Visible="False"></asp:HiddenField>
+                <asp:HiddenField ID="RequestId" runat="server" Visible="False"></asp:HiddenField>
+                <TSPControls:CustomASPxPopupControl ID="ppcAttachPageToAutomationLetter" runat="server" Width="404px" HeaderText="اضافه کردن صفحه به سند اتوماسیون اداری" AllowDragging="True" AutoUpdatePosition="True" CloseAction="CloseButton" EnableAnimation="False" EnableClientSideAPI="True" EnableViewState="False" Height="77px" Modal="True" PopupHorizontalAlign="WindowCenter" PopupVerticalAlign="WindowCenter" ClientInstanceName="ppcAttachPageToAutomationLetter">
+                    <ContentCollection>
+                        <dxpc:PopupControlContentControl runat="server">
+                            <TSPControls:CustomAspxCallbackPanel runat="server" ID="CallbackAttachPageToAutomationLetter" ClientInstanceName="CallbackAttachPageToAutomationLetter" OnCallback="CallbackAttachPageToAutomationLetter_Callback">
+                                <PanelCollection>
+                                    <dxp:PanelContent runat="server">
+                                        <dxp:ASPxPanel runat="server" ID="PanelAttachPageToAutomationLetterInputData" ClientInstanceName="PanelAttachPageToAutomationLetterInputData">
+                                            <PanelCollection>
+                                                <dxp:PanelContent runat="server">
+                                                    <div align="center">
+                                                        <table width="100%">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td align="center" colspan="2">
+                                                                        <dxe:ASPxLabel runat="server" ClientVisible="False" ID="lblErrorInputAttachPageToAutomationLetter" ForeColor="Red" ClientInstanceName="lblErrorInputAttachPageToAutomationLetter"></dxe:ASPxLabel>
+
+
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td align="center" colspan="2"></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td style="width: 100px" align="right">شماره سند</td>
+                                                                    <td style="width: 200px" align="right">
+                                                                        <TSPControls:CustomTextBox runat="server" ID="txtLetterNumber_AttachPageToAutomationLetter" Width="170px" ClientInstanceName="txtLetterNumber_AttachPageToAutomationLetter">
+                                                                            <ValidationSettings Display="Dynamic" ValidationGroup="AttachPageToAutomationLetter" ErrorTextPosition="Bottom">
+                                                                                <ErrorImage Height="14px" Url="~/App_Themes/Glass/Editors/edtError.png"></ErrorImage>
+
+                                                                                <RequiredField IsRequired="True" ErrorText="شماره سند وارد نشده است"></RequiredField>
+
+                                                                                <ErrorFrameStyle ImageSpacing="4px">
+                                                                                    <ErrorTextPaddings PaddingLeft="4px"></ErrorTextPaddings>
+                                                                                </ErrorFrameStyle>
+                                                                            </ValidationSettings>
+                                                                        </TSPControls:CustomTextBox>
+
+
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td align="right">نام لینک</td>
+                                                                    <td align="right">
+                                                                        <TSPControls:CustomTextBox runat="server" ID="txtLinkName_AttachPageToAutomationLetter" Width="170px" ClientInstanceName="txtLinkName_AttachPageToAutomationLetter">
+                                                                            <ValidationSettings>
+                                                                                <ErrorImage Height="14px" Url="~/App_Themes/Glass/Editors/edtError.png"></ErrorImage>
+
+                                                                                <ErrorFrameStyle ImageSpacing="4px">
+                                                                                    <ErrorTextPaddings PaddingLeft="4px"></ErrorTextPaddings>
+                                                                                </ErrorFrameStyle>
+                                                                            </ValidationSettings>
+                                                                        </TSPControls:CustomTextBox>
+
+
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td align="right">مدت اعتبار (روز)</td>
+                                                                    <td align="right">
+                                                                        <dxe:ASPxSpinEdit runat="server" MaxValue="3650" Height="21px" ID="txtTimeOut_AttachPageToAutomationLetter" Width="170px" AllowNull="False" Number="7" NumberType="Integer" MinValue="1" ClientInstanceName="txtTimeOut_AttachPageToAutomationLetter"></dxe:ASPxSpinEdit>
+
+
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td align="center" colspan="2">
+                                                                        <br />
+                                                                        <table>
+                                                                            <tbody>
+                                                                                <tr>
+                                                                                    <td>
+                                                                                        <TSPControls:CustomAspxButton runat="server" Text="&#160;ذخیره" CausesValidation="False" Width="80px" ID="btnSaveAttachPageToAutomationLetter" AutoPostBack="False" UseSubmitBehavior="False">
+                                                                                            <ClientSideEvents Click="function(s, e){ 
+                                                if(ASPxClientEdit.ValidateGroup('AttachPageToAutomationLetter')==true)
+                                                CallbackAttachPageToAutomationLetter.PerformCallback('');
+                                                }"></ClientSideEvents>
+
+                                                                                            <image height="20px" width="20px" url="~/Images/Icons/Save.png"></image>
+                                                                                        </TSPControls:CustomAspxButton>
+
+
+                                                                                    </td>
+                                                                                    <td style="width: 15px"></td>
+                                                                                    <td>
+                                                                                        <TSPControls:CustomAspxButton runat="server" Text="&#160;انصراف" CausesValidation="False" Width="80px" ID="btnClosePpcAttachPageToAutomationLetter" AutoPostBack="False" UseSubmitBehavior="False">
+                                                                                            <ClientSideEvents Click="function(s, e) { ppcAttachPageToAutomationLetter.Hide(); }"></ClientSideEvents>
+
+                                                                                            <image height="20px" width="20px" url="~/Images/Stop.png"></image>
+                                                                                        </TSPControls:CustomAspxButton>
+
+
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </dxp:PanelContent>
+                                            </PanelCollection>
+                                        </dxp:ASPxPanel>
+
+                                        <dxp:ASPxPanel runat="server" ClientVisible="False" ID="PanelAttachPageToAutomationLetterFinish" ClientInstanceName="PanelAttachPageToAutomationLetterFinish">
+                                            <PanelCollection>
+                                                <dxp:PanelContent runat="server">
+                                                    <div align="center">
+                                                        <br />
+                                                        <br />
+                                                        <br />
+                                                        <dxe:ASPxLabel runat="server" ID="lblMessageAttachPageToAutomationLetter" ForeColor="Green" ClientInstanceName="lblMessageAttachPageToAutomationLetter"></dxe:ASPxLabel>
+
+
+                                                        <br />
+                                                        <br />
+                                                        <br />
+                                                        <TSPControls:CustomAspxButton runat="server" Text="&#160;خروج" CausesValidation="False" Width="80px" ID="btnClosePpcAttachPageToAutomationLetter2" AutoPostBack="False" UseSubmitBehavior="False">
+                                                            <ClientSideEvents Click="function(s, e) { ppcAttachPageToAutomationLetter.Hide(); }"></ClientSideEvents>
+
+                                                            <image height="20px" width="20px" url="~/Images/Stop.png"></image>
+                                                        </TSPControls:CustomAspxButton>
+
+
+                                                    </div>
+                                                </dxp:PanelContent>
+                                            </PanelCollection>
+                                        </dxp:ASPxPanel>
+
+                                    </dxp:PanelContent>
+                                </PanelCollection>
+                            </TSPControls:CustomAspxCallbackPanel>
+                        </dxpc:PopupControlContentControl>
+                    </ContentCollection>
+
+                    <HeaderStyle HorizontalAlign="Right">
+                        <Paddings PaddingTop="1px" PaddingRight="6px" PaddingLeft="10px"></Paddings>
+                    </HeaderStyle>
+
+                    <SizeGripImage Height="12px" Width="12px"></SizeGripImage>
+
+                    <CloseButtonImage Height="17px" Width="17px"></CloseButtonImage>
+                </TSPControls:CustomASPxPopupControl>
+            </ContentTemplate>
+        </asp:UpdatePanel>
+</asp:Content>
+
+
+

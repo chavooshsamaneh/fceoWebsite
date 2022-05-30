@@ -1,0 +1,151 @@
+﻿using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+using DevExpress.Web;
+
+public partial class Settlement_Amoozesh_TeacherResearchAct : System.Web.UI.Page
+{
+    #region Events
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (string.IsNullOrEmpty(Request.QueryString["PgMd"]) || string.IsNullOrEmpty(Request.QueryString["TeId"]))
+        {
+            Response.Redirect("Teachers.aspx");
+            return;
+        }
+        this.DivReport.Visible = false;
+        this.DivReport.Attributes.Add("onclick", "ChangeVisible(this)");
+        this.DivReport.Attributes.Add("onmouseover", "ChangeIcon(this)");
+
+        if (!IsPostBack)
+        {
+            MenuTeacherInfo.Enabled = true;
+            HiddenFieldTeacherResearchAct["TeacherId"] = Request.QueryString["TeId"].ToString();
+            HiddenFieldTeacherResearchAct["PageMode"] = Request.QueryString["PgMd"].ToString();
+            HiddenFieldTeacherResearchAct["TeacherId"] = Request.QueryString["TeId"].ToString();
+            HiddenFieldTeacherResearchAct["PrePageMode"] = Request.QueryString["PgMd"];
+            HiddenFieldTeacherResearchAct["IsMember"] = true;
+
+            string TeacherId = Utility.DecryptQS(HiddenFieldTeacherResearchAct["TeacherId"].ToString());
+            TSP.DataManager.TeacherManager TeacherManager = new TSP.DataManager.TeacherManager();
+            TeacherManager.FindByCode(int.Parse(TeacherId));
+            if (TeacherManager.Count > 0)
+            {
+                RoundPanelTeacherResearch.HeaderText = TeacherManager[0]["Name"].ToString() + " " + TeacherManager[0]["Family"].ToString();
+            }
+            else
+            {
+                Response.Redirect("Teachers.aspx");
+                return;
+            }
+        }
+        SetObjectDataSource();
+       // CheckWorkFlowPermission();
+    }
+
+    protected void btnBack_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("Teachers.aspx");
+    }
+
+    protected void MenuTeacherInfo_ItemClick(object source, DevExpress.Web.MenuItemEventArgs e)
+    {
+        switch (e.Item.Name)
+        {
+            case "licence":
+                Response.Redirect("TeachersLicence.aspx?TeId=" + HiddenFieldTeacherResearchAct["TeacherId"].ToString() + "&PgMd=" + HiddenFieldTeacherResearchAct["PageMode"].ToString());
+                break;
+            case "BasicInfo":
+                Response.Redirect("TeacherBasicInfo.aspx?TeId=" + HiddenFieldTeacherResearchAct["TeacherId"] + "&PgMd=" + HiddenFieldTeacherResearchAct["PageMode"]);
+                break;
+            case "Job":
+                Response.Redirect("TeacherJobHistory.aspx?TeId=" + HiddenFieldTeacherResearchAct["TeacherId"] + "&PgMd=" + HiddenFieldTeacherResearchAct["PageMode"]);
+                break;
+            case "Attachment":
+                Response.Redirect("TeacherAttachment.aspx?TeId=" + HiddenFieldTeacherResearchAct["TeacherId"] + "&PgMd=" + HiddenFieldTeacherResearchAct["PageMode"]);
+                break;
+        }
+        //
+        //switch (e.Item.Name)
+        //{
+        //    case "BasicInfo":
+        //        Response.Redirect("AddTeachers.aspx?TeId=" + HiddenFieldTeacherResearchAct["TeacherId"] + "&PgMd=" + HiddenFieldTeacherResearchAct["PrePageMode"]);
+        //        break;
+        //    case "Job":
+        //        Response.Redirect("TeacherJobHistory.aspx?TeId=" + HiddenFieldTeacherResearchAct["TeacherId"] + "&PgMd=" + HiddenFieldTeacherResearchAct["PrePageMode"]);
+        //        break;
+        //    case "Research":
+        //        Response.Redirect("TeacherResearchAct.aspx?TeId=" + HiddenFieldTeacherResearchAct["TeacherId"] + "&PgMd=" + HiddenFieldTeacherResearchAct["PrePageMode"]);
+        //        break;
+        //    case "Attachment":
+        //        Response.Redirect("TeacherAttachment.aspx?TeId=" + HiddenFieldTeacherResearchAct["TeacherId"] + "&PgMd=" + HiddenFieldTeacherResearchAct["PrePageMode"]);
+        //        break;
+        //}
+    }
+
+    protected void GridViewTeacherResearch_BeforePerformDataSelect(object sender, EventArgs e)
+    {
+       
+    }
+
+    protected void GridViewJudge_BeforePerformDataSelect(object sender, EventArgs e)
+    {
+        Session["TResearchId"] = (sender as ASPxGridView).GetMasterRowKeyValue();
+        string TeId = Utility.DecryptQS(HiddenFieldTeacherResearchAct["TeacherId"].ToString());
+        Session["TeId"] = TeId;
+        int TableType = -1;
+        //if (IsTeacherMember())
+        //{
+        //    TableType = (int)(TSP.DataManager.TableCodes.MemberResearchActivity);
+        //    Session["TableType"] = TableType;
+        //}
+        //else
+        //{
+        //    TableType = (int)(TSP.DataManager.TableCodes.TeacherResearchActivity);
+        //    Session["TableType"] = TableType;
+        //}
+    }
+   
+    #endregion
+
+    #region Methods
+    private void SetObjectDataSource()
+    {
+        TSP.DataManager.TeacherManager TeacherManager = new TSP.DataManager.TeacherManager();
+        string TeId = Utility.DecryptQS(HiddenFieldTeacherResearchAct["TeacherId"].ToString());
+        TeacherManager.FindByCode(int.Parse(TeId));
+
+        if (TeacherManager.Count > 0)
+        {
+            if (!string.IsNullOrEmpty(TeacherManager[0]["MeId"].ToString()))
+            {
+                ObjdsMemberResearchActivity.DataBind();
+                GridViewTeacherResearch.DataSource = ObjdsMemberResearchActivity;
+                GridViewTeacherResearch.KeyFieldName = "MraId";
+                ObjdsMemberResearchActivity.SelectParameters[0].DefaultValue = TeacherManager[0]["MeId"].ToString();
+                GridViewTeacherResearch.DataBind();
+                HiddenFieldTeacherResearchAct["IsMember"] = true;
+            }
+            else
+            {
+                ObjdsTeacherResearch.DataBind();
+                GridViewTeacherResearch.DataSource = ObjdsTeacherResearch;
+                GridViewTeacherResearch.KeyFieldName = "TResearchId";
+                ObjdsTeacherResearch.SelectParameters[0].DefaultValue = TeId;
+                GridViewTeacherResearch.DataBind();
+
+                TSP.DataManager.Permission per = TSP.DataManager.TeacherJobHistoryManager.GetUserPermission(int.Parse(Session["Login"].ToString()), (TSP.DataManager.UserType)int.Parse(Session["LoginType"].ToString()));
+                HiddenFieldTeacherResearchAct["IsMember"] = false;
+            }
+        }
+    }
+    #endregion
+   
+}

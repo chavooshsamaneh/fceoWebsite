@@ -1,0 +1,72 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using DevExpress.Web;
+
+public partial class Members_Sessions : System.Web.UI.Page
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (!IsPostBack)
+        {
+            ObjectDataSourceSessions.SelectParameters["MeId"].DefaultValue = Utility.GetCurrentUser_MeId().ToString();
+            ObjectDataSourceSessions.SelectParameters["UltId"].DefaultValue = Utility.GetCurrentUser_LoginType().ToString();
+        }
+
+        this.DivReport.Attributes.Add("Style", "display:block");
+        this.DivReport.Attributes.Add("Style", "display:none");
+        this.DivReport.Attributes.Add("onclick", "ChangeVisible(this)");
+        this.DivReport.Attributes.Add("onmouseover", "ChangeIcon(this)");
+    }
+
+    protected void btnView_Click(object sender, EventArgs e)
+    {
+        if (grdSession.FocusedRowIndex > -1)
+        {
+            Response.Redirect("ShowSession.aspx?SId=" + Utility.EncryptQS(grdSession.GetDataRow(grdSession.FocusedRowIndex)["SessionId"].ToString()));
+        }
+        else
+        {
+            ShowMessage("رکوردی انتخاب نشده است");
+        }
+    }
+
+    protected void grdSession_HtmlDataCellPrepared(object sender, ASPxGridViewTableDataCellEventArgs e)
+    {
+        switch (e.DataColumn.FieldName)
+        {
+            case "StartDate":
+                e.Cell.Style["direction"] = "ltr";
+                break;
+        }
+    }
+
+    protected void grdSession_AutoFilterCellEditorInitialize(object sender, ASPxGridViewEditorEventArgs e)
+    {
+        switch (e.Column.FieldName)
+        {
+            case "StartDate":
+                e.Editor.Style["direction"] = "ltr";
+                break;
+        }
+    }
+
+    protected void grdSession_HtmlRowPrepared(object sender, ASPxGridViewTableRowEventArgs e)
+    {
+        if (e.RowType != GridViewRowType.Data)
+            return;
+        if (String.Compare(e.GetValue("StartDate").ToString(), Utility.GetDateOfToday()) > 0)
+            e.Row.BackColor = System.Drawing.Color.LightSteelBlue;
+        else if (String.Compare(e.GetValue("StartDate").ToString(), Utility.GetDateOfToday()) == 0 && String.Compare(e.GetValue("StartTime").ToString(), Utility.GetCurrentTime()) > 0)
+            e.Row.BackColor = System.Drawing.Color.LightSteelBlue;
+    }
+
+    void ShowMessage(String Message)
+    {
+        this.DivReport.Attributes.Add("Style", "display:visible");
+        this.LabelWarning.Text = Message;
+    }
+}

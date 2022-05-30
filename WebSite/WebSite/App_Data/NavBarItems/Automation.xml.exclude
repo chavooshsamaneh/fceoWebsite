@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Groups>
+	<NavBarGroup Text="مدیریت عمومی" Name="grpBaseInfo">
+		<NavBarItem  NavigateUrl="~/Automation/BaseInfo/ManageFolders.aspx"  Text="مدیریت پرونده ها" Name="654" >
+			<!--Name="ManageFolder"--> 
+		</NavBarItem>
+		<NavBarItem   NavigateUrl="~/Automation/BaseInfo/ManageSecretariat.aspx"  Text="مدیریت دبیرخانه ها" Name="656" >
+			<!--Name="ManageSecretariat"-->
+		</NavBarItem>
+		<NavBarItem  NavigateUrl="~/Automation/BaseInfo/LetterTittleType.aspx"  Text="مدیریت گروه موضوعی" Name="668" >
+			<!--Name="LetterTittleType"-->
+		</NavBarItem>
+		<NavBarItem  NavigateUrl="~/Automation/FormCreator/Forms.aspx"  Text="فرم ساز" Name="663" >
+			<!--Name="FormCreator"--> 
+		</NavBarItem>
+	</NavBarGroup>
+	<NavBarGroup Text="مدیریت شخصی" Name="grpCartabl">
+		<NavBarItem   NavigateUrl="~/Automation/Letters/ManageCartables.aspx"  Text="مدیریت کارتابل ها" Name="653" >
+			<!--Name="ManageCartable"-->
+		</NavBarItem>
+		<NavBarItem NavigateUrl="~/Automation/Cartable.aspx"  Text="مدیریت مکاتبات اداری" Target="651" >
+			<!--Name="Cartable"-->
+		</NavBarItem>
+		<NavBarItem   NavigateUrl="~/Automation/Resignation/ManageResignation.aspx"  Text="مدیریت تفویض اختیار" Name="659" >
+			<!--Name="Resignation"-->
+		</NavBarItem>
+		<NavBarItem   NavigateUrl="~/Automation/CartableSettings.aspx"  Text="تنظيمات كارتابل جارى" Name="650">
+			<!--Name="CartableSettings"-->
+		</NavBarItem>
+		<NavBarItem   NavigateUrl="~/Automation/ReferenceSetting.aspx"  Text="مدیریت گردش سند" Name="677" >
+			<!--Name="ReferenceSetting"-->
+		</NavBarItem>
+	</NavBarGroup>
+</Groups>

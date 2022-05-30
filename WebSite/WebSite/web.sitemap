@@ -1,0 +1,1427 @@
+<?xml version="1.0" encoding="utf-8"?>
+<siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0">
+  <siteMapNode url="~/Default.aspx" title="صفحه نخست">
+    <siteMapNode url="" title="پرتال مهمان">
+      <siteMapNode url="~/TraceDocuments/TraceAutomationLetter.aspx" title="پیگیری سند" />
+      <siteMapNode url="~/TraceDocuments/TraceDocuments.aspx" title="بررسی اصالت اسناد" />
+
+      <siteMapNode url="~/TraceDocuments/TraceDocMemberFile.aspx" title="مشخصات  پروانه اشتغال شخص حقیقی" />
+      <siteMapNode url="~/Introduction.aspx" title="معرفی سازمان" />
+      <siteMapNode url="~/CandolenceDetail.aspx" title="مشاهده پیام" />
+      <siteMapNode url="~/ContactUs.aspx" title="تماس با ما" />
+      <siteMapNode url="~/NewsRssList.aspx" title="RSS Feeds" />
+      <siteMapNode url="~/Search.aspx" title="جستجو" />
+      <siteMapNode url="~/Login.aspx" title="ورود به سیستم" />
+      <siteMapNode url="~/MembersInfo/Members.aspx" title="اعضای حقیقی سازمان" />
+      <siteMapNode url="~/MembersInfo/Office.aspx" title="اعضای حقوقی سازمان" />
+      <siteMapNode url="~/MembersInfo/SearchIsNotAccessible.aspx" title="عدم دسترسی به صفحه" />
+      <siteMapNode url="~/Users/ResetPassword.aspx" title="بازیابی رمز عبور" />
+      <siteMapNode url="~/ErrorPage.aspx" title="خطا" />
+      <siteMapNode url="~/Forms.aspx" title="آرشیو فرم ها" />
+      <siteMapNode url="~/Tender.aspx" title="آرشیو مناقصات" />
+      <siteMapNode url="~/Rules.aspx" title="قوانین و مقررات" />
+      <siteMapNode url="~/Links.aspx" title="لینک های مرتبط" />
+      <siteMapNode url="~/PriceArchive.aspx" title="تعرفه خدمات مهندسی طراحی و نظارت" />
+      <siteMapNode url="~/PriceArchiveShow.aspx" title="مشخصات تعرفه خدمات مهندسی طراحی و نظارت" />
+      <siteMapNode url="~/tamas.aspx" title="تماس با ما" />
+      <siteMapNode url="~/nazarat.aspx" title="نظرات" />
+      <siteMapNode url="~/Help/Help.aspx" title="راهنمای سایت" />
+      <siteMapNode url="~/PasswordForget.aspx" title="فراموش کردن رمز عبور" />
+      <siteMapNode url="~/ChangeForgottenPassword.aspx" title="تغییر رمز عبور" />
+      <siteMapNode url="~/IntroductionWebSite.aspx" title="معرفی سامانه الکترونیکی نظام مهندسی" />
+
+      <siteMapNode url="~/WebsiteStatistics.aspx" title="آمار بازدید سایت" />
+      <siteMapNode url="~/ContactMaintance.aspx" title="تماس با پشتیبان فنی سایت" />
+      <siteMapNode url="~/NezamChart.aspx" title="چارت سازمانی" />
+      <siteMapNode url="" title="واحد آموزش">
+        <siteMapNode url="~/Learning/Course.aspx" title="واحدهای درسی مورد تایید نظام مهندسی">
+          <siteMapNode url="~/Learning/CourseView.aspx" title="مشخصات درس">
+            <siteMapNode url="~/Learning/CourseAttachments.aspx" title="فایل های پیوست" />
+            <siteMapNode url="~/Learning/CourseDetails.aspx" title="ارتباط با پروانه" />
+            <siteMapNode url="~/Learning/CourseGroups.aspx" title="گروه بندی" />
+            <siteMapNode url="~/Learning/CoursePrerequisite.aspx" title="پیشنیازها" />
+            <siteMapNode url="~/Learning/CourseRefrences.aspx" title="منابع درس" />
+          </siteMapNode>
+        </siteMapNode>
+
+        <siteMapNode url="~/Period.aspx" title="دوره های آموزشی">
+          <siteMapNode url="~/Amoozesh.aspx" title="مشخصات دوره" />
+          <siteMapNode url="~/PeriodsView.aspx" title="مشخصات دوره آموزشی" />
+        </siteMapNode>
+        <siteMapNode url="~/SeminarView.aspx" title="مشخصات سمینار" />
+      </siteMapNode>
+      <siteMapNode url="~/News.aspx" title="آرشیو اخبار">
+        <siteMapNode url="~/NewsShow.aspx" title="مشاهده خبر" />
+      </siteMapNode>
+      <siteMapNode url="~/NezamRegister/Membership.aspx" title="عضویت در سازمان">
+        <siteMapNode url="" title="عضویت حقیقی">
+          <siteMapNode url="~/NezamRegister/WizardMember_Membership.aspx" title="چهارچوب شئون حرفه ای">
+            <siteMapNode url="~/NezamRegister/WizardMember.aspx" title="مشخصات فردی">
+              <siteMapNode url="~/NezamRegister/WizardMemberLicence.aspx" title="مدارک تحصیلی">
+                <siteMapNode url="~/NezamRegister/WizardMemberJob.aspx" title="سوابق کاری">
+                  <siteMapNode url="~/NezamRegister/WizardMemberActivity.aspx" title="فعالیت ها">
+                    <siteMapNode url="~/NezamRegister/WizardMemberLanguage.aspx" title="زبان ها">
+                      <siteMapNode url="~/NezamRegister/WizardMemberSummary.aspx" title="خلاصه اطلاعات">
+                        <siteMapNode url="~/NezamRegister/WizardMemberFinish.aspx" title="ثبت نهایی" />
+                      </siteMapNode>
+                    </siteMapNode>
+                  </siteMapNode>
+                </siteMapNode>
+              </siteMapNode>
+            </siteMapNode>
+          </siteMapNode>
+        </siteMapNode>
+        <siteMapNode url="" title="عضویت حقوقی(شرکت)">
+          <siteMapNode url="~/NezamRegister/WizardOffice_Membership.aspx" title="چهارچوب شئون حرفه ای">
+            <siteMapNode url="~/NezamRegister/WizardOffice.aspx" title="مشخصات شرکت">
+              <siteMapNode url="~/NezamRegister/WizardOfficeAgent.aspx" title="شعبه ها">
+                <siteMapNode url="~/NezamRegister/WizardOfficeMember.aspx" title="اعضای شرکت">
+                  <siteMapNode url="~/NezamRegister/WizardOfficejob.aspx" title="سوابق کاری">
+                    <siteMapNode url="~/NezamRegister/WizardOfficeLetters.aspx" title="آگهی های رسمی">
+                      <siteMapNode url="~/NezamRegister/WizardOfficeSummary.aspx" title="خلاصه اطلاعات">
+                        <siteMapNode url="~/NezamRegister/WizardOfficeFinish.aspx" title="ثبت نهایی" />
+                      </siteMapNode>
+                    </siteMapNode>
+                  </siteMapNode>
+                </siteMapNode>
+              </siteMapNode>
+            </siteMapNode>
+          </siteMapNode>
+        </siteMapNode>
+      </siteMapNode>
+      <siteMapNode url="~/Agents.aspx" title="نمایندگی ها">
+        <siteMapNode url="~/AgentView.aspx" title="مشخصات نمایندگی" />
+      </siteMapNode>
+      <siteMapNode url="~/Association/ExGroupPeriods.aspx" title="دوره های انتخاباتی تشکل ها">
+        <siteMapNode url="~/Association/CandidateList.aspx" title="نامزدهای دوره انتخاباتی" />
+      </siteMapNode>
+      <siteMapNode url="~/ImageGallery/ImageGallery.aspx" title="گزارش تصاویر">
+        <siteMapNode url="~/ImageGallery/ImageGalleryFrame.aspx" title="تصاویر" />
+      </siteMapNode>
+      <siteMapNode url="~/Association/ManagersCandidate.aspx" title="نامزدهای انتخابات">
+        <siteMapNode url="~/Association/ManagersCandidateView.aspx" title="مشخصات نامزد انتخابات" />
+      </siteMapNode>
+    </siteMapNode>
+
+
+    <siteMapNode url="~/Employee/EmployeeHome.aspx" title="پرتال کارمندان">
+
+      <siteMapNode   title="جستجو">
+        <siteMapNode url="/Search/MemberSearch.aspx" title="جستجو اعضاي حقيقي "/>
+        <siteMapNode url="/Search/OfficeSearch.aspx" title="جستجو اعضاي حقوقي "/>
+        <siteMapNode url="/Search/EngOfficeSearch.aspx" title="جستجوی دفاتر"/>
+        <siteMapNode url="/Search/MemberInfoReport.aspx" title="خلاصه پرونده عضو حقیقی"/>
+      </siteMapNode>
+      <siteMapNode url="~/Employee/MembersRegister/MembersTemp.aspx" title="اعضای موقت"/>
+      <siteMapNode url="~/Employee/MembersRegister/Members.aspx" title="اعضای حقیقی">
+        <siteMapNode url="~/Employee/MembersRegister/MemberInsert.aspx" title="مشخصات عضو" />
+        <siteMapNode url="~/Employee/MembersRegister/MemberRegister.aspx" title="مشخصات عضو" />
+        <siteMapNode url="~/Employee/MembersRegister/MemberActivity.aspx" title="فعالیت ها" />
+        <siteMapNode url="~/Employee/MembersRegister/MembersAccounting.aspx" title="فیش مالی" />
+        <siteMapNode url="~/Employee/MembersRegister/MemberJob.aspx" title="سوابق کاری">
+          <siteMapNode url="~/Employee/MembersRegister/MemberJobInsert.aspx" title="مشخصات سابقه کاری">
+            <siteMapNode url="~/Employee/MembersRegister/MemberJobQuality.aspx" title="مطلوبیت کار انجام شده">
+              <siteMapNode url="~/Employee/MembersRegister/MemberJobQualityInsert.aspx" title="مشخصات مطلوبیت کار" />
+            </siteMapNode>
+          </siteMapNode>
+        </siteMapNode>
+        <siteMapNode url="~/Employee/MembersRegister/MemberLanguage.aspx" title="زبان ها" />
+        <siteMapNode url="~/Employee/MembersRegister/MemberLicence.aspx" title="مدارک تحصیلی">
+          <siteMapNode url="~/Employee/MembersRegister/MemberLicenceInsert.aspx" title="مشخصات مدرک" />
+        </siteMapNode>
+        <siteMapNode url="~/Employee/MembersRegister/MemberResearch1.aspx" title="مقالات" />
+        <siteMapNode url="~/Employee/MembersRegister/MemberMessage.aspx" title="پیام ها" />
+        <siteMapNode url="~/Employee/MembersRegister/MemberGroups.aspx" title="گروه ها" />
+        <siteMapNode url="~/Employee/MembersRegister/MemberAttachment.aspx" title="مستندات" />
+        <siteMapNode url="" title="درخواست های تغییرات">
+          <siteMapNode url="~/Employee/MembersRegister/MemberRequestShow.aspx" title="مشخصات درخواست" />
+        </siteMapNode>
+        <siteMapNode url="~/Employee/MembersRegister/MemberStatus1.aspx" title="تغییر وضعیت" />
+        <siteMapNode url="~/Employee/MembersRegister/MemberResetPassword.aspx" title="بازیابی رمز عبور" />
+        <siteMapNode url="~/Employee/MembersRegister/MemberLicenceReport.aspx" title="گزارش مدارک تحصیلی اعضا" />
+        <siteMapNode url="~/Employee/MembersRegister/ReportMemberRequestCard.aspx" title="گزارش چاپ درخواست های کارت عضویت" />
+        <siteMapNode url="~/Employee/MembersRegister/ReportMemberLicenceInquery.aspx" title="گزارش چاپ درخواست های استعلام مدرک تحصیلی" />
+        <siteMapNode url="~/Employee/MembersRegister/ReportMemberPollAnswers.aspx" title="گزارش تغییرات تنظیمات کاربری" />
+        <siteMapNode url="~/Employee/MembersRegister/MembersAgent.aspx" title="درخواست تغییرات دفتر نمایندگی اعضا">
+          <siteMapNode url="~/Employee/MembersRegister/MembersAgentInsert.aspx" title="مشخصات دفتر نمایندگی اعضا" />
+        </siteMapNode>
+
+        <siteMapNode url="~/Employee/MembersRegister/CancelMembership.aspx" title="درخواست قطع عضویت">
+          <siteMapNode url="~/Employee/MembersRegister/CancelMembershipInsert.aspx" title="مشخصات درخواست قطع عضویت" />
+        </siteMapNode>
+
+        <siteMapNode url="~/Employee/MembersRegister/MembersBankAccNo.aspx" title="درخواست تغییرات شماره حساب اعضا">
+          <siteMapNode url="~/Employee/MembersRegister/MembersBankAccNoInsert.aspx" title="مشخصات شماره حساب اعضا" />
+        </siteMapNode>
+      </siteMapNode>
+
+      <siteMapNode url="" title="اعضای حقوقی (شرکت ها)">
+        <siteMapNode url="~/Employee/OfficeRegister/OfficeDocument.aspx" title="مدیریت پروانه شرکت های حقوقی" />
+        <siteMapNode url="~/Employee/OfficeRegister/Office.aspx" title="مدیریت اعضای حقوقی (شرکت ها)"/>
+        <siteMapNode url="~/Employee/OfficeRegister/OfficeDocumentInsert.aspx" title="مشخصات پروانه عضو حقوقی" />
+        <siteMapNode url="~/Employee/OfficeRegister/OfficeInsert.aspx" title="مشخصات عضو حقوقی" />
+        <siteMapNode url="~/Employee/OfficeRegister/OfficeMembers.aspx" title="مدیریت اعضای شرکت">
+          <siteMapNode url="~/Employee/OfficeRegister/OfficeMemberInsert.aspx" title="مشخصات عضو" />
+        </siteMapNode>
+        <siteMapNode url="~/Employee/OfficeRegister/OfficeAgent.aspx" title="مدیریت شعبه های شرکت">
+          <siteMapNode url="~/Employee/OfficeRegister/OfficeAgentInsert.aspx" title="مشخصات شعبه" />
+        </siteMapNode>
+        <siteMapNode url="~/Employee/OfficeRegister/OfficeLetters.aspx" title="مدیریت روزنامه های رسمی شرکت" />
+        <siteMapNode url="~/Employee/OfficeRegister/OfficeAttachment.aspx" title="مدیریت مستندات" />
+        <siteMapNode url="~/Employee/OfficeRegister/OfficeGroups.aspx" title="مدیریت گروه ها" />
+        <siteMapNode url="~/Employee/OfficeRegister/OfficeJob.aspx" title="مدیریت سوابق کاری">
+          <siteMapNode url="~/Employee/OfficeRegister/OfficeJobInsert.aspx" title="مشخصات سابقه کاری">
+            <siteMapNode url="~/Employee/OfficeRegister/OfficeJobQuality.aspx" title="مطلوبیت کار انجام شده">
+              <siteMapNode url="~/Employee/OfficeRegister/OfficeJobQualityInsert.aspx" title="مشخصات مطلوبیت کار" />
+            </siteMapNode>
+          </siteMapNode>
+        </siteMapNode>
+        <siteMapNode url="~/Employee/OfficeRegister/OfficeFinancialStatus.aspx" title="مدیریت وضعیت مالی">
+          <siteMapNode url="~/Employee/OfficeRegister/OfficeFinancialStausInsert.aspx" title="مشخصات وضعیت مالی" />
+        </siteMapNode>
+      </siteMapNode>
+      <siteMapNode url="" title="ماده 27">
+        <siteMapNode url="~/Employee/27/ExpertFile.aspx" title="کارشناسان ماده 27">
+          <siteMapNode url="~/Employee/27/ExpertFileInsert.aspx" title="مشخصات کارشناس ماده 27"/>
+        </siteMapNode>
+      </siteMapNode>
+
+      <siteMapNode url="~/Employee/Employee/Employee.aspx" title="کارمندان">
+        <siteMapNode url="~/Employee/Employee/EmployeeInsert.aspx" title="مشخصات کارمند" />
+        <siteMapNode url="~/Employee/Employee/ChangePassword.aspx" title="تغییر رمز عبور" />
+        <siteMapNode url="~/Employee/Employee/AutomationUserRight.aspx" title=" سطح دسترسى اتواسيون ادارى" />
+        <siteMapNode url="~/Employee/Employee/SessionUserRight.aspx" title="سطح دسترسى جلسات" />
+        <siteMapNode url="~/Employee/Employee/UserRight1.aspx" title="سطح دسترسى صفحات" />
+        <siteMapNode url="~/Employee/Employee/TSProjectUserRight.aspx" title="سطح دسترسى خدمات مهندسی" />
+      </siteMapNode>
+      <siteMapNode url="" title="تعاریف سازمانی">
+        <siteMapNode url="~/Employee/Nezam/NezamChart.aspx" title="پست  سازمانی">
+          <siteMapNode url="~/Employee/Nezam/AddNezamChart.aspx" title="مشخصات پست سازمانی" />
+        </siteMapNode>
+        <siteMapNode url="~/Employee/Nezam/NezamMemberChart.aspx" title="پست سازمانی اعضا">
+          <siteMapNode url="~/Employee/Nezam/AddNezamMemberChart.aspx" title="مشخصات پست سازمانی عضو" />
+        </siteMapNode>
+        <siteMapNode url="~/Employee/Nezam/NezamMemberPosition.aspx" title="وضعیت اعضای نظام">
+          <siteMapNode url="~/Employee/Nezam/NezamMePositionInsert.aspx" title="مشخصات وضعیت عضو نظام" />
+        </siteMapNode>
+        <siteMapNode url="~/Employee/Nezam/NezamPeriod.aspx" title="دوره های نظام" />
+        <siteMapNode url="~/Employee/Nezam/Partition.aspx" title="مدیریت بخش ها" />
+        <siteMapNode url="~/Employee/Nezam/Agent.aspx" title="مدیریت نمایندگی ها">
+          <siteMapNode url="~/Employee/Nezam/AgentInsert.aspx" title="مشخصات نمایندگی" />
+          <siteMapNode url="~/Employee/Nezam/AgentAttachments.aspx" title="پیوست" />
+        </siteMapNode>
+        <siteMapNode url="~/Employee/Nezam/Nezam.aspx" title="مشخصات سازمان" />
+        <siteMapNode url="~/Employee/Nezam/GovManagerName.aspx" title="مدیریت مديران استاني/كشوري">
+          <siteMapNode url="~/Employee/Nezam/AddGovManagerName.aspx" title="مشخصات فرد" />
+        </siteMapNode>
+        <siteMapNode url="~/Employee/Nezam/GovManagerTitle.aspx" title="مدیریت سمت های استانی/کشوری" />
+      </siteMapNode>
+      <siteMapNode url="" title="پشتیبانی">
+        <siteMapNode url="~/Employee/Ticketing/TicketingManagment.aspx" title="مدیریت درخواستهای پشتیبانی" />
+        <siteMapNode url="~/Employee/Ticketing/AddTicket.aspx" title="درخواست پشتیبانی"/>
+      </siteMapNode>
+      <siteMapNode url="" title="واحد امور مالی">
+        <siteMapNode url="" title="مدیریت اطلاعات پایه">
+          <siteMapNode url="~/Accounting/BaseInfo/AccSettings.aspx" title="تنظیم حسابها" />
+          <siteMapNode url="~/Accounting/BaseInfo/CostSettings.aspx" title="تنظیم هزینه های دریافتی" />
+        </siteMapNode>
+        <siteMapNode url="" title="گزارشات">
+          <siteMapNode url="~/Accounting/Reports/AccountingFishes.aspx" title="گزارش خزانه" />
+        </siteMapNode>
+      </siteMapNode>
+      <siteMapNode url="~/Employee/Message/messageHome.aspx" title="مدیریت پیام ها">
+        <siteMapNode url="~/Employee/Message/MessageFromPublicUsers.aspx" title="نامه های دریافتی از کاربران عمومی" />
+        <siteMapNode url="~/Employee/Message/AnsweredMessageForPublicUsers.aspx" title="نامه های پاسخ داده شده به کاربران عمومی" />
+        <siteMapNode url="~/Employee/Message/Compose.aspx" title="ارسال پیام" />
+        <siteMapNode url="~/Employee/Message/Inbox.aspx" title="پیام های رسیده" />
+        <siteMapNode url="~/Employee/Message/inbox2.aspx" title="پیام های تأییدی" />
+        <siteMapNode url="~/Employee/Message/Group.aspx" title="گروه ها">
+          <siteMapNode url="~/Employee/Message/AddGroup.aspx" title="ویرایش گروه ها" />
+          <siteMapNode url="~/Employee/Message/GroupDetail.aspx" title="مشاهده اعضای گروه">
+            <siteMapNode url="~/Employee/Message/GroupMembers.aspx" title="تغییر اعضای گروه" />
+          </siteMapNode>
+        </siteMapNode>
+        <siteMapNode url="~/Employee/Message/MessSent.aspx" title="پیام های ارسال شده" />
+      </siteMapNode>
+      <siteMapNode url="" title="پیام های کوتاه(SMS)">
+        <siteMapNode url="~/Employee/SMS/NewSms.aspx" title="ارسال پیام کوتاه" />
+        <siteMapNode url="~/Employee/SMS/SMSType.aspx" title="مدیریت نوع پیام">
+          <siteMapNode url="~/Employee/SMS/SMSTypeCost.aspx" title="مدیریت هزینه نوع پیام" />
+        </siteMapNode>
+        <siteMapNode url="~/Employee/SMS/ConfirmedSMS.aspx" title="مدیریت پیام های کوتاه">
+          <siteMapNode url="~/Employee/SMS/SendSMS.aspx" title="ارسال پیام کوتاه" />
+        </siteMapNode>
+        <siteMapNode url="~/Employee/SMS/SMSCost.aspx" title="مدیریت هزینه پیام">
+          <siteMapNode url="~/Employee/SMS/SMSCostInsert.aspx" title="مشخصات هزینه پیام کوتاه" />
+        </siteMapNode>
+        <siteMapNode url="~/Employee/SMS/SMSRecieveresReport.aspx" title="گیرندگان پیام کوتاه" />
+        <siteMapNode url="~/Employee/SMS/SMSInbox.aspx" title="پیام های کوتاه دریافت شده" />
+        <siteMapNode url="~/Employee/SMS/Setting.aspx" title="تنظیمات پیام کوتاه" />
+        <siteMapNode url="~/Employee/Ticketing/ConflictManagment.aspx" title="مدیریت اعلام مغایرت ها" />
+      </siteMapNode>
+      <siteMapNode url="" title="تنظیمات و مدیریت سامانه">
+        <siteMapNode url="~/Employee/Management/country.aspx" title="مدیریت کشورها" />
+        <siteMapNode url="~/Employee/Management/Province.aspx" title="مدیریت استان ها" >
+          <siteMapNode url="~/Employee/Management/ProvinceInsert.aspx" title="مشخصات استان" />
+        </siteMapNode>
+        <siteMapNode url="~/Employee/Management/City1.aspx" title="مدیریت شهرها" />
+        <siteMapNode url="~/Employee/Management/RegionOfCity.aspx" title="مدیریت شهرستان ها" />
+        <siteMapNode url="~/Employee/Management/NeededDocuments.aspx" title="مدیریت اسناد مورد نیاز" />
+
+        <siteMapNode url="~/Employee/Management/University.aspx" title="مدیریت دانشگاه ها">
+          <siteMapNode url="~/Employee/Management/UniversityInsert.aspx" title="مشخصات دانشگاه" />
+        </siteMapNode>
+        <siteMapNode url="~/Employee/Management/ContactUsSettings.aspx" title="تنظیمات تماس با ما" />
+        <siteMapNode url="~/Employee/Management/Major.aspx" title="مدیریت رشته های تحصیلی" />
+        <siteMapNode url="~/Employee/Management/SettlementAgent.aspx" title="مدیریت اعضاء مسکن">
+          <siteMapNode url="~/Employee/Management/AddSettlementAgent.aspx" title="مشخصات عضو مسکن" />
+        </siteMapNode>
+        <siteMapNode url="~/Employee/Management/Municipality.aspx" title="مدیریت شهرداری ها">
+          <siteMapNode url="~/Employee/Management/AddMunicipality.aspx" title="مشخصات شهرداری" />
+        </siteMapNode>
+        <siteMapNode url="~/Employee/Management/Language.aspx" title="مدیریت زبان ها" />
+        <siteMapNode url="~/Employee/Management/ActivitySubject.aspx" title="مدیریت زمینه های فعالیت" />
+        <siteMapNode url="~/Employee/Management/Licence1.aspx" title="مدیریت انواع مدارک" />
+        <siteMapNode url="~/Employee/Management/ResearchActivity.aspx" title="مدیریت مقالات و تحقیقات" />
+        <siteMapNode url="~/Employee/Management/Commission.aspx" title="مدیریت کمیسیون های همکاری" />
+        <siteMapNode url="~/Employee/Management/Region.aspx" title="مدیریت مناطق ماده 27" />
+        <siteMapNode url="~/Employee/Management/Organization.aspx" title="مدیریت ديگر سازمان ها">
+          <siteMapNode url="~/Employee/Management/OrganizationInsert.aspx" title="مشخصات سازمان" />
+        </siteMapNode>
+        <siteMapNode url="~/Employee/Management/MunEmployee.aspx" title="کارمندان شهرداری">
+          <siteMapNode url="~/Employee/Management/MunEmployeeInsert.aspx" title="مشخصات کارمند شهرداری" />
+        </siteMapNode>
+        <siteMapNode url="~/Employee/Management/City.aspx" title="مدیریت شهرها">
+          <siteMapNode url="~/Employee/Management/CityInsert.aspx" title="مشخصات شهر" />
+        </siteMapNode>
+        <siteMapNode url="" title="تشکل ها">
+          <siteMapNode url="~/Employee/ExGroup/ExGroup.aspx" title="مدیریت انواع تشکل ها" />
+          <siteMapNode url="~/Employee/ExGroup/ExGroupPeriod.aspx" title="مدیریت دوره ها">
+            <siteMapNode url="~/Employee/ExGroup/ExGroupPeriodInsert.aspx" title="مشخصات دوره ها" />
+          </siteMapNode>
+          <siteMapNode url="~/Employee/ExGroup/Candidate.aspx" title="مدیریت نامزدها">
+            <siteMapNode url="~/Employee/ExGroup/CandidateInsert.aspx" title="مشخصات نامزد" />
+          </siteMapNode>
+        </siteMapNode>
+        <siteMapNode url="~/Employee/Management/Major1.aspx" title="مدیریت رشته های تحصیلی">
+          <siteMapNode url="~/Employee/Management/MajorInsert.aspx" title="مشخصات رشته" />
+        </siteMapNode>
+        <siteMapNode url="~/Employee/Management/DefaultThemes.aspx" title="مدیریت طرح های پیش فرض ">
+          <siteMapNode url="~/Employee/Management/AddDefaultThemes.aspx" title="مشخصات طرح های پیش فرض" />
+        </siteMapNode>
+        <siteMapNode url="~/Employee/Management/PrintSetting.aspx" title="مدیریت امضاکنندگان گواهینامه ها">
+          <siteMapNode url="~/Employee/Management/AddPrintSetting.aspx" title="مشخصات امضاکنندگان گواهینامه ها" />
+        </siteMapNode>
+      </siteMapNode>
+      <siteMapNode url="" title="مدیریت وب سایت">
+        <siteMapNode url="~/Employee/HomePage/Forms.aspx" title="مدیریت فرم ها">
+          <siteMapNode url="~/Employee/HomePage/AddForm.aspx" title="مشخصات فرم" />
+        </siteMapNode>
+        <siteMapNode url="~/Employee/HomePage/FormsType.aspx" title="مدیریت نوع فرم ها">
+          <siteMapNode url="~/Employee/HomePage/AddFormsType.aspx" title="مشخصات نوع فرم" />
+        </siteMapNode>
+        <siteMapNode url="~/Employee/HomePage/Tender.aspx" title="مدیریت مناقصات">
+          <siteMapNode url="~/Employee/HomePage/AddTender.aspx" title="مشخصات مناقصه" />
+        </siteMapNode>
+        <siteMapNode url="~/Employee/HomePage/Rules.aspx" title="مدیریت قوانین و مقررات">
+          <siteMapNode url="~/Employee/HomePage/AddRule.aspx" title="متن قانون" />
+        </siteMapNode>
+        <siteMapNode url="~/Employee/HomePage/Links.aspx" title="مدیریت لینک های مرتبط">
+          <siteMapNode url="~/Employee/HomePage/AddLink.aspx" title="مشخصات لینک مرتبط" />
+        </siteMapNode>
+        <siteMapNode url="~/Employee/HomePage/ImageGalleryAlbum.aspx" title="مدیریت گزارش تصویری">
+          <siteMapNode url="~/Employee/HomePage/ImageGalleryImages.aspx" title="تصاویر آلبوم" />
+        </siteMapNode>
+        <siteMapNode url="~/Employee/HomePage/News.aspx" title="مدیریت اخبار">
+          <siteMapNode url="~/Employee/HomePage/NewsInsert1.aspx" title="مشخصات خبر" />
+          <siteMapNode url="~/Employee/HomePage/ShowNews.aspx" title="مشاهده خبر" />
+        </siteMapNode>
+        <siteMapNode url="~/Employee/HomePage/NewsSubject1.aspx" title="مدیریت موضوعات خبر" />
+        <siteMapNode url="~/Employee/HomePage/IntroductionInsert.aspx" title="مدیریت معرفی سازمان" />
+        <siteMapNode url="~/Employee/HomePage/HomePageAttachments.aspx" title="مدیریت صفحه نخست" />
+        <siteMapNode url="Employee/HomePage/Videos.aspx"   title="مدیریت گزارشات ویدیویی" />
+        <siteMapNode url="/Employee/HomePage/Podcast.aspx"   title="مدیریت گزارشات صوتی"  />
+        <siteMapNode url="~/Employee/HomePage/Condolence.aspx" title="مدیریت تبریک و تسلیت">
+          <siteMapNode url="~/Employee/HomePage/AddCondolence.aspx" title="مشخصات تبریک و تسلیت" />
+        </siteMapNode>
+        <siteMapNode url="~/Employee/HomePage/RulsType.aspx" title="مدیریت انواع بخشنامه ها">
+          <siteMapNode url="~/Employee/HomePage/AddRulesType.aspx" title="مشخصات انواع بخشنامه ها" />
+        </siteMapNode>
+        <siteMapNode url="/Employee/Management/FAQ.aspx"   title="مدیریت سوالات متداول" >
+        </siteMapNode>
+        <siteMapNode url="/Employee/Management/SubSystems.aspx"   title="مدیریت سامانه ها" >
+        </siteMapNode>
+      </siteMapNode>
+      <siteMapNode url="" title="واحد صدور پروانه">
+        <siteMapNode url="/Employee/Document/Delivery.aspx" title="مدیریت تحویل پروانه شخص حقیقی">
+          <siteMapNode  url="/Employee/Document/DeliveryInsert.aspx" title="مشخصات تحویل پروانه شخص حقیقی"></siteMapNode>
+        </siteMapNode>
+
+        
+        <siteMapNode url="~/Employee/Document/GasOfficeMembersManagement.aspx" title="مدیریت اعضای دفتر گاز" />
+        <siteMapNode url="~/Employee/Document/AccountingUnitDocConfirm.aspx" title="مدیریت تاییداسناد مالی پروانه اشتغال" />
+        <siteMapNode url="~/Employee/Document/ResponsibilityTypes.aspx" title="مدیریت صلاحیت ها" />
+        <siteMapNode url="~/Employee/Document/DocMemberFileAcceptTypes.aspx" title="مدیریت شیوه اخذ پروانه" />
+        <siteMapNode url="~/Employee/Document/TestTypes.aspx" title="مدیریت زمینه های آزمون" />
+        <siteMapNode url="~/Employee/Document/MajorTestTypes.aspx" title="مدیریت زمینه های آزمون براساس رشته" />
+        <siteMapNode url="~/Employee/Document/ConfirmedGrade.aspx" title="مدیریت پایه های تایید شده">
+          <siteMapNode url="~/Employee/Document/AddConfirmedGrade.aspx" title="مشخصات پایه تایید شده"></siteMapNode>
+        </siteMapNode>
+        <siteMapNode url="~/Employee/Document/UpGradePoint.aspx" title="مدیریت امتیازات ارتقاء پایه/تمدید">
+          <siteMapNode url="~/Employee/Document/AddUpGradePoint.aspx" title="مشخصات امتیازات ارتقاء پایه/تمدید" />
+        </siteMapNode>
+        <siteMapNode url="~/Employee/Document/TestCondition.aspx" title="مدیریت شر ایط آزمون">
+          <siteMapNode url="~/Employee/Document/AddTestCondition.aspx" title="مشخصات شرایط آزمون" />
+        </siteMapNode>
+        <siteMapNode url="~/Employee/Document/MemberFile.aspx" title="مدیریت پروانه اشتغال به کار">
+          <siteMapNode url="~/Employee/Document/AddMemberFile.aspx" title="مشخصات پروانه اشتغال به کار" />
+          <siteMapNode url="~/Employee/Document/MemberExam.aspx" title="مدیریت آزمون های پذیرفته شده">
+            <siteMapNode url="~/Employee/Document/AddMemberExam.aspx" title="مشخصات آزمون های پذیرفته شده" />
+          </siteMapNode>
+          <siteMapNode url="~/Employee/Document/MemberConfirmJobHistory.aspx" title="مدیریت تاییدکنندگان سابقه کار" >
+            <siteMapNode url="~/Employee/Document/AddMemberJobConfirm.aspx" title="تاییدکننده سابقه کار" />
+          </siteMapNode>
+          <siteMapNode url="~/Employee/Document/MemberPeriods.aspx" title="دوره ها و سمینار ها" />
+          <siteMapNode url="~/Employee/Document/DocumentAccounting.aspx" title="فیش های پروانه اشتغال" />
+          <siteMapNode url="~/Employee/Document/DocResponsibility.aspx" title="مدیریت پایه و صلاحیت های پروانه">
+            <siteMapNode url="~/Employee/Document/AddDocResponsibility.aspx" title="مشخصات پایه و صلاحیت" />
+          </siteMapNode>
+          <siteMapNode url="~/Employee/Document/DocumentAttachment.aspx" title="مدیریت مدارک پیوست پروانه" />
+          <siteMapNode url="~/Employee/Document/MemberDocCapacity.aspx" title="ظرفیت اشتغال" />
+        </siteMapNode>
+        <siteMapNode url="~/Employee/ImplementDoc/ImplementDoc.aspx" title="مدیریت مجوز فعالیت مجری حقیقی">
+          <siteMapNode url="~/Employee/ImplementDoc/AddImplementDoc.aspx" title="مشخصات مجوز فعالیت مجری حقیقی" />
+          <siteMapNode url="~/Employee/ImplementDoc/FinancialStatus.aspx" title="مدیریت توان مالی مجری حقیقی">
+            <siteMapNode url="~/Employee/ImplementDoc/AddFinancialStatus.aspx" title="مشخصات توان مالی مجری حقیقی" />
+          </siteMapNode>
+        </siteMapNode>
+        <siteMapNode url="~/Employee/Document/ObservationDoc.aspx" title="مدیریت مجوز فعالیت ناظر حقیقی_به تنهایی">
+          <siteMapNode url="~/Employee/Document/AddObservationDoc.aspx" title="مشخصات مجوز ناظر حقیقی" />
+        </siteMapNode>
+        <siteMapNode url="~/Employee/Document/MemberJobHistory.aspx" title="مدیریت سابقه کار">
+          <siteMapNode url="~/Employee/Document/AddMemberJobHistory.aspx" title="مشخصات سابقه کار">
+            <siteMapNode url="~/Employee/Document/MemberJobQualification.aspx" title="مدیریت مطلوبیت سابقه کار">
+              <siteMapNode url="~/Employee/Document/AddMemeberJobQualification.aspx" title="مشخصات مطلوبیت سابه کار" />
+            </siteMapNode>
+          </siteMapNode>
+        </siteMapNode>
+        <siteMapNode url="~/Employee/Document/EngOffice/EngOffice.aspx" title="مدیریت دفاتر">
+          <siteMapNode url="~/Employee/Document/EngOffice/EngOfficeRegister.aspx" title="مشخصات دفتر" />
+          <siteMapNode url="~/Employee/Document/EngOffice/EngOfficeMember.aspx" title="اعضای دفتر">
+            <siteMapNode url="~/Employee/Document/EngOffice/EngOfficeMemberInsert.aspx" title="مشخصات عضو" />
+          </siteMapNode>
+          <siteMapNode url="~/Employee/Document/EngOffice/EngOfficeJob.aspx" title="سوابق کاری">
+            <siteMapNode url="~/Employee/Document/EngOffice/EngOfficeJobShow.aspx" title="مشخصات سابقه کاری" />
+          </siteMapNode>
+          <siteMapNode url="~/Employee/Document/EngOffice/EngOfficeAttachment.aspx" title="مستندات" />
+        </siteMapNode>
+        <siteMapNode url="~/Employee/Document/Reports/MemberFilePrintingHistory.aspx" title="گزارش چاپ کارت های پروانه شخص حقیقی" />
+        <siteMapNode url="~/Employee/Document/Reports/EngOfficePrintingHistory.aspx" title="گزارش چاپ کارت های پروانه دفاتر مهندسی" />
+        <siteMapNode url="~/Employee/Document/Reports/OfficePrintingHistory.aspx" title="گزارش چاپ کارت های پروانه شرکت های حقوقی" />
+        <siteMapNode url="~/Employee/Document/Reports/MemberImpDocPrintingHistory.aspx" title="گزارش چاپ کارت های مجوز فعالیت مجری حقیقی" />
+        <siteMapNode url="~/Employee/Document/DocRespomsibilityRange.aspx" title="مدیریت محدوده صلاحیت">
+          <siteMapNode url="~/Employee/Document/AddDocRespomsibilityRange.aspx" title="مشخصات محدوده صلاحیت" />
+        </siteMapNode>
+        <siteMapNode url="~/Employee/Document/MemberConfirmJobEditDate.aspx" title="مدیریت سوابق کار بدون تاریخ"/>
+      </siteMapNode>
+      <siteMapNode url="" title="واحد آموزش">
+        <siteMapNode url="~/Employee/Amoozesh/Teachers.aspx" title="مدیریت اساتید">
+          <siteMapNode url="~/Employee/Amoozesh/AddTeachers.aspx" title="مشخصات استاد">
+            <siteMapNode url="~/Employee/Amoozesh/TeachersLicence.aspx" title="مدارک تحصیلی">
+              <siteMapNode url="~/Employee/Amoozesh/AddTeacherLicence.aspx" title="مشخصات مدرک" />
+            </siteMapNode>
+            <siteMapNode url="~/Employee/Amoozesh/TeacherJobHistory.aspx" title="سوابق کاری">
+              <siteMapNode url="~/Employee/Amoozesh/AddTeacherJobHistory.aspx" title="مشخصات سابقه کاری" />
+            </siteMapNode>
+            <siteMapNode url="~/Employee/Amoozesh/TeacherResearchAct.aspx" title="تألیفات و تحقیقات">
+              <siteMapNode url="~/Employee/Amoozesh/AddTeacherResearches.aspx" title="مشخصات تحقیقات" />
+            </siteMapNode>
+            <siteMapNode url="~/Employee/Amoozesh/TeacherAttachment.aspx" title="مستندات" />
+            <siteMapNode url="~/Employee/Amoozesh/TeacherCourse.aspx" title="دروس">
+              <siteMapNode url="~/Employee/Amoozesh/TeacherCourseJudgment.aspx" title="نظر کارشناس" />
+            </siteMapNode>
+          </siteMapNode>
+        </siteMapNode>
+        <siteMapNode url="~/Employee/Amoozesh/Course.aspx" title="مدیریت دروس مورد تایید نظام مهندسی">
+          <siteMapNode url="~/Employee/Amoozesh/AddCourses.aspx" title="مشخصات درس">
+            <siteMapNode url="~/Employee/Amoozesh/CourseAttachments.aspx" title="فایل های پیوست" />
+            <siteMapNode url="~/Employee/Amoozesh/CourseGroups.aspx" title="گروه بندی درس" />
+            <siteMapNode url="~/Employee/Amoozesh/CourseRefrences.aspx" title="منابع درس" />
+            <siteMapNode url="~/Employee/Amoozesh/CoursePrerequisite.aspx" title="پیش نیاز درس" />
+            <siteMapNode url="~/Employee/Amoozesh/AddCourseDetails.aspx" title="ارتباط با پروانه" />
+          </siteMapNode>
+        </siteMapNode>
+        <siteMapNode url="~/Employee/Amoozesh/Periods.aspx" title="مدیریت دوره های آموزشی">
+          <siteMapNode url="~/Employee/Amoozesh/AddPeriods.aspx" title="مشخصات دوره های آموزشی"/>
+          <siteMapNode url="~/Employee/Amoozesh/PeriodsView.aspx" title="مشخصات دوره">
+
+            <siteMapNode url="~/Employee/Amoozesh/PeriodOpinionForm.aspx" title="فرم نظر سنجی" />
+            <siteMapNode url="~/Employee/Amoozesh/InActivePeriod.aspx" title="لغو دوره آموزشی" />
+          </siteMapNode>
+          <siteMapNode url="~/Employee/Amoozesh/Test.aspx" title="آزمون های دوره">
+            <siteMapNode url="~/Employee/Amoozesh/AddTests.aspx" title="مشخصات آزمون" />
+            <siteMapNode url="~/Employee/Amoozesh/TestAttender.aspx" title="شرکت کنندگان در آزمون">
+              <siteMapNode url="~/Employee/Amoozesh/AddTestAttenders.aspx" title="مشخصات شرکت کنندکان" />
+              <siteMapNode url="~/Employee/Amoozesh/AddGrades.aspx" title="نمرات شرکت کننده گان" />
+            </siteMapNode>
+            <siteMapNode url="~/Employee/Amoozesh/TestObserver.aspx" title="ناظرین آزمون">
+              <siteMapNode url="~/Employee/Amoozesh/AddTestObservers.aspx" title="مشخصات ناظرین" />
+            </siteMapNode>
+          </siteMapNode>
+          <siteMapNode url="~/Employee/Amoozesh/PeriodAttender.aspx" title="شرکت کنندگان در دوره">
+            <siteMapNode url="~/Employee/Amoozesh/AddPeriodAttenders.aspx" title="مشخصات شرکت کننده در دوره">
+              <siteMapNode url="~/Employee/Amoozesh/AddOtherPerson.aspx" title="تعریف شخص حدید" />
+            </siteMapNode>
+          </siteMapNode>
+          <siteMapNode url="~/Employee/Amoozesh/TestSession.aspx" title="صورت جلسه آزمون" />
+        </siteMapNode>
+        <siteMapNode url="~/Employee/Amoozesh/Institue.aspx" title="مدیریت مؤسسه ها">
+          <siteMapNode url="~/Employee/Amoozesh/AddInstitues.aspx" title="مشخصات مؤسسه">
+            <siteMapNode url="~/Employee/Amoozesh/InstitueManager.aspx" title="هیئت اجرایی مؤسسه">
+              <siteMapNode url="~/Employee/Amoozesh/AddInstitueManager.aspx" title="مشخصات هیئت اجرایی" />
+            </siteMapNode>
+            <siteMapNode url="~/Employee/Amoozesh/InstitueActivity.aspx" title="زمینه های فعالیت مؤسسه" />
+            <siteMapNode url="~/Employee/Amoozesh/InstituteFacilities.aspx" title="امکانات و تجهیزات مؤسسه">
+              <siteMapNode url="~/Employee/Amoozesh/AddInstituteFacilities.aspx" title="مشخصات امکانات و تجهیزات" />
+            </siteMapNode>
+            <siteMapNode url="~/Employee/Amoozesh/InstitueTeachers.aspx" title="اساتید">
+              <siteMapNode url="~/Employee/Amoozesh/AddInstitueTeachers.aspx" title="مشخصات استاد" />
+            </siteMapNode>
+            <siteMapNode url="~/Employee/Amoozesh/InstitueLearningManagerJudgment.aspx" title="نظر کارشناسی مدیر آموزش" />
+            <siteMapNode url="~/Employee/Amoozesh/InstitueObserveJudgment.aspx" title="نظر کارشناسی بازرس" />
+            <siteMapNode url="~/Employee/Amoozesh/InstitueCommitteeJudgment.aspx" title="نظر کارشناسی کمیته آموزش" />
+          </siteMapNode>
+        </siteMapNode>
+        <siteMapNode url="~/Employee/Amoozesh/Observer.aspx" title="مدیریت ناظرین">
+          <siteMapNode url="~/Employee/Amoozesh/AddObservers.aspx" title="مشخصات ناظرین" />
+        </siteMapNode>
+        <siteMapNode url="~/Employee/Amoozesh/MemberLicence.aspx" title="مدیریت گواهینامه های آموزشی">
+          <siteMapNode url="~/Employee/Amoozesh/AddMemberLicence.aspx" title="مشخصات مدرک" />
+          <siteMapNode url="~/Employee/Amoozesh/AddPeriodRegister.aspx" title="ثبت گواهی نامه آموزشی خارج از نوبت" />
+        </siteMapNode>
+        <siteMapNode url="~/Employee/Amoozesh/Seminar.aspx" title="مدیریت دوره های غیر مصوب و سمینارهای آموزشی">
+          <siteMapNode url="~/Employee/Amoozesh/SeminarView.aspx" title="مشخصات سمینار" />
+          <siteMapNode url="~/Employee/Amoozesh/SeminarAttender.aspx" title="شرکت کنندگان سمینار" />
+          <siteMapNode url="~/Employee/Amoozesh/SeminarCosts.aspx" title="هزینه های متفرقه" />
+
+        </siteMapNode>
+        <siteMapNode url="~/Employee/Amoozesh/TeachersSalary.aspx" title="مدیریت حق الزحمه اساتید">
+          <siteMapNode url="~/Employee/Amoozesh/AddTeacherSalary.aspx" title="مشخصات حق الزحمه اساتید" />
+        </siteMapNode>
+        <siteMapNode url="~/Employee/Amoozesh/TeachingCertificateGrade.aspx" title="مدیریت امتیازات اساتید">
+          <siteMapNode url="~/Employee/Amoozesh/AddTeachingCertificateGrade.aspx" title="مشخصات امتیازات استاد" />
+        </siteMapNode>
+        <siteMapNode url="~/Employee/Amoozesh/PreRegister.aspx" title="پیش ثبت نام دروس">
+          <siteMapNode url="~/Employee/Amoozesh/AddPreRegister.aspx" title="مشخصات پیش ثبت نام" />
+        </siteMapNode>
+        <siteMapNode url="~/Employee/Amoozesh/TrainingQuestions.aspx" title="آرشیو سؤالات امتحانی">
+          <siteMapNode url="~/Employee/Amoozesh/AddTrainingQuestion.aspx" title="مشخصات آرشیو سؤالات" />
+        </siteMapNode>
+        <siteMapNode url="~/Employee/Amoozesh/TrainingGroups.aspx" title="گروه های آموزشی" />
+        <siteMapNode url="~/Employee/Amoozesh/Questions.aspx" title="آرشیو سؤالات نظر سنجی">
+          <siteMapNode url="~/Employee/Amoozesh/AddQuestion.aspx" title="مشخصات سؤال نظر سنجی" />
+        </siteMapNode>
+        <siteMapNode url="~/Employee/Amoozesh/MemberResearchActivity.aspx" title="مدیریت تالیفات و تحقیقات">
+          <siteMapNode url="~/Employee/Amoozesh/AddMemberResearchActivity.aspx" title="مشخصات تالیفات و تحقیقات" />
+        </siteMapNode>
+        <siteMapNode url="~/Employee/Amoozesh/Lecturer.aspx" title="مدیریت سخنران ها">
+          <siteMapNode url="~/Employee/Amoozesh/AddLecturer.aspx" title="مشخصات سخنران" />
+        </siteMapNode>
+        <siteMapNode url="~/Employee/Amoozesh/ReportMemberPeriods.aspx" title="گزارش دورهای گذرانده" />
+        <siteMapNode url="~//Employee/Amoozesh/HomePageFiles.aspx" title="مدیریت فایل های صفحه نخست" />
+      </siteMapNode>
+      <siteMapNode url="" title="کنترل عملکرد کاربران">
+        <siteMapNode url="~/Employee/ControlUserOperations/UserLogs.aspx" title="کنترل ورود و خروج کاربران" />
+        <siteMapNode url="~/Employee/ControlUserOperations/WorkFlowUserTask.aspx" title="کنترل گردش پرونده ها" />
+        <siteMapNode url="~/Employee/ControlUserOperations/TempPassSetting.aspx" title="تنظیمات رمز یکبار عبور" />
+      </siteMapNode>
+      <siteMapNode url="~/Employee/Groups.aspx" title="مدیریت گروه ها">
+        <siteMapNode url="~/Employee/AddGroup.aspx" title="مشخصات گروه" />
+      </siteMapNode>
+
+      <!--<siteMapNode  title="اتوماسیون اداری">
+        <siteMapNode url="" title="تیکتینگ">
+        </siteMapNode>
+      </siteMapNode>-->
+
+      <siteMapNode  title="خدمات مهندسی">
+        <siteMapNode url="" title="اطلاعات پایه">
+          <siteMapNode url="~/Employee/TechnicalServices/BaseInfo/DiscountPercent.aspx" title="درصد تخفیف برای پروژه های خاص">
+            <siteMapNode url="~/Employee/TechnicalServices/BaseInfo/AddDiscountPercent.aspx" title="مشخصات درصد تخفیف" />
+          </siteMapNode>
+          <siteMapNode url="~/Employee/TechnicalServices/BaseInfo/ProjectIngridientMajors.aspx" title="مدیریت رشته های مجاز عوامل پروِژه">
+            <siteMapNode url="~/Employee/TechnicalServices/BaseInfo/ProjectIngridientMajorsInsert.aspx" title="رشته مجاز عوامل پروِژه" />
+          </siteMapNode>
+          <siteMapNode url="~/Employee/TechnicalServices/Plan/PlanControler.aspx" title="مدیریت کنترل کنندگان نقشه">
+            <siteMapNode url="~/Employee/TechnicalServices/Plan/AddPlanControler.aspx" title="مشخصات کنترل کننده نقشه" />
+          </siteMapNode>
+          <siteMapNode url="~/Employee/TechnicalServices/BaseInfo/MemberDsgnCapacity.aspx" title="مدیریت ظرفیت اشتغال طراحی/نظارت شخص حقیقی">
+            <siteMapNode url="~/Employee/TechnicalServices/BaseInfo/MemberDsgnCapacityInsert.aspx" title="ظرفیت اشتغال طراحی/نظارت شخص حقیقی" />
+          </siteMapNode>
+          <siteMapNode url="~/Employee/TechnicalServices/BaseInfo/EngOffDsgnCapacity.aspx" title="مدیریت ظرفیت اشتغال طراحی/نظارت دفاتر طراحی">
+            <siteMapNode url="~/Employee/TechnicalServices/BaseInfo/EngOffDsgnCapacityInsert.aspx" title="ظرفیت اشتغال طراحی/نظارت دفاتر طراحی" />
+          </siteMapNode>
+          <siteMapNode url="~/Employee/TechnicalServices/BaseInfo/OffDsgnCapacity.aspx" title="مدیریت ظرفیت اشتغال طراحی/نظارت شخص حقوقی">
+            <siteMapNode url="~/Employee/TechnicalServices/BaseInfo/OffDsgnCapacityInsert.aspx" title="ظرفیت اشتغال طراحی/نظارت شخص حقوقی" />
+          </siteMapNode>
+          <siteMapNode url="~/Employee/TechnicalServices/BaseInfo/MemberImpCapacity.aspx" title="مدیریت ظرفیت اشتغال اجرا شخص حقیقی">
+            <siteMapNode url="~/Employee/TechnicalServices/BaseInfo/MemberImpCapacityInsert.aspx" title="ظرفیت اشتغال اجرا شخص حقیقی" />
+          </siteMapNode>
+          <siteMapNode url="~/Employee/TechnicalServices/BaseInfo/OffImpCapacity.aspx" title="مدیریت ظرفیت اشتغال اجرا شخص حقوقی">
+            <siteMapNode url="~/Employee/TechnicalServices/BaseInfo/OffImpCapacityInsert.aspx" title="ظرفیت اشتغال اجرا شخص حقوقی" />
+          </siteMapNode>
+          <siteMapNode url="~/Employee/TechnicalServices/PriceArchive/PriceArchive.aspx" title="مدیریت تعرفه خدمات مهندسی طراحی و نظارت">
+            <siteMapNode url="~/Employee/TechnicalServices/PriceArchive/SavePriceArchive.aspx" title="مشخصات تعرفه خدمات مهندسی طراحی و نظارت" />
+          </siteMapNode>
+          <siteMapNode url="~/Employee/TechnicalServices/BaseInfo/Setting.aspx" title="مدیریت تنظیمات خدمات مهندسی">
+            <siteMapNode url="~/Employee/TechnicalServices/BaseInfo/AddSetting.aspx" title="مشخصات تنظیمات خدمات مهندسی" />
+          </siteMapNode>
+          <siteMapNode url="~/Employee/TechnicalServices/BaseInfo/ObserverInsurance.aspx" title="مدیریت بیمه ناظران">
+          </siteMapNode>
+          <siteMapNode url="~/Employee/TechnicalServices/BaseInfo/StructureGroupsAndObserverGrade.aspx" title="تنظیمات گروه ساختمانی و پایه ناظران">
+          </siteMapNode>
+          <siteMapNode url="~/Employee/TechnicalServices/Capacity/ObserverRestriction.aspx" title="مدیریت اعضای محروم از نظارت">
+          </siteMapNode>
+
+        </siteMapNode>
+        <siteMapNode url="" title="مدیریت تخصیص ظرفیت">
+          <siteMapNode url="~/Employee/TechnicalServices/Capacity/UrbanistQualification.aspx" title="مدیریت ظرفیت اشتفال شهرسازی(" />
+          <siteMapNode url="~/Employee/TechnicalServices/Capacity/CapacityAssignment.aspx" title="مدیریت اختصاص ظرفیت">
+            <siteMapNode url="~/Employee/TechnicalServices/Capacity/CapacityAssignmentInsert.aspx" title="اختصاص ظرفیت" />
+          </siteMapNode>
+          <siteMapNode url="~/Employee/TechnicalServices/Capacity/ConditionalCapacity.aspx" title="مدیریت کاهش/افزایش ظرفیت">
+            <siteMapNode url="~/Employee/TechnicalServices/Capacity/ConditionalCapacityInsert.aspx" title="کاهش/افزایش ظرفیت" />
+          </siteMapNode>
+          <siteMapNode url="~/Employee/TechnicalServices/Capacity/CapacityRelease.aspx" title="مدیریت بازگشت ظرفیت نظارت" >
+            <siteMapNode url="~/Employee/TechnicalServices/Capacity/CapacityReleaseInsert.aspx" title="مشخصات بازگشت ظرفیت نظارت" >
+            </siteMapNode>
+          </siteMapNode>
+          <siteMapNode url="~/Employee/TechnicalServices/Capacity/ObserverWorkRequest.aspx" title="مدیریت اعلام آماده به کاری" >
+          <siteMapNode url="~/Employee/TechnicalServices/Capacity/ObserverWorkRequestInsert.aspx" title="ثبت اعلام آماده به کاری" >
+            </siteMapNode>
+          </siteMapNode>
+
+        </siteMapNode>
+        <siteMapNode url="" title="گزارشات">
+          <siteMapNode url="~/Employee/TechnicalServices/Report/ReportEpaymentObserverFish.aspx" title="گزارش فیش های پرداخت الکترونیکی نظارت" />
+          <siteMapNode url="~/Employee/TechnicalServices/Report/ReportEpaymentDesignerFish.aspx" title="گزارش فیش های پرداخت الکترونیکی طراحی" />
+            <siteMapNode url="~/Employee/TechnicalServices/Report/ReportPlans.aspx" title="گزارش نقشه ها"/>
+            <siteMapNode url="~/Employee/TechnicalServices/Report/ReportPlansControler.aspx" title="گزارش بازبین های نقشه ها"/>
+          
+          <siteMapNode url="~/Employee/TechnicalServices/Report/ProjectObserverReport.aspx" title="گزارش ناظران پروژه" />
+          <siteMapNode url="~/Employee/TechnicalServices/Report/ImplementersCurrentProjects.aspx" title="پروژه های در دست اجرا مجری" />
+          <siteMapNode url="~/Employee/TechnicalServices/Report/ObserversCurrentProjects.aspx" title="پروژه های در دست اجرا ناظر" />
+          <siteMapNode url="~/Employee/TechnicalServices/Project/TraceObserverSelected.aspx" title="پیگیری ارجاع کار به ناظران" />
+          <siteMapNode url="~/Employee/TechnicalServices/Report/DesignerCurrentProjects.aspx" title="پروژه های در دست اجرا طراح" />
+          <siteMapNode url="~/Employee/TechnicalServices/Report/MemberOperationReport.aspx" title="گزارش ریزکارکرد اعضا" />
+          <siteMapNode url="~/Employee/TechnicalServices/Report/KardanProjectReport.aspx" title="گزارش کارکرد کاردان ها" />
+          <siteMapNode url="~/Employee/TechnicalServices/Report/ReportObserverSelected.aspx" title="گزارش ارجاع کار ناظران" />
+          <siteMapNode url="~/Employee/TechnicalServices/Report/ReportProjectOwner.aspx" title="گزارش مالکین پروژه" />
+          <siteMapNode url="~/Employee/TechnicalServices/Project/PlansChooseControler.aspx" title="مدیریت اختصاص بازبین نقشه ها" />
+          <siteMapNode url="" title="گزارش سالانه ظرفیت نظارت">
+            <siteMapNode url="~/Employee/TechnicalServices/Report/MemberObsCapacity.aspx" title="عضو حقیقی" />
+            <siteMapNode url="~/Employee/TechnicalServices/Report/OffObsCapacity.aspx" title="عضو حقوقی" />
+          </siteMapNode>
+          <siteMapNode url="" title="گزارش سالانه ظرفیت طراحی">
+            <siteMapNode url="~/Employee/TechnicalServices/Report/OffDsgnCapacity.aspx" title="عضو حقوقی" />
+            <siteMapNode url="~/Employee/TechnicalServices/Report/EngOffDsgnCapacity.aspx" title="دفاتر" />
+          </siteMapNode>
+          <siteMapNode url="" title="گزارش سالانه ظرفیت اجرا">
+            <siteMapNode url="~/Employee/TechnicalServices/Report/MemberImpCapacity.aspx" title="عضو حقیقی" />
+            <siteMapNode url="~/Employee/TechnicalServices/Report/OffImpCapacity.aspx" title="عضو حقوقی" />
+          </siteMapNode>
+          <siteMapNode url="~/Employee/TechnicalServices/Report/ProjectReport.aspx" title="گزارش پروژه ها" />
+          <siteMapNode url="~/Employee/TechnicalServices/Report/Summary.aspx" title="خلاصه پرونده" />
+          <siteMapNode url="~/Employee/TechnicalServices/Report/ReportAccountingFishHistory.aspx" title="گزارش چاپ فیش های بانکی مالکین" />
+          
+          <siteMapNode url="~/Employee/TechnicalServices/Report/ProjectObserverReportList.aspx" title="لیست پرداخت حق الزحمه ناظرین و مانده واریزی" >
+            <siteMapNode url="~/Employee/TechnicalServices/Report/AccountingDocumentInsert.aspx" title="مشخصات لیست حق الزحمه ناظرین و مانده واریزی"/>
+            </siteMapNode>
+            <siteMapNode url="~/Employee/TechnicalServices/Report/AccountingDocumentDetail.aspx" title="مدیریت ناظران لیست حق الزحمه ناظرین">
+              <siteMapNode url="~/Employee/TechnicalServices/Report/AccountingDocumentDetailInsert.aspx" title="مشخصات ناظر لیست حق الزحمه ناظرین"/>
+          </siteMapNode>
+          <siteMapNode url="~/Employee/TechnicalServices/Report/ReportDesignersCity.aspx" title="گزارش طراحان پروژه" />
+          <siteMapNode url="" title="اطلاعات ظرفیت طراحی">
+            <siteMapNode url="~/Employee/TechnicalServices/Report/OffDsgnCapacityInfo.aspx" title="اعضای حقوقی" />
+            <siteMapNode url="~/Employee/TechnicalServices/Report/EngOffDsgnCapacityInfo.aspx" title="دفاتر" />
+          </siteMapNode>
+          <siteMapNode url="" title="اطلاعات ظرفیت نظارت">
+            <siteMapNode url="~/Employee/TechnicalServices/Report/OffObsCapacityInfo.aspx" title="اعضای حقوقی" />
+            <siteMapNode url="~/Employee/TechnicalServices/Report/MemberObsCapacityInfo.aspx" title="اعضای حقیقی" />
+          </siteMapNode>
+          <siteMapNode url="" title="اطلاعات ظرفیت اجرا">
+            <siteMapNode url="~/Employee/TechnicalServices/Report/OffImpCapacityInfo.aspx" title="اعضای حقوقی" />
+            <siteMapNode url="~/Employee/TechnicalServices/Report/MemberImpCapacityInfo.aspx" title="اعضای حقیقی" />
+          </siteMapNode>
+        </siteMapNode>
+        <siteMapNode url="" title="مدیریت پروژه ها">
+          <siteMapNode url="~/Employee/TechnicalServices/Project/Project.aspx" title="مدیریت پروژه">
+            <siteMapNode url="~/Employee/TechnicalServices/Project/ProjectInsert.aspx" title="پروژه">
+              <siteMapNode url="~/Employee/TechnicalServices/Project/RegisteredNo.aspx" title="مدیریت پلاکهای ثبتی">
+                <siteMapNode url="~/Employee/TechnicalServices/Project/RegisteredNoInsert.aspx" title="پلاک ثبتی" />
+              </siteMapNode>
+              <siteMapNode url="~/Employee/TechnicalServices/Project/PlansMethod.aspx" title="مدیریت دستور نقشه">
+                <siteMapNode url="~/Employee/TechnicalServices/Project/PlansMethodInsert.aspx" title="دستور نقشه" />
+              </siteMapNode>
+              <siteMapNode url="~/Employee/TechnicalServices/Project/Block.aspx" title="مدیریت بلوک ها">
+                <siteMapNode url="~/Employee/TechnicalServices/Project/BlockInsert.aspx" title="بلوک" />
+              </siteMapNode>
+              <siteMapNode url="~/Employee/TechnicalServices/Project/Insurance.aspx" title="بیمه" />
+              <siteMapNode url="~/Employee/TechnicalServices/Project/ProjectDesigner.aspx" title="مدیریت طراحان">
+                <siteMapNode url="~/Employee/TechnicalServices/Project/AddProjectDesigner.aspx" title="طراح" />
+              </siteMapNode>
+              <siteMapNode url="~/Employee/TechnicalServices/Project/Timing.aspx" title="زمان بندی">
+                <siteMapNode url="~/Employee/TechnicalServices/Project/TimingInsert.aspx" title="مشخصات زمان بندی" />
+                <siteMapNode url="~/Employee/TechnicalServices/Project/TimingPredecessors.aspx" title="پیش نیازها" />
+              </siteMapNode>
+              <siteMapNode url="~/Employee/TechnicalServices/Project/Implementer.aspx" title="مدیریت مجریان">
+                <siteMapNode url="~/Employee/TechnicalServices/Project/ImplementerInsert.aspx" title="مجری" />
+                <siteMapNode url="~/Employee/TechnicalServices/Project/ImplementerAccounting.aspx" title="مالی مجری" />
+                <siteMapNode url="~/Employee/TechnicalServices/Project/JobHistory.aspx" title="سوابق کاری">
+                  <siteMapNode url="~/Employee/TechnicalServices/Project/JobHistoryShow.aspx" title="سابقه کاری" />
+                </siteMapNode>
+                <siteMapNode url="~/Employee/TechnicalServices/Project/ProjectQC.aspx" title="کیفیت اجرای پروژه ها" />
+                <siteMapNode url="~/Employee/TechnicalServices/Project/ImplementerAgent.aspx" title="نماینده مجری">
+                  <siteMapNode url="~/Employee/TechnicalServices/Project/ImplementerAgentInsert.aspx" title="نماینده" />
+                </siteMapNode>
+              </siteMapNode>
+              <siteMapNode url="~/Employee/TechnicalServices/Project/Owner.aspx" title="مدیریت مالکین">
+                <siteMapNode url="~/Employee/TechnicalServices/Project/OwnerInsert.aspx" title="مالک" />
+                <siteMapNode url="~/Employee/TechnicalServices/Project/OwnerAccounting.aspx" title="مالی مالکین">
+                  <siteMapNode url="~/Employee/TechnicalServices/Project/OwnerAccountingInsert.aspx" title="مشخصات مالی" />
+                </siteMapNode>
+              </siteMapNode>
+              <siteMapNode url="~/Employee/TechnicalServices/Project/Plans.aspx" title="مدیریت نقشه ها">
+                <siteMapNode url="~/Employee/TechnicalServices/Project/AddPlans.aspx" title="نقشه">
+                  <siteMapNode url="~/Employee/TechnicalServices/Project/PlanDesigner.aspx" title="طراحان نقشه">
+                    <siteMapNode url="~/Employee/TechnicalServices/Project/AddPlanDesigner.aspx" title="طراح نقشه" />
+                    <siteMapNode url="~/Employee/TechnicalServices/Project/PlanDesignerAccounting.aspx" title="مالی طراح" />
+
+                    <siteMapNode url="~/Employee/TechnicalServices/Project/PlanControlers.aspx" title="مدیریت بازبین های نقشه" >
+                    <siteMapNode url="~/Employee/TechnicalServices/Project/AddPlansControler.aspx" title="مشخصات بازبین نقشه" />
+                  </siteMapNode>
+                  </siteMapNode>
+                  <siteMapNode url="~/Employee/TechnicalServices/Project/PlanInfo.aspx" title="کنترل نقشه" />
+                </siteMapNode>
+              </siteMapNode>
+              <siteMapNode url="~/Employee/TechnicalServices/Project/Designers.aspx" title="مدیریت طراحان">
+              </siteMapNode>
+              <siteMapNode url="~/Employee/TechnicalServices/Project/Contract.aspx" title="مدیریت قرارداد">
+                <siteMapNode url="~/Employee/TechnicalServices/Project/ContractInsert.aspx" title="قرارداد" />
+              </siteMapNode>
+              <siteMapNode url="~/Employee/TechnicalServices/Project/Observers.aspx" title="مدیریت ناظرین">
+                <siteMapNode url="~/Employee/TechnicalServices/Project/ObserverInsert.aspx" title="ناظر" />
+                <siteMapNode url="~/Employee/TechnicalServices/Project/ObserverSelected.aspx" title="انتخاب ناظر" />
+              </siteMapNode>
+              <siteMapNode url="~/Employee/TechnicalServices/Project/BuildingsLicense.aspx" title="مدیریت پروانه ساخت">
+                <siteMapNode url="~/Employee/TechnicalServices/Project/BuildingsLicenseInsert.aspx" title="پروانه ساخت" />
+              </siteMapNode>
+              <siteMapNode url="~/Employee/TechnicalServices/Project/StatusAnnouncement.aspx" title="مدیریت اعلام وضعیت">
+                <siteMapNode url="~/Employee/TechnicalServices/Project/StatusAnnouncementInsert.aspx" title="اعلام وضعیت" />
+              </siteMapNode>
+              <siteMapNode url="~/Employee/TechnicalServices/Project/ProjectAccounting.aspx" title="مالی پروژه">
+                <siteMapNode url="~/Employee/TechnicalServices/Project/ProjectAccountingInsert.aspx" title="مشخصات مالی پروژه" />
+                <siteMapNode url="~/Employee/TechnicalServices/Project/ProjectAccountingObserverInsert.aspx" title="مشخصات مالی ناظر پروژه" />
+              </siteMapNode>
+              <siteMapNode url="~/Employee/TechnicalServices/Project/ProjectAccountingDesigner.aspx" title="مالی طراحان">
+                <siteMapNode url="~/Employee/TechnicalServices/Project/ProjectAccountingDesignerInsert.aspx" title="مشخصات مالی طراح پروژه" />
+              </siteMapNode>
+            </siteMapNode>
+          </siteMapNode>
+        </siteMapNode>
+        <siteMapNode url="~/Employee/TechnicalServices/Project/DevelopmentPercent.aspx" title="مدیریت اعلام پیشرفت کار">
+          <siteMapNode url="~/Employee/TechnicalServices/Project/DevelopmentPercentInsert.aspx" title="پیشرفت کار" />
+          <siteMapNode url="~/Employee/TechnicalServices/Project/DevelopmentObservers.aspx" title="مدیریت ناظرین عالی">
+            <siteMapNode url="~/Employee/TechnicalServices/Project/DevelopmentObserverInsert.aspx" title="ناظر عالی" />
+          </siteMapNode>
+        </siteMapNode>
+      </siteMapNode>
+      <siteMapNode  title="نظرسنجی">
+        <siteMapNode url="~/Employee/Poll/Poll.aspx" title="مدیریت نظرسنجی">
+          <siteMapNode url="~/Employee/Poll/PollInsert.aspx" title="مشخصات نظرسنجی">
+            <siteMapNode url="~/Employee/Poll/PollQuestion.aspx" title="سوالات نظرسنجی">
+              <siteMapNode url="~/Employee/Poll/QuestionInsert.aspx" title="مشخصات سوالات نظرسنجی">
+              </siteMapNode>
+            </siteMapNode>
+            <siteMapNode url="~/Employee/Poll/ResualtTotalGrid.aspx" title="نتایج نظرسنجی">
+            </siteMapNode>
+          </siteMapNode>
+        </siteMapNode>
+      </siteMapNode>
+      <siteMapNode url="~/Employee/WorkFlow/WorkFlowReport.aspx" title="پیگیری گردش کار" />
+      <siteMapNode url="~/Employee/Sessions.aspx" title="جلسات">
+        <siteMapNode url="~/Employee/ShowSession.aspx" title="اطلاعات جلسه" />
+      </siteMapNode>
+      <siteMapNode url="~/Employee/TechniciansManagement/Technicians.aspx" title="مدیریت کاردان ها و معماران تجربی">
+        <siteMapNode url="~/Employee/TechniciansManagement/TechnicianInsert.aspx" title="مشخصات کاردان/معمار تجربی">
+          <siteMapNode url="~/Employee/TechniciansManagement/TechnicianActivityAreas.aspx" title="حوزه فعالیت کاردان/معمار تجربی" />
+        </siteMapNode>
+      </siteMapNode>
+      <siteMapNode url="~/Employee/TechniciansManagement/OtherPerson.aspx" title="مدیریت دیگر اشخاص">
+        <siteMapNode url="~/Employee/TechniciansManagement/OtherPersonInsert.aspx" title="مشخصات شخص" />
+      </siteMapNode>
+      <siteMapNode url="" title="گردش کار">
+        <siteMapNode url="~/Employee/WorkFlow/WorkFlowTask.aspx" title="مدیریت گردش کار">
+          <siteMapNode url="~/Employee/WorkFlow/TaskDoer.aspx" title="مدیریت انجام دهندگان عملیات">
+            <siteMapNode url="~/Employee/WorkFlow/InsertTaskDoer.aspx" title="مشخصات انجام دهنده عملیات" />
+          </siteMapNode>
+          <siteMapNode url="~/Employee/WorkFlow/WorkFlowTaskInsert.aspx" title="مشخصات عملیات گردش کار" />
+        </siteMapNode>
+        <siteMapNode url="~/Employee/WorkFlow/WorkFlowUserTask.aspx" title="کارتابل گردش کار" />
+      </siteMapNode>
+      <siteMapNode url="~/Employee/MembersRegister/MemberCards.aspx" title="مدیریت صدور کارت عضویت">
+        <siteMapNode url="~/Employee/MembersRegister/AddMemberCards.aspx" title="مشخصات کارت عضویت" />
+      </siteMapNode>
+      <siteMapNode url="~/Employee/MembersRegister/LockHistory.aspx" title="قفل اعضاء">
+        <siteMapNode url="~/Employee/MembersRegister/AddLockHistory.aspx" title="مشخصات قفل عضو" />
+      </siteMapNode>
+
+    </siteMapNode>
+
+
+    <siteMapNode url="~/Members/MemberHome.aspx" title="پرتال اعضای حقیقی سازمان">
+      <siteMapNode url="~/Members/Sessions.aspx" title="جلسات">
+        <siteMapNode url="~/Members/ShowSession.aspx" title="اطلاعات جلسه" />
+      </siteMapNode>
+      <siteMapNode url="" title="واحد امور مالی">
+        <siteMapNode url="~/Members/Accounting/DebtPayment.aspx" title="مدیریت وامها">
+          <siteMapNode url="~/Members/Accounting/DebtPaymentInsert.aspx" title="پرداخت اقساط">
+            <siteMapNode url="~/Members/Accounting/EPayment.aspx" title="پرداخت" />
+          </siteMapNode>
+        </siteMapNode>
+        <siteMapNode url="~/Members/Accounting/Bill.aspx" title="صورت حساب">
+          <siteMapNode url="~/Members/Accounting/BillEPayment.aspx" title="پرداخت" />
+        </siteMapNode>
+
+        <siteMapNode url="~/Members/Accounting/EpaymentFishes.aspx" title="مدیریت فیش های پرداخت الکترونیکی">
+          <siteMapNode url="~/Members/Accounting/EpaymentFisheView.aspx" title="مشخصات فیش پرداخت الکترونیکی">
+          </siteMapNode>
+        </siteMapNode>
+        <siteMapNode url="~/Members/Accounting/EpaymentMultiplePay.aspx" title="پرداخت الکترونیکی">
+        </siteMapNode>
+      </siteMapNode>
+      <siteMapNode url="~/Members/Message/messageHome.aspx" title="مدیریت پیام ها">
+        <siteMapNode url="~/Members/Message/Compose.aspx" title="ارسال نامه" />
+        <siteMapNode url="~/Members/Message/Inbox.aspx" title="نامه های رسیده" />
+        <siteMapNode url="~/Members/Message/RecievedSms.aspx" title="پیام های کوتاه" />
+        <siteMapNode url="~/Members/Message/inbox2.aspx" title="نامه های تأییدی" />
+        <siteMapNode url="~/Members/Message/Group.aspx" title="گروه ها">
+          <siteMapNode url="~/Members/Message/AddGroup.aspx" title="ویرایش گروه ها" />
+          <siteMapNode url="~/Members/Message/GroupDetail.aspx" title="مشاهده اعضای گروه">
+            <siteMapNode url="~/Members/Message/GroupMembers.aspx" title="تغییر اعضای گروه" />
+          </siteMapNode>
+          <siteMapNode url="~/Members/Message/ConflictManagment.aspx" title="لیست اعلام مغایرت ها" />
+        </siteMapNode>
+      </siteMapNode>
+      <siteMapNode url="~/Members/WorkFlowReport.aspx" title="پیگیری گردش کار" />
+      <siteMapNode url="~/Members/ChangeMemberData.aspx" title="ثبت اطلاعات" />
+      <siteMapNode url="" title="واحد عضویت">
+        <siteMapNode url="~/Members/MemberInfo/MemberRequest.aspx" title="مدیریت درخواست ها">
+          <siteMapNode url="~/Members/MemberInfo/MemberRequestInsert.aspx" title="مشخصات درخواست" />
+          <siteMapNode url="~/Members/MemberInfo/WorkFlowReport.aspx" title="پیگیری گردش کار" />
+          <siteMapNode url="~/Members/MemberInfo/MemberInsertBaseInfo.aspx" title="درخواست تغییرات اطلاعات پایه" />
+          <siteMapNode url="~/Members/MemberInfo/MemberLicenceRequest.aspx" title="درخواست تغییرات سریع مدرک تحصیلی" />
+        </siteMapNode>
+
+        <siteMapNode url="~/Members/MemberInfo/MemberActivity.aspx" title="فعالیت ها" />
+        <siteMapNode url="~/Members/MemberInfo/MemberJob.aspx" title="سوابق کاری">
+          <siteMapNode url="~/Members/MemberInfo/MemberJobInsert.aspx" title="مشخصات سابقه کاری">
+            <siteMapNode url="~/Members/MemberInfo/MemberJobQuality.aspx" title="مطلوبیت کار انجام شده">
+              <siteMapNode url="~/Members/MemberInfo/MemberJobQualityInsert.aspx" title="مشخصات مطلوبیت کار" />
+            </siteMapNode>
+          </siteMapNode>
+        </siteMapNode>
+        <siteMapNode url="~/Members/MemberInfo/MemberLanguage.aspx" title="زبان ها" />
+        <siteMapNode url="~/Members/MemberInfo/MemberLicence.aspx" title="مدارک تحصیلی">
+          <siteMapNode url="~/Members/MemberInfo/MemberLicenceInsert.aspx" title="مشخصات مدرک" />
+        </siteMapNode>
+        <siteMapNode url="~/Members/MemberInfo/MemberResearch.aspx" title="مقالات و تحقیقات" />
+
+        <siteMapNode url="" title="واحد صدور پروانه">
+          <siteMapNode url="~/Members/Documents/MemberFiles.aspx" title="مدیریت پروانه اشتغال به کار">
+            <siteMapNode url="~/Members/Documents/AddMemberFile.aspx" title="مشخصات پروانه اشتغال به کار" />
+            <siteMapNode url="~/Members/Documents/MemberExam.aspx" title="مدیریت آزمون های پذیرفته شده">
+              <siteMapNode url="~/Members/Documents/AddMemberExam.aspx" title="مشخصات آزمون پذیرفته شده" />
+            </siteMapNode>
+
+            <siteMapNode url="~/Members/Documents/MemberJobConfirm.aspx" title="مدیریت تاییدکنندگان سابقه کار">
+              <siteMapNode url="~/Members/Documents/AddMemberJobConfirm.aspx" title="مشخصات تاییدکنندگان سابقه کار" />
+            </siteMapNode>
+
+            <siteMapNode url="~/Members/Documents/DocResponsibility.aspx" title="مدیریت پایه و صلاحیت های پروانه">
+
+              <siteMapNode url="~/Members/Documents/AddDocResponsibility.aspx" title="مشخصات پایه و صلاحیت های پروانه"/>
+
+            </siteMapNode>
+            <siteMapNode url="~/Members/Documents/DocumentAttachment.aspx" title="مدیریت مدارک پیوست پروانه" />
+            <siteMapNode url="~/Members/Documents/MemberPeriods.aspx" title="دوره ها و سمینارها" />
+          </siteMapNode>
+          <siteMapNode url="~/Members/ImplementDoc/ImplementDoc.aspx" title="مدیریت مجوز فعالیت مجری حقیقی">
+            <siteMapNode url="~/Members/ImplementDoc/AddImplementDoc.aspx" title="مشخصات مجوز مجری حقیقی" />
+            <siteMapNode url="~/Members/ImplementDoc/FinancialStatus.aspx" title="مدیریت توان مالی مجری حقیقی">
+              <siteMapNode url="~/Members/ImplementDoc/AddFinancialStatus.aspx" title="مشخصات توان مالی مجری حقیقی" />
+            </siteMapNode>
+          </siteMapNode>
+          <siteMapNode url="~/Members/Documents/ObservationDoc.aspx" title="مدیریت مجوز فعالیت ناظر حقیقی_به تنهایی">
+            <siteMapNode url="~/Members/Documents/AddObservationDoc.aspx" title="مشخصات مجوز ناظر حقیقی" />
+          </siteMapNode>
+          <siteMapNode url="~/Members/Documents/MemberJobHistory.aspx" title="مدیریت سابقه کار">
+            <siteMapNode url="~/Members/Documents/AddMemberJobHistory.aspx" title="مشخصات سابقه کار">
+              <siteMapNode url="~/Members/Documents/MemberJobQualification.aspx" title="مطلوبیت سابقه کار">
+                <siteMapNode url="~/Members/Documents/AddMemeberJobQualification.aspx" title="مشخصات مطلوبیت سابقه کار" />
+              </siteMapNode>
+            </siteMapNode>
+          </siteMapNode>
+          <siteMapNode url="~/Members/EngOffice/EngOffice.aspx" title="مدیریت دفاتر">
+            <siteMapNode url="~/Members/EngOffice/EngOfficeRegister.aspx" title="مشخصات دفتر" />
+            <siteMapNode url="~/Members/EngOffice/EngOfficeMember.aspx" title="اعضای دفتر">
+              <siteMapNode url="~/Members/EngOffice/EngOfficeMemberInsert.aspx" title="مشخصات عضو" />
+            </siteMapNode>
+            <siteMapNode url="~/Members/EngOffice/EngOfficeJob.aspx" title="سوابق کاری">
+              <siteMapNode url="~/Members/EngOffice/EngOfficeJobShow.aspx" title="مشخصات سابقه کاری" />
+            </siteMapNode>
+            <siteMapNode url="~/Members/EngOffice/EngOfficeAttachment.aspx" title="مستندات" />
+            <siteMapNode url="~/Members/EngOffice/WorkFlowReport.aspx" title="پیگیری گردش کار" />
+          </siteMapNode>
+
+          <siteMapNode url="~/Members/Documents/WizardDocOath.aspx" title="درخواست صدور پروانه اشتغال به کار">
+            <siteMapNode url="~/Members/Documents/WizardDocFish.aspx" title="درخواست صدور پروانه اشتغال-ثبت فیش"/>
+
+            <siteMapNode url="~/Members/Documents/WizardDocJob.aspx" title="درخواست صدور پروانه اشتغال-سوابق کاری"/>
+
+            <siteMapNode url="~/Members/Documents/WizardAccConfirm.aspx" title="درخواست صدور پروانه اشتغال-عدم عضویت در نظام کاردانی"/>
+
+            <siteMapNode url="~/Members/Documents/WizardDocExam.aspx" title="درخواست صدور پروانه اشتغال-آزمون ها"/>
+
+            <siteMapNode url="~/Members/Documents/WizardDocFinish.aspx" title="درخواست صدور پروانه اشتغال-ثبت نهایی"/>
+
+            <siteMapNode url="~/Members/Documents/WizardDocPeriods.aspx" title="درخواست صدور پروانه اشتغال-گواهینامه های آموزشی"/>
+
+            <siteMapNode url="~/Members/Documents/WizardDocJobConfirm.aspx" title="درخواست صدور پروانه اشتغال-تاییدیه سوابق کاری"/>
+            <siteMapNode url="~/Members/Documents/WizardDocSummary.aspx" title="درخواست صدور پروانه اشتغال-خلاصه اطلاعات"/>
+
+          </siteMapNode>
+
+          <siteMapNode url="~/Members/Documents/WizardQualificationOath.aspx" title="درخواست درج صلاحیت جدید در پروانه اشتغال به کار">
+
+            <siteMapNode url="~/Members/Documents/WizardQualificationKardan.aspx" title="درخواست درج صلاحیت جدید در پروانه اشتغال-عدم عضویت در نظام کاردانی"/>
+            <siteMapNode url="~/Members/Documents/WizardQualificationExam.aspx" title="درخواست درج صلاحیت جدید در پروانه اشتغال-آزمون ها"/>
+
+            <siteMapNode url="~/Members/Documents/WizardQualificationFinish.aspx" title="درخواست درج صلاحیت جدید در پروانه اشتغال-ثبت نهایی"/>
+
+
+            <siteMapNode url="~/Members/Documents/WizardQualificationJobConfirm.aspx" title="درخواست درج صلاحیت جدید در پروانه اشتغال-تاییدیه سوابق کاری"/>
+            <siteMapNode url="~/Members/Documents/WizardQualificationSummary.aspx" title="درخواست درج صلاحیت جدید در پروانه اشتغال-خلاصه اطلاعات"/>
+
+          </siteMapNode>
+
+          <siteMapNode url="~/Members/Documents/WizardRevivalOath.aspx" title="درخواست تمدید پروانه اشتغال-مدارک لازم">
+
+            <siteMapNode url="~/Members/Documents/WizardRevivalUploaddocs.aspx" title="درخواست تمدید پروانه اشتغال-استعلام ها"/>
+            <siteMapNode url="~/Members/Documents/WizardRevivalJobConfirm.aspx" title="درخواست تمدید پروانه اشتغال-تاییدیه سوابق کاری"/>
+            <siteMapNode url="~/Members/Documents/WizardrevivalDocSummary.aspx" title="درخواست تمدید پروانه اشتغال-خلاصه اطلاعات"/>
+            <siteMapNode url="~/Members/Documents/WizardrevivalDocFinish.aspx" title="درخواست تمدید پروانه اشتغال-ثبت نهایی"/>
+          </siteMapNode>
+
+          <siteMapNode url="~/Members/Documents/WizardUpgradeOath.aspx" title="درخواست ارتقاء پایه پروانه اشتغال-سوگند نامه">
+
+            <siteMapNode url="~/Members/Documents/WizardUpgradeUploaddocs.aspx" title="درخواست ارتقاء پایه پروانه اشتغال-استعلام ها"/>
+            <siteMapNode url="~/Members/Documents/WizardUpgradeJobConfirm.aspx" title="درخواست ارتقاء پایه پروانه اشتغال-تاییدیه سوابق کاری"/>
+            <siteMapNode url="~/Members/Documents/WizardUpgradeDocSummary.aspx" title="درخواست ارتقاء پایه پروانه اشتغال-خلاصه اطلاعات"/>
+            <siteMapNode url="~/Members/Documents/WizardUpgradeDocFinish.aspx" title="درخواست ارتقاء پایه پروانه اشتغال-ثبت نهایی"/>
+          </siteMapNode>
+        </siteMapNode>
+        <siteMapNode url="" title="شورای انتظامی">
+          <siteMapNode url="~/Members/Entezami/Complains.aspx" title="پرونده های انتظامی">
+            <siteMapNode url="~/Members/Entezami/ComplainShow.aspx" title="مشخصات شکوائیه" />
+          </siteMapNode>
+          <siteMapNode url="~/Members/Entezami/Reply.aspx" title="مدیریت لایحه های دفاعیه">
+            <siteMapNode url="~/Members/Entezami/AddReply.aspx" title="مشخصات لایحه دفاعیه" />
+          </siteMapNode>
+          <siteMapNode url="~/Members/Entezami/Order.aspx" title="احکام پرونده">
+            <siteMapNode url="~/Members/Entezami/AddOrder.aspx" title="مشخصات احکام پرونده" />
+          </siteMapNode>
+          <siteMapNode url="~/Members/Entezami/Rivision.aspx" title="مدیریت درخواست های تجدیدنظر">
+            <siteMapNode url="~/Members/Entezami/AddRivision.aspx" title="مشخصات درخواست تجدیدنظر" />
+          </siteMapNode>
+        </siteMapNode>
+        <siteMapNode url="~/Members/Office/Office.aspx" title="سوابق عضویت در شرکت ها">
+          <siteMapNode url="~/Members/Office/OfficeShowInfo.aspx" title="مشخصات شرکت">
+            <siteMapNode url="~/Members/Office/OfficeMember.aspx" title="اعضای شرکت">
+              <siteMapNode url="~/Members/Office/OfficeMemberShow.aspx" title="مشخصات عضو" />
+            </siteMapNode>
+            <siteMapNode url="~/Members/Office/OfficeJob.aspx" title="سوابق کاری">
+              <siteMapNode url="~/Members/Office/OfficeJobShow.aspx" title="مشخصات سابقه کاری" />
+              <siteMapNode url="~/Members/Office/OfficeJobQuality.aspx" title="مطلوبیت کار" />
+            </siteMapNode>
+          </siteMapNode>
+        </siteMapNode>
+
+        <siteMapNode url="~/Members/EngOfficeView/EngOffice.aspx" title="سوابق عضویت در دفاتر">
+          <siteMapNode url="~/Members/EngOfficeView/EngOfficeShowInfo.aspx" title="مشخصات دفتر">
+            <siteMapNode url="~/Members/EngOfficeView/EngOfficeMember.aspx" title="اعضای دقتر">
+              <siteMapNode url="~/Members/EngOfficeView/EngOfficeMemberShow.aspx" title="مشخصات عضو" />
+            </siteMapNode>
+            <siteMapNode url="~/Members/EngOfficeView/EngOfficeJob.aspx" title="سوابق کاری">
+              <siteMapNode url="~/Members/EngOfficeView/EngOfficeJobShow.aspx" title="مشخصات سابقه کاری" />
+            </siteMapNode>
+            <siteMapNode url="~/Members/EngOfficeView/EngOfficeAttachment.aspx" title="مستندات">
+            </siteMapNode>
+          </siteMapNode>
+        </siteMapNode>
+
+        <siteMapNode url="~/Members/Documents/WorkFlowReport.aspx" title="پیگیری گردش کار" />
+      </siteMapNode>
+      <siteMapNode url="" title="ماده27">
+        <siteMapNode url="~/Members/27/MemberExpertPlace.aspx" title="پرونده های کارشناسی">
+          <siteMapNode url="~/Members/27/MemberExpertPlaceView.aspx" title="مشخصات پرونده کارشناسی" />
+          <siteMapNode url="~/Members/27/ExpertAnswer1.aspx" title="پاسخ کارشناسی" />
+          <siteMapNode url="~/Members/27/ExpertCosts.aspx" title="هزینه های متفرقه" />
+          <siteMapNode url="~/Members/27/ExpertVisit.aspx" title="برنامه ریزی بازدید" />
+          <siteMapNode url="~/Members/27/ExpertRequest.aspx" title="کارشناسان پرونده" />
+          <siteMapNode url="~/Members/27/MemberExpertRegion.aspx" title="حوزه فعالیت کارشناس" />
+        </siteMapNode>
+      </siteMapNode>
+      <siteMapNode url="" title="خدمات مهندسی">
+        <siteMapNode url="" title="گزارشات">
+          <siteMapNode url="~/Members/TechnicalServices/Report/MemberOperationReport.aspx" title="گزارش کارکرد خدمات مهندسی" />
+          
+        </siteMapNode>
+        <siteMapNode url="" title="آماده به کاری">
+        <siteMapNode url="~/Members/TechnicalServices/Capacity/ObserverWorkRequest.aspx" title="مدیریت اعلام آماده به کاری" />
+        <siteMapNode url="~/Members/TechnicalServices/Capacity/ObserverWorkRequestInsert.aspx" title="ثبت آماده به کاری" />
+        </siteMapNode>
+        <siteMapNode url="~/Members/TechnicalServices/Capacity/CapacityRelease.aspx" title="مدیریت بازگشت ظرفیت نظارت" >
+          <siteMapNode url="~/Members/TechnicalServices/Capacity/CapacityReleaseInsert.aspx" title="مشخصات بازگشت ظرفیت نظارت" >
+          </siteMapNode>
+        </siteMapNode>
+        <siteMapNode url="~/Members/TechnicalServices/Project/ObserverSelected.aspx" title="لسیت کارهای ارجاع شده" />
+        <siteMapNode url="~/Members/TechnicalServices/Capacity/TsObserverWorkRulls.aspx" title="نامه اولویت بندی ارجاع کار نظارت ساختمان" />
+
+          <siteMapNode url="~/Members/TechnicalServices/Capacity/QueueListMunicipality.aspx" title="دریافت اولویت ارجاع کار نظارت شهرداری شیراز" />
+        <siteMapNode url="~/Members/TechnicalServices/Project/ControlPlans.aspx" title="مدیریت بازبینی نقشه ها">
+          <siteMapNode url="~/Members/TechnicalServices/Project/PlanInfo.aspx" title="مشخصات نقشه" />
+        </siteMapNode>
+        <siteMapNode url="" title="اطلاعات پروژه">
+          <siteMapNode url="~/Members/TechnicalServices/Project/Project.aspx" title="مدیریت پروژه">
+            <siteMapNode url="~/Members/TechnicalServices/Report/Summary.aspx" title="خلاصه پرونده" />
+            <siteMapNode url="~/Members/TechnicalServices/Project/DesignerLogin.aspx" title="ثبت کار طراحی جدید" />
+            <siteMapNode url="~/Members/TechnicalServices/Project/AddPlanDesigner.aspx" title="مشخصات طراح نقشه" />
+            <siteMapNode url="~/Members/TechnicalServices/Project/MemberPlans.aspx" title="مدیریت نقشه ها" />
+            
+
+          </siteMapNode>
+        </siteMapNode>
+      </siteMapNode>
+      <siteMapNode url="" title="خدمات مهندسی">
+        <siteMapNode url="" title="اطلاعات پایه">
+          <siteMapNode url="~/Office/TechnicalServices/BaseInfo/DiscountPercent.aspx" title="درصد تخفیف برای پروژه های خاص" />
+          <siteMapNode url="~/Office/TechnicalServices/BaseInfo/ProjectIngridientMajors.aspx" title="رشته های مجاز عوامل پروِژه" />
+        </siteMapNode>
+        <siteMapNode url="" title="اطلاعات پروژه">
+          <siteMapNode url="~/Office/TechnicalServices/Project/Project.aspx" title="مدیریت پروژه">
+            <siteMapNode url="~/Office/TechnicalServices/Report/Summary.aspx" title="خلاصه پرونده" />
+            <siteMapNode url="~/Office/TechnicalServices/Project/ProjectInsert.aspx" title="پروژه">
+              <siteMapNode url="~/Office/TechnicalServices/Project/RegisteredNo.aspx" title="مدیریت پلاکهای ثبتی">
+                <siteMapNode url="~/Office/TechnicalServices/Project/RegisteredNoInsert.aspx" title="پلاک ثبتی" />
+              </siteMapNode>
+              <siteMapNode url="~/Office/TechnicalServices/Project/PlansMethod.aspx" title="مدیریت دستور نقشه">
+                <siteMapNode url="~/Office/TechnicalServices/Project/PlansMethodInsert.aspx" title="دستور نقشه" />
+              </siteMapNode>
+              <siteMapNode url="~/Office/TechnicalServices/Project/Block.aspx" title="مدیریت بلوک ها">
+                <siteMapNode url="~/Office/TechnicalServices/Project/BlockInsert.aspx" title="بلوک" />
+              </siteMapNode>
+              <siteMapNode url="~/Office/TechnicalServices/Project/Insurance.aspx" title="بیمه" />
+              <siteMapNode url="~/Office/TechnicalServices/Project/Implementer.aspx" title="مدیریت مجریان">
+                <siteMapNode url="~/Office/TechnicalServices/Project/ImplementerInsert.aspx" title="مجری">
+                  <siteMapNode url="~/Office/TechnicalServices/Project/JobHistory.aspx" title="مدیریت سوابق کاری">
+                    <siteMapNode url="~/Office/TechnicalServices/Project/JobHistoryShow.aspx" title="سابقه کاری" />
+                  </siteMapNode>
+                  <siteMapNode url="~/Office/TechnicalServices/Project/ProjectQC.aspx" title="کیفیت اجرای پروژه ها" />
+                </siteMapNode>
+                <siteMapNode url="~/Office/TechnicalServices/Project/ImplementerAgent.aspx" title="مدیریت نماینده مجری">
+                  <siteMapNode url="~/Office/TechnicalServices/Project/ImplementerAgentInsert.aspx" title="نماینده" />
+                </siteMapNode>
+              </siteMapNode>
+              <siteMapNode url="~/Office/TechnicalServices/Project/Observers.aspx" title="مدیریت ناظرین">
+                <siteMapNode url="~/Office/TechnicalServices/Project/ObserverInsert.aspx" title="ناظر" />
+              </siteMapNode>
+              <siteMapNode url="~/Office/TechnicalServices/Project/Owner.aspx" title="مدیریت مالکین">
+                <siteMapNode url="~/Office/TechnicalServices/Project/OwnerInsert.aspx" title="مالک" />
+              </siteMapNode>
+              <siteMapNode url="~/Office/TechnicalServices/Project/ProjectAccounting.aspx" title="مالی پروژه">
+              </siteMapNode>
+              <siteMapNode url="~/Office/TechnicalServices/Project/Plans.aspx" title="مدیریت نقشه ها">
+              </siteMapNode>
+              <siteMapNode url="~/Office/TechnicalServices/Project/Designers.aspx" title="طراحان پروژه">
+                <siteMapNode url="~/Office/TechnicalServices/Project/AddPlanDesigner.aspx" title="مشخصات طراح" />
+              </siteMapNode>
+              <siteMapNode url="~/Office/TechnicalServices/Project/Contract.aspx" title="مدیریت قرارداد">
+                <siteMapNode url="~/Office/TechnicalServices/Project/ContractInsert.aspx" title="قرارداد" />
+              </siteMapNode>
+              <siteMapNode url="~/Office/TechnicalServices/Project/Timing.aspx" title="مدیریت زمان بندی">
+                <siteMapNode url="~/Office/TechnicalServices/Project/TimingInsert.aspx" title="زمان بندی" />
+                <siteMapNode url="~/Office/TechnicalServices/Project/TimingPredecessors.aspx" title="پیش نیازها" />
+              </siteMapNode>
+              <siteMapNode url="~/Office/TechnicalServices/Project/BuildingsLicense.aspx" title="مدیریت پروانه ساخت">
+                <siteMapNode url="~/Office/TechnicalServices/Project/BuildingsLicenseInsert.aspx" title="پروانه ساخت" />
+              </siteMapNode>
+              <siteMapNode url="~/Office/TechnicalServices/Project/DevelopmentPercent.aspx" title="مدیریت اعلام پیشرفت کار">
+                <siteMapNode url="~/Office/TechnicalServices/Project/DevelopmentPercentInsert.aspx" title="پیشرفت کار" />
+              </siteMapNode>
+            </siteMapNode>
+            <siteMapNode url="~/Office/TechnicalServices/Project/ControlPlans.aspx" title="مدیریت تصحیح نقشه">
+              <siteMapNode url="~/Office/TechnicalServices/Project/PlanInfo.aspx" title="نقشه" />
+            </siteMapNode>
+          </siteMapNode>
+        </siteMapNode>
+        <siteMapNode url="" title="ظرفیت">
+          <siteMapNode url="~/Office/TechnicalServices/Capacity/CapacityInfo.aspx" title="اطلاعات ظرفیت">
+            <siteMapNode url="~/Office/TechnicalServices/Capacity/OfficeMemberCapacity.aspx" title="اطلاعات ظرفیت اعضا" />
+          </siteMapNode>
+          <siteMapNode url="~/Office/TechnicalServices/Capacity/ConditionalCapacity.aspx" title="مدیریت کاهش/افزایش ظرفیت">
+            <siteMapNode url="~/Office/TechnicalServices/Capacity/ConditionalCapacityView.aspx" title="کاهش/افزایش ظرفیت" />
+          </siteMapNode>
+          <siteMapNode url="~/Office/TechnicalServices/Capacity/OffImpCapacityInfo.aspx" title="اطلاعات ظرفیت اجرا" />
+          <siteMapNode url="~/Office/TechnicalServices/Capacity/OffObsCapacityInfo.aspx" title="اطلاعات ظرفیت نظارت" />
+          <siteMapNode url="~/Office/TechnicalServices/Capacity/OffDsgnCapacityInfo.aspx" title="اطلاعات ظرفیت طراحی" />
+        </siteMapNode>
+        <siteMapNode url="" title="گزارشات">
+          <siteMapNode url="~/Office/TechnicalServices/Report/ImplementersCurrentProjects.aspx" title="پروژه های در دست اجرا مجری" />
+          <siteMapNode url="~/Office/TechnicalServices/Report/ObserversCurrentProjects.aspx" title="پروژه های در دست اجرا ناظر" />
+          <siteMapNode url="~/Office/TechnicalServices/Report/DesignerCurrentProjects.aspx" title="پروژه های در دست اجرا طراح" />
+          <siteMapNode url="~/Office/TechnicalServices/Report/OffObsCapacity.aspx" title="گزارش ظرفیت نظارت" />
+          <siteMapNode url="~/Office/TechnicalServices/Report/OffDsgnCapacity.aspx" title="گزارش ظرفیت طراحی" />
+          <siteMapNode url="~/Office/TechnicalServices/Report/OffImpCapacity.aspx" title="گزارش ظرفیت اجرا" />
+        </siteMapNode>
+      </siteMapNode>
+
+      <siteMapNode url="" title="تنظیمات کاربری">
+        <siteMapNode url="~/Users/ChangePassword.aspx" title="تغییر رمز عبور" />
+        <siteMapNode url="~/Users/MemberPrivateInfoSetting.aspx" title="نحوه ارائه اطلاعت شخصی" />
+        <siteMapNode url="~/Users/RecieveMagazineSetting.aspx" title="دریافت فصلنامه" />
+      </siteMapNode>
+      <siteMapNode url="" title="واحد آموزش">
+        <siteMapNode url="~/Members/Amoozesh/PreRegister.aspx" title="پیش ثبت نام دوره های آموزشی">
+          <siteMapNode url="~/Members/Amoozesh/AddPreRegister.aspx" title="مشخصات پیش ثبت نام دوره" />
+        </siteMapNode>
+        <siteMapNode url="~/Members/Amoozesh/Periods.aspx" title="نظر سنجی دوره های آموزشی">
+          <siteMapNode url="~/Members/Amoozesh/PeriodsView.aspx" title="مشخصات دوره آموزشی" />
+          <siteMapNode url="~/Members/Amoozesh/PeriodOpinionForm.aspx" title="فرم نظر سنجی" />
+        </siteMapNode>
+        <siteMapNode url="~/Members/Amoozesh/PeriodRegisterHome.aspx" title="مدیریت دوره های آموزشی/سمینارهای سپری شده">
+          <siteMapNode url="~/Members/Amoozesh/PeriodRegisterView.aspx" title="نتیجه دوره" />
+        </siteMapNode>
+        <siteMapNode url="~/Members/Amoozesh/PeriodRegister.aspx" title="ثبت نام دوره های آموزشی">
+          <siteMapNode url="~/Members/Amoozesh/AddPeriodRegister.aspx" title="ثبت نام دوره">
+            <siteMapNode url="~/Members/Amoozesh/PeriodEPayment.aspx" title="پرداخت" />
+          </siteMapNode>
+          <siteMapNode url="~/Members/Amoozesh/AddSeminarRegister.aspx" title="ثبت نام دوره های غیر مصوب و سمینارهای آموزشی">
+            <siteMapNode url="~/Members/Amoozesh/SeminarEPayment.aspx" title="پرداخت" />
+          </siteMapNode>
+        </siteMapNode>
+        <siteMapNode url="~/Members/Amoozesh/SeminarRegister.aspx" title="ثبت نام دوره های غیر مصوب و سمینارهای آموزشی"/>
+        <siteMapNode url="~/Members/Amoozesh/UpGradePeriods.aspx" title="لیست دوره های آموزشی جهت ارتقا پایه"/>
+        <siteMapNode url="~/Members/Amoozesh/Course.aspx" title="واحدهای درسی مورد تایید نظام مهندسی">
+          <siteMapNode url="~/Members/Amoozesh/CourseView.aspx" title="مشخصات درس">
+            <siteMapNode url="~/Members/Amoozesh/CourseAttachments.aspx" title="فایل های پیوست" />
+            <siteMapNode url="~/Members/Amoozesh/CourseDetails.aspx" title="ارتباط با پروانه" />
+            <siteMapNode url="~/Members/Amoozesh/CourseGroups.aspx" title="گروه بندی" />
+            <siteMapNode url="~/Members/Amoozesh/CoursePrerequisite.aspx" title="پیشنیازها" />
+            <siteMapNode url="~/Members/Amoozesh/CourseRefrences.aspx" title="منابع درس" />
+          </siteMapNode>
+        </siteMapNode>
+        <siteMapNode url="~/Members/Amoozesh/Licence.aspx" title="گواهینامه های آموزشی">
+          <siteMapNode url="~/Members/Amoozesh/LicenceView.aspx" title="مشخصات مدرک" />
+          <siteMapNode url="~/Members/Amoozesh/SeminarView.aspx" title="مشخصات سمینار" />
+        </siteMapNode>
+        <siteMapNode url="~/Members/Amoozesh/MadrakForUpGrade.aspx" title="مدیریت مدارک دوره/همایش خارج از سازمان" >
+          <siteMapNode url="~/Members/Amoozesh/MadrakForUpGradeInsert.aspx" title="مشخصات مدرک دوره/همایش خارج از سازمان" />
+        </siteMapNode>
+      </siteMapNode>
+    </siteMapNode>
+
+
+    <siteMapNode url="~/Office/OfficeHome.aspx" title="پرتال اعضای حقوقی">
+      <siteMapNode url="~/Office/OfficeRequest.aspx" title="درخواست های پروانه">
+        <siteMapNode url="~/Office/OfficeRequestInsert.aspx" title="مشخصات درخواست" />
+        <siteMapNode url="~/Office/WorkFlowReport.aspx" title="پیگیری گردش کار" />
+      </siteMapNode>
+      <siteMapNode url="~/Office/OfficeInfo/OfficeAgent.aspx" title="شعبه ها">
+        <siteMapNode url="~/Office/OfficeInfo/OfficeAgentShow.aspx" title="مشخصات شعبه" />
+      </siteMapNode>
+      <siteMapNode url="~/Office/OfficeInfo/OfficeLetters.aspx" title="روزنامه های رسمی" />
+      <siteMapNode url="~/Office/OfficeInfo/OfficeMembers.aspx" title="اعضای شرکت">
+        <siteMapNode url="~/Office/OfficeInfo/OfficeMemberShow.aspx" title="مشخصات عضو" />
+      </siteMapNode>
+      <siteMapNode url="~/Office/OfficeInfo/OfficeFinancialStatus.aspx" title="وضعیت مالی">
+        <siteMapNode url="~/Office/OfficeInfo/OfficeFinancialStausShow.aspx" title="مشخصات وضعیت مالی" />
+      </siteMapNode>
+
+      <siteMapNode url="~/Office/OfficeInfo/OfficeAttachment.aspx" title="مستندات" />
+      <siteMapNode url="~/Office/OfficeInfo/OfficeGroups.aspx" title="گروه ها" />
+
+      <siteMapNode url="~/Office/OfficeInfo/OfficeJob.aspx" title="سوابق کاری">
+        <siteMapNode url="~/Office/OfficeInfo/OfficeJobShow.aspx" title="مشخصات سابقه کاری">
+          <siteMapNode url="~/Office/OfficeInfo/OfficeJobQuality.aspx" title="مطلوبیت کار انجام شده">
+            <siteMapNode url="~/Office/OfficeInfo/OfficeJobQualityShow.aspx" title="مشخصات مطلوبیت کار" />
+          </siteMapNode>
+        </siteMapNode>
+      </siteMapNode>
+      <siteMapNode url="~/Office/OfficeMembershipRequest.aspx" title="درخواست هاي عضويت" />
+    </siteMapNode>
+    <siteMapNode url="~/Teachers/TeacherHome.aspx" title="پرتال اساتید">
+      <siteMapNode url="" title="اطلاعات عضو">
+        <siteMapNode url="~/Teachers/TeacherInfo/WorkFlowReport.aspx" title="پیگیری گردش کار" />
+        <siteMapNode url="~/Teachers/TeacherInfo/TeacherCertificate.aspx" title="مدیریت پروانه آموزشی">
+          <siteMapNode url="~/Teachers/TeacherInfo/TeacherBasicInfo.aspx" title="مشخصات فردی استاد" />
+          <siteMapNode url="~/Teachers/TeacherInfo/TeacherLicence.aspx" title="مدارک تحصیلی" />
+          <siteMapNode url="~/Teachers/TeacherInfo/TeacherJobHistory.aspx" title="سوابق آموزشی" />
+          <siteMapNode url="~/Teachers/TeacherInfo/TeacherResearchAct.aspx" title="تالیفات وتحقیقات" />
+          <siteMapNode url="~/Teachers/TeacherInfo/TeacherAttachment.aspx" title="مستندات" />
+        </siteMapNode>
+      </siteMapNode>
+      <siteMapNode url="" title="واحد آموزش">
+        <siteMapNode url="~/Teachers/Amoozesh/Period.aspx" title="دوره های آموزشی">
+          <siteMapNode url="~/Teachers/Amoozesh/PeriodView.aspx" title="مشخصات دوره آموزشی" />
+          <siteMapNode url="~/Teachers/Amoozesh/PeriodTestMarks.aspx" title="ثبت نمرات آزمون" />
+        </siteMapNode>
+        <siteMapNode url="~/Teachers/Amoozesh/TrainingQuestions.aspx" title="آرشیو سوالات امتحانی">
+          <siteMapNode url="~/Teachers/Amoozesh/AddTrainingQuestion.aspx" title="مشخصات سوالات امتحانی" />
+        </siteMapNode>
+      </siteMapNode>
+    </siteMapNode>
+    <siteMapNode url="~/Institue/Amoozesh/InstitueHome.aspx" title="پرتال مؤسسه">
+      <siteMapNode url="" title="اطلاعات عضو">
+        <siteMapNode url="~/Institue/InstitueInfo/WorkFlowReport.aspx" title="پیگیری گردش کار" />
+        <siteMapNode url="~/Institue/InstitueInfo/InstitueCertificates.aspx" title="مدیریت پروانه آموزشی">
+          <siteMapNode url="~/Institue/InstitueInfo/InstitueBasicInfo.aspx" title="مشخصات مؤسسه" />
+          <siteMapNode url="~/Institue/InstitueInfo/InstitueManager.aspx" title="هیئت اجرایی" />
+          <siteMapNode url="~/Institue/InstitueInfo/InstitueActivity.aspx" title="زمینه های فعالیت" />
+          <siteMapNode url="~/Institue/InstitueInfo/InstituteFacilities.aspx" title="امکانات و تجهیزات" />
+          <siteMapNode url="~/Institue/InstitueInfo/InstitueTeacher.aspx" title="اساتید مؤسسه" />
+        </siteMapNode>
+      </siteMapNode>
+      <siteMapNode url="" title="واحد آموزش">
+        <siteMapNode url="~/Institue/Amoozesh/Period.aspx" title="مدیریت دوره های آموزشی">
+          <siteMapNode url="~/Institue/Amoozesh/PeriodAttender.aspx" title="مدیریت شرکت کنندگان دوره">
+            <siteMapNode url="~/Institue/Amoozesh/AddPeriodAttenders.aspx" title="مشخصات شرکت کننده" />
+          </siteMapNode>
+          <siteMapNode url="~/Institue/Amoozesh/AddPeriod.aspx" title="مشخصات دوره" />
+          <siteMapNode url="~/Institue/Amoozesh/PeriodCosts.aspx" title="هزینه های متفرقه" />
+          <siteMapNode url="~/Institue/Amoozesh/PeriodTestMarks.aspx" title="ثبت نمرات آزمون" />
+          <siteMapNode url="~/Institue/Amoozesh/InActivePeriod.aspx" title="لغو دوره" />
+        </siteMapNode>
+        <siteMapNode url="~/Institue/Amoozesh/Seminar.aspx" title="مدیریت سمینارها">
+          <siteMapNode url="~/Institue/Amoozesh/AddSeminar.aspx" title="مشخصات سمینار" />
+          <siteMapNode url="~/Institue/Amoozesh/SeminarCosts.aspx" title="هزینه های متفرقه" />
+        </siteMapNode>
+        <!--<siteMapNode url="~/Institue/Amoozesh/SeminarLecturer.aspx" title="مدیریت سخنران ها">
+          <siteMapNode url="~/Institue/Amoozesh/AddSeminarLecturer.aspx" title="مشخصات سخنران" />
+        </siteMapNode>-->
+        <siteMapNode url="~/Institue/Amoozesh/CourseRegister.aspx" title="مدیریت ثبت نام دوره ها">
+          <siteMapNode url="~/Institue/Amoozesh/AddCourseRegister.aspx" title="مشخصات ثبت نام دوره" />
+        </siteMapNode>
+        <siteMapNode url="~/Institue/Amoozesh/InstitueTeachers.aspx" title="مدیریت اساتید">
+          <siteMapNode url="~/Institue/Amoozesh/AddInstitueTeacher.aspx" title="مشخصات استاد" />
+        </siteMapNode>
+        <siteMapNode url="~/Institue/Amoozesh/WorkFlowReport.aspx" title="پیگیری گردش کار" />
+      </siteMapNode>
+    </siteMapNode>
+    <siteMapNode url="~/Settlement/SettlmentHomePage.aspx" title="پرتال مسکن">
+      <siteMapNode url="" title="اطلاعات عضو" />
+      <siteMapNode url="" title="واحد آموزش">
+        <siteMapNode url="~/Settlement/Amoozesh/Teachers.aspx" title="اساتید">
+          <siteMapNode url="~/Settlement/Amoozesh/TeacherBasicInfo.aspx" title="مشخصات استاد">
+            <siteMapNode url="~/Settlement/Amoozesh/TeachersLicence.aspx" title="مدارک تحصیلی" />
+            <siteMapNode url="~/Settlement/Amoozesh/TeacherJobHistory.aspx" title="سوابق کاری">
+              <siteMapNode url="~/Settlement/Amoozesh/TeacherJobHistoryInfo.aspx" title="مشخصات سابقه کاری" />
+            </siteMapNode>
+            <siteMapNode url="~/Settlement/Amoozesh/TeacherResearchAct.aspx" title="تألیفات و تحقیقات" />
+            <siteMapNode url="~/Settlement/Amoozesh/TeacherAttachment.aspx" title="مستندات" />
+            <siteMapNode url="~/Settlement/Amoozesh/SettlmentConfirmingTeacher.aspx" title="نظر کارشناس" />
+          </siteMapNode>
+        </siteMapNode>
+        <siteMapNode url="~/Settlement/Amoozesh/Institue.aspx" title="مؤسسات">
+          <siteMapNode url="~/Settlement/Amoozesh/InstitueBasicInfo.aspx" title="مشخصات مؤسسه">
+            <siteMapNode url="~/Settlement/Amoozesh/InstitueManager.aspx" title="هیئت اجرایی مؤسسه">
+              <siteMapNode url="~/Settlement/Amoozesh/InstitueManagerView.aspx" title="مشخصات هیئت اجرایی" />
+            </siteMapNode>
+            <siteMapNode url="~/Settlement/Amoozesh/InstitueActivity.aspx" title="زمینه های فعالیت" />
+            <siteMapNode url="~/Settlement/Amoozesh/InstituteFacilities.aspx" title="امکانات و تجهیزات" />
+            <siteMapNode url="~/Settlement/Amoozesh/InstitueTeachers.aspx" title="اساتید مؤسسه">
+              <siteMapNode url="~/Settlement/Amoozesh/InstitueTeachersView.aspx" title="مشخصات مؤسسه" />
+            </siteMapNode>
+            <siteMapNode url="~/Settlement/Amoozesh/SettlmentConfirmingInstitue.aspx" title="نظر کارشناسی" />
+          </siteMapNode>
+        </siteMapNode>
+        <siteMapNode url="~/Settlement/Amoozesh/Seminar.aspx" title="سمینارها">
+          <siteMapNode url="~/Settlement/Amoozesh/SeminarView.aspx" title="مشخصات سمینار" />
+        </siteMapNode>
+        <siteMapNode url="~/Settlement/Amoozesh/Periods.aspx" title="مدیریت دوره های آموزشی">
+        </siteMapNode>
+      </siteMapNode>
+      <siteMapNode url="" title="واحد صدور پروانه">
+        <siteMapNode url="~/Settlement/MemberDocument/MemberFile.aspx" title="مدیریت پروانه اشتغال به کار">
+          <siteMapNode url="~/Settlement/MemberDocument/MemberFileBasicInfo.aspx" title="مشخصات پروانه اشتغال به کار" />
+          <siteMapNode url="~/Settlement/MemberDocument/MemberExam.aspx" title="آزمون های پذیرفته شده" />
+          <siteMapNode url="~/Settlement/MemberDocument/MemberPeriods.aspx" title="دوره های و سمینارها" />
+          <siteMapNode url="~/Settlement/MemberDocument/DocResponsibility.aspx" title="صلاحیت های پروانه" />
+          <siteMapNode url="~/Settlement/MemberDocument/DocumentAttachment.aspx" title="مدارک پیوست پروانه" />
+        </siteMapNode>
+        <siteMapNode url="~/Settlement/ImplementDoc/ImplementDoc.aspx" title="مدیریت مجوز فعالیت مجری حقیقی">
+          <siteMapNode url="~/Settlement/ImplementDoc/ImplementDocBasicInfo.aspx" title="مشخصات مجوز فعالیت مجری حقیقی" />
+          <siteMapNode url="~/Settlement/ImplementDoc/FinancialStatus.aspx" title="توان مالی مجری حقیقی" />
+        </siteMapNode>
+        <siteMapNode url="~/Settlement/OfficeDocument/OfficeRequest.aspx" title="مدیریت پروانه شخص حقوقی">
+          <siteMapNode url="~/Settlement/OfficeDocument/OfficeRequestShow.aspx" title="مشخصات پروانه شخص حقوقی" />
+          <siteMapNode url="~/Settlement/OfficeDocument/OfficeMembers.aspx" title="اعضای شرکت">
+            <siteMapNode url="~/Settlement/OfficeDocument/OfficeMemberShow.aspx" title="مشخصات عضو" />
+          </siteMapNode>
+          <siteMapNode url="~/Settlement/OfficeDocument/OfficeAgent.aspx" title="شعبه ها">
+            <siteMapNode url="~/Settlement/OfficeDocument/OfficeAgentShow.aspx" title="مشخصات شعبه" />
+          </siteMapNode>
+          <siteMapNode url="~/Settlement/OfficeDocument/OfficeFinancialStatus.aspx" title="وضعیت مالی">
+            <siteMapNode url="~/Settlement/OfficeDocument/OfficeFinancialStatusShow.aspx" title="مشخصات وضعیت مالی" />
+          </siteMapNode>
+          <siteMapNode url="~/Settlement/OfficeDocument/OfficeJob.aspx" title="سوابق کاری">
+            <siteMapNode url="~/Settlement/OfficeDocument/OfficeJobShow.aspx" title="مشخصات سابقه کاری" />
+            <siteMapNode url="~/Settlement/OfficeDocument/OfficeJobQuality.aspx" title="مطلوبیت کار" />
+          </siteMapNode>
+          <siteMapNode url="~/Settlement/OfficeDocument/OfficeLetters.aspx" title="روزنامه های رسمی" />
+          <siteMapNode url="~/Settlement/MemberDocument/WorkFlowReport.aspx" title="پیگیری گردش کار" />
+        </siteMapNode>
+        <siteMapNode url="~/Settlement/EngOfficeDocument/EngOffice.aspx" title="مدیریت دفاتر">
+          <siteMapNode url="~/Settlement/EngOfficeDocument/EngOfficeShow.aspx" title="مشخصات دفتر" />
+          <siteMapNode url="~/Settlement/EngOfficeDocument/EngOfficeMember.aspx" title="اعضای دفتر">
+            <siteMapNode url="~/Settlement/EngOfficeDocument/EngOfficeMemberShow.aspx" title="مشخصات عضو" />
+          </siteMapNode>
+          <siteMapNode url="~/Settlement/EngOfficeDocument/EngOfficeAttachment.aspx" title="مستندات" />
+          <siteMapNode url="~/Settlement/EngOfficeDocument/EngOfficeJob.aspx" title="سوابق کاری">
+            <siteMapNode url="~/Settlement/EngOfficeDocument/EngOfficeJobShow.aspx" title="مشخصات سابقه کاری" />
+          </siteMapNode>
+        </siteMapNode>
+        <siteMapNode url="~/Settlement/MemberDocument/MemberJobHistory.aspx" title="سابقه کار" />
+      </siteMapNode>
+    </siteMapNode>
+    <siteMapNode url="~/Owner/OwnerHome.aspx" title="پرتال مالکین ساختمان">
+      <siteMapNode   url="~/Owner/ProjectAccounting.aspx" title="مدیریت فیش های پروژه ساختمانی">
+      </siteMapNode>
+      <siteMapNode   url="~/Owner/ProjectInfo.aspx" title="گزارش عاملان پروژه">
+      </siteMapNode>
+      
+    </siteMapNode>
+    <siteMapNode url="~/Municipality/MunHomePage.aspx" title="پرتال شهرداری">
+      <siteMapNode url="~/Municipality/TechnicalService/TsHome.aspx" title="خدمات مهندسی">
+        <siteMapNode url="" title="اطلاعات پروژه">
+          <siteMapNode url="~/Municipality/TechnicalService/Project/Project.aspx" title="مدیریت پروژه">
+            <siteMapNode url="~/Municipality/TechnicalService/Project/ProjectInsert.aspx" title="پروژه">
+              <siteMapNode url="~/Municipality/TechnicalService/Project/RegisteredNo.aspx" title="مدیریت پلاکهای ثبتی">
+                <siteMapNode url="~/Municipality/TechnicalService/Project/RegisteredNoInsert.aspx" title="پلاک ثبتی" />
+              </siteMapNode>
+              <siteMapNode url="~/Municipality/TechnicalService/Project/PlansMethod.aspx" title="مدیریت دستور نقشه">
+                <siteMapNode url="~/Municipality/TechnicalService/Project/PlansMethodInsert.aspx" title="دستور نقشه" />
+              </siteMapNode>
+              <siteMapNode url="~/Municipality/TechnicalService/Project/Block.aspx" title="مدیریت بلوک ها">
+                <siteMapNode url="~/Municipality/TechnicalService/Project/BlockInsert.aspx" title="بلوک" />
+              </siteMapNode>
+              <siteMapNode url="~/Municipality/TechnicalService/Project/Insurance.aspx" title="بیمه" />
+              <siteMapNode url="~/Municipality/TechnicalService/Project/Implementer.aspx" title="مجریان">
+                <siteMapNode url="~/Municipality/TechnicalService/Project/ImplementerInsert.aspx" title="مشخصات مجری">
+                  <siteMapNode url="~/Municipality/TechnicalService/Project/JobHistory.aspx" title="سوابق کاری">
+                    <siteMapNode url="~/Municipality/TechnicalService/Project/JobHistoryShow.aspx" title="مشخصات سابقه کاری" />
+                  </siteMapNode>
+                  <siteMapNode url="~/Municipality/TechnicalService/Project/ProjectQC.aspx" title="کیفیت اجرای پروژه ها" />
+                </siteMapNode>
+                <siteMapNode url="~/Municipality/TechnicalService/Project/ImplementerAgent.aspx" title="نماینده مجری">
+                  <siteMapNode url="~/Municipality/TechnicalService/Project/ImplementerAgentInsert.aspx" title="مشخصات نماینده" />
+                </siteMapNode>
+              </siteMapNode>
+              <siteMapNode url="~/Municipality/TechnicalService/Project/Owner.aspx" title="مالکین">
+                <siteMapNode url="~/Municipality/TechnicalService/Project/OwnerInsert.aspx" title="مشخصات مالک" />
+              </siteMapNode>
+              <siteMapNode url="~/Municipality/TechnicalService/Project/Observers.aspx" title="ناظرین">
+                <siteMapNode url="~/Municipality/TechnicalService/Project/ObserverInsert.aspx" title="مشخصات ناظر" />
+              </siteMapNode>
+              <siteMapNode url="~/Municipality/TechnicalService/Project/Contract.aspx" title="قرارداد">
+                <siteMapNode url="~/Municipality/TechnicalService/Project/ContractInsert.aspx" title="مشخصات قرارداد" />
+              </siteMapNode>
+              <siteMapNode url="~/Municipality/TechnicalService/Project/Timing.aspx" title="زمان بندی">
+                <siteMapNode url="~/Municipality/TechnicalService/Project/TimingInsert.aspx" title="مشخصات زمان بندی" />
+                <siteMapNode url="~/Municipality/TechnicalService/Project/TimingPredecessors.aspx" title="پیش نیازها" />
+              </siteMapNode>
+              <siteMapNode url="~/Municipality/TechnicalService/Project/BuildingsLicense.aspx" title="مدیریت پروانه ساخت">
+                <siteMapNode url="~/Municipality/TechnicalService/Project/BuildingsLicenseInsert.aspx" title="پروانه ساخت" />
+              </siteMapNode>
+              <siteMapNode url="~/Municipality/TechnicalService/Project/DevelopmentPercent.aspx" title="مدیریت اعلام پیشرفت کار">
+                <siteMapNode url="~/Municipality/TechnicalService/Project/DevelopmentPercentInsert.aspx" title="پیشرفت کار" />
+              </siteMapNode>
+            </siteMapNode>
+            <siteMapNode url="~/Municipality/TechnicalService/Project/ControlPlans.aspx" title="مدیریت تصحیح نقشه">
+              <siteMapNode url="~/Municipality/TechnicalService/Project/PlanInfo.aspx" title="مشخصات نقشه" />
+            </siteMapNode>
+          </siteMapNode>
+        </siteMapNode>
+        <siteMapNode url="" title="اطلاعات پایه">
+          <siteMapNode url="~/Municipality/TechnicalService/BaseInfo/DiscountPercent.aspx" title="درصد تخفیف برای پروژه های خاص" />
+          <siteMapNode url="~/Municipality/TechnicalService/BaseInfo/ProjectIngridientMajors.aspx" title="رشته های مجاز عوامل پروِژه" />
+          <siteMapNode url="~/Municipality/TechnicalService/Plan/PlanControler.aspx" title="مدیریت کنترل کنندگان نقشه">
+            <siteMapNode url="~/Municipality/TechnicalService/Plan/AddPlanControler.aspx" title="مشخصات کنترل کنندگان نقشه" />
+          </siteMapNode>
+        </siteMapNode>
+        <siteMapNode url="" title="ظرفیت">
+          <siteMapNode url="~/Municipality/TechnicalService/Capacity/CapacityAssignment.aspx" title="مدیریت اختصاص ظرفیت">
+            <siteMapNode url="~/Municipality/TechnicalService/Capacity/CapacityAssignmentInsert.aspx" title="اختصاص ظرفیت" />
+          </siteMapNode>
+          <siteMapNode url="~/Municipality/TechnicalService/Capacity/ConditionalCapacity.aspx" title="مدیریت کاهش/افزایش ظرفیت">
+            <siteMapNode url="~/Municipality/TechnicalService/Capacity/ConditionalCapacityInsert.aspx" title="کاهش/افزایش ظرفیت" />
+          </siteMapNode>
+          <siteMapNode url="" title="اطلاعات ظرفیت طراحی">
+            <siteMapNode url="~/Municipality/TechnicalService/Capacity/OffDsgnCapacityInfo.aspx" title="اعضای حقوقی" />
+            <siteMapNode url="~/Municipality/TechnicalService/Capacity/EngOffDsgnCapacityInfo.aspx" title="دفاتر" />
+          </siteMapNode>
+          <siteMapNode url="" title="اطلاعات ظرفیت نظارت">
+            <siteMapNode url="~/Municipality/TechnicalService/Capacity/OffObsCapacityInfo.aspx" title="اعضای حقوقی" />
+            <siteMapNode url="~/Municipality/TechnicalService/Capacity/MemberObsCapacityInfo.aspx" title="اعضای حقیقی" />
+          </siteMapNode>
+          <siteMapNode url="" title="اطلاعات ظرفیت اجرا">
+            <siteMapNode url="~/Municipality/TechnicalService/Capacity/OffImpCapacityInfo.aspx" title="اعضای حقوقی" />
+            <siteMapNode url="~/Municipality/TechnicalService/Capacity/MemberImpCapacityInfo.aspx" title="اعضای حقیقی" />
+          </siteMapNode>
+        </siteMapNode>
+        <siteMapNode url="" title="گزارشات">
+          <siteMapNode url="~/Municipality/TechnicalService/Report/Summary.aspx" title="خلاصه پرونده" />
+          <siteMapNode url="~/Municipality/TechnicalService/Report/ImplementersCurrentProjects.aspx" title="پروژه های در دست اجرا مجری" />
+          <siteMapNode url="~/Municipality/TechnicalService/Report/ObserversCurrentProjects.aspx" title="پروژه های در دست اجرا ناظر" />
+          <siteMapNode url="~/Municipality/TechnicalService/Report/DesignerCurrentProjects.aspx" title="پروژه های در دست اجرا طراح" />
+          <siteMapNode url="" title="گزارش ظرفیت نظارت">
+            <siteMapNode url="~/Municipality/TechnicalService/Report/MemberObsCapacity.aspx" title="عضو حقیقی" />
+            <siteMapNode url="~/Municipality/TechnicalService/Report/OffObsCapacity.aspx" title="عضو حقوقی" />
+          </siteMapNode>
+          <siteMapNode url="" title="گزارش ظرفیت طراحی">
+            <siteMapNode url="~/Municipality/TechnicalService/Report/OffDsgnCapacity.aspx" title="عضو حقوقی" />
+            <siteMapNode url="~/Municipality/TechnicalService/Report/EngOffDsgnCapacity.aspx" title="دفاتر" />
+          </siteMapNode>
+          <siteMapNode url="" title="گزارش ظرفیت اجرا">
+            <siteMapNode url="~/Municipality/TechnicalService/Report/MemberImpCapacity.aspx" title="عضو حقیقی" />
+            <siteMapNode url="~/Municipality/TechnicalService/Report/OffImpCapacity.aspx" title="عضو حقوقی" />
+          </siteMapNode>
+        </siteMapNode>
+      </siteMapNode>
+    </siteMapNode>
+
+    <siteMapNode url="~/EPayment/EpaymentFishes.aspx" title="مدیریت فیش های پرداخت الکترونیکی">
+    </siteMapNode>
+    <siteMapNode url="~/EPayment/EpaymentFisheView.aspx" title="مشخصات فیش پرداخت الکترونیکی">
+    </siteMapNode>
+    <siteMapNode  title="نظرسنجی">
+      <siteMapNode   url="~/Poll/AnswerPollQuestion.aspx" title="پاسخ به سوالات نظرسنجی">
+      </siteMapNode>
+      <siteMapNode   url="~/Poll/AnswerPollQuestionForHomePage.aspx" title="پاسخ به سوالات نظرسنجی">
+      </siteMapNode>
+      <siteMapNode   url="~/Poll/PollResultMain.aspx" title="نتایج نظر سنجی">
+      </siteMapNode>
+    </siteMapNode>
+    <siteMapNode url="~/DebtPayment.aspx" title="پرداخت الکترونیکی بدهی قطع عضویت" />
+  </siteMapNode>
+</siteMap>

@@ -1,0 +1,145 @@
+﻿using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+using DevExpress.Web;
+
+public partial class Settlement_Amoozesh_TeacherJobHistory : System.Web.UI.Page
+{
+    #region Events
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (string.IsNullOrEmpty(Request.QueryString["PgMd"]) || string.IsNullOrEmpty(Request.QueryString["TeId"]))
+        {
+            Response.Redirect("Teachers.aspx");
+            return;
+        }
+
+        if (!IsPostBack)
+        {
+
+            MenuTeacherInfo.Enabled = true;
+            HiddenFieldTeacher["TeacherId"] = Request.QueryString["TeId"].ToString();
+            HiddenFieldTeacher["PgMode"] = Request.QueryString["PgMd"];
+            HiddenFieldTeacher["PgMdTeBase"] = Request.QueryString["PgMdTeBase"];
+            HiddenFieldTeacher["TeacherCertId"]=Request.QueryString["TcId"];
+            HiddenFieldTeacher["IsMember"] = true;
+            string TeId = Utility.DecryptQS(HiddenFieldTeacher["TeacherId"].ToString());
+            ObjdsTeacherJobHistory.SelectParameters[0].DefaultValue = TeId;
+
+            TSP.DataManager.TeacherManager TeacherManager = new TSP.DataManager.TeacherManager();
+            TeacherManager.FindByCode(int.Parse(TeId));
+
+            if (TeacherManager.Count > 0)
+            {
+                RoundPanelTeacherJob.HeaderText = TeacherManager[0]["Name"].ToString() + " " + TeacherManager[0]["Family"].ToString();
+            }
+            else
+            {
+                Response.Redirect("Teachers.aspx");
+                return;
+            }
+            this.ViewState["BtnView"] = btnView.Enabled;
+        }
+        if (this.ViewState["BtnView"] != null)
+            this.btnView.Enabled = this.btnView2.Enabled = (bool)this.ViewState["BtnView"];
+
+        this.DivReport.Visible = false;
+        this.DivReport.Attributes.Add("onclick", "ChangeVisible(this)");
+        this.DivReport.Attributes.Add("onmouseover", "ChangeIcon(this)");
+    }
+
+    protected void GridViewJudge_BeforePerformDataSelect(object sender, EventArgs e)
+    {
+        Session["TableId"] = (sender as ASPxGridView).GetMasterRowKeyValue();
+        string TeId = Utility.DecryptQS(HiddenFieldTeacher["TeacherId"].ToString());
+        Session["TeId"] = TeId;
+        int TableType = -1;
+        TableType = (int)(TSP.DataManager.TableCodes.TeacherJobHistory);
+        Session["TableType"] = TableType;  
+    }
+
+    protected void btnView_Click(object sender, EventArgs e)
+    {
+        NextPage("View");
+    }
+
+    protected void btnBack_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("Teachers.aspx");
+    }
+
+    protected void MenuTeacherInfo_ItemClick(object source, DevExpress.Web.MenuItemEventArgs e)
+    {
+        switch (e.Item.Name)
+        {
+            case "BasicInfo":                
+                Response.Redirect("SettlmentConfirmingTeacher.aspx?TcId=" + HiddenFieldTeacher["TeacherCertId"].ToString() + "&PgMd=" + HiddenFieldTeacher["PgMdTeBase"].ToString());
+                break;
+            case "ResearchAct":
+                Response.Redirect("TeacherResearchAct.aspx?TeId=" + HiddenFieldTeacher["TeacherId"].ToString() + "&PgMd=" + HiddenFieldTeacher["PgMode"].ToString() + "&TcId=" + HiddenFieldTeacher["TeacherCertId"].ToString() + "&PgMdTeBase=" + HiddenFieldTeacher["PgMdTeBase"].ToString());
+                break;
+            case "Attach":
+                Response.Redirect("TeacherAttachment.aspx?TeId=" + HiddenFieldTeacher["TeacherId"].ToString() + "&PgMd=" + HiddenFieldTeacher["PgMode"].ToString() + "&TcId=" + HiddenFieldTeacher["TeacherCertId"].ToString() + "&PgMdTeBase=" + HiddenFieldTeacher["PgMdTeBase"].ToString());
+                break;
+            case "licence":
+                Response.Redirect("TeachersLicence.aspx?TeId=" + HiddenFieldTeacher["TeacherId"].ToString() + "&PgMd=" + HiddenFieldTeacher["PgMode"].ToString() + "&TcId=" + HiddenFieldTeacher["TeacherCertId"].ToString() + "&PgMdTeBase=" + HiddenFieldTeacher["PgMdTeBase"].ToString());
+                break;
+        }
+    }
+
+    protected void GridViewTeacherJob_OnAutoFilterCellEditorInitialize(object sender, ASPxGridViewEditorEventArgs e)
+    {
+        if (e.Column.FieldName == "StartDate" || e.Column.FieldName == "EndDate")
+            e.Editor.Style["direction"] = "ltr";
+    }
+
+    protected void GridViewTeacherJob_OnHtmlDataCellPrepared(object sender, ASPxGridViewTableDataCellEventArgs e)
+    {
+        if (e.DataColumn.FieldName == "StartDate" || e.DataColumn.FieldName == "EndDate")
+        {
+            e.Cell.Style["direction"] = "ltr";
+        }
+    }
+    #endregion
+
+    #region Method
+    private void NextPage(string Mode)
+    {
+        int TJobHistoryId = -1;
+        int FocucedIndex = GridViewTeacherJob.FocusedRowIndex;
+
+        if (FocucedIndex > -1)
+        {
+            string TeacherId = Utility.DecryptQS(HiddenFieldTeacher["TeacherId"].ToString());
+
+            DataRow row = GridViewTeacherJob.GetDataRow(FocucedIndex);
+            TJobHistoryId = (int)(row["TJobHistoryId"]);
+
+        }
+        if (TJobHistoryId == -1 && Mode != "New")
+        {
+            this.DivReport.Visible = true;
+            this.LabelWarning.Text = "لطفاً برای مشاهده اطلاعات ابتدا یک رکورد را انتخاب نمائید";
+        }
+        else
+        {
+            if (Mode == "New")
+            {
+                TJobHistoryId = -1;
+                Response.Redirect("TeacherJobHistoryInfo.aspx?TJobHistoryId=" + Utility.EncryptQS(TJobHistoryId.ToString()) + "&PgMd=" + Utility.EncryptQS(Mode) + "&PrePageMode=" + HiddenFieldTeacher["PrePageMode"] + "&TeId=" + HiddenFieldTeacher["TeacherId"]);
+            }
+            else
+            {
+                Response.Redirect("TeacherJobHistoryInfo.aspx?TJobHistoryId=" + Utility.EncryptQS(TJobHistoryId.ToString()) + "&PgMd=" + Utility.EncryptQS(Mode) + "&PrePageMode=" + HiddenFieldTeacher["PrePageMode"] + "&TeId=" + HiddenFieldTeacher["TeacherId"]);
+            }
+        }
+    }
+    #endregion    
+}

@@ -1,0 +1,86 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="TestSlideShowAjaxs.aspx.cs" Inherits="Temp_TestSlideShowAjaxs" %>
+
+
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dx" %>
+
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="ajaxToolkit" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<script runat="Server" type="text/C#">
+    [System.Web.Services.WebMethod]
+    [System.Web.Script.Services.ScriptMethod]
+    public static AjaxControlToolkit.Slide[] GetSlides()
+    {
+        return new AjaxControlToolkit.Slide[] { 
+            new AjaxControlToolkit.Slide("../images/arm_report.jpg", "Blue Hills", "Go Blue"),
+            new AjaxControlToolkit.Slide("../images/back.png", "Sunset", "Setting sun"),
+            new AjaxControlToolkit.Slide("../images/banner.jpg", "Winter", "Wintery...")};
+    }
+</script>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <title>SlideShowEventArgs test</title>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <ajaxToolkit:ToolkitScriptManager runat="server" ID="scriptManager1">
+        </ajaxToolkit:ToolkitScriptManager>
+        <div style="text-align: left">
+            Test to show how to hook into the SlideChanging event and use the SlideShowEventArgs.
+            AutoPlay is set to true and the label should update automatically as the slides
+            change.
+
+            <script type="text/javascript">
+                Sys.Application.add_load(setupSlideShowHandler);
+
+                function setupSlideShowHandler() {
+                    var slideShowBehavior = $find('slideShowBehavior');
+                    slideShowBehavior.add_slideChanging(updateSlideLabel);
+                }
+
+                function updateSlideLabel(sender, ev) {
+                    var slideLabel = $get('slideInfoLabel');
+                    var nextSlide = ev.get_nextSlide();
+                    if (nextSlide) {
+                        slideLabel.innerHTML = 'Photo ' + (ev.get_slideIndex() + 1) + ' ' + nextSlide.Name + ': ' + nextSlide.Description;
+                    }
+                }
+
+                function next() {
+                    slider1 = $find("slideShowBehavior");
+                    //slider1._currentIndex = slider1._currentIndex + 1;
+                    //slider1.setCurrentImage();
+                    slider1._clickNext();
+                }
+
+                function Previous() {
+                    slider1 = $find("slideShowBehavior");
+                    //alert(slider1._length);
+                    //if(slider1._currentIndex
+                    //                    slider1._currentIndex = slider1._currentIndex - 1;
+                    //                    slider1.setCurrentImage();
+                    slider1._clickPrevious();
+                }
+            </script>
+
+            <asp:Image runat="server" ID="slideShowImage" Width="150" />
+            <asp:Label runat="server" ID="slideInfoLabel"></asp:Label>
+                <dx:ASPxButton ID="ASPxButton1" runat="server" Text="Next" AutoPostBack="false">
+                <ClientSideEvents Click="function(s,e){
+                next() ;
+                }" />
+                </dx:ASPxButton>
+                <dx:ASPxButton ID="ASPxButton2" runat="server" Text="Previous" AutoPostBack="false">
+                <ClientSideEvents Click="function(s,e){
+                Previous() ;
+                }" />
+                </dx:ASPxButton>
+            <ajaxToolkit:SlideShowExtender runat="server" ID="slideShowExtender" BehaviorID="slideShowBehavior"
+                TargetControlID="slideShowImage" Loop="True" AutoPlay="true" SlideShowServiceMethod="GetSlides"
+                >
+            </ajaxToolkit:SlideShowExtender>
+        </div>
+    </form>
+</body>
+</html>

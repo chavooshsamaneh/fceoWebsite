@@ -1,0 +1,181 @@
+.dx-acc-r .dxCardView_CTClearFilter_Metropolis:before,
+.dx-acc-r .dxCardView_CTClearFilterDisabled_Metropolis:before,
+.dx-acc-r .dxCardView_CTDeleteRow_Metropolis:before,
+.dx-acc-r .dxCardView_CTDeleteRowDisabled_Metropolis:before,
+.dx-acc-r .dxCardView_CTEditRow_Metropolis:before,
+.dx-acc-r .dxCardView_CTEditRowDisabled_Metropolis:before,
+.dx-acc-r .dxCardView_CTNewRow_Metropolis:before,
+.dx-acc-r .dxCardView_CTNewRowDisabled_Metropolis:before,
+.dx-acc-r .dxCardView_CTRefresh_Metropolis:before,
+.dx-acc-r .dxCardView_CTRefreshDisabled_Metropolis:before,
+.dx-acc-r .dxCardView_CTShowCustomizationWindow_Metropolis:before,
+.dx-acc-r .dxCardView_CTShowCustomizationWindowDisabled_Metropolis:before,
+.dx-acc-r .dxCardView_CTShowFilterEditor_Metropolis:before,
+.dx-acc-r .dxCardView_CTShowFilterEditorDisabled_Metropolis:before,
+.dx-acc-r .dxCardView_CTShowSearchPanel_Metropolis:before,
+.dx-acc-r .dxCardView_CTShowSearchPanelDisabled_Metropolis:before,
+.dx-acc-r .dxCardView_gvCellError_Metropolis:before,
+.dx-acc-r .dxCardView_gvFilterRowButton_Metropolis:before,
+.dx-acc-r .dxCardView_gvHeaderFilter_Metropolis:before,
+.dx-acc-r .dxCardView_gvHeaderFilterActive_Metropolis:before,
+.dx-acc-r .dxCardView_gvHeaderSortDown_Metropolis:before,
+.dx-acc-r .dxCardView_gvHeaderSortUp_Metropolis:before
+
+{
+    content: url('spriteAccessible.png');
+
+}
+.dx-acc-r .dxCardView_CTClearFilter_Metropolis:before
+
+{
+    left: 0px;
+    top: 0px;
+
+}
+.dx-acc-r .dxCardView_CTClearFilterDisabled_Metropolis:before
+
+{
+    left: 0px;
+    top: -221px;
+
+}
+.dx-acc-r .dxCardView_CTDeleteRow_Metropolis:before
+
+{
+    left: 0px;
+    top: -85px;
+
+}
+.dx-acc-r .dxCardView_CTDeleteRowDisabled_Metropolis:before
+
+{
+    left: 0px;
+    top: -102px;
+
+}
+.dx-acc-r .dxCardView_CTEditRow_Metropolis:before
+
+{
+    left: 0px;
+    top: -34px;
+
+}
+.dx-acc-r .dxCardView_CTEditRowDisabled_Metropolis:before
+
+{
+    left: 0px;
+    top: -187px;
+
+}
+.dx-acc-r .dxCardView_CTNewRow_Metropolis:before
+
+{
+    left: 0px;
+    top: -136px;
+
+}
+.dx-acc-r .dxCardView_CTNewRowDisabled_Metropolis:before
+
+{
+    left: 0px;
+    top: -51px;
+
+}
+.dx-acc-r .dxCardView_CTRefresh_Metropolis:before
+
+{
+    left: 0px;
+    top: -68px;
+
+}
+.dx-acc-r .dxCardView_CTRefreshDisabled_Metropolis:before
+
+{
+    left: 0px;
+    top: -255px;
+
+}
+.dx-acc-r .dxCardView_CTShowCustomizationWindow_Metropolis:before
+
+{
+    left: 0px;
+    top: -119px;
+
+}
+.dx-acc-r .dxCardView_CTShowCustomizationWindowDisabled_Metropolis:before
+
+{
+    left: 0px;
+    top: -170px;
+
+}
+.dx-acc-r .dxCardView_CTShowFilterEditor_Metropolis:before
+
+{
+    left: 0px;
+    top: -204px;
+
+}
+.dx-acc-r .dxCardView_CTShowFilterEditorDisabled_Metropolis:before
+
+{
+    left: 0px;
+    top: -153px;
+
+}
+.dx-acc-r .dxCardView_CTShowSearchPanel_Metropolis:before
+
+{
+    left: 0px;
+    top: -17px;
+
+}
+.dx-acc-r .dxCardView_CTShowSearchPanelDisabled_Metropolis:before
+
+{
+    left: 0px;
+    top: -238px;
+
+}
+.dx-acc-r .dxCardView_gvCellError_Metropolis:before
+
+{
+    left: 0px;
+    top: -321px;
+
+}
+.dx-acc-r .dxCardView_gvFilterRowButton_Metropolis:before
+
+{
+    left: 0px;
+    top: -306px;
+
+}
+.dx-acc-r .dxCardView_gvHeaderFilter_Metropolis:before
+
+{
+    left: 0px;
+    top: -272px;
+
+}
+.dx-acc-r .dxCardView_gvHeaderFilterActive_Metropolis:before
+
+{
+    left: 0px;
+    top: -289px;
+
+}
+.dx-acc-r .dxCardView_gvHeaderSortDown_Metropolis:before
+
+{
+    left: -8px;
+    top: -336px;
+
+}
+.dx-acc-r .dxCardView_gvHeaderSortUp_Metropolis:before
+
+{
+    left: 0px;
+    top: -336px;
+
+}

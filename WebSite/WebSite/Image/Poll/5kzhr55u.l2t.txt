@@ -1,0 +1,213 @@
+See the end of this message for details on invoking 
+just-in-time (JIT) debugging instead of this dialog box.
+
+************** Exception Text **************
+System.Data.SqlClient.SqlException (0x80131904): Timeout expired.  The timeout period elapsed prior to completion of the operation or the server is not responding.
+   at System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection)
+   at System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning()
+   at System.Data.SqlClient.TdsParserStateObject.ReadSniError(TdsParserStateObject stateObj, UInt32 error)
+   at System.Data.SqlClient.TdsParserStateObject.ReadSni(DbAsyncResult asyncResult, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.TdsParserStateObject.ReadNetworkPacket()
+   at System.Data.SqlClient.TdsParserStateObject.ReadBuffer()
+   at System.Data.SqlClient.TdsParserStateObject.ReadByte()
+   at System.Data.SqlClient.TdsParser.Run(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj)
+   at System.Data.SqlClient.SqlDataReader.ConsumeMetaData()
+   at System.Data.SqlClient.SqlDataReader.get_MetaData()
+   at System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, DbAsyncResult result)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.ExecuteReader()
+   at System.Data.Linq.SqlClient.SqlProvider.Execute(Expression query, QueryInfo queryInfo, IObjectReaderFactory factory, Object[] parentArgs, Object[] userArgs, ICompiledSubQuery[] subQueries, Object lastResult)
+   at System.Data.Linq.SqlClient.SqlProvider.ExecuteAll(Expression query, QueryInfo[] queryInfos, IObjectReaderFactory factory, Object[] userArguments, ICompiledSubQuery[] subQueries)
+   at System.Data.Linq.SqlClient.SqlProvider.System.Data.Linq.Provider.IProvider.Execute(Expression query)
+   at System.Data.Linq.DataContext.ExecuteMethodCall(Object instance, MethodInfo methodInfo, Object[] parameters)
+   at TSP.DataManager.DataClasses.MainDataClassesDataContext.spSelectSession_EventHoldingMembersGroupByMajorForReport(Nullable`1 eventId, Nullable`1 memberLicenceTableType)
+   at TSP.DataManager.EventHoldingManager.SelectMembersGroupByMajorForReport(Int32 EventId)
+   at NezamFarsSessions.Forms.Reports.frmReportMembersGroupByField.Load_ChartControls()
+   at NezamFarsSessions.Forms.Reports.frmReportMembersGroupByField.TimerLoadData_Tick(Object sender, EventArgs e)
+   at System.Windows.Forms.Timer.OnTick(EventArgs e)
+   at System.Windows.Forms.Timer.TimerNativeWindow.WndProc(Message& m)
+   at System.Windows.Forms.NativeWindow.Callback(IntPtr hWnd, Int32 msg, IntPtr wparam, IntPtr lparam)
+
+
+************** Loaded Assemblies **************
+mscorlib
+    Assembly Version: 4.0.0.0
+    Win32 Version: 4.0.30319.1 (RTMRel.030319-0100)
+    CodeBase: file:///C:/Windows/Microsoft.NET/Framework/v4.0.30319/mscorlib.dll
+----------------------------------------
+NezamFarsSessions
+    Assembly Version: 1.1.2.0
+    Win32 Version: 1.1.2.0
+    CodeBase: file:///C:/Program%20Files/TarrahSamanehParsian/NezamFarsSessions/NezamFarsSessions.exe
+----------------------------------------
+System.Windows.Forms
+    Assembly Version: 4.0.0.0
+    Win32 Version: 4.0.30319.1 built by: RTMRel
+    CodeBase: file:///C:/Windows/Microsoft.Net/assembly/GAC_MSIL/System.Windows.Forms/v4.0_4.0.0.0__b77a5c561934e089/System.Windows.Forms.dll
+----------------------------------------
+System.Drawing
+    Assembly Version: 4.0.0.0
+    Win32 Version: 4.0.30319.1 built by: RTMRel
+    CodeBase: file:///C:/Windows/Microsoft.Net/assembly/GAC_MSIL/System.Drawing/v4.0_4.0.0.0__b03f5f7f11d50a3a/System.Drawing.dll
+----------------------------------------
+System
+    Assembly Version: 4.0.0.0
+    Win32 Version: 4.0.30319.1 built by: RTMRel
+    CodeBase: file:///C:/Windows/Microsoft.Net/assembly/GAC_MSIL/System/v4.0_4.0.0.0__b77a5c561934e089/System.dll
+----------------------------------------
+TSP.Controls
+    Assembly Version: 1.1.2.0
+    Win32 Version: 1.1.2.0
+    CodeBase: file:///C:/Program%20Files/TarrahSamanehParsian/NezamFarsSessions/TSP.Controls.DLL
+----------------------------------------
+System.Configuration
+    Assembly Version: 4.0.0.0
+    Win32 Version: 4.0.30319.1 (RTMRel.030319-0100)
+    CodeBase: file:///C:/Windows/Microsoft.Net/assembly/GAC_MSIL/System.Configuration/v4.0_4.0.0.0__b03f5f7f11d50a3a/System.Configuration.dll
+----------------------------------------
+System.Xml
+    Assembly Version: 4.0.0.0
+    Win32 Version: 4.0.30319.1 built by: RTMRel
+    CodeBase: file:///C:/Windows/Microsoft.Net/assembly/GAC_MSIL/System.Xml/v4.0_4.0.0.0__b77a5c561934e089/System.Xml.dll
+----------------------------------------
+PresentationCore
+    Assembly Version: 4.0.0.0
+    Win32 Version: 4.0.30319.1 built by: RTMRel
+    CodeBase: file:///C:/Windows/Microsoft.Net/assembly/GAC_32/PresentationCore/v4.0_4.0.0.0__31bf3856ad364e35/PresentationCore.dll
+----------------------------------------
+WindowsBase
+    Assembly Version: 4.0.0.0
+    Win32 Version: 4.0.30319.1 built by: RTMRel
+    CodeBase: file:///C:/Windows/Microsoft.Net/assembly/GAC_MSIL/WindowsBase/v4.0_4.0.0.0__31bf3856ad364e35/WindowsBase.dll
+----------------------------------------
+DevExpress.Utils.v11.2
+    Assembly Version: 11.2.10.0
+    Win32 Version: 11.2.10.0
+    CodeBase: file:///C:/Windows/assembly/GAC_MSIL/DevExpress.Utils.v11.2/11.2.10.0__b88d1754d700e49a/DevExpress.Utils.v11.2.dll
+----------------------------------------
+WindowsFormsIntegration
+    Assembly Version: 4.0.0.0
+    Win32 Version: 4.0.30319.1 built by: RTMRel
+    CodeBase: file:///C:/Windows/Microsoft.Net/assembly/GAC_MSIL/WindowsFormsIntegration/v4.0_4.0.0.0__31bf3856ad364e35/WindowsFormsIntegration.dll
+----------------------------------------
+PresentationFramework
+    Assembly Version: 4.0.0.0
+    Win32 Version: 4.0.30319.1
+    CodeBase: file:///C:/Windows/Microsoft.Net/assembly/GAC_MSIL/PresentationFramework/v4.0_4.0.0.0__31bf3856ad364e35/PresentationFramework.dll
+----------------------------------------
+System.Xaml
+    Assembly Version: 4.0.0.0
+    Win32 Version: 4.0.30319.1 built by: RTMRel
+    CodeBase: file:///C:/Windows/Microsoft.Net/assembly/GAC_MSIL/System.Xaml/v4.0_4.0.0.0__b77a5c561934e089/System.Xaml.dll
+----------------------------------------
+PresentationFramework.Aero
+    Assembly Version: 4.0.0.0
+    Win32 Version: 4.0.30319.1 built by: RTMRel
+    CodeBase: file:///C:/Windows/Microsoft.Net/assembly/GAC_MSIL/PresentationFramework.Aero/v4.0_4.0.0.0__31bf3856ad364e35/PresentationFramework.Aero.dll
+----------------------------------------
+TSP.DbConnection
+    Assembly Version: 1.1.4.0
+    Win32 Version: 1.1.4.0
+    CodeBase: file:///C:/Program%20Files/TarrahSamanehParsian/NezamFarsSessions/TSP.DbConnection.DLL
+----------------------------------------
+System.Data
+    Assembly Version: 4.0.0.0
+    Win32 Version: 4.0.30319.1 (RTMRel.030319-0100)
+    CodeBase: file:///C:/Windows/Microsoft.Net/assembly/GAC_32/System.Data/v4.0_4.0.0.0__b77a5c561934e089/System.Data.dll
+----------------------------------------
+System.Core
+    Assembly Version: 4.0.0.0
+    Win32 Version: 4.0.30319.1 built by: RTMRel
+    CodeBase: file:///C:/Windows/Microsoft.Net/assembly/GAC_MSIL/System.Core/v4.0_4.0.0.0__b77a5c561934e089/System.Core.dll
+----------------------------------------
+System.Transactions
+    Assembly Version: 4.0.0.0
+    Win32 Version: 4.0.30319.1 (RTMRel.030319-0100)
+    CodeBase: file:///C:/Windows/Microsoft.Net/assembly/GAC_32/System.Transactions/v4.0_4.0.0.0__b77a5c561934e089/System.Transactions.dll
+----------------------------------------
+System.EnterpriseServices
+    Assembly Version: 4.0.0.0
+    Win32 Version: 4.0.30319.1 (RTMRel.030319-0100)
+    CodeBase: file:///C:/Windows/Microsoft.Net/assembly/GAC_32/System.EnterpriseServices/v4.0_4.0.0.0__b03f5f7f11d50a3a/System.EnterpriseServices.dll
+----------------------------------------
+TSP.DataManager
+    Assembly Version: 1.1.2.0
+    Win32 Version: 1.1.2.0
+    CodeBase: file:///C:/Program%20Files/TarrahSamanehParsian/NezamFarsSessions/TSP.DataManager.DLL
+----------------------------------------
+System.Data.Linq
+    Assembly Version: 4.0.0.0
+    Win32 Version: 4.0.30319.1
+    CodeBase: file:///C:/Windows/Microsoft.Net/assembly/GAC_MSIL/System.Data.Linq/v4.0_4.0.0.0__b77a5c561934e089/System.Data.Linq.dll
+----------------------------------------
+System.Web
+    Assembly Version: 4.0.0.0
+    Win32 Version: 4.0.30319.1 built by: RTMRel
+    CodeBase: file:///C:/Windows/Microsoft.Net/assembly/GAC_32/System.Web/v4.0_4.0.0.0__b03f5f7f11d50a3a/System.Web.dll
+----------------------------------------
+System.Xml.Linq
+    Assembly Version: 4.0.0.0
+    Win32 Version: 4.0.30319.1 built by: RTMRel
+    CodeBase: file:///C:/Windows/Microsoft.Net/assembly/GAC_MSIL/System.Xml.Linq/v4.0_4.0.0.0__b77a5c561934e089/System.Xml.Linq.dll
+----------------------------------------
+Anonymously Hosted DynamicMethods Assembly
+    Assembly Version: 0.0.0.0
+    Win32 Version: 4.0.30319.1 (RTMRel.030319-0100)
+    CodeBase: file:///C:/Windows/Microsoft.Net/assembly/GAC_32/mscorlib/v4.0_4.0.0.0__b77a5c561934e089/mscorlib.dll
+----------------------------------------
+DevExpress.XtraBars.v11.2
+    Assembly Version: 11.2.10.0
+    Win32 Version: 11.2.10.0
+    CodeBase: file:///C:/Windows/assembly/GAC_MSIL/DevExpress.XtraBars.v11.2/11.2.10.0__b88d1754d700e49a/DevExpress.XtraBars.v11.2.dll
+----------------------------------------
+DevExpress.XtraNavBar.v11.2
+    Assembly Version: 11.2.10.0
+    Win32 Version: 11.2.10.0
+    CodeBase: file:///C:/Windows/assembly/GAC_MSIL/DevExpress.XtraNavBar.v11.2/11.2.10.0__b88d1754d700e49a/DevExpress.XtraNavBar.v11.2.dll
+----------------------------------------
+DevExpress.Data.v11.2
+    Assembly Version: 11.2.10.0
+    Win32 Version: 11.2.10.0
+    CodeBase: file:///C:/Windows/assembly/GAC_MSIL/DevExpress.Data.v11.2/11.2.10.0__b88d1754d700e49a/DevExpress.Data.v11.2.dll
+----------------------------------------
+DevExpress.XtraEditors.v11.2
+    Assembly Version: 11.2.10.0
+    Win32 Version: 11.2.10.0
+    CodeBase: file:///C:/Windows/assembly/GAC_MSIL/DevExpress.XtraEditors.v11.2/11.2.10.0__b88d1754d700e49a/DevExpress.XtraEditors.v11.2.dll
+----------------------------------------
+DevExpress.XtraCharts.v11.2
+    Assembly Version: 11.2.10.0
+    Win32 Version: 11.2.10.0
+    CodeBase: file:///C:/Windows/assembly/GAC_MSIL/DevExpress.XtraCharts.v11.2/11.2.10.0__b88d1754d700e49a/DevExpress.XtraCharts.v11.2.dll
+----------------------------------------
+DevExpress.Charts.v11.2.Core
+    Assembly Version: 11.2.10.0
+    Win32 Version: 11.2.10.0
+    CodeBase: file:///C:/Windows/assembly/GAC_MSIL/DevExpress.Charts.v11.2.Core/11.2.10.0__b88d1754d700e49a/DevExpress.Charts.v11.2.Core.dll
+----------------------------------------
+DevExpress.XtraCharts.v11.2.UI
+    Assembly Version: 11.2.10.0
+    Win32 Version: 11.2.10.0
+    CodeBase: file:///C:/Windows/assembly/GAC_MSIL/DevExpress.XtraCharts.v11.2.UI/11.2.10.0__b88d1754d700e49a/DevExpress.XtraCharts.v11.2.UI.dll
+----------------------------------------
+
+************** JIT Debugging **************
+To enable just-in-time (JIT) debugging, the .config file for this
+application or computer (machine.config) must have the
+jitDebugging value set in the system.windows.forms section.
+The application must also be compiled with debugging
+enabled.
+
+For example:
+
+<configuration>
+    <system.windows.forms jitDebugging="true" />
+</configuration>
+
+When JIT debugging is enabled, any unhandled exception
+will be sent to the JIT debugger registered on the computer
+rather than be handled by this dialog box.

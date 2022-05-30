@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Groups>
+
+  <NavBarGroup Text="اطلاعات پایه" Expanded="False" Name="grpBaseInfo">
+    <NavBarItem NavigateUrl="~/Office/TechnicalServices/BaseInfo/DiscountPercent.aspx" Text="درصد تخفیف برای پروژه های خاص"/>
+    <NavBarItem NavigateUrl="~/Office/TechnicalServices/BaseInfo/ProjectIngridientMajors.aspx" Text="رشته های مجاز عوامل پروِژه"/>
+  </NavBarGroup>
+  
+  <NavBarGroup Text="ظرفیت" Expanded="False" Name="grpCapacity">
+    <NavBarItem NavigateUrl="~/Office/TechnicalServices/Capacity/ConditionalCapacity.aspx" Text="مدیریت کاهش/افزایش ظرفیت"/>
+    <!--<NavBarItem NavigateUrl="~/Office/TechnicalServices/Capacity/CapacityInfo.aspx" Text="اطلاعات ظرفیت"/>-->
+    <NavBarItem NavigateUrl="~/Office/TechnicalServices/Capacity/OffDsgnCapacityInfo.aspx" Text="اطلاعات ظرفیت طراحی"/>
+    <NavBarItem NavigateUrl="~/Office/TechnicalServices/Capacity/OffObsCapacityInfo.aspx" Text="اطلاعات ظرفیت نظارت"/>
+    <NavBarItem NavigateUrl="~/Office/TechnicalServices/Capacity/OffImpCapacityInfo.aspx" Text="اطلاعات ظرفیت اجرا"/>
+  </NavBarGroup>
+
+  <NavBarGroup Text="اطلاعات پروژه" Expanded="False" Name="grpProject">
+    <NavBarItem NavigateUrl="~/Office/TechnicalServices/Project/Project.aspx" Text="مدیریت پروژه ها"/>
+    <!--<NavBarItem NavigateUrl="~/Office/TechnicalServices/Project/DevelopmentPercent.aspx" Text="مدیریت اعلام های پیشرفت کار"/>-->
+  </NavBarGroup>
+
+  <NavBarGroup Text="گزارشات" Expanded="False" Name="grpReport">
+    <!--<NavBarItem NavigateUrl="~/Office/TechnicalServices/Report/DesignerCurrentProjects.aspx" Text="پروژه های در دست اجرا طراح"/>    
+    <NavBarItem NavigateUrl="~/Office/TechnicalServices/Report/ObserversCurrentProjects.aspx" Text="پروژه های در دست اجرا ناظر"/>
+    <NavBarItem NavigateUrl="~/Office/TechnicalServices/Report/ImplementersCurrentProjects.aspx" Text="پروژه های در دست اجرا مجری"/>-->
+    <NavBarItem NavigateUrl="~/Office/TechnicalServices/Report/OffDsgnCapacity.aspx" Text="گزارش سالانه ظرفیت طراحی"/>
+    <NavBarItem NavigateUrl="~/Office/TechnicalServices/Report/OffObsCapacity.aspx" Text="گزارش  سالانه ظرفیت نظارت"/>
+    <NavBarItem NavigateUrl="~/Office/TechnicalServices/Report/OffImpCapacity.aspx" Text="گزارش  سالانه ظرفیت اجرا"/>
+  </NavBarGroup>
+
+</Groups>
+

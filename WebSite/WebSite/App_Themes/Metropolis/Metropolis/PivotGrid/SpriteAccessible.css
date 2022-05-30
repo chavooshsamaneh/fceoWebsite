@@ -1,0 +1,293 @@
+.dx-acc-r .dxPivotGrid_CTNAttribute:before,
+.dx-acc-r .dxPivotGrid_CTNCalculatedMeasure:before,
+.dx-acc-r .dxPivotGrid_CTNDimension:before,
+.dx-acc-r .dxPivotGrid_CTNFolderClosed:before,
+.dx-acc-r .dxPivotGrid_CTNFolderOpen:before,
+.dx-acc-r .dxPivotGrid_CTNHierarchy:before,
+.dx-acc-r .dxPivotGrid_CTNKpi:before,
+.dx-acc-r .dxPivotGrid_CTNMeasure:before,
+.dx-acc-r .dxPivotGrid_FLBottomPanelOnly1by4_Metropolis:before,
+.dx-acc-r .dxPivotGrid_FLBottomPanelOnly2by2_Metropolis:before,
+.dx-acc-r .dxPivotGrid_FLButton_Metropolis:before,
+.dx-acc-r .dxPivotGrid_FLColumnAreaHeaders_Metropolis:before,
+.dx-acc-r .dxPivotGrid_FLDataAreaHeaders_Metropolis:before,
+.dx-acc-r .dxPivotGrid_FLFieldList_Metropolis:before,
+.dx-acc-r .dxPivotGrid_FLFilterAreaHeaders_Metropolis:before,
+.dx-acc-r .dxPivotGrid_FLRowAreaHeaders_Metropolis:before,
+.dx-acc-r .dxPivotGrid_FLStackedDefault_Metropolis:before,
+.dx-acc-r .dxPivotGrid_FLStackedSideBySide_Metropolis:before,
+.dx-acc-r .dxPivotGrid_FLTopPanelOnly_Metropolis:before,
+.dx-acc-r .dxPivotGrid_pgCollapsedButton_Metropolis:before,
+.dx-acc-r .dxPivotGrid_pgCustomizationFormCloseButton_Metropolis:before,
+.dx-acc-r .dxPivotGrid_pgDataHeaders_Metropolis:before,
+.dx-acc-r .dxPivotGrid_pgDragArrowDown_Metropolis:before,
+.dx-acc-r .dxPivotGrid_pgDragArrowLeft_Metropolis:before,
+.dx-acc-r .dxPivotGrid_pgDragArrowRight_Metropolis:before,
+.dx-acc-r .dxPivotGrid_pgDragArrowUp_Metropolis:before,
+.dx-acc-r .dxPivotGrid_pgDragHideField_Metropolis:before,
+.dx-acc-r .dxPivotGrid_pgExpandedButton_Metropolis:before,
+.dx-acc-r .dxPivotGrid_pgFilterButton_Metropolis:before,
+.dx-acc-r .dxPivotGrid_pgFilterButtonActive_Metropolis:before,
+.dx-acc-r .dxPivotGrid_pgFilterResizer_Metropolis:before,
+.dx-acc-r .dxPivotGrid_pgGroupSeparator_Metropolis:before,
+.dx-acc-r .dxPivotGrid_pgPrefilterButton_Metropolis:before,
+.dx-acc-r .dxPivotGrid_pgSortByColumn_Metropolis:before,
+.dx-acc-r .dxPivotGrid_pgSortDownButton_Metropolis:before,
+.dx-acc-r .dxPivotGrid_pgSortUpButton_Metropolis:before
+
+{
+    content: url('spriteAccessible.png');
+
+}
+.dx-acc-r .dxPivotGrid_CTNAttribute:before
+
+{
+    left: -205px;
+    top: 0px;
+
+}
+.dx-acc-r .dxPivotGrid_CTNCalculatedMeasure:before
+
+{
+    left: -136px;
+    top: -33px;
+
+}
+.dx-acc-r .dxPivotGrid_CTNDimension:before
+
+{
+    left: -170px;
+    top: -33px;
+
+}
+.dx-acc-r .dxPivotGrid_CTNFolderClosed:before
+
+{
+    left: -102px;
+    top: -33px;
+
+}
+.dx-acc-r .dxPivotGrid_CTNFolderOpen:before
+
+{
+    left: -119px;
+    top: -33px;
+
+}
+.dx-acc-r .dxPivotGrid_CTNHierarchy:before
+
+{
+    left: -153px;
+    top: -33px;
+
+}
+.dx-acc-r .dxPivotGrid_CTNKpi:before
+
+{
+    left: 0px;
+    top: -33px;
+
+}
+.dx-acc-r .dxPivotGrid_CTNMeasure:before
+
+{
+    left: -222px;
+    top: 0px;
+
+}
+.dx-acc-r .dxPivotGrid_FLBottomPanelOnly1by4_Metropolis:before
+
+{
+    left: 0px;
+    top: 0px;
+
+}
+.dx-acc-r .dxPivotGrid_FLBottomPanelOnly2by2_Metropolis:before
+
+{
+    left: -99px;
+    top: 0px;
+
+}
+.dx-acc-r .dxPivotGrid_FLButton_Metropolis:before
+
+{
+    left: -17px;
+    top: -33px;
+
+}
+.dx-acc-r .dxPivotGrid_FLColumnAreaHeaders_Metropolis:before
+
+{
+    left: -239px;
+    top: 0px;
+
+}
+.dx-acc-r .dxPivotGrid_FLDataAreaHeaders_Metropolis:before
+
+{
+    left: -51px;
+    top: -33px;
+
+}
+.dx-acc-r .dxPivotGrid_FLFieldList_Metropolis:before
+
+{
+    left: -188px;
+    top: 0px;
+
+}
+.dx-acc-r .dxPivotGrid_FLFilterAreaHeaders_Metropolis:before
+
+{
+    left: -85px;
+    top: -33px;
+
+}
+.dx-acc-r .dxPivotGrid_FLRowAreaHeaders_Metropolis:before
+
+{
+    left: -34px;
+    top: -33px;
+
+}
+.dx-acc-r .dxPivotGrid_FLStackedDefault_Metropolis:before
+
+{
+    left: -66px;
+    top: 0px;
+
+}
+.dx-acc-r .dxPivotGrid_FLStackedSideBySide_Metropolis:before
+
+{
+    left: -33px;
+    top: 0px;
+
+}
+.dx-acc-r .dxPivotGrid_FLTopPanelOnly_Metropolis:before
+
+{
+    left: -132px;
+    top: 0px;
+
+}
+.dx-acc-r .dxPivotGrid_pgCollapsedButton_Metropolis:before
+
+{
+    left: -218px;
+    top: -19px;
+
+}
+.dx-acc-r .dxPivotGrid_pgCustomizationFormCloseButton_Metropolis:before
+
+{
+    left: -246px;
+    top: -18px;
+
+}
+.dx-acc-r .dxPivotGrid_pgDataHeaders_Metropolis:before
+
+{
+    left: -192px;
+    top: -20px;
+
+}
+.dx-acc-r .dxPivotGrid_pgDragArrowDown_Metropolis:before
+
+{
+    left: -168px;
+    top: -23px;
+
+}
+.dx-acc-r .dxPivotGrid_pgDragArrowLeft_Metropolis:before
+
+{
+    left: -217px;
+    top: -33px;
+
+}
+.dx-acc-r .dxPivotGrid_pgDragArrowRight_Metropolis:before
+
+{
+    left: -227px;
+    top: -33px;
+
+}
+.dx-acc-r .dxPivotGrid_pgDragArrowUp_Metropolis:before
+
+{
+    left: -180px;
+    top: -23px;
+
+}
+.dx-acc-r .dxPivotGrid_pgDragHideField_Metropolis:before
+
+{
+    left: -165px;
+    top: 0px;
+
+}
+.dx-acc-r .dxPivotGrid_pgExpandedButton_Metropolis:before
+
+{
+    left: -232px;
+    top: -19px;
+
+}
+.dx-acc-r .dxPivotGrid_pgFilterButton_Metropolis:before
+
+{
+    left: -187px;
+    top: -33px;
+
+}
+.dx-acc-r .dxPivotGrid_pgFilterButtonActive_Metropolis:before
+
+{
+    left: -202px;
+    top: -33px;
+
+}
+.dx-acc-r .dxPivotGrid_pgFilterResizer_Metropolis:before
+
+{
+    left: -68px;
+    top: -33px;
+
+}
+.dx-acc-r .dxPivotGrid_pgGroupSeparator_Metropolis:before
+
+{
+    left: -188px;
+    top: -17px;
+
+}
+.dx-acc-r .dxPivotGrid_pgPrefilterButton_Metropolis:before
+
+{
+    left: -205px;
+    top: -19px;
+
+}
+.dx-acc-r .dxPivotGrid_pgSortByColumn_Metropolis:before
+
+{
+    left: -237px;
+    top: -33px;
+
+}
+.dx-acc-r .dxPivotGrid_pgSortDownButton_Metropolis:before
+
+{
+    left: -252px;
+    top: -33px;
+
+}
+.dx-acc-r .dxPivotGrid_pgSortUpButton_Metropolis:before
+
+{
+    left: -253px;
+    top: -44px;
+
+}

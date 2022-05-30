@@ -1,0 +1,280 @@
+﻿using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+
+public partial class Members_Amoozesh_PeriodOpinionForm : System.Web.UI.Page
+{
+    private bool IsPageRefresh = false;
+    #region Events
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        this.DivReport.Visible = false;
+        this.DivReport.Attributes.Add("onclick", "ChangeVisible(this)");
+        this.DivReport.Attributes.Add("onmouseover", "ChangeIcon(this)");
+
+        if (!IsPostBack)
+        {
+            ViewState["postids"] = System.Guid.NewGuid().ToString();
+            Session["postid"] = ViewState["postids"].ToString();
+        }
+        else
+        {
+            if (!IsCallback && Session["postid"] != null)
+            {
+                if (ViewState["postids"].ToString() != Session["postid"].ToString()) { IsPageRefresh = true; }
+                Session["postid"] = System.Guid.NewGuid().ToString(); ViewState["postids"] = Session["postid"];
+            }
+        }
+
+        if (!IsPostBack)
+        {
+            if (string.IsNullOrEmpty(Request.QueryString["PPId"]) || string.IsNullOrEmpty(Request.QueryString["MeId"]))
+            {
+                Response.Redirect("Periods.aspx");
+   
+            }
+            try
+            {
+
+                PeriodId.Value = Server.HtmlDecode(Request.QueryString["PPId"]).ToString();
+                MemberId.Value = Server.HtmlDecode(Request.QueryString["MeId"]).ToString();
+            }
+            catch
+            {
+                this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+                return;
+            }
+
+            string PPId = Utility.DecryptQS(PeriodId.Value);
+            string MeId = Utility.DecryptQS(MemberId.Value);
+
+            try
+            {
+                TSP.DataManager.PeriodPresentManager PPManager = new TSP.DataManager.PeriodPresentManager();
+                TSP.DataManager.PeriodOpinionManager PPOpManager = new TSP.DataManager.PeriodOpinionManager();
+                PPManager.FindByCode(int.Parse(PPId));//(18);
+                lblInsName.Text = PPManager[0]["InsName"].ToString();
+                lblPPName.Text = PPManager[0]["PeriodTitle"].ToString();
+                //****Type:1 شرکت کنندگان دوره Type:2 بازرسان دوره
+                PPOpManager.FindByPeriodId(int.Parse(PPId), 1);//(18, 1)
+                lblStartDate.Text = PPOpManager[0]["StartDate"].ToString();
+                lblExpDate.Text = PPOpManager[0]["ExpiredDate"].ToString();
+            }
+            catch (Exception err)
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "خطایی در مشاهده اطلاعات دوره رخ داده است";
+
+            }  
+ 
+            //ObjectDataSource1.FilterParameters[0].DefaultValue = "8";//Qucode
+            OdbPPTeachers.SelectParameters[0].DefaultValue = PPId; //;"18"
+
+        }
+        
+    }
+    protected void btnSave_Click(object sender, EventArgs e)
+    {
+        if (IsPageRefresh)
+            return;
+        TSP.DataManager.MemberManager MeManager = Session["MemberManager"] as TSP.DataManager.MemberManager;
+        if (MeManager == null)
+        {
+            this.DivReport.Visible = true;
+            this.LabelWarning.Text = "خطایی در صفحه رخ داده است.صفحه را دوباره بارگذاری نمایید.";
+            return;
+        }
+
+        if ((bool)MeManager[0]["IsLock"] == true)
+        {
+            string lockers = Utility.GetFormattedObject(Session["MemberLockers"]);
+            this.DivReport.Visible = true;
+            this.LabelWarning.Text = "به دلیل قفل بودن وضعیت عضویت شما توسط  " + lockers + " امکان ثبت اطلاعات وجود ندارد.";
+            return;
+
+        }
+
+        string MeId = Utility.DecryptQS(MemberId.Value);
+        string PPId = Utility.DecryptQS(PeriodId.Value);
+        if (string.IsNullOrEmpty(MeId) || string.IsNullOrEmpty(PPId))
+        {
+            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+        }
+        else
+        {
+            Insert(int.Parse(PPId), int.Parse(MeId));
+        }
+        //Insert(18, 1);
+    }
+    protected void btnBack_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("Periods.aspx");
+    }
+    protected void cmbTeacher_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        try
+        {
+            int TeId = int.Parse(cmbTeacher.Value.ToString());
+
+            string PPId = Utility.DecryptQS(PeriodId.Value);//"18"
+            string MeId =  Utility.DecryptQS(MemberId.Value);//"1"
+
+            if (string.IsNullOrEmpty(MeId) || string.IsNullOrEmpty(PPId))
+            {
+                this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+            }
+            else
+            {
+                TSP.DataManager.OpinionsManager OpManager = new TSP.DataManager.OpinionsManager();
+                OpManager.FindByTeIdMeIdOfPeriod(int.Parse(PPId), int.Parse(MeId), TeId, (int)TSP.DataManager.UserType.Member);
+
+                if (OpManager.Count > 0)
+                {
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = " شما قبلاً در نظر سنجی این استاد شرکت نموده اید.امکان نظر سنجی مجدد وجود ندارد ";
+                    btnSave.Enabled = false;
+                    btnSave2.Enabled = false;                    
+                    CustomAspxDevGridView1.DataSource = OpManager.FindByTeIdMeIdOfPeriod(int.Parse(PPId), int.Parse(MeId), TeId, 1);
+                    CustomAspxDevGridView1.DataBind();
+                    CustomAspxDevGridView1.Enabled = false;
+
+                    return;
+                }
+                else
+                {
+                    btnSave.Enabled = true;
+                    btnSave2.Enabled = true;
+                    CustomAspxDevGridView1.DataSource = OpManager.FindByTeIdMeIdOfPeriod(int.Parse(PPId), int.Parse(MeId), -1, (int)TSP.DataManager.UserType.Member);
+                    CustomAspxDevGridView1.DataBind();
+                    CustomAspxDevGridView1.Enabled = true;
+
+                }
+            }
+        }
+        catch (Exception err)
+        {
+            this.DivReport.Visible = true;
+            this.LabelWarning.Text = "خطایی در مشاهده اطلاعات رخ داده است";
+        }
+
+    }
+    protected void rdb_DataBinding(object sender, EventArgs e)
+    {
+
+    }
+    #endregion
+
+    #region Methods
+    protected void Insert(int PPId, int MeId)
+    {
+        TSP.DataManager.OpinionsManager OpManager = new TSP.DataManager.OpinionsManager();
+        try
+        {
+
+            OpManager.FindByTeIdMeIdOfPeriod(PPId, MeId, int.Parse(cmbTeacher.Value.ToString()), 1);
+            if (OpManager.Count > 0)
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = " شما قبلاً در نظر سنجی این استاد شرکت نموده اید.امکان نظر سنجی مجدد وجود ندارد ";
+                btnSave.Enabled = false;
+                btnSave2.Enabled = false;
+                CustomAspxDevGridView1.Enabled = false;
+                return;
+            }
+            else
+            {
+                //btnSave.Enabled = true;
+                //btnSave2.Enabled = true;
+                //CustomAspxDevGridView1.Enabled = true;
+            }
+
+
+            ArrayList ar = new ArrayList();
+
+            for (int i = 0; i < CustomAspxDevGridView1.VisibleRowCount; i++)
+            {
+                DevExpress.Web.ASPxRadioButtonList rdb = (DevExpress.Web.ASPxRadioButtonList)CustomAspxDevGridView1.FindRowCellTemplateControl(i, (DevExpress.Web.GridViewDataColumn)CustomAspxDevGridView1.Columns["AnsTypeId"], "rdb");
+                //  ar.Add(rdb.Value.ToString());
+                if (rdb.Value != null)
+                    ar.Add(rdb.Value.ToString());
+                else
+                    ar.Add(null);
+
+            }
+
+            CustomAspxDevGridView1.DataSource = OpManager.FindByTeIdMeIdOfPeriod(PPId, MeId, -1, 1).Copy();
+            CustomAspxDevGridView1.DataBind();
+
+
+            for (int i = 0; i < CustomAspxDevGridView1.VisibleRowCount; i++)
+            {
+                OpManager.DataSet.EnforceConstraints = false;
+                DataRow dr = OpManager.NewRow();
+                if (ar[i] != null)
+                    dr["AnsTypeId"] = int.Parse(ar[i].ToString());
+                else
+                    dr["AnsTypeId"] = DBNull.Value;
+                dr["QuId"] = CustomAspxDevGridView1.GetDataRow(i)["QuId"].ToString();
+                dr["PeriodId"] = PPId;
+                dr["MeId"] = MeId;
+                dr["TeId"] = int.Parse(cmbTeacher.Value.ToString());
+                dr["CreateDate"] = Utility.GetDateOfToday();
+                dr["UserId"] = Session["Login"];
+                dr["ModifiedDate"] = DateTime.Now;
+                OpManager.AddRow(dr);
+                //    OpManager.Save();
+                //   OpManager.DataTable.AcceptChanges();
+
+            }
+
+            int cnt = OpManager.Save();
+            if (cnt > 0)
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "ذخیره انجام شد";
+
+            }
+            else
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "خطایی در ذخیره رخ داده است";
+            }
+        }
+        catch (Exception err)
+        {
+            if (err.GetType() == typeof(System.Data.SqlClient.SqlException))
+            {
+                System.Data.SqlClient.SqlException se = (System.Data.SqlClient.SqlException)err;
+                if (se.Number == 2601)
+                {
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "اطلاعات تکراری می باشد";
+                }
+
+                else
+                {
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+                }
+            }
+            else
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+            }
+
+        }
+
+    }
+
+    #endregion
+}

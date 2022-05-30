@@ -1,0 +1,454 @@
+.dxcvControl_Metropolis,
+.dxcvDisabled_Metropolis
+{
+    border: 1px Solid #c0c0c0;
+    font: 12px 'Segoe UI', Helvetica, 'Droid Sans', Tahoma, Geneva, sans-serif;
+    background-color: White;
+    color: #333333;
+    cursor: default;
+}
+.dxcvDisabled_Metropolis
+{
+    color: #b8b8b8;
+}
+.dxcvControl_Metropolis a
+{
+    color: #F7A233;
+}
+.dxcvDisabled_Metropolis a
+{
+    color: #b8b8b8;
+}
+.dxcvLoadingPanelStatusBar_Metropolis .dxlp-loadingImage
+{
+    background-image: url('cvLoadingOnStatusBar.gif');
+    height: 16px;
+    width: 16px;
+}
+.dxcvLoadingPanel_Metropolis
+{
+    border: 1px solid #C3C3C3;
+    background-color: white;
+    font: 12px 'Segoe UI', Helvetica, 'Droid Sans', Tahoma, Geneva, sans-serif;
+    color: #333333;
+}
+.dxcvLoadingPanel_Metropolis td.dx
+{
+    font-size: 1.17em;
+    white-space: nowrap;
+    text-align: center;
+    padding: 10px 14px;
+}
+.dxcvLoadingPanel_Metropolis .dxlp-loadingImage
+{
+    background-image: url('../Web/Loading.gif');
+    height: 32px;
+    width: 32px;
+}
+.dxcvLoadingPanelStatusBar_Metropolis
+{
+    background-color: Transparent;
+}
+.dxcvLoadingPanelStatusBar_Metropolis td
+{
+    white-space: nowrap;
+    text-align: center;
+    padding: 0px 2px;
+}
+.dxcvTable_Metropolis
+{
+    background-color: White;
+    border-width: 0;
+    border-collapse: separate !important;
+    overflow: hidden;
+    padding: 20px;
+}
+.dxcvHeader_Metropolis
+{
+    cursor: pointer;
+    white-space: nowrap;
+    padding: 4px 6px 5px;
+    border: 1px Solid #c0c0c0;
+    background-color: white;
+    overflow: hidden;
+    font-weight: normal;
+    text-align: left;
+}
+.dxcvHeader_Metropolis td
+{
+    white-space: nowrap;
+}
+.dxcvHeader_Metropolis a
+{
+    color: #F7A233;
+}
+.dxcvHeader_Metropolis a.dxcvCommandItem_Metropolis
+{
+    margin: 0 3px 0 0;
+    color: #F7A233;
+}
+.dxcvPopupEditForm_Metropolis
+{
+    padding: 4px;
+    margin: 0;
+}
+.dxcvCustomization_Metropolis
+{
+    margin: 0;
+    padding: 10px;
+    min-width: 220px;
+}
+.dxcvTitlePanel_Metropolis,
+.dxcvTable_Metropolis caption
+{
+    font-size: 1.25em;
+    font-weight: normal;
+    padding: 3px 3px 5px;
+    text-align: center;
+    color: #999999;
+    border-bottom: 1px Solid #c0c0c0;
+}
+.dxcvStatusBar_Metropolis
+{
+    border-top: 1px Solid #c0c0c0;
+}
+.dxcvStatusBar_Metropolis tr.dxcv
+{
+    height: 20px;
+}
+.dxcvStatusBar_Metropolis tr.dxcv > td
+{
+    padding: 4px;
+}
+.dxcvStatusBar_Metropolis tr.dxcv span .dxbButtonSys:first-child
+{
+    margin-left: 20px;
+}
+a.dxcvCommandItem_Metropolis
+{
+    margin: 0 3px 0 0;
+    color: #F7A233;
+}
+.dxbButton_Metropolis[class~="dxcvCommandItem_Metropolis"],
+.dxcvEditFormTable_Metropolis div.dxbButton_Metropolis
+{
+    margin: 0px 2px -1px;
+}
+.dxbButton_Metropolis[class~="dxcvCommandItem_Metropolis"] .dxb
+{
+    padding-top: 0;
+    padding-bottom: 0;
+}
+.dxcvPagerTopPanel_Metropolis,
+.dxcvPagerBottomPanel_Metropolis
+{
+    padding: 4px 0;
+}
+.dxcvPagerTopPanel_Metropolis
+{
+    border-bottom: 1px Solid #c0c0c0;
+}
+.dxcvPagerBottomPanel_Metropolis
+{
+    border-top: 1px solid #c0c0c0;
+}
+.dxcvControl_Metropolis .dxctToolbar_Metropolis.dxm-main.dxcvCTTop
+{
+    border-bottom: 1px solid #c0c0c0;
+}
+.dxcvControl_Metropolis .dxctToolbar_Metropolis.dxm-main.dxcvCTBottom
+{
+    border-top: 1px solid #c0c0c0;
+}
+.dxcvFilterBar_Metropolis
+{
+    border-top: 1px Solid #c0c0c0;
+}
+.dxcvFilterBar_Metropolis a
+{
+    color: #F7A233;
+    text-decoration: underline;
+}
+.dxcvFilterBarCheckBoxCell_Metropolis
+{
+    padding: 0 7px;
+}
+.dxcvFilterBarImageCell_Metropolis
+{
+    padding: 0 1px 0 3px;
+    cursor: pointer;
+}
+.dxcvFilterBarExpressionCell_Metropolis
+{
+    padding: 5px 5px 8px 0;
+    white-space: nowrap;
+}
+.dxcvFilterBarClearButtonCell_Metropolis
+{
+    padding: 5px 6px 8px;
+}
+.dxcvFilterBuilderMainArea_Metropolis
+{
+    background: white none;
+    padding: 6px 2px;
+}
+.dxcvFilterBuilderButtonArea_Metropolis
+{
+    border-top: 1px solid #c0c0c0;
+    padding: 6px;
+    white-space: nowrap;
+}
+.dxcvControl_Metropolis .dxpLite_Metropolis,
+.dxcvDisabled_Metropolis .dxpLite_Metropolis
+{
+    padding-top: 4px;
+}
+.dxcvControl_Metropolis .dxcvHFSAC
+{
+    padding: 9px 0 0 4px;
+}
+.dxcvControl_Metropolis .dxcvHFSC
+{
+    padding: 9px 0 6px;
+}
+.dxcvControl_Metropolis .dxcvHFSC div
+{
+    height: 1px;
+    background: #c0c0c0;
+}
+.dxcvControl_Metropolis div[id$='DXEPLPC']
+{
+    height: 53px;
+}
+.dxcvControl_Metropolis .dxcvHFSD
+{
+    height: 1px;
+    margin: 2px 0;
+}
+.dxcvControl_Metropolis .dxcvHFDRC
+{
+    margin: 15px 15px 25px;
+}
+.dxcvControl_Metropolis .dxcvHFDRP
+{
+    margin-left: 15px;
+    margin-right: 15px;
+    padding: 9px 0 6px;
+}
+.dxcvControl_Metropolis .dxcvHFDRP[id*="HFFDE"]
+{
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+.dxcvControl_Metropolis .dxcvHFDRP[id*="HFTDE"]
+{
+    margin-bottom: 25px;
+}
+/* Removes flicking in iOS Safari*/
+.dxcvTable_Metropolis
+{
+    -webkit-tap-highlight-color: transparent;
+}
+.dxcvSearchPanel_Metropolis
+{
+    padding: 7px 4px 7px 6px;
+    border-bottom: 1px solid #c0c0c0;
+}
+.dxcvSearchPanel_Metropolis > table
+{
+    width: 70%;
+    max-width: 450px;
+}
+.dxcvControl_Metropolis .dxcvSearchPanel_Metropolis .dxbButton_Metropolis
+{
+    margin-left: 7px;
+    margin-right: 0;
+}
+*[dir="rtl"].dxcvControl_Metropolis .dxcvSearchPanel_Metropolis .dxbButton_Metropolis
+{
+    margin-left: 0;
+    margin-right: 7px;
+}
+.dxcvControl_Metropolis .dxcvHL
+{
+    background: #ffd83a;
+    color: #333333;
+    font-weight: bold;
+    font-style: normal;
+}
+/* TODO remove (replace to command button style) */
+.dxcvControl_Metropolis .dxcvSearchPanel_Metropolis .dxbButton_Metropolis
+{
+    font-size: 0.9em;
+    margin-top: -2px;
+    margin-bottom: -2px;
+}
+.dxcvControl_Metropolis .dxcvSearchPanel_Metropolis .dxbButton_Metropolis .dxb
+{
+    padding-top: 0;
+    padding-bottom: 0;
+}
+.dxcvCard_Metropolis,
+.dxcvFlowCard_Metropolis,
+.dxcvEmptyCard_Metropolis,
+.dxcvEmptyHiddenCard_Metropolis
+{
+    width: 250px;
+    height: 180px;
+    vertical-align: top;
+}
+.dxcvCard_Metropolis,
+.dxcvFlowCard_Metropolis,
+.dxcvEmptyCard_Metropolis
+{
+    border: 1px solid #C0C0C0;
+    background-color: White;
+    color: #262626;
+    outline: none;
+}
+.dxcvEmptyCard_Metropolis
+{
+    text-align: center;
+    vertical-align: middle;
+}
+.dxcvEmptyHiddenCard_Metropolis
+{
+    border: 1px solid transparent;
+    background-color: transparent;
+}
+.dxcvFlowCard_Metropolis,
+div.dxcvEmptyCard_Metropolis
+{
+    display: inline-block;
+    margin: 20px 0 0 20px;
+    overflow: hidden;
+}
+.dxcvSelectedCard_Metropolis
+{
+    border-color: #C0C0C0;
+    outline: 3px solid #E0E0E0;
+}
+.dxcvFocusedCard_Metropolis
+{
+    border-color: #F7A233;
+    outline: 3px solid #F7A233;
+}
+.dxcvCardHover_Metropolis
+{
+    background-color: #F7F7F7;
+    border-color: #C0C0C0;
+    outline: none;
+}
+.dxcvCard_Metropolis .dxflCaption_Metropolis,
+.dxcvFlowCard_Metropolis .dxflCaption_Metropolis
+{
+    color: #7F7F7F;
+}
+.dxcvCard_Metropolis .dxflViewFormLayoutSys .dxflCommandItemSys,
+.dxcvFlowCard_Metropolis .dxflViewFormLayoutSys .dxflCommandItemSys
+{
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+.dxcvHeaderPanel_Metropolis
+{
+    border-bottom: 1px solid #c0c0c0;
+    padding: 2px 20px 8px 20px;
+}
+div.dxcvHeader_Metropolis
+{
+    display: inline-block;
+    margin-right: 10px;
+    margin-top: 8px;
+}
+.dxcvSummaryPanel_Metropolis
+{
+    border-top: 1px solid #c0c0c0;
+    padding: 8px 21px;
+}
+.dxcvSummaryItem_Metropolis
+{
+    display: inline-block;
+    margin: 5px 8px 5px 0;
+}
+.dxcvControl_Metropolis .dxcvSeparator_Metropolis,
+.dxcvControl_Metropolis .dxcvSeparator_Metropolis div
+{
+    width: 20px;
+    height: 20px;
+}
+.dxcvControl_Metropolis td.dxcvBatchEditCell_Metropolis
+{
+    padding: 0;
+    outline-width: 0 !important;
+}
+.dxcvControl_Metropolis .dxcvBatchEditModifiedCell_Metropolis
+{
+    background: #d7f9c7;
+    outline-style: solid;
+    outline-color: #d7f9c7;
+    outline-width: 2px;
+}
+.dxcvBatchEditDeletedItem_Metropolis,
+.dxcvBatchEditDeletedItem_Metropolis.dxcvBatchEditNewItem_Metropolis
+{
+    background: #F8F8F8;
+}
+.dxcvBatchEditDeletedItem_Metropolis td:not(.dxcvCommandColumn_Metropolis),
+.dxcvControl_Metropolis .dxcvBatchEditDeletedItem_Metropolis .dxflCaptionCell_Metropolis .dxflCaption_Metropolis
+{
+    color: rgba(0,0,0,0.5) !important;
+}
+.dxcvBatchEditDeletedItem_Metropolis td.dxcvBatchEditModifiedCell_Metropolis
+{
+    background-color: #eefbe7;
+    outline-style: none;
+}
+.dxcvBatchEditNewItem_Metropolis
+{
+    background: #F0FAEA;
+}
+.dxcvControl_Metropolis .dxcvErrorCell
+{
+    padding-left: 5px;
+    width: 1px;
+}
+.dxcvControl_Metropolis .dxcvErrorCell img
+{
+    margin: -3px 0;
+}
+.dxcvStatusBar_Metropolis .dxbButton_Metropolis
+{
+    margin-right: 10px;
+}
+.dxcvControl_Metropolis td.dxcvBatchEditCell_Metropolis .dxichCellSys
+{
+    padding-left: 0;
+}
+.dxcvControl_Metropolis .dxcvEMBC
+{
+    background: white;
+    text-align: center;
+    padding: 20px;
+    margin-top: -20px;
+}
+.dxcvCardError_Metropolis
+{
+    background-color: #FFC8C8;
+    border-top: 1px solid #C0C0C0;
+    color: #FF0000;
+    padding: 6px 13px;
+}
+.dxcvFocusedCell_Metropolis
+{
+    box-shadow: inset 2px 2px 0 #2292B1, inset -2px -2px 0 #2292B1;
+    -webkit-box-shadow: inset 2px 2px 0 #2292B1, inset -2px -2px 0 #2292B1;
+    -moz-box-shadow: inset 2px 2px 0 #2292B1, inset -2px -2px 0 #2292B1;
+}
+.dxcvFocusedCell_Metropolis .dxcvBatchEditModifiedCell_Metropolis:not(.dxcvBatchEditCell_Metropolis)
+{
+    outline: none;
+    box-shadow: 2px 2px 0 #d7f9c7, 2px 0px 0 #d7f9c7;
+    -webkit-box-shadow: 2px 2px 0 #d7f9c7, 2px 0px 0 #d7f9c7;
+    -moz-box-shadow: 2px 2px 0 #d7f9c7, 2px 0px 0 #d7f9c7;
+}

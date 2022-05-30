@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Nodes>
+  <Employee>
+    <Node HelpId="102" TableTypeCode="1" Title="واحد عضويت" FileUrl="" DownloadUrl="" FakeUrl="" Enabled="False">
+      <Node HelpId="13" TableTypeCode="1" Title="ثبت عضو حقوقی" FileUrl="Office.htm" DownloadUrl="Office.pdf" FakeUrl="javascript:void(0)" Enabled="True" ></Node>
+      <Node HelpId="11" TableTypeCode="1" Title="صدور کارت عضویت" FileUrl="MemberCards.htm" DownloadUrl="MemberCards.pdf" FakeUrl="javascript:void(0)" Enabled="True" ></Node>
+      <Node HelpId="7" TableTypeCode="1" Title="ثبت عضو حقیقی" FileUrl="Members.htm" DownloadUrl="Members.pdf" FakeUrl="javascript:void(0)" Enabled="True" ></Node>
+    </Node>
+    <Node HelpId="103" TableTypeCode="1" Title="واحد آموزش" FileUrl="" DownloadUrl="" FakeUrl="" Enabled="False">
+      <Node HelpId="1" TableTypeCode="1" Title="گردش کار صدور گواهینامه آموزشی استاد" FileUrl="Teacher.htm" DownloadUrl="Teacher.pdf" FakeUrl="javascript:void(0)" Enabled="True" ></Node>
+      <Node HelpId="8" TableTypeCode="1" Title="ثبت دوره های آموزشی" FileUrl="Periods.htm" DownloadUrl="Periods.pdf" FakeUrl="javascript:void(0)" Enabled="True" ></Node>
+      <Node HelpId="9" TableTypeCode="1" Title="ثبت سمینار های آموزشی" FileUrl="Seminar.htm" DownloadUrl="Seminar.pdf" FakeUrl="javascript:void(0)" Enabled="True" ></Node>
+      <Node HelpId="10" TableTypeCode="1" Title="ثبت موسسات آموزشی" FileUrl="Institue.htm" DownloadUrl="Institue.pdf" FakeUrl="javascript:void(0)" Enabled="True" ></Node>
+    </Node>
+    <Node HelpId="105" TableTypeCode="1" Title="واحد پروانه" FileUrl="" DownloadUrl="" FakeUrl="" Enabled="False">
+      <Node HelpId="13" TableTypeCode="1" Title="پروانه اشتغال به کار شخص حقیقی" FileUrl="MemberFile.htm" DownloadUrl="MemberFile.pdf" FakeUrl="javascript:void(0)" Enabled="True" ></Node>
+      <Node HelpId="11" TableTypeCode="1" Title="پروانه اشتغال به کار شخص حقوقی" FileUrl="OfficeDocument.htm" DownloadUrl="OfficeDocument.pdf" FakeUrl="javascript:void(0)" Enabled="True" ></Node>
+      <Node HelpId="7" TableTypeCode="1" Title="پروانه اشتغال به کار دفاتر مهندسی" FileUrl="EngOffice.htm" DownloadUrl="EngOffice.pdf" FakeUrl="javascript:void(0)" Enabled="True" ></Node>
+      <Node HelpId="7" TableTypeCode="1" Title="مجوز فعالیت مجری حقیقی" FileUrl="ImplementDoc.htm" DownloadUrl="ImplementDoc.pdf" FakeUrl="javascript:void(0)" Enabled="True" ></Node>
+      <Node HelpId="7" TableTypeCode="1" Title="مجوز فعالیت ناظر حقیقی (به تنهایی)" FileUrl="ObservationDoc.htm" DownloadUrl="ObservationDoc.pdf" FakeUrl="javascript:void(0)" Enabled="True" ></Node>
+    </Node>
+    <Node HelpId="101" TableTypeCode="1" Title="عضويت در سازمان" FileUrl="" DownloadUrl="" FakeUrl="" Enabled="False">
+      <Node Title="عضویت حقیقی" HelpId="102" FileUrl="" DownloadUrl="" FakeUrl="" Enabled="False">
+        <Node HelpId="29" TableTypeCode="1" Title="ثبت نام عضو حقیقی" FileUrl="WizardMemberRegister.htm" DownloadUrl="WizardMemberRegister.pdf" FakeUrl="javascript:void(0)" Enabled="True" ></Node>
+        <Node HelpId="3" TableTypeCode="1" Title="ثبت نام عضو حقیقی-مدارک تحصیلی" FileUrl="WizardMemberlicence.htm" DownloadUrl="WizardMemberlicence.pdf" FakeUrl="javascript:void(0)" Enabled="True" ></Node>
+        <Node HelpId="4" TableTypeCode="1" Title="ثبت نام عضو حقیقی-سوابق کاری" FileUrl="WizardMemberJob.htm" DownloadUrl="WizardMemberJob.pdf" FakeUrl="javascript:void(0)" Enabled="True" ></Node>
+        <Node HelpId="5" TableTypeCode="1" Title="ثبت نام عضو حقیقی-فعالیت ها" FileUrl="WizardMemberActivity.htm" DownloadUrl="WizardMemberActivity.pdf" FakeUrl="javascript:void(0)" Enabled="True" ></Node>
+        <Node HelpId="6" TableTypeCode="1" Title="ثبت نام عضو حقیقی-آشنایی با دیگر زبان ها" FileUrl="WizardMemberLanguage.htm" DownloadUrl="WizardMemberLanguage.pdf" FakeUrl="javascript:void(0)" Enabled="True" ></Node>
+        <Node HelpId="2" TableTypeCode="1" Title="ثبت نام عضو حقیقی-ثبت مشخصات فردی" FileUrl="WizardMember.htm" DownloadUrl="WizardMember.pdf" FakeUrl="javascript:void(0)" Enabled="True" ></Node>
+      </Node>
+      <Node Title="عضویت حقوقی" HelpId="150" FileUrl="" DownloadUrl="" FakeUrl="" Enabled="False">
+        <Node HelpId="15" TableTypeCode="1" Title="ثبت نام عضو حقوقی-مشخصات شرکت" FileUrl="WizardOffice.htm" DownloadUrl="WizardOffice.pdf" FakeUrl="javascript:void(0)" Enabled="True" ></Node>
+        <Node HelpId="16" TableTypeCode="1" Title="ثبت نام عضو حقوقی-شعبه ها" FileUrl="WizardOfficeAgent.htm" DownloadUrl="WizardOfficeAgent.pdf" FakeUrl="javascript:void(0)" Enabled="True" ></Node>
+        <Node HelpId="17" TableTypeCode="1" Title="ثبت نام عضو حقوقی-اعضای شرکت" FileUrl="WizardOfficeMember.htm" DownloadUrl="WizardOfficeMember.pdf" FakeUrl="javascript:void(0)" Enabled="True" ></Node>
+        <Node HelpId="18" TableTypeCode="1" Title="ثبت نام عضو حقوقی-سوابق کاری" FileUrl="WizardOfficeJob.htm" DownloadUrl="WizardOfficeMember.pdf" FakeUrl="javascript:void(0)" Enabled="True" ></Node>
+        <Node HelpId="19" TableTypeCode="1" Title="ثبت نام عضو حقوقی-آگهی رسمی" FileUrl="WizardOfficeLetters.htm" DownloadUrl="WizardOfficeLetters.pdf" FakeUrl="javascript:void(0)" Enabled="True" ></Node>
+        <Node HelpId="20" TableTypeCode="1" Title="ثبت نام عضو حقوقی-خلاصه اطلاعات" FileUrl="WizardOfficeSummary.htm" DownloadUrl="WizardOfficeSummary.pdf" FakeUrl="javascript:void(0)" Enabled="True" ></Node>
+        <Node HelpId="21" TableTypeCode="1" Title="ثبت نام عضو حقوقی-ثبت نهایی" FileUrl="WizardOfficeFinish.htm" DownloadUrl="WizardOfficeFinish.pdf" FakeUrl="javascript:void(0)" Enabled="True" ></Node>
+      </Node>
+    </Node>
+    <Node HelpId="104" TableTypeCode="1" Title="پرتال شخص حقیقی" FileUrl="" DownloadUrl="" FakeUrl="" Enabled="False">
+      <Node HelpId="12" TableTypeCode="1" Title="استفاده از پرتال" FileUrl="MemberPortal.htm" DownloadUrl="MemberPortal.pdf" FakeUrl="javascript:void(0)" Enabled="True" ></Node>
+      <Node HelpId="14" TableTypeCode="1" Title="راهنمای ثبت درخواست تغییر اطلاعات عضویت" FileUrl="MemberRequest.htm" DownloadUrl="MemberRequest.pdf" FakeUrl="javascript:void(0)" Enabled="True" ></Node>
+      <Node HelpId="27" TableTypeCode="1" Title="راهنمای ثبت مدرک تحصیلی" FileUrl="MemberLicence.htm" DownloadUrl="MemberLicence.pdf" FakeUrl="javascript:void(0)" Enabled="True" ></Node>
+
+      <Node HelpId="32" TableTypeCode="1" Title="راهنمای درخواست های پروانه اشتغال-شخص حقیقی" FileUrl="DocMePortal.htm" DownloadUrl="DocMePortal.pdf" FakeUrl="javascript:void(0)" Enabled="True" ></Node>
+      <Node HelpId="30" TableTypeCode="1" Title="راهنمای درخواست های مجوز مجری حقیقی" FileUrl="ImpDocPortal.htm" DownloadUrl="DocMePortal.pdf" FakeUrl="javascript:void(0)" Enabled="True" ></Node>
+      <Node HelpId="31" TableTypeCode="1" Title="راهنمای درخواست های مجوز نظارت شخص حقیقی-به تنهایی" FileUrl="ObsDocPortal.htm" DownloadUrl="DocMePortal.pdf" FakeUrl="javascript:void(0)" Enabled="True" ></Node>
+      <Node HelpId="33" TableTypeCode="1" Title="راهنمای درخواست های پروانه اشتغال به کار دفتر مهندسی" FileUrl="EngOfficePortal.htm" DownloadUrl="DocMePortal.pdf" FakeUrl="javascript:void(0)" Enabled="True" ></Node>
+      
+    </Node>
+  </Employee>
+  <Members>
+    <Node HelpId="105" TableTypeCode="1" Title="پرتال شخص حقیقی" FileUrl="" DownloadUrl="" FakeUrl="" Enabled="False">
+      <Node HelpId="12" TableTypeCode="1" Title="استفاده از پرتال" FileUrl="MemberPortal.htm" DownloadUrl="MemberPortal.pdf" FakeUrl="javascript:void(0)" Enabled="True" ></Node>
+      <Node HelpId="14" TableTypeCode="1" Title="راهنمای ثبت درخواست تغییر اطلاعات عضویت" FileUrl="MemberRequest.htm" DownloadUrl="MemberRequest.pdf" FakeUrl="javascript:void(0)" Enabled="True" ></Node>
+      <Node HelpId="14" TableTypeCode="1" Title="راهنمای تغییر مشخصات فردی" FileUrl="MemberInfoRequest.htm" DownloadUrl="MemberInfoRequest.pdf" FakeUrl="javascript:void(0)" Enabled="True" ></Node>
+      <Node HelpId="14" TableTypeCode="1" Title="راهنمای ثبت مدرک تحصیلی" FileUrl="MemberLicence.htm" DownloadUrl="MemberLicence.pdf" FakeUrl="javascript:void(0)" Enabled="True" ></Node>
+
+      <Node HelpId="32" TableTypeCode="1" Title="راهنمای درخواست های پروانه اشتغال-شخص حقیقی" FileUrl="DocMePortal.htm" DownloadUrl="DocMePortal.pdf" FakeUrl="javascript:void(0)" Enabled="True" ></Node>
+      <Node HelpId="30" TableTypeCode="1" Title="راهنمای درخواست های مجوز مجری حقیقی" FileUrl="ImpDocPortal.htm" DownloadUrl="DocMePortal.pdf" FakeUrl="javascript:void(0)" Enabled="True" ></Node>
+      <Node HelpId="31" TableTypeCode="1" Title="راهنمای درخواست های مجوز نظارت شخص حقیقی-به تنهایی" FileUrl="ObsDocPortal.htm" DownloadUrl="DocMePortal.pdf" FakeUrl="javascript:void(0)" Enabled="True" ></Node>
+      <Node HelpId="33" TableTypeCode="1" Title="راهنمای درخواست های پروانه اشتغال به کار دفتر مهندسی" FileUrl="EngOfficePortal.htm" DownloadUrl="DocMePortal.pdf" FakeUrl="javascript:void(0)" Enabled="True" ></Node>
+      
+    </Node>
+  </Members>
+</Nodes>

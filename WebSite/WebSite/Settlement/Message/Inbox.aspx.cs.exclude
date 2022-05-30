@@ -1,0 +1,249 @@
+﻿using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+using DevExpress.Web;
+
+public partial class Settlement_Message_Inbox : System.Web.UI.Page
+{
+    #region Events
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        this.DivReport.Visible = false;
+        this.DivReport.Attributes.Add("onclick", "ChangeVisible(this)");
+        this.DivReport.Attributes.Add("onmouseover", "ChangeIcon(this)");
+
+        if (!IsPostBack)
+        {
+            ObdMessages.SelectParameters["ReceiverId"].DefaultValue = Utility.GetCurrentUser_MeId().ToString();
+            ObdMessages.SelectParameters["ReceiverType"].DefaultValue = Utility.GetCurrentUser_LoginType().ToString();
+        }
+    }
+
+    protected void btnDelete_Click(object sender, EventArgs e)
+    {
+        int curRow = GridViewMessages.FocusedRowIndex;
+        DataRow r = (DataRow)GridViewMessages.GetDataRow(curRow);
+        if (r != null)
+        {
+            TSP.DataManager.MessageManager MessageManager = new TSP.DataManager.MessageManager();
+            TSP.DataManager.MessageReceiverManager MessageReceiverManager = new TSP.DataManager.MessageReceiverManager();
+            TSP.DataManager.TransactionManager TransactionManager = new TSP.DataManager.TransactionManager();
+            TransactionManager.Add(MessageReceiverManager);
+            TransactionManager.Add(MessageManager);
+            try
+            {
+                int MsgrId = (int)r["MsgrId"];
+                int MsgId = (int)r["MsgId"];
+                Boolean MsgInActive = false;
+                TransactionManager.BeginSave();
+                MessageManager.FindByMsgId(MsgId);
+                if (MessageManager.Count == 1)
+                {
+                    MsgInActive = Convert.ToBoolean( MessageManager[0]["Inactive"]);
+                }
+
+                MessageReceiverManager.FindByCode(-1, -1,-1, MsgId);
+                MessageReceiverManager.CurrentFilter = "InActive = 0";
+                if (MessageReceiverManager.Count == 1 && MsgInActive == true)
+                {
+                    MessageReceiverManager.FindByCode(-1, -1,-1, MsgId);
+                    if (MessageReceiverManager.Count > 0)
+                    {
+                        int CountRe= MessageReceiverManager.Count;
+                        for (int i = 0; i < CountRe; i++)
+                        {
+                            MessageReceiverManager[i].Delete();
+                        }
+                        if (MessageReceiverManager.Save() > 0)
+                        {
+                           // MessageManager.FindByMsgId(MsgId);
+                            if (MessageManager.Count == 1)
+                            {
+                                MessageManager[0].Delete();
+                                if (MessageManager.Save() > 0)
+                                {
+                                    TransactionManager.EndSave();
+                                    this.DivReport.Visible = true;
+                                    this.LabelWarning.Text = "حذف انجام شد.";
+                                }
+                                else
+                                {
+                                    TransactionManager.CancelSave();
+                                    this.DivReport.Visible = true;
+                                    this.LabelWarning.Text = "خطایی در حذف انجام گرفته است.";
+                                }
+                            }
+                            else
+                            {
+                                TransactionManager.CancelSave();
+                                this.DivReport.Visible = true;
+                                this.LabelWarning.Text = "خطایی در حذف انجام گرفته است.";
+                            }
+                        }
+                        else
+                        {
+                            TransactionManager.CancelSave();
+                            this.DivReport.Visible = true;
+                            this.LabelWarning.Text = "خطایی در حذف انجام گرفته است.";
+                        }
+                    }
+                    else
+                    {
+                        TransactionManager.CancelSave();
+                        this.DivReport.Visible = true;
+                        this.LabelWarning.Text = "خطایی در حذف انجام گرفته است.";
+                    }
+                }
+                else
+                {
+                    MessageReceiverManager.FindByMsgrId(MsgrId);
+                    if (MessageReceiverManager.Count == 1)
+                    {
+                        MessageReceiverManager[0].BeginEdit();
+
+                        MessageReceiverManager[0]["InActive"] = 1;
+                        MessageReceiverManager[0].EndEdit();
+
+                        if (MessageReceiverManager.Save() > 0)
+                        {
+                            TransactionManager.EndSave();
+                            this.DivReport.Visible = true;
+                            this.LabelWarning.Text = "حذف انجام شد.";
+                        }
+                        else
+                        {
+                            TransactionManager.CancelSave();
+                            this.DivReport.Visible = true;
+                            this.LabelWarning.Text = "خطایی در حذف انجام گرفته است.";
+                        }
+                    }
+                    else
+                    {
+                        TransactionManager.CancelSave();
+                        this.DivReport.Visible = true;
+                        this.LabelWarning.Text = "اطلاعات مورد نظر توسط کاربر دیگری تغییر یافته است.";
+                    }
+                }
+                GridViewMessages.DataBind();
+            }
+            catch (Exception err)
+            {
+                TransactionManager.CancelSave();
+                SetDeleteError(err);
+            }
+        }
+    }
+
+    protected void btnBack_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("HomePageMsg.aspx");
+    }
+
+    protected void CallbackPanelMsg_Callback(object source, DevExpress.Web.CallbackEventArgsBase e)
+    {
+        TSP.DataManager.MessageReceiverManager MessRe = new TSP.DataManager.MessageReceiverManager();
+        TSP.DataManager.MessageManager MesManager = new TSP.DataManager.MessageManager();
+        TSP.DataManager.EmployeeManager EmpManager = new TSP.DataManager.EmployeeManager();
+
+        int curRow = GridViewMessages.FocusedRowIndex;
+        DataRow r = (DataRow)GridViewMessages.GetDataRow(curRow);
+        if (r != null)
+        {
+            lblMessageContent.Text = r["MsgBody"].ToString();
+            lblMessageContent.Visible = true;
+            Panel1.Visible = true;
+            // MesManager.FindByMsgId(int.Parse(Session["MsgId"].ToString()));
+            MessRe.FindByCode(int.Parse(r["MsgrId"].ToString()), Utility.GetCurrentUser_MeId(),Utility.GetCurrentUser_LoginType() ,-1);
+            if (MessRe.Count > 0)
+            {
+                try
+                {
+                    MessRe[0].BeginEdit();
+                    MessRe[0]["IsRead"] = true;
+                    MessRe[0].EndEdit();
+                    int cnt = MessRe.Save();
+
+                    if (cnt <= 0)
+                    {
+                        this.DivReport.Visible = true;
+                        this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+                    }
+                }
+                catch (Exception err)
+                {
+                    if (err.GetType() == typeof(System.Data.SqlClient.SqlException))
+                    {
+                        System.Data.SqlClient.SqlException se = (System.Data.SqlClient.SqlException)err;
+                        if (se.Number == 2601)
+                        {
+                            this.DivReport.Visible = true;
+                            this.LabelWarning.Text = "اطلاعات تکراری می باشد";
+                        }
+                        else
+                        {
+                            this.DivReport.Visible = true;
+                            this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+                            this.LabelWarning.Text = err.Message;
+                        }
+                    }
+                    else
+                    {
+                        this.DivReport.Visible = true;
+                        this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+                        this.LabelWarning.Text = err.Message;
+                    }
+                }
+            }
+        }
+    }
+
+    protected void GridViewMessages_HtmlRowPrepared(object sender, DevExpress.Web.ASPxGridViewTableRowEventArgs e)
+    {
+        if (e.RowType != GridViewRowType.Data) return;
+
+        TSP.DataManager.MessageManager MesManager = new TSP.DataManager.MessageManager();
+        if (Convert.ToBoolean(e.GetValue("IsRead")))
+            e.Row.BackColor = System.Drawing.Color.White;
+
+        Image img = GridViewMessages.FindRowCellTemplateControl(e.VisibleIndex, null, "IconReply") as Image;
+        if (img != null)
+        {
+            MesManager.FindByCode(int.Parse(e.KeyValue.ToString()), Utility.GetCurrentUser_MeId(), 4, false, 2);
+            if (MesManager.Count > 0)
+                img.Visible = true;
+        }
+    }
+    #endregion
+
+    #region Methods
+    private void SetDeleteError(Exception err)
+    {
+        if (err.GetType() == typeof(System.Data.SqlClient.SqlException))
+        {
+            System.Data.SqlClient.SqlException se = (System.Data.SqlClient.SqlException)err;
+            if (se.Number == 547)
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "به علت وجود اطلاعات وابسته امکان حذف نمی باشد.";
+            }
+            else
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "خطایی در حذف انجام گرفته است.";
+            }
+        }
+        else
+        {
+            this.DivReport.Visible = true;
+            this.LabelWarning.Text = "خطایی در حذف انجام گرفته است.";
+        }
+    }
+    #endregion
+}

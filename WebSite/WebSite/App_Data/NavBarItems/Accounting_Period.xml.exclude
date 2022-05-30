@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Groups>
+	<NavBarGroup Text="مدیریت اطلاعات پایه" Name="grpBaseInfo">
+
+		<NavBarItem NavigateUrl="~/Accounting/BaseInfo/AccGroup.aspx" Text="مدیریت گروه های حساب" Enabled="False">
+		</NavBarItem>
+		<!--<NavBarItem NavigateUrl="~/Accounting/BaseInfo/Project.aspx" Text="مدیریت پروژه ها" Enabled="False">
+		</NavBarItem>
+		<NavBarItem Enabled="False" NavigateUrl="~/Accounting/BaseInfo/CostCenter.aspx" Text="مدیریت مرکز هزینه ها">
+		</NavBarItem>-->
+		<NavBarItem NavigateUrl="~/Accounting/BaseInfo/Account.aspx" Text="مدیریت کدینگ حسابها" Enabled="False">
+		</NavBarItem>
+		<NavBarItem NavigateUrl="~/Accounting/BaseInfo/Services.aspx" Text="مدیریت خدمات" Enabled="False">
+		</NavBarItem>
+		<NavBarItem NavigateUrl="~/Accounting/BaseInfo/Priod.aspx" Text="مدیریت دوره ها">
+		</NavBarItem>
+		<NavBarItem Enabled="False" NavigateUrl="~/Accounting/BaseInfo/Bank.aspx" Text="مدیریت بانکها">
+		</NavBarItem>
+		<NavBarItem Enabled="False" NavigateUrl="~/Accounting/BaseInfo/Coffer.aspx" Text="مدیریت صندوقها">
+		</NavBarItem>
+		<NavBarItem Enabled="False" NavigateUrl="~/Accounting/BaseInfo/AccSettings.aspx" Text="مدیریت تنظیم حسابها">
+		</NavBarItem>
+		<NavBarItem Enabled="False" NavigateUrl="~/Accounting/BaseInfo/CostSettings.aspx" Text="مدیریت تنظیم هزینه های دریافتی">
+		</NavBarItem>
+		<NavBarItem Enabled="False" NavigateUrl="~/Accounting/BaseInfo/BenefitPercent.aspx" Text="تعریف کسورات ماده 27">
+		</NavBarItem>
+	</NavBarGroup>
+	
+	<NavBarGroup Expanded="False" Text="مدیریت حسابداری" Name="grpAccManagement">
+
+		<NavBarItem NavigateUrl="~/Accounting/Period/AccManagement/PeriodDocBalance.aspx" Text="مدیریت اسناد حسابداری">
+		</NavBarItem>
+		<NavBarItem NavigateUrl="~/Accounting/DocBalancePermanant.aspx" Text="مدیریت اسناد دائم" Enabled="False">
+		</NavBarItem>
+		<NavBarItem NavigateUrl="~/Accounting/DocBalanceTemp.aspx" Text="مدیریت اسناد موقت"	Enabled="False">
+		</NavBarItem>
+		<NavBarItem NavigateUrl="~/Accounting/AccManagement/DocBalanceDraft.aspx" Text="مدیریت اسناد پیش نویس" Enabled="False">
+		</NavBarItem>
+		<NavBarItem NavigateUrl="~/Accounting/DocBalanceTemp.aspx" Text="تبدیل به سند دائم"	Enabled="False">
+		</NavBarItem>
+		<NavBarItem NavigateUrl="~/Accounting/DocBalanceTemp.aspx" Text="ادغام چند سند"	Enabled="False">
+		</NavBarItem>
+		<NavBarItem NavigateUrl="~/Accounting/DocBalance.aspx" Text="ثبت سند معکوس"	Enabled="False">
+		</NavBarItem>
+		<NavBarItem NavigateUrl="~/Accounting/AccManagement/DocBalanceWithLotOfItemsInsert.aspx" Text="ثبت سند با آرتیکل زیاد"	Enabled="False">
+		</NavBarItem>
+		<NavBarItem NavigateUrl="~/Accounting/SubmitDocOperation.aspx" Text="ثبت در دفاتر حسابداری"	Enabled="False">
+		</NavBarItem>
+		<NavBarItem NavigateUrl="~/Accounting/Period/AccManagement/PeriodSaleService.aspx" Text="مدیریت فروش خدمات">
+		</NavBarItem>
+		<NavBarItem NavigateUrl="~/Accounting/Period/AccManagement/PeriodChequeManager.aspx" Text="مدیریت دریافت">
+		</NavBarItem>
+		<NavBarItem Text="مدیریت پرداخت " NavigateUrl="~/Accounting/Period/AccManagement/PeriodPayment.aspx">
+		</NavBarItem>
+		<NavBarItem NavigateUrl="~/Accounting/AccManagement/SmsDoc.aspx" Text="مدیریت اسناد پیام کوتاه " Enabled="False">
+		</NavBarItem>
+
+	</NavBarGroup>
+
+	<NavBarGroup Expanded="False" Name="grpBank" Text="عملیاتهای بانکی">
+		<NavBarItem NavigateUrl="~/Accounting/BankOperations/FichePirint.aspx" Text="چاپ فیش" Enabled="False">
+		</NavBarItem>
+		<NavBarItem NavigateUrl="~/Accounting/Period/BankOperations/PeriodPrintedBankFish.aspx" Text="مدیریت فیشهای بانکی">
+		</NavBarItem>
+		<NavBarItem NavigateUrl="~/Accounting/Period/BankOperations/PeriodCheque.aspx" Text="مدیریت چکهای دریافتی">
+		</NavBarItem>
+		<NavBarItem NavigateUrl="~/Accounting/Period/BankOperations/PeriodChequeStatusChange.aspx" Text="مدیریت تغییر وضعیت چکهای دریافتی">
+		</NavBarItem>
+		<NavBarItem NavigateUrl="~/Accounting/Period/BankOperations/PeriodPayCheque.aspx" Text="مدیریت چکهای پرداختی">
+		</NavBarItem>
+		<NavBarItem NavigateUrl="~/Accounting/Period/BankOperations/PeriodPayChequeStatusChange.aspx" Text="مدیریت تغییر وضعیت چکهای پرداختی">
+		</NavBarItem>
+		<NavBarItem NavigateUrl="~/Accounting/BankOperations/BankContradiction.aspx" Text="مدیریت مغایرت بانکی" Enabled="False">
+		</NavBarItem>
+	</NavBarGroup>
+	
+	<NavBarGroup Expanded="False" Text="گزارشات" Name="grpReports">
+
+		<NavBarItem NavigateUrl="~/Accounting/Period/Reports/PeriodReportJornal.aspx" Text="دفتر روزنامه">
+		</NavBarItem>
+		<NavBarItem NavigateUrl="~/Accounting/Period/Reports/PeriodReportBook.aspx" Text="دفاتر حسابداری">
+		</NavBarItem>
+		<NavBarItem NavigateUrl="~/Accounting/Period/Reports/PeriodReportBalance.aspx" Text="تراز آزمایشی">
+		</NavBarItem>
+		<NavBarItem NavigateUrl="~/Accounting/Period/Reports/PeriodReportBalance8Columns.aspx"
+			Text="تراز آزمایشی 8 ستونی">
+		</NavBarItem>
+		<NavBarItem NavigateUrl="~/Accounting/Period/Reports/PeriodReportBenefit.aspx" Text="سود و زیان">
+		</NavBarItem>
+		<NavBarItem NavigateUrl="~/Accounting/Period/Reports/PeriodReportBalance3.aspx" Text="ترازنامه">
+		</NavBarItem>
+		<NavBarItem Text="اسناد غیر فعال" NavigateUrl="~/Accounting/Period/Reports/PeriodDocBalanceInActive.aspx">
+		</NavBarItem>
+		<NavBarItem NavigateUrl="~/Accounting/Reports/DebtReportDelayDebts.aspx" Text="اقساط تاخیری"  Enabled="False">
+		</NavBarItem>
+	</NavBarGroup>
+	<NavBarGroup Expanded="False" Text="مدیریت کاربران">
+
+		<NavBarItem NavigateUrl="~/Accounting/Agent.aspx" Text="مدیریت نمایندگی ها" Enabled="False">
+		</NavBarItem>
+		<NavBarItem NavigateUrl="~/Employee/Management/Users1.aspx?Fl=X7+W4KHy6UIPqHhaA9culQ==" Text="مدیریت کاربران" Enabled="False">
+		</NavBarItem>
+
+	</NavBarGroup>
+	
+	<NavBarGroup Expanded="False" Name="grpStorage" Text="بخش انبار">
+
+		<NavBarItem NavigateUrl="~/Accounting/Storage/Goods.aspx" Text="مدیریت کالا ها" Enabled="False">
+		</NavBarItem>
+		<NavBarItem NavigateUrl="~/Accounting/Storage/Storage.aspx" Text="مدیریت انبار" Enabled="False">
+		</NavBarItem>
+		<NavBarItem Text="مدیریت خرید" NavigateUrl="~/Accounting/Storage/Buy.aspx" Enabled="False">
+		</NavBarItem>
+		<NavBarItem Text="مدیریت فروش" NavigateUrl="~/Accounting/Storage/Sales.aspx" Enabled="False">
+		</NavBarItem>
+
+	</NavBarGroup>
+
+	<NavBarGroup Expanded="False" Name="grpLoan" Text="وام">
+
+		<NavBarItem NavigateUrl="~/Accounting/Loan/Loan.aspx" Text="مدیریت وامها" Enabled="False">
+		</NavBarItem>
+		<NavBarItem NavigateUrl="~/Accounting/Loan/LoanPayment.aspx" Text="مدیریت پرداخت وامها" Enabled="False">
+		</NavBarItem>
+		<NavBarItem NavigateUrl="~/Accounting/Loan/DebtPayment.aspx" Text="مدیریت پرداخت اقساط" Enabled="False">
+		</NavBarItem>
+	</NavBarGroup>
+	
+</Groups>

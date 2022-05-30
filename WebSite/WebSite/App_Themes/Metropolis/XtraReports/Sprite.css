@@ -1,0 +1,258 @@
+.dxm-hovered .dxXtraReports_BtnFirstPage_Metropolis,
+.dxm-hovered .dxXtraReports_BtnLastPage_Metropolis,
+.dxm-hovered .dxXtraReports_BtnNextPage_Metropolis,
+.dxm-hovered .dxXtraReports_BtnPrevPage_Metropolis,
+.dxm-hovered .dxXtraReports_BtnPrint_Metropolis,
+.dxm-hovered .dxXtraReports_BtnPrintPage_Metropolis,
+.dxm-hovered .dxXtraReports_BtnSave_Metropolis,
+.dxm-hovered .dxXtraReports_BtnSaveWindow_Metropolis,
+.dxm-hovered .dxXtraReports_BtnSearch_Metropolis,
+.dxXtraReports_BtnFirstPage_Metropolis,
+.dxXtraReports_BtnFirstPageDisabled_Metropolis,
+.dxXtraReports_BtnLastPage_Metropolis,
+.dxXtraReports_BtnLastPageDisabled_Metropolis,
+.dxXtraReports_BtnNextPage_Metropolis,
+.dxXtraReports_BtnNextPageDisabled_Metropolis,
+.dxXtraReports_BtnPrevPage_Metropolis,
+.dxXtraReports_BtnPrevPageDisabled_Metropolis,
+.dxXtraReports_BtnPrint_Metropolis,
+.dxXtraReports_BtnPrintDisabled_Metropolis,
+.dxXtraReports_BtnPrintPage_Metropolis,
+.dxXtraReports_BtnPrintPageDisabled_Metropolis,
+.dxXtraReports_BtnSave_Metropolis,
+.dxXtraReports_BtnSaveDisabled_Metropolis,
+.dxXtraReports_BtnSaveWindow_Metropolis,
+.dxXtraReports_BtnSaveWindowDisabled_Metropolis,
+.dxXtraReports_BtnSearch_Metropolis,
+.dxXtraReports_BtnSearchDisabled_Metropolis,
+.dxXtraReports_PageBorder_blc_Metropolis,
+.dxXtraReports_PageBorder_brc_Metropolis,
+.dxXtraReports_PageBorder_tlc_Metropolis,
+.dxXtraReports_PageBorder_trc_Metropolis
+{
+    background-image: url('sprite.png');
+    background-repeat: no-repeat;
+    background-color: transparent;
+}
+.dxm-hovered .dxXtraReports_BtnFirstPage_Metropolis
+{
+    background-position: 0px -272px;
+    width: 16px;
+    height: 16px;
+}
+.dxm-hovered .dxXtraReports_BtnLastPage_Metropolis
+{
+    background-position: 0px -68px;
+    width: 16px;
+    height: 16px;
+}
+.dxm-hovered .dxXtraReports_BtnNextPage_Metropolis
+{
+    background-position: 0px -357px;
+    width: 16px;
+    height: 16px;
+}
+.dxm-hovered .dxXtraReports_BtnPrevPage_Metropolis
+{
+    background-position: 0px -51px;
+    width: 16px;
+    height: 16px;
+}
+.dxm-hovered .dxXtraReports_BtnPrint_Metropolis
+{
+    background-position: 0px -187px;
+    width: 16px;
+    height: 16px;
+}
+.dxm-hovered .dxXtraReports_BtnPrintPage_Metropolis
+{
+    background-position: 0px -102px;
+    width: 16px;
+    height: 16px;
+}
+.dxm-hovered .dxXtraReports_BtnSave_Metropolis
+{
+    background-position: 0px -221px;
+    width: 16px;
+    height: 16px;
+}
+.dxm-hovered .dxXtraReports_BtnSaveWindow_Metropolis
+{
+    background-position: 0px -391px;
+    width: 16px;
+    height: 16px;
+}
+.dxm-hovered .dxXtraReports_BtnSearch_Metropolis
+{
+    background-position: 0px -374px;
+    width: 16px;
+    height: 16px;
+}
+.dxXtraReports_BtnFirstPage_Metropolis
+{
+    background-position: 0px -289px;
+    width: 16px;
+    height: 16px;
+}
+.dxXtraReports_BtnFirstPageDisabled_Metropolis
+{
+    background-position: 0px -119px;
+    width: 16px;
+    height: 16px;
+}
+.dxXtraReports_BtnLastPage_Metropolis
+{
+    background-position: 0px -323px;
+    width: 16px;
+    height: 16px;
+}
+.dxXtraReports_BtnLastPageDisabled_Metropolis
+{
+    background-position: 0px -306px;
+    width: 16px;
+    height: 16px;
+}
+.dxXtraReports_BtnNextPage_Metropolis
+{
+    background-position: 0px -17px;
+    width: 16px;
+    height: 16px;
+}
+.dxXtraReports_BtnNextPageDisabled_Metropolis
+{
+    background-position: 0px -136px;
+    width: 16px;
+    height: 16px;
+}
+.dxXtraReports_BtnPrevPage_Metropolis
+{
+    background-position: 0px -255px;
+    width: 16px;
+    height: 16px;
+}
+.dxXtraReports_BtnPrevPageDisabled_Metropolis
+{
+    background-position: 0px -34px;
+    width: 16px;
+    height: 16px;
+}
+.dxXtraReports_BtnPrint_Metropolis
+{
+    background-position: 0px -85px;
+    width: 16px;
+    height: 16px;
+}
+.dxXtraReports_BtnPrintDisabled_Metropolis
+{
+    background-position: 0px -204px;
+    width: 16px;
+    height: 16px;
+}
+.dxXtraReports_BtnPrintPage_Metropolis
+{
+    background-position: 0px -425px;
+    width: 16px;
+    height: 16px;
+}
+.dxXtraReports_BtnPrintPageDisabled_Metropolis
+{
+    background-position: 0px -442px;
+    width: 16px;
+    height: 16px;
+}
+.dxXtraReports_BtnSave_Metropolis
+{
+    background-position: 0px -238px;
+    width: 16px;
+    height: 16px;
+}
+.dxXtraReports_BtnSaveDisabled_Metropolis
+{
+    background-position: 0px -170px;
+    width: 16px;
+    height: 16px;
+}
+.dxXtraReports_BtnSaveWindow_Metropolis
+{
+    background-position: 0px 0px;
+    width: 16px;
+    height: 16px;
+}
+.dxXtraReports_BtnSaveWindowDisabled_Metropolis
+{
+    background-position: 0px -340px;
+    width: 16px;
+    height: 16px;
+}
+.dxXtraReports_BtnSearch_Metropolis
+{
+    background-position: 0px -153px;
+    width: 16px;
+    height: 16px;
+}
+.dxXtraReports_BtnSearchDisabled_Metropolis
+{
+    background-position: 0px -408px;
+    width: 16px;
+    height: 16px;
+}
+.dxXtraReports_PageBorder_blc_Metropolis
+{
+    background-position: 0px -481px;
+    width: 10px;
+    height: 10px;
+}
+.dxXtraReports_PageBorder_brc_Metropolis
+{
+    background-position: 0px -470px;
+    width: 10px;
+    height: 10px;
+}
+.dxXtraReports_PageBorder_tlc_Metropolis
+{
+    background-position: 0px -492px;
+    width: 10px;
+    height: 10px;
+}
+.dxXtraReports_PageBorder_trc_Metropolis
+{
+    background-position: 0px -459px;
+    width: 10px;
+    height: 10px;
+}
+.dxXtraReports_PageBorder_t_Metropolis,
+.dxXtraReports_PageBorder_l_Metropolis,
+.dxXtraReports_PageBorder_r_Metropolis,
+.dxXtraReports_PageBorder_b_Metropolis {
+    padding: 0px;
+    background-color: transparent;
+}
+
+.dxXtraReports_PageBorder_t_Metropolis {
+    background-image: url('pageTopBorder.png');
+    background-repeat: repeat-x;
+    width: 1px;
+    height: 10px;
+}
+
+.dxXtraReports_PageBorder_l_Metropolis {
+    background-image: url('pageLeftBorder.png');
+    background-repeat: repeat-y;
+    width: 10px;
+    height: 1px;
+}
+
+.dxXtraReports_PageBorder_r_Metropolis {
+    background-image: url('pageRightBorder.png');
+    background-repeat: repeat-y;
+    width: 10px;
+    height: 1px;
+}
+
+.dxXtraReports_PageBorder_b_Metropolis {
+    background-image: url('pageBottomBorder.png');
+    background-repeat: repeat-x;
+    width: 1px;
+    height: 10px;
+}
+

@@ -1,0 +1,50 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Data;
+
+public partial class Members_Test : System.Web.UI.Page
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+
+    }
+
+    protected void btn_OnClick(object sender, EventArgs e)
+    {
+        SendSMSNotification(Utility.Notifications.NotificationTypes.Epayment, "Test Send notification", "09171123560");
+    }
+
+
+    private void SendSMSNotification(Utility.Notifications.NotificationTypes NotificationType, string AccountingDescription, string SMSMobileNo)
+    {
+        SendSMSNotification SMSNotifications = new SendSMSNotification(NotificationType);
+
+        String SMSMeId = "", SMSUltId = "", SMSResult = "";
+
+        if (String.IsNullOrWhiteSpace(SMSMobileNo) == false)
+        {
+            DataRow dr = SMSNotifications.NotificationData.NewRow();
+            dr["SMSMobileNo"] = SMSMobileNo;
+            dr["SMSResult"] = SMSResult;
+            dr["SMSMeId"] = SMSMeId;
+            dr["SMSUltId"] = SMSUltId;
+            dr["PaymentDescription"] = AccountingDescription;
+            SMSNotifications.NotificationData.Rows.Add(dr);
+            SMSNotifications.NotificationData.AcceptChanges();
+
+            switch (Utility.GetCurrentSMSWebService())
+            {
+                case (int)TSP.DataManager.SMSWebServiceType.Magfa:
+                    SMSNotifications.SendSMSByMagfa();
+                    break;
+                case (int)TSP.DataManager.SMSWebServiceType.AsreFaraErtebat:
+                    SMSNotifications.SendSMS();
+                    break;
+            }
+        }
+    }
+}

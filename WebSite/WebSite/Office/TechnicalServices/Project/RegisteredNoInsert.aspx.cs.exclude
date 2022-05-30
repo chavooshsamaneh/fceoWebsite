@@ -1,0 +1,224 @@
+﻿using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+
+public partial class Office_TechnicalServices_Project_RegisteredNoInsert : System.Web.UI.Page
+{
+    string PageMode;
+    string ProjectId;
+    string PrjReId;
+    string RegisteredNoId;
+
+    bool IsPageRefresh = false;
+
+    protected void Page_Load(object sender, EventArgs e)
+    {        
+        this.DivReport.Attributes.Add("onclick", "ChangeVisible(this)");
+        this.DivReport.Attributes.Add("onmouseover", "ChangeIcon(this)");
+        this.DivReport.Visible = false;
+
+        if (!IsPostBack)
+        {
+            ViewState["postids"] = System.Guid.NewGuid().ToString();
+            Session["postid"] = ViewState["postids"].ToString();
+        }
+        else
+        {
+            if (!IsCallback && Session["postid"]!=null)
+            {
+                if (ViewState["postids"].ToString() != Session["postid"].ToString()) { IsPageRefresh = true; }
+                Session["postid"] = System.Guid.NewGuid().ToString(); ViewState["postids"] = Session["postid"];
+            }
+        }
+
+        if (!IsPostBack)
+        {
+            if ((string.IsNullOrEmpty(Request.QueryString["ProjectId"])) || (string.IsNullOrEmpty(Request.QueryString["PrjReId"])))
+            {
+                Response.Redirect("Project.aspx");
+                return;
+            }
+
+            if ((string.IsNullOrEmpty(Request.QueryString["PageMode"])) || (string.IsNullOrEmpty(Request.QueryString["RegisteredNoId"])))
+            {
+                Response.Redirect("RegisteredNo.aspx?ProjectId=" + Server.HtmlDecode(Request.QueryString["ProjectId"]) + "&PrjReId=" + Server.HtmlDecode(Request.QueryString["PrjReId"]));
+                return;
+            }
+            
+            SetKeys();
+        }
+    }
+    
+    protected void btnBack_Click(object sender, EventArgs e)
+    {
+        string Qs = "ProjectId=" + PkProjectId.Value + "&PrjReId=" + PkPrjReId.Value + "&PageMode=" + MPgMode.Value;
+        Response.Redirect("RegisteredNo.aspx?" + Qs);
+    }
+    
+    /*************************************************************************************************************/
+    private void SetKeys()
+    {
+        try
+        {
+            MPgMode.Value = Server.HtmlDecode(Request.QueryString["MPgMode"].ToString());
+            PgMode.Value = Server.HtmlDecode(Request.QueryString["PageMode"].ToString());
+            PkProjectId.Value = Server.HtmlDecode(Request.QueryString["ProjectId"]).ToString();
+            PkRegisteredNo.Value = Server.HtmlDecode(Request.QueryString["RegisteredNoId"]).ToString();
+            PkPrjReId.Value = Server.HtmlDecode(Request.QueryString["PrjReId"]).ToString();
+        }
+        catch
+        {
+            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+            return;
+        }
+
+        PageMode = Utility.DecryptQS(PgMode.Value);
+        PrjReId = Utility.DecryptQS(PkPrjReId.Value);
+
+        if (string.IsNullOrEmpty(PageMode))
+        {
+            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+            return;
+        }
+
+        SetMode();        
+    }
+
+    private void SetMode()
+    {
+        PageMode = Utility.DecryptQS(PgMode.Value);
+
+        if (string.IsNullOrEmpty(PageMode))
+        {
+            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+            return;
+        }
+
+        switch (PageMode)
+        {
+            case "View":
+                SetViewModeKeys();
+                break;
+        }
+    }
+    
+    private void SetViewModeKeys()
+    {        
+        ASPxTextBoxRegisteredNo.ReadOnly = true;
+        ASPxTextBoxPostalCode.ReadOnly = true;
+        ASPxCheckBoxIsMain.ReadOnly = true;
+        ASPxTextBoxMelkNorth.ReadOnly = true;
+        ASPxTextBoxMelkEast.ReadOnly = true;
+        ASPxTextBoxMelkSouth.ReadOnly = true;
+        ASPxTextBoxMelkWest.ReadOnly = true;
+        ASPxTextBoxTarizNorth.ReadOnly = true;
+        ASPxTextBoxTarizEast.ReadOnly = true;
+        ASPxTextBoxTarizSouth.ReadOnly = true;
+        ASPxTextBoxTarizWest.ReadOnly = true;
+        ASPxTextBoxRemainNorth.ReadOnly = true;
+        ASPxTextBoxRemainEast.ReadOnly = true;
+        ASPxTextBoxRemainSouth.ReadOnly = true;
+        ASPxTextBoxRemainWest.ReadOnly = true;
+        ASPxTextBoxLimitNorth.ReadOnly = true;
+        ASPxTextBoxLimitEast.ReadOnly = true;
+        ASPxTextBoxLimitSouth.ReadOnly = true;
+        ASPxTextBoxLimitWest.ReadOnly = true;
+        ASPxTextBoxDivision.ReadOnly = true;
+
+        SetValues();
+
+        ASPxRoundPanel2.HeaderText = "مشاهده";
+    }
+
+    private void SetValues()
+    {
+        PageMode = Utility.DecryptQS(PgMode.Value);
+        RegisteredNoId = Utility.DecryptQS(PkRegisteredNo.Value);
+
+        if ((string.IsNullOrEmpty(RegisteredNoId)) || (string.IsNullOrEmpty(PageMode)))
+        {
+            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+            return;
+        }
+
+        TSP.DataManager.TechnicalServices.RegisteredNoManager Manager = new TSP.DataManager.TechnicalServices.RegisteredNoManager();
+        Manager.FindByRegisteredNoId(int.Parse(RegisteredNoId));
+        if (Manager.Count == 1)
+        {
+            ASPxTextBoxRegisteredNo.Text = Manager[0]["RegisteredNo"].ToString();
+            ASPxTextBoxPostalCode.Text = Manager[0]["PostalCode"].ToString();
+            ASPxCheckBoxIsMain.Checked = Convert.ToBoolean(Manager[0]["IsMain"]);
+            ASPxTextBoxDivision.Text = Manager[0]["Division"].ToString();
+            
+            SetDirections(int.Parse(RegisteredNoId));
+        }
+        else
+        {
+            this.DivReport.Visible = true;
+            this.LabelWarning.Text = "چنین رکوردی وجود ندارد";
+        }
+    }
+
+    private void SetDirections(int RegisteredNoId)
+    {
+        TSP.DataManager.TechnicalServices.DirectionsManager DirectionsManager = new TSP.DataManager.TechnicalServices.DirectionsManager();
+        DirectionsManager.FindByRegisteredNoId(RegisteredNoId);
+        for (int i = 0; i < DirectionsManager.Count; i++)
+        {
+            switch (Convert.ToInt32(DirectionsManager[i]["DirectionTypeId"]))
+            {
+                case (int)TSP.DataManager.TSDirectionType.Dimension:
+                    ASPxTextBoxMelkNorth.Text = DirectionsManager[i]["North"].ToString();
+                    ASPxTextBoxMelkEast.Text = DirectionsManager[i]["East"].ToString();
+                    ASPxTextBoxMelkSouth.Text = DirectionsManager[i]["South"].ToString();
+                    ASPxTextBoxMelkWest.Text = DirectionsManager[i]["West"].ToString();
+                    break;
+
+                case (int)TSP.DataManager.TSDirectionType.Length:
+                    ASPxTextBoxLengthNorth.Text = DirectionsManager[i]["North"].ToString();
+                    ASPxTextBoxLengthEast.Text = DirectionsManager[i]["East"].ToString();
+                    ASPxTextBoxLengthSouth.Text = DirectionsManager[i]["South"].ToString();
+                    ASPxTextBoxLengthWest.Text = DirectionsManager[i]["West"].ToString();
+                    break;
+
+                case (int)TSP.DataManager.TSDirectionType.Wideness:
+                    ASPxTextBoxTarizNorth.Text = DirectionsManager[i]["North"].ToString();
+                    ASPxTextBoxTarizEast.Text = DirectionsManager[i]["East"].ToString();
+                    ASPxTextBoxTarizSouth.Text = DirectionsManager[i]["South"].ToString();
+                    ASPxTextBoxTarizWest.Text = DirectionsManager[i]["West"].ToString();
+                    break;
+
+                case (int)TSP.DataManager.TSDirectionType.RemainDimension:
+                    ASPxTextBoxRemainNorth.Text = DirectionsManager[i]["North"].ToString();
+                    ASPxTextBoxRemainEast.Text = DirectionsManager[i]["East"].ToString();
+                    ASPxTextBoxRemainSouth.Text = DirectionsManager[i]["South"].ToString();
+                    ASPxTextBoxRemainWest.Text = DirectionsManager[i]["West"].ToString();
+                    break;
+
+                case (int)TSP.DataManager.TSDirectionType.PathWayWidth:
+                    ASPxTextBoxPathWayWidthNorth.Text = DirectionsManager[i]["North"].ToString();
+                    ASPxTextBoxPathWayWidthEast.Text = DirectionsManager[i]["East"].ToString();
+                    ASPxTextBoxPathWayWidthSouth.Text = DirectionsManager[i]["South"].ToString();
+                    ASPxTextBoxPathWayWidthWest.Text = DirectionsManager[i]["West"].ToString();
+                    break;
+
+                case (int)TSP.DataManager.TSDirectionType.Limit:
+                    ASPxTextBoxLimitNorth.Text = DirectionsManager[i]["North"].ToString();
+                    ASPxTextBoxLimitEast.Text = DirectionsManager[i]["East"].ToString();
+                    ASPxTextBoxLimitSouth.Text = DirectionsManager[i]["South"].ToString();
+                    ASPxTextBoxLimitWest.Text = DirectionsManager[i]["West"].ToString();
+                    break;
+            }
+        }
+    }
+}

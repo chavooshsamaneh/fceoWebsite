@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Groups>
+	<NavBarGroup Text="اطلاعات عضو" Name="grpMemberInfo">				
+	</NavBarGroup>
+	<!--<NavBarGroup Expanded="False" Text="خدمات مهندسی" Name="groupTechnicalService">
+		
+		<NavBarItem Name="Period"  NavigateUrl="~/Municipality/TechnicalService/Plan/PlanControler.aspx"  Text="مدیریت کنترل کنندگان نقشه">
+		</NavBarItem>
+	</NavBarGroup>-->
+  <NavBarGroup Expanded="False" Text="خدمات مهندسی" Name="grpTS">
+    <NavBarItem NavigateUrl="~/Municipality/TechnicalService/TsHome.aspx" Text="خدمات مهندسی">
+    </NavBarItem>
+  </NavBarGroup>
+
+</Groups>

@@ -1,0 +1,582 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ASPxHtmlEditorStringId.Alt_ConstrainProportions" xml:space="preserve">
+    <value>Constrain Proportions On</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.Alt_ConstrainProportionsOff" xml:space="preserve">
+    <value>Constrain Proportions Off</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.DesignViewTab" xml:space="preserve">
+    <value>طراحی</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.HtmlViewTab" xml:space="preserve">
+    <value>HTML</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.PreviewTab" xml:space="preserve">
+    <value>مشاهده</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.CommandCut" xml:space="preserve">
+    <value>Cut</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.CommandCopy" xml:space="preserve">
+    <value>Copy</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.CommandPaste" xml:space="preserve">
+    <value>Paste</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.CommandPasteRtf" xml:space="preserve">
+    <value>درج متن از Word</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.CommandUndo" xml:space="preserve">
+    <value>Undo</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.CommandRedo" xml:space="preserve">
+    <value>Redo</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.CommandPrint" xml:space="preserve">
+    <value>چاپ</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.CommandRemoveFormat" xml:space="preserve">
+    <value>Remove Format</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.CommandSubscript" xml:space="preserve">
+    <value>زیر نویس</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.CommandSuperscript" xml:space="preserve">
+    <value>بالانویس</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.CommandOrderedList" xml:space="preserve">
+    <value>Ordered List</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.CommandBulletList" xml:space="preserve">
+    <value>Bullet List</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.CommandIndent" xml:space="preserve">
+    <value>تو رفتگی</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.CommandOutdent" xml:space="preserve">
+    <value>بیرون آمدگی</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.CommandUnlink" xml:space="preserve">
+    <value>حذف لینک</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.CommandCheckSpelling" xml:space="preserve">
+    <value>Check Spelling</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.CommandBold" xml:space="preserve">
+    <value>درشت</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.CommandItalic" xml:space="preserve">
+    <value>کج</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.CommandUnderline" xml:space="preserve">
+    <value>Underline</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.CommandStrikethrough" xml:space="preserve">
+    <value>Strikethrough</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.CommandLeft" xml:space="preserve">
+    <value>Align Left</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.CommandCenter" xml:space="preserve">
+    <value>Align Center</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.CommandRight" xml:space="preserve">
+    <value>Align Right</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.CommandJustify" xml:space="preserve">
+    <value>Justify</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.CommandBackColor" xml:space="preserve">
+    <value>پس زمینه</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.CommandForeColor" xml:space="preserve">
+    <value>پیش زمینه</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.CommandApplyCss" xml:space="preserve">
+    <value>Apply CSS</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.CommandFullscreen" xml:space="preserve">
+    <value>تمام صفحه</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.InsertImage" xml:space="preserve">
+    <value>درج تصویر</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.ChangeImage" xml:space="preserve">
+    <value>تغییر تصویر</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.ContextMenu_ChangeImage" xml:space="preserve">
+    <value>تغییر تصویر ...</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.SelectImage" xml:space="preserve">
+    <value>انتخاب تصویر</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.InsertLink" xml:space="preserve">
+    <value>درج لینک</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.ChangeLink" xml:space="preserve">
+    <value>تغییر لینک</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.ContextMenu_ChangeLink" xml:space="preserve">
+    <value>تغییر لینک ...</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.SelectDocument" xml:space="preserve">
+    <value>انتخاب سند</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.FontSize" xml:space="preserve">
+    <value>اندازه قلم</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.FontName" xml:space="preserve">
+    <value>نام قلم</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.Paragraph" xml:space="preserve">
+    <value>پاراگراف</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.PasteRtf_Instructions" xml:space="preserve">
+    <value>لطفا متن را در داخل جعبه زیر paste کنید و سپس دکمه تایید را بزنید.</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.PasteRtf_StripFont" xml:space="preserve">
+    <value>حذف فونت</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.ButtonOk" xml:space="preserve">
+    <value>تایید</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.ButtonCancel" xml:space="preserve">
+    <value>لغو</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.ButtonChange" xml:space="preserve">
+    <value>تغییر</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.ButtonInsert" xml:space="preserve">
+    <value>درج</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.ButtonSelect" xml:space="preserve">
+    <value>انتخاب</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.InsertLink_Url" xml:space="preserve">
+    <value>مسیر</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.InsertLink_Email" xml:space="preserve">
+    <value>آدرس پست الکترونیکی</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.InsertLink_DisplayProperties" xml:space="preserve">
+    <value>مشخصات نمایش</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.InsertLink_Text" xml:space="preserve">
+    <value>متن</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.InsertLink_ToolTip" xml:space="preserve">
+    <value>ToolTip</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.InsertLink_OpenInNewWindow" xml:space="preserve">
+    <value>باز کردن در صفحه جدید</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.InsertLink_EmailTo" xml:space="preserve">
+    <value>آدرس گیرنده</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.InsertLink_Subject" xml:space="preserve">
+    <value>موضوع</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.InsertLink_SelectDocument" xml:space="preserve">
+    <value>Invoke a dialog allowing you to select a document</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.DefaultErrorText" xml:space="preserve">
+    <value>The HTML content is invalid</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.RequiredHtmlContentError" xml:space="preserve">
+    <value>The content of the editor cannot be empty</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.RequiredFieldError" xml:space="preserve">
+    <value>این فیلد را وارد نمایید</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.InsertImage_FromWeb" xml:space="preserve">
+    <value>از صفحات وب (URL)</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.InsertImage_FromLocal" xml:space="preserve">
+    <value>از کامپیوتر</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.InsertImage_EnterUrl" xml:space="preserve">
+    <value>آدرس تصویر را وارد کنید</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.InsertImage_SaveToServer" xml:space="preserve">
+    <value>ذخیره فایل در سرور</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.InsertImage_Preview" xml:space="preserve">
+    <value>مشاهده تصویر</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.InsertImage_UploadInstructions" xml:space="preserve">
+    <value>انتخاب فایل تصویر از کامپیوتر برای آپلود</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.InsertImage_MoreOptions" xml:space="preserve">
+    <value>تنظیمات بیشتر</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.InsertImage_UseFloat" xml:space="preserve">
+    <value>Wrap text around image</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.InsertImage_SelectImage" xml:space="preserve">
+    <value>Invoke a dialog allowing you to select an image</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.ImageProps_Size" xml:space="preserve">
+    <value>اندازه</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.ImageProps_OriginalSize" xml:space="preserve">
+    <value>اندازه اصلی تصویر</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.ImageProps_CustomSize" xml:space="preserve">
+    <value>Custom size</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.ImageProps_Width" xml:space="preserve">
+    <value>طول</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.ImageProps_Pixels" xml:space="preserve">
+    <value>pixels</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.ImageProps_Height" xml:space="preserve">
+    <value>ارتفاع</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.ImageProps_CreateThumbnail" xml:space="preserve">
+    <value>Create thumbnail</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.ImageProps_NewImageName" xml:space="preserve">
+    <value>نام تصویر جدید</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.ImageProps_Position" xml:space="preserve">
+    <value>موقعیت</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.ImageProps_PositionLeft" xml:space="preserve">
+    <value>تراز از چپ</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.ImageProps_PositionCenter" xml:space="preserve">
+    <value>وسط</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.ImageProps_PositionRight" xml:space="preserve">
+    <value>تراز از راست</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.ImageProps_Description" xml:space="preserve">
+    <value>توضیحات</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.InvalidUrlErrorText" xml:space="preserve">
+    <value>Invalid URL format, or a file cannot be found using this URL</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.InsertTable" xml:space="preserve">
+    <value>درج جدول ...</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.TableProperties" xml:space="preserve">
+    <value>تنظیمات جدول ...</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.ContextMenu_TableProperties" xml:space="preserve">
+    <value>تنظیمات جدول ...</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.TableCellProperties" xml:space="preserve">
+    <value>تنظیمات سلول ...</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.ContextMenu_TableCellProperties" xml:space="preserve">
+    <value>تنظیمات سلول ...</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.TableColumnProperties" xml:space="preserve">
+    <value>تنظیمات ستون ...</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.ContextMenu_TableColumnProperties" xml:space="preserve">
+    <value>تنظیمات ستون ...</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.TableRowProperties" xml:space="preserve">
+    <value>تنظیمات ردیف ...</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.ContextMenu_TableRowProperties" xml:space="preserve">
+    <value>تنظیمات ردیف ...</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.ChangeTableColumn_Size" xml:space="preserve">
+    <value>سایز</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.InsertTableRowAbove" xml:space="preserve">
+    <value>درج ردیف در بالا</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.InsertTableRowBelow" xml:space="preserve">
+    <value>درج ردیف در پایی</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.InsertTableColumnToLeft" xml:space="preserve">
+    <value>درج ستون در سمت چپ</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.InsertTableColumnToRight" xml:space="preserve">
+    <value>درج ستون در سمت راست</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.DeleteTable" xml:space="preserve">
+    <value>حذف جدول</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.DeleteTableRow" xml:space="preserve">
+    <value>حذف ردیف</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.DeleteTableColumn" xml:space="preserve">
+    <value>حذف ستون</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.MergeTableCellDown" xml:space="preserve">
+    <value>Merge Down</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.MergeTableCellHorizontal" xml:space="preserve">
+    <value>Merge Right</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.SplitTableCellVertical" xml:space="preserve">
+    <value>تقسیم عمودی</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.SplitTableCellHorizontal" xml:space="preserve">
+    <value>تقسیم افقی</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.InsertTable_Size" xml:space="preserve">
+    <value>اندازه جدول</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.InsertTable_Columns" xml:space="preserve">
+    <value>ستون</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.InsertTable_Rows" xml:space="preserve">
+    <value>ردیف ها</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.InsertTable_Width" xml:space="preserve">
+    <value>طول</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.InsertTable_Height" xml:space="preserve">
+    <value>ارتفاع</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.InsertTable_FullWidth" xml:space="preserve">
+    <value>Full width</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.InsertTable_AutoFitToContent" xml:space="preserve">
+    <value>AutoFit to contents</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.InsertTable_Custom" xml:space="preserve">
+    <value>Custom</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.InsertTable_EqualColumnWidths" xml:space="preserve">
+    <value>طول ستون ها برابر باشد</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.InsertTable_Layout" xml:space="preserve">
+    <value>طرح</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.InsertTable_CellPaddings" xml:space="preserve">
+    <value>Cell padding</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.InsertTable_Alignment" xml:space="preserve">
+    <value>Alignment</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.InsertTable_VertAlignment" xml:space="preserve">
+    <value>عمودی</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.InsertTable_HorzAlignment" xml:space="preserve">
+    <value>افقی</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.InsertTable_None" xml:space="preserve">
+    <value>هیچکدام</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.InsertTable_Alignment_Left" xml:space="preserve">
+    <value>چپ</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.InsertTable_Alignment_Center" xml:space="preserve">
+    <value>وسط</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.InsertTable_Alignment_Right" xml:space="preserve">
+    <value>راست</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.InsertTable_VAlignment_Top" xml:space="preserve">
+    <value>بالا</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.InsertTable_VAlignment_Bottom" xml:space="preserve">
+    <value>پایین</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.InsertTable_VAlignment_Middle" xml:space="preserve">
+    <value>وسط</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.InsertTable_CellSpacing" xml:space="preserve">
+    <value>Cell spacing</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.InsertTable_Appearance" xml:space="preserve">
+    <value>ظاهر</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.InsertTable_BorderColor" xml:space="preserve">
+    <value>رنگ حاشیه</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.InsertTable_BorderSize" xml:space="preserve">
+    <value>اندازه حاشیه</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.InsertTable_BgColor" xml:space="preserve">
+    <value>رنگ پس زمینه</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.InsertTable_Accessibility" xml:space="preserve">
+    <value>تنظیمات دسترسی</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.InsertTable_Headers" xml:space="preserve">
+    <value>سربرگ ها</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.InsertTable_FirstRow" xml:space="preserve">
+    <value>ردیف اول</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.InsertTable_FirstColumn" xml:space="preserve">
+    <value>ستون اول</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.InsertTable_Both" xml:space="preserve">
+    <value>هر دو</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.InsertTable_Caption" xml:space="preserve">
+    <value>عنوان</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.InsertTable_Summary" xml:space="preserve">
+    <value>خلاصه</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.InsertTable_ApplyToAllCell" xml:space="preserve">
+    <value>ثبت در تمام سلول های جدول</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.SelectAll" xml:space="preserve">
+    <value>انتخاب همه</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.SaveAsRtf" xml:space="preserve">
+    <value>Rich Text (.rtf)</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.SaveAsDocx" xml:space="preserve">
+    <value>Office Open XML (.docx)</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.SaveAsMht" xml:space="preserve">
+    <value>MIME HTML (.mht)</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.SaveAsOdt" xml:space="preserve">
+    <value>Open Document (.odt)</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.SaveAsPdf" xml:space="preserve">
+    <value>Portable Document (.pdf)</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.SaveAsTxt" xml:space="preserve">
+    <value>Plain Text (.txt)</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.SaveAsRtf_ToolTip" xml:space="preserve">
+    <value>Export to RTF file and save it to a local disk</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.SaveAsDocx_ToolTip" xml:space="preserve">
+    <value>Export to DOCX file and save it to a local disk</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.SaveAsMht_ToolTip" xml:space="preserve">
+    <value>Export to MHT file and save it to a local disk</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.SaveAsOdt_ToolTip" xml:space="preserve">
+    <value>Export to ODT file and save it to a local disk</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.SaveAsPdf_ToolTip" xml:space="preserve">
+    <value>Export to PDF file and save it to a local disk</value>
+  </data>
+  <data name="ASPxHtmlEditorStringId.SaveAsTxt_ToolTip" xml:space="preserve">
+    <value>Export to TXT file and save it to a local disk</value>
+  </data>
+</root>

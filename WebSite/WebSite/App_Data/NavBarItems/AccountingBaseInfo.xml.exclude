@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Groups>
+	<NavBarGroup Text="مدیریت اطلاعات پایه" Name="grpBaseInfo">
+    <!--	<NavBarItem NavigateUrl="~/Accounting/BaseInfo/AccGroup.aspx" Text="مدیریت گروه های حساب">
+		</NavBarItem>
+		<NavBarItem NavigateUrl="~/Accounting/BaseInfo/AccGroupHoverDetail.aspx" Text="مدیریت گروه های تفضیلی">
+		</NavBarItem>-->
+		<!--<NavBarItem NavigateUrl="~/Accounting/BaseInfo/Project.aspx" Text="مدیریت پروژه ها">
+		</NavBarItem>
+		<NavBarItem NavigateUrl="~/Accounting/BaseInfo/CostCenter.aspx" Text="مدیریت مرکز هزینه ها">
+		</NavBarItem>-->
+    <!--	<NavBarItem NavigateUrl="~/Accounting/BaseInfo/Account.aspx" Text="مدیریت کدینگ حسابها">
+		</NavBarItem>
+		<NavBarItem NavigateUrl="~/Accounting/BaseInfo/AccountHoverDetail.aspx" Text="مدیریت کدینگ تفضیلی های شناور">
+		</NavBarItem>-->
+    <!--<NavBarItem NavigateUrl="~/Accounting/BaseInfo/Services.aspx" Text="مدیریت خدمات">
+		</NavBarItem>-->
+    <!--	<NavBarItem NavigateUrl="~/Accounting/BaseInfo/Priod.aspx" Text="مدیریت دوره های مالی">
+		</NavBarItem>
+		<NavBarItem NavigateUrl="~/Accounting/BaseInfo/Bank.aspx" Text="مدیریت بانکها">
+		</NavBarItem>
+		<NavBarItem NavigateUrl="~/Accounting/BaseInfo/Coffer.aspx" Text="مدیریت صندوقها">
+		</NavBarItem>-->
+    <!--	<NavBarItem NavigateUrl="~/Accounting/BaseInfo/AccSettings.aspx" Text="مدیریت تنظیم حسابها">
+		</NavBarItem>-->
+	<NavBarItem NavigateUrl="~/Accounting/BaseInfo/CostSettings.aspx" Text="مدیریت تنظیم هزینه های دریافتی">
+		</NavBarItem>
+    <!--	<NavBarItem NavigateUrl="~/Accounting/BaseInfo/BenefitPercent.aspx" Text="تعریف کسورات ماده 27">
+		</NavBarItem>-->
+  </NavBarGroup>
+</Groups>

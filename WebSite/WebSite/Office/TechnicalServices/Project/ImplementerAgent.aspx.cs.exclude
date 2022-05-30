@@ -1,0 +1,210 @@
+﻿using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+
+public partial class Office_TechnicalServices_Project_ImplementerAgent : System.Web.UI.Page
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        this.DivReport.Visible = false;
+        this.DivReport.Attributes.Add("onclick", "ChangeVisible(this)");
+        this.DivReport.Attributes.Add("onmouseover", "ChangeIcon(this)");
+
+        if (!IsPostBack)
+        {
+            
+            if (string.IsNullOrEmpty(Request.QueryString["ProjectId"]) || string.IsNullOrEmpty(Request.QueryString["PageMode"]))
+            {
+                Response.Redirect("Project.aspx");
+            }
+
+            HDProjectId.Value = Server.HtmlDecode(Request.QueryString["ProjectId"].ToString());
+            PgMode.Value = Server.HtmlDecode(Request.QueryString["PageMode"]).ToString();
+            RequestId.Value = Server.HtmlDecode(Request.QueryString["PrjReId"]).ToString();
+            //HDMode.Value = Server.HtmlDecode(Request.QueryString["Mode"]).ToString();
+            HDImpId.Value = Server.HtmlDecode(Request.QueryString["PrjImpId"]).ToString();
+
+            string ProjectId = Utility.DecryptQS(HDProjectId.Value);
+            string Mode = Utility.DecryptQS(HDMode.Value);
+            string PrjReId = Utility.DecryptQS(RequestId.Value);
+            string PrjImpId = Utility.DecryptQS(HDImpId.Value);
+
+
+            if (string.IsNullOrEmpty(ProjectId) || string.IsNullOrEmpty(PrjReId) || string.IsNullOrEmpty(PrjImpId))
+            {
+                this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+                return;
+            }
+
+            FillProjectInfo(int.Parse(PrjReId));
+
+            ObjectDataSource1.SelectParameters[0].DefaultValue = ProjectId;
+            ObjectDataSource1.SelectParameters[1].DefaultValue = PrjImpId;
+            ObjectDataSource1.SelectParameters[2].DefaultValue = PrjReId;
+
+
+            TSP.DataManager.TechnicalServices.Project_ImplementerManager ImpManager = new TSP.DataManager.TechnicalServices.Project_ImplementerManager();
+            ImpManager.FindByProjectId(int.Parse(ProjectId));
+            for (int i = 0; i < ImpManager.Count; i++)
+            {
+                int MeId = int.Parse(ImpManager[i]["MeOfficeId"].ToString());
+                int MemberTypeId = int.Parse(ImpManager[i]["MemberTypeId"].ToString());
+                if (MeId == Utility.GetCurrentUser_MeId() && MemberTypeId == Utility.GetCurrentUser_LoginType())
+                {
+                    BtnNew.Visible = true;
+                    btnNew2.Visible = true;
+                    btnInActive.Visible = true;
+                    btnInActive2.Visible = true;
+                    break;
+                }
+            }
+            this.ViewState["BtnNew"] = BtnNew.Visible;
+            this.ViewState["btnInActive"] = btnInActive.Visible;
+
+        }
+        if (this.ViewState["BtnNew"] != null)
+            this.BtnNew.Enabled = this.btnNew2.Enabled = (bool)this.ViewState["BtnNew"];
+        if (this.ViewState["btnInActive"] != null)
+            this.btnInActive.Enabled = this.btnInActive2.Enabled = (bool)this.ViewState["btnInActive"];
+    
+    }
+    protected void btnView_Click(object sender, EventArgs e)
+    {
+        int ImplementerAgentId = -1;
+
+        if (CustomAspxDevGridView1.FocusedRowIndex > -1)
+        {
+            DataRow row = CustomAspxDevGridView1.GetDataRow(CustomAspxDevGridView1.FocusedRowIndex);
+            ImplementerAgentId = (int)row["ImplementerAgentId"];
+
+        }
+        if (ImplementerAgentId == -1)
+        {
+            this.DivReport.Visible = true;
+            this.LabelWarning.Text = "لطفاً ابتدا یک رکورد را انتخاب نمائید";
+
+        }
+        else
+        {
+            Response.Redirect("ImplementerAgentInsert.aspx?ProjectId=" + HDProjectId.Value + "&ImpAgentId=" + Utility.EncryptQS(ImplementerAgentId.ToString()) + "&PageMode=" + PgMode.Value + "&PageMode2=" + Utility.EncryptQS("View") + "&PrjReId=" + RequestId.Value + "&Mode=" + HDMode.Value + "&PrjImpId=" + HDImpId.Value);
+
+        }
+
+    }
+    protected void btnBack_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("Implementer.aspx?ProjectId=" + HDProjectId.Value + "&PageMode=" + PgMode.Value + "&PrjReId=" + RequestId.Value + "&PrjImpId=" + HDImpId.Value);
+     
+    }
+    protected void BtnNew_Click(object sender, EventArgs e)
+    {
+        TSP.DataManager.TechnicalServices.ImplementerAgentManager ImpAgentManager = new TSP.DataManager.TechnicalServices.ImplementerAgentManager();
+        ImpAgentManager.FindByPrjImpId(int.Parse(Utility.DecryptQS(HDImpId.Value)));
+        if (ImpAgentManager.Count > 0)
+        {
+            if (!Convert.ToBoolean(ImpAgentManager[0]["InActive"]))
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "امکان ثبت نماینده جدید وجود ندارد.مجری مورد نظر نماینده فعال دارد";
+                return;
+            }
+        }
+
+        Response.Redirect("ImplementerAgentInsert.aspx?ProjectId=" + HDProjectId.Value + "&ImpAgentId=" + Utility.EncryptQS("") + "&PageMode=" + PgMode.Value + "&PageMode2=" + Utility.EncryptQS("New") + "&PrjReId=" + RequestId.Value + "&Mode=" + HDMode.Value + "&PrjImpId=" + HDImpId.Value);
+
+    }
+    protected void btnInActive_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            int ImplementerAgentId = -1;
+            int PrjReId = -1;
+
+            if (CustomAspxDevGridView1.FocusedRowIndex > -1)
+            {
+                DataRow row = CustomAspxDevGridView1.GetDataRow(CustomAspxDevGridView1.FocusedRowIndex);
+                ImplementerAgentId = (int)row["ImplementerAgentId"];
+                PrjReId = (int)row["PrjReId"];
+
+
+            }
+            if (ImplementerAgentId == -1)
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "لطفاً ابتدا یک رکورد را انتخاب نمائید";
+
+            }
+            else
+            {
+                TSP.DataManager.TechnicalServices.ImplementerAgentManager ImpAgentManager = new TSP.DataManager.TechnicalServices.ImplementerAgentManager();
+
+                ImpAgentManager.FindByImplementerAgentId(ImplementerAgentId);
+                if (ImpAgentManager.Count == 1)
+                {
+                    int CurrentPrjReId = int.Parse(Utility.DecryptQS(RequestId.Value));
+
+                    if (PrjReId == CurrentPrjReId)
+                    {
+                        ImpAgentManager[0].Delete();
+                    }
+                    else
+                    {
+                        if (Convert.ToBoolean(ImpAgentManager[0]["InActive"]))
+                        {
+                            this.DivReport.Visible = true;
+                            this.LabelWarning.Text = "رکورد مورد نظر غیر فعال می باشد";
+                            return;
+                        }
+                        else
+                        {
+                            ImpAgentManager[0].BeginEdit();
+                            ImpAgentManager[0]["InActive"] = 1;
+                            ImpAgentManager[0]["UserId"] = Utility.GetCurrentUser_UserId();
+                            ImpAgentManager[0]["InActiveDate"] = Utility.GetDateOfToday();
+                            ImpAgentManager[0].EndEdit();
+                        }
+
+                    }
+                    int cn = ImpAgentManager.Save();
+                    if (cn == 1)
+                    {
+                        CustomAspxDevGridView1.DataBind();
+                        this.DivReport.Visible = true;
+                        this.LabelWarning.Text = "ذخیره انجام شد";
+
+                    }
+                    else
+                    {
+                        this.DivReport.Visible = true;
+                        this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+                    }
+
+                }
+                else
+                {
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "اطلاعات توسط کاربر دیگری تغییر یافته است";
+                }
+
+            }
+        }
+        catch (Exception)
+        {
+            this.DivReport.Visible = true;
+            this.LabelWarning.Text = "خطایی در مشاهده اطلاعات رخ داده است";
+        }
+
+    }
+    private void FillProjectInfo(int Id)
+    {
+        prjInfo.Fill(Id);
+    }
+}

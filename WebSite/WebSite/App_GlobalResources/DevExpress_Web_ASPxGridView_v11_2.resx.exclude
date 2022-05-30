@@ -1,0 +1,306 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ASPxGridViewStringId.GroupPanel" xml:space="preserve">
+    <value>برای گروه بندی ستونها ستونی را به این قسمت بکشید</value>
+  </data>
+  <data name="ASPxGridViewStringId.EmptyDataRow" xml:space="preserve">
+    <value>اطلاعاتی برای نمایش وجود ندارد</value>
+  </data>
+  <data name="ASPxGridViewStringId.EmptyHeaders" xml:space="preserve">
+    <value>ستونی به این قسمت بکشید</value>
+  </data>
+  <data name="ASPxGridViewStringId.ConfirmDelete" xml:space="preserve">
+    <value>آیا مطمئن به حذف می باشید؟</value>
+  </data>
+  <data name="ASPxGridViewStringId.GroupContinuedOnNextPage" xml:space="preserve">
+    <value>(ادامه در صفحه بعد)</value>
+  </data>
+  <data name="ASPxGridViewStringId.CustomizationWindowCaption" xml:space="preserve">
+    <value>انتخاب ستون</value>
+  </data>
+  <data name="ASPxGridViewStringId.PopupEditFormCaption" xml:space="preserve">
+    <value>فرم ویرایش</value>
+  </data>
+  <data name="ASPxGridViewStringId.HeaderFilterShowAllItem" xml:space="preserve">
+    <value>(همه)</value>
+  </data>
+  <data name="ASPxGridViewStringId.HeaderFilterShowBlanksItem" xml:space="preserve">
+    <value>(Blanks)</value>
+  </data>
+  <data name="ASPxGridViewStringId.HeaderFilterShowNonBlanksItem" xml:space="preserve">
+    <value>(Non blanks)</value>
+  </data>
+  <data name="ASPxGridViewStringId.CommandEdit" xml:space="preserve">
+    <value>ویرایش</value>
+  </data>
+  <data name="ASPxGridViewStringId.CommandNew" xml:space="preserve">
+    <value>جدید</value>
+  </data>
+  <data name="ASPxGridViewStringId.CommandDelete" xml:space="preserve">
+    <value>حذف</value>
+  </data>
+  <data name="ASPxGridViewStringId.CommandSelect" xml:space="preserve">
+    <value>انتخاب</value>
+  </data>
+  <data name="ASPxGridViewStringId.CommandCancel" xml:space="preserve">
+    <value>لغو</value>
+  </data>
+  <data name="ASPxGridViewStringId.CommandUpdate" xml:space="preserve">
+    <value>به روزرسانی</value>
+  </data>
+  <data name="ASPxGridViewStringId.CommandClearFilter" xml:space="preserve">
+    <value>پاک</value>
+  </data>
+  <data name="ASPxGridViewStringId.AutoFilterBeginsWith" xml:space="preserve">
+    <value>شروع با</value>
+  </data>
+  <data name="ASPxGridViewStringId.AutoFilterContains" xml:space="preserve">
+    <value>شامل</value>
+  </data>
+  <data name="ASPxGridViewStringId.AutoFilterDoesNotContain" xml:space="preserve">
+    <value>شامل نباشد</value>
+  </data>
+  <data name="ASPxGridViewStringId.AutoFilterEndsWith" xml:space="preserve">
+    <value>خاتمه با</value>
+  </data>
+  <data name="ASPxGridViewStringId.AutoFilterEquals" xml:space="preserve">
+    <value>برابر</value>
+  </data>
+  <data name="ASPxGridViewStringId.AutoFilterGreater" xml:space="preserve">
+    <value>بزرگتراز</value>
+  </data>
+  <data name="ASPxGridViewStringId.AutoFilterGreaterOrEqual" xml:space="preserve">
+    <value>بزرگتر مساوی</value>
+  </data>
+  <data name="ASPxGridViewStringId.AutoFilterLess" xml:space="preserve">
+    <value>کوچکتراز</value>
+  </data>
+  <data name="ASPxGridViewStringId.AutoFilterLessOrEqual" xml:space="preserve">
+    <value>کوچکتر مساوی</value>
+  </data>
+  <data name="ASPxGridViewStringId.AutoFilterNotEqual" xml:space="preserve">
+    <value>نابرابر</value>
+  </data>
+  <data name="ASPxGridViewStringId.Alt_HeaderFilterButton" xml:space="preserve">
+    <value>[فیلتر]</value>
+  </data>
+  <data name="ASPxGridViewStringId.Alt_HeaderFilterButtonActive" xml:space="preserve">
+    <value>[فیلترشده]</value>
+  </data>
+  <data name="ASPxGridViewStringId.Alt_SortedAscending" xml:space="preserve">
+    <value>(صعودی)</value>
+  </data>
+  <data name="ASPxGridViewStringId.Alt_SortedDescending" xml:space="preserve">
+    <value>(نزولی)</value>
+  </data>
+  <data name="ASPxGridViewStringId.Alt_DragAndDropHideColumnIcon" xml:space="preserve">
+    <value>مخفی</value>
+  </data>
+  <data name="ASPxGridViewStringId.Alt_Expand" xml:space="preserve">
+    <value>[بازشدن]</value>
+  </data>
+  <data name="ASPxGridViewStringId.Alt_Collapse" xml:space="preserve">
+    <value>[بسته شدن]</value>
+  </data>
+  <data name="ASPxGridViewStringId.Alt_FilterRowButton" xml:space="preserve">
+    <value>[شرط]</value>
+  </data>
+  <data name="ASPxGridViewStringId.Outlook_Older" xml:space="preserve">
+    <value>Older</value>
+  </data>
+  <data name="ASPxGridViewStringId.Outlook_LastMonth" xml:space="preserve">
+    <value>Last Month</value>
+  </data>
+  <data name="ASPxGridViewStringId.Outlook_EarlierThisMonth" xml:space="preserve">
+    <value>Earlier this Month</value>
+  </data>
+  <data name="ASPxGridViewStringId.Outlook_ThreeWeeksAgo" xml:space="preserve">
+    <value>Three Weeks Ago</value>
+  </data>
+  <data name="ASPxGridViewStringId.Outlook_TwoWeeksAgo" xml:space="preserve">
+    <value>Two Weeks Ago</value>
+  </data>
+  <data name="ASPxGridViewStringId.Outlook_LastWeek" xml:space="preserve">
+    <value>Last Week</value>
+  </data>
+  <data name="ASPxGridViewStringId.Outlook_Yesterday" xml:space="preserve">
+    <value>Yesterday</value>
+  </data>
+  <data name="ASPxGridViewStringId.Outlook_Today" xml:space="preserve">
+    <value>Today</value>
+  </data>
+  <data name="ASPxGridViewStringId.Outlook_Tomorrow" xml:space="preserve">
+    <value>Tomorrow</value>
+  </data>
+  <data name="ASPxGridViewStringId.Outlook_NextWeek" xml:space="preserve">
+    <value>Next Week</value>
+  </data>
+  <data name="ASPxGridViewStringId.Outlook_TwoWeeksAway" xml:space="preserve">
+    <value>Two Weeks Away</value>
+  </data>
+  <data name="ASPxGridViewStringId.Outlook_ThreeWeeksAway" xml:space="preserve">
+    <value>Three Weeks Away</value>
+  </data>
+  <data name="ASPxGridViewStringId.Outlook_LaterThisMonth" xml:space="preserve">
+    <value>Later this Month</value>
+  </data>
+  <data name="ASPxGridViewStringId.Outlook_NextMonth" xml:space="preserve">
+    <value>Next Month</value>
+  </data>
+  <data name="ASPxGridViewStringId.Outlook_BeyondNextMonth" xml:space="preserve">
+    <value>Beyond Next Month</value>
+  </data>
+  <data name="ASPxGridViewStringId.Summary_Sum" xml:space="preserve">
+    <value>مجموع={0}</value>
+  </data>
+  <data name="ASPxGridViewStringId.Summary_Sum_OtherColumn" xml:space="preserve">
+    <value>مجموع از{1} می شود {0}</value>
+  </data>
+  <data name="ASPxGridViewStringId.Summary_Min" xml:space="preserve">
+    <value>مینیمم={0}</value>
+  </data>
+  <data name="ASPxGridViewStringId.Summary_Min_OtherColumn" xml:space="preserve">
+    <value>مینیمم از {1}می شود {0}</value>
+  </data>
+  <data name="ASPxGridViewStringId.Summary_Max" xml:space="preserve">
+    <value>ماکزیمم={0}</value>
+  </data>
+  <data name="ASPxGridViewStringId.Summary_Max_OtherColumn" xml:space="preserve">
+    <value>ماکزیمماز {1}می شود{0}</value>
+  </data>
+  <data name="ASPxGridViewStringId.Summary_Average" xml:space="preserve">
+    <value>میانگین={0}</value>
+  </data>
+  <data name="ASPxGridViewStringId.Summary_Average_OtherColumn" xml:space="preserve">
+    <value>Avg of {1} is {0}</value>
+  </data>
+  <data name="ASPxGridViewStringId.Summary_Count" xml:space="preserve">
+    <value>تعداد={0}</value>
+  </data>
+  <data name="ASPxGridViewStringId.Checked" xml:space="preserve">
+    <value>انتخاب شده</value>
+  </data>
+  <data name="ASPxGridViewStringId.PopupEditFormCaption1" xml:space="preserve">
+    <value>فرم ویرایش</value>
+  </data>
+  <data name="ASPxGridViewStringId.Unchecked" xml:space="preserve">
+    <value>انتخاب نشده</value>
+  </data>
+</root>

@@ -1,0 +1,677 @@
+﻿using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+using DevExpress.Web;
+
+public partial class Office_TechnicalServices_Project_AddPlanDesigner : System.Web.UI.Page
+{
+    string PageMode;
+    string ProjectId;
+    string PrjReId;
+    string PlansId;
+    string DesignerPlansId;
+    string PrjDesignerId;
+
+    #region Events
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        this.DivReport.Attributes.Add("Style", "display:none");
+        this.DivReport.Attributes.Add("onclick", "ChangeVisible(this)");
+        this.DivReport.Attributes.Add("onmouseover", "ChangeIcon(this)");
+        
+        if (!IsPostBack)
+        {
+            if (string.IsNullOrEmpty(Request.QueryString["ProjectId"]) || string.IsNullOrEmpty(Request.QueryString["PrjReId"]) || string.IsNullOrEmpty(Request.QueryString["PageMode"]))
+            {
+                Response.Redirect("Project.aspx");
+            }
+
+            SetKeys();
+        }
+    }
+
+    private void SetKeys()
+    {
+        try
+        {
+            HiddenFieldPrjDes["PlansId"] = Request.QueryString["PlnId"].ToString();
+            HiddenFieldPrjDes["PageMode"] = Request.QueryString["PgMd"];
+            HiddenFieldPrjDes["PrjReId"] = Request.QueryString["PrjReId"];
+            HiddenFieldPrjDes["ProjectId"] = Request.QueryString["ProjectId"];
+            HiddenFieldPrjDes["DesignerPlansId"] = Request.QueryString["DsPId"];
+            HiddenFieldPrjDes["PrjDesignerId"] = Request.QueryString["PrjDesignerId"].ToString();
+            HiddenFieldPrjDes["PrjPgMd"] = Request.QueryString["PageMode"].ToString();
+
+            PlansId = Utility.DecryptQS(HiddenFieldPrjDes["PlansId"].ToString());
+            PageMode = Utility.DecryptQS(HiddenFieldPrjDes["PageMode"].ToString());
+            PrjReId = Utility.DecryptQS(HiddenFieldPrjDes["PrjReId"].ToString());
+            ProjectId = Utility.DecryptQS(HiddenFieldPrjDes["ProjectId"].ToString());
+            DesignerPlansId = Utility.DecryptQS(HiddenFieldPrjDes["DesignerPlansId"].ToString());
+            PrjDesignerId = Utility.DecryptQS(HiddenFieldPrjDes["PrjDesignerId"].ToString());
+
+            if (string.IsNullOrEmpty(PageMode))
+            {
+                this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+                return;
+            }
+
+            FillProjectInfo(int.Parse(PrjReId));
+            FillCapacityInfo();
+
+            ObjectDataSourceMemberType.FilterExpression = "MemberTypeId=" + (int)TSP.DataManager.TSMemberType.Office + " OR MemberTypeId=" + (int)TSP.DataManager.TSMemberType.EngOffice + " OR MemberTypeId=" + (int)TSP.DataManager.TSMemberType.ConsultantCompany;
+            ObjectDataSourceAccounting.SelectParameters["TableTypeId"].DefaultValue = PrjDesignerId;
+            ObjectDataSourceAccounting.SelectParameters["TableType"].DefaultValue = ((int)TSP.DataManager.TableCodes.TSProject_Designer).ToString();
+
+            SetMode(PageMode);
+            FillPlanInfo();
+            cmbPlanType.Visible = true;
+            lblcmbPlanType.Visible = true;
+        }
+        catch (Exception err)
+        {
+            Utility.SaveWebsiteError(err);
+            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+            return;
+        }
+    }
+
+    protected void btnBack_Click(object sender, EventArgs e)
+    {
+        string QS = "ProjectId=" + HiddenFieldPrjDes["ProjectId"].ToString() +
+             "&PrjReId=" + HiddenFieldPrjDes["PrjReId"].ToString() +
+             "&PageMode=" + Request.QueryString["PageMode"];
+        Response.Redirect("Designers.aspx?" + QS);
+    }
+
+    protected void CustomAspxDevGridView1_HtmlDataCellPrepared(object sender, ASPxGridViewTableDataCellEventArgs e)
+    {
+        switch (e.DataColumn.FieldName)
+        {
+            case "Date":
+                e.Cell.Style["direction"] = "ltr";
+                break;
+        }
+    }
+
+    protected void CustomAspxDevGridView1_AutoFilterCellEditorInitialize(object sender, ASPxGridViewEditorEventArgs e)
+    {
+        if (e.Column.FieldName == "Number")
+            e.Editor.Attributes["onkeyup"] = "return ltr_override(event)";
+        if (e.Column.FieldName == "Date")
+            e.Editor.Style["direction"] = "ltr";
+    }
+    #endregion
+
+    #region Methods
+    #region SetKeys
+
+    private void SetMode(string PageMode)
+    {
+        switch (PageMode)
+        {
+            case "View":
+                SetViewModeKeys();
+                break;
+        }
+    }
+
+    private void SetViewModeKeys()
+    {
+        FillForm();
+        SetControlsVisible();
+        SetControlsEnable();
+        SetControlsViewMode();
+    }
+
+    private void SetControlsViewMode()
+    {
+        tblAddOffMember.Visible = false;
+        GridViewMembers.Columns["Delete"].Visible = false;
+        RoundPanelDes.HeaderText = "مشاهده";
+    }
+    #endregion
+
+    #region Fill Prj-Plan Info
+    private void FillProjectInfo(int Id)
+    {
+        prjInfo.Fill(Convert.ToInt32(Id));
+    }
+
+    private void FillPlanInfo()
+    {
+        PlansId = Utility.DecryptQS(HiddenFieldPrjDes["PlansId"].ToString());
+        if (Convert.ToInt32(PlansId) == -1) return;
+        if (string.IsNullOrEmpty(PlansId))
+        {
+            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+            return;
+        }
+
+        TSP.DataManager.TechnicalServices.PlansManager PlansManager = new TSP.DataManager.TechnicalServices.PlansManager();
+        PlansManager.FindByPlansId(Convert.ToInt32(PlansId));
+        if (PlansManager.Count == 1)
+        {
+            if (!Utility.IsDBNullOrNullValue(PlansManager[0]["No"]))
+                txtPlanNo.Text = PlansManager[0]["No"].ToString();
+            if (!Utility.IsDBNullOrNullValue(PlansManager[0]["Title"]))
+                txtPlanType.Text = PlansManager[0]["Title"].ToString();
+            if (!Utility.IsDBNullOrNullValue(PlansManager[0]["PlanVersion"]))
+                txtPlanVer.Text = PlansManager[0]["PlanVersion"].ToString();
+            if (!Utility.IsDBNullOrNullValue(PlansManager[0]["PlansTypeId"]))
+                cmbPlanType.Value = PlansManager[0]["PlansTypeId"].ToString();
+
+            HiddenFieldPrjDes["PlansTypeId"] = PlansManager[0]["PlansTypeId"];
+            string[] DateArr = (PlansManager[0]["Date"].ToString()).Split(new char[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
+            string Year = DateArr[0];
+            HiddenFieldPrjDes["Year"] = Year;
+        }
+    }
+    #endregion
+
+    #region Fill Designer Info
+    /// <summary>
+    /// پر کردن اطلاعات طراح
+    /// </summary>
+    private void FillForm()
+    {
+        PrjDesignerId = Utility.DecryptQS(HiddenFieldPrjDes["PrjDesignerId"].ToString());
+        if (string.IsNullOrEmpty(PrjDesignerId))
+        {
+            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+            return;
+        }
+
+        TSP.DataManager.TechnicalServices.Project_DesignerManager ProjectDesignerManager = new TSP.DataManager.TechnicalServices.Project_DesignerManager();
+        ProjectDesignerManager.FindByPrjDesignerId(Convert.ToInt32(PrjDesignerId));
+        if (ProjectDesignerManager.Count > 0)
+        {
+            //cmbDesMeType.SelectedIndex = cmbDesMeType.Items.IndexOfValue(ProjectDesignerManager[0]["MemberTypeId"]);
+            cmbDesMeType.Value = ProjectDesignerManager[0]["MemberTypeId"].ToString();
+            SetControlsVisible();
+            switch (Convert.ToInt32(cmbDesMeType.Value))
+            {
+                case (int)TSP.DataManager.TSMemberType.Office:
+                    FillOffInfo(ProjectDesignerManager);
+                    break;
+
+                case (int)TSP.DataManager.TSMemberType.EngOffice:
+                    FillEngOffInfo(ProjectDesignerManager);
+                    break;
+
+                case (int)TSP.DataManager.TSMemberType.ConsultantCompany:
+                    FillConsultant(ProjectDesignerManager);
+                    break;
+            }
+
+            FillIsMaster();
+        }
+    }
+
+    /// <summary>
+    /// پر کردن اطلاعات شرکت
+    /// </summary>
+    /// <param name="ProjectDesignerManager"></param>
+    private void FillOffInfo(TSP.DataManager.TechnicalServices.Project_DesignerManager ProjectDesignerManager)
+    {
+        TSP.DataManager.OfficeManager OfficeManager = new TSP.DataManager.OfficeManager();
+
+        txtCode.Text = ProjectDesignerManager[0]["OfficeEngOId"].ToString();
+        txtName.Text = ProjectDesignerManager[0]["DesignerName"].ToString();
+
+        OfficeManager.FindByCode(Convert.ToInt32(txtCode.Text));
+        if (OfficeManager.Count > 0)
+        {
+            txtManager.Text = OfficeManager[0]["MName"].ToString();
+            txtReNo.Text = OfficeManager[0]["RegOfNo"].ToString();
+            TxtFileNo.Text = OfficeManager[0]["FileNo"].ToString();
+            txtMFTypeName.Text = OfficeManager[0]["MFTypeName"].ToString();
+            TxtFileDate.Text = OfficeManager[0]["FileDate"].ToString();
+        }
+
+        FillProjectIngridientCapacityInfo(TSP.DataManager.TSMemberType.Office, Convert.ToInt32(txtCode.Text));
+        FillCapacityDecrement();
+        FillGrid();
+    }
+
+    /// <summary>
+    /// پر کردن اطلاعات دفتر
+    /// </summary>
+    /// <param name="ProjectDesignerManager"></param>
+    private void FillEngOffInfo(TSP.DataManager.TechnicalServices.Project_DesignerManager ProjectDesignerManager)
+    {
+        TSP.DataManager.EngOfficeManager EngOfficeManager = new TSP.DataManager.EngOfficeManager();
+
+        txtCode.Text = ProjectDesignerManager[0]["OfficeEngOId"].ToString();
+
+        EngOfficeManager.FindByCode(Convert.ToInt32(txtCode.Text));
+        if (EngOfficeManager.Count > 0)
+        {
+            txtManager.Text = EngOfficeManager[0]["MeName"].ToString();
+            TxtFileNo.Text = EngOfficeManager[0]["FileNo"].ToString();
+            txtMFTypeName.Text = EngOfficeManager[0]["OfTName"].ToString();
+            TxtFileDate.Text = EngOfficeManager[0]["ExpireDate"].ToString();
+        }
+        FillProjectIngridientCapacityInfo(TSP.DataManager.TSMemberType.EngOffice, Convert.ToInt32(txtCode.Text));
+        FillCapacityDecrement();
+        FillGrid();
+    }
+
+    private void FillConsultant(TSP.DataManager.TechnicalServices.Project_DesignerManager ProjectDesignerManager)
+    {
+        TSP.DataManager.TechnicalServices.ConsultantCompanyManager ConsultantCompanyManager = new TSP.DataManager.TechnicalServices.ConsultantCompanyManager();
+
+        int Code = Convert.ToInt32(ProjectDesignerManager[0]["OfficeEngOId"]);
+
+        ConsultantCompanyManager.FindByCode(Code);
+        if (ConsultantCompanyManager.Count > 0)
+        {
+            txtName.Text = ConsultantCompanyManager[0]["CompanyName"].ToString();
+            txtReNo.Text = ConsultantCompanyManager[0]["CompanyFileNo"].ToString();
+            txtManager.Text = ConsultantCompanyManager[0]["ManagerName"].ToString();
+            TxtGrade.Text = ConsultantCompanyManager[0]["Grade"].ToString();
+            cmbConsCity.Value = ConsultantCompanyManager[0]["CitId"].ToString();
+            txtConsFileNo.Text = ConsultantCompanyManager[0]["FileNo"].ToString();
+            txtConsExpDate.Text = ConsultantCompanyManager[0]["ExpDate"].ToString();
+            txtConsReDate.Text = ConsultantCompanyManager[0]["RegDate"].ToString();
+        }
+
+        HiddenFieldPrjDes["ConsId"] = Utility.EncryptQS(Code.ToString());
+    }
+
+    private void FillIsMaster()
+    {
+        PrjDesignerId = Utility.DecryptQS(HiddenFieldPrjDes["PrjDesignerId"].ToString());
+        PlansId = Utility.DecryptQS(HiddenFieldPrjDes["PlansId"].ToString());
+        if (Convert.ToInt32(PlansId) == -1) return;
+        if (string.IsNullOrEmpty(PrjDesignerId) || string.IsNullOrEmpty(PlansId))
+        {
+            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+            return;
+        }
+
+        TSP.DataManager.TechnicalServices.Designer_PlansManager DesignerPlansManager = new TSP.DataManager.TechnicalServices.Designer_PlansManager();
+        DesignerPlansManager.FindByPrjDesignerIdAndPlansId(Convert.ToInt32(PlansId), Convert.ToInt32(PrjDesignerId));
+        if (DesignerPlansManager.Count > 0)
+            chbIsMaster.Checked = Convert.ToBoolean(DesignerPlansManager[0]["IsMaster"]);
+    }
+    #endregion
+
+    #region Fill Capacity Info
+    /// <summary>
+    /// پر کردن اطلاعات ظرفیت شرکت یا دفتر
+    /// </summary>
+    /// <param name="TSMemberTypeId"></param>
+    /// <param name="ProjectIngridientId"></param>
+    private void FillProjectIngridientCapacityInfo(TSP.DataManager.TSMemberType TSMemberTypeId, int ProjectIngridientId)
+    {
+        FillCapacityInfo();
+        CapacityUserControl.FillProjectIngridienCapacityInfo(TSMemberTypeId, ProjectIngridientId);
+    }
+
+    private void FillCapacityInfo()
+    {
+        CapacityUserControl.ProjectId = Convert.ToInt32(ProjectId);
+        CapacityUserControl.ProjectIngridientTypeId = TSP.DataManager.TSProjectIngridientType.Designer;
+    }
+
+    private void FillCapacityDecrement()
+    {
+        PrjDesignerId = Utility.DecryptQS(HiddenFieldPrjDes["PrjDesignerId"].ToString());
+        ProjectId = Utility.DecryptQS(HiddenFieldPrjDes["ProjectId"].ToString());
+        if (string.IsNullOrEmpty(PrjDesignerId) || string.IsNullOrEmpty(ProjectId))
+        {
+            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+            return;
+        }
+
+        TSP.DataManager.TechnicalServices.ProjectCapacityDecrementManager ProjectCapacityDecrementManager = new TSP.DataManager.TechnicalServices.ProjectCapacityDecrementManager();
+        ProjectCapacityDecrementManager.FindByPrjImpObsDsgnAndIngridientTypeId(Convert.ToInt32(ProjectId), Convert.ToInt32(PrjDesignerId), (int)TSP.DataManager.TSProjectIngridientType.Designer);
+        if (ProjectCapacityDecrementManager.Count > 0)
+        {
+            //txtcCapacityDecrement.Text = ProjectCapacityDecrementManager[0]["CapacityDecrement"].ToString();
+            //txtcWage.Text = ProjectCapacityDecrementManager[0]["Wage"].ToString();
+            SetCapacityDecrement(ProjectCapacityDecrementManager[0]["CapacityDecrement"].ToString());
+            SetCapacityWage(ProjectCapacityDecrementManager[0]["Wage"].ToString());
+        }
+    }
+
+    /// <summary>
+    /// پر کردن اطلاعات ظرفیت اعضای دفتر-شرکت
+    /// </summary>
+    /// <param name="OfficeEngoId"></param>
+    /// <param name="MeId"></param>
+    /// <param name="DocOffIncreaseJobCapacityType">دفتر یا شرکت</param>
+    private void FillOffMembersCapacity(int OfficeEngoId, int MeId, int DocOffIncreaseJobCapacityType)
+    {
+        Capacity capacity = new Capacity();
+        Capacity.OfficeCapacity OfficeCapacity = capacity.GetOfficeDsgCapacity(OfficeEngoId, (int)TSP.DataManager.TSProjectIngridientType.Designer, DocOffIncreaseJobCapacityType, true, MeId);
+        txtMeTotalCapacity.Text = OfficeCapacity.OfficeMemberMaxJobCapacity.ToString();
+        txtMeUsedCapacity.Text = OfficeCapacity.OfficeMemberUsedCapacity.ToString();
+        txtMeProjectCount.Text = OfficeCapacity.OfficeMemberCurrentProjectNum.ToString();
+        txtMeReserved.Text = OfficeCapacity.OfficeMemberReservedCapacity.ToString();
+        txtMeRemainCapacity.Text = OfficeCapacity.OfficeMemberRemainCapacity.ToString();
+    }
+    #endregion
+
+    #region ClearForm
+    private void ClearForm()
+    {
+        cmbDesMeType.Value = ((int)TSP.DataManager.TSMemberType.Office).ToString();
+        cmbPlanType.SelectedIndex = -1;
+        txtCode.Text = "";
+        txtMFTypeName.Text = "";
+        txtName.Text = "";
+        txtReNo.Text = "";
+        TxtFileNo.Text = "";
+        TxtFileDate.Text = "";
+        txtManager.Text = "";
+        chbIsMaster.Checked = true;
+        TxtGrade.Text = "";
+        cmbConsCity.SelectedIndex = -1;
+        txtConsFileNo.Text = "";
+        txtConsReDate.Text = "";
+        txtConsExpDate.Text = "";
+
+        ClearCapacityInfo();
+
+        ClearMemInfo();
+    }
+
+    private void ClearCapacityInfo()
+    {
+        SetCapacityDecrement("");
+        SetCapacityWage("");
+
+    }
+
+    private void ClearInfo()
+    {
+        txtMFTypeName.Text = "";
+        txtName.Text = "";
+        txtReNo.Text = "";
+        TxtFileNo.Text = "";
+        TxtFileDate.Text = "";
+        txtManager.Text = "";
+        chbIsMaster.Checked = true;
+        TxtGrade.Text = "";
+        cmbConsCity.SelectedIndex = -1;
+        txtConsFileNo.Text = "";
+        txtConsReDate.Text = "";
+        txtConsExpDate.Text = "";
+
+        //txtcTotalCapacity.Text = "";
+        //txtcTotalFunction.Text = "";
+        //txtcRemainCapacity.Text = "";
+        //txtcReserve.Text = "";
+        //txtcProjectCount.Text = "";
+        //txtcCapacityDecrement.Text = "";
+        //txtcWage.Text = "";
+        SetCapacityDecrement("");
+        SetCapacityWage("");
+    }
+
+    private void ClearPlanInfo()
+    {
+        txtPlanVer.Text = "";
+        txtPlanType.Text = "";
+        txtPlanNo.Text = "";
+    }
+
+    private void ClearMemInfo()
+    {
+        cmbOfficeMe.SelectedIndex = -1;
+        txtMeId.Text = "";
+        txtMajor.Text = "";
+        txtMeTotalCapacity.Text = "";
+        txtMeUsedCapacity.Text = "";
+        txtMeRemainCapacity.Text = "";
+        txtMeReserved.Text = "";
+        txtMeProjectCount.Text = "";
+        txtMeCapacityDecreament.Text = "";
+        txtMeWage.Text = "";
+    }
+    #endregion
+
+    #region EnableVisible
+    private void SetControlsVisible()
+    {
+        switch (Convert.ToInt32(cmbDesMeType.Value))
+        {
+            case (int)TSP.DataManager.TSMemberType.Office:
+                SetEngOfficeVisible(false);
+                SetConsultantVisible(false);
+                SetOfficeVisible(true);
+                RoundPanelOffMembers.Visible = true;
+                lblCode.Text = "کد شرکت";
+                break;
+
+            case (int)TSP.DataManager.TSMemberType.EngOffice:
+                SetConsultantVisible(false);
+                SetOfficeVisible(false);
+                SetEngOfficeVisible(true);
+                RoundPanelOffMembers.Visible = true;
+                lblCode.Text = "کد دفتر";
+                break;
+
+            case (int)TSP.DataManager.TSMemberType.ConsultantCompany:
+                SetEngOfficeVisible(false);
+                SetOfficeVisible(false);
+                SetConsultantVisible(true);
+                RoundPanelOffMembers.Visible = false;
+                break;
+
+        }
+    }
+
+    private void SetOfficeVisible(bool Visibility)
+    {
+        txtCode.Visible = Visibility;
+        txtName.Visible = Visibility;
+        txtReNo.Visible = Visibility;
+        TxtFileNo.Visible = Visibility;
+        TxtFileDate.Visible = Visibility;
+        txtMFTypeName.Visible = Visibility;
+
+        lblCode.Visible = Visibility;
+        lblOffName.Visible = Visibility;
+        lblReNo.Visible = Visibility;
+        lblFileNo.Visible = Visibility;
+        lblFileDate.Visible = Visibility;
+        lblMFTypeName.Visible = Visibility;
+
+        //RoundPanelCapacity.Visible = Visibility;
+        CapacityUserControl.Visible = Visibility;
+    }
+
+    private void SetEngOfficeVisible(bool Visibility)
+    {
+        txtCode.Visible = Visibility;
+        TxtFileNo.Visible = Visibility;
+        TxtFileDate.Visible = Visibility;
+        txtMFTypeName.Visible = Visibility;
+
+        lblCode.Visible = Visibility;
+        lblFileNo.Visible = Visibility;
+        lblFileDate.Visible = Visibility;
+        lblMFTypeName.Visible = Visibility;
+
+        //RoundPanelCapacity.Visible = Visibility;
+        CapacityUserControl.Visible = Visibility;
+    }
+
+    private void SetConsultantVisible(bool Visibility)
+    {
+        txtName.Visible = Visibility;
+        txtReNo.Visible = Visibility;
+        cmbConsCity.Visible = Visibility;
+        txtConsFileNo.Visible = Visibility;
+        txtConsReDate.Visible = Visibility;
+        txtConsExpDate.Visible = Visibility;
+        TxtGrade.Visible = Visibility;
+
+        lblOffName.Visible = Visibility;
+        lblReNo.Visible = Visibility;
+        lblCity.Visible = Visibility;
+        lblConsFileNo.Visible = Visibility;
+        lblConsReDate.Visible = Visibility;
+        lblConsExpDate.Visible = Visibility;
+        lblGrade.Visible = Visibility;
+
+        ValidatorConsReDate.Visible = Visibility;
+        ValidatorConsExpDate.Visible = Visibility;
+    }
+
+    /**************************************************************** Enable *********************************************************************/
+    private void SetControlsEnable()
+    {
+        PageMode = Utility.DecryptQS(HiddenFieldPrjDes["PageMode"].ToString());
+        if (string.IsNullOrEmpty(PageMode))
+        {
+            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+            return;
+        }
+
+        bool Enable = (PageMode == "View") ? false : true;
+        switch (Convert.ToInt32(cmbDesMeType.Value))
+        {
+            case (int)TSP.DataManager.TSMemberType.Office:
+                SetOfficeEnable(Enable);
+                break;
+
+            case (int)TSP.DataManager.TSMemberType.EngOffice:
+                SetEngOfficeEnable(Enable);
+                break;
+
+            case (int)TSP.DataManager.TSMemberType.ConsultantCompany:
+                SetConsultantEnable(Enable);
+                break;
+        }
+    }
+
+    private void SetOfficeEnable(bool Enable)
+    {
+        cmbDesMeType.ReadOnly = !Enable;
+        txtCode.ReadOnly = !Enable;
+        //txtMFTypeName.ReadOnly = !Enable;
+        txtName.ReadOnly = true;
+        txtReNo.ReadOnly = true;
+        //TxtFileNo.ReadOnly = !Enable;
+        //TxtFileDate.ReadOnly = !Enable;
+        txtManager.ReadOnly = true;
+
+        chbIsMaster.ReadOnly = !Enable;
+        cmbPlanType.ReadOnly = !Enable;
+        //????RoundPanelCapacity.Enabled = Enable;
+        SetCapcityUserControlEnable(Enable);
+        RoundPanelOffMembers.Enabled = Enable;
+    }
+
+    private void SetEngOfficeEnable(bool Enable)
+    {
+        cmbDesMeType.ReadOnly = !Enable;
+        txtCode.ReadOnly = !Enable;
+        //txtMFTypeName.ReadOnly = !Enable;
+        //TxtFileNo.ReadOnly = !Enable;
+        //TxtFileDate.ReadOnly = !Enable;
+        txtManager.ReadOnly = true;
+        cmbPlanType.ReadOnly = !Enable;
+        chbIsMaster.ReadOnly = !Enable;
+
+        //???? RoundPanelCapacity.Enabled = Enable;
+        SetCapcityUserControlEnable(Enable);
+        RoundPanelOffMembers.Enabled = Enable;
+    }
+
+    private void SetConsultantEnable(bool Enable)
+    {
+        cmbDesMeType.ReadOnly = !Enable;
+        txtName.ReadOnly = !Enable;
+        txtReNo.ReadOnly = !Enable;
+        txtManager.ReadOnly = !Enable;
+        TxtGrade.ReadOnly = !Enable;
+        cmbConsCity.ReadOnly = !Enable;
+        txtConsFileNo.ReadOnly = !Enable;
+        txtConsReDate.ReadOnly = !Enable;
+        txtConsExpDate.ReadOnly = !Enable;
+        cmbPlanType.ReadOnly = !Enable;
+        chbIsMaster.ReadOnly = !Enable;
+    }
+    #endregion
+
+    #region Grid
+    private void FillGrid(int PrjDsgnId)
+    {
+        TSP.DataManager.TechnicalServices.ProjectOfficeMembersManager manager = new TSP.DataManager.TechnicalServices.ProjectOfficeMembersManager();
+        manager.FindByIngridientTypeAndPrjImpObsDsgnId((int)TSP.DataManager.TSProjectIngridientType.Designer, PrjDsgnId);
+        GridViewMembers.DataSource = manager.DataTable;
+        GridViewMembers.DataBind();
+    }
+
+    private void FillGrid()
+    {
+        PageMode = Utility.DecryptQS(HiddenFieldPrjDes["PageMode"].ToString());
+        if (string.IsNullOrEmpty(PageMode))
+        {
+            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+            return;
+        }
+
+        TSP.DataManager.TechnicalServices.ProjectOfficeMembersManager manager = new TSP.DataManager.TechnicalServices.ProjectOfficeMembersManager();
+        if (PageMode != "New")
+        {
+            PrjDesignerId = Utility.DecryptQS(HiddenFieldPrjDes["PrjDesignerId"].ToString());
+            if (string.IsNullOrEmpty(PrjDesignerId))
+            {
+                this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+                return;
+            }
+            manager.FindByIngridientTypeAndPrjImpObsDsgnId((int)TSP.DataManager.TSProjectIngridientType.Designer, Convert.ToInt32(PrjDesignerId));
+            GridViewMembers.DataSource = manager.DataTable;
+            GridViewMembers.DataBind();
+        }
+    }
+    #endregion
+
+    #region بدست آوردن و یا تنظیم مقادیر متراژ کسر ظرفیت طراح/متراژ دستمزد طراح وارد شده توسط کاربر
+    private void SetCapacityWage(string CapacityWage)
+    {
+        CapacityUserControl.CapacityWage = CapacityWage;
+    }
+
+    private string GetCapacityWage()
+    {
+        return CapacityUserControl.CapacityWage;
+    }
+
+    private void SetCapacityDecrement(string CapacityDecrement)
+    {
+        CapacityUserControl.CapacityDecrement = CapacityDecrement;
+    }
+
+    private string GetCapacityDecrement()
+    {
+        return CapacityUserControl.CapacityDecrement;
+    }
+
+    private void SetCapcityUserControlEnable(Boolean Enable)
+    {
+        CapacityUserControl.CapacityDecrementEnable = Enable;
+        CapacityUserControl.CapacityWageEnable = Enable;
+    }
+    #endregion
+    #endregion
+}

@@ -1,0 +1,112 @@
+﻿using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+using DevExpress.Web;
+
+public partial class Settlement_OfficeDocument_OfficeJobQuality : System.Web.UI.Page
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (Session["Login"] == null || Session["Login"].ToString() == "0")
+        {
+            Response.Redirect("../../Login.aspx?ReferPage=" + Request.Url.AbsoluteUri);
+            return;
+        }
+        if (!IsPostBack)
+        {
+            if (string.IsNullOrEmpty(Request.QueryString["OfReId"]) || string.IsNullOrEmpty(Request.QueryString["OfId"]) || string.IsNullOrEmpty(Request.QueryString["JhId"]))
+            {
+                Response.Redirect("Office1.aspx");
+                return;
+            }
+
+            try
+            {
+                OfficeId.Value = Server.HtmlDecode(Request.QueryString["OfId"]).ToString();
+                OfficeRequest.Value = Server.HtmlDecode(Request.QueryString["OfReId"]).ToString();
+                PgMode.Value = Server.HtmlDecode(Request.QueryString["PageMode"]).ToString();
+                JobId.Value = Server.HtmlDecode(Request.QueryString["JhId"]).ToString();
+
+            }
+            catch
+            {
+                this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+                return;
+            }
+
+            string PageMode = Utility.DecryptQS(PgMode.Value);
+
+            string OfId = Utility.DecryptQS(OfficeId.Value);
+            string OfReId = Utility.DecryptQS(OfficeRequest.Value);
+            string JhId = Utility.DecryptQS(JobId.Value);
+            
+            if (string.IsNullOrEmpty(OfId) || string.IsNullOrEmpty(OfReId) || string.IsNullOrEmpty(JhId))
+            {
+                this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+                return;
+            }
+            TSP.DataManager.OfficeManager OfManager = new TSP.DataManager.OfficeManager();
+            OfManager.FindByCode(int.Parse(OfId));
+            if (OfManager.Count > 0)
+                lblOfName.Text = OfManager[0]["OfName"].ToString();
+
+            OdbFactorDocuments.SelectParameters[0].DefaultValue = JhId;
+
+        }
+        this.DivReport.Visible = false;
+        this.DivReport.Attributes.Add("onclick", "ChangeVisible(this)");
+        this.DivReport.Attributes.Add("onmouseover", "ChangeIcon(this)");
+    }
+    protected void GridViewJudge_BeforePerformDataSelect(object sender, EventArgs e)
+    {
+        Session["PKId"] = (sender as ASPxGridView).GetMasterRowKeyValue();
+    }
+
+    protected void GridViewFinancialStatus_DetailRowExpandedChanged(object sender, ASPxGridViewDetailRowEventArgs e)
+    {
+        CustomGridJobQuality.FocusedRowIndex = e.VisibleIndex;
+    }
+    protected void btnBack_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("OfficeJobShow.aspx?PageMode=" + PgMode.Value + "&OfId=" + OfficeId.Value + "&OfReId=" + OfficeRequest.Value + "&JhId=" + JobId.Value + "&GrdFlt=" + Request.QueryString["GrdFlt"]);
+
+
+    }
+
+    protected void MenuPrj_ItemClick(object source, DevExpress.Web.MenuItemEventArgs e)
+    {
+        switch (e.Item.Name)
+        {
+            case "Job":
+                Response.Redirect("OfficeJobShow.aspx?PageMode=" + PgMode.Value + "&OfId=" + OfficeId.Value + "&OfReId=" + OfficeRequest.Value + "&JhId=" + JobId.Value + "&GrdFlt=" + Request.QueryString["GrdFlt"]);               
+                break;
+        }
+    }
+    protected void CustomGridJobQuality_AutoFilterCellEditorInitialize(object sender, ASPxGridViewEditorEventArgs e)
+    {
+        if (e.Column.FieldName == "CreateDate")
+            e.Editor.Style["direction"] = "ltr";
+    }
+    protected void CustomGridJobQuality_HtmlDataCellPrepared(object sender, ASPxGridViewTableDataCellEventArgs e)
+    {
+        if (e.DataColumn.FieldName == "CreateDate")
+            e.Cell.Style["direction"] = "ltr";
+    }
+    protected void GridViewJudge_HtmlDataCellPrepared(object sender, ASPxGridViewTableDataCellEventArgs e)
+    {
+        if (e.DataColumn.FieldName == "MeetingId" || e.DataColumn.FieldName == "MeetingDate")
+            e.Cell.Style["direction"] = "ltr";
+    }
+    protected void GridViewJudge_AutoFilterCellEditorInitialize(object sender, ASPxGridViewEditorEventArgs e)
+    {
+
+    }
+}

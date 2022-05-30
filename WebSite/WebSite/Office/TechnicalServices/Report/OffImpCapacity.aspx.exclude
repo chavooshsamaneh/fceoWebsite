@@ -1,0 +1,971 @@
+﻿<%@ Page Language="C#" MasterPageFile="TSMasterPage.master" AutoEventWireup="true"
+    CodeFile="OffImpCapacity.aspx.cs" Inherits="Office_TechnicalServices_Report_OffImpCapacity"
+    Title="گزارش سالانه ظرفیت اجرا عضو حقوقی" %>
+
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxm" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxhf" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxrp" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxp" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxe" %>
+
+<%@ Register Assembly="AjaxControls" Namespace="AjaxControls" TagPrefix="asp" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxwgv" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxuc" %>
+<%@ Register Assembly="TSP.WebControls" Namespace="TSP.WebControls" TagPrefix="TSPControls" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+    <div id="content" style="display: block" align="center">
+        <div dir="ltr" style="display: block; overflow: hidden">
+            <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                <ContentTemplate>
+                    <div style="text-align: right" dir="rtl" id="DivReport" class="DivErrors" runat="server"
+                        visible="false">
+                        <asp:Label ID="LabelWarning" runat="server" Text="Label"></asp:Label>
+                        [<a class="closeLink" href="#">بستن</a>]</div>
+                    <div style="width: 100%" dir="ltr" align="right">
+                        <dxrp:ASPxRoundPanel ID="ASPxRoundPanel1" runat="server" Width="100%" ShowHeader="False"
+                             BackColor="#EBF2F4" >
+                            <LeftEdge>
+                                <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif">
+                                </BackgroundImage>
+                            </LeftEdge>
+                            <BottomRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpBottomRightCorner.png">
+                            </BottomRightCorner>
+                            <HeaderContent>
+                                <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderBack.gif">
+                                </BackgroundImage>
+                            </HeaderContent>
+                            <ContentPaddings Padding="0px"></ContentPaddings>
+                            <NoHeaderTopRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopRightCorner.png">
+                            </NoHeaderTopRightCorner>
+                            <RightEdge>
+                                <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif">
+                                </BackgroundImage>
+                            </RightEdge>
+                            <HeaderRightEdge>
+                                <BackgroundImage VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderRightEdge.gif">
+                                </BackgroundImage>
+                            </HeaderRightEdge>
+                            <Border BorderWidth="1px" BorderStyle="Solid" BorderColor="#7EACB1"></Border>
+                            <HeaderStyle BackColor="White" Height="23px">
+                                <Paddings PaddingTop="0px" PaddingBottom="0px" PaddingLeft="2px"></Paddings>
+                                <BorderBottom BorderStyle="None"></BorderBottom>
+                            </HeaderStyle>
+                            <Content>
+                                <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpContentBack.gif">
+                                </BackgroundImage>
+                            </Content>
+                            <HeaderLeftEdge>
+                                <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderLeftEdge.gif">
+                                </BackgroundImage>
+                            </HeaderLeftEdge>
+                            <BottomEdge BackColor="#D7E9F1">
+                            </BottomEdge>
+                            <TopRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpTopRightCorner.png">
+                            </TopRightCorner>
+                            <NoHeaderTopLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopLeftCorner.png">
+                            </NoHeaderTopLeftCorner>
+                            <PanelCollection>
+                                <dxp:PanelContent runat="server">
+                                    <div dir="rtl">
+                                        <table style="display: block; overflow: hidden; border-collapse: collapse" cellpadding="0"
+                                            width="100%" align="right">
+                                            <tbody>
+                                                <tr>
+                                                    <td style="vertical-align: top">
+                                                        <table style="border-collapse: collapse; background-color: transparent" dir="rtl"
+                                                            cellpadding="0" align="right">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>
+                                                                        <TSPControls:CustomTextBox runat="server" Text=" "  ToolTip="چاپ"
+                                                                            ID="btnPrint" UseSubmitBehavior="False" EnableViewState="False" EnableTheming="False"
+                                                                            OnClick="btnPrint_Click">
+                                                                            <HoverStyle BackColor="#FFE0C0">
+                                                                                <Border BorderWidth="1px" BorderStyle="Outset" BorderColor="Gray"></Border>
+                                                                            </HoverStyle>
+                                                                            <Image  Url="~/Images/icons/printers.png">
+                                                                            </Image>
+                                                                        </TSPControls:CustomTextBox>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </dxp:PanelContent>
+                            </PanelCollection>
+                            <TopLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpTopLeftCorner.png">
+                            </TopLeftCorner>
+                            <NoHeaderTopEdge BackColor="#EBF2F4">
+                            </NoHeaderTopEdge>
+                            <BottomLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpBottomLeftCorner.png">
+                            </BottomLeftCorner>
+                        </dxrp:ASPxRoundPanel>
+                    </div>
+                    <br />
+                    <TSPControls:CustomASPxRoundPanel ID="ASPxRoundPanel2" HeaderText="جستجو" runat="server"
+                        Width="100%">
+                        <PanelCollection>
+                            <dxp:PanelContent>
+                                <table dir="rtl" width="100%">
+                                    <tbody>
+                                        <tr>
+                                            <td valign="top" align="right" width="15%">
+                                                <dxe:ASPxLabel runat="server" Text="سال گزارش" ID="ASPxLabel11">
+                                                </dxe:ASPxLabel>
+                                            </td>
+                                            <td valign="top" align="right" colspan="3">
+                                                <TSPControls:CustomAspxComboBox runat="server"  
+                                                    TextField="Year" ID="ASPxComboBoxYear" ClientInstanceName="ASPxComboBoxYear"
+                                                    DataSourceID="ObjectDataSourceYear" ValueType="System.String" ValueField="Year"
+                                                    RightToLeft="True" Width="200px" >
+                                                    <ItemStyle HorizontalAlign="Right" />
+                                                    <ValidationSettings Display="Dynamic" ErrorTextPosition="Bottom">
+                                                        <ErrorImage Height="14px" Width="14px" Url="~/App_Themes/Glass/Editors/edtError.png">
+                                                        </ErrorImage>
+                                                        <RequiredField IsRequired="True" ErrorText="لطفا سال را انتخاب کنید"></RequiredField>
+                                                        <ErrorFrameStyle ImageSpacing="4px">
+                                                            <ErrorTextPaddings PaddingLeft="4px"></ErrorTextPaddings>
+                                                        </ErrorFrameStyle>
+                                                    </ValidationSettings>
+                                                    <ButtonStyle Width="13px">
+                                                    </ButtonStyle>
+                                                </TSPControls:CustomAspxComboBox>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="4" align="center">
+                                                <br />
+                                                <table width="100%">
+                                                    <tr>
+                                                        <td width="50%" align="left">
+                                                            <TSPControls:CustomTextBox ID="btnSearch" runat="server" AutoPostBack="false" 
+                                                                 Text="جستجو" OnClick="btnView_Click" ClientInstanceName="btnSearch"
+                                                                Width="100px" UseSubmitBehavior="true">
+                                                            </TSPControls:CustomTextBox>
+                                                        </td>
+                                                        <td width="50%" align="right">
+                                                            <TSPControls:CustomTextBox ID="btnClear" runat="server" AutoPostBack="false" 
+                                                                 Text="پاک کردن فرم" Width="100px" UseSubmitBehavior="False">
+                                                                <ClientSideEvents Click="function(s, e) {	
+ASPxComboBoxYear.SetSelectedIndex(-1);
+ASPxTextBoxOfId.SetText('');
+}"></ClientSideEvents>
+                                                            </TSPControls:CustomTextBox>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                                <br />
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </dxp:PanelContent>
+                        </PanelCollection>
+                    </TSPControls:CustomASPxRoundPanel>
+                    <br />
+                    <div dir="ltr">
+                        <dxrp:ASPxRoundPanel ID="ASPxRoundPanel4" runat="server" Width="100%" 
+                            BackColor="#EBF2F4"  HeaderText="اطلاعات ظرفیت اجرا" HorizontalAlign="Right">
+                            <LeftEdge>
+                                <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif">
+                                </BackgroundImage>
+                            </LeftEdge>
+                            <BottomRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpBottomRightCorner.png">
+                            </BottomRightCorner>
+                            <HeaderContent>
+                                <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderBack.gif">
+                                </BackgroundImage>
+                            </HeaderContent>
+                            <ContentPaddings PaddingTop="10px" PaddingBottom="10px" PaddingLeft="4px"></ContentPaddings>
+                            <NoHeaderTopRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopRightCorner.png">
+                            </NoHeaderTopRightCorner>
+                            <RightEdge>
+                                <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif">
+                                </BackgroundImage>
+                            </RightEdge>
+                            <HeaderRightEdge>
+                                <BackgroundImage VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderRightEdge.gif">
+                                </BackgroundImage>
+                            </HeaderRightEdge>
+                            <Border BorderWidth="1px" BorderStyle="Solid" BorderColor="#7EACB1"></Border>
+                            <HeaderStyle HorizontalAlign="Right" BackColor="White" Height="23px">
+                                <Paddings PaddingTop="0px" PaddingBottom="0px" PaddingLeft="2px"></Paddings>
+                                <BorderBottom BorderStyle="None"></BorderBottom>
+                            </HeaderStyle>
+                            <Content>
+                                <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpContentBack.gif">
+                                </BackgroundImage>
+                            </Content>
+                            <HeaderLeftEdge>
+                                <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderLeftEdge.gif">
+                                </BackgroundImage>
+                            </HeaderLeftEdge>
+                            <BottomEdge BackColor="#D7E9F1">
+                            </BottomEdge>
+                            <TopRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpTopRightCorner.png">
+                            </TopRightCorner>
+                            <NoHeaderTopLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopLeftCorner.png">
+                            </NoHeaderTopLeftCorner>
+                            <PanelCollection>
+                                <dxp:PanelContent runat="server">
+                                    <table dir="rtl" width="100%">
+                                        <tbody>
+                                            <tr>
+                                                <td colspan="4">
+                                                    <dxrp:ASPxRoundPanel runat="server" ID="ASPxRoundPanel5"  Width="100%"
+                                                        HeaderText="اطلاعات عضو حقوقی" RightToLeft="True" BackColor="#EBF2F4" >
+                                                        <HeaderRightEdge>
+                                                            <BackgroundImage VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderRightEdge.gif">
+                                                            </BackgroundImage>
+                                                        </HeaderRightEdge>
+                                                        <RightEdge>
+                                                            <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif">
+                                                            </BackgroundImage>
+                                                        </RightEdge>
+                                                        <Border BorderWidth="1px" BorderStyle="Solid" BorderColor="#7EACB1"></Border>
+                                                        <HeaderLeftEdge>
+                                                            <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderLeftEdge.gif">
+                                                            </BackgroundImage>
+                                                        </HeaderLeftEdge>
+                                                        <NoHeaderTopRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopRightCorner.png">
+                                                        </NoHeaderTopRightCorner>
+                                                        <ContentPaddings PaddingTop="10px" PaddingBottom="10px" PaddingLeft="4px"></ContentPaddings>
+                                                        <TopLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpTopLeftCorner.png">
+                                                        </TopLeftCorner>
+                                                        <BottomEdge BackColor="#D7E9F1">
+                                                        </BottomEdge>
+                                                        <BottomRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpBottomRightCorner.png">
+                                                        </BottomRightCorner>
+                                                        <NoHeaderTopEdge BackColor="#EBF2F4">
+                                                        </NoHeaderTopEdge>
+                                                        <PanelCollection>
+                                                            <dxp:PanelContent ID="PanelContent1" runat="server">
+                                                                <table width="100%">
+                                                                    <tr>
+                                                                        <td valign="top" align="right" width="15%">
+                                                                            <dxe:ASPxLabel runat="server" Text="نام شرکت" ID="ASPxLabel9">
+                                                                            </dxe:ASPxLabel>
+                                                                        </td>
+                                                                        <td valign="top" align="right" colspan="3">
+                                                                            <dxe:ASPxLabel runat="server" Text="- - -" ID="ASPxTextBoxOfName" Font-Bold="true"
+                                                                                Width="100%">
+                                                                            </dxe:ASPxLabel>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td valign="top" align="right" width="15%">
+                                                                            <dxe:ASPxLabel runat="server" Text="نام مدیر مسئول" ID="ASPxLabel3">
+                                                                            </dxe:ASPxLabel>
+                                                                        </td>
+                                                                        <td valign="top" align="right" width="35%">
+                                                                            <dxe:ASPxLabel runat="server" Text="- - -" ID="ASPxTextBoxMName" Font-Bold="true"
+                                                                                Width="100%">
+                                                                            </dxe:ASPxLabel>
+                                                                        </td>
+                                                                        <td valign="top" align="right" width="15%">
+                                                                            <dxe:ASPxLabel runat="server" Text="شماره ثبت" ID="ASPxLabel4">
+                                                                            </dxe:ASPxLabel>
+                                                                        </td>
+                                                                        <td valign="top" align="right" width="35%">
+                                                                            <dxe:ASPxLabel runat="server" Text="- - -" ID="ASPxTextBoxRegOfNo" Font-Bold="true"
+                                                                                Width="100%">
+                                                                            </dxe:ASPxLabel>
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                            </dxp:PanelContent>
+                                                        </PanelCollection>
+                                                        <NoHeaderTopLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopLeftCorner.png">
+                                                        </NoHeaderTopLeftCorner>
+                                                        <HeaderStyle HorizontalAlign="Right" BackColor="White" Height="23px">
+                                                            <Paddings PaddingTop="0px" PaddingBottom="0px" PaddingLeft="2px"></Paddings>
+                                                            <BorderBottom BorderStyle="None"></BorderBottom>
+                                                        </HeaderStyle>
+                                                        <Content>
+                                                            <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpContentBack.gif">
+                                                            </BackgroundImage>
+                                                        </Content>
+                                                        <LeftEdge>
+                                                            <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif">
+                                                            </BackgroundImage>
+                                                        </LeftEdge>
+                                                        <TopRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpTopRightCorner.png">
+                                                        </TopRightCorner>
+                                                        <BottomLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpBottomLeftCorner.png">
+                                                        </BottomLeftCorner>
+                                                        <HeaderContent>
+                                                            <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderBack.gif">
+                                                            </BackgroundImage>
+                                                        </HeaderContent>
+                                                    </dxrp:ASPxRoundPanel>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="4">
+                                                    <div dir="ltr">
+                                                        <dxrp:ASPxRoundPanel runat="server" ID="ASPxRoundPanelCapacity" 
+                                                            Width="100%" HeaderText="ظرفیت کل" BackColor="#EBF2F4" >
+                                                            <HeaderRightEdge>
+                                                                <BackgroundImage VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderRightEdge.gif">
+                                                                </BackgroundImage>
+                                                            </HeaderRightEdge>
+                                                            <RightEdge>
+                                                                <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif">
+                                                                </BackgroundImage>
+                                                            </RightEdge>
+                                                            <Border BorderWidth="1px" BorderStyle="Solid" BorderColor="#7EACB1"></Border>
+                                                            <HeaderLeftEdge>
+                                                                <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderLeftEdge.gif">
+                                                                </BackgroundImage>
+                                                            </HeaderLeftEdge>
+                                                            <NoHeaderTopRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopRightCorner.png">
+                                                            </NoHeaderTopRightCorner>
+                                                            <ContentPaddings PaddingTop="10px" PaddingBottom="10px" PaddingLeft="4px"></ContentPaddings>
+                                                            <TopLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpTopLeftCorner.png">
+                                                            </TopLeftCorner>
+                                                            <BottomEdge BackColor="#D7E9F1">
+                                                            </BottomEdge>
+                                                            <BottomRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpBottomRightCorner.png">
+                                                            </BottomRightCorner>
+                                                            <NoHeaderTopEdge BackColor="#EBF2F4">
+                                                            </NoHeaderTopEdge>
+                                                            <PanelCollection>
+                                                                <dxp:PanelContent runat="server">
+                                                                    <table dir="rtl" width="100%">
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <td valign="top" align="right" colspan="4">
+                                                                                    <TSPControls:CustomAspxDevGridView runat="server"  Width="100%"
+                                                                                        ID="CustomAspxDevGridViewImp" KeyFieldName="FId" AutoGenerateColumns="False"
+                                                                                         OnFocusedRowChanged="CustomAspxDevGridViewImp_FocusedRowChanged"
+                                                                                        OnDetailRowExpandedChanged="CustomAspxDevGridViewImp_DetailRowExpandedChanged"
+                                                                                        OnHtmlDataCellPrepared="CustomAspxDevGridViewImp_HtmlDataCellPrepared" OnAutoFilterCellEditorInitialize="CustomAspxDevGridViewImp_AutoFilterCellEditorInitialize">
+                                                                                        <SettingsDetail ShowDetailRow="True" AllowOnlyOneMasterRowExpanded="True"></SettingsDetail>
+                                                                                        <Templates>
+                                                                                            <DetailRow>
+                                                                                                <TSPControls:CustomAspxDevGridView ID="CustomAspxDevGridViewMembers" runat="server"
+                                                                                                    DataSourceID="ObjectDataSourceMembers" Width="100%"  
+                                                                                                    AutoGenerateColumns="False" KeyFieldName="MeId" OnBeforePerformDataSelect="CustomAspxDevGridViewMembers_BeforePerformDataSelect"
+                                                                                                    Caption="اعضای شركت">
+                                                                                                    <SettingsBehavior ConfirmDelete="True" AllowFocusedRow="True"></SettingsBehavior>
+                                                                                                    <Styles  >
+                                                                                                        <GroupPanel ForeColor="Black">
+                                                                                                        </GroupPanel>
+                                                                                                        <Header HorizontalAlign="Center">
+                                                                                                        </Header>
+                                                                                                    </Styles>
+                                                                                                    <SettingsPager>
+                                                                                                        <AllButton Text="همه رکوردها">
+                                                                                                        </AllButton>
+                                                                                                        <FirstPageButton Text="اولین صفحه">
+                                                                                                        </FirstPageButton>
+                                                                                                        <LastPageButton Text="آخرین صفحه">
+                                                                                                        </LastPageButton>
+                                                                                                        <Summary Text="صفحه: {0} از {1} (تعداد کل:{2})"></Summary>
+                                                                                                        <NextPageButton Text="صفحه بعد">
+                                                                                                        </NextPageButton>
+                                                                                                        <PrevPageButton Text="صفحه قبل">
+                                                                                                        </PrevPageButton>
+                                                                                                    </SettingsPager>
+                                                                                                    <Columns>
+                                                                                                        <dxwgv:GridViewDataTextColumn VisibleIndex="0" FieldName="MeId" Caption="کد عضویت"
+                                                                                                            Name="MeId">
+                                                                                                        </dxwgv:GridViewDataTextColumn>
+                                                                                                        <dxwgv:GridViewDataTextColumn VisibleIndex="1" FieldName="MeName" Caption="نام" Name="MeName">
+                                                                                                        </dxwgv:GridViewDataTextColumn>
+                                                                                                        <dxwgv:GridViewDataComboBoxColumn FieldName="MjId" Caption="رشته" VisibleIndex="2">
+                                                                                                            <PropertiesComboBox ValueType="System.String" TextField="MjName" DataSourceID="ObjectDataSourceMajor"
+                                                                                                                ValueField="MjId">
+                                                                                                            </PropertiesComboBox>
+                                                                                                        </dxwgv:GridViewDataComboBoxColumn>
+                                                                                                        <dxwgv:GridViewDataComboBoxColumn FieldName="GrdId" Caption="پایه" Name="GrdId" VisibleIndex="3">
+                                                                                                            <PropertiesComboBox ValueType="System.String" TextField="GrdName" DataSourceID="ObjectDataSourceGrade"
+                                                                                                                ValueField="GrdId">
+                                                                                                            </PropertiesComboBox>
+                                                                                                        </dxwgv:GridViewDataComboBoxColumn>
+                                                                                                        <dxwgv:GridViewDataTextColumn VisibleIndex="4" FieldName="GrdType" Caption="نوع"
+                                                                                                            Name="GrdType">
+                                                                                                        </dxwgv:GridViewDataTextColumn>
+                                                                                                        <dxwgv:GridViewDataTextColumn VisibleIndex="5" FieldName="OfpName" Caption="سمت"
+                                                                                                            Name="OfpName">
+                                                                                                        </dxwgv:GridViewDataTextColumn>
+                                                                                                        <dxwgv:GridViewDataTextColumn VisibleIndex="6" FieldName="Value" Caption="امتیاز"
+                                                                                                            Name="Value">
+                                                                                                        </dxwgv:GridViewDataTextColumn>
+                                                                                                        <dxwgv:GridViewDataCheckColumn VisibleIndex="7" FieldName="MainMember" Caption="عضو اصلی"
+                                                                                                            Name="MainMember">
+                                                                                                        </dxwgv:GridViewDataCheckColumn>
+                                                                                                    </Columns>
+                                                                                                    <SettingsText CommandClearFilter="پاک کردن فیلتر" ConfirmDelete="آیا مطمئن به حذف این ردیف هستید؟"
+                                                                                                        EmptyDataRow="هیچ داده ای وجود ندارد" GroupPanel="جهت گروه بندی ستون مربوطه را به این قسمت بکشید"
+                                                                                                        CommandEdit="ویرایش" CommandDelete="حذف" CommandSelect="انتخاب" CommandNew="جدید"
+                                                                                                        CommandUpdate="ذخیره" CommandCancel="انصراف"></SettingsText>
+                                                                                                    <SettingsLoadingPanel Text="در حال بارگذاری"></SettingsLoadingPanel>
+                                                                                                    <Settings ShowHorizontalScrollBar="true" ShowGroupPanel="False" ShowFilterRowMenu="True">
+                                                                                                    </Settings>
+                                                                                                </TSPControls:CustomAspxDevGridView>
+                                                                                            </DetailRow>
+                                                                                        </Templates>
+                                                                                        <SettingsText CommandClearFilter="پاک کردن فیلتر" ConfirmDelete="آیا مطمئن به حذف این ردیف هستید؟"
+                                                                                            EmptyDataRow="هیچ داده ای وجود ندارد" GroupPanel="جهت گروه بندی ستون مربوطه را به این قسمت بکشید"
+                                                                                            CommandEdit="ویرایش" CommandDelete="حذف" CommandSelect="انتخاب" CommandNew="جدید"
+                                                                                            CommandUpdate="ذخیره" CommandCancel="انصراف"></SettingsText>
+                                                                                        <Styles  >
+                                                                                            <GroupPanel ForeColor="Black">
+                                                                                            </GroupPanel>
+                                                                                            <Header HorizontalAlign="Center">
+                                                                                            </Header>
+                                                                                        </Styles>
+                                                                                        <Settings ShowHorizontalScrollBar="true" ShowGroupPanel="False" ShowFilterRowMenu="True">
+                                                                                        </Settings>
+                                                                                        <SettingsBehavior ConfirmDelete="True" AllowGroup="False" AllowFocusedRow="True">
+                                                                                        </SettingsBehavior>
+                                                                                        <SettingsPager>
+                                                                                            <AllButton Text="همه رکوردها">
+                                                                                            </AllButton>
+                                                                                            <FirstPageButton Text="اولین صفحه">
+                                                                                            </FirstPageButton>
+                                                                                            <LastPageButton Text="آخرین صفحه">
+                                                                                            </LastPageButton>
+                                                                                            <Summary Text="صفحه: {0} از {1} (تعداد کل:{2})"></Summary>
+                                                                                            <NextPageButton Text="صفحه بعد">
+                                                                                            </NextPageButton>
+                                                                                            <PrevPageButton Text="صفحه قبل">
+                                                                                            </PrevPageButton>
+                                                                                        </SettingsPager>
+                                                                                        <Columns>
+                                                                                            <dxwgv:GridViewDataTextColumn Visible="False" VisibleIndex="0" FieldName="FId" Caption="FId"
+                                                                                                Name="FId">
+                                                                                            </dxwgv:GridViewDataTextColumn>
+                                                                                            <dxwgv:GridViewDataTextColumn VisibleIndex="0" FieldName="FNO" Caption="شماره پروانه"
+                                                                                                Name="FileNo">
+                                                                                                <CellStyle Wrap="False">
+                                                                                                </CellStyle>
+                                                                                            </dxwgv:GridViewDataTextColumn>
+                                                                                            <dxwgv:GridViewDataTextColumn VisibleIndex="1" Width="100px" FieldName="ConfirmDate"
+                                                                                                Caption="تاریخ تایید پروانه" Name="ConfirmDate">
+                                                                                                <CellStyle Wrap="False">
+                                                                                                </CellStyle>
+                                                                                            </dxwgv:GridViewDataTextColumn>
+                                                                                            <dxwgv:GridViewDataTextColumn VisibleIndex="2" Width="100px" FieldName="ExpireDate"
+                                                                                                Caption="تاریخ اعتبار پروانه" Name="ExpireDate">
+                                                                                                <CellStyle Wrap="False">
+                                                                                                </CellStyle>
+                                                                                            </dxwgv:GridViewDataTextColumn>
+                                                                                            <dxwgv:GridViewDataComboBoxColumn FieldName="Grade" Caption="پایه" Name="Grade" VisibleIndex="3">
+                                                                                                <PropertiesComboBox ValueType="System.String" TextField="GrdName" DataSourceID="ObjectDataSourceGrade"
+                                                                                                    ValueField="GrdId">
+                                                                                                </PropertiesComboBox>
+                                                                                            </dxwgv:GridViewDataComboBoxColumn>
+                                                                                            <dxwgv:GridViewDataTextColumn VisibleIndex="4" FieldName="TotalCapacity" Caption="ظرفیت کل"
+                                                                                                Name="TotalCapacity">
+                                                                                                <HeaderStyle Wrap="True"></HeaderStyle>
+                                                                                            </dxwgv:GridViewDataTextColumn>
+                                                                                            <dxwgv:GridViewDataTextColumn VisibleIndex="5" FieldName="MaxJobCount" Width="100px"
+                                                                                                Caption="حداکثر تعداد کار" Name="MaxJobCount">
+                                                                                                <HeaderStyle Wrap="True"></HeaderStyle>
+                                                                                            </dxwgv:GridViewDataTextColumn>
+                                                                                            <dxwgv:GridViewDataTextColumn VisibleIndex="6" Width="150px" FieldName="MaxFloor"
+                                                                                                Caption="حداکثر تعداد طبقات" Name="MaxFloor">
+                                                                                                <HeaderStyle Wrap="True"></HeaderStyle>
+                                                                                            </dxwgv:GridViewDataTextColumn>
+                                                                                            <dxwgv:GridViewDataTextColumn VisibleIndex="7" Width="200px" FieldName="ProjectCount"
+                                                                                                Caption="تعداد پروژه های در دست اجرا" Name="ProjectCount">
+                                                                                                <HeaderStyle Wrap="True"></HeaderStyle>
+                                                                                            </dxwgv:GridViewDataTextColumn>
+                                                                                            <dxwgv:GridViewDataTextColumn VisibleIndex="8" FieldName="TotalUsed" Caption="کل کارکرد"
+                                                                                                Name="TotalUsed">
+                                                                                                <HeaderStyle Wrap="True"></HeaderStyle>
+                                                                                            </dxwgv:GridViewDataTextColumn>
+                                                                                            <dxwgv:GridViewDataTextColumn VisibleIndex="9" Width="150px" FieldName="ConditionalCapacity"
+                                                                                                Caption="کاهش / افزایش ظرفیت" Name="ConditionalCapacity">
+                                                                                                <HeaderStyle Wrap="True"></HeaderStyle>
+                                                                                            </dxwgv:GridViewDataTextColumn>
+                                                                                            <dxwgv:GridViewDataTextColumn VisibleIndex="10" FieldName="RemainCapacity" Caption="ظرفیت باقیمانده"
+                                                                                                Name="RemainCapacity">
+                                                                                                <HeaderStyle Wrap="True"></HeaderStyle>
+                                                                                            </dxwgv:GridViewDataTextColumn>
+                                                                                        </Columns>
+                                                                                        <SettingsLoadingPanel Text="در حال بارگذاری"></SettingsLoadingPanel>
+                                                                                    </TSPControls:CustomAspxDevGridView>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </dxp:PanelContent>
+                                                            </PanelCollection>
+                                                            <NoHeaderTopLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopLeftCorner.png">
+                                                            </NoHeaderTopLeftCorner>
+                                                            <HeaderStyle HorizontalAlign="Right" BackColor="White" Height="23px">
+                                                                <Paddings PaddingTop="0px" PaddingBottom="0px" PaddingLeft="2px"></Paddings>
+                                                                <BorderBottom BorderStyle="None"></BorderBottom>
+                                                            </HeaderStyle>
+                                                            <Content>
+                                                                <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpContentBack.gif">
+                                                                </BackgroundImage>
+                                                            </Content>
+                                                            <LeftEdge>
+                                                                <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif">
+                                                                </BackgroundImage>
+                                                            </LeftEdge>
+                                                            <TopRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpTopRightCorner.png">
+                                                            </TopRightCorner>
+                                                            <BottomLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpBottomLeftCorner.png">
+                                                            </BottomLeftCorner>
+                                                            <HeaderContent>
+                                                                <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderBack.gif">
+                                                                </BackgroundImage>
+                                                            </HeaderContent>
+                                                        </dxrp:ASPxRoundPanel>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="4">
+                                                    <div dir="ltr">
+                                                        <dxrp:ASPxRoundPanel runat="server" ID="ASPxRoundPanelCapacityAssignment" 
+                                                            Width="100%" HeaderText="اختصاص ظرفیت" BackColor="#EBF2F4" >
+                                                            <HeaderRightEdge>
+                                                                <BackgroundImage VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderRightEdge.gif">
+                                                                </BackgroundImage>
+                                                            </HeaderRightEdge>
+                                                            <RightEdge>
+                                                                <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif">
+                                                                </BackgroundImage>
+                                                            </RightEdge>
+                                                            <Border BorderWidth="1px" BorderStyle="Solid" BorderColor="#7EACB1"></Border>
+                                                            <HeaderLeftEdge>
+                                                                <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderLeftEdge.gif">
+                                                                </BackgroundImage>
+                                                            </HeaderLeftEdge>
+                                                            <NoHeaderTopRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopRightCorner.png">
+                                                            </NoHeaderTopRightCorner>
+                                                            <ContentPaddings PaddingTop="10px" PaddingBottom="10px" PaddingLeft="4px"></ContentPaddings>
+                                                            <TopLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpTopLeftCorner.png">
+                                                            </TopLeftCorner>
+                                                            <BottomEdge BackColor="#D7E9F1">
+                                                            </BottomEdge>
+                                                            <BottomRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpBottomRightCorner.png">
+                                                            </BottomRightCorner>
+                                                            <NoHeaderTopEdge BackColor="#EBF2F4">
+                                                            </NoHeaderTopEdge>
+                                                            <PanelCollection>
+                                                                <dxp:PanelContent runat="server">
+                                                                    <table dir="rtl" width="100%">
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <td valign="top" align="right" colspan="4">
+                                                                                    <TSPControls:CustomAspxDevGridView runat="server"  Width="100%"
+                                                                                        ID="CustomAspxDevGridViewCapacityAssignment" KeyFieldName="CapacityAssignmentId"
+                                                                                        AutoGenerateColumns="False" ClientInstanceName="grid" 
+                                                                                        OnFocusedRowChanged="CustomAspxDevGridViewCapacityAssignment_FocusedRowChanged"
+                                                                                        OnDetailRowExpandedChanged="CustomAspxDevGridViewCapacityAssignment_DetailRowExpandedChanged"
+                                                                                        OnHtmlDataCellPrepared="CustomAspxDevGridViewCapacityAssignment_HtmlDataCellPrepared"
+                                                                                        OnAutoFilterCellEditorInitialize="CustomAspxDevGridViewImp_AutoFilterCellEditorInitialize">
+                                                                                        <SettingsDetail ShowDetailRow="True" AllowOnlyOneMasterRowExpanded="True"></SettingsDetail>
+                                                                                        <Templates>
+                                                                                            <DetailRow>
+                                                                                                <TSPControls:CustomAspxDevGridView ID="CustomAspxDevGridViewCAImp" runat="server"
+                                                                                                    DataSourceID="ObjectDataSourceStageInfo"  
+                                                                                                    OnFocusedRowChanged="CustomAspxDevGridViewCAImp_FocusedRowChanged" OnDetailRowExpandedChanged="CustomAspxDevGridViewCAImp_DetailRowExpandedChanged"
+                                                                                                    OnHtmlDataCellPrepared="CustomAspxDevGridViewCAImp_HtmlDataCellPrepared" OnAutoFilterCellEditorInitialize="CustomAspxDevGridViewCAImp_AutoFilterCellEditorInitialize"
+                                                                                                    AutoGenerateColumns="False" KeyFieldName="FId" OnBeforePerformDataSelect="CustomAspxDevGridViewCAImp_BeforePerformDataSelect">
+                                                                                                    <Templates>
+                                                                                                        <DetailRow>
+                                                                                                            <TSPControls:CustomAspxDevGridView ID="CustomAspxDevGridViewCAMembers" OnBeforePerformDataSelect="CustomAspxDevGridViewCAMembers_BeforePerformDataSelect"
+                                                                                                                runat="server" DataSourceID="ObjectDataSourceCAMembers" Width="100%" 
+                                                                                                                 AutoGenerateColumns="False" KeyFieldName="MeId"
+                                                                                                                Caption="اعضای شركت">
+                                                                                                                <SettingsBehavior ConfirmDelete="True" AllowFocusedRow="True"></SettingsBehavior>
+                                                                                                                <Styles  >
+                                                                                                                    <GroupPanel ForeColor="Black">
+                                                                                                                    </GroupPanel>
+                                                                                                                    <Header HorizontalAlign="Center">
+                                                                                                                    </Header>
+                                                                                                                </Styles>
+                                                                                                                <SettingsPager>
+                                                                                                                    <AllButton Text="همه رکوردها">
+                                                                                                                    </AllButton>
+                                                                                                                    <FirstPageButton Text="اولین صفحه">
+                                                                                                                    </FirstPageButton>
+                                                                                                                    <LastPageButton Text="آخرین صفحه">
+                                                                                                                    </LastPageButton>
+                                                                                                                    <Summary Text="صفحه: {0} از {1} (تعداد کل:{2})"></Summary>
+                                                                                                                    <NextPageButton Text="صفحه بعد">
+                                                                                                                    </NextPageButton>
+                                                                                                                    <PrevPageButton Text="صفحه قبل">
+                                                                                                                    </PrevPageButton>
+                                                                                                                </SettingsPager>
+                                                                                                                <Columns>
+                                                                                                                    <dxwgv:GridViewDataTextColumn VisibleIndex="0" FieldName="MeId" Caption="کد عضویت"
+                                                                                                                        Name="MeId">
+                                                                                                                    </dxwgv:GridViewDataTextColumn>
+                                                                                                                    <dxwgv:GridViewDataTextColumn VisibleIndex="1" FieldName="MeName" Caption="نام" Name="MeName">
+                                                                                                                    </dxwgv:GridViewDataTextColumn>
+                                                                                                                    <dxwgv:GridViewDataComboBoxColumn FieldName="MjId" Caption="رشته" VisibleIndex="2">
+                                                                                                                        <PropertiesComboBox ValueType="System.String" TextField="MjName" DataSourceID="ObjectDataSourceMajor"
+                                                                                                                            ValueField="MjId">
+                                                                                                                        </PropertiesComboBox>
+                                                                                                                    </dxwgv:GridViewDataComboBoxColumn>
+                                                                                                                    <dxwgv:GridViewDataComboBoxColumn FieldName="GrdId" Caption="پایه" Name="GrdId" VisibleIndex="3">
+                                                                                                                        <PropertiesComboBox ValueType="System.String" TextField="GrdName" DataSourceID="ObjectDataSourceGrade"
+                                                                                                                            ValueField="GrdId">
+                                                                                                                        </PropertiesComboBox>
+                                                                                                                    </dxwgv:GridViewDataComboBoxColumn>
+                                                                                                                    <dxwgv:GridViewDataTextColumn VisibleIndex="4" FieldName="GrdType" Caption="نوع"
+                                                                                                                        Name="GrdType">
+                                                                                                                    </dxwgv:GridViewDataTextColumn>
+                                                                                                                    <dxwgv:GridViewDataTextColumn VisibleIndex="5" FieldName="OfpName" Caption="سمت"
+                                                                                                                        Name="OfpName">
+                                                                                                                    </dxwgv:GridViewDataTextColumn>
+                                                                                                                    <dxwgv:GridViewDataTextColumn VisibleIndex="6" FieldName="Value" Caption="امتیاز"
+                                                                                                                        Name="Value">
+                                                                                                                    </dxwgv:GridViewDataTextColumn>
+                                                                                                                    <dxwgv:GridViewDataCheckColumn VisibleIndex="7" FieldName="MainMember" Caption="عضو اصلی"
+                                                                                                                        Name="MainMember">
+                                                                                                                    </dxwgv:GridViewDataCheckColumn>
+                                                                                                                </Columns>
+                                                                                                                <SettingsText CommandClearFilter="پاک کردن فیلتر" ConfirmDelete="آیا مطمئن به حذف این ردیف هستید؟"
+                                                                                                                    EmptyDataRow="هیچ داده ای وجود ندارد" GroupPanel="جهت گروه بندی ستون مربوطه را به این قسمت بکشید"
+                                                                                                                    CommandEdit="ویرایش" CommandDelete="حذف" CommandSelect="انتخاب" CommandNew="جدید"
+                                                                                                                    CommandUpdate="ذخیره" CommandCancel="انصراف"></SettingsText>
+                                                                                                                <SettingsLoadingPanel Text="در حال بارگذاری"></SettingsLoadingPanel>
+                                                                                                                <Settings ShowGroupPanel="False" ShowFilterRowMenu="True"></Settings>
+                                                                                                            </TSPControls:CustomAspxDevGridView>
+                                                                                                        </DetailRow>
+                                                                                                    </Templates>
+                                                                                                    <SettingsBehavior ConfirmDelete="True" AllowGroup="False" AllowFocusedRow="True">
+                                                                                                    </SettingsBehavior>
+                                                                                                    <Styles  >
+                                                                                                        <GroupPanel ForeColor="Black">
+                                                                                                        </GroupPanel>
+                                                                                                        <Header HorizontalAlign="Center">
+                                                                                                        </Header>
+                                                                                                    </Styles>
+                                                                                                    <SettingsPager>
+                                                                                                        <AllButton Text="همه رکوردها">
+                                                                                                        </AllButton>
+                                                                                                        <FirstPageButton Text="اولین صفحه">
+                                                                                                        </FirstPageButton>
+                                                                                                        <LastPageButton Text="آخرین صفحه">
+                                                                                                        </LastPageButton>
+                                                                                                        <Summary Text="صفحه: {0} از {1} (تعداد کل:{2})"></Summary>
+                                                                                                        <NextPageButton Text="صفحه بعد">
+                                                                                                        </NextPageButton>
+                                                                                                        <PrevPageButton Text="صفحه قبل">
+                                                                                                        </PrevPageButton>
+                                                                                                    </SettingsPager>
+                                                                                                    <Columns>
+                                                                                                        <dxwgv:GridViewDataTextColumn Visible="False" VisibleIndex="0" FieldName="FId" Caption="FId"
+                                                                                                            Name="FId">
+                                                                                                        </dxwgv:GridViewDataTextColumn>
+                                                                                                        <dxwgv:GridViewDataTextColumn VisibleIndex="0" FieldName="FNO" Caption="شماره پروانه"
+                                                                                                            Name="FNO">
+                                                                                                            <CellStyle Wrap="False">
+                                                                                                            </CellStyle>
+                                                                                                        </dxwgv:GridViewDataTextColumn>
+                                                                                                        <dxwgv:GridViewDataTextColumn VisibleIndex="1" FieldName="ConfirmDate" Caption="تاریخ تایید پروانه"
+                                                                                                            Name="ConfirmDate">
+                                                                                                            <CellStyle Wrap="False">
+                                                                                                            </CellStyle>
+                                                                                                            <HeaderStyle Wrap="True"></HeaderStyle>
+                                                                                                        </dxwgv:GridViewDataTextColumn>
+                                                                                                        <dxwgv:GridViewDataTextColumn VisibleIndex="2" FieldName="ExpireDate" Caption="تاریخ اعتبار پروانه"
+                                                                                                            Name="ProjectCount">
+                                                                                                            <CellStyle Wrap="False">
+                                                                                                            </CellStyle>
+                                                                                                            <HeaderStyle Wrap="True"></HeaderStyle>
+                                                                                                        </dxwgv:GridViewDataTextColumn>
+                                                                                                        <dxwgv:GridViewDataComboBoxColumn FieldName="Grade" Caption="پایه" Name="Grade" VisibleIndex="3">
+                                                                                                            <PropertiesComboBox ValueType="System.String" TextField="GrdName" DataSourceID="ObjectDataSourceGrade"
+                                                                                                                ValueField="GrdId">
+                                                                                                            </PropertiesComboBox>
+                                                                                                        </dxwgv:GridViewDataComboBoxColumn>
+                                                                                                        <dxwgv:GridViewDataTextColumn VisibleIndex="4" FieldName="TotalCapacity" Caption="ظرفیت اشتغال"
+                                                                                                            Name="TotalCapacity" Width="20px">
+                                                                                                            <HeaderStyle Wrap="True"></HeaderStyle>
+                                                                                                        </dxwgv:GridViewDataTextColumn>
+                                                                                                        <dxwgv:GridViewDataTextColumn VisibleIndex="5" FieldName="MaxJobCount" Caption="حداکثر تعداد کار"
+                                                                                                            Name="MaxJobCount">
+                                                                                                            <HeaderStyle Wrap="True"></HeaderStyle>
+                                                                                                        </dxwgv:GridViewDataTextColumn>
+                                                                                                        <dxwgv:GridViewDataTextColumn VisibleIndex="6" FieldName="MaxFloor" Caption="حداکثر تعداد طبقات"
+                                                                                                            Name="MaxFloor">
+                                                                                                            <HeaderStyle Wrap="True"></HeaderStyle>
+                                                                                                        </dxwgv:GridViewDataTextColumn>
+                                                                                                        <dxwgv:GridViewDataTextColumn VisibleIndex="7" FieldName="ProjectCount" Caption="تعداد پروژه های در دست اجرا"
+                                                                                                            Name="ProjectCount">
+                                                                                                            <HeaderStyle Wrap="True"></HeaderStyle>
+                                                                                                        </dxwgv:GridViewDataTextColumn>
+                                                                                                        <dxwgv:GridViewDataTextColumn VisibleIndex="8" FieldName="TotalUsed" Caption="کل کارکرد"
+                                                                                                            Name="TotalUsed">
+                                                                                                            <HeaderStyle Wrap="True"></HeaderStyle>
+                                                                                                        </dxwgv:GridViewDataTextColumn>
+                                                                                                        <dxwgv:GridViewDataTextColumn VisibleIndex="9" FieldName="ConditionalCapacity" Caption="کاهش / افزایش ظرفیت"
+                                                                                                            Name="ConditionalCapacity">
+                                                                                                            <HeaderStyle Wrap="True"></HeaderStyle>
+                                                                                                        </dxwgv:GridViewDataTextColumn>
+                                                                                                        <dxwgv:GridViewDataTextColumn VisibleIndex="10" FieldName="RemainCapacity" Caption="ظرفیت باقی مانده"
+                                                                                                            Name="RemainCapacity" Width="30px">
+                                                                                                            <HeaderStyle Wrap="True"></HeaderStyle>
+                                                                                                        </dxwgv:GridViewDataTextColumn>
+                                                                                                    </Columns>
+                                                                                                    <SettingsText CommandClearFilter="پاک کردن فیلتر" ConfirmDelete="آیا مطمئن به حذف این ردیف هستید؟"
+                                                                                                        EmptyDataRow="هیچ داده ای وجود ندارد" GroupPanel="جهت گروه بندی ستون مربوطه را به این قسمت بکشید"
+                                                                                                        CommandEdit="ویرایش" CommandDelete="حذف" CommandSelect="انتخاب" CommandNew="جدید"
+                                                                                                        CommandUpdate="ذخیره" CommandCancel="انصراف"></SettingsText>
+                                                                                                    <SettingsLoadingPanel Text="در حال بارگذاری"></SettingsLoadingPanel>
+                                                                                                    <Settings ShowGroupPanel="False" ShowFilterRowMenu="True"></Settings>
+                                                                                                    <SettingsDetail ShowDetailRow="True" AllowOnlyOneMasterRowExpanded="True"></SettingsDetail>
+                                                                                                </TSPControls:CustomAspxDevGridView>
+                                                                                            </DetailRow>
+                                                                                        </Templates>
+                                                                                        <ClientSideEvents FocusedRowChanged="function(s, e) {
+	//grid.ExpandDetailRow(grid.GetFocusedRowIndex());
+}"></ClientSideEvents>
+                                                                                        <SettingsText CommandClearFilter="پاک کردن فیلتر" ConfirmDelete="آیا مطمئن به حذف این ردیف هستید؟"
+                                                                                            EmptyDataRow="هیچ داده ای وجود ندارد" GroupPanel="جهت گروه بندی ستون مربوطه را به این قسمت بکشید"
+                                                                                            CommandEdit="ویرایش" CommandDelete="حذف" CommandSelect="انتخاب" CommandNew="جدید"
+                                                                                            CommandUpdate="ذخیره" CommandCancel="انصراف"></SettingsText>
+                                                                                        <Styles  >
+                                                                                            <GroupPanel ForeColor="Black">
+                                                                                            </GroupPanel>
+                                                                                            <Header HorizontalAlign="Center">
+                                                                                            </Header>
+                                                                                        </Styles>
+                                                                                        <Settings ShowHorizontalScrollBar="true" ShowGroupPanel="False" ShowFilterRowMenu="True">
+                                                                                        </Settings>
+                                                                                        <SettingsBehavior ConfirmDelete="True" AllowGroup="False" AllowFocusedRow="True">
+                                                                                        </SettingsBehavior>
+                                                                                        <SettingsPager>
+                                                                                            <AllButton Text="همه رکوردها">
+                                                                                            </AllButton>
+                                                                                            <FirstPageButton Text="اولین صفحه">
+                                                                                            </FirstPageButton>
+                                                                                            <LastPageButton Text="آخرین صفحه">
+                                                                                            </LastPageButton>
+                                                                                            <Summary Text="صفحه: {0} از {1} (تعداد کل:{2})"></Summary>
+                                                                                            <NextPageButton Text="صفحه بعد">
+                                                                                            </NextPageButton>
+                                                                                            <PrevPageButton Text="صفحه قبل">
+                                                                                            </PrevPageButton>
+                                                                                        </SettingsPager>
+                                                                                        <Columns>
+                                                                                            <dxwgv:GridViewDataTextColumn Visible="False" VisibleIndex="0" FieldName="CapacityAssignmentId"
+                                                                                                Caption="کد" Name="CapacityAssignmentId">
+                                                                                            </dxwgv:GridViewDataTextColumn>
+                                                                                            <dxwgv:GridViewDataTextColumn Visible="False" VisibleIndex="0" FieldName="Stage"
+                                                                                                Caption="مرحله" Name="Stage">
+                                                                                            </dxwgv:GridViewDataTextColumn>
+                                                                                            <dxwgv:GridViewDataTextColumn VisibleIndex="0" FieldName="Year" Caption="سال" Name="Year">
+                                                                                            </dxwgv:GridViewDataTextColumn>
+                                                                                            <dxwgv:GridViewDataTextColumn VisibleIndex="1" FieldName="StageText" Caption="مرحله"
+                                                                                                Name="StageText">
+                                                                                            </dxwgv:GridViewDataTextColumn>
+                                                                                            <dxwgv:GridViewDataTextColumn VisibleIndex="2" FieldName="CapacityPrcnt" Caption="درصد ظرفیت"
+                                                                                                Name="CapacityPrcnt">
+                                                                                            </dxwgv:GridViewDataTextColumn>
+                                                                                            <dxwgv:GridViewDataTextColumn VisibleIndex="3" FieldName="JobCountPrcnt" Caption="درصد تعداد کار"
+                                                                                                Name="JobCountPrcnt">
+                                                                                            </dxwgv:GridViewDataTextColumn>
+                                                                                            <dxwgv:GridViewDataCheckColumn VisibleIndex="4" Width="110px" FieldName="RemainIsWaste"
+                                                                                                Caption="سوخت مرحله قبل" Name="RemainIsWaste">
+                                                                                            </dxwgv:GridViewDataCheckColumn>
+                                                                                            <dxwgv:GridViewDataCheckColumn VisibleIndex="5" Width="110px" FieldName="IsAssigned"
+                                                                                                Caption="اختصاص داده شده" Name="IsAssigned">
+                                                                                            </dxwgv:GridViewDataCheckColumn>
+                                                                                            <dxwgv:GridViewDataTextColumn VisibleIndex="6" FieldName="AssignmentDate" Caption="تاریخ اختصاص"
+                                                                                                Name="AssignmentDate">
+                                                                                                <CellStyle Wrap="False">
+                                                                                                </CellStyle>
+                                                                                            </dxwgv:GridViewDataTextColumn>
+                                                                                        </Columns>
+                                                                                        <SettingsLoadingPanel Text="در حال بارگذاری"></SettingsLoadingPanel>
+                                                                                    </TSPControls:CustomAspxDevGridView>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+                                                                </dxp:PanelContent>
+                                                            </PanelCollection>
+                                                            <NoHeaderTopLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopLeftCorner.png">
+                                                            </NoHeaderTopLeftCorner>
+                                                            <HeaderStyle HorizontalAlign="Right" BackColor="White" Height="23px">
+                                                                <Paddings PaddingTop="0px" PaddingBottom="0px" PaddingLeft="2px"></Paddings>
+                                                                <BorderBottom BorderStyle="None"></BorderBottom>
+                                                            </HeaderStyle>
+                                                            <Content>
+                                                                <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpContentBack.gif">
+                                                                </BackgroundImage>
+                                                            </Content>
+                                                            <LeftEdge>
+                                                                <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif">
+                                                                </BackgroundImage>
+                                                            </LeftEdge>
+                                                            <TopRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpTopRightCorner.png">
+                                                            </TopRightCorner>
+                                                            <BottomLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpBottomLeftCorner.png">
+                                                            </BottomLeftCorner>
+                                                            <HeaderContent>
+                                                                <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderBack.gif">
+                                                                </BackgroundImage>
+                                                            </HeaderContent>
+                                                        </dxrp:ASPxRoundPanel>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </dxp:PanelContent>
+                            </PanelCollection>
+                            <TopLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpTopLeftCorner.png">
+                            </TopLeftCorner>
+                            <NoHeaderTopEdge BackColor="#EBF2F4">
+                            </NoHeaderTopEdge>
+                            <BottomLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpBottomLeftCorner.png">
+                            </BottomLeftCorner>
+                        </dxrp:ASPxRoundPanel>
+                        <br />
+                    </div>
+                    <div dir="ltr">
+                    </div>
+                    <div style="width: 100%" dir="ltr">
+                        <dxrp:ASPxRoundPanel ID="ASPxRoundPanel3" runat="server" Width="100%" ShowHeader="False"
+                             BackColor="#EBF2F4" >
+                            <LeftEdge>
+                                <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif">
+                                </BackgroundImage>
+                            </LeftEdge>
+                            <BottomRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpBottomRightCorner.png">
+                            </BottomRightCorner>
+                            <HeaderContent>
+                                <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderBack.gif">
+                                </BackgroundImage>
+                            </HeaderContent>
+                            <ContentPaddings Padding="0px"></ContentPaddings>
+                            <NoHeaderTopRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopRightCorner.png">
+                            </NoHeaderTopRightCorner>
+                            <RightEdge>
+                                <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif">
+                                </BackgroundImage>
+                            </RightEdge>
+                            <HeaderRightEdge>
+                                <BackgroundImage VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderRightEdge.gif">
+                                </BackgroundImage>
+                            </HeaderRightEdge>
+                            <Border BorderWidth="1px" BorderStyle="Solid" BorderColor="#7EACB1"></Border>
+                            <HeaderStyle BackColor="White" Height="23px">
+                                <Paddings PaddingTop="0px" PaddingBottom="0px" PaddingLeft="2px"></Paddings>
+                                <BorderBottom BorderStyle="None"></BorderBottom>
+                            </HeaderStyle>
+                            <Content>
+                                <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpContentBack.gif">
+                                </BackgroundImage>
+                            </Content>
+                            <HeaderLeftEdge>
+                                <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderLeftEdge.gif">
+                                </BackgroundImage>
+                            </HeaderLeftEdge>
+                            <BottomEdge BackColor="#D7E9F1">
+                            </BottomEdge>
+                            <TopRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpTopRightCorner.png">
+                            </TopRightCorner>
+                            <NoHeaderTopLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopLeftCorner.png">
+                            </NoHeaderTopLeftCorner>
+                            <PanelCollection>
+                                <dxp:PanelContent runat="server">
+                                    <div dir="rtl">
+                                        <table cellpadding="0" width="100%" align="right">
+                                            <tbody>
+                                                <tr>
+                                                    <td style="vertical-align: top" align="right">
+                                                        <table style="border-collapse: collapse; background-color: transparent" dir="rtl"
+                                                            cellpadding="0" align="right">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>
+                                                                        <TSPControls:CustomTextBox runat="server" Text=" "  ToolTip="چاپ"
+                                                                            ID="btnPrint2" UseSubmitBehavior="False" EnableViewState="False" EnableTheming="False"
+                                                                            OnClick="btnPrint_Click">
+                                                                            <HoverStyle BackColor="#FFE0C0">
+                                                                                <Border BorderWidth="1px" BorderStyle="Outset" BorderColor="Gray"></Border>
+                                                                            </HoverStyle>
+                                                                            <Image  Url="~/Images/icons/printers.png">
+                                                                            </Image>
+                                                                        </TSPControls:CustomTextBox>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </dxp:PanelContent>
+                            </PanelCollection>
+                            <TopLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpTopLeftCorner.png">
+                            </TopLeftCorner>
+                            <NoHeaderTopEdge BackColor="#EBF2F4">
+                            </NoHeaderTopEdge>
+                            <BottomLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpBottomLeftCorner.png">
+                            </BottomLeftCorner>
+                        </dxrp:ASPxRoundPanel>
+                    </div>
+                </ContentTemplate>
+            </asp:UpdatePanel>
+            <asp:ModalUpdateProgress ID="ModalUpdateProgress2" runat="server" DisplayAfter="0"
+                AssociatedUpdatePanelID="UpdatePanel1" BackgroundCssClass="modalProgressGreyBackground">
+                <ProgressTemplate>
+                    <div class="modalPopup" style="font-family: Tahoma; font-size: 9pt">
+                        <img alt="" id="IMG1" src="../../../Image/indicator.gif" align="middle" />
+                        لطفا صبر نمایید ...</div>
+                </ProgressTemplate>
+            </asp:ModalUpdateProgress>
+            <asp:ObjectDataSource ID="ObjectDataSourceYear" runat="server" SelectMethod="SelectYears"
+                TypeName="TSP.DataManager.TechnicalServices.CapacityAssignmentManager"></asp:ObjectDataSource>
+            <asp:ObjectDataSource ID="ObjectDataSourceGrade" runat="server" SelectMethod="GetData"
+                TypeName="TSP.DataManager.GradeManager"></asp:ObjectDataSource>
+            <asp:ObjectDataSource ID="ObjectDataSourceMembers" runat="server" SelectMethod="GetImpOffMembers"
+                TypeName="Capacity" OldValuesParameterFormatString="original_{0}">
+                <SelectParameters>
+                    <asp:Parameter DefaultValue="-1" Name="OfficeId" Type="Int32" />
+                    <asp:Parameter DefaultValue="-1" Name="OfReId" Type="Int32" />
+                </SelectParameters>
+            </asp:ObjectDataSource>
+            <asp:ObjectDataSource ID="ObjectDataSourceStageInfo" runat="server" SelectMethod="GetStageInformation"
+                TypeName="Capacity" OldValuesParameterFormatString="original_{0}">
+                <SelectParameters>
+                    <asp:Parameter DefaultValue="-1" Name="ProjectIngridientTypeId" Type="Int32" />
+                    <asp:Parameter DefaultValue="-1" Name="MemberTypeId" Type="Int32" />
+                    <asp:Parameter DefaultValue="-1" Name="MeOfficeEngOId" Type="Int32" />
+                    <asp:Parameter DefaultValue="-1" Name="Year" Type="String" />
+                    <asp:Parameter DefaultValue="-1" Name="Stage" Type="Int32" />
+                </SelectParameters>
+            </asp:ObjectDataSource>
+            <asp:ObjectDataSource ID="ObjectDataSourceCAMembers" runat="server" SelectMethod="GetImpOffMembers"
+                TypeName="Capacity" OldValuesParameterFormatString="original_{0}">
+                <SelectParameters>
+                    <asp:Parameter DefaultValue="-1" Name="OfficeId" Type="Int32" />
+                    <asp:Parameter DefaultValue="-1" Name="OfReId" Type="Int32" />
+                </SelectParameters>
+            </asp:ObjectDataSource>
+            <asp:ObjectDataSource ID="ObjectDataSourceMajor" runat="server" SelectMethod="FindMjParents"
+                TypeName="TSP.DataManager.MajorManager"></asp:ObjectDataSource>
+            <asp:HiddenField ID="HFStage" runat="server" Visible="False" />
+        </div>
+    </div>
+</asp:Content>

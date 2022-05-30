@@ -1,0 +1,733 @@
+﻿.dxeLoadingDiv_Aqua
+{
+	background: White;
+    opacity: 0.85;
+    filter: alpha(opacity=85);
+    cursor: wait;
+}
+.dxeLoadingPanel_Aqua
+{
+	font: 9pt Tahoma;
+	color: #303030;
+}
+.dxeLoadingPanel_Aqua td.dx
+{
+	white-space: nowrap;
+	text-align: center;
+	padding: 12px 12px 12px 12px;
+}
+
+.dxeBase_Aqua
+{
+    font-family: Tahoma;
+    font-size: 9pt;
+}
+/* -- ErrorFrame -- */
+.dxeErrorCell_Aqua, .dxeErrorCell_Aqua td
+{
+    font-family: Tahoma;
+    font-size: 9pt;
+	color: Red;
+}
+.dxeErrorCell_Aqua
+{ 
+	padding-left: 4px;
+	padding-right:5px;		
+}
+.dxeErrorFrame_Aqua
+{
+
+}
+.dxeErrorFrameWithoutError_Aqua {
+    border: 1px solid Red;
+}
+.dxeErrorFrameWithoutError_Aqua .dxeControlsCell_Aqua {
+    padding: 2px;
+}
+.dxeEditArea_Aqua 
+{
+	font-family: Tahoma;
+	font-size: 9pt;
+	border: 1px solid #A0A0A0;
+}
+/* -- Buttons -- */
+.dxeButtonEditButton_Aqua, .dxeCalendarButton_Aqua,
+.dxeSpinIncButton_Aqua, .dxeSpinDecButton_Aqua,
+.dxeSpinLargeIncButton_Aqua, .dxeSpinLargeDecButton_Aqua
+{	
+	vertical-align: Middle;
+	border: Solid 1px #A3C0E8;
+	cursor: pointer;
+	cursor: hand;
+} 
+.dxeButtonEditButton_Aqua, .dxeCalendarButton_Aqua, .dxeButtonEditButton_Aqua td.dx, .dxeCalendarButton_Aqua td.dx,
+.dxeSpinIncButton_Aqua, .dxeSpinDecButton_Aqua, .dxeSpinLargeIncButton_Aqua, .dxeSpinLargeDecButton_Aqua,
+.dxeSpinIncButton_Aqua td.dx, .dxeSpinDecButton_Aqua td.dx, .dxeSpinLargeIncButton_Aqua td.dx, .dxeSpinLargeDecButton_Aqua td.dx
+{	
+    font-family: Tahoma;
+    font-size: 11px;    
+	font-weight: normal;        
+	text-align: center;
+	white-space: nowrap;
+} 
+.dxeButtonEditButton_Aqua,
+.dxeSpinIncButton_Aqua, .dxeSpinDecButton_Aqua, .dxeSpinLargeIncButton_Aqua, .dxeSpinLargeDecButton_Aqua
+{
+    padding: 1px 2px 3px 2px;
+	background-image: url('edtDropDownBack.gif');
+    background-repeat: repeat-x;
+    background-color: #DBEBFF;
+}
+.dxeButtonEditButton_Aqua
+{
+	padding: 5px 2px 5px 2px;
+}
+.dxeSpinIncButton_Aqua, .dxeSpinDecButton_Aqua
+{
+    padding: 0px 2px 0px 2px;
+}
+.dxeSpinLargeIncButton_Aqua, .dxeSpinLargeDecButton_Aqua
+{
+    padding: 0px 1px 0px 1px;
+}
+.dxeSpinIncButton_Aqua
+{
+	background-image: url('edtSpinIncBtnBack.gif');
+    background-repeat: repeat-x;
+    background-position: top;
+	background-color: #DBEBFF;
+}
+.dxeSpinDecButton_Aqua
+{
+	background-image: url('edtSpinDecBtnBack.gif');
+    background-repeat: repeat-x;
+    background-position: top;
+	background-color: #DBEBFF;
+}
+
+.dxeButtonEditButton_Aqua table.dxbebt,
+.dxeSpinIncButton_Aqua table.dxbebt, .dxeSpinDecButton_Aqua table.dxbebt, 
+.dxeSpinLargeIncButton_Aqua table.dxbebt, .dxeSpinLargeDecButton_Aqua table.dxbebt
+{
+	width: 11px;
+}
+.dxeCalendarButton_Aqua      
+{
+    color: #2C4D79;   
+    font-size: 9pt;
+    font-family: Tahoma;				    
+    cursor: default;	
+    vertical-align: middle;	 		
+    border: solid 1px #A3C0E8;	
+    background: #C8DFFF url('edtButtonBack.gif') top;
+    background-repeat:repeat-x;
+	padding: 3px 11px 4px 11px;
+	width: 38px;
+}
+.dxeCalendarButton_Aqua td.dx
+{
+    color: #2C4D79;  
+	font-size: 9pt;    
+	text-align: center;
+	white-space: nowrap;
+}
+.dxeCalendarButton_Aqua table.dxbebt 
+{
+	width: 100%;
+}
+
+/* -- Pressed -- */
+.dxeCalendarButtonPressed_Aqua
+{
+	background: #FFB46D url('edtCalendarButtonPressedBack.gif') top;
+    background-repeat: repeat-x; 
+    background-position: top;   
+    border: Solid 1px #CB9280;
+}
+.dxeButtonEditButtonPressed_Aqua,
+.dxeSpinIncButtonPressed_Aqua, .dxeSpinDecButtonPressed_Aqua, .dxeSpinLargeIncButtonPressed_Aqua, 
+.dxeSpinLargeDecButtonPressed_Aqua
+{
+	background: #FFB46D url('edtDropDownButtonPressedBack.gif') top;
+    background-repeat: repeat-x;    
+    border: Solid 1px #CB9280;	        
+}
+.dxeSpinIncButtonPressed_Aqua
+{
+	background: #F8A04D url('edtSpinIncButtonPressedBack.gif') top;
+    background-repeat: repeat-x;    
+    border: Solid 1px #AECAF0;
+}
+.dxeSpinDecButtonPressed_Aqua 
+{
+	background: #F8A04D url('edtSpinDecButtonPressedBack.gif') top;
+    background-repeat: repeat-x;    
+    border: Solid 1px #AECAF0;	        
+}
+/* -- Hover -- */
+.dxeButtonEditButtonHover_Aqua,
+.dxeSpinIncButtonHover_Aqua, .dxeSpinDecButtonHover_Aqua, .dxeSpinLargeIncButtonHover_Aqua, .dxeSpinLargeDecButtonHover_Aqua
+{
+	background-image: url('edtDropDownButtonHoverBack.gif');
+    background-repeat: repeat-x;
+    background-position: top;
+    background-color: #FEDC75;
+    border: Solid 1px #D6A886;	    
+}
+.dxeSpinIncButtonHover_Aqua
+{
+	background-image: url('edtSpinIncButtonHoverBack.gif');
+    background-repeat: repeat-x;
+    background-position: top;
+    background-color: #FFC68C;
+    border: Solid 1px #AECAF0;	    
+}
+.dxeSpinDecButtonHover_Aqua
+{
+	background-image: url('edtSpinDecButtonHoverBack.gif');
+    background-repeat: repeat-x;
+    background-position: top;
+    background-color: #FFC68C;
+    border: Solid 1px #AECAF0;	    
+}
+.dxeCalendarButtonHover_Aqua
+{
+	background: #FEDC75 url('edtCalendarButtonHoverBack.gif') top;
+    background-repeat: repeat-x;
+    background-color: #D69BD3;
+    border: Solid 1px #D6A886;	 
+    color: #7E3C31;   
+}
+
+.dxeButtonEdit_Aqua
+{
+    background-color: White;
+    border: Solid 1px #AECAF0;
+    width: 170px;
+}
+.dxeButtonEdit_Aqua .dxeEditArea_Aqua, .dxeButtonEdit_Aqua td.dxic
+{
+	width: 100%;
+}
+.dxeButtonEdit_Aqua td.dxic
+{
+   padding: 0px 2px 0px 1px;
+}
+.dxeTextBox_Aqua, .dxeMemo_Aqua
+{
+    background-color: White;
+    border: Solid 1px #AECAF0;
+}
+.dxeTextBox_Aqua td.dxic
+{
+	padding: 2px 5px 2px 4px;
+}
+.dxeTextBox_Aqua td.dxic
+{
+	width: 100%;
+}
+.dxeRadioButtonList_Aqua, .dxeRadioButtonList_Aqua table
+{
+    font-family: Tahoma;
+    font-size: 9pt;    
+}
+.dxeRadioButtonList_Aqua
+{
+    border: Solid 1px #AECAF0;
+}
+.dxeRadioButtonList_Aqua td.dxe
+{
+    padding: 6px 11px;
+    padding-top: 7px;
+}
+
+/* -- Memo -- */
+.dxeMemo_Aqua
+{
+	padding-left: 3px;
+}
+.dxeMemoEditArea_Aqua 
+{
+	font-family: Tahoma;
+	font-size: 9pt;
+}
+.dxeMemo_Aqua td
+{
+	width: 100%;
+}
+
+/* -- Hyperlink -- */
+.dxeHyperlink_Aqua
+{
+    font-family: Tahoma;
+    font-size: 9pt;
+	font-weight: normal;    
+    color: #5689C5; 
+    text-decoration: underline;   
+}
+a:hover.dxeHyperlink_Aqua
+{
+    color: #F39128;
+    text-decoration: underline;   
+}
+a:visited.dxeHyperlink_Aqua
+{
+    color: #A1A1A1;
+    text-decoration: underline;   
+}
+/* -- ListBox -- */
+.dxeListBox_Aqua
+{
+	background-color: White;
+	border: Solid 1px #AECAF0;
+    font-family: Tahoma;
+    font-size: 9pt;
+    height: 113px;
+    width: 70px;
+    color: Black;
+}
+.dxeListBox_Aqua div.dxlbd
+{
+	padding-top: 1px;    
+    height: 112px;
+}
+.dxeListBoxItemRow_Aqua
+{
+    cursor: default;
+}
+.dxeListBoxItem_Aqua
+{    
+    border-bottom: Solid 1px #FFFFFF;
+    border-left: Solid 1px #FFFFFF;
+    border-right: Solid 1px #FFFFFF;
+    color: Black;        
+    font-family: Tahoma;
+    font-size: 9pt; 
+    font-weight: normal;           
+    padding: 4px 2px 4px 4px;
+    white-space: nowrap;
+    text-align: left;
+}
+.dxeListBox_Aqua td.dxeI, .dxeListBox_Aqua td.dxeIM, .dxeListBox_Aqua .dxeHIC
+{
+    border-right-width: 0px!important;
+}
+.dxeListBox_Aqua td.dxeIM
+{
+    width: 0;
+}
+.dxeListBox_Aqua td.dxeT 
+{
+    width: 100%;
+    border-left-width: 0px!important;
+    padding-left: 0px!important;
+}
+.dxeListBox_Aqua td.dxeFTM, .dxeListBox_Aqua td.dxeTM, .dxeListBox_Aqua td.dxeLTM, .dxeListBox_Aqua .dxeHFC, .dxeListBox_Aqua .dxeHC, .dxeListBox_Aqua .dxeHLC
+{
+    overflow: hidden;
+}
+.dxeListBox_Aqua td.dxeFTM, .dxeListBox_Aqua td.dxeTM
+{
+    border-right-width: 0px!important;
+}
+.dxeListBox_Aqua td.dxeFTM, .dxeListBox_Aqua td.dxeTM, .dxeListBox_Aqua .dxeHFC, .dxeListBox_Aqua .dxeHC
+{
+    padding-right: 6px!important;
+}
+.dxeListBox_Aqua td.dxeLTM, .dxeListBox_Aqua td.dxeTM, .dxeListBox_Aqua .dxeHC,  .dxeListBox_Aqua .dxeHLC
+{
+    padding-left: 6px!important;
+}
+.dxeListBox_Aqua td.dxeTM, .dxeListBox_Aqua td.dxeLTM
+{
+    border-left: 1px solid #BED6F6 !important;
+}
+.dxeListBox_Aqua td.dxeIM, .dxeListBox_Aqua td.dxeFTM, .dxeListBox_Aqua td.dxeTM, .dxeListBox_Aqua td.dxeLTM
+{
+    border-bottom: solid 1px #BED6F6;
+}
+
+.dxeListBoxItemHover_Aqua        /* inherits dxeListBoxItem */
+{
+    background-color: #FFE7A2;
+
+}
+.dxeListBoxItemSelected_Aqua     /* inherits dxeListBoxItem */
+{    
+    background-color: #FFAB3F;
+}
+
+/*Header*/
+.dxeListBox_Aqua .dxeHD
+{
+    background-color:#E2F0FF;
+    background-image:url(lbHeaderBackground.gif);
+    background-position:center top;
+    background-repeat:repeat-x;
+    border-bottom: solid 1px #AECAF0
+}
+.dxeListBox_Aqua .dxeHFC, .dxeListBox_Aqua .dxeHIC, .dxeListBox_Aqua .dxeHC,  .dxeListBox_Aqua .dxeHLC
+{
+    color: #283B56;
+    border-bottom-width: 0px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+.dxeListBox_Aqua .dxeHC,  .dxeListBox_Aqua .dxeHLC
+{
+    border-left: solid 1px #AECAF0
+}
+.dxeListBox_Aqua .dxeHIC, .dxeListBox_Aqua .dxeHFC
+{
+    border-left:1px solid #E2F0FF;
+}
+.dxeListBox_Aqua .dxeHFC, .dxeListBox_Aqua .dxeHC
+{
+    border-right-width:0;
+}
+.dxeListBox_Aqua .dxeHLC
+{
+    border-right: solid 1px #AECAF0;
+}
+
+/* -- Calendar -- */
+.dxeCalendar_Aqua
+{ 
+    border: solid 1px #A3C0E8;
+    background-color: #BEDAFF;
+	font-weight: normal;    
+}
+.dxeCalendar_Aqua td.dxMonthGrid 
+{
+    padding: 3px 22px 6px 21px;
+    cursor: default;
+    background-color: #FFFFFF;
+}
+.dxeCalendar_Aqua td.dxMonthGridWithWeekNumbers
+{
+    padding: 3px 19px 6px 7px;
+    cursor: default;
+    background-color: #FFFFFF;
+}
+.dxeCalendarDayHeader_Aqua
+{
+    font-family: Tahoma;
+    font-size: 9pt;        
+    padding: 3px 5px 6px 6px;
+    border-bottom: solid 1px #cfcfcf;
+}
+.dxeCalendarWeekNumber_Aqua
+{    
+    font-family: Tahoma;
+    font-size: 7pt;    
+    text-align: right;      
+    color: #8FBBE4;
+    padding: 3px 3px 2px 4px;
+}
+.dxeCalendarDay_Aqua
+{    
+    font-family: Tahoma;
+    font-size: 9pt;
+    text-align: center;    
+    padding: 4px 8px 5px 8px;
+}
+.dxeCalendarWeekend_Aqua        /* inherits dxeCalendarDay */
+{
+    color: #c00000;
+}
+.dxeCalendarOtherMonth_Aqua     /* inherits dxeCalendarDay */
+{
+    color: #888;
+}
+.dxeCalendarOutOfRange_Aqua     /* inherits dxeCalendarDay */
+{
+    color: #d0d0d0;    
+}
+.dxeCalendarSelected_Aqua       /* inherits dxeCalendarDay */
+{
+    color: #000000;
+    background-color: #FFE7A2;
+    border: solid 1px #FFBD69;
+}
+.dxeCalendarToday_Aqua         /* inherits dxeCalendarDay */
+{
+    color: #000000;
+    background-color: #FFBD69; 
+    border: solid 1px #FFAB3F;  
+}
+.dxeCalendarSelected_Aqua,     /* inherits dxeCalendarDay */
+.dxeCalendarToday_Aqua         /* inherits dxeCalendarDay */
+{
+    padding: 3px 7px 4px 7px;
+}
+.dxeCalendarHeader_Aqua
+{
+    color: #ffffff;    
+    background: #f27ba6 url('edtCalendarHeaderBack.gif') repeat-x top;
+    border-bottom: solid 1px #A3C0E8;
+    padding: 3px 3px;
+    margin: 10px;
+}
+.dxeCalendarHeader_Aqua td.dxe
+{
+    color: #15428B;        
+    font-family: Tahoma;
+    font-size: 9pt;
+    font-weight: bold;
+    text-align: center;
+	cursor: pointer;
+	cursor: hand;
+}
+.dxeCalendarFooter_Aqua 
+{
+    background-color: #C7DFFF;
+    background-image: url('edtCalendarFooterBack.gif');
+    background-repeat: repeat-x;
+    background-position: bottom;
+    padding: 11px 0px;    
+    padding-bottom: 8px;   
+    border-top: solid 1px #A3C0E8;
+}
+.dxeCalendarFastNav_Aqua
+{
+    color: #000000;
+    background: #FFFFFF;
+    border: Solid 1px #A3C0E8;
+    border-bottom: 0px;
+    padding: 12px 8px;
+}
+.dxeCalendarFastNavMonthArea_Aqua
+{
+    padding: 0px 9px;
+}
+.dxeCalendarFastNavYearArea_Aqua
+{    
+}
+.dxeCalendarFastNavFooter_Aqua
+{
+    color: #000000;
+	background-color:#C7DFFF;
+	background-image:url(edtCalendarFooterBack.gif);
+	background-position:center bottom;
+	background-repeat:repeat-x;
+    padding: 8px 0px;    
+    border: Solid 1px #A3C0E8;    
+    border-top: Solid 1px #AECAF0;        
+}
+.dxeCalendarFastNavMonth_Aqua, .dxeCalendarFastNavYear_Aqua
+{
+    font: normal 9pt Tahoma;
+    color: #000000;
+    padding: 3px 4px;
+    text-align: center;
+	cursor: pointer;
+	cursor: hand;
+	border: Solid 1px White;
+}
+.dxeCalendarFastNavMonth_Aqua
+{
+	padding: 5px;
+}
+.dxeCalendarFastNavMonthSelected_Aqua, .dxeCalendarFastNavYearSelected_Aqua
+{
+    color: #000000;
+    background-color: #FFBD69;
+    border: Solid 1px #FFAB3F;
+}
+
+.dxeCalendarFastNavMonthHover_Aqua, .dxeCalendarFastNavYearHover_Aqua
+{        
+    color: #000000;
+    background: #FFE7A2;
+    padding: 2px 4px;
+    border: Solid 1px #FFBD69;
+}
+.dxeCalendarFastNavMonthHover_Aqua
+{
+	padding: 5px;
+}
+/* Disabled */
+.dxeDisabled_Aqua, .dxeDisabled_Aqua td.dxe
+{
+	/*border:1px solid #CACACA;*/
+    color: #A6A6A6;
+    cursor: default;
+}
+a.dxeDisabled_Aqua, a.dxeDisabled_Aqua:hover
+{
+    color: #A6A6A6;
+}
+.dxeButtonDisabled_Aqua, .dxeButtonDisabled_Aqua td.dxe
+{
+    background: #F5F5F5 url(edtDropDownBackDis.gif) repeat-x center top;
+    border-color: #CFCFCF;
+    cursor: default;
+}
+/* -- Button -- */
+.dxbButton_Aqua
+{	
+    color: #2C4D79;   
+    font-size: 9pt;
+    font-family: Tahoma;				    
+	font-weight:normal;    
+    vertical-align: middle;	 		
+    border: solid 1px #A3C0E8;	
+    background: #E2F0FF url('edtButtonBack.gif') top;
+    background-repeat:repeat-x;
+    padding: 1px 1px 1px 1px;
+	cursor: pointer;
+	cursor: hand;
+}
+.dxbButtonHover_Aqua 
+{
+    color: #7E3C31;   
+    background: #FEDC75 url('edtButtonHoverBack.gif') top;
+    background-repeat: repeat-x;
+    border: solid 1px #D6A886;	    
+}
+.dxbButtonChecked_Aqua 
+{
+    color: #7E3C31;
+	background: #FFB46D url('edtButtonCheckedBack.gif') top;
+    background-repeat: repeat-x;	
+    border: solid 1px #CB9280;	        
+}
+.dxbButtonPressed_Aqua 
+{
+    color: #7E3C31;        
+    background: #FFB46D url('edtButtonPressedBack.gif') top;
+    background-repeat: repeat-x;    
+    border: solid 1px #CB9280;	        
+}
+.dxbButton_Aqua div.dxb
+{    
+    padding: 2px 10px 3px 10px;
+	border: 0px;
+}
+.dxbButton_Aqua div.dxbf
+{     
+    padding: 1px 9px 2px 9px;
+	border: dotted 1px #FFFFFF;		
+}
+.dxbButtonHover_Aqua div.dxbf
+{     
+    padding: 1px 9px 2px 9px;
+	border: dotted 1px #7E3C31!important;		
+}
+.dxbButton_Aqua div.dxbf
+{     
+    padding: 1px 9px 2px 9px;
+	border: dotted 1px #2C4D79;		
+}
+.dxbButton_Aqua div.dxb table
+{    
+    color: #2C4D79;   
+    font-size: 9pt;
+    font-family: Tahoma;				    
+	font-weight:normal;    
+}
+
+.dxbButtonChecked_Aqua div.dxb table
+{    
+   color: #7E3C31;
+}
+
+.dxbButton_Aqua div.dxb td.dxb
+{    
+    background-color: transparent!important;
+    background-image: url('')!important;
+    border-width: 0px!important;
+    padding: 0px!important;
+}
+/* Disabled */
+.dxbDisabled_Aqua
+{
+    background: #F3F3F3 url('edtButtonBackDis.gif') repeat-x top;
+    color: #C3C3C3;
+    border-color: #D2D2D2;
+    cursor: default;
+}
+
+.dxbDisabled_Aqua div.dxb table
+{    
+   color: #C3C3C3;
+}
+/* -- FilterControl -- */
+.dxfcTable_Aqua
+{
+	border-collapse: separate!important;
+}
+.dxfcTable_Aqua td.dxfc
+{
+	padding: 0px 0px 0px 3px;
+	vertical-align: middle;
+	font: 9pt Tahoma;
+	color: Black;	
+}
+a.dxfcPropertyName_Aqua
+{
+	white-space:nowrap!important;
+	color: Blue!important;
+}
+a.dxfcGroupType_Aqua
+{
+	white-space:nowrap!important;
+	padding:0px 3px 0px 3px!important;
+	color: Red!important;
+}
+a.dxfcOperation_Aqua
+{
+	white-space:nowrap!important;
+	color: Green!important;
+}
+a.dxfcValue_Aqua
+{
+	white-space:nowrap!important;
+	color: Gray!important;
+}
+.dxfcImageButton_Aqua 
+{
+	cursor: pointer;
+}
+.dxfcLoadingPanel_Aqua
+{
+}
+.dxfcLoadingPanel_Aqua td.dx
+{
+}
+.dxfcLoadingDiv_Aqua
+{
+	background: white;
+	opacity: 0.01;
+	filter: alpha(opacity=1);
+}
+
+.dxeMaskHint_Aqua
+{
+	background: #ffffe1;
+	border: solid 1px black;
+	padding: 2px 5px 3px;
+	color: Black;
+	font: 9pt Tahoma;
+}
+
+/* -- ProgressBar -- */
+.dxeProgressBar_Aqua, .dxeProgressBar_Aqua td
+{
+    font-family: Tahoma, Verdana, Arial;
+    font-size: 9pt;
+   	color: Black;
+}
+.dxeProgressBar_Aqua
+{
+    border: Solid 1px #A3C0E8;
+	background-image: url('edtProgressBack.gif');
+    background-repeat: repeat-x;
+    background-color: #f0f0f0;
+}
+.dxeProgressBarIndicator_Aqua
+{
+    background-color: #deedff;
+	background-image: url('edtProgressIndicatorBack.gif');
+    background-repeat: repeat-x;
+}

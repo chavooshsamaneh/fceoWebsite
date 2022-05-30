@@ -1,0 +1,146 @@
+﻿using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+using System.IO;
+public partial class Settlement_Amoozesh_TeacherJobHistoryInfo : System.Web.UI.Page
+{
+    #region Events
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (string.IsNullOrEmpty(Request.QueryString["PgMd"]) || string.IsNullOrEmpty(Request.QueryString["TeId"]))
+        {
+            Response.Redirect("Teachers.aspx");
+            return;
+        }
+
+        if (!IsPostBack)
+        {
+            SetKeys();
+        }
+        this.DivReport.Visible = false;
+        this.DivReport.Attributes.Add("onclick", "ChangeVisible(this)");
+        this.DivReport.Attributes.Add("onmouseover", "ChangeIcon(this)");
+    }
+
+    protected void btnBack_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("TeacherJobHistory.aspx?TeId=" + HiddenFieldTeacherJob["TeacherId"] + "&PgMd=" + HiddenFieldTeacherJob["PrePageMode"]);
+    }
+
+    protected void MenuTeacherInfo_ItemClick(object source, DevExpress.Web.MenuItemEventArgs e)
+    {
+        switch (e.Item.Name)
+        {
+            case "BasicInfo":
+                Response.Redirect("TeacherBasicInfo.aspx?TeId=" + HiddenFieldTeacherJob["TeacherId"].ToString() + "&PgMd=" + HiddenFieldTeacherJob["PrePageMode"]);
+                break;
+            case "ResearchAct":
+                Response.Redirect("TeacherResearchAct.aspx?=TeId=" + HiddenFieldTeacherJob["TeacherId"].ToString() + "&PgMd" + HiddenFieldTeacherJob["PrePageMode"].ToString());
+                break;
+            case "licence":
+                Response.Redirect("TeachersLicence.aspx?=TeId=" + HiddenFieldTeacherJob["TeacherId"].ToString() + "&PgMd" + HiddenFieldTeacherJob["PrePageMode"].ToString());
+                break;
+            case "Attach":
+                Response.Redirect("TeacherAttachment.aspx?TeId=" + HiddenFieldTeacherJob["TeacherId"].ToString());
+                break;            
+        }
+    }
+    #endregion
+
+    #region Methods
+
+    private void SetKeys()
+    {
+        HiddenFieldTeacherJob["TeacherId"] = Request.QueryString["TeId"].ToString();
+        HiddenFieldTeacherJob["PrePageMode"] = Request.QueryString["PrePageMode"];
+        HiddenFieldTeacherJob["PageMode"] = Request.QueryString["PgMd"];
+        HiddenFieldTeacherJob["TJobHistoryId"] = Request.QueryString["TJobHistoryId"];
+        string TeId = Utility.DecryptQS(HiddenFieldTeacherJob["TeacherId"].ToString());
+        string PageMode = Utility.DecryptQS(HiddenFieldTeacherJob["PageMode"].ToString());
+        string TJobHistoryId = Utility.DecryptQS(HiddenFieldTeacherJob["TJobHistoryId"].ToString());
+        TSP.DataManager.TeacherManager TeacherManager = new TSP.DataManager.TeacherManager();
+        TeacherManager.FindByCode(int.Parse(TeId));
+
+        if (TeacherManager.Count > 0)
+        {
+            RoundPanelTeacherJob.HeaderText = TeacherManager[0]["Name"].ToString() + " " + TeacherManager[0]["Family"].ToString();
+        }
+        else
+        {
+            Response.Redirect("Teachers.aspx");
+            return;
+        }
+        if (string.IsNullOrEmpty(PageMode))
+        {
+            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+            return;
+        }
+        linkAttachment.Visible = false;
+        lblAttachment.Visible = false;
+        SetMode(PageMode);
+    }
+
+    private void SetMode(string PageMode)
+    {
+        if (string.IsNullOrEmpty(PageMode))
+        {
+            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+            return;
+        }
+        switch (PageMode)
+        {
+            case "View":
+                SetViewModeKeys();
+                break;
+        }
+    }
+
+    private void SetViewModeKeys()
+    {
+        chbIsTeaching.Enabled = false;
+        string TJobHistoryId = Utility.DecryptQS(HiddenFieldTeacherJob["TJobHistoryId"].ToString());
+        FillForm(int.Parse(TJobHistoryId));
+
+        RoundPanelTeacherJob.HeaderText = "مشاهده";
+    }
+
+    private void FillForm(int TJobHistoryId)
+    {
+        TSP.DataManager.TeacherJobHistoryManager TeacherJobHistoryManager = new TSP.DataManager.TeacherJobHistoryManager();
+        TSP.DataManager.TeacherJudgmentManager TeacherJudgmentManager = new TSP.DataManager.TeacherJudgmentManager();
+        TSP.DataManager.TeachingGradeManager TeachingGradeManager = new TSP.DataManager.TeachingGradeManager();
+        TeacherJobHistoryManager.FindByCode(TJobHistoryId);
+
+        if (TeacherJobHistoryManager.Count > 0)
+        {
+            lblDescription.Text = TeacherJobHistoryManager[0]["Description"].ToString();
+            lblEndDate.Text = TeacherJobHistoryManager[0]["EndDate"].ToString();
+            lblJobName.Text = TeacherJobHistoryManager[0]["TJobName"].ToString();
+            lblJobPlace.Text = TeacherJobHistoryManager[0]["TJobPlace"].ToString();
+            lblStartDate.Text = TeacherJobHistoryManager[0]["StartDate"].ToString();
+            //cmbCountry.DataBind();
+            lblCity.Text = TeacherJobHistoryManager[0]["CitName"].ToString();
+           // cmbCountry.SelectedIndex = cmbCountry.Items.IndexOfValue(TeacherJobHistoryManager[0]["CounId"].ToString());
+            lblCountry.Text = TeacherJobHistoryManager[0]["CounName"].ToString();
+            chbIsTeaching.Checked = Boolean.Parse(TeacherJobHistoryManager[0]["IsTeaching"].ToString());
+            TSP.DataManager.AttachmentsManager AttachmentsManager = new TSP.DataManager.AttachmentsManager();
+            DataTable dtAttach = AttachmentsManager.FindByTablePrimaryKey((int)(TSP.DataManager.TableCodes.TeacherJobHistory), TJobHistoryId);
+            if (dtAttach.Rows.Count > 0)
+            {
+                string filePath = dtAttach.Rows[0]["FilePath"].ToString();
+                linkAttachment.Visible = true;
+                lblAttachment.Visible = true;
+                linkAttachment.Text = Path.GetFileName(filePath);
+                linkAttachment.NavigateUrl = filePath;
+            }           
+        }
+    }
+    #endregion
+}

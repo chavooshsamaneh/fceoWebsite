@@ -1,0 +1,774 @@
+﻿<%@ Page Language="C#" MasterPageFile="TSMasterPage.master" AutoEventWireup="true"
+    CodeFile="OffImpCapacityInfo.aspx.cs" Inherits="Office_TechnicalServices_Report_OffImpCapacityInfo"
+    Title="اطلاعات ظرفیت اجرا اعضای حقوقی" %>
+
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxm" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxhf" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxrp" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxp" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxe" %>
+
+<%@ Register Assembly="AjaxControls" Namespace="AjaxControls" TagPrefix="asp" %>
+<%@ Register Assembly="PersianDateControls 2.0" Namespace="PersianDateControls" TagPrefix="pdc" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxwgv" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxuc" %>
+<%@ Register Assembly="TSP.WebControls" Namespace="TSP.WebControls" TagPrefix="TSPControls" %>
+
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxcp" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+    <script type="text/javascript" language="javascript">
+        function ShowMessage(Message) {
+            document.getElementById("<%=DivReport.ClientID%>").style.visibility = 'visible';
+            document.getElementById("<%=DivReport.ClientID%>").style.display = 'inline';
+            document.getElementById('<%=LabelWarning.ClientID%>').innerHTML = Message;
+        }
+        function SearchKeyPress(e, Type) {
+            if (Type == 1)//DevExpress controls
+            {
+                if (e.htmlEvent.keyCode == 13) {
+                    btnSearch.DoClick();
+                }
+            }
+            else if (Type == 2)//asp controls
+            {
+                if (e.keyCode == 13)
+                    btnSearch.DoClick();
+            }
+        }
+    </script>
+    <pdc:PersianDateScriptManager ID="PersianDateScriptManager" runat="server" CalendarCSS="PickerCalendarCSS"
+        CalendarDayWidth="33" CalendarDayHeight="15" FooterCSS="PickerFooterCSS" ForbidenCSS="PickerForbidenCSS"
+        FrameCSS="PickerCSS" HeaderCSS="PickerHeaderCSS" SelectedCSS="PickerSelectedCSS"
+        WeekDayCSS="PickerWeekDayCSS" WorkDayCSS="PickerWorkDayCSS">
+    </pdc:PersianDateScriptManager>
+    <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+        <ContentTemplate>
+            <div align="right" id="DivReport" class="DivErrors" runat="server">
+                <asp:Label ID="LabelWarning" runat="server" Text="Label"></asp:Label>[<a class="closeLink"
+                    href="#">بستن</a>]</div>
+            <dxrp:ASPxRoundPanel ID="ASPxRoundPanel1" runat="server" Width="100%" ShowHeader="False"
+                 RightToLeft="True" BackColor="#EBF2F4"
+                >
+                <LeftEdge>
+                    <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif">
+                    </BackgroundImage>
+                </LeftEdge>
+                <BottomRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpBottomRightCorner.png">
+                </BottomRightCorner>
+                <HeaderContent>
+                    <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderBack.gif">
+                    </BackgroundImage>
+                </HeaderContent>
+                <ContentPaddings Padding="0px"></ContentPaddings>
+                <NoHeaderTopRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopRightCorner.png">
+                </NoHeaderTopRightCorner>
+                <RightEdge>
+                    <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif">
+                    </BackgroundImage>
+                </RightEdge>
+                <HeaderRightEdge>
+                    <BackgroundImage VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderRightEdge.gif">
+                    </BackgroundImage>
+                </HeaderRightEdge>
+                <Border BorderWidth="1px" BorderStyle="Solid" BorderColor="#7EACB1"></Border>
+                <HeaderStyle BackColor="White" Height="23px">
+                    <Paddings PaddingTop="0px" PaddingBottom="0px" PaddingLeft="2px"></Paddings>
+                    <BorderBottom BorderStyle="None"></BorderBottom>
+                </HeaderStyle>
+                <Content>
+                    <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpContentBack.gif">
+                    </BackgroundImage>
+                </Content>
+                <HeaderLeftEdge>
+                    <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderLeftEdge.gif">
+                    </BackgroundImage>
+                </HeaderLeftEdge>
+                <BottomEdge BackColor="#D7E9F1">
+                </BottomEdge>
+                <TopRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpTopRightCorner.png">
+                </TopRightCorner>
+                <NoHeaderTopLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopLeftCorner.png">
+                </NoHeaderTopLeftCorner>
+                <PanelCollection>
+                    <dxp:PanelContent runat="server">
+                        <div dir="rtl">
+                            <table style="display: block; overflow: hidden; border-collapse: collapse" cellpadding="0"
+                                width="100%" align="right">
+                                <tbody>
+                                    <tr>
+                                        <td style="vertical-align: top">
+                                            <table style="border-collapse: collapse; background-color: transparent" dir="rtl"
+                                                cellpadding="0" align="right">
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <TSPControls:CustomTextBox runat="server" Text=" "  ToolTip="چاپ"
+                                                                ID="btnPrint" UseSubmitBehavior="False" EnableViewState="False" EnableTheming="False"
+                                                                OnClick="btnPrint_Click">
+                                                                <HoverStyle BackColor="#FFE0C0">
+                                                                    <Border BorderWidth="1px" BorderStyle="Outset" BorderColor="Gray"></Border>
+                                                                </HoverStyle>
+                                                                <Image  Url="~/Images/icons/printers.png">
+                                                                </Image>
+                                                            </TSPControls:CustomTextBox>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </dxp:PanelContent>
+                </PanelCollection>
+                <TopLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpTopLeftCorner.png">
+                </TopLeftCorner>
+                <NoHeaderTopEdge BackColor="#EBF2F4">
+                </NoHeaderTopEdge>
+                <BottomLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpBottomLeftCorner.png">
+                </BottomLeftCorner>
+            </dxrp:ASPxRoundPanel>
+            <br />
+            <dxrp:ASPxRoundPanel ID="ASPxRoundPanelImp" runat="server" Width="100%" 
+                BackColor="#EBF2F4" RightToLeft="True"  HeaderText="اطلاعات ظرفیت اجرا"
+                HorizontalAlign="Right">
+                <LeftEdge>
+                    <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif">
+                    </BackgroundImage>
+                </LeftEdge>
+                <BottomRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpBottomRightCorner.png">
+                </BottomRightCorner>
+                <HeaderContent>
+                    <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderBack.gif">
+                    </BackgroundImage>
+                </HeaderContent>
+                <ContentPaddings PaddingTop="10px" PaddingBottom="10px" PaddingLeft="4px"></ContentPaddings>
+                <NoHeaderTopRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopRightCorner.png">
+                </NoHeaderTopRightCorner>
+                <RightEdge>
+                    <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif">
+                    </BackgroundImage>
+                </RightEdge>
+                <HeaderRightEdge>
+                    <BackgroundImage VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderRightEdge.gif">
+                    </BackgroundImage>
+                </HeaderRightEdge>
+                <Border BorderWidth="1px" BorderStyle="Solid" BorderColor="#7EACB1"></Border>
+                <HeaderStyle HorizontalAlign="Right" BackColor="White" Height="23px">
+                    <Paddings PaddingTop="0px" PaddingBottom="0px" PaddingLeft="2px"></Paddings>
+                    <BorderBottom BorderStyle="None"></BorderBottom>
+                </HeaderStyle>
+                <Content>
+                    <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpContentBack.gif">
+                    </BackgroundImage>
+                </Content>
+                <HeaderLeftEdge>
+                    <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderLeftEdge.gif">
+                    </BackgroundImage>
+                </HeaderLeftEdge>
+                <BottomEdge BackColor="#D7E9F1">
+                </BottomEdge>
+                <TopRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpTopRightCorner.png">
+                </TopRightCorner>
+                <NoHeaderTopLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopLeftCorner.png">
+                </NoHeaderTopLeftCorner>
+                <PanelCollection>
+                    <dxp:PanelContent runat="server">
+                        <table dir="rtl" width="100%">
+                            <tr>
+                                <td>
+                                    <dxrp:ASPxRoundPanel ID="ASPxRoundPanel2" runat="server" BackColor="#EBF2F4" 
+                                         RightToLeft="True" HeaderText="اطلاعات عضو حقوقی" Width="100%">
+                                        <HeaderRightEdge>
+                                            <BackgroundImage VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderRightEdge.gif">
+                                            </BackgroundImage>
+                                        </HeaderRightEdge>
+                                        <RightEdge>
+                                            <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif">
+                                            </BackgroundImage>
+                                        </RightEdge>
+                                        <Border BorderColor="#7EACB1" BorderStyle="Solid" BorderWidth="1px"></Border>
+                                        <HeaderLeftEdge>
+                                            <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderLeftEdge.gif">
+                                            </BackgroundImage>
+                                        </HeaderLeftEdge>
+                                        <NoHeaderTopRightCorner Height="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopRightCorner.png"
+                                            Width="5px">
+                                        </NoHeaderTopRightCorner>
+                                        <ContentPaddings PaddingBottom="10px" PaddingLeft="4px" PaddingTop="10px"></ContentPaddings>
+                                        <TopLeftCorner Height="5px" Url="~/App_Themes/Glass/Web/rpTopLeftCorner.png" Width="5px">
+                                        </TopLeftCorner>
+                                        <BottomEdge BackColor="#D7E9F1">
+                                        </BottomEdge>
+                                        <BottomRightCorner Height="5px" Url="~/App_Themes/Glass/Web/rpBottomRightCorner.png"
+                                            Width="5px">
+                                        </BottomRightCorner>
+                                        <NoHeaderTopEdge BackColor="#EBF2F4">
+                                        </NoHeaderTopEdge>
+                                        <PanelCollection>
+                                            <dxp:PanelContent runat="server">
+                                                <table dir="rtl" width="100%">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td valign="top" align="right" width="25%">
+                                                                <dxe:ASPxLabel runat="server" Text="نام شرکت" ID="ASPxLabel2">
+                                                                </dxe:ASPxLabel>
+                                                            </td>
+                                                            <td valign="top" align="right" width="25%">
+                                                                <dxe:ASPxLabel runat="server" Text="- - -" ID="ASPxTextBoxOfName" Font-Bold="true">
+                                                                </dxe:ASPxLabel>
+                                                            </td>
+                                                            <td valign="top" align="right" width="25%">
+                                                                <dxe:ASPxLabel runat="server" Text="نام مدیر مسئول" ID="ASPxLabel3">
+                                                                </dxe:ASPxLabel>
+                                                            </td>
+                                                            <td valign="top" align="right" width="25%">
+                                                                <dxe:ASPxLabel runat="server" Text="- - -" ID="ASPxTextBoxMName" Font-Bold="true">
+                                                                </dxe:ASPxLabel>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td valign="top" align="right">
+                                                                <dxe:ASPxLabel runat="server" Text="شماره ثبت" ID="ASPxLabel4">
+                                                                </dxe:ASPxLabel>
+                                                            </td>
+                                                            <td valign="top" align="right" dir="ltr">
+                                                                <dxe:ASPxLabel runat="server" Text="- - -" ID="ASPxTextBoxRegOfNo" Font-Bold="true">
+                                                                </dxe:ASPxLabel>
+                                                            </td>
+                                                            <td valign="top" align="right">
+                                                                <dxe:ASPxLabel runat="server" Text="شماره پروانه" ID="ASPxLabel5">
+                                                                </dxe:ASPxLabel>
+                                                            </td>
+                                                            <td valign="top" align="right" dir="ltr">
+                                                                <dxe:ASPxLabel runat="server" Text="- - -" ID="ASPxTextBoxFileNo" Font-Bold="true">
+                                                                </dxe:ASPxLabel>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td valign="top" align="right">
+                                                                <dxe:ASPxLabel runat="server" Text="نوع پروانه" ID="ASPxLabel6">
+                                                                </dxe:ASPxLabel>
+                                                            </td>
+                                                            <td valign="top" align="right">
+                                                                <dxe:ASPxLabel runat="server" Text="- - -" ID="ASPxTextBoxMFTypeName" Font-Bold="true">
+                                                                </dxe:ASPxLabel>
+                                                            </td>
+                                                            <td valign="top" align="right">
+                                                                <dxe:ASPxLabel runat="server" Text="پایه" ID="ASPxLabel23">
+                                                                </dxe:ASPxLabel>
+                                                            </td>
+                                                            <td valign="top" align="right">
+                                                                <dxe:ASPxLabel runat="server" Text="- - -" ID="ASPxTextBoxGrade" Font-Bold="true">
+                                                                </dxe:ASPxLabel>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td valign="top" align="right">
+                                                                <dxe:ASPxLabel runat="server" Text="نوع اعضای اصلی" ID="ASPxLabel24">
+                                                                </dxe:ASPxLabel>
+                                                            </td>
+                                                            <td valign="top" align="right">
+                                                                <dxe:ASPxLabel runat="server" Text="- - -" ID="ASPxTextBoxGrdType" Font-Bold="true">
+                                                                </dxe:ASPxLabel>
+                                                            </td>
+                                                            <td valign="top" align="right">
+                                                            </td>
+                                                            <td valign="top" align="right">
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </dxp:PanelContent>
+                                        </PanelCollection>
+                                        <NoHeaderTopLeftCorner Height="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopLeftCorner.png"
+                                            Width="5px">
+                                        </NoHeaderTopLeftCorner>
+                                        <HeaderStyle BackColor="White" Height="23px" HorizontalAlign="Right">
+                                            <Paddings PaddingTop="0px" PaddingBottom="0px" PaddingLeft="2px"></Paddings>
+                                            <BorderBottom BorderStyle="None"></BorderBottom>
+                                        </HeaderStyle>
+                                        <Content>
+                                            <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpContentBack.gif">
+                                            </BackgroundImage>
+                                        </Content>
+                                        <LeftEdge>
+                                            <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif">
+                                            </BackgroundImage>
+                                        </LeftEdge>
+                                        <TopRightCorner Height="5px" Url="~/App_Themes/Glass/Web/rpTopRightCorner.png" Width="5px">
+                                        </TopRightCorner>
+                                        <BottomLeftCorner Height="5px" Url="~/App_Themes/Glass/Web/rpBottomLeftCorner.png"
+                                            Width="5px">
+                                        </BottomLeftCorner>
+                                        <HeaderContent>
+                                            <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderBack.gif">
+                                            </BackgroundImage>
+                                        </HeaderContent>
+                                    </dxrp:ASPxRoundPanel>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <dxrp:ASPxRoundPanel runat="server" ID="ASPxRoundPanelCapacity" 
+                                        Width="100%" RightToLeft="True" HeaderText="ظرفیت کل" BackColor="#EBF2F4" >
+                                        <HeaderRightEdge>
+                                            <BackgroundImage VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderRightEdge.gif">
+                                            </BackgroundImage>
+                                        </HeaderRightEdge>
+                                        <RightEdge>
+                                            <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif">
+                                            </BackgroundImage>
+                                        </RightEdge>
+                                        <Border BorderWidth="1px" BorderStyle="Solid" BorderColor="#7EACB1"></Border>
+                                        <HeaderLeftEdge>
+                                            <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderLeftEdge.gif">
+                                            </BackgroundImage>
+                                        </HeaderLeftEdge>
+                                        <NoHeaderTopRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopRightCorner.png">
+                                        </NoHeaderTopRightCorner>
+                                        <ContentPaddings PaddingTop="10px" PaddingBottom="10px" PaddingLeft="4px"></ContentPaddings>
+                                        <TopLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpTopLeftCorner.png">
+                                        </TopLeftCorner>
+                                        <BottomEdge BackColor="#D7E9F1">
+                                        </BottomEdge>
+                                        <BottomRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpBottomRightCorner.png">
+                                        </BottomRightCorner>
+                                        <NoHeaderTopEdge BackColor="#EBF2F4">
+                                        </NoHeaderTopEdge>
+                                        <PanelCollection>
+                                            <dxp:PanelContent runat="server">
+                                                <table dir="rtl" width="100%">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td valign="top" align="right" width="25%">
+                                                                <dxe:ASPxLabel runat="server" Text="ظرفیت کل" ID="ASPxLabel25">
+                                                                </dxe:ASPxLabel>
+                                                            </td>
+                                                            <td valign="top" align="right" width="25%">
+                                                                <dxe:ASPxLabel runat="server" Text="- - -" ID="ASPxTextBoxImpTotalCapacity" Font-Bold="true">
+                                                                </dxe:ASPxLabel>
+                                                            </td>
+                                                            <td valign="top" align="right" width="25%">
+                                                                <dxe:ASPxLabel runat="server" Text="حداکثر تعداد کار" ID="ASPxLabel17">
+                                                                </dxe:ASPxLabel>
+                                                            </td>
+                                                            <td valign="top" align="right" width="25%">
+                                                                <dxe:ASPxLabel runat="server" Text="- - -" ID="ASPxTextBoxImpMaxJobCount" Font-Bold="true">
+                                                                </dxe:ASPxLabel>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td valign="top" align="right">
+                                                                <dxe:ASPxLabel runat="server" Text="تعداد پروژه های در دست اجرا" ID="ASPxLabel21">
+                                                                </dxe:ASPxLabel>
+                                                            </td>
+                                                            <td valign="top" align="right">
+                                                                <dxe:ASPxLabel runat="server" Text="- - -" ID="ASPxTextBoxImpProjectCount" Font-Bold="true">
+                                                                </dxe:ASPxLabel>
+                                                            </td>
+                                                            <td valign="top" align="right">
+                                                                <dxe:ASPxLabel runat="server" Text="کل کارکرد" ID="ASPxLabel20">
+                                                                </dxe:ASPxLabel>
+                                                            </td>
+                                                            <td valign="top" align="right">
+                                                                <dxe:ASPxLabel runat="server" Text="- - -" ID="ASPxTextBoxImpTotalUsed" Font-Bold="true">
+                                                                </dxe:ASPxLabel>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td valign="top" align="right">
+                                                                <dxe:ASPxLabel runat="server" Text="حداکثر تعداد طبقات" ID="ASPxLabel13">
+                                                                </dxe:ASPxLabel>
+                                                            </td>
+                                                            <td valign="top" align="right">
+                                                                <dxe:ASPxLabel runat="server" Text="- - -" ID="ASPxTextBoxImpMaxFloor" Font-Bold="true">
+                                                                </dxe:ASPxLabel>
+                                                            </td>
+                                                            <td valign="top" align="right">
+                                                                <dxe:ASPxLabel runat="server" Text="کل رزرو شده" ID="LableImpReserved">
+                                                                </dxe:ASPxLabel>
+                                                            </td>
+                                                            <td valign="top" align="right">
+                                                                <dxe:ASPxLabel runat="server" Text="- - -" ID="ASPxTextBoxImpReserve" Font-Bold="true">
+                                                                </dxe:ASPxLabel>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td valign="top" align="right">
+                                                                <dxe:ASPxLabel runat="server" Text="کاهش/افزایش ظرفیت" ID="ASPxLabel1">
+                                                                </dxe:ASPxLabel>
+                                                            </td>
+                                                            <td valign="top" align="right">
+                                                                <dxe:ASPxLabel runat="server" Text="- - -" ID="ASPxTextBoxConditionalCapacity" Font-Bold="true">
+                                                                </dxe:ASPxLabel>
+                                                            </td>
+                                                            <td valign="top" align="right">
+                                                                <dxe:ASPxLabel runat="server" Text="ظرفیت باقیمانده" ID="LabelImpRemain">
+                                                                </dxe:ASPxLabel>
+                                                            </td>
+                                                            <td valign="top" align="right">
+                                                                <dxe:ASPxLabel runat="server" Text="- - -" ID="ASPxTextBoxImpRemainCapacity" Font-Bold="true">
+                                                                </dxe:ASPxLabel>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td valign="top" align="center" colspan="4">
+                                                                <TSPControls:CustomAspxDevGridView2 runat="server" Width="100%" ID="CustomAspxDevGridViewMembers"
+                                                                    KeyFieldName="MeId" Caption="اعضای شركت">
+                                                                    <Settings ShowHorizontalScrollBar="true"></Settings>
+                                                                    <Columns>
+                                                                        <dxwgv:GridViewDataTextColumn VisibleIndex="0" FieldName="MeId" Caption="کد عضویت"
+                                                                            Name="MeId">
+                                                                        </dxwgv:GridViewDataTextColumn>
+                                                                        <dxwgv:GridViewDataTextColumn VisibleIndex="1" Width="150px" FieldName="MeName" Caption="نام"
+                                                                            Name="MeName">
+                                                                        </dxwgv:GridViewDataTextColumn>
+                                                                        <dxwgv:GridViewDataComboBoxColumn FieldName="MjId" Width="150px" Caption="رشته" VisibleIndex="2">
+                                                                            <CellStyle HorizontalAlign="Right">
+                                                                            </CellStyle>
+                                                                            <PropertiesComboBox ValueType="System.String" TextField="MjName" DataSourceID="ObjectDataSourceMajor"
+                                                                                ValueField="MjId">
+                                                                            </PropertiesComboBox>
+                                                                        </dxwgv:GridViewDataComboBoxColumn>
+                                                                        <dxwgv:GridViewDataComboBoxColumn FieldName="GrdId" Caption="پایه" Name="GrdId" VisibleIndex="3">
+                                                                            <CellStyle HorizontalAlign="Center">
+                                                                            </CellStyle>
+                                                                            <PropertiesComboBox ValueType="System.String" TextField="GrdName" DataSourceID="ObjectDataSourceGrade"
+                                                                                ValueField="GrdId">
+                                                                            </PropertiesComboBox>
+                                                                        </dxwgv:GridViewDataComboBoxColumn>
+                                                                        <dxwgv:GridViewDataTextColumn VisibleIndex="4" FieldName="GrdType" Caption="نوع"
+                                                                            Name="GrdType">
+                                                                        </dxwgv:GridViewDataTextColumn>
+                                                                        <dxwgv:GridViewDataTextColumn VisibleIndex="5" FieldName="OfpName" Caption="سمت"
+                                                                            Name="OfpName">
+                                                                        </dxwgv:GridViewDataTextColumn>
+                                                                        <dxwgv:GridViewDataTextColumn VisibleIndex="6" FieldName="Value" Caption="امتیاز"
+                                                                            Name="Value">
+                                                                        </dxwgv:GridViewDataTextColumn>
+                                                                        <dxwgv:GridViewDataCheckColumn VisibleIndex="7" FieldName="MainMember" Caption="عضو اصلی"
+                                                                            Name="MainMember">
+                                                                        </dxwgv:GridViewDataCheckColumn>
+                                                                    </Columns>
+                                                                </TSPControls:CustomAspxDevGridView2>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </dxp:PanelContent>
+                                        </PanelCollection>
+                                        <NoHeaderTopLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopLeftCorner.png">
+                                        </NoHeaderTopLeftCorner>
+                                        <HeaderStyle HorizontalAlign="Right" BackColor="White" Height="23px">
+                                            <Paddings PaddingTop="0px" PaddingBottom="0px" PaddingLeft="2px"></Paddings>
+                                            <BorderBottom BorderStyle="None"></BorderBottom>
+                                        </HeaderStyle>
+                                        <Content>
+                                            <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpContentBack.gif">
+                                            </BackgroundImage>
+                                        </Content>
+                                        <LeftEdge>
+                                            <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif">
+                                            </BackgroundImage>
+                                        </LeftEdge>
+                                        <TopRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpTopRightCorner.png">
+                                        </TopRightCorner>
+                                        <BottomLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpBottomLeftCorner.png">
+                                        </BottomLeftCorner>
+                                        <HeaderContent>
+                                            <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderBack.gif">
+                                            </BackgroundImage>
+                                        </HeaderContent>
+                                    </dxrp:ASPxRoundPanel>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <dxrp:ASPxRoundPanel runat="server" ID="ASPxRoundPanelCapacityAssignment" 
+                                        Width="100%" RightToLeft="True" HeaderText="اختصاص ظرفیت" BackColor="#EBF2F4"
+                                        >
+                                        <HeaderRightEdge>
+                                            <BackgroundImage VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderRightEdge.gif">
+                                            </BackgroundImage>
+                                        </HeaderRightEdge>
+                                        <RightEdge>
+                                            <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif">
+                                            </BackgroundImage>
+                                        </RightEdge>
+                                        <Border BorderWidth="1px" BorderStyle="Solid" BorderColor="#7EACB1"></Border>
+                                        <HeaderLeftEdge>
+                                            <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderLeftEdge.gif">
+                                            </BackgroundImage>
+                                        </HeaderLeftEdge>
+                                        <NoHeaderTopRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopRightCorner.png">
+                                        </NoHeaderTopRightCorner>
+                                        <ContentPaddings PaddingTop="10px" PaddingBottom="10px" PaddingLeft="4px"></ContentPaddings>
+                                        <TopLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpTopLeftCorner.png">
+                                        </TopLeftCorner>
+                                        <BottomEdge BackColor="#D7E9F1">
+                                        </BottomEdge>
+                                        <BottomRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpBottomRightCorner.png">
+                                        </BottomRightCorner>
+                                        <NoHeaderTopEdge BackColor="#EBF2F4">
+                                        </NoHeaderTopEdge>
+                                        <PanelCollection>
+                                            <dxp:PanelContent runat="server">
+                                                <table dir="rtl" width="100%">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td valign="top" align="right" width="25%">
+                                                                <dxe:ASPxLabel runat="server" Text="سال" ID="ASPxLabel14">
+                                                                </dxe:ASPxLabel>
+                                                            </td>
+                                                            <td valign="top" align="right" width="25%">
+                                                                <dxe:ASPxLabel runat="server" Text="- - -" ID="ASPxTextBoxCAImpYear" Font-Bold="true">
+                                                                </dxe:ASPxLabel>
+                                                            </td>
+                                                            <td valign="top" align="right" width="25%">
+                                                                <dxe:ASPxLabel runat="server" Text="مرحله" ID="ASPxLabel16">
+                                                                </dxe:ASPxLabel>
+                                                            </td>
+                                                            <td valign="top" align="right" width="25%">
+                                                                <dxe:ASPxLabel runat="server" Text="- - -" ID="ASPxTextBoxCAImpStage" Font-Bold="true">
+                                                                </dxe:ASPxLabel>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td valign="top" align="right">
+                                                                <dxe:ASPxLabel runat="server" Text="درصد ظرفیت" ID="ASPxLabel18">
+                                                                </dxe:ASPxLabel>
+                                                            </td>
+                                                            <td valign="top" align="right">
+                                                                <dxe:ASPxLabel runat="server" Text="- - -" ID="ASPxTextBoxCAImpCapacityPrcnt" Font-Bold="true">
+                                                                </dxe:ASPxLabel>
+                                                            </td>
+                                                            <td valign="top" align="right">
+                                                                <dxe:ASPxLabel runat="server" Text="درصد تعداد کار" ID="ASPxLabel19">
+                                                                </dxe:ASPxLabel>
+                                                            </td>
+                                                            <td valign="top" align="right">
+                                                                <dxe:ASPxLabel runat="server" Text="- - -" ID="ASPxTextBoxCAImpJobCountPrcnt" Font-Bold="true">
+                                                                </dxe:ASPxLabel>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td valign="top" align="right">
+                                                                <dxe:ASPxLabel runat="server" Text="ظرفیت کل" ID="ASPxLabel7">
+                                                                </dxe:ASPxLabel>
+                                                            </td>
+                                                            <td valign="top" align="right">
+                                                                <dxe:ASPxLabel runat="server" Text="- - -" ID="ASPxTextBoxCAImpTotalCapacity" Font-Bold="true">
+                                                                </dxe:ASPxLabel>
+                                                            </td>
+                                                            <td valign="top" align="right">
+                                                                <dxe:ASPxLabel runat="server" Text="حداکثر تعداد کار" ID="ASPxLabel8">
+                                                                </dxe:ASPxLabel>
+                                                            </td>
+                                                            <td valign="top" align="right">
+                                                                <dxe:ASPxLabel runat="server" Text="- - -" ID="ASPxTextBoxCAImpMaxJobCount" Font-Bold="true">
+                                                                </dxe:ASPxLabel>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td valign="top" align="right">
+                                                                <dxe:ASPxLabel runat="server" Text="حداکثر تعداد طبقات" ID="ASPxLabel22">
+                                                                </dxe:ASPxLabel>
+                                                            </td>
+                                                            <td valign="top" align="right">
+                                                                <dxe:ASPxLabel runat="server" Text="- - -" ID="ASPxTextBoxCAImpMaxFloor" Font-Bold="true">
+                                                                </dxe:ASPxLabel>
+                                                            </td>
+                                                            <td valign="top" align="right">
+                                                                <dxe:ASPxLabel runat="server" Text="کل کارکرد" ID="ASPxLabel10">
+                                                                </dxe:ASPxLabel>
+                                                            </td>
+                                                            <td valign="top" align="right">
+                                                                <dxe:ASPxLabel runat="server" Text="- - -" ID="ASPxTextBoxCAImpTotalUsed" Font-Bold="true">
+                                                                </dxe:ASPxLabel>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td valign="top" align="right">
+                                                                <dxe:ASPxLabel runat="server" Text="تعداد پروژه های در دست اجرا" ID="ASPxLabel9">
+                                                                </dxe:ASPxLabel>
+                                                            </td>
+                                                            <td valign="top" align="right">
+                                                                <dxe:ASPxLabel runat="server" Text="- - -" ID="ASPxTextBoxCAImpProjectCount" Font-Bold="true">
+                                                                </dxe:ASPxLabel>
+                                                            </td>
+                                                            <td valign="top" align="right">
+                                                                <dxe:ASPxLabel runat="server" Text="کاهش/افزایش ظرفیت" ID="ASPxLabel15">
+                                                                </dxe:ASPxLabel>
+                                                            </td>
+                                                            <td valign="top" align="right">
+                                                                <dxe:ASPxLabel runat="server" Text="- - -" ID="ASPxTextBoxCAImpConditionalCapacity"
+                                                                    Font-Bold="true">
+                                                                </dxe:ASPxLabel>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td valign="top" align="right">
+                                                                <dxe:ASPxLabel runat="server" Text="ظرفیت باقیمانده" ID="ASPxLabel12">
+                                                                </dxe:ASPxLabel>
+                                                            </td>
+                                                            <td valign="top" align="right">
+                                                                <dxe:ASPxLabel runat="server" Text="- - -" ID="ASPxTextBoxCAImpRemainCapacity" Font-Bold="true">
+                                                                </dxe:ASPxLabel>
+                                                            </td>
+                                                            <td valign="top" align="right">
+                                                            </td>
+                                                            <td valign="top" align="right">
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </dxp:PanelContent>
+                                        </PanelCollection>
+                                        <NoHeaderTopLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopLeftCorner.png">
+                                        </NoHeaderTopLeftCorner>
+                                        <HeaderStyle HorizontalAlign="Right" BackColor="White" Height="23px">
+                                            <Paddings PaddingTop="0px" PaddingBottom="0px" PaddingLeft="2px"></Paddings>
+                                            <BorderBottom BorderStyle="None"></BorderBottom>
+                                        </HeaderStyle>
+                                        <Content>
+                                            <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpContentBack.gif">
+                                            </BackgroundImage>
+                                        </Content>
+                                        <LeftEdge>
+                                            <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif">
+                                            </BackgroundImage>
+                                        </LeftEdge>
+                                        <TopRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpTopRightCorner.png">
+                                        </TopRightCorner>
+                                        <BottomLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpBottomLeftCorner.png">
+                                        </BottomLeftCorner>
+                                        <HeaderContent>
+                                            <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderBack.gif">
+                                            </BackgroundImage>
+                                        </HeaderContent>
+                                    </dxrp:ASPxRoundPanel>
+                                </td>
+                            </tr>
+                        </table>
+                    </dxp:PanelContent>
+                </PanelCollection>
+                <TopLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpTopLeftCorner.png">
+                </TopLeftCorner>
+                <NoHeaderTopEdge BackColor="#EBF2F4">
+                </NoHeaderTopEdge>
+                <BottomLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpBottomLeftCorner.png">
+                </BottomLeftCorner>
+            </dxrp:ASPxRoundPanel>
+            <br />
+            <dxrp:ASPxRoundPanel ID="ASPxRoundPanel3" runat="server" Width="100%" ShowHeader="False"
+                 RightToLeft="True" BackColor="#EBF2F4"
+                >
+                <LeftEdge>
+                    <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif">
+                    </BackgroundImage>
+                </LeftEdge>
+                <BottomRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpBottomRightCorner.png">
+                </BottomRightCorner>
+                <HeaderContent>
+                    <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderBack.gif">
+                    </BackgroundImage>
+                </HeaderContent>
+                <ContentPaddings Padding="0px"></ContentPaddings>
+                <NoHeaderTopRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopRightCorner.png">
+                </NoHeaderTopRightCorner>
+                <RightEdge>
+                    <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif">
+                    </BackgroundImage>
+                </RightEdge>
+                <HeaderRightEdge>
+                    <BackgroundImage VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderRightEdge.gif">
+                    </BackgroundImage>
+                </HeaderRightEdge>
+                <Border BorderWidth="1px" BorderStyle="Solid" BorderColor="#7EACB1"></Border>
+                <HeaderStyle BackColor="White" Height="23px">
+                    <Paddings PaddingTop="0px" PaddingBottom="0px" PaddingLeft="2px"></Paddings>
+                    <BorderBottom BorderStyle="None"></BorderBottom>
+                </HeaderStyle>
+                <Content>
+                    <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpContentBack.gif">
+                    </BackgroundImage>
+                </Content>
+                <HeaderLeftEdge>
+                    <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderLeftEdge.gif">
+                    </BackgroundImage>
+                </HeaderLeftEdge>
+                <BottomEdge BackColor="#D7E9F1">
+                </BottomEdge>
+                <TopRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpTopRightCorner.png">
+                </TopRightCorner>
+                <NoHeaderTopLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopLeftCorner.png">
+                </NoHeaderTopLeftCorner>
+                <PanelCollection>
+                    <dxp:PanelContent runat="server">
+                        <div dir="rtl">
+                            <table cellpadding="0" width="100%" align="right">
+                                <tbody>
+                                    <tr>
+                                        <td style="vertical-align: top" align="right">
+                                            <table style="border-collapse: collapse; background-color: transparent" dir="rtl"
+                                                cellpadding="0" align="right">
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <TSPControls:CustomTextBox runat="server" Text=" "  ToolTip="چاپ"
+                                                                ID="btnPrint2" UseSubmitBehavior="False" EnableViewState="False" EnableTheming="False"
+                                                                OnClick="btnPrint_Click">
+                                                                <HoverStyle BackColor="#FFE0C0">
+                                                                    <Border BorderWidth="1px" BorderStyle="Outset" BorderColor="Gray"></Border>
+                                                                </HoverStyle>
+                                                                <Image  Url="~/Images/icons/printers.png">
+                                                                </Image>
+                                                            </TSPControls:CustomTextBox>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </dxp:PanelContent>
+                </PanelCollection>
+                <TopLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpTopLeftCorner.png">
+                </TopLeftCorner>
+                <NoHeaderTopEdge BackColor="#EBF2F4">
+                </NoHeaderTopEdge>
+                <BottomLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpBottomLeftCorner.png">
+                </BottomLeftCorner>
+            </dxrp:ASPxRoundPanel>
+            </div>
+        </ContentTemplate>
+    </asp:UpdatePanel>
+    <asp:ModalUpdateProgress ID="ModalUpdateProgress2" runat="server" DisplayAfter="0"
+        AssociatedUpdatePanelID="UpdatePanel1" BackgroundCssClass="modalProgressGreyBackground">
+        <ProgressTemplate>
+            <div class="modalPopup" style="font-family: Tahoma; font-size: 9pt">
+                <img alt="" id="IMG1" src="../../../Image/indicator.gif" align="middle" />
+                لطفا صبر نمایید ...</div>
+        </ProgressTemplate>
+    </asp:ModalUpdateProgress>
+    <asp:ObjectDataSource ID="ObjectDataSourceOfficeMembers" runat="server"></asp:ObjectDataSource>
+    <asp:ObjectDataSource ID="ObjectDataSourceMajor" runat="server" SelectMethod="FindMjParents"
+        TypeName="TSP.DataManager.MajorManager"></asp:ObjectDataSource>
+    <asp:ObjectDataSource ID="ObjectDataSourceGrade" runat="server" SelectMethod="GetData"
+        TypeName="TSP.DataManager.GradeManager"></asp:ObjectDataSource>
+    <asp:ObjectDataSource ID="ObjectDataSourceYear" runat="server" SelectMethod="SelectYears"
+        TypeName="TSP.DataManager.TechnicalServices.CapacityAssignmentManager"></asp:ObjectDataSource>
+</asp:Content>

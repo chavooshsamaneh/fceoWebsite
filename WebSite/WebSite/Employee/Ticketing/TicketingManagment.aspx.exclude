@@ -1,0 +1,435 @@
+﻿<%@ Page Title="مدیریت درخواستهای پشتیبانی" Language="C#" MasterPageFile="~/MasterPagePortals.master" AutoEventWireup="true" CodeFile="TicketingManagment.aspx.cs" Inherits="Employee_Ticketing_TicketingManagment" %>
+
+<%@ Register Src="../../UserControl/WFUserControl.ascx" TagName="WFUserControl" TagPrefix="uc1" %>
+<%@ Register Assembly="DevExpress.Web.ASPxGridView.v11.2.Export, Version=11.2.10.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web.ASPxGridView.Export" TagPrefix="dxwgv" %>
+<%@ Register Assembly="DevExpress.Web.v11.2, Version=11.2.10.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web.ASPxHiddenField" TagPrefix="dxhf" %>
+<%@ Register Assembly="DevExpress.Web.v11.2, Version=11.2.10.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web.ASPxCallbackPanel" TagPrefix="dxcp" %>
+<%@ Register Assembly="DevExpress.Web.ASPxEditors.v11.2, Version=11.2.10.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web.ASPxEditors" TagPrefix="dxe" %>
+<%@ Register Assembly="DevExpress.Web.v11.2, Version=11.2.10.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web.ASPxPanel" TagPrefix="dxp" %>
+<%@ Register Assembly="TSP.WebControls" Namespace="TSP.WebControls" TagPrefix="TSPControls" %>
+<%@ Register Assembly="DevExpress.Web.ASPxGridView.v11.2, Version=11.2.10.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web.ASPxGridView" TagPrefix="dxwgv" %>
+<%@ Register Assembly="PersianDateControls 2.0" Namespace="PersianDateControls" TagPrefix="pdc" %>
+<%@ Register Assembly="DevExpress.Web.v11.2, Version=11.2.10.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web.ASPxMenu" TagPrefix="dxm" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+  <%--   <script type="text/javascript" language="javascript">
+        function SearchKeyPress(e, Type) {
+            if (Type == 1)//DevExpress controls
+            {
+                if (e.htmlEvent.keyCode == 13) {
+                    btnSearch.DoClick();
+                }
+            }
+            else if (Type == 2)//asp controls
+            {
+                if (e.keyCode == 13)
+                    btnSearch.DoClick();
+            }
+        }
+        function ShowWFDesc(s, e) {
+            grid.GetRowValues(grid.GetFocusedRowIndex(), 'wfDescription', OnGetSelectedFieldValues);
+
+        }
+        function OnGetSelectedFieldValues(selectedValues) {
+            txtWFDesc.SetText(selectedValues);
+            PopUpWFDesc.Show();
+        }
+    </script>--%>
+        <pdc:PersianDateScriptManager ID="PersianDateScriptManager" runat="server" CalendarCSS="PickerCalendarCSS"
+        CalendarDayWidth="31" CalendarDayHeight="15" FooterCSS="PickerFooterCSS" ForbidenCSS="PickerForbidenCSS"
+        FrameCSS="PickerCSS" HeaderCSS="PickerHeaderCSS" SelectedCSS="PickerSelectedCSS"
+        WeekDayCSS="PickerWeekDayCSS" WorkDayCSS="PickerWorkDayCSS">
+    </pdc:PersianDateScriptManager>
+        <TSPControls:CustomAspxCallbackPanel ID="CallbackPanelPage" runat="server" ClientInstanceName="CallbackPanelPage"
+        OnCallback="CallbackPanelPage_Callback" Width="100%" LoadingPanelImage-Url="../../Image/indicator.gif">
+        <PanelCollection>
+            <dxp:PanelContent ID="PanelContent1" runat="server">
+                 <div style="text-align: right" id="DivReport" class="DivErrors" runat="server">
+                    <asp:Label ID="LabelWarning" runat="server" Text="Label"></asp:Label>
+                    [<a class="closeLink" href="#">بستن</a>]
+                </div>
+                 <TSPControls:CustomASPxRoundPanelMenu ID="ASPxRoundPanel1" runat="server" Width="100%" >
+                    <PanelCollection>
+                        <dxp:PanelContent>
+                                   <table style="border-collapse: collapse; background-color: transparent" dir="rtl"
+                    cellpadding="0">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <dxe:ASPxButton runat="server" Text=" " EnableDefaultAppearance="False" ToolTip="جدید"
+                                                ID="btnNew" UseSubmitBehavior="False" EnableViewState="False" EnableTheming="False"
+                                                OnClick="btnNew_Click">
+                                                <HoverStyle BackColor="#FFE0C0">
+                                                    <Border BorderWidth="1px" BorderStyle="Outset" BorderColor="Gray"></Border>
+                                                </HoverStyle>
+                                                <Image Height="25px" Width="25px" Url="~/Images/icons/new.png">
+                                                </Image>
+                                            </dxe:ASPxButton>
+                                        </td>
+                                        <td>
+                                            <dxe:ASPxButton runat="server" Text=" " EnableDefaultAppearance="False" ToolTip="ویرایش"
+                                                ID="btnReqEdit" UseSubmitBehavior="False" EnableViewState="False" EnableTheming="False"
+                                                AutoPostBack="true" OnClick="btnEdit_Click">
+                                                <HoverStyle BackColor="#FFE0C0">
+                                                    <Border BorderColor="Gray" BorderStyle="Outset" BorderWidth="1px" />
+                                                </HoverStyle>
+                                                <Image Height="25px" Url="~/Images/icons/edit.png" Width="25px" />
+                                                <ClientSideEvents Click="function(s, e) {
+if (grid.GetFocusedRowIndex()&lt;0)
+ {
+   e.processOnServer=false;
+   alert(&quot;ردیفی انتخاب نشده است&quot;);
+   return;
+ }
+   e.processOnServer=true;
+}"></ClientSideEvents>
+                                            </dxe:ASPxButton>
+                                        </td>
+                                        <td>
+                                            <dxe:ASPxButton runat="server" Text=" " EnableDefaultAppearance="False" ToolTip="مشاهده"
+                                                ID="btnReqView" UseSubmitBehavior="False" EnableViewState="False" EnableTheming="False"
+                                                AutoPostBack="true" OnClick="btnView_Click">
+
+                                                <HoverStyle BackColor="#FFE0C0">
+                                                    <Border BorderWidth="1px" BorderStyle="Outset" BorderColor="Gray"></Border>
+                                                </HoverStyle>
+                                                <Image Height="25px" Width="25px" Url="~/Images/icons/view.png">
+                                                </Image>
+                                                <ClientSideEvents Click="function(s, e) {
+if (grid.GetFocusedRowIndex()&lt;0)
+ {
+   e.processOnServer=false;
+   alert(&quot;ردیفی انتخاب نشده است&quot;);
+   return;
+ }
+   e.processOnServer=true;
+}"></ClientSideEvents>
+                                            </dxe:ASPxButton>
+                                        </td>
+                                                                                                                                               <td>
+                                <dxe:ASPxButton runat="server" UseSubmitBehavior="False" EnableClientSideAPI="True"
+                                    Text=" " EnableDefaultAppearance="False" EnableTheming="False" ToolTip="لغو درخواست"
+                                    ID="btnInActive" EnableViewState="False" OnClick="btnInActive_Click">
+                                    <ClientSideEvents Click="function(s, e) {
+                                        if (grid.GetFocusedRowIndex()&lt;0)
+ {
+   e.processOnServer=false;
+   alert(&quot;ردیفی انتخاب نشده است&quot;);
+   return;
+ }
+                                        else
+                                        {
+	 e.processOnServer= confirm('آیا مطمئن به لغو این درخواست هستید؟');
+                                        }
+}"></ClientSideEvents>
+                                    <Image Height="25px" Width="25px" Url="~/Images/icons/delete.png">
+                                    </Image>
+                                    <HoverStyle BackColor="#FFE0C0">
+                                        <Border BorderColor="Gray" BorderStyle="Outset" BorderWidth="1px"></Border>
+                                    </HoverStyle>
+                                </dxe:ASPxButton>
+                            </td>
+                                          <td width="10px" align="center">
+                                            <TSPControls:MenuSeprator runat="server" ID="MenuSeprator1"></TSPControls:MenuSeprator>
+                                        </td>
+                                         <td>
+                                            <dxe:ASPxButton ID="btnSendNextStep" runat="server" AutoPostBack="False" EnableDefaultAppearance="False"
+                                                EnableTheming="False" EnableViewState="False" Text=" " ToolTip="گردش کار" UseSubmitBehavior="False">
+                                                <ClientSideEvents Click="function(s, e) {                                                          
+if (grid.GetFocusedRowIndex()&lt;0)
+ {
+   e.processOnServer=false;
+   alert(&quot;ردیفی انتخاب نشده است&quot;);
+ }
+ else
+ 
+ {
+ 
+ ShowWf();
+ }
+}" />
+                                                <HoverStyle BackColor="#FFE0C0">
+                                                    <Border BorderColor="Gray" BorderStyle="Outset" BorderWidth="1px" />
+                                                </HoverStyle>
+                                                <Image Height="25px" Url="~/Images/icons/reload.png" Width="25px" />
+                                            </dxe:ASPxButton>
+                                        </td>
+                                        <td>
+                                            <dxe:ASPxButton ID="btnTracing" runat="server" EnableDefaultAppearance="False" EnableTheming="False"
+                                                EnableViewState="False" Text=" " AutoPostBack="true" ToolTip="پیگیری" UseSubmitBehavior="False" OnClick="btnTracing_Click">
+                                                <ClientSideEvents Click="function(s, e) {
+if (grid.GetFocusedRowIndex()&lt;0)
+ {
+   e.processOnServer=false;
+   alert(&quot;ردیفی انتخاب نشده است&quot;);
+   return;
+ }
+   e.processOnServer=true;
+}"></ClientSideEvents>
+                                                <HoverStyle BackColor="#FFE0C0">
+                                                    <Border BorderColor="Gray" BorderStyle="Outset" BorderWidth="1px" />
+                                                </HoverStyle>
+                                                <Image Height="25px" Url="~/Images/icons/Cheque Status ReChange.png" Width="25px" />
+                                            </dxe:ASPxButton>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </dxp:PanelContent>
+                    </PanelCollection>
+                </TSPControls:CustomASPxRoundPanelMenu>
+                <br />
+                 <div align="right">
+                        <table width="100%">
+                            <tr>
+                                <td width="100%">
+                                    <fieldset style="height: 20px">
+                                        <table width="100%">
+                                            <tr>
+                                                <td width="5%">
+                                                    <TSPControls:CustomAspxButton ID="btnTooggle" ClientInstanceName="btnTooggle" runat="server"
+                                                        Width="10px" Text="+" AutoPostBack="false" ToolTip="جهت باز/بسته شدن راهنما کلیک نمایید"
+                                                        BackColor="Transparent">
+                                                        <Border BorderColor="Transparent" BorderWidth="0" />
+                                                        <ClientSideEvents Click="function(s,e){
+            if(panelHelp.GetVisible())
+            {
+            panelHelp.SetVisible(false);
+            btnTooggle.SetText('+');
+            }
+            else
+            {
+             panelHelp.SetVisible(true);
+             btnTooggle.SetText('-');
+            }
+            }" />
+                                                    </TSPControls:CustomAspxButton>
+                                                </td>
+                                                <td class="HelpUL" style="font-weight: bold" align="right" width="95%">نکات مهم درخواست های پشتیبانی
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </fieldset>
+                                     <table width="100%">
+                                            <tr>
+                                                <td width="100%">
+                                    <dxp:ASPxPanel runat="server" ID="panelHelp" ClientVisible="false" ClientInstanceName="panelHelp">
+                                        <PanelCollection>
+                                            <dxp:PanelContent>
+                                                <fieldset>
+                                                    <dl style="font-family=tahoma; font-size: 7pt; line-height: 15pt">
+                                                        <p class="HelpUL">
+                                                            لازم است کاربران محترم قبل از ایجاد درخواست پشتیبانی تمامی نکات زیر را به دقت مطالعه کنند.
+                                                        </p>
+                                                       <dt>فرایند ثبت درخواست پشتیبانی</dt>
+                                                        <dd>نخست با توجه به تعاریف ذیل یک درخواست پشتیبانی را با ذکر جزئیات کامل ایجاد و ذخیره می کنید</dd>
+                                                        <dd>درخواست ذخیره شده را با استفاده از کردش کار به واحد فناوری سازمان ارسال کنید</dd>
+                                                        <dd>با توجه به وضعیت درخواست پس از اطمینان از پاسخ پشتیبان اشکال مطرح شده را مرور و بررسی مجدد کنید</dd>
+                                                        <dd>در صورتی که با توجه به پاسخ پشتیبان اشکال مطرح شده شما برطرف نگردیده است با ثبت نظر خود در همان درخواست پشتیبان را از عدم رفع اشکال مطلع سازید </dd>
+                                                        <dd>اگر در روند کاری خود به اشکال جدیدی برخوردید حتی اگر قبلن این اشکال را مشاهده کرده اید و به صورت موردی برطرف گشته برای بار دیگر باید یک درخواست جدید ایجاد کنید</dd>
+                                                        <dt>انواع درخواست های پشتیبانی</dt>
+                                                        <dd>اصلاحی: یعنی</dd>
+                                                        <dd>راهنمایی و آموزش: یعنی</dd>
+                                                        <dd>نیازمندی جدید: یعنی</dd>
+                                                          <dd>در صورت نیاز به راهنمایی و آموزش در قسمت موضوع درخواست واژه راهنمایی را ذکر کنید </dd>
+                        <dd>در صورت برخورد به اشکالی در نرم افزار در قسمت موضوع درخواست واژه اصلاحی را ذکر کنید </dd>
+
+
+                                                        </dl>
+                                                </fieldset>
+                                            </dxp:PanelContent>
+                                        </PanelCollection>
+                                    </dxp:ASPxPanel>
+                                                </td>
+                                            </tr>
+                                        </table>
+                             </td>
+                            </tr>
+                        </table>
+                 </div>
+                 <br />
+                  <TSPControls:CustomAspxDevGridView  ID="GridViewTicket" runat="server" DataSourceID="ObjdsTicket" Width="100%" ClientInstanceName="GridViewTicket" KeyFieldName="TicketId" AutoGenerateColumns="False">
+                    <Columns>
+                             <dxwgv:GridViewDataTextColumn Caption="کد درخواست" Width="120" FieldName="TicketId" Name="TicketId"
+                            VisibleIndex="1">
+                            <CellStyle Wrap="False">
+                            </CellStyle>
+                        </dxwgv:GridViewDataTextColumn>
+                         <dxwgv:GridViewDataTextColumn Caption="بخش" Width="120" FieldName="PartId" Name="PartId"
+                            VisibleIndex="2">
+                            <CellStyle Wrap="False">
+                            </CellStyle>
+                        </dxwgv:GridViewDataTextColumn>
+                          <dxwgv:GridViewDataTextColumn Caption="موضوع" FieldName="Subject" Width="250" Name="Subject"
+                            VisibleIndex="3">
+                        </dxwgv:GridViewDataTextColumn>
+                           <dxwgv:GridViewDataTextColumn Caption="اولویت" FieldName="PriorityUser" Name="PriorityUser"
+                            VisibleIndex="4">
+                            <CellStyle Wrap="False">
+                            </CellStyle>
+                        </dxwgv:GridViewDataTextColumn>
+                           <dxwgv:GridViewDataTextColumn Caption="وضعیت" Width="100" FieldName="Status" Name="Status"
+                            VisibleIndex="5">
+                            <CellStyle Wrap="False">
+                            </CellStyle>
+                        </dxwgv:GridViewDataTextColumn>
+                       <dxwgv:GridViewDataTextColumn Caption="تاریخ آخرین بروزرسانی"  Width="120" FieldName="CreateDate" Name="CreateDate"
+                            VisibleIndex="6">
+                            <CellStyle Wrap="False">
+                            </CellStyle>
+                        </dxwgv:GridViewDataTextColumn>
+                          <dxwgv:GridViewCommandColumn VisibleIndex="14" Caption=" " Width="50px">
+                                <ClearFilterButton Visible="True">
+                                </ClearFilterButton>
+                            </dxwgv:GridViewCommandColumn>
+                     </Columns>
+                    <Settings ShowHorizontalScrollBar="True"></Settings>
+                   </TSPControls:CustomAspxDevGridView>
+                 <br />
+                  <TSPControls:CustomASPxRoundPanelMenu ID="CustomASPxRoundPanelMenu1" runat="server"
+                    Width="100%">
+                    <PanelCollection>
+                        <dxp:PanelContent>
+                            <table style="border-collapse: collapse; background-color: transparent" dir="rtl"
+                    cellpadding="0">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <dxe:ASPxButton runat="server" Text=" " EnableDefaultAppearance="False" ToolTip="جدید"
+                                                ID="btnNew2" UseSubmitBehavior="False" EnableViewState="False" EnableTheming="False"
+                                                OnClick="btnNew_Click">
+                                                <HoverStyle BackColor="#FFE0C0">
+                                                    <Border BorderWidth="1px" BorderStyle="Outset" BorderColor="Gray"></Border>
+                                                </HoverStyle>
+                                                <Image Height="25px" Width="25px" Url="~/Images/icons/new.png">
+                                                </Image>
+                                            </dxe:ASPxButton>
+                                        </td>
+                                        <td>
+                                            <dxe:ASPxButton runat="server" Text=" " EnableDefaultAppearance="False" ToolTip="ویرایش"
+                                                ID="btnReqEdit1" UseSubmitBehavior="False" EnableViewState="False" EnableTheming="False"
+                                                AutoPostBack="true" OnClick="btnEdit_Click">
+                                               <ClientSideEvents Click="function(s, e) {                                                             
+if (grid.GetFocusedRowIndex()&lt;0)
+ {
+   e.processOnServer=false;
+   alert(&quot;ردیفی انتخاب نشده است&quot;);
+    return;
+ }
+
+   e.processOnServer=true;
+}"></ClientSideEvents>
+                                                <HoverStyle BackColor="#FFE0C0">
+                                                    <Border BorderColor="Gray" BorderStyle="Outset" BorderWidth="1px" />
+                                                </HoverStyle>
+                                                <Image Height="25px" Url="~/Images/icons/edit.png" Width="25px" />
+                                            </dxe:ASPxButton>
+                                        </td>
+                                        <td>
+                                            <dxe:ASPxButton runat="server" Text=" " EnableDefaultAppearance="False" ToolTip="مشاهده"
+                                                ID="btnReqView1" UseSubmitBehavior="False" EnableViewState="False" EnableTheming="False"
+                                                AutoPostBack="true" OnClick="btnView_Click">
+                                                <ClientSideEvents Click="function(s, e) {                                                             
+if (grid.GetFocusedRowIndex()&lt;0)
+ {
+   e.processOnServer=false;
+   alert(&quot;ردیفی انتخاب نشده است&quot;);
+   return;
+ }
+
+   e.processOnServer=true;
+}"></ClientSideEvents>
+
+                                                <HoverStyle BackColor="#FFE0C0">
+                                                    <Border BorderWidth="1px" BorderStyle="Outset" BorderColor="Gray"></Border>
+                                                </HoverStyle>
+                                                <Image Height="25px" Width="25px" Url="~/Images/icons/view.png">
+                                                </Image>
+                                            </dxe:ASPxButton>
+                                        </td>
+                                                                                                           <td>
+                                <dxe:ASPxButton runat="server" UseSubmitBehavior="False" EnableClientSideAPI="True"
+                                    Text=" " EnableDefaultAppearance="False" EnableTheming="False" ToolTip="لغو درخواست"
+                                    ID="btnInActive2" EnableViewState="False" OnClick="btnInActive_Click">
+                                    <ClientSideEvents Click="function(s, e) {
+                                        if (grid.GetFocusedRowIndex()&lt;0)
+ {
+   e.processOnServer=false;
+   alert(&quot;ردیفی انتخاب نشده است&quot;);
+   return;
+ }
+                                        else
+                                        {
+	 e.processOnServer= confirm('آیا مطمئن به لغو این درخواست هستید؟');
+                                        }
+}"></ClientSideEvents>
+                                    <Image Height="25px" Width="25px" Url="~/Images/icons/delete.png">
+                                    </Image>
+                                    <HoverStyle BackColor="#FFE0C0">
+                                        <Border BorderColor="Gray" BorderStyle="Outset" BorderWidth="1px"></Border>
+                                    </HoverStyle>
+                                </dxe:ASPxButton>
+                            </td>
+                                        <td width="10px" align="center">
+                                            <TSPControls:MenuSeprator runat="server" ID="MenuSeprator6"></TSPControls:MenuSeprator>
+                                        </td>
+                                                <td>
+                                            <dxe:ASPxButton ID="btnSendToNexStep" runat="server" AutoPostBack="False" EnableDefaultAppearance="False"
+                                                EnableTheming="False" EnableViewState="False" Text=" " ToolTip="گردش کار" UseSubmitBehavior="False">
+                                                <ClientSideEvents Click="function(s, e) {                                                             
+if (grid.GetFocusedRowIndex()&lt;0)
+ {
+   e.processOnServer=false;
+   alert(&quot;ردیفی انتخاب نشده است&quot;);
+ }
+ else
+ 
+ {
+ ShowWf();
+ }
+}" />
+                                                <HoverStyle BackColor="#FFE0C0">
+                                                    <Border BorderColor="Gray" BorderStyle="Outset" BorderWidth="1px" />
+                                                </HoverStyle>
+                                                <Image Height="25px" Url="~/Images/icons/reload.png" Width="25px" />
+                                            </dxe:ASPxButton>
+                                        </td>
+                                        <td>
+                                            <dxe:ASPxButton ID="btnTracing2" runat="server" AutoPostBack="true" EnableDefaultAppearance="False"
+                                                EnableTheming="False" EnableViewState="False" Text=" " ToolTip="پیگیری" UseSubmitBehavior="False" OnClick="btnTracing_Click">
+                                                <ClientSideEvents Click="function(s, e) {
+if (grid.GetFocusedRowIndex()&lt;0)
+ {
+   e.processOnServer=false;
+   alert(&quot;ردیفی انتخاب نشده است&quot;);
+   return;
+ }
+   e.processOnServer=true;
+}"></ClientSideEvents>
+                                                <HoverStyle BackColor="#FFE0C0">
+                                                    <Border BorderColor="Gray" BorderStyle="Outset" BorderWidth="1px" />
+                                                </HoverStyle>
+                                                <Image Height="25px" Url="~/Images/icons/Cheque Status ReChange.png" Width="25px" />
+                                            </dxe:ASPxButton>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </dxp:PanelContent>
+                    </PanelCollection>
+                </TSPControls:CustomASPxRoundPanelMenu>
+         </dxp:PanelContent>
+        </PanelCollection>
+       </TSPControls:CustomAspxCallbackPanel>
+
+      <asp:ObjectDataSource ID="ObjdsTicket" runat="server" TypeName="TSP.DataManager.TicketingManager"
+        SelectMethod="GetData" />
+</asp:Content>
+

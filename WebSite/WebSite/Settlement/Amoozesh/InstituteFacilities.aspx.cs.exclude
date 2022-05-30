@@ -1,0 +1,276 @@
+﻿using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+
+public partial class Settlement_Amoozesh_InstituteFacilities : System.Web.UI.Page
+{
+    #region Events
+    protected void Page_Load(object sender, EventArgs e)
+    {
+
+        if (Session["Login"] == null || Session["Login"].ToString() == "0")
+        {
+            Response.Redirect("../../Login.aspx?ReferPage=" + Request.Url.AbsoluteUri);
+            return;
+        }
+
+        if (string.IsNullOrEmpty(Request.QueryString["PgMd"]) || string.IsNullOrEmpty(Request.QueryString["InsId"]))
+        {
+            Response.Redirect("Institue.aspx");
+            return;
+        }
+
+        if (!IsPostBack)
+        {
+            TSP.DataManager.Permission per = TSP.DataManager.InstitueFacilityManager.GetUserPermission(int.Parse(Session["Login"].ToString()), (TSP.DataManager.UserType)int.Parse(Session["LoginType"].ToString()));
+           
+            GridViewFacility.Visible = per.CanView;
+
+            HiddenFieldFacility["InsId"] = Request.QueryString["InsId"].ToString();
+            HiddenFieldFacility["PageMode"] = Request.QueryString["PgMd"].ToString();
+
+            string InsId = Utility.DecryptQS(HiddenFieldFacility["InsId"].ToString());
+            ObjdsInstitueFacility.SelectParameters[0].DefaultValue = InsId;
+
+            TSP.DataManager.InstitueManager InstitueManager = new TSP.DataManager.InstitueManager();
+            InstitueManager.FindByCode(int.Parse(InsId));
+
+            if (InstitueManager.Count > 0)
+            {
+                RoundPanelFacility.HeaderText = "امکانات و تجهیزات موسسه: " + InstitueManager[0]["InsName"].ToString();
+            }
+            CheckWorkFlowPermission();
+
+        }
+
+
+        this.DivReport.Visible = false;
+        this.DivReport.Attributes.Add("onclick", "ChangeVisible(this)");
+        this.DivReport.Attributes.Add("onmouseover", "ChangeIcon(this)");
+    }
+
+    protected void btnBack_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("Institue.aspx");
+    }  
+
+    protected void ASPxMenu1_ItemClick(object source, DevExpress.Web.MenuItemEventArgs e)
+    {
+        switch (e.Item.Name)
+        {
+            case "Manager":
+                Response.Redirect("InstitueManager.aspx?InsId=" + HiddenFieldFacility["InsId"].ToString() + "&PgMd=" + HiddenFieldFacility["PageMode"].ToString());
+                break;
+            case "BasicInfo":
+                Response.Redirect("InstitueBasicInfo.aspx?InsId=" + HiddenFieldFacility["InsId"].ToString() + "&PageMode=" + HiddenFieldFacility["PageMode"].ToString());
+                break;
+            case "Activity":
+                Response.Redirect("InstitueActivity.aspx?InsId=" + HiddenFieldFacility["InsId"].ToString() + "&PgMd=" + HiddenFieldFacility["PageMode"].ToString());
+                break;
+        }
+    }
+
+    protected void GridViewFacility_HtmlRowPrepared(object sender, DevExpress.Web.ASPxGridViewTableRowEventArgs e)
+    {
+        if (e.KeyValue != null)
+        {
+            TSP.DataManager.InstitueFacilityManager InstitueFacilityManager = new TSP.DataManager.InstitueFacilityManager();
+            InstitueFacilityManager.FindByCode(int.Parse(e.KeyValue.ToString()));
+            if (InstitueFacilityManager.Count == 1)
+            {
+                Boolean IsEquipment = Boolean.Parse(InstitueFacilityManager[0]["IsEquipment"].ToString());
+                DevExpress.Web.ASPxLabel lblFacilityType = GridViewFacility.FindRowCellTemplateControl(e.VisibleIndex, null, "lblFacilityType") as DevExpress.Web.ASPxLabel;
+                if (lblFacilityType != null)
+                {
+                    if (IsEquipment)
+                    {
+                        lblFacilityType.Text = "تجهیزات";
+                    }
+                    else
+                    {
+                        lblFacilityType.Text = "فضای آموزشی";
+                    }
+                }
+            }
+        }
+    }
+
+    #endregion
+
+    #region Methods
+    private void NextPage(string Mode)
+    {
+        int InsFacilityId = -1;
+        int focucedIndex = GridViewFacility.FocusedRowIndex;
+
+        if (focucedIndex > -1)
+        {
+            DataRow row = GridViewFacility.GetDataRow(focucedIndex);
+            InsFacilityId = (int)row["InsFacilityId"];
+        }
+        if (InsFacilityId == -1 && Mode != "New")
+        {
+            this.DivReport.Visible = true;
+            this.LabelWarning.Text = "لطفاً برای مشاهده اطلاعات ابتدا یک رکورد را انتخاب نمائید";
+        }
+        else
+        {
+            if (Mode == "New")
+            {
+                InsFacilityId = -1;
+                Response.Redirect("AddInstituteFacilities.aspx?InsFacilityId=" + Utility.EncryptQS(InsFacilityId.ToString()) + "&InsId=" + HiddenFieldFacility["InsId"] + "&PrePageMode=" + HiddenFieldFacility["PageMode"] + "&PageMode=" + Utility.EncryptQS(Mode));
+            }
+            else
+            {
+                Response.Redirect("AddInstituteFacilities.aspx?InsFacilityId=" + Utility.EncryptQS(InsFacilityId.ToString()) + "&InsId=" + HiddenFieldFacility["InsId"].ToString() + "&PrePageMode=" + HiddenFieldFacility["PageMode"] + "&PageMode=" + Utility.EncryptQS(Mode));
+            }
+        }
+    }
+
+    private void SetError(Exception err)
+    {
+        if (err.GetType() == typeof(System.Data.SqlClient.SqlException))
+        {
+            System.Data.SqlClient.SqlException se = (System.Data.SqlClient.SqlException)err;
+
+            if (se.Number == 2601)
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "اطلاعات تکراری می باشد";
+            }
+            else if (se.Number == 2627)
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "کد تکراری می باشد";
+            }
+            else if (se.Number == 547)
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "به علت وجود اطلاعات وابسته امکان حذف نمی باشد.";
+            }
+            else
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+            }
+        }
+        else
+        {
+            this.DivReport.Visible = true;
+            this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+        }
+    }
+
+    private void CheckWorkFlowPermission()
+    {
+        CheckWorkFlowPermissionForSave();
+    }
+
+    private void CheckWorkFlowPermissionForSave()
+    {
+        TSP.DataManager.TaskDoerManager TaskDoerManager = new TSP.DataManager.TaskDoerManager();
+        TSP.DataManager.WorkFlowTaskManager WorkFlowTaskManager = new TSP.DataManager.WorkFlowTaskManager();
+        TSP.DataManager.NezamMemberChartManager NezamMemberChartManager = new TSP.DataManager.NezamMemberChartManager();
+        TSP.DataManager.LoginManager LoginManager = new TSP.DataManager.LoginManager();
+
+        int CurrentTaskOrder = -1;
+        int TaskOrder = -1;
+        //****TableId
+        string InsId = Utility.DecryptQS(HiddenFieldFacility["InsId"].ToString());
+        //****TableType
+        int TableType = (int)TSP.DataManager.TableCodes.Institue;
+
+        TSP.DataManager.WorkFlowStateManager WorkFlowStateManager = new TSP.DataManager.WorkFlowStateManager();
+
+        DataTable dtWorkFlowState = WorkFlowStateManager.SelectLastState(TableType, int.Parse(InsId));
+        if (dtWorkFlowState.Rows.Count > 0)
+        {
+            CurrentTaskOrder = int.Parse(dtWorkFlowState.Rows[0]["TaskOrder"].ToString());
+        }
+        int TaskCode = (int)TSP.DataManager.WorkFlowTask.SaveInstitueInfo;
+        WorkFlowTaskManager.FindByTaskCode(TaskCode);
+        if (WorkFlowTaskManager.Count > 0)
+        {
+            TaskOrder = int.Parse(WorkFlowTaskManager[0]["TaskOrder"].ToString());
+        }
+
+        if (TaskOrder != 0 && CurrentTaskOrder == TaskOrder)
+        {
+            WorkFlowTaskManager.FindByTaskCode(TaskCode);
+            int TaskId = int.Parse(WorkFlowTaskManager[0]["TaskId"].ToString());
+            TaskDoerManager.FindByTaskId(TaskId);
+
+            if (TaskDoerManager.Count > 0)
+            {
+                int NcId = int.Parse(TaskDoerManager[0]["NcId"].ToString());
+                NezamMemberChartManager.FindByNcId(NcId);
+
+                int EmpId = int.Parse(NezamMemberChartManager[0]["EmpId"].ToString());
+
+                LoginManager.FindByMeIdUltId(EmpId, 4);
+                if (LoginManager.Count > 0)
+                {
+                    int userId = int.Parse(LoginManager[0]["UserId"].ToString());
+                    int CurrentUserId = (int)(Session["Login"]);
+                    if (CurrentUserId == userId)
+                    {
+                        //btnNew.Enabled = true;
+                        //btnNew2.Enabled = true;
+                        //btnEdit.Enabled = true;
+                        //btnEdit2.Enabled = true;
+                        //btnDelete.Enabled = true;
+                        //btnDelete2.Enabled = true;
+                    }
+                    else
+                    {
+
+                        //btnNew.Enabled = false;
+                        //btnNew2.Enabled = false;
+                        //btnEdit.Enabled = false;
+                        //btnEdit2.Enabled = false;
+                        //btnDelete.Enabled = false;
+                        //btnDelete2.Enabled = false;
+                    }
+                }
+                else
+                {
+                    //btnNew.Enabled = false;
+                    //btnNew2.Enabled = false;
+                    //btnEdit.Enabled = false;
+                    //btnEdit2.Enabled = false;
+                    //btnDelete.Enabled = false;
+                    //btnDelete2.Enabled = false;
+                }
+            }
+            else
+            {
+                //btnNew.Enabled = false;
+                //btnNew2.Enabled = false;
+                //btnEdit.Enabled = false;
+                //btnEdit2.Enabled = false;
+                //btnDelete.Enabled = false;
+                //btnDelete2.Enabled = false;
+            }
+        }
+        else
+        {
+            //btnNew.Enabled = false;
+            //btnNew2.Enabled = false;
+            //btnEdit.Enabled = false;
+            //btnEdit2.Enabled = false;
+            //btnDelete.Enabled = false;
+            //btnDelete2.Enabled = false;
+        }
+        //this.ViewState["BtnEdit"] = btnEdit.Enabled;
+        //this.ViewState["BtnDelete"] = btnDelete.Enabled;
+        //this.ViewState["BtnNew"] = btnNew.Enabled;
+    }
+    #endregion       
+}

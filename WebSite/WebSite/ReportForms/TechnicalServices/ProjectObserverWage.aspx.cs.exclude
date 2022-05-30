@@ -1,0 +1,86 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+public partial class ReportForms_TechnicalServices_ProjectObserverWage : System.Web.UI.Page
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        string FromDate = ""; string ToDate = ""; string FromDateDecreased = ""; string ToDateDecreased = ""; string FromDateAccounting = ""; string ToDateAccounting = ""; int ProjectStatusId = -1;
+        string FromDateBuildingsLicenses = "1"; string ToDateBuildingsLicenses = "2"; int projectId = -1; string RegisteredNo = "";
+        string ToDateObsPayed = "2"; string FromDateObsPayed = "1";
+        int MeId = -1; int IsPayed = -1;
+        if (Request.QueryString["FromDate"] == null)
+            return;
+        FromDate = Utility.DecryptQS(Server.HtmlDecode(Request.QueryString["FromDate"].ToString()));
+        ToDate = Utility.DecryptQS(Server.HtmlDecode(Request.QueryString["ToDate"].ToString()));
+        FromDateDecreased = Utility.DecryptQS(Server.HtmlDecode(Request.QueryString["FromDateDecreased"].ToString()));
+        ToDateDecreased = Utility.DecryptQS(Server.HtmlDecode(Request.QueryString["ToDateDecreased"].ToString()));
+        FromDateAccounting = Utility.DecryptQS(Server.HtmlDecode(Request.QueryString["FromDateAccounting"].ToString()));
+        ToDateAccounting = Utility.DecryptQS(Server.HtmlDecode(Request.QueryString["ToDateAccounting"].ToString()));
+        FromDateBuildingsLicenses = Utility.DecryptQS(Server.HtmlDecode(Request.QueryString["FromDateBuildingsLicenses"].ToString()));
+        ToDateBuildingsLicenses = Utility.DecryptQS(Server.HtmlDecode(Request.QueryString["ToDateBuildingsLicenses"].ToString()));
+        FromDateObsPayed = Utility.DecryptQS(Server.HtmlDecode(Request.QueryString["FromDateObsPayed"].ToString()));
+        ToDateObsPayed = Utility.DecryptQS(Server.HtmlDecode(Request.QueryString["ToDateObsPayed"].ToString()));
+        if (Request.QueryString["ProjectStatusId"] != null)
+            ProjectStatusId = Convert.ToInt32(Utility.DecryptQS(Server.HtmlDecode(Request.QueryString["ProjectStatusId"].ToString())));
+        if (Request.QueryString["projectId"] != null)
+            projectId = Convert.ToInt32(Utility.DecryptQS(Server.HtmlDecode(Request.QueryString["projectId"].ToString())));
+        if (Request.QueryString["RegisteredNo"] != null)
+            RegisteredNo = Utility.DecryptQS(Server.HtmlDecode(Request.QueryString["RegisteredNo"].ToString()));
+        if (Request.QueryString["MeId"] != null)
+            MeId = Convert.ToInt32(Utility.DecryptQS(Server.HtmlDecode(Request.QueryString["MeId"].ToString())));
+        if (Request.QueryString["IsPayed"] != null)
+            IsPayed = Convert.ToInt32(Utility.DecryptQS(Server.HtmlDecode(Request.QueryString["IsPayed"].ToString())));
+
+        //TSP.WebsiteReports.TechnicalService.ProjectObserverWage ProjectObserverWage = new TSP.WebsiteReports.TechnicalService.ProjectObserverWage(FromDate, ToDate, FromDateDecreased, ToDateDecreased, FromDateAccounting, ToDateAccounting
+        //    , ProjectStatusId, FromDateBuildingsLicenses, ToDateBuildingsLicenses, projectId, RegisteredNo, ToDateObsPayed, FromDateObsPayed
+        //    , MeId, IsPayed);
+        //RptVObserver.Report = ProjectObserverWage;
+
+        TSP.WebsiteReports.TechnicalService.ProjectObserverMasterReport ProjectObserverMasterReport = new TSP.WebsiteReports.TechnicalService.ProjectObserverMasterReport(FromDate, ToDate, FromDateDecreased, ToDateDecreased, FromDateAccounting, ToDateAccounting
+           , ProjectStatusId, FromDateBuildingsLicenses, ToDateBuildingsLicenses, projectId, RegisteredNo, ToDateObsPayed, FromDateObsPayed
+           , MeId, IsPayed);        
+        RptVObserver.Report = ProjectObserverMasterReport;
+    }
+
+    protected void CallbackPanelReport_Callback(object sender, DevExpress.Web.CallbackEventArgsBase e)
+    {
+        //string AccountingId = Utility.DecryptQS(Server.HtmlDecode(Request.QueryString["AccountingId"].ToString()));
+        //TSP.DataManager.TransactionManager trans = new TSP.DataManager.TransactionManager();
+        //TSP.DataManager.PrintingHistoryManager PrintingHistoryManager = new TSP.DataManager.PrintingHistoryManager();
+        //TSP.DataManager.TechnicalServices.AccountingManager AccountingManager = new TSP.DataManager.TechnicalServices.AccountingManager();
+        //trans.Add(PrintingHistoryManager);
+        //trans.Add(AccountingManager);
+        //try
+        //{
+       
+
+        //    System.Data.DataRow dr = PrintingHistoryManager.NewRow();
+        //    dr["TableId"] = AccountingId;
+        //    dr["TableType"] = TSP.DataManager.TableType.AccountingPrintedBankFish;
+        //    dr["Description"] = AccountingManager[0]["AccTypeName"].ToString();
+        //    dr["CreateDate"] = TSP.DataManager.Utility.GetDateOfToday();
+        //    dr["CreateTime"] = TSP.DataManager.Utility.GetCurrentTime();
+        //    dr["UserId"] = Utility.GetCurrentUser_UserId();
+        //    dr["ModifiedDate"] = DateTime.Now;
+        //    PrintingHistoryManager.AddRow(dr);
+        //    PrintingHistoryManager.Save();
+        //}
+        //catch (Exception err)
+        //{
+        //    trans.CancelSave();
+        //    Utility.SaveWebsiteError(err);
+        //    ShowCallBackMessage("خطایی در ذخیره گزارش فیش انجام گرفته است");
+        //}
+    }
+
+    void ShowCallBackMessage(string Msg)
+    {
+        //CallbackPanelReport.JSProperties["cpMsg"] = Msg;
+        //CallbackPanelReport.JSProperties["cpError"] = 1;
+    }
+}

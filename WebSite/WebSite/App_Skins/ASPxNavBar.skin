@@ -1,0 +1,138 @@
+<%@ Register TagPrefix="asp" Namespace="System.Web.UI" Assembly="System.Web.Extensions, Version=1.0.61025.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" %>
+<%@ Register TagPrefix="asp" Namespace="System.Web.UI.WebControls.WebParts" Assembly="System.Web, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" %>
+<%@ Register TagPrefix="dxm" Namespace="DevExpress.Web.ASPxMenu" Assembly="DevExpress.Web.v9.2, Version=9.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<%@ Register TagPrefix="pdc" Namespace="PersianDateControls" Assembly="PersianDateControls 2.0" %>
+<%@ Register TagPrefix="cc1" Namespace="AjaxControlToolkit" Assembly="AjaxControlToolkit" %>
+<%@ Register TagPrefix="dxe" Namespace="DevExpress.Web.ASPxEditors" Assembly="DevExpress.Web.ASPxEditors.v9.2, Version=9.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<%@ Register TagPrefix="dxnb" Namespace="DevExpress.Web.ASPxNavBar" Assembly="DevExpress.Web.v9.2, Version=9.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<%@ Register TagPrefix="dxp" Namespace="DevExpress.Web.ASPxPanel" Assembly="DevExpress.Web.v9.2, Version=9.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<%@ Register TagPrefix="dxrp" Namespace="DevExpress.Web.ASPxRoundPanel" Assembly="DevExpress.Web.v9.2, Version=9.2.6.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<dxnb:ASPxNavBar runat="server" LoadingPanelText="لطفاً صبر نمائید." GroupSpacing="0px" AutoCollapse="True"  BackColor="#184377" EnableAnimation="True" Width="100%" CssPostfix="Glass"><Groups>
+<dxnb:NavBarGroup Expanded="False" Text="کارمندان"><Items>
+<dxnb:NavBarItem NavigateUrl="~/Employee/Employee.aspx" Text="لیست کارمندان"></dxnb:NavBarItem>
+<dxnb:NavBarItem NavigateUrl="~/Employee/Users.aspx" Text="لیست کاربران"></dxnb:NavBarItem>
+<dxnb:NavBarItem NavigateUrl="~/Employee/AddUsers.aspx" Text="ثبت نام کاربری"></dxnb:NavBarItem>
+</Items>
+</dxnb:NavBarGroup>
+<dxnb:NavBarGroup Expanded="False" Text="اعضای حقیقی"><Items>
+<dxnb:NavBarItem NavigateUrl="~/Employee/Members.aspx" Text="لیست اعضای حقیقی"></dxnb:NavBarItem>
+<dxnb:NavBarItem NavigateUrl="~/Employee/ResearchActivity.aspx" Text="تعریف مقالات و تحقیقات"></dxnb:NavBarItem>
+<dxnb:NavBarItem NavigateUrl="~/Employee/Licence.aspx" Text="تعریف مدارک"></dxnb:NavBarItem>
+<dxnb:NavBarItem NavigateUrl="~/Employee/Commission.aspx" Text="تعریف کمیسیون های همکاری"></dxnb:NavBarItem>
+<dxnb:NavBarItem NavigateUrl="~/Employee/ActivitySubject.aspx" Text="تعریف موضوع فعالیت ها"></dxnb:NavBarItem>
+<dxnb:NavBarItem NavigateUrl="~/Members/Language.aspx" Text="تعریف زبان ها"></dxnb:NavBarItem>
+<dxnb:NavBarItem NavigateUrl="~/Members/Major.aspx" Text="تعریف رشته های تحصیلی"></dxnb:NavBarItem>
+</Items>
+</dxnb:NavBarGroup>
+<dxnb:NavBarGroup Expanded="False" Text="اعضای حقوقی(شرکت)"><Items>
+<dxnb:NavBarItem NavigateUrl="~/Employee/Office.aspx" Text="لیست اعضای حقوقی"></dxnb:NavBarItem>
+</Items>
+</dxnb:NavBarGroup>
+<dxnb:NavBarGroup Expanded="False" Text="صدور پروانه"><Items>
+<dxnb:NavBarItem NavigateUrl="~/Employee/Document/Grade.aspx" Text="تعریف پایه ها"></dxnb:NavBarItem>
+<dxnb:NavBarItem NavigateUrl="~/Employee/Document/AcceptType.aspx" Text="تعریف انواع پذیرش"></dxnb:NavBarItem>
+<dxnb:NavBarItem Text="پروانه های صادر شده"></dxnb:NavBarItem>
+</Items>
+</dxnb:NavBarGroup>
+<dxnb:NavBarGroup Expanded="False" Text="ماده 27"><Items>
+<dxnb:NavBarItem NavigateUrl="~/Employee/27/ExpertFile.aspx" Text="پروانه کارشناسی"></dxnb:NavBarItem>
+<dxnb:NavBarItem NavigateUrl="~/Employee/27/ExpertPlace.aspx" Text="پرونده کارشناسی"></dxnb:NavBarItem>
+</Items>
+</dxnb:NavBarGroup>
+<dxnb:NavBarGroup Expanded="False" Text="شورای انتظامی"><Items>
+<dxnb:NavBarItem NavigateUrl="~/Employee/Entezami/Complain.aspx" Text="شکایات"></dxnb:NavBarItem>
+</Items>
+</dxnb:NavBarGroup>
+<dxnb:NavBarGroup NavigateUrl="~/Employee/Amoozesh/AmoozeshHome.aspx" Text="آموزش"><Items>
+<dxnb:NavBarItem NavigateUrl="~/Employee/Amoozesh/Period.aspx" Text="مدیریت دوره ها"></dxnb:NavBarItem>
+<dxnb:NavBarItem NavigateUrl="~/Employee/Amoozesh/Course.aspx" Text="مدیریت دروس"></dxnb:NavBarItem>
+<dxnb:NavBarItem NavigateUrl="~/Employee/Amoozesh/Institue.aspx" Text="مدیریت مؤسسه ها"></dxnb:NavBarItem>
+<dxnb:NavBarItem NavigateUrl="~/Employee/Amoozesh/Teachers.aspx" Text="مدیریت اساتید"></dxnb:NavBarItem>
+<dxnb:NavBarItem NavigateUrl="~/Employee/Amoozesh/Observer.aspx" Text="مدیریت ناظرین"></dxnb:NavBarItem>
+<dxnb:NavBarItem NavigateUrl="~/Employee/Amoozesh/Madrak.aspx" Text="تطبیق مدرک"></dxnb:NavBarItem>
+</Items>
+</dxnb:NavBarGroup>
+<dxnb:NavBarGroup Expanded="False" Text="اخبار"><Items>
+<dxnb:NavBarItem NavigateUrl="~/News/NewsSubject.aspx" Text="تعریف موضوعات"></dxnb:NavBarItem>
+<dxnb:NavBarItem NavigateUrl="~/News/News.aspx" Text="آرشیو اخبار"></dxnb:NavBarItem>
+</Items>
+</dxnb:NavBarGroup>
+<dxnb:NavBarGroup Expanded="False" Text="پیام ها"><Items>
+<dxnb:NavBarItem NavigateUrl="~/Employee/messageHome.aspx" Text="مدیریت پیام ها"></dxnb:NavBarItem>
+</Items>
+</dxnb:NavBarGroup>
+<dxnb:NavBarGroup Expanded="False" Text="نظام"><Items>
+<dxnb:NavBarItem NavigateUrl="~/Employee/Nezam.aspx" Text="مشخصات سازمان"></dxnb:NavBarItem>
+<dxnb:NavBarItem NavigateUrl="~/Employee/NezamChart.aspx" Text="چارت سازمانی"></dxnb:NavBarItem>
+<dxnb:NavBarItem NavigateUrl="~/Employee/NezamPeriod.aspx" Text="دوره های نظام"></dxnb:NavBarItem>
+<dxnb:NavBarItem NavigateUrl="~/Employee/NezamMemberPosition.aspx" Text="سمت اعضای نظام"></dxnb:NavBarItem>
+</Items>
+</dxnb:NavBarGroup>
+<dxnb:NavBarGroup Expanded="False" Text="مدیریت"><Items>
+<dxnb:NavBarItem NavigateUrl="~/Employee/Partition.aspx" Text="تعریف بخش ها"></dxnb:NavBarItem>
+<dxnb:NavBarItem NavigateUrl="~/Employee/country.aspx" Text="تعریف کشورها"></dxnb:NavBarItem>
+<dxnb:NavBarItem NavigateUrl="~/Employee/City.aspx" Text="تعریف شهرها"></dxnb:NavBarItem>
+<dxnb:NavBarItem NavigateUrl="~/Employee/NeededDocuments.aspx" Text="تعریف  اسناد مورد نیاز"></dxnb:NavBarItem>
+<dxnb:NavBarItem NavigateUrl="~/Employee/University.aspx" Text="تعریف دانشگاه ها"></dxnb:NavBarItem>
+<dxnb:NavBarItem NavigateUrl="~/Employee/UserRight.aspx" Text="تعریف سطوح دسترسی"></dxnb:NavBarItem>
+<dxnb:NavBarItem NavigateUrl="~/Employee/AddUsers.aspx" Text="تعریف کاربران"></dxnb:NavBarItem>
+</Items>
+</dxnb:NavBarGroup>
+<dxnb:NavBarGroup Expanded="False" Text="گزارشات تصویری"><Items>
+<dxnb:NavBarItem NavigateUrl="~/ImageReport.aspx" Text="مدیریت گزارشات تصویری"></dxnb:NavBarItem>
+</Items>
+</dxnb:NavBarGroup>
+</Groups>
+
+<GroupHeaderStyle Height="20px" HorizontalAlign="Right" BackColor="#184377" Font-Bold="True" Font-Underline="False" ForeColor="#BDE0FC">
+<HoverStyle>
+<BackgroundImage ImageUrl="~/flash/Home/nbHeaderHBack2.png" Repeat="RepeatX"></BackgroundImage>
+
+<Border BorderColor="#19577B" BorderStyle="Solid" BorderWidth="1px"></Border>
+</HoverStyle>
+
+<Paddings Padding="0px" PaddingRight="5px"></Paddings>
+
+<BackgroundImage ImageUrl="~/flash/Home/nbHeaderHBack2.png" Repeat="RepeatX"></BackgroundImage>
+
+<Border BorderColor="#19577B" BorderStyle="Solid" BorderWidth="1px"></Border>
+</GroupHeaderStyle>
+
+<GroupHeaderStyleCollapsed BackColor="#184377" Font-Bold="False">
+<HoverStyle>
+<BackgroundImage ImageUrl="~/flash/Home/nbHeaderHBack2.png" Repeat="RepeatX"></BackgroundImage>
+
+<Border BorderColor="#19577B" BorderStyle="Solid" BorderWidth="1px"></Border>
+</HoverStyle>
+
+<BackgroundImage ImageUrl="~/flash/Home/nbHeaderBack3.png" Repeat="RepeatX"></BackgroundImage>
+
+<Border BorderColor="Silver" BorderStyle="Solid" BorderWidth="0px"></Border>
+</GroupHeaderStyleCollapsed>
+
+<ItemStyle Height="20px" HorizontalAlign="Right">
+<SelectedStyle BackColor="HotTrack">
+<BackgroundImage Repeat="RepeatX"></BackgroundImage>
+</SelectedStyle>
+
+<HoverStyle BackColor="#1F5994"></HoverStyle>
+
+<Paddings Padding="0px" PaddingRight="25px"></Paddings>
+</ItemStyle>
+
+<Border BorderColor="#557798" BorderStyle="Solid" BorderWidth="1px"></Border>
+
+<GroupContentStyle HorizontalAlign="Right" BackColor="#184377" Font-Size="7pt" Font-Underline="False" ForeColor="White">
+<Paddings Padding="0px" PaddingLeft="0px" PaddingTop="0px" PaddingRight="0px" PaddingBottom="0px"></Paddings>
+
+<BackgroundImage ImageUrl="~/flash/Home/nbHeaderHBack3.png" Repeat="RepeatX" VerticalPosition="bottom"></BackgroundImage>
+
+<BorderTop BorderColor="#19577B" BorderStyle="Solid" BorderWidth="1px"></BorderTop>
+
+<BorderBottom BorderColor="Black" BorderStyle="Solid" BorderWidth="1px"></BorderBottom>
+</GroupContentStyle>
+
+<CollapseImage Height="16px" Width="16px"></CollapseImage>
+
+<ExpandImage Height="16px" Width="16px"></ExpandImage>
+</dxnb:ASPxNavBar>

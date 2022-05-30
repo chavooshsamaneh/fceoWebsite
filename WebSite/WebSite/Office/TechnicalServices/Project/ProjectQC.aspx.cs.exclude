@@ -1,0 +1,64 @@
+﻿using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+
+public partial class Office_TechnicalServices_Project_ProjectQC : System.Web.UI.Page
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        this.DivReport.Visible = false;
+        this.DivReport.Attributes.Add("onclick", "ChangeVisible(this)");
+        this.DivReport.Attributes.Add("onmouseover", "ChangeIcon(this)");
+
+        if (!IsPostBack)
+        {
+           
+            if (string.IsNullOrEmpty(Request.QueryString["ProjectId"]) || string.IsNullOrEmpty(Request.QueryString["PrjImpId"]) )
+            {
+                Response.Redirect("Project.aspx");
+            }
+
+            HDProjectId.Value = Server.HtmlDecode(Request.QueryString["ProjectId"].ToString());
+            PgMode.Value = Server.HtmlDecode(Request.QueryString["PageMode"]).ToString();
+            RequestId.Value = Server.HtmlDecode(Request.QueryString["PrjReId"]).ToString();
+           // HDMode.Value = Server.HtmlDecode(Request.QueryString["Mode"]).ToString();
+            HDImpId.Value = Server.HtmlDecode(Request.QueryString["PrjImpId"]).ToString();
+            HDMemberType.Value = Server.HtmlDecode(Request.QueryString["MemberTypeId"]).ToString();
+
+
+            string ProjectId = Utility.DecryptQS(HDProjectId.Value);
+            string PrjImpId = Utility.DecryptQS(HDImpId.Value);
+            string MemberTypeId = Utility.DecryptQS(HDMemberType.Value);
+
+            if (string.IsNullOrEmpty(ProjectId) || string.IsNullOrEmpty(PrjImpId) || string.IsNullOrEmpty(MemberTypeId))
+            {
+                this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+                return;
+            }
+
+            ObjectDataSource1.SelectParameters[0].DefaultValue = PrjImpId;
+            ObjectDataSource1.SelectParameters[1].DefaultValue = MemberTypeId;
+
+
+        }
+
+      
+    }
+    protected void btnView_Click(object sender, EventArgs e)
+    {
+
+    }
+    protected void btnBack_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("ImplementerInsert.aspx?ProjectId=" + HDProjectId.Value  + "&PrjReId=" + RequestId.Value + "&PrjImpId=" + HDImpId.Value + "&PageMode=" + PgMode.Value);
+
+    }
+}

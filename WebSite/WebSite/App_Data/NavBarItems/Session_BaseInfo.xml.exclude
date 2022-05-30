@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Groups>
+  <NavBarGroup Text="اطلاعات پایه" Name="grpBaseInfo">
+    <NavBarItem NavigateUrl="~/Employee/Session/BaseInfo/SessionTypes.aspx" Text="انواع جلسات">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="~/Employee/Session/BaseInfo/SessionLocations.aspx" Text="محل های برگزاری جلسات">
+    </NavBarItem>
+    <!--<NavBarItem NavigateUrl="~/Employee/Session/BaseInfo/SessionStatus.aspx" Text="وضعیت جلسات">
+    </NavBarItem>-->
+    <NavBarItem NavigateUrl="~/Employee/Session/BaseInfo/EventTypes.aspx" Text="انواع رویدادها">
+    </NavBarItem>
+  </NavBarGroup>
+</Groups>

@@ -1,0 +1,505 @@
+﻿using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+using DevExpress.Web;
+
+public partial class Members_TechnicalServices_Project_DevelopmentPercent : System.Web.UI.Page
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        this.DivReport.Visible = false;
+        this.DivReport.Attributes.Add("onclick", "ChangeVisible(this)");
+        this.DivReport.Attributes.Add("onmouseover", "ChangeIcon(this)");
+
+        if (!IsPostBack)
+        {
+            Session["DevPercentId"] = null;
+
+            ObjectDataSource1.SelectParameters[0].DefaultValue = Utility.GetCurrentUser_MeId().ToString();
+
+            TSP.DataManager.TechnicalServices.Project_ImplementerManager ImplementerManager = new TSP.DataManager.TechnicalServices.Project_ImplementerManager();
+            ImplementerManager.FindImpMother(-1);
+            for (int i = 0; i < ImplementerManager.Count; i++)
+            {
+                if (Convert.ToInt32(ImplementerManager[i]["MeOfficeId"]) == Utility.GetCurrentUser_MeId() && Convert.ToInt32(ImplementerManager[i]["MemberTypeId"]) == Utility.GetCurrentUser_LoginType())
+                {
+                    btnDelete.Visible = true;
+                    btnDelete2.Visible = true;
+                    btnEdit.Visible = true;
+                    btnEdit2.Visible = true;
+                    BtnNew.Visible = true;
+                    btnNew2.Visible = true;
+                    break;
+                   
+                }
+            }
+
+            TSP.DataManager.TechnicalServices.DevelopmentObserversManager DevelopmentObserversManager = new TSP.DataManager.TechnicalServices.DevelopmentObserversManager();
+            DevelopmentObserversManager.FindDevelopmentPercentAgent(-1, 1);
+            for (int i = 0; i < DevelopmentObserversManager.Count; i++)
+            {
+                if (Convert.ToInt32(DevelopmentObserversManager[i]["PrjObsMeId"]) == Utility.GetCurrentUser_MeId() && Convert.ToByte(DevelopmentObserversManager[i]["Type"]) == 2)
+                {
+                    btnObservation.Visible = true;
+                    btnObservation2.Visible = true;
+
+                }
+            }
+
+            this.ViewState["BtnEdit"] = btnEdit.Visible;
+            this.ViewState["BtnDelete"] = btnDelete.Visible;
+            this.ViewState["BtnNew"] = BtnNew.Visible;
+            this.ViewState["BtnObservation"] = btnObservation.Visible;
+
+        }
+    
+        if (this.ViewState["BtnEdit"] != null)
+            this.btnEdit.Visible = this.btnEdit2.Visible = (bool)this.ViewState["BtnEdit"];
+        if (this.ViewState["BtnDelete"] != null)
+            this.btnDelete.Visible = this.btnDelete2.Visible = (bool)this.ViewState["BtnDelete"];
+        if (this.ViewState["BtnNew"] != null)
+            this.BtnNew.Visible = this.btnNew2.Visible = (bool)this.ViewState["BtnNew"];
+        if (this.ViewState["BtnObservation"] != null)
+            this.btnObservation.Visible = this.btnObservation2.Visible = (bool)this.ViewState["BtnObservation"];
+
+    }
+    protected void BtnNew_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("DevelopmentPercentInsert.aspx?DevelopmentPercentId=" + Utility.EncryptQS("") + "&PageMode=" + Utility.EncryptQS("New"));
+
+    }
+    protected void btnEdit_Click(object sender, EventArgs e)
+    {
+        int DevelopmentPercentId = -1;
+
+        if (CustomAspxDevGridView1.FocusedRowIndex > -1)
+        {
+            DataRow row = CustomAspxDevGridView1.GetDataRow(CustomAspxDevGridView1.FocusedRowIndex);
+            DevelopmentPercentId = (int)row["DevelopmentPercentId"];
+
+        }
+        if (DevelopmentPercentId == -1)
+        {
+            this.DivReport.Visible = true;
+            this.LabelWarning.Text = "لطفاً ابتدا یک رکورد را انتخاب نمائید";
+
+        }
+        else
+        {
+            Response.Redirect("DevelopmentPercentInsert.aspx?DevelopmentPercentId=" + Utility.EncryptQS(DevelopmentPercentId.ToString()) + "&PageMode=" + Utility.EncryptQS("Edit"));
+            
+        }
+
+    }
+    protected void btnView_Click(object sender, EventArgs e)
+    {
+        int DevelopmentPercentId = -1;
+
+        if (CustomAspxDevGridView1.FocusedRowIndex > -1)
+        {
+            DataRow row = CustomAspxDevGridView1.GetDataRow(CustomAspxDevGridView1.FocusedRowIndex);
+            DevelopmentPercentId = (int)row["DevelopmentPercentId"];
+
+        }
+        if (DevelopmentPercentId == -1)
+        {
+            this.DivReport.Visible = true;
+            this.LabelWarning.Text = "لطفاً ابتدا یک رکورد را انتخاب نمائید";
+
+        }
+        else
+        {
+            Response.Redirect("DevelopmentPercentInsert.aspx?DevelopmentPercentId=" + Utility.EncryptQS(DevelopmentPercentId.ToString()) + "&PageMode=" + Utility.EncryptQS("View"));
+           
+        }
+
+    }
+    protected void btnDelete_Click(object sender, EventArgs e)
+    {
+        int DevelopmentPercentId = -1;
+
+        if (CustomAspxDevGridView1.FocusedRowIndex > -1)
+        {
+            DataRow row = CustomAspxDevGridView1.GetDataRow(CustomAspxDevGridView1.FocusedRowIndex);
+            DevelopmentPercentId = (int)row["DevelopmentPercentId"];
+
+        }
+        if (DevelopmentPercentId == -1)
+        {
+            this.DivReport.Visible = true;
+            this.LabelWarning.Text = "لطفاً ابتدا یک رکورد را انتخاب نمائید";
+
+        }
+        else
+        {
+
+            Delete(DevelopmentPercentId);
+        }
+
+    }
+    protected void Delete(int DevelopmentPercentId)
+    {
+        TSP.DataManager.TransactionManager trans = new TSP.DataManager.TransactionManager();
+        TSP.DataManager.TechnicalServices.DevelopmentPercentManager DevelopmentPercentManager = new TSP.DataManager.TechnicalServices.DevelopmentPercentManager();
+        TSP.DataManager.TechnicalServices.DevelopmentItemsStatusManager DevItemsStatusManager = new TSP.DataManager.TechnicalServices.DevelopmentItemsStatusManager();
+        TSP.DataManager.TechnicalServices.AttachmentsManager AttachManager = new TSP.DataManager.TechnicalServices.AttachmentsManager();
+
+        trans.Add(DevelopmentPercentManager);
+        trans.Add(DevItemsStatusManager);
+        trans.Add(AttachManager);
+
+
+        try
+        {
+            DevelopmentPercentManager.FindByDevelopmentPercentId(DevelopmentPercentId);
+            if (DevelopmentPercentManager.Count == 1)
+            {
+                trans.BeginSave();
+
+                DevItemsStatusManager.FindByDevelopmentPercentId(DevelopmentPercentId);
+                int Count = DevItemsStatusManager.Count;
+                for (int i = 0; i < Count; i++)
+                {
+                    DevItemsStatusManager[0].Delete();
+                }
+                DevItemsStatusManager.Save();
+
+                AttachManager.FindByTableTypeId(DevelopmentPercentId, (int)TSP.DataManager.TableCodes.TSDevelopmentPercent, (int)TSP.DataManager.TSAttachType.DevelopmentPercent);
+                int Counta = AttachManager.Count;
+                for (int i = 0; i < Counta; i++)
+                {
+                    AttachManager[0].Delete();
+                }
+                AttachManager.Save();
+
+                DevelopmentPercentManager[0].Delete();
+                int cn = DevelopmentPercentManager.Save();
+
+                if (cn > 0)
+                {
+                    CustomAspxDevGridView1.DataBind();
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "ذخیره انجام شد";
+                    trans.EndSave();
+
+                }
+                else
+                {
+                    trans.CancelSave();
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+                }
+
+            }
+            else
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "اطلاعات توسط کاربر دیگری تغییر یافته است";
+            }
+        }
+        catch (Exception err)
+        {
+            trans.CancelSave();
+
+            if (err.GetType() == typeof(System.Data.SqlClient.SqlException))
+            {
+                System.Data.SqlClient.SqlException se = (System.Data.SqlClient.SqlException)err;
+                if (se.Number == 547)
+                {
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "به علت وجود اطلاعات وابسته امکان حذف نمی باشد.";
+                }
+                else
+                {
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "خطایی در حذف انجام گرفته است";
+                }
+            }
+            else
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "خطایی در حذف انجام گرفته است";
+            }
+        }
+    }
+    protected void btnObservation_Click(object sender, EventArgs e)
+    {
+        int DevelopmentPercentId = -1;
+
+        if (CustomAspxDevGridView1.FocusedRowIndex > -1)
+        {
+            DataRow row = CustomAspxDevGridView1.GetDataRow(CustomAspxDevGridView1.FocusedRowIndex);
+            DevelopmentPercentId = (int)row["DevelopmentPercentId"];
+
+        }
+        if (DevelopmentPercentId == -1)
+        {
+            this.DivReport.Visible = true;
+            this.LabelWarning.Text = "لطفاً ابتدا یک رکورد را انتخاب نمائید";
+
+        }
+        else
+        {
+            TSP.DataManager.TechnicalServices.DevelopmentObserversManager DevelopmentObserversManager = new TSP.DataManager.TechnicalServices.DevelopmentObserversManager();
+            DevelopmentObserversManager.FindDevelopmentPercentAgent(DevelopmentPercentId, 1);
+            if (DevelopmentObserversManager.Count > 0)
+            {
+                if (Convert.ToInt32(DevelopmentObserversManager[0]["PrjObsMeId"]) != Utility.GetCurrentUser_MeId())
+                {
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "امکان ثبت نتیجه بررسی برای شما وجود ندارد";
+                    return;
+
+                }
+                DevelopmentObserversManager.FindByDevelopmentPercentId(DevelopmentPercentId);
+                for (int i = 0; i < DevelopmentObserversManager.Count; i++)
+                {
+                    if (Convert.ToInt32(DevelopmentObserversManager[i]["IsConfirm"]) == 0)
+                    {
+                        this.DivReport.Visible = true;
+                        this.LabelWarning.Text = "امکان ثبت نتیجه بررسی ناظر عالی برای درخواست مورد نظر وجود ندارد.تمامی ناظرین پاسخ خود را ثبت نکرده اند"; ;
+                        return;
+
+                    }
+                }
+                Response.Redirect("DevelopmentPercentInsert.aspx?DevelopmentPercentId=" + Utility.EncryptQS(DevelopmentPercentId.ToString()) + "&PageMode=" + Utility.EncryptQS("Observation"));
+
+            }
+            else
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "امکان ثبت نتیجه بررسی برای شما وجود ندارد";
+            }
+
+ 
+        }
+
+    }
+    protected void CustomAspxDevGridViewRequest_BeforePerformDataSelect(object sender, EventArgs e)
+    {
+        Session["DevPercentId"] = (sender as ASPxGridView).GetMasterRowKeyValue();
+
+    }
+    protected void CustomAspxDevGridView1_DetailRowExpandedChanged(object sender, DevExpress.Web.ASPxGridViewDetailRowEventArgs e)
+    {
+        CustomAspxDevGridView1.FocusedRowIndex = e.VisibleIndex;
+
+    }
+    protected void CustomAspxDevGridView1_FocusedRowChanged(object sender, EventArgs e)
+    {
+        if (CustomAspxDevGridView1.FocusedRowIndex != -1 && CustomAspxDevGridView1.SettingsDetail.ShowDetailRow)
+            CustomAspxDevGridView1.DetailRows.ExpandRow(CustomAspxDevGridView1.FocusedRowIndex);
+    }
+    protected void btnConfirm_Click(object sender, EventArgs e)
+    {
+        int DevObsId = -1;
+        int PrjObsMeId = -1;
+
+        if (CustomAspxDevGridView1.FocusedRowIndex > -1)
+        {
+           
+            TSP.WebControls.CustomAspxDevGridView GridViewRequest = (TSP.WebControls.CustomAspxDevGridView)CustomAspxDevGridView1.FindDetailRowTemplateControl(CustomAspxDevGridView1.FocusedRowIndex, "CustomAspxDevGridViewRequest");
+            if (GridViewRequest != null)
+            {
+                if (GridViewRequest.FocusedRowIndex > -1)
+                {
+                    DataRow row = GridViewRequest.GetDataRow(GridViewRequest.FocusedRowIndex);
+                    DevObsId = (int)row["DevObsId"];
+                    PrjObsMeId = (int)row["PrjObsMeId"];
+
+                    ConfirmRequest(DevObsId, PrjObsMeId);
+                }
+                else
+                {
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "لطفاً ابتدا یک درخواست را انتخاب نمائید";
+                    return;
+                }
+            }
+            else
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "لطفاً ابتدا یک درخواست را انتخاب نمائید";
+                return;
+            }
+        }
+        else
+        {
+            this.DivReport.Visible = true;
+            this.LabelWarning.Text = "لطفاً ابتدا یک رکورد را انتخاب نمائید";
+            return;
+        }
+    }
+    protected void btnReject_Click(object sender, EventArgs e)
+    {
+        int DevObsId = -1;
+        int PrjObsMeId = -1;
+
+        if (CustomAspxDevGridView1.FocusedRowIndex > -1)
+        {
+            TSP.WebControls.CustomAspxDevGridView GridViewRequest = (TSP.WebControls.CustomAspxDevGridView)CustomAspxDevGridView1.FindDetailRowTemplateControl(CustomAspxDevGridView1.FocusedRowIndex, "CustomAspxDevGridViewRequest");
+            if (GridViewRequest != null)
+            {
+                if (GridViewRequest.FocusedRowIndex > -1)
+                {
+                    DataRow row = GridViewRequest.GetDataRow(GridViewRequest.FocusedRowIndex);
+                    DevObsId = (int)row["DevObsId"];
+                    PrjObsMeId = (int)row["PrjObsMeId"];
+
+                    RejectRequest(DevObsId, PrjObsMeId);
+                }
+                else
+                {
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "لطفاً ابتدا یک درخواست را انتخاب نمائید";
+                    return;
+                }
+            }
+            else
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "لطفاً ابتدا یک درخواست را انتخاب نمائید";
+                return;
+            }
+        }
+
+    }
+    protected void ConfirmRequest(int DevObsId, int PrjObsMeId)
+    {
+        TSP.DataManager.TechnicalServices.DevelopmentObserversManager ObserversManager = new TSP.DataManager.TechnicalServices.DevelopmentObserversManager();
+       
+      
+        try
+        {
+            ObserversManager.FindByDevObsId(DevObsId);
+            if (ObserversManager.Count > 0)
+            {
+                if (Convert.ToBoolean(ObserversManager[0]["InActive"]))
+                {
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "به دلیل غیر فعال بودن وضعیت شما،امکان پاسخ درخواست وجود ندارد"; 
+                    return;
+                }
+
+                if (!Utility.IsDBNullOrNullValue(ObserversManager[0]["IsConfirm"]))
+                {
+                    if (Convert.ToByte(ObserversManager[0]["IsConfirm"]) != 0)
+                    {
+                        this.DivReport.Visible = true;
+                        this.LabelWarning.Text = "درخواست مورد نظر قبلاً پاسخ داده شده است";
+                        return;
+                    }
+                   
+                }
+
+                if (PrjObsMeId != Utility.GetCurrentUser_MeId())
+                {
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "امکان پاسخ درخواست مورد نظر برای شما وجود ندارد";
+                    return;
+                }
+                else
+                {
+                    ObserversManager[0].BeginEdit();
+                    ObserversManager[0]["IsConfirm"] = 1;
+                    ObserversManager[0]["ConfirmDate"] = Utility.GetDateOfToday();
+                    ObserversManager[0]["UserId"] = Utility.GetCurrentUser_UserId();
+                    ObserversManager[0].EndEdit();
+                    if (ObserversManager.Save() > 0)
+                    {
+                        CustomAspxDevGridView1.DataBind();
+                        this.DivReport.Visible = true;
+                        this.LabelWarning.Text = "ذخیره انجام شد";
+                    }
+                    else
+                    {
+                        this.DivReport.Visible = true;
+                        this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+                    }
+                }
+            }
+            else
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "اطلاعات توسط کاربر دیگری تغییر یافته است";
+            }
+        }
+        catch (Exception)
+        {
+            this.DivReport.Visible = true;
+            this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+        }
+    }
+    protected void RejectRequest(int DevObsId, int PrjObsMeId)
+    {
+        TSP.DataManager.TechnicalServices.DevelopmentObserversManager ObserversManager = new TSP.DataManager.TechnicalServices.DevelopmentObserversManager();
+
+        try
+        {
+            ObserversManager.FindByDevObsId(DevObsId);
+            if (ObserversManager.Count > 0)
+            {
+                if (Convert.ToBoolean(ObserversManager[0]["InActive"]))
+                {
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "به دلیل غیر فعال بودن وضعیت شما،امکان پاسخ درخواست وجود ندارد"; ;
+                    return;
+                }
+                if (!Utility.IsDBNullOrNullValue(ObserversManager[0]["IsConfirm"]))
+                {
+                    if (Convert.ToByte(ObserversManager[0]["IsConfirm"]) != 0)
+                    {
+                        this.DivReport.Visible = true;
+                        this.LabelWarning.Text = "درخواست مورد نظر قبلاً پاسخ داده شده است";
+                        return;
+                    }
+
+                }
+
+                if (PrjObsMeId != Utility.GetCurrentUser_MeId())
+                {
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "امکان پاسخ درخواست مورد نظر برای شما وجود ندارد";
+                    return;
+                }
+                else
+                {
+                    ObserversManager[0].BeginEdit();
+                    ObserversManager[0]["IsConfirm"] = 2;
+                    ObserversManager[0]["ConfirmDate"] = Utility.GetDateOfToday();
+                    ObserversManager[0]["UserId"] = Utility.GetCurrentUser_UserId();
+                    ObserversManager[0].EndEdit();
+                    if (ObserversManager.Save() > 0)
+                    {
+                        CustomAspxDevGridView1.DataBind();
+                        this.DivReport.Visible = true;
+                        this.LabelWarning.Text = "ذخیره انجام شد";
+                    }
+                    else
+                    {
+                        this.DivReport.Visible = true;
+                        this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+                    }
+                }
+            }
+            else
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "اطلاعات توسط کاربر دیگری تغییر یافته است";
+            }
+        }
+        catch (Exception)
+        {
+            this.DivReport.Visible = true;
+            this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+        }
+    }
+   
+}

@@ -1,0 +1,537 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPageWebsite.master.cs" Inherits="MasterPageWebsite" %>
+
+<%@ Register Assembly="TSP.WebControls" Namespace="TSP.WebControls" TagPrefix="TSPControls" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxe" %>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <meta name="viewport" content="width=device-width" charset="utf-8" />
+    <title>سازمان نظام مهندسی ساختمان استان فارس</title>
+<%--    <link rel="stylesheet" href="StyleSheet/bootstrap.css" type="text/css" />
+    <link rel="stylesheet" href="StyleSheet/Style.css" type="text/css" />
+    <link href="StyleSheet/owl.theme.default.min.css" rel="stylesheet" />
+    <link href="StyleSheet/owl.carousel.min.css" rel="stylesheet" />
+    <link href="StyleSheet/fontawesome-all.css" rel="stylesheet" />--%>
+    
+    <link href="Images/arm3.png" rel="shortcut icon" type="image/x-icon" />
+   
+   <%-- <script type="text/javascript" src="/Script/jquery-1.11.2.min.js"></script>
+   <script type="text/javascript" src="/Script/jquery-3.1.0.min.js"></script>
+   <script type="text/javascript" src="/Script/bootstrap.js"></script>
+   <script type="text/javascript" src="/Script/jquery.touchSwipe.min.js"></script>
+   <script type="text/javascript" src="/Script/jquery.mobile-1.4.5.min.js"></script>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+   <script type="text/javascript" src="/Script/owl.carousel.min.js"></script>
+   <script type="text/javascript" src="/Script/Utility.js"></script>--%>
+  <%-- <webopt:BundleReference runat="server" Path="~/bundles/css" />--%>
+
+      <asp:PlaceHolder runat="server"> 
+         <%: Styles.Render("~/bundles/css") %>
+         <%: Scripts.Render("~/bundles/WebFormsJs") %>
+         <%: Scripts.Render("~/bundles/MsAjaxJs") %>
+         <%: Scripts.Render("~/bundles/jquery") %>
+         <%: Scripts.Render("~/bundles/utility") %>
+         <%: Scripts.Render("~/bundles/bootstrap") %>
+         <%: Scripts.Render("~/bundles/owl") %>
+         <%: Scripts.Render("~/bundles/modernizr") %>
+    </asp:PlaceHolder>
+
+    <meta property="og:url" content="" id="Metaurl" runat="server" />
+    <meta property="og:title" content="سازمان نظام مهندسی ساختمان استان فارس" id="Metatitle" runat="server" />
+    <meta property="og:image" content="/Images/arm_email.png" />
+    <meta property="og:description" content="پایگاه اطلاع رسانی و خدمات الکترونیک سازمان نظام مهندسی استان فارس" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="سازمان نظام مهندسی ساختمان استان فارس" />
+
+</head>
+<body>
+
+     <div id="DivReport" runat="server" class="DivErrors" style="text-align: right">
+            <asp:Label ID="LabelWarning" runat="server" Text="Label"></asp:Label>
+            [<a class="closeLink" href="#">بستن</a>]
+        </div>
+    <form id="form1" runat="server">
+
+        <asp:ScriptManager ID="ScriptManager1" runat="server">
+                <Scripts>
+        <asp:ScriptReference Path="~/Script/WebForms/MsAjax/MicrosoftAjax.js" />
+        <asp:ScriptReference Path="~/Script/WebForms/MsAjax/MicrosoftAjaxWebForms.js" />
+    </Scripts>
+    </asp:ScriptManager>
+             
+
+        <div class="navbar navbar-inverse navbar-fixed-top ">
+      
+                  <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav ">
+                    <li runat="server" id="dropdownMeInfo" class="dropdown mega-dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <img runat="server" src="/Images/icons/UserMenu.png" />
+                            <span class="caret"></span></a>
+                        <ul class="dropdown-menu mega-dropdown-menu">
+                            <li class="col-md-3 col-sm-12">
+                                <div class="Item-center" style="width: 100px; height: 100px;">
+                                    <img class="img-responsive thumbnail" id="ImageUser" src="/Images/Person.png" runat="server" />
+                                </div>
+                            </li>
+                            <li class="col-md-9  col-sm-12">
+                                <ul>
+                                    <li><a runat="server" id="MenulblUserFullName"></a></li>
+
+                                    <li><a id="btngotoPortal" runat="server" href="" >ورود به پرتال</a></li>
+
+                                    <li><a href="/Users/ChangePassword.aspx">تنظیمات کاربری</a></li>
+
+                                    <li><a href="/Help/Help.aspx">راهنماي سايت</a></li>
+
+                                    <li><a runat="server" id="btnLogOut" onserverclick="btnLogOut_ServerClick">خروج</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown mega-dropdown"><a runat="server" id="A1" href="~/Default.aspx">صفحه نخست</a></li>
+                    <li class="dropdown mega-dropdown"><a runat="server" id="btnLogin" href="/login.aspx">ورود به سامانه</a></li>
+                    <li class="dropdown mega-dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">درباره سازمان<span class="caret"></span></a>
+                        <ul class="dropdown-menu mega-dropdown-menu">
+                            <li class="col-md-12 col-sm-12">
+                                <ul>
+                                    <li class="dropdown-header"></li>
+                                    <li><a runat="server" id="linkManagementcommittee" href='#'>هیئت مدیره</a></li>
+                                    <li><a href="/Introduction.aspx">معرفی سازمان</a></li>
+                                    <li><a href="/IntroductionWebSite.aspx">معرفی سامانه الکترونیکی نظام مهندسی</a></li>
+                                    <li><a href="/WebsiteStatistics.aspx">آمار بازدید سایت</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown mega-dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">اخبار و اطلاعیه ها<span class="caret"></span></a>
+                        <ul class="dropdown-menu mega-dropdown-menu">
+                            <li class="col-md-6 col-sm-12">
+                                <ul>
+                                    <li class="dropdown-header">اخبار</li>
+                                    <li>
+                                        <div class="footer-divider"></div>
+                                    </li>
+                                    <li><a href="/News.aspx">آرشیو اخبار</a></li>
+                                    <li><a runat="server" id="linkHighlyImportanNewsMenu">آرشیو مهمترین خبرها</a></li>
+                                    <li><a runat="server" id="linkNewsMenu">آرشیو اخبار معمولی</a></li>
+                                    <li><a href="/NewsRssList.aspx">فید خبری</a></li>
+                                 
+                                </ul>
+                            </li>
+
+                            <li class="col-md-6 col-sm-12">
+                                <ul>
+                                    <li class="dropdown-header">گزارشات</li>
+                                    <li>
+                                        <div class="footer-divider"></div>
+                                    </li>
+                                    <li><a href="/ImageGallery/ImageGallery.aspx">گزارش تصویری</a></li>
+                                    <li><a href="/Podcasts.aspx">گزارش صوتی</a></li>
+                                    <li><a href="/Videos.aspx">گزارش ویدیوئی</a></li>
+                                </ul>
+                            </li>
+                           
+                        </ul>
+                    </li>
+                    <li class="dropdown mega-dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">خدمات الکترونیک<span class="caret"></span></a>
+                        <ul class="dropdown-menu mega-dropdown-menu">
+                            <li class="col-md-4 col-sm-12">
+                                <ul>
+                                    <li class="dropdown-header">خدمات عضویت</li>
+                                    <li>
+                                        <div class="footer-divider"></div>
+                                    </li>
+                                    <li><a href="/NezamRegister/Membership.aspx">ثبت نام عضویت حقیقی در سازمان</a></li>
+                                    <li><a href="/NezamRegister/Membership.aspx">ثبت نام عضویت حقوقی در سازمان</a></li>
+                                    <li><a href="/MembersInfo/Members.aspx">جستجو اعضای حقیقی</a></li>
+                                    <li><a href="/MembersInfo/Office.aspx">جستجو اعضای حقوقی</a></li>
+                                </ul>
+                            </li>
+                            <li class="col-md-4 col-sm-12">
+                                <ul>
+                                    <li class="dropdown-header">خدمات آموزش</li>
+                                    <li>
+                                        <div class="footer-divider"></div>
+                                    </li>
+                                    <li><a href="/Members/Amoozesh/PeriodRegister.aspx">ثبت نام دوره های آموزشی</a></li>
+                                    <li><a href="/Members/Amoozesh/SeminarRegister.aspx">ثبت نام دوره های غیر مصوب و سمینار های آموزشی</a></li>
+                                    <li><a href="/Period.aspx">دوره های آموزشی در حال برگزاری</a></li>
+                                    <li><a href="/Learning/Course.aspx">واحدهای درسی مورد تایید نظام مهندسی</a></li>
+                                </ul>
+                            </li>
+                            <li class="col-md-4 col-sm-12">
+                                <ul>
+                                    <li class="dropdown-header">خدمات پروانه اشتغال</li>
+                                    <li>
+                                        <div class="footer-divider"></div>
+                                    </li>
+                                    <li><a runat="server" id="btnNewDoc" onserverclick="btnNewDoc_ServerClick">درخواست صدور پروانه اشتغال به کار</a></li>
+                                    <li><a runat="server" id="btnQualification" onserverclick="btnQualification_ServerClick">درخواست درج صلاحیت جدید در پروانه اشتغال به کار</a></li>
+                                    <li><a runat="server" id="btnRevival" onserverclick="btnRevival_ServerClick">درخواست تمدید پروانه اشتغال به کار</a></li>
+                                    <li><a href="#" onclick="ShowHelpWindow('/Help/DocumentFiles/NewDocHelp.pdf')">راهنمای صدور پروانه اشتغال به کار</a></li>
+                                    <li><a  href="#" onclick="ShowHelpWindow('/Help/DocumentFiles/DocQualificationHelp.pdf')">راهنمای درخواست درج صلاحیت جدید در پروانه اشتغال به کار</a></li>
+                                    <li><a  href="#" onclick="ShowHelpWindow('/Help/DocumentFiles/HelpdocRevival.pdf')">راهنمای صدور تمدید اشتغال به کار</a></li>
+
+                                </ul>
+                            </li>
+                        </ul>
+
+                    </li>
+                    <li class="dropdown mega-dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">تماس با ما<span class="caret"></span></a>
+                        <ul class="dropdown-menu mega-dropdown-menu">
+                            <li class="col-md-12 col-sm-12">
+                                <ul>
+                                    <li class="dropdown-header"></li>
+                                    <li><a href="/ContactUs.aspx">تماس با سازمان</a></li>
+                                    <%--<li><a href="/ContactMaintance.aspx">تماس با پشتیبان فنی سایت</a></li>--%>
+                                    <li><a href="https://www.google.com/maps/d/viewer?mid=1_lBJJru1b6Fp6gntADjJ-rogG4s&ll=29.625399391052092%2C52.49301373958588&z=19">موقعیت مکانی سازمان</a></li>
+                                    
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown mega-dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">قوانین و بخش نامه ها<span class="caret"></span></a>
+                        <ul class="dropdown-menu mega-dropdown-menu">
+                            <li class="col-md-12 col-sm-12">
+                                <ul>
+                                    <li class="dropdown-header"></li>
+                                    <li><a href="/PriceArchive.aspx">تعرفه خدمات مهندسی طراحی و نظارت</a></li>
+                                    <li><a href="/Rules.aspx">آرشیو قوانین و بخشنامه ها</a></li>
+                                    <li><a href="/Forms.aspx">آرشیو فرم ها</a></li>
+                                    <li><a href="/Tender.aspx">آرشیو مناقصات</a></li>
+
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown mega-dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">سامانه ها<span class="caret"></span></a>
+                        <ul class="dropdown-menu mega-dropdown-menu">
+                            <li class="col-md-12 col-sm-12">
+                                <ul>
+                                    <asp:Repeater runat="server" ID="RepeaterSubSystem" DataSourceID="ObjDataSourceSubSystem">
+                                        <ItemTemplate>
+                                            <li><a target="_blank" href='<%# Eval("SubSysLink") %>'><%# Eval("SubSysName") %></a></li>
+                                        </ItemTemplate>
+                                    </asp:Repeater>
+                                    <asp:ObjectDataSource ID="ObjDataSourceSubSystem" runat="server" SelectMethod="FindActiveSubSystem"
+                                        TypeName="TSP.DataManager.SubSystemManager" OldValuesParameterFormatString="original_{0}"></asp:ObjectDataSource>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown mega-dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">نمایندگی ها <span class="caret"></span></a>
+                        <ul class="dropdown-menu mega-dropdown-menu">
+                            <li class="col-sm-3">
+                                <ul>                                    
+                                    <asp:Repeater runat="server" ID="RepeaterAgent1">
+                                        <ItemTemplate>
+                                            <li>
+                                                <a target="_blank" href='<%# "/AgentView.aspx?AgentId=" + Utility.EncryptQS( Eval("AgentId").ToString() ) + "&PageMode=" + Utility.EncryptQS("View") %>'><%# Eval("Name") %> </a>
+                                            </li>
+                                        </ItemTemplate>
+                                    </asp:Repeater>
+                                    <li></li>
+                                </ul>
+                            </li>
+                            <li class="col-sm-3">
+                                <ul>
+                                    <li class="dropdown-header"></li>
+                                    <asp:Repeater runat="server" ID="RepeaterAgent2">
+                                        <ItemTemplate>
+                                            <li>
+                                                <a target="_blank" href='<%# "/AgentView.aspx?AgentId=" + Utility.EncryptQS( Eval("AgentId").ToString() ) + "&PageMode=" + Utility.EncryptQS("View") %>'><%# Eval("Name") %> </a>
+                                            </li>
+                                        </ItemTemplate>
+                                    </asp:Repeater>
+                                    <li></li>
+                                </ul>
+                            </li>
+                            <li class="col-sm-3">
+                                <ul>
+                                    <li class="dropdown-header"></li>
+                                    <asp:Repeater runat="server" ID="RepeaterAgent3">
+                                        <ItemTemplate>
+                                            <li>
+                                                <a target="_blank" href='<%# "/AgentView.aspx?AgentId=" + Utility.EncryptQS( Eval("AgentId").ToString() ) + "&PageMode=" + Utility.EncryptQS("View") %>'><%# Eval("Name") %> </a>
+                                            </li>
+                                        </ItemTemplate>
+                                    </asp:Repeater>
+                                    <li></li>
+                                </ul>
+                            </li>
+                            <li class="col-sm-3">
+                                <ul>
+                                    <li class="dropdown-header"></li>
+                                    <asp:Repeater runat="server" ID="RepeaterAgent4">
+                                        <ItemTemplate>
+                                            <li>
+                                                <a target="_blank" href='<%# "/AgentView.aspx?AgentId=" + Utility.EncryptQS( Eval("AgentId").ToString() ) + "&PageMode=" + Utility.EncryptQS("View") %>'><%# Eval("Name") %> </a>
+                                            </li>
+                                        </ItemTemplate>
+                                    </asp:Repeater>
+                                    <li></li>
+                                </ul>
+                            </li>
+                            <%--  <li class="col-sm-3">
+                                <ul>
+                                    <li class="dropdown-header">Men Collection</li>
+
+                                    <!-- /.carousel -->
+                                    <li class="divider"></li>
+                                    <li><a href="#">View all Collection <span class="glyphicon glyphicon-chevron-right pull-right"></span></a></li>
+                                </ul>
+                            </li>
+                            <li class="col-sm-3">
+                                <ul>
+                                    <li class="dropdown-header">Features</li>
+                                    <li><a href="#">Auto Carousel</a></li>
+                                    <li><a href="#">Carousel Control</a></li>
+                                    <li><a href="#">Left & Right Navigation</a></li>
+                                    <li><a href="#">Four Columns Grid</a></li>
+                                    <li class="divider"></li>
+                                    <li class="dropdown-header">Fonts</li>
+                                    <li><a href="#">Glyphicon</a></li>
+                                    <li><a href="#">Google Fonts</a></li>
+                                </ul>
+                            </li>
+                            <li class="col-sm-3">
+                                <ul>
+                                    <li class="dropdown-header">Plus</li>
+                                    <li><a href="#">Navbar Inverse</a></li>
+                                    <li><a href="#">Pull Right Elements</a></li>
+                                    <li><a href="#">Coloured Headers</a></li>
+                                    <li><a href="#">Primary Buttons & Default</a></li>
+                                </ul>
+                            </li>
+                            <li class="col-sm-3">
+                                <ul>
+                                    <li class="dropdown-header">Much more</li>
+                                    <li><a href="#">Easy to Customize</a></li>
+                                    <li><a href="#">Calls to action</a></li>
+                                    <li><a href="#">Custom Fonts</a></li>
+                                    <li><a href="#">Slide down on Hover</a></li>
+                                </ul>
+                            </li>--%>
+                        </ul>
+
+                    </li>
+                </ul>
+            </div>
+                  <div class="navbar-header">
+                <a class="navbar-brand" runat="server" href="~/Default.aspx">
+                    <img runat="server" class="img-responsive arm" src="/Images/Arm.png" />
+                   <%-- <img runat="server" class="img-responsive arm2" src="/Images/Arm3.png" />--%>
+
+                </a>
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+            </div>
+        </div>
+        <%--<div class=" DivTestWeb" ><span class="blink">نسخه آزمایشی</span></div>--%>
+        <asp:ObjectDataSource ID="OdbAgent" runat="server" SelectMethod="GetData" TypeName="TSP.DataManager.AccountingAgentManager"
+            OldValuesParameterFormatString="original_{0}"></asp:ObjectDataSource>
+        <div class="container-fluid ">
+            <div class="body-content">
+                <asp:ContentPlaceHolder ID="MainContent" runat="server">
+                </asp:ContentPlaceHolder>
+            </div>
+            <br />
+            <div runat="server" id="DivSiteMap" class="row SiteMapMain">
+                <span>مسير شما در سايت :  </span>
+                <a href="/Default.aspx" style="text-decoration: none"><span class="glyphicon glyphicon-home"></span></a>
+                <span>> </span>
+                <asp:SiteMapPath ID="SiteMapPath1" runat="server">
+                    <PathSeparatorStyle ForeColor="#ffffff" />
+                    <CurrentNodeStyle ForeColor="#ffffff" />
+                    <NodeStyle ForeColor="#ffffff" />
+                    <RootNodeStyle ForeColor="#ffffff" />
+                </asp:SiteMapPath>
+            </div>
+        </div>
+
+        <div id="MenueLeft" runat="server" dir="ltr" class="a2a_kit" style="line-height: 16px;">
+            <ul class="list-unstyled">
+                <li><a data-toggle="tooltip" title="خانه" class="a2a_button_twitter" href="/Home.aspx#slider" rel="nofollow"><i class="glyphicon glyphicon-home"></i></a></li>
+                <li><a data-toggle="tooltip" title="اخبار" class="a2a_button_facebook" href="/Home.aspx#NewsSection" rel="nofollow"><i class="glyphicon glyphicons-global"></i></a></li>
+                <li><a data-toggle="tooltip" title="آرشیو مهمترین خبرها" class="a2a_button_linkedin" href="#" id="NewsArchImp2" runat="server"><i class="glyphicon glyphicon-list-alt"></i></a></li>
+                <li><a data-toggle="tooltip" id="periodLeftLink" title="دوره و سمینار های آموزشی" class="a2a_button_pinterest" href="/Home.aspx#PeriodsSection" rel="nofollow"><i class="glyphicon glyphicon-education"></i></a></li>
+                <%--<li class="VerticalText"><a class="a2a_button_ContactManager" data-toggle="tooltip" title="ارتباط مستقیم با سازمان" href="/ContactUs.aspx?" rel="nofollow">ارتباط مستقیم با سازمان</a></li>--%>
+                <li class="VerticalTextli"><a class="a2a_button_ContactManager VerticalText" data-toggle="tooltip" title="ارتباط مستقیم با سازمان" href="/ContactUs.aspx?" rel="nofollow">ارتباط مستقیم با سازمان</a></li>
+                <li><a class="a2a_rp_show_hide"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span></a></li>
+            </ul>
+
+        </div>
+
+        <a href="javascript:" id="return-to-top"><i class="glyphicon glyphicon-chevron-up"></i></a>
+
+        <footer class="row" id="FooterWebsitMasterPage" runat="server">
+
+            <div class="row">
+                <div class="col-sm-3 ">
+                    <div class="panel-heading ">
+                        <h4 class="panel-title">
+                            <span data-toggle="collapse" data-parent="#accordion" href="#collapse1"><strong>معرفی سازمان</strong><span class=" glyphicon glyphicon-chevron-down"></span>
+                            </span>
+                        </h4>
+                    </div>
+                    <div class="footer-divider"></div>
+                    <div id="collapse1" class="panel-collapse collapse in">
+                        <div class="panel-body ">
+                            <p><a runat="server" href="/Introduction.aspx">معرفی سازمان</a></p>
+                            <p><a runat="server" href="/Agents.aspx">نمایندگی ها</a></p>
+                            <p><a runat="server" href="/ContactUs.aspx">تماس با سازمان</a></p>
+                            <%--<p><a runat="server" href="/ContactMaintance.aspx">تماس با پشتیبان فنی سایت</a></p>--%>
+                            <p><a runat="server" href="/IntroductionWebSite.aspx">معرفی سامانه الکترونیکی نظام مهندسی</a></p>
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-3">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <span data-toggle="collapse" data-parent="#accordion" href="#collapse2"><strong>عضویت و آموزش</strong><span class="  glyphicon glyphicon-chevron-down"></span>
+                            </span>
+                        </h4>
+
+                    </div>
+                    <div class="footer-divider"></div>
+                    <div id="collapse2" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <p><a runat="server" href="/NezamRegister/Membership.aspx">عضویت در سازمان</a></p>
+                            <p><a runat="server" href="/MembersInfo/Members.aspx">اعضای حقیقی سازمان</a></p>
+                            <p><a runat="server" href="/MembersInfo/Office.aspx">اعضای حقوقی سازمان</a></p>
+                            <p><a runat="server" href="/Period.aspx">دوره های آموزشی در حال برگزاری</a></p>
+                            <p><a runat="server" href="/Learning/Course.aspx">واحدهای درسی مورد تایید نظام مهندسی</a></p>
+                            <p><a runat="server" href="/Members/Amoozesh/PeriodRegister.aspx">ثبت نام دوره های آموزشی</a></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-3">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <span data-toggle="collapse" data-parent="#accordion" href="#collapse4"><strong>آرشیو ها</strong>  <span class=" glyphicon glyphicon-chevron-down"></span>
+                            </span>
+                        </h4>
+                    </div>
+                    <div class="footer-divider"></div>
+                    <div id="collapse4" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <p><a runat="server" href="/News.aspx">آرشیو اخبار</a></p>
+                            <p><a id="NewsArchImp" runat="server">آرشیو مهمترین خبرها</a></p>
+                              <p><a id="linkNewsMenu2" runat="server">آرشیو اخبار معمولی</a></p>
+                            <p><a runat="server" href="/Tender.aspx">آرشیو مناقصات</a></p>
+                            <p><a runat="server" href="/Forms.aspx">آرشیو فرم ها</a></p>
+                            <p><a runat="server" href="/Rules.aspx">آرشیو قوانین و بخشنامه ها</a></p>
+                           
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-3">
+                    <div class="panel-heading">
+                        <h4 class="panel-title">
+                            <span data-toggle="collapse" data-parent="#accordion" href="#collapse5"><strong>سایرین</strong><span class="glyphicon glyphicon-chevron-down"></span></span>
+                        </h4>
+                    </div>
+                    <div class="footer-divider"></div>
+                    <div id="collapse5" class="panel-collapse collapse in">
+                        <div class="panel-body">
+                            <p><a runat="server" href="/NewsRssList.aspx">فید خبری</a></p>
+                            <p><a runat="server" href="/Association/ExGroupPeriods.aspx">تشکل ها</a></p>
+                            <p><a runat="server" href="/ImageGallery/ImageGallery.aspx">گالری تصاویر</a></p>
+                            <p><a runat="server" href="/WebsiteStatistics.aspx">آمار بازدید سایت</a></p>
+                             <p><a runat="server" href="/Links.aspx">پیوند ها</a></p>
+                        </div>
+                    </div>              
+                </div>
+
+            </div>
+
+            <div class="footer-divider"></div>
+
+            <div style="font-size: small" class="row ">
+                <div class="col-sm-4">
+                    <p>
+                        <span>اين نرم افزار شامل قوانين کپی رايت می باشد
+                        </span>
+                    </p>
+                </div>
+                <div class="col-sm-7">
+                    <p><span>تمام حقوق مادی و معنوی این سایت متعلق به سازمان نظام مهندسی ساختمان استان فارس می باشد </span></p>
+                    <%--  <p>طراحی و پشتیبانی توسط <strong>چاووش سامانه پارسیان</strong>شماره تماس پشتیبان سایت: <strong>07138324579</strong></p>--%>
+                </div>
+                <div class="col-sm-1">
+                </div>
+
+            </div>
+        </footer>
+
+    </form>
+  <script>
+        //$(".a2a_rp_show_hide").on("click", function () { $(".a2a_kit").hasClass("a2a_rp_hide") ? $(".a2a_kit").removeClass("a2a_rp_hide") : $(".a2a_kit").addClass("a2a_rp_hide") })
+        //$(window).bind('resize load', function () {
+        //    if ($(this).width() < 767) {
+        //        $('.panel-collapse').removeClass('in');
+        //        $('.panel-collapse').addClass('out');
+        //        $('.panel-collapse').parent().find(".glyphicon-chevron-up").removeClass("glyphicon-chevron-up").addClass("glyphicon-chevron-down");
+        //    } else {
+        //        $('.panel-collapse').removeClass('out');
+        //        $('.panel-collapse').addClass('in');
+        //        $('.panel-collapse').parent().find(".glyphicon-chevron-down").removeClass("glyphicon-chevron-down").addClass("glyphicon-chevron-up");
+        //    }
+        //});
+
+        //$('.collapse').on('shown.bs.collapse', function () {
+        //    $(this).parent().find(".glyphicon-chevron-down").removeClass("glyphicon-chevron-down").addClass("glyphicon-chevron-up");
+        //}).on('hidden.bs.collapse', function () {
+        //    $(this).parent().find(".glyphicon-chevron-up").removeClass("glyphicon-chevron-up").addClass("glyphicon-chevron-down");
+        //});
+
+        //// ===== Scroll to Top ==== 
+        //$(window).scroll(function () {
+        //    if ($(this).scrollTop() >= 350) {        // If page is scrolled more than 50px
+        //        $('#return-to-top').fadeIn(200);    // Fade in the arrow
+        //    } else {
+        //        $('#return-to-top').fadeOut(200);   // Else fade out the arrow
+        //    }
+        //});
+        //$('#return-to-top').click(function () {      // When arrow is clicked
+        //    $('body,html').animate({
+        //        scrollTop: 0                       // Scroll to top of body
+        //    }, 500);
+        //});
+        //$(document).ready(function () {
+        //    $(".dropdown").click(
+        //        function () {
+        //            $('.dropdown-menu', this).not('.in .dropdown-menu').stop(true, true).slideDown("400");
+        //            $(this).toggleClass('open');
+        //        },
+        //        function () {
+        //            $('.dropdown-menu', this).not('.in .dropdown-menu').stop(true, true).slideUp("400");
+        //            $(this).toggleClass('open');
+        //        }
+        //    );
+        //});
+  </script>
+</body>
+</html>
+

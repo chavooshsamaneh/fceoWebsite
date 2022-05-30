@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/BIZ.SC" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/BIZ.SC" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://esup.shiraz.ir/EngineerToOther/srvEngineerToOthers.svc?xsd=xsd7" namespace="http://schemas.datacontract.org/2004/07/BIZ.SA" />
+  <xs:import schemaLocation="http://esup.shiraz.ir/EngineerToOther/srvEngineerToOthers.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/DtoSC" />
+  <xs:complexType name="ClsEngineer">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="DtoEngineer" nillable="true" type="tns:ClsDtoEngineer" />
+      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/BIZ.SA" minOccurs="0" name="ErrorResult" nillable="true" type="q1:ClsErrorResult" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ClsEngineer" nillable="true" type="tns:ClsEngineer" />
+  <xs:complexType name="ClsDtoEngineer">
+    <xs:sequence>
+      <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/DtoSC" minOccurs="0" name="Base_NosaziCode" nillable="true" type="q2:Base_NosaziCode" />
+      <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/DtoSC" minOccurs="0" name="Base_Owner" nillable="true" type="q3:ArrayOfBase_Owner" />
+      <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/DtoSC" minOccurs="0" name="Base_RegisterPlack" nillable="true" type="q4:ArrayOfBase_RegisterPlack" />
+      <xs:element minOccurs="0" name="BuildingStep_Title" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CI_BuildingStep" type="xs:int" />
+      <xs:element minOccurs="0" name="CI_City" type="xs:int" />
+      <xs:element minOccurs="0" name="CI_Sazeh" type="xs:int" />
+      <xs:element minOccurs="0" name="CI_UsingGroup" type="xs:int" />
+      <xs:element minOccurs="0" name="FileDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FloorCount" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Height" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="InfrastructureArea" type="xs:double" />
+      <xs:element minOccurs="0" name="MetrajMojaz" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MetrajMojod" type="xs:decimal" />
+      <xs:element minOccurs="0" name="ParvandehType" type="xs:short" />
+      <xs:element minOccurs="0" name="ParvanehIdRef" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ParvanehMeterEdit" type="xs:double" />
+      <xs:element minOccurs="0" name="Region" type="xs:int" />
+      <xs:element minOccurs="0" name="Sazeh_Title" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SecretariatNo" nillable="true" type="xs:string" />
+      <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/DtoSC" minOccurs="0" name="Sh_RequestInfo" nillable="true" type="q5:Sh_RequestInfo" />
+      <xs:element minOccurs="0" name="Underground" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="UnitCount" type="xs:int" />
+      <xs:element minOccurs="0" name="UsingGroup_Title" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UsingList" nillable="true" type="tns:ArrayOfClsDtoEngineer_Using" />
+      <xs:element minOccurs="0" name="ZabeteType" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ZabeteTypeID" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ClsDtoEngineer" nillable="true" type="tns:ClsDtoEngineer" />
+  <xs:complexType name="ArrayOfClsDtoEngineer_Using">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ClsDtoEngineer_Using" nillable="true" type="tns:ClsDtoEngineer_Using" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfClsDtoEngineer_Using" nillable="true" type="tns:ArrayOfClsDtoEngineer_Using" />
+  <xs:complexType name="ClsDtoEngineer_Using">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BuildingStepID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BuildingStepTitle" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CI_SazehType" type="xs:int" />
+      <xs:element minOccurs="0" name="FloorNo" type="xs:int" />
+      <xs:element minOccurs="0" name="Infrastructure" type="xs:double" />
+      <xs:element minOccurs="0" name="UsingID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UsingTitle" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ClsDtoEngineer_Using" nillable="true" type="tns:ClsDtoEngineer_Using" />
+</xs:schema>

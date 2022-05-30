@@ -1,0 +1,15 @@
+<%@ Register TagPrefix="dx" Namespace="DevExpress.Data" Assembly="DevExpress.Data.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<%@ Register TagPrefix="dx" Namespace="DevExpress.Web" Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+
+<dx:ASPxCloudControl runat="server" MaxColor="#F7A233" MinColor="#F7A233" CssPostfix="Metropolis" CssFilePath="{0}/styles.css">
+    <RankProperties>
+        <dx:RankProperties></dx:RankProperties>
+        <dx:RankProperties></dx:RankProperties>
+        <dx:RankProperties></dx:RankProperties>
+        <dx:RankProperties></dx:RankProperties>
+        <dx:RankProperties></dx:RankProperties>
+        <dx:RankProperties></dx:RankProperties>
+        <dx:RankProperties></dx:RankProperties>
+    </RankProperties>
+</dx:ASPxCloudControl>
+

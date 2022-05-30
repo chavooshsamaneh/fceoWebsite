@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Groups>
+	
+	<NavBarGroup Expanded="False" Name="grpBank" Text="مدیریت دریافت و پرداخت">
+		<NavBarItem NavigateUrl="~/Accounting/BankOperations/Bills.aspx" Text="مدیریت مدارک حسابداری ">
+		</NavBarItem>
+		<NavBarItem NavigateUrl="~/Accounting/BankOperations/ChequeManager.aspx" Text="مدیریت دریافت ">
+		</NavBarItem>
+		<NavBarItem NavigateUrl="~/Accounting/BankOperations/Payment.aspx" Text="مدیریت پرداخت ">
+		</NavBarItem>
+		<NavBarItem NavigateUrl="~/Accounting/BankOperations/FichePirint.aspx" Text="چاپ فیش">
+		</NavBarItem>
+		<NavBarItem NavigateUrl="~/Accounting/BankOperations/PrintedBankFish.aspx" Text="مدیریت فیشهای بانکی">
+		</NavBarItem>
+		<NavBarItem NavigateUrl="~/Accounting/BankOperations/Cheque.aspx" Text="مدیریت چکهای دریافتی">
+		</NavBarItem>
+		<NavBarItem NavigateUrl="~/Accounting/BankOperations/ChequeStatusChange.aspx" Text="مدیریت تغییر وضعیت چکهای دریافتی">
+		</NavBarItem>
+		<NavBarItem NavigateUrl="~/Accounting/BankOperations/PayCheque.aspx" Text="مدیریت چکهای پرداختی">
+		</NavBarItem>
+		<NavBarItem NavigateUrl="~/Accounting/BankOperations/PayChequeStatusChange.aspx" Text="مدیریت تغییر وضعیت چکهای پرداختی">
+		</NavBarItem>
+		<NavBarItem NavigateUrl="~/Accounting/BankOperations/BankContradiction.aspx" Text="مدیریت مغایرت بانکی">
+		</NavBarItem>
+	</NavBarGroup>
+
+</Groups>

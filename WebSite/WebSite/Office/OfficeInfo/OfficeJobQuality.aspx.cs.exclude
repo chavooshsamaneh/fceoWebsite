@@ -1,0 +1,557 @@
+﻿using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+using DevExpress.Web;
+
+public partial class Office_OfficeInfo_OfficeJobQuality : System.Web.UI.Page
+{
+    private bool IsPageRefresh = false;
+
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (!IsPostBack)
+        {
+            ViewState["postids"] = System.Guid.NewGuid().ToString();
+            Session["postid"] = ViewState["postids"].ToString();
+        }
+        else
+        {
+            if (!IsCallback && Session["postid"] != null)
+            {
+                if (ViewState["postids"].ToString() != Session["postid"].ToString()) { IsPageRefresh = true; }
+                Session["postid"] = System.Guid.NewGuid().ToString(); ViewState["postids"] = Session["postid"];
+            }
+        }
+        if (!IsPostBack)
+        {
+            if (string.IsNullOrEmpty(Request.QueryString["OfReId"]) || string.IsNullOrEmpty(Request.QueryString["OfId"]) || string.IsNullOrEmpty(Request.QueryString["JhId"]))
+            {
+                Response.Redirect("Office1.aspx");
+                return;
+            }
+
+            try
+            {
+                OfficeId.Value = Server.HtmlDecode(Request.QueryString["OfId"]).ToString();
+                OfficeRequest.Value = Server.HtmlDecode(Request.QueryString["OfReId"]).ToString();
+                JobId.Value = Server.HtmlDecode(Request.QueryString["JhId"]).ToString();
+                HDMode.Value = Server.HtmlDecode(Request.QueryString["Dprt"]).ToString();
+            }
+            catch
+            {
+                this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+                return;
+            }
+
+            string OfId = Utility.DecryptQS(OfficeId.Value);
+            string OfReId = Utility.DecryptQS(OfficeRequest.Value);
+            string JhId = Utility.DecryptQS(JobId.Value);
+            string Department = Utility.DecryptQS(HDMode.Value);
+
+            if (string.IsNullOrEmpty(OfId) || string.IsNullOrEmpty(OfReId) || string.IsNullOrEmpty(JhId) || string.IsNullOrEmpty(Department))
+            {
+                this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+                return;
+            }
+            OdbFactorDocuments.SelectParameters[0].DefaultValue = JhId;
+
+            TSP.DataManager.OfficeManager OfManager = new TSP.DataManager.OfficeManager();
+            OfManager.FindByCode(int.Parse(OfId));
+            if (OfManager.Count > 0)
+                lblOfName.Text = OfManager[0]["OfName"].ToString();
+
+
+            switch (Department)
+            {
+                case "Home":
+                    SetEnabled(false);
+                    break;
+                case "Document":
+                  //  SetMenuItem();
+                    if (!CheckPermitionForEditForDoc(int.Parse(OfReId)))
+                        SetEnabled(false);
+                    else SetEnabled(true);
+
+                    TSP.DataManager.OfficeRequestManager ReqManager = new TSP.DataManager.OfficeRequestManager();
+                    ReqManager.FindByCode(int.Parse(OfReId));
+                    if (ReqManager.Count > 0)
+                    {
+                        if (Convert.ToBoolean(ReqManager[0]["Requester"]))//FromEmployee
+                            SetEnabled(false);
+                        else SetEnabled(true);
+
+                        if (ReqManager[0]["IsConfirm"].ToString() != "0") //answered
+                            SetEnabled(false);
+                        else SetEnabled(true);
+
+                        TSP.DataManager.ProjectJobHistoryManager JhManager = new TSP.DataManager.ProjectJobHistoryManager();
+                        if (!string.IsNullOrEmpty(JhId))
+                        {
+                            JhManager.FindByCode(int.Parse(JhId));
+                            if (JhManager.Count == 1)
+                            {
+                                if (JhManager[0]["TableId"].ToString() != OfReId)
+                                    SetEnabled(false);
+                                else SetEnabled(true);
+
+                            }
+                        }
+                    }
+
+                    break;
+                case "MemberShip":
+                  //  SetMenuItem();
+                    if (!CheckPermitionForEditForOffice(int.Parse(OfReId)))
+                        SetEnabled(false);
+                    else SetEnabled(true);
+                    break;
+            }
+
+            this.ViewState["BtnEdit"] = btnEdit.Enabled;
+            //this.ViewState["BtnInActive"] = btnInActive.Enabled;
+            this.ViewState["BtnNew"] = BtnNew.Enabled;
+            this.ViewState["BtnView"] = btnView.Enabled;
+        }
+
+        if (this.ViewState["BtnView"] != null)
+            this.btnView.Enabled = this.btnView2.Enabled = (bool)this.ViewState["BtnView"];
+        if (this.ViewState["BtnEdit"] != null)
+            this.btnEdit.Enabled = this.btnEdit2.Enabled = (bool)this.ViewState["BtnEdit"];
+        //if (this.ViewState["BtnInActive"] != null)
+        //    this.btnInActive.Enabled = this.btnInActive2.Enabled = (bool)this.ViewState["BtnInActive"];
+        if (this.ViewState["BtnNew"] != null)
+            this.BtnNew.Enabled = this.BtnNew2.Enabled = (bool)this.ViewState["BtnNew"];
+
+        this.DivReport.Visible = false;
+        this.DivReport.Attributes.Add("onclick", "ChangeVisible(this)");
+        this.DivReport.Attributes.Add("onmouseover", "ChangeIcon(this)");
+    }
+    protected void BtnNew_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("OfficeJobQualityShow.aspx?JhqId=" + Utility.EncryptQS("-1") + "&aPageMode=" + Request.QueryString["aPageMode"]
+            + "&JPageMode=" + Utility.EncryptQS("New") + "&OfId=" + OfficeId.Value + "&PageMode=" + Request.QueryString["PageMode"]
+            + "&OfReId=" + OfficeRequest.Value + "&JhId=" + JobId.Value + "&Dprt=" + HDMode.Value);
+
+    }
+    protected void btnEdit_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            int JhqId = -1;
+            int JhId = int.Parse(Utility.DecryptQS(JobId.Value));
+            if (CustomGridJobQuality.FocusedRowIndex > -1)
+            {
+                DataRow row = CustomGridJobQuality.GetDataRow(CustomGridJobQuality.FocusedRowIndex);
+                JhqId = (int)row["JhqId"];
+            }
+            if (JhqId == -1)
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "لطفاً برای ویرایش اطلاعات ابتدا یک رکورد را انتخاب نمائید";
+                return;
+            }
+            TSP.DataManager.ProjectJobHistoryManager JobManager = new TSP.DataManager.ProjectJobHistoryManager();
+            JobManager.FindByCode(JhId);
+            if (JobManager.Count != 1)
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "خطایی در بازخوانی اطلاعات رخ داده است";
+                return;
+            }
+            int OfReId = int.Parse(JobManager[0]["TableId"].ToString());
+            int CurrentOfReId = int.Parse(Utility.DecryptQS(OfficeRequest.Value));
+            if (OfReId != CurrentOfReId)
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "امکان ویرایش اطلاعات مربوط به درخواست های قبل وجود ندارد.";
+                return;
+            }
+
+            string Department = Utility.DecryptQS(HDMode.Value);
+            if ((Department == "Document" && !CheckPermitionForEditForDoc(OfReId)) || (Department == "MemberShip" && !CheckPermitionForEditForOffice(OfReId)))
+                return;
+            Response.Redirect("OfficeJobQualityShow.aspx?JhqId=" + Utility.EncryptQS(JhqId.ToString()) + "&aPageMode=" + Request.QueryString["aPageMode"]
+                + "&JPageMode=" + Utility.EncryptQS("Edit") + "&OfId=" + OfficeId.Value + "&PageMode=" + Request.QueryString["PageMode"]
+                + "&OfReId=" + OfficeRequest.Value + "&JhId=" + JobId.Value + "&Dprt=" + HDMode.Value);
+
+        }
+        catch (Exception)
+        {
+
+            this.DivReport.Visible = true;
+            this.LabelWarning.Text = "خطایی در مشاهده اطلاعات رخ داده است";
+        }
+    }
+    protected void btnView_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            int JhqId = -1;
+            if (CustomGridJobQuality.FocusedRowIndex > -1)
+            {
+                DataRow row = CustomGridJobQuality.GetDataRow(CustomGridJobQuality.FocusedRowIndex);
+                JhqId = (int)row["JhqId"];
+            }
+            if (JhqId == -1)
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "لطفاً برای ویرایش اطلاعات ابتدا یک رکورد را انتخاب نمائید";
+                return;
+            }
+
+            Response.Redirect("OfficeJobQualityShow.aspx?JhqId=" + Utility.EncryptQS(JhqId.ToString()) + "&aPageMode=" + Request.QueryString["aPageMode"] 
+                + "&JPageMode=" + Utility.EncryptQS("View") + "&OfId=" + OfficeId.Value + "&PageMode=" + Request.QueryString["PageMode"] 
+                + "&OfReId=" + OfficeRequest.Value + "&JhId=" + JobId.Value + "&Dprt=" + HDMode.Value);
+
+        }
+        catch (Exception)
+        {
+            this.DivReport.Visible = true;
+            this.LabelWarning.Text = "خطایی در مشاهده اطلاعات رخ داده است";
+        }
+
+    }
+    protected void btnBack_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("~/Office/OfficeRequestInsert.aspx?OfId=" + OfficeId.Value + "&PageMode=" + PgMode.Value
+            + "&Dprt=" + HDMode.Value + "&OfReId=" + OfficeRequest.Value);
+    }
+
+    void SetEnabled(bool Enabled)
+    {
+        btnEdit.Enabled = Enabled;
+        btnEdit2.Enabled = Enabled;
+        BtnNew.Enabled = Enabled;
+        BtnNew2.Enabled = Enabled;
+    }
+
+    protected void GridViewJudge_BeforePerformDataSelect(object sender, EventArgs e)
+    {
+        Session["PKId"] = (sender as ASPxGridView).GetMasterRowKeyValue();
+    }
+    protected void GridViewFinancialStatus_DetailRowExpandedChanged(object sender, ASPxGridViewDetailRowEventArgs e)
+    {
+        CustomGridJobQuality.FocusedRowIndex = e.VisibleIndex;
+    }
+    protected void CustomGridJobQuality_AutoFilterCellEditorInitialize(object sender, DevExpress.Web.ASPxGridViewEditorEventArgs e)
+    {
+        if (e.Column.FieldName == "CreateDate")
+            e.Editor.Style["direction"] = "ltr";
+    }
+    protected void CustomGridJobQuality_HtmlDataCellPrepared(object sender, DevExpress.Web.ASPxGridViewTableDataCellEventArgs e)
+    {
+        if (e.DataColumn.FieldName == "CreateDate")
+            e.Cell.Style["direction"] = "ltr";
+    }
+    protected void GridViewJudge_HtmlDataCellPrepared(object sender, DevExpress.Web.ASPxGridViewTableDataCellEventArgs e)
+    {
+        if (e.DataColumn.FieldName == "MeetingDate" || e.DataColumn.FieldName == "MeetingId")
+            e.Cell.Style["direction"] = "ltr";
+    }
+    protected void ASPxMenu1_ItemClick(object source, DevExpress.Web.MenuItemEventArgs e)
+    {
+        switch (e.Item.Name)
+        {
+            case "Job":
+                Response.Redirect("OfficeJobShow.aspx?OfId=" + OfficeId.Value + "&PageMode=" + Request.QueryString["PageMode"]
+                    + "&aPageMode=" + Request.QueryString["aPageMode"] + "&OfReId=" + OfficeRequest.Value + "&JhId=" + JobId.Value + "&Dprt=" + HDMode.Value);
+                break;
+        }
+    }
+
+    protected void CheckMenuImage(int OfReId)
+    {
+        TSP.DataManager.OfficeAgentManager OffAgentManager = new TSP.DataManager.OfficeAgentManager();
+        TSP.DataManager.OfficeMemberManager OffMemberManager = new TSP.DataManager.OfficeMemberManager();
+        TSP.DataManager.OfficialLetterManager OffLetterManager = new TSP.DataManager.OfficialLetterManager();
+        TSP.DataManager.ProjectJobHistoryManager ProjectJobHistoryManager = new TSP.DataManager.ProjectJobHistoryManager();
+        TSP.DataManager.AttachmentsManager AttachmentsManager = new TSP.DataManager.AttachmentsManager();
+        TSP.DataManager.DocOffOfficeFinancialStatusManager OffFinancialManager = new TSP.DataManager.DocOffOfficeFinancialStatusManager();
+        TSP.DataManager.GroupDetailManager GrdManager = new TSP.DataManager.GroupDetailManager();
+        TSP.DataManager.OfficeManager officeManager = new TSP.DataManager.OfficeManager();
+        TSP.DataManager.OfficeRequestManager officeRequestManager = new TSP.DataManager.OfficeRequestManager();
+
+
+
+        ArrayList arr = new ArrayList();
+        arr.Add(0);//arr[0]-->Agent
+        arr.Add(0);//arr[1]-->Member
+        arr.Add(0);//arr[2]-->Letters
+        arr.Add(0);//arr[3]-->Job
+        arr.Add(0);//arr[4]-->Attach
+        arr.Add(0);//arr[5]-->Financial
+        arr.Add(0);//arr[6]-->Office
+        arr.Add(0);//arr[7]-->Group
+
+
+        officeRequestManager.FindByCode(OfReId);
+        if (officeRequestManager.Count > 0)
+        {
+            int OfId = Convert.ToInt32(officeRequestManager[0]["OfId"]);
+            officeManager.FindByCode(OfId);
+            if (officeManager.Count > 0)
+            {
+                ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Office")].Image.Url = "~/Images/icons/Check.png";
+                ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Office")].Image.Width = Utility.MenuImgSize;
+                ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Office")].Image.Height = Utility.MenuImgSize;
+                arr[6] = 1;
+            }
+        }
+
+
+        OffAgentManager.FindForDelete(OfReId);
+        if (OffAgentManager.Count > 0)
+        {
+            ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Agent")].Image.Url = "~/Images/icons/Check.png";
+            ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Agent")].Image.Width = Utility.MenuImgSize;
+            ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Agent")].Image.Height = Utility.MenuImgSize;
+            arr[0] = 1;
+        }
+        OffMemberManager.FindForDelete(OfReId, 0);
+        if (OffMemberManager.Count > 0)
+        {
+            ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Member")].Image.Url = "~/Images/icons/Check.png";
+            ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Member")].Image.Width = Utility.MenuImgSize;
+            ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Member")].Image.Height = Utility.MenuImgSize;
+            arr[1] = 1;
+        }
+
+        OffLetterManager.FindForDelete(OfReId);
+        if (OffLetterManager.Count > 0)
+        {
+            ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Letters")].Image.Url = "~/Images/icons/Check.png";
+            ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Letters")].Image.Width = Utility.MenuImgSize;
+            ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Letters")].Image.Height = Utility.MenuImgSize;
+            arr[2] = 1;
+        }
+        ProjectJobHistoryManager.FindForDelete(1, OfReId, (int)TSP.DataManager.TableCodes.OfficeRequest);
+        if (ProjectJobHistoryManager.Count > 0)
+        {
+            ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Job")].Image.Url = "~/Images/icons/Check.png";
+            ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Job")].Image.Width = Utility.MenuImgSize;
+            ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Job")].Image.Height = Utility.MenuImgSize;
+            arr[3] = 1;
+        }
+        AttachmentsManager.FindByTablePrimaryKey_AttId((int)TSP.DataManager.TableCodes.OfficeRequest, OfReId, (short)TSP.DataManager.AttachType.Attachments);
+        if (AttachmentsManager.Count > 0)
+        {
+            ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Attach")].Image.Url = "~/Images/icons/Check.png";
+            ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Attach")].Image.Width = Utility.MenuImgSize;
+            ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Attach")].Image.Height = Utility.MenuImgSize;
+            arr[4] = 1;
+        }
+        OffFinancialManager.FindForDelete(OfReId);
+        if (OffFinancialManager.Count > 0)
+        {
+            ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Financial")].Image.Url = "~/Images/icons/Check.png";
+            ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Financial")].Image.Width = Utility.MenuImgSize;
+            ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Financial")].Image.Height = Utility.MenuImgSize;
+            arr[5] = 1;
+        }
+
+        Session["OffMenuArrayList"] = arr;
+    }
+    protected void CheckMenuImageCurrentPage(int OfReId)
+    {
+        TSP.DataManager.OfficeMemberManager OffMemberManager = new TSP.DataManager.OfficeMemberManager();
+        OffMemberManager.FindForDelete(OfReId, 0);
+
+        if (Session["OffMenuArrayList"] != null)
+        {
+            ArrayList arr = (ArrayList)Session["OffMenuArrayList"];
+            if (OffMemberManager.Count > 0)
+            {
+                ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Member")].Image.Url = "~/Images/icons/Check.png";
+                ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Member")].Image.Width = Utility.MenuImgSize;
+                ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Member")].Image.Height = Utility.MenuImgSize;
+                arr[1] = 1;
+            }
+            else
+            {
+                ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Member")].Image.Url = "";
+                arr[1] = 0;
+
+            }
+            Session["OffMenuArrayList"] = arr;
+        }
+        else
+        {
+            CheckMenuImage(OfReId);
+            ArrayList arr = (ArrayList)Session["OffMenuArrayList"];
+            if (OffMemberManager.Count > 0)
+            {
+                ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Member")].Image.Url = "~/Images/icons/Check.png";
+                ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Member")].Image.Width = Utility.MenuImgSize;
+                ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Member")].Image.Height = Utility.MenuImgSize;
+                arr[1] = 1;
+            }
+            else
+            {
+                ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Member")].Image.Url = "";
+                arr[1] = 0;
+
+            }
+            Session["OffMenuArrayList"] = arr;
+
+        }
+
+    }
+    protected void SetMenuItem()
+    {
+        if (Session["OffMenuArrayList"] != null)
+        {
+            ArrayList arr = (ArrayList)Session["OffMenuArrayList"];
+
+            if ((int)arr[0] == 1)
+            {
+                ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Agent")].Image.Url = "~/Images/icons/Check.png";
+                ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Agent")].Image.Width = Utility.MenuImgSize;
+                ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Agent")].Image.Height = Utility.MenuImgSize;
+            }
+            if ((int)arr[1] == 1)
+            {
+                ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Member")].Image.Url = "~/Images/icons/Check.png";
+                ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Member")].Image.Width = Utility.MenuImgSize;
+                ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Member")].Image.Height = Utility.MenuImgSize;
+            }
+            if ((int)arr[2] == 1)
+            {
+                ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Letters")].Image.Url = "~/Images/icons/Check.png";
+                ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Letters")].Image.Width = Utility.MenuImgSize;
+                ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Letters")].Image.Height = Utility.MenuImgSize;
+            }
+            if ((int)arr[3] == 1)
+            {
+                ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Job")].Image.Url = "~/Images/icons/Check.png";
+                ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Job")].Image.Width = Utility.MenuImgSize;
+                ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Job")].Image.Height = Utility.MenuImgSize;
+            }
+            if ((int)arr[4] == 1)
+            {
+                ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Attach")].Image.Url = "~/Images/icons/Check.png";
+                ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Attach")].Image.Width = Utility.MenuImgSize;
+                ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Attach")].Image.Height = Utility.MenuImgSize;
+            }
+            if ((int)arr[5] == 1)
+            {
+                ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Financial")].Image.Url = "~/Images/icons/Check.png";
+                ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Financial")].Image.Width = Utility.MenuImgSize;
+                ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Financial")].Image.Height = Utility.MenuImgSize;
+            }
+            if ((int)arr[6] == 1)
+            {
+                ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Office")].Image.Url = "~/Images/icons/Check.png";
+                ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Office")].Image.Width = Utility.MenuImgSize;
+                ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Office")].Image.Height = Utility.MenuImgSize;
+            }
+        }
+        else
+        {
+            CheckMenuImage(int.Parse(Utility.DecryptQS(OfficeRequest.Value)));
+
+        }
+    }
+
+    private Boolean CheckPermitionForEditForDoc(int TableId)
+    {
+        TSP.DataManager.TaskDoerManager TaskDoerManager = new TSP.DataManager.TaskDoerManager();
+        TSP.DataManager.WorkFlowTaskManager WorkFlowTaskManager = new TSP.DataManager.WorkFlowTaskManager();
+        TSP.DataManager.WorkFlowStateManager WorkFlowStateManager = new TSP.DataManager.WorkFlowStateManager();
+        WorkFlowStateManager.ClearBeforeFill = true;
+        string Message = "";
+        int TaskOrder = -1;
+        int TaskCode = (int)TSP.DataManager.WorkFlowTask.SaveMemberInfoForConfirming;
+        WorkFlowTaskManager.FindByTaskCode(TaskCode);
+        if (WorkFlowTaskManager.Count > 0)
+        {
+            TaskOrder = int.Parse(WorkFlowTaskManager[0]["TaskOrder"].ToString());
+            if (TaskOrder != 0)
+            {
+                int TableType = TSP.DataManager.TableTypeManager.FindTtId(TSP.DataManager.TableType.OfficeRequest);
+                DataTable dtWorkFlowLastState = WorkFlowStateManager.SelectLastState(TableType, TableId, -1, 0);
+                if (dtWorkFlowLastState.Rows.Count > 0)
+                {
+                    int CurrentTaskCode = int.Parse(dtWorkFlowLastState.Rows[0]["TaskCode"].ToString());
+                    int DocMeFileSaveInfoTaskCode = (int)TSP.DataManager.WorkFlowTask.SaveMemberInfoForConfirming;
+                    if (CurrentTaskCode == DocMeFileSaveInfoTaskCode)
+                    {
+                        DataTable dtWorkFlowState = WorkFlowStateManager.SelectByTableType(TableType, TableId);
+                        if (dtWorkFlowState.Rows.Count > 0)
+                        {
+                            int FirstTaskCode = int.Parse(dtWorkFlowState.Rows[0]["TaskCode"].ToString());
+                            int FirstNmcId = int.Parse(dtWorkFlowState.Rows[0]["NmcId"].ToString());
+                            int FirstNmcIdType = int.Parse(dtWorkFlowState.Rows[0]["NmcIdType"].ToString());
+                            if (FirstTaskCode == DocMeFileSaveInfoTaskCode)
+                            {
+                                if (FirstNmcIdType == (int)TSP.DataManager.WorkFlowStateNmcIdType.OfficId && FirstNmcId == Utility.GetCurrentUser_MeId())
+                                    return true;
+                                else
+                                    Message = "درخواست مورد نظر از سمت کارمند ایجاد شده است.امکان ویرایش درخواست برای شما وجود ندارد";
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        if (!string.IsNullOrEmpty(Message))
+            Message = "امکان ویرایش درخواست در این مرحله از جریان کار برای شما وجود ندارد";
+        this.DivReport.Visible = true;
+        this.LabelWarning.Text = Message;
+        return false;
+    }
+    private Boolean CheckPermitionForEditForOffice(int TableId)
+    {
+        TSP.DataManager.TaskDoerManager TaskDoerManager = new TSP.DataManager.TaskDoerManager();
+        TSP.DataManager.WorkFlowTaskManager WorkFlowTaskManager = new TSP.DataManager.WorkFlowTaskManager();
+        TSP.DataManager.WorkFlowStateManager WorkFlowStateManager = new TSP.DataManager.WorkFlowStateManager();
+        WorkFlowStateManager.ClearBeforeFill = true;
+        string Message = "";
+        int TaskOrder = -1;
+        int TaskCode = (int)TSP.DataManager.WorkFlowTask.SaveOfficeInfo;
+        WorkFlowTaskManager.FindByTaskCode(TaskCode);
+        if (WorkFlowTaskManager.Count > 0)
+        {
+            TaskOrder = int.Parse(WorkFlowTaskManager[0]["TaskOrder"].ToString());
+            if (TaskOrder != 0)
+            {
+                int TableType = TSP.DataManager.TableTypeManager.FindTtId(TSP.DataManager.TableType.OfficeRequest);
+                DataTable dtWorkFlowLastState = WorkFlowStateManager.SelectLastState(TableType, TableId, -1, 0);
+                if (dtWorkFlowLastState.Rows.Count > 0)
+                {
+                    int CurrentTaskCode = int.Parse(dtWorkFlowLastState.Rows[0]["TaskCode"].ToString());
+                    int DocMeFileSaveInfoTaskCode = (int)TSP.DataManager.WorkFlowTask.SaveOfficeInfo;
+                    if (CurrentTaskCode == DocMeFileSaveInfoTaskCode)
+                    {
+                        DataTable dtWorkFlowState = WorkFlowStateManager.SelectByTableType(TableType, TableId);
+                        if (dtWorkFlowState.Rows.Count > 0)
+                        {
+                            int FirstTaskCode = int.Parse(dtWorkFlowState.Rows[0]["TaskCode"].ToString());
+                            int FirstNmcId = int.Parse(dtWorkFlowState.Rows[0]["NmcId"].ToString());
+                            int FirstNmcIdType = int.Parse(dtWorkFlowState.Rows[0]["NmcIdType"].ToString());
+                            if (FirstTaskCode == DocMeFileSaveInfoTaskCode)
+                            {
+                                if (FirstNmcIdType == (int)TSP.DataManager.WorkFlowStateNmcIdType.OfficId && FirstNmcId == Utility.GetCurrentUser_MeId())
+                                    return true;
+                                else
+                                    Message = "درخواست مورد نظر از سمت کارمند ایجاد شده است.امکان ویرایش درخواست برای شما وجود ندارد";
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        if (!string.IsNullOrEmpty(Message))
+            Message = "امکان ویرایش درخواست در این مرحله از جریان کار برای شما وجود ندارد";
+        this.DivReport.Visible = true;
+        this.LabelWarning.Text = Message;
+        return false;
+    }
+}

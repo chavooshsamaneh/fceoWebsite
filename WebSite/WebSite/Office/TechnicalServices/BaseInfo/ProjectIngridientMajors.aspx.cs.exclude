@@ -1,0 +1,52 @@
+﻿using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+using DevExpress.Web;
+
+public partial class Employee_TechnicalServices_BaseInfo_ProjectIngridientMajors : System.Web.UI.Page
+{   
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (!IsPostBack)
+        {
+            
+
+        }
+
+        this.DivReport.Visible = false;
+        this.DivReport.Attributes.Add("onclick", "ChangeVisible(this)");
+        this.DivReport.Attributes.Add("onmouseover", "ChangeIcon(this)");
+
+        Session["DataTable"] = CustomAspxDevGridView1.Columns;
+        Session["DataSource"] = ObjectDataSourceProjectIngridientMajors;
+        Session["Title"] = "رشته های مجاز عوامل پروژه";
+    }
+    
+    protected void btnPrint_Click(object sender, EventArgs e)
+    {
+        Print();
+    }
+
+    protected void btnBack_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("../TsHome.aspx");
+    }
+
+    private void Print()
+    {
+        //string FilterExp;
+        //FilterExp = CustomAspxDevGridView1.FilterExpression;
+
+        //Response.Redirect("~/ReportForms/Accounting/BlockReport.aspx?FilterExp=" + Utility.EncryptQS(FilterExp));
+    }
+    
+    /*************************************************************************************************************/
+    
+}

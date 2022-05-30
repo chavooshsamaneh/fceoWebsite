@@ -1,0 +1,297 @@
+﻿using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+using DevExpress.Web;
+using System.IO;
+
+public partial class Office_TechnicalServices_Project_Insurance : System.Web.UI.Page
+{
+    string PageMode;
+    string ProjectId;
+    string InsuranceId;
+    string PrjReId;
+    string MPageMode;
+
+    bool IsPageRefresh = false;
+
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        this.DivReport.Attributes.Add("onclick", "ChangeVisible(this)");
+        this.DivReport.Attributes.Add("onmouseover", "ChangeIcon(this)");
+        this.DivReport.Visible = false;
+
+        if (!IsPostBack)
+        {
+            ViewState["postids"] = System.Guid.NewGuid().ToString();
+            Session["postid"] = ViewState["postids"].ToString();
+        }
+        else
+        {
+            if (!IsCallback && Session["postid"] != null)
+            {
+                if (ViewState["postids"].ToString() != Session["postid"].ToString()) { IsPageRefresh = true; }
+                Session["postid"] = System.Guid.NewGuid().ToString(); ViewState["postids"] = Session["postid"];
+            }
+        }
+
+        if (!IsPostBack)
+        {
+            if ((string.IsNullOrEmpty(Request.QueryString["ProjectId"])))
+            {
+                Response.Redirect("Project.aspx");
+                return;
+            }            
+
+            SetKeys();
+            SetProjectMenuEnabled();
+            SetProjectMainMenuEnabled();
+        }
+        
+    }
+    
+    protected void btnBack_Click(object sender, EventArgs e)
+    {
+        if (Utility.DecryptQS(PkProjectId.Value) == "-1")
+            Response.Redirect("Project.aspx");
+
+        string Qs = "ProjectId=" + PkProjectId.Value + "&PrjReId=" + PkPrjReId.Value + "&PageMode=" + PgMode.Value;
+        Response.Redirect("ProjectInsert.aspx?" + Qs);        
+    }
+
+    /*****************************************************************************************************************************/
+    private void SetKeys()
+    {
+        try
+        {
+            MPgMode.Value = Server.HtmlDecode(Request.QueryString["PageMode"].ToString());
+            PkProjectId.Value = Server.HtmlDecode(Request.QueryString["ProjectId"]).ToString();
+            if (!(string.IsNullOrEmpty(Request.QueryString["PrjReId"])))
+                PkPrjReId.Value = Server.HtmlDecode(Request.QueryString["PrjReId"]).ToString();
+            else
+                PkPrjReId.Value = Utility.EncryptQS("-1");
+            SetPK();
+        }
+        catch
+        {
+            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+            return;
+        }
+
+        PageMode = Utility.DecryptQS(PgMode.Value);
+        ProjectId = Utility.DecryptQS(PkProjectId.Value);
+
+
+        if (string.IsNullOrEmpty(PageMode))
+        {
+            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+            return;
+        }
+
+        SetMode();
+    }
+
+    private void SetPK()
+    {
+        ProjectId = Utility.DecryptQS(PkProjectId.Value);
+        TSP.DataManager.TechnicalServices.InsuranceManager InsuranceManager = new TSP.DataManager.TechnicalServices.InsuranceManager();
+        InsuranceManager.FindByProjectId(Convert.ToInt32(ProjectId));
+        if (InsuranceManager.Count == 1)
+        {
+            PgMode.Value = Utility.EncryptQS("View");
+            PkInsuranceId.Value = Utility.EncryptQS(InsuranceManager[0]["InsuranceId"].ToString());
+        }
+        else
+        {
+            PgMode.Value = Utility.EncryptQS("New");
+            PkInsuranceId.Value = Utility.EncryptQS("-2");
+        }
+    }
+
+    private void SetMode()
+    {
+        PageMode = Utility.DecryptQS(PgMode.Value);
+
+        if (string.IsNullOrEmpty(PageMode))
+        {
+            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+            return;
+        }
+
+        switch (PageMode)
+        {
+            case "View":
+                SetViewModeKeys();
+                break;
+
+            case "New":
+                SetNewModeKeys();
+                break;
+        }
+    }
+
+    private void SetNewModeKeys()
+    {
+        CreateDate.ReadOnly = true;
+        RegDate.ReadOnly = true;
+        ASPxTextBoxInsuranceNo.ReadOnly = true;
+        ASPxTextBoxInsName.ReadOnly = true;
+        ASPxTextBoxInsCode.ReadOnly = true;
+        ASPxTextBoxAmount.ReadOnly = true;
+        TextBoxAddress.ReadOnly = true;
+        txtDescription.ReadOnly = true;      
+
+        CreateDate.DateValue = DateTime.Now;
+        RegDate.Text = "";
+        ASPxTextBoxInsuranceNo.Text = "";
+        ASPxTextBoxInsName.Text = "";
+        ASPxTextBoxInsCode.Text = "";
+        ASPxTextBoxAmount.Text = "";
+        TextBoxAddress.Text = "";
+        txtDescription.Text = "";
+
+        ASPxHyperLinkInsurance.ClientVisible = false;
+        ASPxHyperLinkInsurance.NavigateUrl = "";
+        ASPxHyperLinkInsurance.Text = "";
+        ASPxHiddenFieldInsurance["name"] = 0;
+
+        this.DivReport.Visible = true;
+        this.LabelWarning.Text = "اطلاعات بیمه ثبت نشده است";
+
+        ASPxRoundPanel2.HeaderText = "مشاهده";
+    }
+
+    private void SetViewModeKeys()
+    {
+        PageMode = Utility.DecryptQS(PgMode.Value);
+        ProjectId = Utility.DecryptQS(PkProjectId.Value);
+
+        if ((string.IsNullOrEmpty(ProjectId)) || (string.IsNullOrEmpty(PageMode)))
+        {
+            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+            return;
+        }
+
+        CreateDate.ReadOnly = true;
+        RegDate.ReadOnly = true;
+        ASPxTextBoxInsuranceNo.ReadOnly = true;
+        ASPxTextBoxInsName.ReadOnly = true;
+        ASPxTextBoxInsCode.ReadOnly = true;
+        ASPxTextBoxAmount.ReadOnly = true;
+        TextBoxAddress.ReadOnly = true;
+        txtDescription.ReadOnly = true;      
+
+        SetValues();
+
+        ASPxRoundPanel2.HeaderText = "مشاهده";
+    }
+
+    private void SetValues()
+    {
+        InsuranceId = Utility.DecryptQS(PkInsuranceId.Value);
+
+        if ((string.IsNullOrEmpty(InsuranceId)))
+        {
+            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+            return;
+        }
+
+        TSP.DataManager.TechnicalServices.InsuranceManager Manager = new TSP.DataManager.TechnicalServices.InsuranceManager();
+        TSP.DataManager.TechnicalServices.AttachmentsManager AttachmentsManager = new TSP.DataManager.TechnicalServices.AttachmentsManager();
+
+        Manager.FindByInsuranceId(Convert.ToInt32(InsuranceId));
+        if (Manager.Count == 1)
+        {
+            CreateDate.Text = Manager[0]["CreateDate"].ToString();
+            RegDate.Text = Manager[0]["RegDate"].ToString();
+            ASPxTextBoxInsuranceNo.Text = Manager[0]["InsuranceNo"].ToString();
+            ASPxTextBoxInsName.Text = Manager[0]["InsName"].ToString();
+            ASPxTextBoxInsCode.Text = Manager[0]["InsCode"].ToString();
+            ASPxTextBoxAmount.Text = Convert.ToDecimal(Manager[0]["Amount"]).ToString("#,#");
+            TextBoxAddress.Text = Manager[0]["Address"].ToString();
+            txtDescription.Text = Manager[0]["Description"].ToString();
+            
+            AttachmentsManager.FindByTableTypeId(Convert.ToInt32(InsuranceId), (int)TSP.DataManager.TableCodes.TSInsurance, (int)TSP.DataManager.TSAttachType.Insurance);
+            if (AttachmentsManager.Count > 0)
+            {
+                ASPxHyperLinkInsurance.ClientVisible = true;
+                ASPxHyperLinkInsurance.NavigateUrl = AttachmentsManager[0]["FilePath"].ToString();
+                ASPxHyperLinkInsurance.Text = AttachmentsManager[0]["FileName"].ToString();
+                ASPxHiddenFieldInsurance["name"] = 1;
+            }
+        }
+        else
+        {
+            this.DivReport.Visible = true;
+            this.LabelWarning.Text = "چنین رکوردی وجود ندارد";
+        }
+    }
+
+    /***************************************************** ProjectMainMenu *************************************************************/
+    protected void MainMenu_ItemClick(object source, DevExpress.Web.MenuItemEventArgs e)
+    {
+        ProjectId = Utility.DecryptQS(PkProjectId.Value);
+        PrjReId = PkPrjReId.Value;
+        MPageMode = MPgMode.Value;
+
+        PrjMainMenu MainMenu = new PrjMainMenu("Project", Convert.ToInt32(ProjectId));
+        Response.Redirect(MainMenu.GetRedirectLink(e.Item.Name, PrjReId, MPageMode));
+    }
+
+    private void SetProjectMainMenuEnabled()
+    {
+        ProjectId = Utility.DecryptQS(PkProjectId.Value);
+        if (ProjectId == "-1")
+            ProjectId = "-2";
+
+        PrjMainMenu PrjMainMenu = new PrjMainMenu("Project", Convert.ToInt32(ProjectId));
+        MainMenu.Items.FindByName("Project").Selected = true;
+        MainMenu.Items.FindByName("BuildingsLicense").Enabled = PrjMainMenu.GetEnabled("BuildingsLicense");
+        MainMenu.Items.FindByName("Timing").Enabled = PrjMainMenu.GetEnabled("Timing");
+        MainMenu.Items.FindByName("Contract").Enabled = PrjMainMenu.GetEnabled("Contract");
+        MainMenu.Items.FindByName("Implementer").Enabled = PrjMainMenu.GetEnabled("Implementer");
+        MainMenu.Items.FindByName("Observers").Enabled = PrjMainMenu.GetEnabled("Observers");
+        MainMenu.Items.FindByName("Plans").Enabled = PrjMainMenu.GetEnabled("Plans");
+        MainMenu.Items.FindByName("Owner").Enabled = PrjMainMenu.GetEnabled("Owner");
+        MainMenu.Items.FindByName("Project").Enabled = PrjMainMenu.GetEnabled("Project");
+        MainMenu.Items.FindByName("Accounting").Enabled = PrjMainMenu.GetEnabled("Accounting");
+        MainMenu.Items.FindByName("Designer").Enabled = PrjMainMenu.GetEnabled("Designer");
+    }
+
+    /******************************************************* ProjectMenu *************************************************************/
+    protected void ProjectMenu_ItemClick(object source, DevExpress.Web.MenuItemEventArgs e)
+    {
+        ProjectId = Utility.DecryptQS(PkProjectId.Value);
+        PrjReId = PkPrjReId.Value;
+        MPageMode = MPgMode.Value;
+
+        PrjMenu PrjMenu = new PrjMenu("Insurance", Convert.ToInt32(ProjectId));
+        Response.Redirect(PrjMenu.GetRedirectLink(e.Item.Name, PrjReId, MPageMode));
+    }
+
+    private void SetProjectMenuEnabled()
+    {
+        ProjectId = Utility.DecryptQS(PkProjectId.Value);
+        if (ProjectId == "-1")
+            ProjectId = "-2";
+
+        PrjMenu PrjMenu = new PrjMenu("Insurance", Convert.ToInt32(ProjectId));
+        ProjectMenu.Items[0].Selected = true; //Insurance
+        ProjectMenu.Items[0].Enabled = PrjMenu.GetEnabled("Insurance");
+        ProjectMenu.Items[1].Enabled = PrjMenu.GetEnabled("Block");
+        ProjectMenu.Items[2].Enabled = PrjMenu.GetEnabled("PlansMethod");
+        ProjectMenu.Items[3].Enabled = PrjMenu.GetEnabled("RegisteredNo");
+        ProjectMenu.Items[4].Enabled = PrjMenu.GetEnabled("BaseInfo");
+    }
+    
+}

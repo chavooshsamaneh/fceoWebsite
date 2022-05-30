@@ -1,0 +1,698 @@
+/// <XRTypeInfo>
+///   <AssemblyFullName>NezamDocPrint, Version=2.2.27.0, Culture=neutral, PublicKeyToken=null</AssemblyFullName>
+///   <AssemblyLocation>F:\Print\NezamDocPrint\NezamDocPrint\bin\Release\NezamDocPrint.exe</AssemblyLocation>
+///   <TypeName>NezamDocPrint.XtraReportDocPerson</TypeName>
+///   <Localization>English</Localization>
+///   <References>
+///     <Reference Path="F:\Print\NezamDocPrint\NezamDocPrint\bin\Release\NezamDocPrint.exe" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Windows.Forms\v4.0_4.0.0.0__b77a5c561934e089\System.Windows.Forms.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Drawing\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.Drawing.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System\v4.0_4.0.0.0__b77a5c561934e089\System.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Configuration\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.Configuration.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Xml\v4.0_4.0.0.0__b77a5c561934e089\System.Xml.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Data.SqlXml\v4.0_4.0.0.0__b77a5c561934e089\System.Data.SqlXml.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Security\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.Security.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\Accessibility\v4.0_4.0.0.0__b03f5f7f11d50a3a\Accessibility.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Runtime.Serialization.Formatters.Soap\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.Runtime.Serialization.Formatters.Soap.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Deployment\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.Deployment.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_32\System.Data\v4.0_4.0.0.0__b77a5c561934e089\System.Data.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\Microsoft.VisualC\v4.0_10.0.0.0__b03f5f7f11d50a3a\Microsoft.VisualC.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_32\System.Transactions\v4.0_4.0.0.0__b77a5c561934e089\System.Transactions.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_32\System.EnterpriseServices\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.EnterpriseServices.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.DirectoryServices\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.DirectoryServices.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Runtime.Remoting\v4.0_4.0.0.0__b77a5c561934e089\System.Runtime.Remoting.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_32\System.Web\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.Web.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\Microsoft.Build.Framework\v4.0_4.0.0.0__b03f5f7f11d50a3a\Microsoft.Build.Framework.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Xaml\v4.0_4.0.0.0__b77a5c561934e089\System.Xaml.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Runtime.Caching\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.Runtime.Caching.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Web.ApplicationServices\v4.0_4.0.0.0__31bf3856ad364e35\System.Web.ApplicationServices.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Core\v4.0_4.0.0.0__b77a5c561934e089\System.Core.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Numerics\v4.0_4.0.0.0__b77a5c561934e089\System.Numerics.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Web.Services\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.Web.Services.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Design\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.Design.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Drawing.Design\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.Drawing.Design.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_32\System.Data.OracleClient\v4.0_4.0.0.0__b77a5c561934e089\System.Data.OracleClient.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Web.RegularExpressions\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.Web.RegularExpressions.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\Microsoft.Build.Utilities.v4.0\v4.0_4.0.0.0__b03f5f7f11d50a3a\Microsoft.Build.Utilities.v4.0.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.DirectoryServices.Protocols\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.DirectoryServices.Protocols.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\Microsoft.Build.Tasks.v4.0\v4.0_4.0.0.0__b03f5f7f11d50a3a\Microsoft.Build.Tasks.v4.0.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.ServiceProcess\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.ServiceProcess.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Configuration.Install\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.Configuration.Install.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Runtime.Serialization\v4.0_4.0.0.0__b77a5c561934e089\System.Runtime.Serialization.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\SMDiagnostics\v4.0_4.0.0.0__b77a5c561934e089\SMDiagnostics.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Runtime.DurableInstancing\v4.0_4.0.0.0__31bf3856ad364e35\System.Runtime.DurableInstancing.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Xml.Linq\v4.0_4.0.0.0__b77a5c561934e089\System.Xml.Linq.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Data.DataSetExtensions\v4.0_4.0.0.0__b77a5c561934e089\System.Data.DataSetExtensions.dll" />
+///     <Reference Path="C:\Windows\assembly\GAC_MSIL\DevExpress.XtraGrid.v11.2\11.2.10.0__b88d1754d700e49a\DevExpress.XtraGrid.v11.2.dll" />
+///     <Reference Path="C:\Windows\assembly\GAC_MSIL\DevExpress.XtraLayout.v11.2\11.2.10.0__b88d1754d700e49a\DevExpress.XtraLayout.v11.2.dll" />
+///     <Reference Path="C:\Windows\assembly\GAC_MSIL\DevExpress.XtraBars.v11.2\11.2.10.0__b88d1754d700e49a\DevExpress.XtraBars.v11.2.dll" />
+///     <Reference Path="C:\Windows\assembly\GAC_MSIL\DevExpress.XtraPrinting.v11.2\11.2.10.0__b88d1754d700e49a\DevExpress.XtraPrinting.v11.2.dll" />
+///     <Reference Path="C:\Windows\assembly\GAC_MSIL\DevExpress.RichEdit.v11.2.Core\11.2.10.0__b88d1754d700e49a\DevExpress.RichEdit.v11.2.Core.dll" />
+///     <Reference Path="C:\Windows\assembly\GAC_MSIL\DevExpress.XtraTreeList.v11.2\11.2.10.0__b88d1754d700e49a\DevExpress.XtraTreeList.v11.2.dll" />
+///     <Reference Path="C:\Windows\assembly\GAC_MSIL\DevExpress.XtraNavBar.v11.2\11.2.10.0__b88d1754d700e49a\DevExpress.XtraNavBar.v11.2.dll" />
+///     <Reference Path="F:\Print\NezamDocPrint\NezamDocPrint\bin\Release\TSP.DataManager.dll" />
+///     <Reference Path="C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Data.Linq\v4.0_4.0.0.0__b77a5c561934e089\System.Data.Linq.dll" />
+///     <Reference Path="F:\Print\NezamDocPrint\NezamDocPrint\bin\Release\TSP.Utilities.dll" />
+///   </References>
+/// </XRTypeInfo>
+namespace XtraReportSerialization {
+    
+    public class xtraReportDocPerson1 : DevExpress.XtraReports.UI.XtraReport {
+        private DevExpress.XtraReports.UI.XRLabel xrLabelDocNo2;
+        private DevExpress.XtraReports.UI.XRTableCell xrTableCell19;
+        private DevExpress.XtraReports.UI.XRTableCell xrTableCell2;
+        private DevExpress.XtraReports.UI.XRLabel xrLabelLastRenew;
+        private DevExpress.XtraReports.UI.XRLabel xrLabelExpireDate;
+        private DevExpress.XtraReports.UI.XRTable xrTableGrade;
+        private DevExpress.XtraReports.UI.XRTableRow xrTableRow5;
+        private DevExpress.XtraReports.UI.XRTableCell xrTableCell4;
+        private DevExpress.XtraReports.UI.XRTableRow xrTableRow7;
+        private DevExpress.XtraReports.UI.XRTableCell xrTableCell22;
+        private DevExpress.XtraReports.UI.XRTableRow xrTableRow6;
+        private DevExpress.XtraReports.UI.XRTableRow xrTableRow8;
+        private DevExpress.XtraReports.UI.XRLabel xrLabelProvince2;
+        private DevExpress.XtraReports.UI.XRLabel xrLabelIdNo;
+        private DevExpress.XtraReports.UI.XRTable xrTableInfo;
+        private DevExpress.XtraReports.UI.XRTableRow xrTableRow1;
+        private DevExpress.XtraReports.UI.XRTableCell xrTableCell1;
+        private DevExpress.XtraReports.UI.XRTableCell tblCellResInfo;
+        private DevExpress.XtraReports.UI.XRTableCell tblCellRespDate;
+        private DevExpress.XtraReports.UI.XRTableCell tblCellMajor;
+        private DevExpress.XtraReports.UI.XRLabel xrLabelMaskanTitle3;
+        private DevExpress.XtraReports.UI.XRLabel xrLabelSSN;
+        private DevExpress.XtraReports.UI.BottomMarginBand bottomMarginBand1;
+        private DevExpress.XtraReports.UI.XRLabel txtMajorfield;
+        private DevExpress.XtraReports.UI.DetailBand Detail;
+        private DevExpress.XtraReports.UI.XRLabel label1;
+        private DevExpress.XtraReports.UI.XRLabel xrLabelMajor;
+        private DevExpress.XtraReports.UI.XRLabel xrLabelMaskanTitle4;
+        private DevExpress.XtraReports.UI.XRLabel xrLabelMaskanResponsible2;
+        private DevExpress.XtraReports.UI.XRLabel xrLabelAddress;
+        private DevExpress.XtraReports.UI.XRLabel xrLabelFirstIssue;
+        private DevExpress.XtraReports.UI.XRLabel xrLabelDocNo;
+        private DevExpress.XtraReports.UI.XRLabel xrLabelMemberNo;
+        private DevExpress.XtraReports.UI.XRLabel xrLabelProvince;
+        private DevExpress.XtraReports.UI.XRLabel xrLabelUniversity;
+        private DevExpress.XtraReports.UI.XRLabel xrLabelLicence;
+        private DevExpress.XtraReports.UI.XRLabel xrLabelIssue;
+        private DevExpress.XtraReports.UI.XRLabel xrLabelPersonMajor;
+        private DevExpress.XtraReports.UI.XRLabel xrLabelBirthDate;
+        private DevExpress.XtraReports.UI.XRLabel xrLabelPersonName;
+        private DevExpress.XtraReports.UI.XRLabel xrLabelMaskanResponsible;
+        private DevExpress.XtraReports.UI.XRLabel xrLabelMaskanTitle2;
+        private DevExpress.XtraReports.UI.XRLabel xrLabelMaskanTitle1;
+        private DevExpress.XtraReports.UI.XRLabel xrLabelMinister;
+        private DevExpress.XtraReports.UI.XRLine xrLine1;
+        private DevExpress.XtraReports.UI.TopMarginBand topMarginBand1;
+        private DevExpress.XtraReports.UI.XRControlStyle xrControlStyle1;
+        private System.Resources.ResourceManager _resources;
+        public xtraReportDocPerson1() {
+            this.InitializeComponent();
+        }
+        private System.Resources.ResourceManager resources {
+            get {
+                if (_resources == null) {
+                    string resourceString = "zsrvvgEAAACRAAAAbFN5c3RlbS5SZXNvdXJjZXMuUmVzb3VyY2VSZWFkZXIsIG1zY29ybGliLCBWZXJza" +
+                        "W9uPTQuMC4wLjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49Yjc3YTVjNTYxOTM0ZTA4O" +
+                        "SNTeXN0ZW0uUmVzb3VyY2VzLlJ1bnRpbWVSZXNvdXJjZVNldAIAAAAAAAAAAAAAAFBBRFBBRFC0AAAA";
+                    this._resources = new DevExpress.XtraReports.Serialization.XRResourceManager(resourceString);
+                }
+                return this._resources;
+            }
+        }
+        private void InitializeComponent() {
+            this.xrLabelDocNo2 = new DevExpress.XtraReports.UI.XRLabel();
+            this.xrTableCell19 = new DevExpress.XtraReports.UI.XRTableCell();
+            this.xrTableCell2 = new DevExpress.XtraReports.UI.XRTableCell();
+            this.xrLabelLastRenew = new DevExpress.XtraReports.UI.XRLabel();
+            this.xrLabelExpireDate = new DevExpress.XtraReports.UI.XRLabel();
+            this.xrTableGrade = new DevExpress.XtraReports.UI.XRTable();
+            this.xrTableCell22 = new DevExpress.XtraReports.UI.XRTableCell();
+            this.xrLabelProvince2 = new DevExpress.XtraReports.UI.XRLabel();
+            this.xrLabelIdNo = new DevExpress.XtraReports.UI.XRLabel();
+            this.xrTableInfo = new DevExpress.XtraReports.UI.XRTable();
+            this.xrLabelMaskanTitle3 = new DevExpress.XtraReports.UI.XRLabel();
+            this.xrTableCell4 = new DevExpress.XtraReports.UI.XRTableCell();
+            this.xrLabelSSN = new DevExpress.XtraReports.UI.XRLabel();
+            this.bottomMarginBand1 = new DevExpress.XtraReports.UI.BottomMarginBand();
+            this.xrTableRow1 = new DevExpress.XtraReports.UI.XRTableRow();
+            this.txtMajorfield = new DevExpress.XtraReports.UI.XRLabel();
+            this.Detail = new DevExpress.XtraReports.UI.DetailBand();
+            this.xrTableRow6 = new DevExpress.XtraReports.UI.XRTableRow();
+            this.xrTableCell1 = new DevExpress.XtraReports.UI.XRTableCell();
+            this.xrLabelAddress = new DevExpress.XtraReports.UI.XRLabel();
+            this.xrLabelProvince = new DevExpress.XtraReports.UI.XRLabel();
+            this.xrLabelBirthDate = new DevExpress.XtraReports.UI.XRLabel();
+            this.xrLabelMaskanTitle2 = new DevExpress.XtraReports.UI.XRLabel();
+            this.xrLabelMaskanResponsible2 = new DevExpress.XtraReports.UI.XRLabel();
+            this.xrLabelLicence = new DevExpress.XtraReports.UI.XRLabel();
+            this.xrTableRow5 = new DevExpress.XtraReports.UI.XRTableRow();
+            this.xrLine1 = new DevExpress.XtraReports.UI.XRLine();
+            this.topMarginBand1 = new DevExpress.XtraReports.UI.TopMarginBand();
+            this.tblCellRespDate = new DevExpress.XtraReports.UI.XRTableCell();
+            this.xrLabelMajor = new DevExpress.XtraReports.UI.XRLabel();
+            this.xrLabelDocNo = new DevExpress.XtraReports.UI.XRLabel();
+            this.xrLabelPersonMajor = new DevExpress.XtraReports.UI.XRLabel();
+            this.xrLabelUniversity = new DevExpress.XtraReports.UI.XRLabel();
+            this.xrTableRow7 = new DevExpress.XtraReports.UI.XRTableRow();
+            this.xrLabelIssue = new DevExpress.XtraReports.UI.XRLabel();
+            this.xrLabelMaskanResponsible = new DevExpress.XtraReports.UI.XRLabel();
+            this.xrLabelMaskanTitle4 = new DevExpress.XtraReports.UI.XRLabel();
+            this.xrLabelMinister = new DevExpress.XtraReports.UI.XRLabel();
+            this.tblCellResInfo = new DevExpress.XtraReports.UI.XRTableCell();
+            this.xrTableRow8 = new DevExpress.XtraReports.UI.XRTableRow();
+            this.tblCellMajor = new DevExpress.XtraReports.UI.XRTableCell();
+            this.xrLabelPersonName = new DevExpress.XtraReports.UI.XRLabel();
+            this.xrLabelFirstIssue = new DevExpress.XtraReports.UI.XRLabel();
+            this.xrLabelMemberNo = new DevExpress.XtraReports.UI.XRLabel();
+            this.xrLabelMaskanTitle1 = new DevExpress.XtraReports.UI.XRLabel();
+            this.xrControlStyle1 = new DevExpress.XtraReports.UI.XRControlStyle();
+            this.label1 = new DevExpress.XtraReports.UI.XRLabel();
+            ((System.ComponentModel.ISupportInitialize)(this.xrTableGrade)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.xrTableInfo)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
+            // 
+            // xrLabelDocNo2
+            // 
+            this.xrLabelDocNo2.Dpi = 254F;
+            this.xrLabelDocNo2.LocationFloat = new DevExpress.Utils.PointFloat(1132F, 2707F);
+            this.xrLabelDocNo2.Name = "xrLabelDocNo2";
+            this.xrLabelDocNo2.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
+            this.xrLabelDocNo2.SizeF = new System.Drawing.SizeF(254F, 64F);
+            this.xrLabelDocNo2.StylePriority.UseTextAlignment = false;
+            this.xrLabelDocNo2.Text = "شماره پروانه";
+            this.xrLabelDocNo2.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight;
+            // 
+            // xrTableCell19
+            // 
+            this.xrTableCell19.Dpi = 254F;
+            this.xrTableCell19.Name = "xrTableCell19";
+            this.xrTableCell19.Text = "xrTableCell19";
+            this.xrTableCell19.Weight = 1D;
+            // 
+            // xrTableCell2
+            // 
+            this.xrTableCell2.Dpi = 254F;
+            this.xrTableCell2.Name = "xrTableCell2";
+            this.xrTableCell2.Text = "xrTableCell2";
+            this.xrTableCell2.Weight = 1D;
+            // 
+            // xrLabelLastRenew
+            // 
+            this.xrLabelLastRenew.Dpi = 254F;
+            this.xrLabelLastRenew.LocationFloat = new DevExpress.Utils.PointFloat(74F, 1823F);
+            this.xrLabelLastRenew.Name = "xrLabelLastRenew";
+            this.xrLabelLastRenew.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
+            this.xrLabelLastRenew.SizeF = new System.Drawing.SizeF(286F, 64F);
+            this.xrLabelLastRenew.StylePriority.UseTextAlignment = false;
+            this.xrLabelLastRenew.Text = "تاریخ تمدید";
+            this.xrLabelLastRenew.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight;
+            // 
+            // xrLabelExpireDate
+            // 
+            this.xrLabelExpireDate.Dpi = 254F;
+            this.xrLabelExpireDate.LocationFloat = new DevExpress.Utils.PointFloat(74F, 1918F);
+            this.xrLabelExpireDate.Name = "xrLabelExpireDate";
+            this.xrLabelExpireDate.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
+            this.xrLabelExpireDate.SizeF = new System.Drawing.SizeF(286F, 64F);
+            this.xrLabelExpireDate.StylePriority.UseTextAlignment = false;
+            this.xrLabelExpireDate.Text = "تاریخ اعتبار";
+            this.xrLabelExpireDate.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight;
+            // 
+            // xrTableGrade
+            // 
+            this.xrTableGrade.Dpi = 254F;
+            this.xrTableGrade.LocationFloat = new DevExpress.Utils.PointFloat(1514F, 1610F);
+            this.xrTableGrade.Name = "xrTableGrade";
+            this.xrTableGrade.Rows.AddRange(new DevExpress.XtraReports.UI.XRTableRow[] {
+                        this.xrTableRow5,
+                        this.xrTableRow7,
+                        this.xrTableRow6,
+                        this.xrTableRow8});
+            this.xrTableGrade.SizeF = new System.Drawing.SizeF(434F, 239.9998F);
+            this.xrTableGrade.StylePriority.UseTextAlignment = false;
+            this.xrTableGrade.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter;
+            // 
+            // xrTableCell22
+            // 
+            this.xrTableCell22.Dpi = 254F;
+            this.xrTableCell22.Name = "xrTableCell22";
+            this.xrTableCell22.Text = "xrTableCell22";
+            this.xrTableCell22.Weight = 1D;
+            // 
+            // xrLabelProvince2
+            // 
+            this.xrLabelProvince2.Dpi = 254F;
+            this.xrLabelProvince2.LocationFloat = new DevExpress.Utils.PointFloat(741F, 1823F);
+            this.xrLabelProvince2.Name = "xrLabelProvince2";
+            this.xrLabelProvince2.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
+            this.xrLabelProvince2.SizeF = new System.Drawing.SizeF(254F, 75.27441F);
+            this.xrLabelProvince2.StylePriority.UseTextAlignment = false;
+            this.xrLabelProvince2.Text = "محل صدور";
+            this.xrLabelProvince2.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight;
+            // 
+            // xrLabelIdNo
+            // 
+            this.xrLabelIdNo.Dpi = 254F;
+            this.xrLabelIdNo.LocationFloat = new DevExpress.Utils.PointFloat(720F, 750F);
+            this.xrLabelIdNo.Name = "xrLabelIdNo";
+            this.xrLabelIdNo.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
+            this.xrLabelIdNo.SizeF = new System.Drawing.SizeF(275F, 64F);
+            this.xrLabelIdNo.StylePriority.UseTextAlignment = false;
+            this.xrLabelIdNo.Text = "شماره شناسنامه";
+            this.xrLabelIdNo.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter;
+            // 
+            // xrTableInfo
+            // 
+            this.xrTableInfo.Dpi = 254F;
+            this.xrTableInfo.LocationFloat = new DevExpress.Utils.PointFloat(31.20775F, 2952F);
+            this.xrTableInfo.Name = "xrTableInfo";
+            this.xrTableInfo.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 5, 5, 254F);
+            this.xrTableInfo.Rows.AddRange(new DevExpress.XtraReports.UI.XRTableRow[] {
+                        this.xrTableRow1});
+            this.xrTableInfo.SizeF = new System.Drawing.SizeF(1958.833F, 299F);
+            this.xrTableInfo.StylePriority.UsePadding = false;
+            this.xrTableInfo.StylePriority.UseTextAlignment = false;
+            this.xrTableInfo.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight;
+            // 
+            // xrLabelMaskanTitle3
+            // 
+            this.xrLabelMaskanTitle3.Dpi = 254F;
+            this.xrLabelMaskanTitle3.LocationFloat = new DevExpress.Utils.PointFloat(95.66668F, 4369F);
+            this.xrLabelMaskanTitle3.Name = "xrLabelMaskanTitle3";
+            this.xrLabelMaskanTitle3.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
+            this.xrLabelMaskanTitle3.SizeF = new System.Drawing.SizeF(595.3124F, 64F);
+            this.xrLabelMaskanTitle3.StylePriority.UseTextAlignment = false;
+            this.xrLabelMaskanTitle3.Text = "قائم مقام وزیر ومدیر کل راه و شهرسازی";
+            this.xrLabelMaskanTitle3.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter;
+            // 
+            // xrTableCell4
+            // 
+            this.xrTableCell4.Dpi = 254F;
+            this.xrTableCell4.Name = "xrTableCell4";
+            this.xrTableCell4.Text = "xrTableCell4";
+            this.xrTableCell4.Weight = 1D;
+            // 
+            // xrLabelSSN
+            // 
+            this.xrLabelSSN.Dpi = 254F;
+            this.xrLabelSSN.LocationFloat = new DevExpress.Utils.PointFloat(741F, 1918F);
+            this.xrLabelSSN.Name = "xrLabelSSN";
+            this.xrLabelSSN.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
+            this.xrLabelSSN.SizeF = new System.Drawing.SizeF(254F, 63F);
+            this.xrLabelSSN.StylePriority.UseTextAlignment = false;
+            this.xrLabelSSN.Text = "کد ملی";
+            this.xrLabelSSN.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight;
+            // 
+            // bottomMarginBand1
+            // 
+            this.bottomMarginBand1.Dpi = 254F;
+            this.bottomMarginBand1.HeightF = 0F;
+            this.bottomMarginBand1.Name = "bottomMarginBand1";
+            // 
+            // xrTableRow1
+            // 
+            this.xrTableRow1.Cells.AddRange(new DevExpress.XtraReports.UI.XRTableCell[] {
+                        this.xrTableCell1,
+                        this.tblCellResInfo,
+                        this.tblCellRespDate,
+                        this.tblCellMajor});
+            this.xrTableRow1.Dpi = 254F;
+            this.xrTableRow1.Name = "xrTableRow1";
+            this.xrTableRow1.Weight = 1D;
+            // 
+            // txtMajorfield
+            // 
+            this.txtMajorfield.Dpi = 254F;
+            this.txtMajorfield.LocationFloat = new DevExpress.Utils.PointFloat(472.5698F, 998.2293F);
+            this.txtMajorfield.Name = "txtMajorfield";
+            this.txtMajorfield.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
+            this.txtMajorfield.SizeF = new System.Drawing.SizeF(654.1386F, 64.00012F);
+            this.txtMajorfield.StylePriority.UseTextAlignment = false;
+            this.txtMajorfield.Text = "گرایش تحصیلی";
+            this.txtMajorfield.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight;
+            // 
+            // Detail
+            // 
+            this.Detail.Controls.AddRange(new DevExpress.XtraReports.UI.XRControl[] {
+                        this.label1,
+                        this.txtMajorfield,
+                        this.xrTableGrade,
+                        this.xrLabelMajor,
+                        this.xrLabelMaskanTitle4,
+                        this.xrLabelMaskanTitle3,
+                        this.xrLabelMaskanResponsible2,
+                        this.xrTableInfo,
+                        this.xrLabelDocNo2,
+                        this.xrLabelAddress,
+                        this.xrLabelExpireDate,
+                        this.xrLabelLastRenew,
+                        this.xrLabelFirstIssue,
+                        this.xrLabelSSN,
+                        this.xrLabelProvince2,
+                        this.xrLabelDocNo,
+                        this.xrLabelMemberNo,
+                        this.xrLabelProvince,
+                        this.xrLabelUniversity,
+                        this.xrLabelLicence,
+                        this.xrLabelIssue,
+                        this.xrLabelPersonMajor,
+                        this.xrLabelBirthDate,
+                        this.xrLabelIdNo,
+                        this.xrLabelPersonName,
+                        this.xrLabelMaskanResponsible,
+                        this.xrLabelMaskanTitle2,
+                        this.xrLabelMaskanTitle1,
+                        this.xrLabelMinister,
+                        this.xrLine1});
+            this.Detail.Dpi = 254F;
+            this.Detail.HeightF = 4800F;
+            this.Detail.Name = "Detail";
+            this.Detail.Padding = new DevExpress.XtraPrinting.PaddingInfo(0, 0, 0, 0, 254F);
+            this.Detail.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopLeft;
+            // 
+            // xrTableRow6
+            // 
+            this.xrTableRow6.Cells.AddRange(new DevExpress.XtraReports.UI.XRTableCell[] {
+                        this.xrTableCell19});
+            this.xrTableRow6.Dpi = 254F;
+            this.xrTableRow6.Name = "xrTableRow6";
+            this.xrTableRow6.Weight = 1D;
+            // 
+            // xrTableCell1
+            // 
+            this.xrTableCell1.Dpi = 254F;
+            this.xrTableCell1.Name = "xrTableCell1";
+            this.xrTableCell1.StylePriority.UseTextAlignment = false;
+            this.xrTableCell1.Text = "xrTableCell1";
+            this.xrTableCell1.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight;
+            this.xrTableCell1.Weight = 0.4895574341123819D;
+            // 
+            // xrLabelAddress
+            // 
+            this.xrLabelAddress.Dpi = 254F;
+            this.xrLabelAddress.LocationFloat = new DevExpress.Utils.PointFloat(381F, 2550F);
+            this.xrLabelAddress.Name = "xrLabelAddress";
+            this.xrLabelAddress.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
+            this.xrLabelAddress.SizeF = new System.Drawing.SizeF(1312F, 106F);
+            this.xrLabelAddress.StylePriority.UseTextAlignment = false;
+            this.xrLabelAddress.Text = "آدرس";
+            this.xrLabelAddress.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight;
+            // 
+            // xrLabelProvince
+            // 
+            this.xrLabelProvince.Dpi = 254F;
+            this.xrLabelProvince.LocationFloat = new DevExpress.Utils.PointFloat(687.9999F, 1163F);
+            this.xrLabelProvince.Name = "xrLabelProvince";
+            this.xrLabelProvince.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
+            this.xrLabelProvince.SizeF = new System.Drawing.SizeF(307.0001F, 64F);
+            this.xrLabelProvince.StylePriority.UseTextAlignment = false;
+            this.xrLabelProvince.Text = "نام استان";
+            this.xrLabelProvince.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight;
+            // 
+            // xrLabelBirthDate
+            // 
+            this.xrLabelBirthDate.Dpi = 254F;
+            this.xrLabelBirthDate.LocationFloat = new DevExpress.Utils.PointFloat(741F, 814.0001F);
+            this.xrLabelBirthDate.Name = "xrLabelBirthDate";
+            this.xrLabelBirthDate.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
+            this.xrLabelBirthDate.SizeF = new System.Drawing.SizeF(254F, 84.99994F);
+            this.xrLabelBirthDate.StylePriority.UseTextAlignment = false;
+            this.xrLabelBirthDate.Text = "تاریخ تولد";
+            this.xrLabelBirthDate.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight;
+            // 
+            // xrLabelMaskanTitle2
+            // 
+            this.xrLabelMaskanTitle2.Dpi = 254F;
+            this.xrLabelMaskanTitle2.LocationFloat = new DevExpress.Utils.PointFloat(1504F, 2180F);
+            this.xrLabelMaskanTitle2.Name = "xrLabelMaskanTitle2";
+            this.xrLabelMaskanTitle2.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
+            this.xrLabelMaskanTitle2.SizeF = new System.Drawing.SizeF(392F, 64F);
+            this.xrLabelMaskanTitle2.StylePriority.UseTextAlignment = false;
+            this.xrLabelMaskanTitle2.Text = "استان فارس";
+            this.xrLabelMaskanTitle2.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter;
+            // 
+            // xrLabelMaskanResponsible2
+            // 
+            this.xrLabelMaskanResponsible2.Dpi = 254F;
+            this.xrLabelMaskanResponsible2.LocationFloat = new DevExpress.Utils.PointFloat(129.7292F, 4285.48F);
+            this.xrLabelMaskanResponsible2.Name = "xrLabelMaskanResponsible2";
+            this.xrLabelMaskanResponsible2.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
+            this.xrLabelMaskanResponsible2.SizeF = new System.Drawing.SizeF(516.0209F, 81.521F);
+            this.xrLabelMaskanResponsible2.StylePriority.UseTextAlignment = false;
+            this.xrLabelMaskanResponsible2.Text = "نام قائم مقام وزیر راه و شهرسازی";
+            this.xrLabelMaskanResponsible2.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter;
+            // 
+            // xrLabelLicence
+            // 
+            this.xrLabelLicence.Dpi = 254F;
+            this.xrLabelLicence.LocationFloat = new DevExpress.Utils.PointFloat(0F, 836F);
+            this.xrLabelLicence.Name = "xrLabelLicence";
+            this.xrLabelLicence.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
+            this.xrLabelLicence.SizeF = new System.Drawing.SizeF(360F, 64F);
+            this.xrLabelLicence.StylePriority.UseTextAlignment = false;
+            this.xrLabelLicence.Text = "مدرک";
+            this.xrLabelLicence.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight;
+            // 
+            // xrTableRow5
+            // 
+            this.xrTableRow5.Cells.AddRange(new DevExpress.XtraReports.UI.XRTableCell[] {
+                        this.xrTableCell4});
+            this.xrTableRow5.Dpi = 254F;
+            this.xrTableRow5.Name = "xrTableRow5";
+            this.xrTableRow5.Weight = 1D;
+            // 
+            // xrLine1
+            // 
+            this.xrLine1.Dpi = 254F;
+            this.xrLine1.ForeColor = System.Drawing.Color.Transparent;
+            this.xrLine1.LineDirection = DevExpress.XtraReports.UI.LineDirection.Vertical;
+            this.xrLine1.LineWidth = 3;
+            this.xrLine1.LocationFloat = new DevExpress.Utils.PointFloat(1397F, 21F);
+            this.xrLine1.Name = "xrLine1";
+            this.xrLine1.SizeF = new System.Drawing.SizeF(11F, 2307F);
+            this.xrLine1.StylePriority.UseForeColor = false;
+            // 
+            // topMarginBand1
+            // 
+            this.topMarginBand1.Dpi = 254F;
+            this.topMarginBand1.HeightF = 0F;
+            this.topMarginBand1.Name = "topMarginBand1";
+            // 
+            // tblCellRespDate
+            // 
+            this.tblCellRespDate.Dpi = 254F;
+            this.tblCellRespDate.Name = "tblCellRespDate";
+            this.tblCellRespDate.StylePriority.UseTextAlignment = false;
+            this.tblCellRespDate.Text = "tblCellRespDate";
+            this.tblCellRespDate.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopCenter;
+            this.tblCellRespDate.Weight = 0.48980606663351578D;
+            // 
+            // xrLabelMajor
+            // 
+            this.xrLabelMajor.Dpi = 254F;
+            this.xrLabelMajor.LocationFloat = new DevExpress.Utils.PointFloat(1504F, 1388F);
+            this.xrLabelMajor.Name = "xrLabelMajor";
+            this.xrLabelMajor.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
+            this.xrLabelMajor.SizeF = new System.Drawing.SizeF(443.9999F, 63.99988F);
+            this.xrLabelMajor.StylePriority.UseTextAlignment = false;
+            this.xrLabelMajor.Text = "رشته موضوع پروانه";
+            this.xrLabelMajor.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter;
+            // 
+            // xrLabelDocNo
+            // 
+            this.xrLabelDocNo.Dpi = 254F;
+            this.xrLabelDocNo.LocationFloat = new DevExpress.Utils.PointFloat(741F, 1738F);
+            this.xrLabelDocNo.Name = "xrLabelDocNo";
+            this.xrLabelDocNo.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
+            this.xrLabelDocNo.SizeF = new System.Drawing.SizeF(254F, 64F);
+            this.xrLabelDocNo.StylePriority.UseTextAlignment = false;
+            this.xrLabelDocNo.Text = "شماره پروانه";
+            this.xrLabelDocNo.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight;
+            // 
+            // xrLabelPersonMajor
+            // 
+            this.xrLabelPersonMajor.Dpi = 254F;
+            this.xrLabelPersonMajor.LocationFloat = new DevExpress.Utils.PointFloat(652.6238F, 921F);
+            this.xrLabelPersonMajor.Name = "xrLabelPersonMajor";
+            this.xrLabelPersonMajor.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
+            this.xrLabelPersonMajor.SizeF = new System.Drawing.SizeF(352.3763F, 64.00012F);
+            this.xrLabelPersonMajor.StylePriority.UseTextAlignment = false;
+            this.xrLabelPersonMajor.Text = "رشته فرد";
+            this.xrLabelPersonMajor.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight;
+            // 
+            // xrLabelUniversity
+            // 
+            this.xrLabelUniversity.Dpi = 254F;
+            this.xrLabelUniversity.LocationFloat = new DevExpress.Utils.PointFloat(74F, 921F);
+            this.xrLabelUniversity.Name = "xrLabelUniversity";
+            this.xrLabelUniversity.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
+            this.xrLabelUniversity.SizeF = new System.Drawing.SizeF(519F, 64F);
+            this.xrLabelUniversity.StylePriority.UseTextAlignment = false;
+            this.xrLabelUniversity.Text = "نام دانشگاه";
+            this.xrLabelUniversity.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight;
+            // 
+            // xrTableRow7
+            // 
+            this.xrTableRow7.Cells.AddRange(new DevExpress.XtraReports.UI.XRTableCell[] {
+                        this.xrTableCell22});
+            this.xrTableRow7.Dpi = 254F;
+            this.xrTableRow7.Name = "xrTableRow7";
+            this.xrTableRow7.Weight = 1D;
+            // 
+            // xrLabelIssue
+            // 
+            this.xrLabelIssue.Dpi = 254F;
+            this.xrLabelIssue.LocationFloat = new DevExpress.Utils.PointFloat(0F, 750F);
+            this.xrLabelIssue.Name = "xrLabelIssue";
+            this.xrLabelIssue.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
+            this.xrLabelIssue.SizeF = new System.Drawing.SizeF(360F, 64F);
+            this.xrLabelIssue.StylePriority.UseTextAlignment = false;
+            this.xrLabelIssue.Text = "محل صدور";
+            this.xrLabelIssue.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight;
+            // 
+            // xrLabelMaskanResponsible
+            // 
+            this.xrLabelMaskanResponsible.Dpi = 254F;
+            this.xrLabelMaskanResponsible.LocationFloat = new DevExpress.Utils.PointFloat(1438.27F, 2029.982F);
+            this.xrLabelMaskanResponsible.Name = "xrLabelMaskanResponsible";
+            this.xrLabelMaskanResponsible.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
+            this.xrLabelMaskanResponsible.SizeF = new System.Drawing.SizeF(551.771F, 65.01807F);
+            this.xrLabelMaskanResponsible.StylePriority.UseTextAlignment = false;
+            this.xrLabelMaskanResponsible.Text = "نام قائم مقام وزیر راه و شهرسازی";
+            this.xrLabelMaskanResponsible.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter;
+            // 
+            // xrLabelMaskanTitle4
+            // 
+            this.xrLabelMaskanTitle4.Dpi = 254F;
+            this.xrLabelMaskanTitle4.LocationFloat = new DevExpress.Utils.PointFloat(201F, 4443F);
+            this.xrLabelMaskanTitle4.Name = "xrLabelMaskanTitle4";
+            this.xrLabelMaskanTitle4.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
+            this.xrLabelMaskanTitle4.SizeF = new System.Drawing.SizeF(392F, 64F);
+            this.xrLabelMaskanTitle4.StylePriority.UseTextAlignment = false;
+            this.xrLabelMaskanTitle4.Text = "استان فارس";
+            this.xrLabelMaskanTitle4.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter;
+            // 
+            // xrLabelMinister
+            // 
+            this.xrLabelMinister.Dpi = 254F;
+            this.xrLabelMinister.LocationFloat = new DevExpress.Utils.PointFloat(1504F, 1875.928F);
+            this.xrLabelMinister.Name = "xrLabelMinister";
+            this.xrLabelMinister.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
+            this.xrLabelMinister.SizeF = new System.Drawing.SizeF(434F, 64F);
+            this.xrLabelMinister.StylePriority.UseTextAlignment = false;
+            this.xrLabelMinister.Text = "نام وزیر مسکن";
+            this.xrLabelMinister.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter;
+            // 
+            // tblCellResInfo
+            // 
+            this.tblCellResInfo.Dpi = 254F;
+            this.tblCellResInfo.Multiline = true;
+            this.tblCellResInfo.Name = "tblCellResInfo";
+            this.tblCellResInfo.StylePriority.UseTextAlignment = false;
+            this.tblCellResInfo.Text = "tblCellResInfo";
+            this.tblCellResInfo.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight;
+            this.tblCellResInfo.Weight = 1.5159124813525609D;
+            // 
+            // xrTableRow8
+            // 
+            this.xrTableRow8.Cells.AddRange(new DevExpress.XtraReports.UI.XRTableCell[] {
+                        this.xrTableCell2});
+            this.xrTableRow8.Dpi = 254F;
+            this.xrTableRow8.Name = "xrTableRow8";
+            this.xrTableRow8.Weight = 1D;
+            // 
+            // tblCellMajor
+            // 
+            this.tblCellMajor.Dpi = 254F;
+            this.tblCellMajor.Name = "tblCellMajor";
+            this.tblCellMajor.StylePriority.UseTextAlignment = false;
+            this.tblCellMajor.Text = "tblCellMajor";
+            this.tblCellMajor.TextAlignment = DevExpress.XtraPrinting.TextAlignment.TopRight;
+            this.tblCellMajor.Weight = 0.50472401790154164D;
+            // 
+            // xrLabelPersonName
+            // 
+            this.xrLabelPersonName.Dpi = 254F;
+            this.xrLabelPersonName.LocationFloat = new DevExpress.Utils.PointFloat(190F, 559F);
+            this.xrLabelPersonName.Name = "xrLabelPersonName";
+            this.xrLabelPersonName.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
+            this.xrLabelPersonName.SizeF = new System.Drawing.SizeF(815F, 64F);
+            this.xrLabelPersonName.StylePriority.UseTextAlignment = false;
+            this.xrLabelPersonName.Text = "نام شخص";
+            this.xrLabelPersonName.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight;
+            // 
+            // xrLabelFirstIssue
+            // 
+            this.xrLabelFirstIssue.Dpi = 254F;
+            this.xrLabelFirstIssue.LocationFloat = new DevExpress.Utils.PointFloat(74F, 1738F);
+            this.xrLabelFirstIssue.Name = "xrLabelFirstIssue";
+            this.xrLabelFirstIssue.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
+            this.xrLabelFirstIssue.SizeF = new System.Drawing.SizeF(286F, 64F);
+            this.xrLabelFirstIssue.StylePriority.UseTextAlignment = false;
+            this.xrLabelFirstIssue.Text = "تاریخ صدور";
+            this.xrLabelFirstIssue.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight;
+            // 
+            // xrLabelMemberNo
+            // 
+            this.xrLabelMemberNo.Dpi = 254F;
+            this.xrLabelMemberNo.LocationFloat = new DevExpress.Utils.PointFloat(64F, 1163F);
+            this.xrLabelMemberNo.Name = "xrLabelMemberNo";
+            this.xrLabelMemberNo.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
+            this.xrLabelMemberNo.SizeF = new System.Drawing.SizeF(296F, 64F);
+            this.xrLabelMemberNo.StylePriority.UseTextAlignment = false;
+            this.xrLabelMemberNo.Text = "شماره عضویت";
+            this.xrLabelMemberNo.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight;
+            // 
+            // xrLabelMaskanTitle1
+            // 
+            this.xrLabelMaskanTitle1.Dpi = 254F;
+            this.xrLabelMaskanTitle1.LocationFloat = new DevExpress.Utils.PointFloat(1417.104F, 2116F);
+            this.xrLabelMaskanTitle1.Name = "xrLabelMaskanTitle1";
+            this.xrLabelMaskanTitle1.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
+            this.xrLabelMaskanTitle1.SizeF = new System.Drawing.SizeF(572.9376F, 64F);
+            this.xrLabelMaskanTitle1.StylePriority.UseTextAlignment = false;
+            this.xrLabelMaskanTitle1.Text = "قائم مقام وزیر ومدیر کل راه و شهرسازی";
+            this.xrLabelMaskanTitle1.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter;
+            // 
+            // xrControlStyle1
+            // 
+            this.xrControlStyle1.Name = "xrControlStyle1";
+            this.xrControlStyle1.Padding = new DevExpress.XtraPrinting.PaddingInfo(0, 0, 0, 0, 254F);
+            // 
+            // label1
+            // 
+            this.label1.Dpi = 254F;
+            this.label1.LocationFloat = new DevExpress.Utils.PointFloat(613.8331F, 2370.666F);
+            this.label1.Name = "label1";
+            this.label1.Padding = new DevExpress.XtraPrinting.PaddingInfo(5, 5, 0, 0, 254F);
+            this.label1.SizeF = new System.Drawing.SizeF(815F, 64F);
+            this.label1.StylePriority.UseTextAlignment = false;
+            this.label1.Text = "نام شخص54654561251";
+            this.label1.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleRight;
+            // 
+            // xtraReportDocPerson1
+            // 
+            this.Bands.AddRange(new DevExpress.XtraReports.UI.Band[] {
+                        this.Detail,
+                        this.topMarginBand1,
+                        this.bottomMarginBand1});
+            this.DisplayName = "گواهینامه اشتغال به کار شخص حقیقی";
+            this.Dpi = 254F;
+            this.Font = new System.Drawing.Font("B Traffic", 10.9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Margins = new System.Drawing.Printing.Margins(0, 0, 0, 0);
+            this.Name = "xtraReportDocPerson1";
+            this.PageHeight = 2400;
+            this.PageWidth = 2050;
+            this.PaperKind = System.Drawing.Printing.PaperKind.Custom;
+            this.ReportUnit = DevExpress.XtraReports.UI.ReportUnit.TenthsOfAMillimeter;
+            this.SnapGridSize = 10.58333F;
+            this.StyleSheet.AddRange(new DevExpress.XtraReports.UI.XRControlStyle[] {
+                        this.xrControlStyle1});
+            this.Version = "11.2";
+            ((System.ComponentModel.ISupportInitialize)(this.xrTableGrade)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.xrTableInfo)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this)).EndInit();
+        }
+    }
+}

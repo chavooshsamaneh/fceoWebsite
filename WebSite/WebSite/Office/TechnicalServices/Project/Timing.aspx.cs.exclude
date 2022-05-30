@@ -1,0 +1,235 @@
+﻿using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+
+public partial class Members_TechnicalServices_Project_Timing : System.Web.UI.Page
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+
+        this.DivReport.Visible = false;
+        this.DivReport.Attributes.Add("onclick", "ChangeVisible(this)");
+        this.DivReport.Attributes.Add("onmouseover", "ChangeIcon(this)");
+
+        if (!IsPostBack)
+        {
+            if (string.IsNullOrEmpty(Request.QueryString["ProjectId"]) || string.IsNullOrEmpty(Request.QueryString["PageMode"]) || string.IsNullOrEmpty(Request.QueryString["PrjReId"]))
+            {
+                Response.Redirect("Project.aspx");
+            }
+
+            HDProjectId.Value = Server.HtmlDecode(Request.QueryString["ProjectId"].ToString());
+            PgMode.Value = Server.HtmlDecode(Request.QueryString["PageMode"]).ToString();
+            RequestId.Value = Server.HtmlDecode(Request.QueryString["PrjReId"]).ToString();
+
+            string ProjectId = Utility.DecryptQS(HDProjectId.Value);
+            string PrjReId = Utility.DecryptQS(RequestId.Value);
+
+            if (string.IsNullOrEmpty(ProjectId) || string.IsNullOrEmpty(PrjReId))
+            {
+                this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+                return;
+            }
+
+            ObjectDataSource1.SelectParameters[0].DefaultValue = ProjectId;
+            ObjectDataSource1.SelectParameters[1].DefaultValue = PrjReId;
+
+            FillProjectInfo(int.Parse(PrjReId));
+            SetProjectMainMenuEnabled();
+
+            if (Session["ImpManager"] == null)
+            {
+                TSP.DataManager.TechnicalServices.Project_ImplementerManager ImpManager = new TSP.DataManager.TechnicalServices.Project_ImplementerManager();
+                ImpManager.FindImpMother(int.Parse(ProjectId));
+                Session["ImpManager"] = ImpManager;
+            }
+
+        }
+
+        TSP.DataManager.TechnicalServices.Project_ImplementerManager ImpManager2 = Session["ImpManager"] as TSP.DataManager.TechnicalServices.Project_ImplementerManager;
+        if (ImpManager2 == null && !IsCallback)
+        {
+
+            Response.Redirect("Project.aspx");
+        }
+        if (ImpManager2.Count > 0)
+        {
+            int MeId = int.Parse(ImpManager2[0]["MeOfficeId"].ToString());
+            int MemberTypeId = int.Parse(ImpManager2[0]["MemberTypeId"].ToString());
+            if (MeId == Utility.GetCurrentUser_MeId() && MemberTypeId == Utility.GetCurrentUser_LoginType())
+            {
+                BtnNew.Visible = true;
+                btnNew2.Visible = true;
+                btnEdit.Visible = true;
+                btnEdit2.Visible = true;
+
+            }
+        }
+
+    }
+    protected void BtnNew_Click(object sender, EventArgs e)
+    {
+        TSP.DataManager.TechnicalServices.TimingManager TimingManager = new TSP.DataManager.TechnicalServices.TimingManager();
+        TSP.DataManager.TechnicalServices.ContractManager ContractManager = new TSP.DataManager.TechnicalServices.ContractManager();
+
+        int ImpId = -1;
+        int ContractId = -1;
+
+        string ProjectId = Utility.DecryptQS(HDProjectId.Value);
+        if (!string.IsNullOrEmpty(ProjectId))
+        {
+            TSP.DataManager.TechnicalServices.Project_ImplementerManager ImpManager = new TSP.DataManager.TechnicalServices.Project_ImplementerManager();
+            ImpManager.FindImpMother(int.Parse(ProjectId));
+            if (ImpManager.Count > 0)
+            {
+                ImpId = int.Parse(ImpManager[0]["PrjImpId"].ToString());
+
+                ContractManager.FindByProjectId(int.Parse(ProjectId));
+                if (ContractManager.Count > 0)
+                {
+                    ContractManager.FindByPrjImpObsDsgnId(ImpId, (int)TSP.DataManager.TSProjectIngridientType.Implementer);
+                    if (ContractManager.Count > 0)
+                    {
+                        ContractId = int.Parse(ContractManager[0]["ContractId"].ToString());
+                        TimingManager.FindByContractId(ContractId);
+                        if (TimingManager.Count > 0)
+                        {
+                            this.DivReport.Visible = true;
+                            this.LabelWarning.Text = "برای پروژه مورد نظر زمان بندی تعریف شده است";
+                            return;
+                        }
+                        else
+                            Response.Redirect("TimingInsert.aspx?ProjectId=" + HDProjectId.Value + "&TimingId=" + Utility.EncryptQS("-1") + "&PageMode=" + PgMode.Value + "&PageMode2=" + Utility.EncryptQS("New") + "&PrjReId=" + RequestId.Value + "&ContractId=" + Utility.EncryptQS(ContractId.ToString()));
+
+                    }
+                    else
+                    {
+                        this.DivReport.Visible = true;
+                        this.LabelWarning.Text = "برای پروژه مورد نظر قرارداد مجری تعریف نشده است";
+                        return;
+                    }
+
+                }
+                else
+                {
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "برای پروژه مورد نظر قرارداد مجری تعریف نشده است";
+                    return;
+                }
+            }
+
+            else
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "برای پروژه مورد نظر مجری مادر تعریف نشده است";
+                return;
+            }
+
+
+        }
+        else
+        {
+            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+            return;
+        }
+
+
+    }
+    protected void btnEdit_Click(object sender, EventArgs e)
+    {
+        int TimingId = -1;
+        int ContractId = -1;
+
+        if (CustomAspxDevGridView1.FocusedRowIndex > -1)
+        {
+            DataRow row = CustomAspxDevGridView1.GetDataRow(CustomAspxDevGridView1.FocusedRowIndex);
+            TimingId = (int)row["TimingId"];
+            ContractId = (int)row["ContractId"];
+
+        }
+        if (TimingId == -1)
+        {
+            this.DivReport.Visible = true;
+            this.LabelWarning.Text = "لطفاً ابتدا یک رکورد را انتخاب نمائید";
+
+        }
+        else
+        {
+            Response.Redirect("TimingInsert.aspx?ProjectId=" + HDProjectId.Value + "&TimingId=" + Utility.EncryptQS(TimingId.ToString()) + "&PageMode=" + PgMode.Value + "&PageMode2=" + Utility.EncryptQS("Edit") + "&PrjReId=" + RequestId.Value + "&ContractId=" + Utility.EncryptQS(ContractId.ToString()));
+        }
+
+    }
+    protected void btnView_Click(object sender, EventArgs e)
+    {
+        int TimingId = -1;
+        int ContractId = -1;
+
+        if (CustomAspxDevGridView1.FocusedRowIndex > -1)
+        {
+            DataRow row = CustomAspxDevGridView1.GetDataRow(CustomAspxDevGridView1.FocusedRowIndex);
+            TimingId = (int)row["TimingId"];
+            ContractId = (int)row["ContractId"];
+
+        }
+        if (TimingId == -1)
+        {
+            this.DivReport.Visible = true;
+            this.LabelWarning.Text = "لطفاً ابتدا یک رکورد را انتخاب نمائید";
+
+        }
+        else
+        {
+            Response.Redirect("TimingInsert.aspx?ProjectId=" + HDProjectId.Value + "&TimingId=" + Utility.EncryptQS(TimingId.ToString()) + "&PageMode=" + PgMode.Value + "&PageMode2=" + Utility.EncryptQS("View") + "&PrjReId=" + RequestId.Value + "&ContractId=" + Utility.EncryptQS(ContractId.ToString()));
+        }
+
+    }
+    protected void btnBack_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("ProjectInsert.aspx?ProjectId=" + HDProjectId.Value + "&PageMode=" + PgMode.Value + "&PrjReId=" + RequestId.Value);
+    }
+    private void FillProjectInfo(int Id)
+    {
+        prjInfo.Fill(Id);
+    }
+    protected void MainMenu_ItemClick(object source, DevExpress.Web.MenuItemEventArgs e)
+    {
+        string ProjectId = Utility.DecryptQS(HDProjectId.Value);
+        string PrjReId = RequestId.Value;
+        string PageMode = PgMode.Value;
+
+        PrjMainMenu MainMenu = new PrjMainMenu("Timing", Convert.ToInt32(ProjectId));
+        Response.Redirect(MainMenu.GetRedirectLink(e.Item.Name, PrjReId, PageMode));
+
+    }
+
+    private void SetProjectMainMenuEnabled()
+    {
+        string ProjectId = Utility.DecryptQS(HDProjectId.Value);
+        if (ProjectId == "-1")
+            ProjectId = "-2";
+
+        PrjMainMenu PrjMainMenu = new PrjMainMenu("Timing", Convert.ToInt32(ProjectId));
+        MainMenu.Items.FindByName("Timing").Selected = true;
+        MainMenu.Items.FindByName("BuildingsLicense").Enabled = PrjMainMenu.GetEnabled("BuildingsLicense");
+        MainMenu.Items.FindByName("Timing").Enabled = PrjMainMenu.GetEnabled("Timing");
+        MainMenu.Items.FindByName("Contract").Enabled = PrjMainMenu.GetEnabled("Contract");
+        MainMenu.Items.FindByName("Implementer").Enabled = PrjMainMenu.GetEnabled("Implementer");
+        MainMenu.Items.FindByName("Observers").Enabled = PrjMainMenu.GetEnabled("Observers");
+        MainMenu.Items.FindByName("Plans").Enabled = PrjMainMenu.GetEnabled("Plans");
+        MainMenu.Items.FindByName("Owner").Enabled = PrjMainMenu.GetEnabled("Owner");
+        MainMenu.Items.FindByName("Project").Enabled = PrjMainMenu.GetEnabled("Project");
+        MainMenu.Items.FindByName("Accounting").Enabled = PrjMainMenu.GetEnabled("Accounting");
+        MainMenu.Items.FindByName("Designer").Enabled = PrjMainMenu.GetEnabled("Designer");
+
+    }
+
+
+}

@@ -1,0 +1,257 @@
+﻿<%@ Page Title="جلسات" Language="C#" MasterPageFile="~/MasterPagePortals.master"
+    AutoEventWireup="true" CodeFile="Sessions.aspx.cs" Inherits="Members_Sessions" %>
+    
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxp" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxrp" %>
+<%@ Register Assembly="TSP.WebControls" Namespace="TSP.WebControls" TagPrefix="TSPControls" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxe" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxwgv" %>
+<%@ Register Assembly="AjaxControls" Namespace="AjaxControls" TagPrefix="asp" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+<script language="javascript" type="text/javascript">
+    function ShowMessage(Message) {
+        document.getElementById("<%=DivReport.ClientID%>").style.visibility = 'visible';
+        document.getElementById("<%=DivReport.ClientID%>").style.display = 'inline';
+        document.getElementById('<%=LabelWarning.ClientID%>').innerHTML = Message;
+    }
+    </script>
+    <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+        <ContentTemplate>
+            <div dir="rtl" id="DivReport" class="DivErrors" align="right" runat="server">
+                <asp:Label ID="LabelWarning" runat="server" Text="Label"></asp:Label>[<a class="closeLink"
+                    href="#">بستن</a>]<br />
+            </div>
+            <dxrp:ASPxRoundPanel ID="ASPxRoundPanel1" runat="server" Width="100%" ShowHeader="False"
+                RightToLeft="True"  BackColor="#EBF2F4"
+                 Font-Size="8pt">
+                <LeftEdge>
+                    <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif">
+                    </BackgroundImage>
+                </LeftEdge>
+                <BottomRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpBottomRightCorner.png">
+                </BottomRightCorner>
+                <HeaderContent>
+                    <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderBack.gif">
+                    </BackgroundImage>
+                </HeaderContent>
+                <ContentPaddings Padding="0px"></ContentPaddings>
+                <NoHeaderTopRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopRightCorner.png">
+                </NoHeaderTopRightCorner>
+                <RightEdge>
+                    <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif">
+                    </BackgroundImage>
+                </RightEdge>
+                <HeaderRightEdge>
+                    <BackgroundImage VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderRightEdge.gif">
+                    </BackgroundImage>
+                </HeaderRightEdge>
+                <Border BorderWidth="1px" BorderStyle="Solid" BorderColor="#7EACB1"></Border>
+                <HeaderStyle BackColor="White" Height="23px">
+                    <Paddings PaddingTop="0px" PaddingBottom="0px" PaddingLeft="2px"></Paddings>
+                    <BorderBottom BorderStyle="None"></BorderBottom>
+                </HeaderStyle>
+                <Content>
+                    <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpContentBack.gif">
+                    </BackgroundImage>
+                </Content>
+                <HeaderLeftEdge>
+                    <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderLeftEdge.gif">
+                    </BackgroundImage>
+                </HeaderLeftEdge>
+                <BottomEdge BackColor="#D7E9F1">
+                </BottomEdge>
+                <TopRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpTopRightCorner.png">
+                </TopRightCorner>
+                <NoHeaderTopLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopLeftCorner.png">
+                </NoHeaderTopLeftCorner>
+                <PanelCollection>
+                    <dxp:panelcontent id="PanelContent1" runat="server">
+                        <table style="border-collapse: collapse; background-color: transparent" dir="rtl"
+                            cellpadding="0" align="right">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <TSPControls:CustomTextBox runat="server" Text=" "  ToolTip="مشاهده"
+                                            ID="btnView" UseSubmitBehavior="False" EnableViewState="False" EnableTheming="False"
+                                            OnClick="btnView_Click">
+                                            <HoverStyle BackColor="#FFE0C0">
+                                                <Border BorderWidth="1px" BorderStyle="Outset" BorderColor="Gray"></Border>
+                                            </HoverStyle>
+                                            <Image  Url="~/Images/icons/view.png">
+                                            </Image>
+                                            <ClientSideEvents Click="function(s, e) {
+	if (grdSession.GetFocusedRowIndex()&lt;0)
+ 	{
+   		e.processOnServer=false;
+   		alert('ردیفی انتخاب نشده است');
+	}
+}" />
+                                        </TSPControls:CustomTextBox>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </dxp:panelcontent>
+                </PanelCollection>
+                <TopLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpTopLeftCorner.png">
+                </TopLeftCorner>
+                <NoHeaderTopEdge BackColor="#EBF2F4">
+                </NoHeaderTopEdge>
+                <BottomLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpBottomLeftCorner.png">
+                </BottomLeftCorner>
+            </dxrp:ASPxRoundPanel>
+            <br />
+            <TSPControls:CustomAspxDevGridView ID="grdSession" runat="server" DataSourceID="ObjectDataSourceSessions"
+                Width="100%" ClientInstanceName="grdSession" KeyFieldName="SessionId" RightToLeft="True"
+                OnHtmlDataCellPrepared="grdSession_HtmlDataCellPrepared" OnAutoFilterCellEditorInitialize="grdSession_AutoFilterCellEditorInitialize"
+                OnHtmlRowPrepared="grdSession_HtmlRowPrepared" Font-Size="8pt">
+                <Columns>
+                    <dxwgv:GridViewDataTextColumn VisibleIndex="1" FieldName="SessionNumber" Caption="شماره جلسه"
+                        Name="SessionNumber" Width="120px">
+                        <CellStyle Wrap="False">
+                        </CellStyle>
+                    </dxwgv:GridViewDataTextColumn>
+                    <dxwgv:GridViewDataTextColumn VisibleIndex="2" FieldName="SessionCode" Caption="کد جلسه"
+                        Name="SessionCode" Width="120px">
+                        <CellStyle Wrap="False">
+                        </CellStyle>
+                    </dxwgv:GridViewDataTextColumn>
+                    <dxwgv:GridViewDataTextColumn VisibleIndex="3" FieldName="SessionTitle" Caption="موضوع جلسه"
+                        Name="SessionTitle" Width="200px">
+                        <CellStyle Wrap="True">
+                        </CellStyle>
+                    </dxwgv:GridViewDataTextColumn>
+                    <dxwgv:GridViewDataTextColumn VisibleIndex="4" FieldName="SessionTypeName" Caption="نوع جلسه"
+                        Name="SessionTypeName" Width="140px">
+                        <CellStyle Wrap="True">
+                        </CellStyle>
+                    </dxwgv:GridViewDataTextColumn>
+                    <dxwgv:GridViewDataTextColumn VisibleIndex="5" FieldName="StartDate" Caption="تاریخ برگزاری"
+                        Name="StartDate" Width="120px">
+                        <CellStyle Wrap="False">
+                        </CellStyle>
+                    </dxwgv:GridViewDataTextColumn>
+                    <dxwgv:GridViewDataTextColumn VisibleIndex="6" FieldName="StartTime" Caption="زمان برگزاری"
+                        Name="StartTime" Width="120px">
+                        <CellStyle Wrap="False">
+                        </CellStyle>
+                    </dxwgv:GridViewDataTextColumn>
+                    <dxwgv:GridViewDataTextColumn VisibleIndex="7" FieldName="SessionLocationName" Caption="محل جلسه"
+                        Name="SessionLocationName" Width="140px">
+                        <CellStyle Wrap="True">
+                        </CellStyle>
+                    </dxwgv:GridViewDataTextColumn>
+                    <dxwgv:GridViewDataTextColumn VisibleIndex="7" FieldName="StatusName" Caption="وضعیت"
+                        Name="StatusName" Width="120px">
+                        <CellStyle Wrap="True">
+                        </CellStyle>
+                    </dxwgv:GridViewDataTextColumn>
+                    <dxwgv:GridViewCommandColumn VisibleIndex="14" Caption=" " Width="30px">
+                        <ClearFilterButton Visible="True">
+                        </ClearFilterButton>
+                    </dxwgv:GridViewCommandColumn>
+                </Columns>
+                <Settings ShowHorizontalScrollBar="true" />
+            </TSPControls:CustomAspxDevGridView>
+            <br />
+            <dxrp:ASPxRoundPanel ID="ASPxRoundPanel2" runat="server" Width="100%" ShowHeader="False"
+                RightToLeft="True"  BackColor="#EBF2F4"
+                >
+                <LeftEdge>
+                    <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif">
+                    </BackgroundImage>
+                </LeftEdge>
+                <BottomRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpBottomRightCorner.png">
+                </BottomRightCorner>
+                <HeaderContent>
+                    <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderBack.gif">
+                    </BackgroundImage>
+                </HeaderContent>
+                <ContentPaddings Padding="0px"></ContentPaddings>
+                <NoHeaderTopRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopRightCorner.png">
+                </NoHeaderTopRightCorner>
+                <RightEdge>
+                    <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif">
+                    </BackgroundImage>
+                </RightEdge>
+                <HeaderRightEdge>
+                    <BackgroundImage VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderRightEdge.gif">
+                    </BackgroundImage>
+                </HeaderRightEdge>
+                <Border BorderWidth="1px" BorderStyle="Solid" BorderColor="#7EACB1"></Border>
+                <HeaderStyle BackColor="White" Height="23px">
+                    <Paddings PaddingTop="0px" PaddingBottom="0px" PaddingLeft="2px"></Paddings>
+                    <BorderBottom BorderStyle="None"></BorderBottom>
+                </HeaderStyle>
+                <Content>
+                    <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpContentBack.gif">
+                    </BackgroundImage>
+                </Content>
+                <HeaderLeftEdge>
+                    <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderLeftEdge.gif">
+                    </BackgroundImage>
+                </HeaderLeftEdge>
+                <BottomEdge BackColor="#D7E9F1">
+                </BottomEdge>
+                <TopRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpTopRightCorner.png">
+                </TopRightCorner>
+                <NoHeaderTopLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopLeftCorner.png">
+                </NoHeaderTopLeftCorner>
+                <PanelCollection>
+                    <dxp:panelcontent id="PanelContent2" runat="server">
+                        <table style="border-collapse: collapse; background-color: transparent" dir="rtl"
+                            cellpadding="0" align="right">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <TSPControls:CustomTextBox runat="server" Text=" "  ToolTip="مشاهده"
+                                            ID="btnView2" UseSubmitBehavior="False" EnableViewState="False" EnableTheming="False"
+                                            OnClick="btnView_Click">
+                                            <HoverStyle BackColor="#FFE0C0">
+                                                <Border BorderWidth="1px" BorderStyle="Outset" BorderColor="Gray"></Border>
+                                            </HoverStyle>
+                                            <Image  Url="~/Images/icons/view.png">
+                                            </Image>
+                                            <ClientSideEvents Click="function(s, e) {
+	if (grdSession.GetFocusedRowIndex()&lt;0)
+ 	{
+   		e.processOnServer=false;
+   		alert('ردیفی انتخاب نشده است');
+	}
+}" />
+                                        </TSPControls:CustomTextBox>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </dxp:panelcontent>
+                </PanelCollection>
+                <TopLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpTopLeftCorner.png">
+                </TopLeftCorner>
+                <NoHeaderTopEdge BackColor="#EBF2F4">
+                </NoHeaderTopEdge>
+                <BottomLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpBottomLeftCorner.png">
+                </BottomLeftCorner>
+            </dxrp:ASPxRoundPanel>
+            <asp:ObjectDataSource ID="ObjectDataSourceSessions" runat="server" SelectMethod="SelectSessionsForMember"
+                TypeName="TSP.DataManager.Session.SessionsManager">
+                <SelectParameters>
+                    <asp:Parameter Name="MeId" Type="Int32" />
+                    <asp:Parameter Name="UltId" Type="Int32" />
+                </SelectParameters>
+            </asp:ObjectDataSource>
+        </ContentTemplate>
+    </asp:UpdatePanel>
+    <asp:ModalUpdateProgress ID="ModalUpdateProgress2" runat="server" DisplayAfter="0"
+        AssociatedUpdatePanelID="UpdatePanel1" BackgroundCssClass="modalProgressGreyBackground">
+        <ProgressTemplate>
+            <div class="modalPopup" style="font-family: Tahoma; font-size: 9pt">
+                <img id="IMG1" src="../Image/indicator.gif" align="middle" />
+                لطفا صبر نمایید ...</div>
+        </ProgressTemplate>
+    </asp:ModalUpdateProgress>
+</asp:Content>

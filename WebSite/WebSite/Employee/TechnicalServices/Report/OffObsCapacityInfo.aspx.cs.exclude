@@ -1,0 +1,371 @@
+﻿using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+
+public partial class Employee_TechnicalServices_Report_OffObsCapacityInfo : System.Web.UI.Page
+{
+    string OfficeId;
+
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        this.DivReport.Attributes.Add("style", "display:block");
+        this.DivReport.Attributes.Add("style", "display:none");
+        this.DivReport.Attributes.Add("onclick", "ChangeVisible(this)");
+        this.DivReport.Attributes.Add("onmouseover", "ChangeIcon(this)");
+        //  this.DivReport.Visible = false;
+
+        ASPxTextBoxFileNo.Attributes["onkeyup"] = "return ltr_override(event)";
+
+        if (!IsPostBack)
+        {
+            SetKeys();
+
+            //    this.ViewState["BtnView"] = btnView.Enabled;
+        }
+
+        //if (this.ViewState["BtnView"] != null)
+        //    this.btnView.Enabled = this.btnView2.Enabled = btnPrint.Enabled = btnPrint2.Enabled = (bool)this.ViewState["BtnView"];
+    }
+
+    protected void btnView_Click(object sender, EventArgs e)
+    {
+        Search();
+    }
+
+    protected void btnPrint_Click(object sender, EventArgs e)
+    {
+        Print();
+    }
+
+    /*******************************************************************************************************************************************/
+    private void Print()
+    {
+        OfficeId = ASPxTextBoxOfId.Text;
+
+        string Qs = "OfficeId=" + Utility.EncryptQS(OfficeId);
+        Response.Redirect("~/ReportForms/TechnicalServices/OffObsCapacityInfo.aspx?" + Qs);
+    }
+
+    private void Search()
+    {
+        Capacity Cpcty = new Capacity();
+        ArrayList CapacityInfoArr = new ArrayList();
+        ArrayList MemberArr = new ArrayList();
+        ArrayList StageArr = new ArrayList();
+
+        if (!SetOfficeInfo())
+        {
+            Clear();
+            return;
+        }
+
+        SetObservationCapacity(CapacityInfoArr, Cpcty);
+        FillMemberGrid(MemberArr, Cpcty);
+        SetCurrentStage(StageArr, Cpcty);
+        SetCapacityAssignmentObservationCapacity(CapacityInfoArr, Cpcty);
+        FillMemberStepsGrid(MemberArr, Cpcty);
+    }
+
+    /*******************************************************************************************************************************************/
+    private void SetKeys()
+    {
+        CheckAccess();
+    }
+
+    private void CheckAccess()
+    {
+        TSP.DataManager.Permission per = TSP.DataManager.TechnicalServices.CapacityManager.GetUserPermission(Utility.GetCurrentUser_UserId(), (TSP.DataManager.UserType)Utility.GetCurrentUser_LoginType());
+        if (per.CanView == false)
+        {
+            ASPxRoundPanelCapacity.Visible = false;
+            ASPxRoundPanelCapacityAssignment.Visible = false;
+            ASPxTextBoxOfId.Enabled = false;
+            //btnView.Enabled = false;
+            //btnView2.Enabled = false;
+            btnPrint.Enabled = false;
+            btnPrint2.Enabled = false;
+            ShowMessage("شما دسترسی به این قسمت ندارید");
+            //  this.ViewState["BtnView"] = btnView.Enabled;
+        }
+    }
+
+    /*****************************************************************************************************************************************************/
+    private bool SetOfficeInfo()
+    {
+        OfficeId = ASPxTextBoxOfId.Text;
+        TSP.DataManager.OfficeManager OfficeManager = new TSP.DataManager.OfficeManager();
+        OfficeManager.FindByCode(Convert.ToInt32(OfficeId));
+        if (OfficeManager.Count > 0)
+        {
+            ASPxTextBoxOfName.Text = OfficeManager[0]["OfName"].ToString();
+            ASPxTextBoxMName.Text = OfficeManager[0]["MName"].ToString();
+            ASPxTextBoxRegOfNo.Text = OfficeManager[0]["RegOfNo"].ToString();
+            ASPxTextBoxFileNo.Text = OfficeManager[0]["FileNo"].ToString();
+            ASPxTextBoxMFTypeName.Text = OfficeManager[0]["MFTypeName"].ToString();
+            return true;
+        }
+        else
+        {
+            ShowCallBackMessage("کد شرکت معتبر نمی باشد");
+            return false;
+        }
+    }
+
+    private void SetObservationCapacity(ArrayList CapacityInfoArr, Capacity Cpcty)
+    {
+        OfficeId = ASPxTextBoxOfId.Text;
+        if (Convert.ToInt32(OfficeId) > 0)
+        {
+            // CapacityInfoArr -----> ArrayList[0]: TotalCapacity(int), ArrayList[1]:UsedCapacity(int) , ArrayList[2]: RemainCapacity(int), 
+            //                        ArrayList[3]: ReservedCapacity(int) , ArrayList[4]: ProjectNum(int), ArrayList[5]: MaxJoubCount(string), 
+            //                        ArrayList[6]: MaxFloor(string), ArrayList[7]: ConditionalCapacity(int)
+            //???????????????
+            //CapacityInfoArr = Cpcty.GetCapacityInformation((int)TSP.DataManager.TSProjectIngridientType.Observer, (int)TSP.DataManager.TSMemberType.Office, Convert.ToInt32(OfficeId));
+
+
+            //if (CapacityInfoArr.Count > 0)
+            //{
+            //    SetObsTexts(CapacityInfoArr[0].ToString(), CapacityInfoArr[5].ToString(), CapacityInfoArr[1].ToString(), CapacityInfoArr[2].ToString(), CapacityInfoArr[3].ToString(), CapacityInfoArr[4].ToString(), CapacityInfoArr[7].ToString());
+            //}
+            //???????????????
+        }
+    }
+
+    private void SetObsTexts(string TotalCapacity, string MaxJobCount, string TotalUsed, string RemainCapacity, string Reserve, string ProjectCount, string ConditionalCapacity)
+    {
+        ASPxTextBoxObsTotalCapacity.Text = TotalCapacity;
+        ASPxTextBoxObsMaxJobCount.Text = MaxJobCount;
+        ASPxTextBoxObsTotalUsed.Text = TotalUsed;
+        ASPxTextBoxObsRemainCapacity.Text = RemainCapacity;
+        ASPxTextBoxObsReserve.Text = Reserve;
+        ASPxTextBoxObsProjectCount.Text = ProjectCount;
+        ASPxTextBoxConditionalCapacity.Text = ConditionalCapacity;
+    }
+
+    private void SetCapacityAssignmentObservationCapacity(ArrayList CapacityInfoArr, Capacity Cpcty)
+    {
+        OfficeId = ASPxTextBoxOfId.Text;
+        if (Convert.ToInt32(OfficeId) > 0)
+        {
+            // CapacityInfoArr -----> ArrayList[0]: TotalCapacity(int), ArrayList[1]:UsedCapacity(int) , ArrayList[2]: RemainCapacity(int), 
+            //                        ArrayList[3]:ReservedCapacity(int) , ArrayList[4]: ProjectNum(int), ArrayList[5]: MaxJoubCount(string), 
+            //                        ArrayList[6]: MaxFloor(string), ArrayList[7]: ConditionalCapacity(int)
+            //???????????????
+            //CapacityInfoArr = Cpcty.GetCapacityInformationPerStage((int)TSP.DataManager.TSProjectIngridientType.Observer, (int)TSP.DataManager.TSMemberType.Office, Convert.ToInt32(OfficeId));
+
+
+            //if (CapacityInfoArr.Count > 0)
+            //{
+            //    SetCapacityAssignmentObsTexts(CapacityInfoArr[0].ToString(), CapacityInfoArr[5].ToString(), CapacityInfoArr[1].ToString(), CapacityInfoArr[2].ToString(), CapacityInfoArr[4].ToString(), CapacityInfoArr[7].ToString());
+            //}
+            //???????????????
+        }
+    }
+
+    private void SetCapacityAssignmentObsTexts(string TotalCapacity, string MaxJobCount, string TotalUsed, string RemainCapacity, string ProjectCount, string ConditionalCapacity)
+    {
+        ASPxTextBoxCAObsTotalCapacity.Text = TotalCapacity;
+        ASPxTextBoxCAObsMaxJobCount.Text = MaxJobCount;
+        ASPxTextBoxCAObsTotalUsed.Text = TotalUsed;
+        ASPxTextBoxCAObsRemainCapacity.Text = RemainCapacity;
+        ASPxTextBoxCAObsProjectCount.Text = ProjectCount;
+        ASPxTextBoxCAObsConditionalCapacity.Text = ConditionalCapacity;
+    }
+
+    private void SetCurrentStage(ArrayList StageArr, Capacity Cpcty)
+    {
+        // StageArr -----> ArrayList[0] = Year, ArrayList[1] = StageText, ArrayList[0] = CapacityPrcnt, ArrayList[1] = JobCountPrcnt
+
+        StageArr = Cpcty.GetCurrentStage();
+        if (StageArr.Count != 0)
+        {
+            ASPxTextBoxCAObsYear.Text = StageArr[0].ToString();
+            ASPxTextBoxCAObsStage.Text = StageArr[1].ToString();
+            ASPxTextBoxCAObsCapacityPrcnt.Text = StageArr[2].ToString();
+            ASPxTextBoxCAObsJobCountPrcnt.Text = StageArr[3].ToString();
+        }
+    }
+
+    private void FillMemberGrid(ArrayList MemberArr, Capacity Cpcty)
+    {
+        DataTable MemberDt = new DataTable();
+        MemberDt.Columns.Add("MaxJobCount");
+        MemberDt.Columns.Add("MaxJobCapacity");
+        MemberDt.Columns.Add("TotalDsgCapacity");
+        MemberDt.Columns.Add("Factor");
+        MemberDt.Columns.Add("MjId");
+        MemberDt.Columns.Add("GrdId");
+        MemberDt.Columns.Add("MeId");
+        MemberDt.Columns.Add("MeName");
+        MemberDt.Columns.Add("ObservationPercent");
+
+        OfficeId = ASPxTextBoxOfId.Text;
+        if (Convert.ToInt32(OfficeId) > 0)
+        {
+            //???????????????
+            //MemberArr = Cpcty.GetOfficeMembersDsgObsCapacity(Convert.ToInt32(OfficeId), (int)TSP.DataManager.TSProjectIngridientType.Observer, (int)TSP.DataManager.DocOffIncreaseJobCapacityType.Office);
+            //for (int i = 0; i < MemberArr.Count; i++)
+            //{
+            //    MemberDt.Rows.Add(InsertMemberRow(MemberDt.NewRow(), (ArrayList)MemberArr[i]));
+            //}
+            //???????????????
+        }
+
+        CustomAspxDevGridViewMembers.DataSource = MemberDt;
+        CustomAspxDevGridViewMembers.DataBind();
+    }
+
+    private void FillMemberStepsGrid(ArrayList MemberArr, Capacity Cpcty)
+    {
+        DataTable MemberDt = new DataTable();
+        MemberDt.Columns.Add("MeId");
+        MemberDt.Columns.Add("MeName");
+        MemberDt.Columns.Add("TotalCapacity");
+        MemberDt.Columns.Add("ObservationPercent");
+        MemberDt.Columns.Add("MaxJobCount");
+        MemberDt.Columns.Add("MaxFloor");
+        MemberDt.Columns.Add("MjId");
+        MemberDt.Columns.Add("Grade");
+        MemberDt.Columns.Add("ProjectCount");
+        MemberDt.Columns.Add("TotalUsed");
+        MemberDt.Columns.Add("ConditionalCapacity");
+        MemberDt.Columns.Add("RemainCapacity");
+
+        OfficeId = ASPxTextBoxOfId.Text;
+
+        if (Convert.ToInt32(OfficeId) > 0)
+        {
+            //???????????????
+            //MemberArr = Cpcty.GetDsgOfficeMembersCapacityInformationPerStage((int)TSP.DataManager.TSProjectIngridientType.Observer, Convert.ToInt32(OfficeId), (int)TSP.DataManager.TSMemberType.Office);
+            //for (int i = 0; i < MemberArr.Count; i++)
+            //{
+            //    MemberDt.Rows.Add(InsertMemberRowStep(MemberDt.NewRow(), (ArrayList)MemberArr[i]));
+            //}
+            //???????????????
+        }
+
+        CustomAspxDevGridViewMembersSteps.DataSource = MemberDt;
+        CustomAspxDevGridViewMembersSteps.DataBind();
+    }
+
+    private DataRow InsertMemberRow(DataRow dr, ArrayList MembersArr)
+    {
+        // MembersArr -------> ArrayList[0]: MaxJobCount, ArrayList[1]: MaxJobCapacity, ArrayList[2]: ObservationPercent, ArrayList[3]: ObservationCapacity,
+        //                     ArrayList[4]: Grade, ArrayList[5]: MjId, ArrayList[6]: GradeInOfficeLicense, ArrayList[7]: DesignInc, ArrayList[8]: SameGradeInc, 
+        //                     ArrayList[9]: MajorInc, ArrayList[10]: TotalDsgCapacity, ArrayList[11]: TotalObsCapacity, ArrayList[12]: MeId, ArrayList[13]: MeName,
+        //                     ArrayList[14]: ConditionalCapacity
+
+        dr["MaxJobCount"] = MembersArr[0];
+        dr["MaxJobCapacity"] = MembersArr[3];
+        dr["MjId"] = MembersArr[5];
+        dr["GrdId"] = MembersArr[6];
+        dr["MeId"] = MembersArr[12];
+        dr["MeName"] = MembersArr[13];
+        dr["Factor"] = Convert.ToDouble(MembersArr[10]) / Convert.ToDouble(MembersArr[1]);
+        dr["ObservationPercent"] = MembersArr[2];
+        dr["TotalDsgCapacity"] = Convert.ToInt32(Convert.ToInt32(MembersArr[3]) * Convert.ToDouble(dr["Factor"])); //MembersArr[10];
+
+        return dr;
+    }
+
+    private DataRow InsertMemberRowStep(DataRow dr, ArrayList MembersArr)
+    {
+        // MembersArr -------> ArrayList[0]: MeId, ArrayList[1]: MaxJobCapacity,ArrayList[2]: MaxJobCount, ArrayList[3]: UsedCapacity, 
+        //                     ArrayList[4]: RemainCapacity, ArrayList[5]:ReservedCapacity, ArrayList[6]: ProjectNum, ArrayList[7]: MaxFloor, 
+        //                     ArrayList[8]: ConditionalCapacity(int), ArrayList[9]:MeName, ArrayList[10]: Grade, ArrayList[11]: MjId
+
+        dr["MeId"] = MembersArr[0];
+        dr["MeName"] = MembersArr[9];
+        dr["TotalCapacity"] = MembersArr[1];
+        //dr["ObservationPercent"] = MembersArr[0];
+        dr["MaxJobCount"] = MembersArr[2];
+        //dr["MaxFloor"] = MembersArr[0];
+        dr["MjId"] = MembersArr[11];
+        dr["Grade"] = MembersArr[10];
+        dr["ProjectCount"] = MembersArr[6];
+        dr["TotalUsed"] = MembersArr[3];
+        dr["ConditionalCapacity"] = MembersArr[8];
+        dr["RemainCapacity"] = MembersArr[4];
+
+        return dr;
+    }
+
+    private void Clear()
+    {
+        ASPxTextBoxOfName.Text = "- - -";
+        ASPxTextBoxMName.Text = "- - -";
+        ASPxTextBoxRegOfNo.Text = "- - -";
+        ASPxTextBoxFileNo.Text = "- - -";
+        ASPxTextBoxMFTypeName.Text = "- - -";
+
+        SetObsTexts("- - -", "- - -", "- - -", "- - -", "- - -", "- - -", "- - -");
+
+        CustomAspxDevGridViewMembers.DataSource = null;
+        CustomAspxDevGridViewMembers.DataBind();
+
+        ASPxTextBoxCAObsYear.Text = "- - -";
+        ASPxTextBoxCAObsStage.Text = "- - -";
+        ASPxTextBoxCAObsCapacityPrcnt.Text = "- - -";
+        ASPxTextBoxCAObsJobCountPrcnt.Text = "- - -";
+
+        SetCapacityAssignmentObsTexts("- - -", "- - -", "- - -", "- - -", "- - -", "- - -");
+
+        CustomAspxDevGridViewMembersSteps.DataSource = null;
+        CustomAspxDevGridViewMembersSteps.DataBind();
+
+    }
+
+    private void SetLabelWarning(string Warning)
+    {
+        this.DivReport.Visible = true;
+        this.LabelWarning.Text = Warning;
+    }
+
+    /***************************************************** CapInfoMenu *************************************************************/
+    protected void CapInfoMenu_ItemClick(object source, DevExpress.Web.MenuItemEventArgs e)
+    {
+        switch (e.Item.Name)
+        {
+            case "Member":
+                Response.Redirect("MemberObsCapacityInfo.aspx");
+                break;
+
+            case "Office":
+                Response.Redirect("OffObsCapacityInfo.aspx");
+                break;
+        }
+    }
+
+    /*******************************callback************hp***************************************************/
+    protected void CallbackPanelMain_Callback(object sender, DevExpress.Web.CallbackEventArgsBase e)
+    {
+        switch (e.Parameter)
+        {
+            case "search":
+                if (!string.IsNullOrEmpty(ASPxTextBoxOfId.Text))
+                    Search();
+                break;
+            case "clear":
+                Clear();
+                break;
+        }
+    }
+
+    void ShowMessage(String Message)
+    {
+        this.DivReport.Attributes.Add("style", "display:visible");
+        this.LabelWarning.Text = Message;
+    }
+    void ShowCallBackMessage(string Msg)
+    {
+        CallbackPanelMain.JSProperties["cpMsg"] = Msg;
+        CallbackPanelMain.JSProperties["cpError"] = 1;
+    }
+}

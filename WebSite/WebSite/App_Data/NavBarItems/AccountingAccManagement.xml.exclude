@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Groups>
+	<NavBarGroup Expanded="False" Text="مدیریت حسابداری" Name="grpAccManagement">
+		<NavBarItem NavigateUrl="~/Accounting/AccManagement/DocBalance.aspx" Text="مدیریت اسناد حسابداری">
+		</NavBarItem>
+		<!--<NavBarItem NavigateUrl="~/Accounting/AccManagement/DocBalancePermanant.aspx" Text="مدیریت اسناد دائم">
+		</NavBarItem>
+		<NavBarItem NavigateUrl="~/Accounting/AccManagement/DocBalanceTemp.aspx" Text="مدیریت اسناد موقت">
+		</NavBarItem>
+		<NavBarItem NavigateUrl="~/Accounting/AccManagement/DocBalanceDraft.aspx" Text="مدیریت اسناد پیش نویس">
+		</NavBarItem>-->
+		<!--<NavBarItem NavigateUrl="~/Accounting/AccManagement/DocBalanceTemp.aspx" Text="تبدیل به سند دائم">
+		</NavBarItem>
+		<NavBarItem NavigateUrl="~/Accounting/AccManagement/DocBalanceTemp.aspx" Text="ادغام چند سند">
+		</NavBarItem>
+		<NavBarItem NavigateUrl="~/Accounting/AccManagement/DocBalancePermanant.aspx" Text="ثبت سند معکوس">
+		</NavBarItem>-->
+		<NavBarItem NavigateUrl="~/Accounting/AccManagement/DocBalanceWithLotOfItemsInsert.aspx" Text="ثبت سند با آرتیکل زیاد">
+		</NavBarItem>
+		<NavBarItem NavigateUrl="~/Accounting/AccManagement/SubmitDocOperation.aspx" Text="ثبت در دفاتر حسابداری">
+		</NavBarItem>
+		<!--<NavBarItem NavigateUrl="~/Accounting/AccManagement/SaleService.aspx" Text="مدیریت فروش خدمات">
+		</NavBarItem>-->
+
+		<NavBarItem NavigateUrl="~/Accounting/AccManagement/SmsDoc.aspx" Text="مدیریت اسناد پیام کوتاه ">
+		</NavBarItem>
+	</NavBarGroup>
+
+</Groups>

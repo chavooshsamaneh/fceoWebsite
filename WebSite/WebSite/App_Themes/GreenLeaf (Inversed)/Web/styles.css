@@ -1,0 +1,22 @@
+﻿/* -- ASPxRoundPanel -- */
+.dxrpControl_GreenLeafInversed td.dxrp
+{
+	font-size: 11px;
+	font-family: Verdana;
+	color: #6B8E23;	
+	text-align: justify;
+}
+/* Header */
+.dxrpHeader_GreenLeafInversed td.dxrp
+{
+    font-size: 11px;
+    font-weight: bold;
+	font-family:  Verdana;
+	color: #6B8E23;
+}
+/* Disabled */
+.dxrpDisabled_GreenLeafInversed, .dxrpDisabled_GreenLeafInversed td.dxrp
+{
+	color: #808080;
+	cursor: default;
+}

@@ -1,0 +1,347 @@
+﻿<%@ Page Language="C#" MasterPageFile="~/Office/Message/MembersMasterPage.master" AutoEventWireup="true" CodeFile="Inbox.aspx.cs" Inherits="Office_Message_Inbox" Title="پیام های رسیده" %>
+
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxcp" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxp" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxhf" %>
+<%@ Register Assembly="obout_Editor" Namespace="OboutInc.Editor" TagPrefix="obout" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxdv" %>
+<%@ Register Assembly="TSP.WebControls" Namespace="TSP.WebControls" TagPrefix="TSPControls" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxe" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxwgv" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxuc" %>
+<%@ Register Assembly="AjaxControls" Namespace="AjaxControls" TagPrefix="asp" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
+
+<%@ Register Assembly="TSP.WebControls" Namespace="TSP.WebControls" TagPrefix="TSPControls" %>
+
+
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxrp" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+
+    <script language="javascript">
+
+function SetMemoValue()
+{
+ hidden1.Set("FocInd",grid1.GetFocusedRowIndex());
+  grid1.GetRowValues(grid1.GetFocusedRowIndex(),'MsgBody;MsgSubject',SetValue);
+  grid1.PerformCallback(grid1.GetFocusedRowIndex());
+
+}
+function SetValue(values)
+{
+label1.SetVisible(true);
+label1.SetValue(values[0]);
+
+//document.getElementById("<%=lblMessageContent.ClientID%>").style.visibility='visible';
+//document.getElementsByName("<%=lblMessageContent.ClientID%>").value=values[0];
+alert(values[0]);
+//document.getElementsByName('div5').innerHTML =values[0];
+}
+    </script>
+
+    <div style="width: 100%">
+        <asp:updatepanel id="UpdatePanel1" runat="server">
+            <contenttemplate>
+<DIV style="WIDTH: 100%" align=center><DIV style="TEXT-ALIGN: right" dir=rtl id="DivReport" class="DivErrors" runat="server"><asp:Label id="LabelWarning" runat="server" Text="Label"></asp:Label>[<A class="closeLink" href="#">بستن</A>]<BR /></DIV><DIV style="WIDTH: 100%" dir=ltr align=right><dxrp:ASPxRoundPanel id="ASPxRoundPanel2" runat="server" Width="100%" BackColor="#EBF2F4"   HorizontalAlign="Right" ShowHeader="False">
+<LeftEdge>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif"></BackgroundImage>
+</LeftEdge>
+
+<BottomRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpBottomRightCorner.png"></BottomRightCorner>
+
+<HeaderContent>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderBack.gif"></BackgroundImage>
+</HeaderContent>
+
+<ContentPaddings Padding="0px"></ContentPaddings>
+
+<NoHeaderTopRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopRightCorner.png"></NoHeaderTopRightCorner>
+
+<RightEdge>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif"></BackgroundImage>
+</RightEdge>
+
+<HeaderRightEdge>
+<BackgroundImage VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderRightEdge.gif"></BackgroundImage>
+</HeaderRightEdge>
+
+<Border BorderWidth="1px" BorderStyle="Solid" BorderColor="#7EACB1"></Border>
+
+<HeaderStyle BackColor="White" Height="23px">
+<Paddings PaddingTop="0px" PaddingBottom="0px" PaddingLeft="2px"></Paddings>
+
+<BorderBottom BorderStyle="None"></BorderBottom>
+</HeaderStyle>
+
+<Content>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpContentBack.gif"></BackgroundImage>
+</Content>
+
+<HeaderLeftEdge>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderLeftEdge.gif"></BackgroundImage>
+</HeaderLeftEdge>
+
+<BottomEdge BackColor="#D7E9F1"></BottomEdge>
+
+<TopRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpTopRightCorner.png"></TopRightCorner>
+
+<NoHeaderTopLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopLeftCorner.png"></NoHeaderTopLeftCorner>
+<PanelCollection>
+<dxp:PanelContent runat="server"><TABLE style="DISPLAY: block; OVERFLOW: hidden; BORDER-COLLAPSE: collapse" cellPadding=0><TBODY><TR><TD style="VERTICAL-ALIGN: top" dir=ltr align=right><TSPControls:CustomTextBox runat="server" Text=" "  ToolTip="بازگشت" CausesValidation="False" Width="25px" ID="btnBack" UseSubmitBehavior="False" EnableViewState="False" EnableTheming="False" OnClick="btnBack_Click">
+<ClientSideEvents Click="function(s, e) {	
+
+}
+"></ClientSideEvents>
+
+<HoverStyle BackColor="#FFE0C0">
+<Border BorderWidth="1px" BorderStyle="Outset" BorderColor="Gray"></Border>
+</HoverStyle>
+
+<Image  Url="~/Images/icons/Back.png"></Image>
+</TSPControls:CustomTextBox>
+ </TD><TD style="VERTICAL-ALIGN: top" dir=ltr align=right><TSPControls:CustomTextBox runat="server" Text=" "  ToolTip="حذف" CausesValidation="False" Width="25px" ID="btnDelete" UseSubmitBehavior="False" EnableViewState="False" EnableTheming="False" OnClick="btnDelete_Click">
+<ClientSideEvents Click="function(s, e) {	
+e.processOnServer= confirm('آیا مطمئن به حذف این ردیف هستید؟');
+}
+"></ClientSideEvents>
+
+<HoverStyle BackColor="#FFE0C0">
+<Border BorderWidth="1px" BorderStyle="Outset" BorderColor="Gray"></Border>
+</HoverStyle>
+
+<Image  Url="~/Images/icons/delete.png"></Image>
+</TSPControls:CustomTextBox>
+ </TD></TR></TBODY></TABLE></dxp:PanelContent>
+</PanelCollection>
+
+<TopLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpTopLeftCorner.png"></TopLeftCorner>
+
+<NoHeaderTopEdge BackColor="#EBF2F4"></NoHeaderTopEdge>
+
+<BottomLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpBottomLeftCorner.png"></BottomLeftCorner>
+</dxrp:ASPxRoundPanel> </DIV><BR /><TSPControls:CustomAspxDevGridView id="GridViewMessages" runat="server" DataSourceID="ObdMessages" Width="100%"   AutoGenerateColumns="False" KeyFieldName="MsgId" OnHtmlRowPrepared="GridViewMessages_HtmlRowPrepared" Font-Size="XX-Small" ClientInstanceName="grid1">
+            <ClientSideEvents FocusedRowChanged="function(s, e) {
+	//SetMemoValue();
+ Callbackmsg.PerformCallback(grid1.GetFocusedRowIndex());
+}"></ClientSideEvents>
+            <SettingsBehavior ConfirmDelete="True" AllowFocusedRow="True"></SettingsBehavior>
+            <Styles  >
+                <GroupPanel BackColor="CornflowerBlue" ForeColor="White">
+                </GroupPanel>
+                <Header HorizontalAlign="Center">
+                </Header>
+                <SelectedRow BackColor="White" ForeColor="Black">
+                </SelectedRow>
+                <FocusedRow BackColor="PowderBlue">
+                </FocusedRow>
+                <Row BackColor="LightSteelBlue">
+                </Row>
+            </Styles>
+            <SettingsPager>
+                <AllButton Text="همه رکوردها">
+                </AllButton>
+                <FirstPageButton Text="اولین صفحه">
+                </FirstPageButton>
+                <LastPageButton Text="آخرین صفحه">
+                </LastPageButton>
+                <Summary Text="صفحه: {0} از {1} (تعداد کل:{2})"></Summary>
+                <NextPageButton Text="صفحه بعد">
+                </NextPageButton>
+                <PrevPageButton Text="صفحه قبل">
+                </PrevPageButton>
+            </SettingsPager>
+            <Columns>
+                <dxwgv:GridViewCommandColumn Caption=" " ShowSelectCheckbox="True" Visible="False"
+                    VisibleIndex="0">
+                    <clearfilterbutton visible="True"></clearfilterbutton>
+                    <custombuttons>
+<dxwgv:GridViewCommandColumnCustomButton Visibility="FilterRow" ID="customButton" Text="انتخاب همه"></dxwgv:GridViewCommandColumnCustomButton>
+</custombuttons>
+                </dxwgv:GridViewCommandColumn>
+                <dxwgv:GridViewDataCheckColumn Caption="تفویض شده" FieldName="IsResignation" Visible="False"
+                    VisibleIndex="1" Width="5px">
+                    <filtercellstyle font-size="XX-Small"></filtercellstyle>
+                </dxwgv:GridViewDataCheckColumn>
+                <dxwgv:GridViewDataTextColumn Caption="فرستنده" FieldName="LastName" VisibleIndex="0"
+                    Width="120px">
+                    <dataitemtemplate>
+<asp:Label id="Label1" runat="server" Text='<%# Eval("FirstName")+" "+Eval("LastName") %>'></asp:Label> 
+</dataitemtemplate>
+                </dxwgv:GridViewDataTextColumn>
+                <dxwgv:GridViewDataTextColumn VisibleIndex="3" Width="1px">
+                </dxwgv:GridViewDataTextColumn>
+                <dxwgv:GridViewDataTextColumn Caption="موضوع" FieldName="MsgSubject" VisibleIndex="1"
+                    Width="150px">
+                </dxwgv:GridViewDataTextColumn>
+                <dxwgv:GridViewDataTextColumn Caption="تاریخ" FieldName="Date" VisibleIndex="2" Width="100px">
+                    <cellstyle wrap="False"></cellstyle>
+                </dxwgv:GridViewDataTextColumn>
+                <dxwgv:GridViewDataTextColumn Caption="بدنه" FieldName="MsgBody" Visible="False"
+                    VisibleIndex="3">
+                </dxwgv:GridViewDataTextColumn>
+            </Columns>
+            <SettingsText CommandClearFilter="پاک کردن فیلتر" ConfirmDelete="آیا مطمئن به حذف این ردیف هستید؟"
+                EmptyDataRow="هیچ داده ای وجود ندارد" GroupPanel="برای گروه بندی از این قسمت استفاده کنید"
+                CommandEdit="ویرایش" CommandDelete="حذف" CommandSelect="انتخاب" CommandNew="جدید"
+                CommandUpdate="ذخیره" CommandCancel="انصراف"></SettingsText>
+            <SettingsLoadingPanel Text="در حال بارگذاری"></SettingsLoadingPanel>
+            <Settings ShowGroupPanel="True" ShowFilterRow="True"></Settings>
+        </TSPControls:CustomAspxDevGridView> <BR /><TABLE class="TableBorder" width="100%"><TBODY><TR><TD style="VERTICAL-ALIGN: top" align=right colSpan=3><asp:Label id="Label3" runat="server" Text="متن پیام:"></asp:Label></TD></TR><TR><TD style="VERTICAL-ALIGN: top" align=right colSpan=3><TSPControls:CustomAspxCallbackPanel id="CallbackPanelMsg" runat="server" Width="100%" ClientInstanceName="Callbackmsg"  OnCallback="CallbackPanelMsg_Callback">
+                            <PanelCollection>
+                                <dxp:PanelContent runat="server">
+                                    <asp:Panel ID="Panel1" runat="server" CssClass="TableBorder" Direction="RightToLeft"
+                                        ScrollBars="Auto" Height="150px">
+                                        <asp:Label ID="lblMessageContent" runat="server" Height="100%" ToolTip="100%"></asp:Label>
+                                    </asp:Panel>
+                                </dxp:PanelContent>
+                            </PanelCollection>
+                        </TSPControls:CustomAspxCallbackPanel> </TD></TR></TBODY></TABLE><BR /><DIV style="WIDTH: 100%" dir=ltr align=right><dxrp:ASPxRoundPanel id="ASPxRoundPanel3" runat="server" Width="100%" BackColor="#EBF2F4"   HorizontalAlign="Right" ShowHeader="False">
+<LeftEdge>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif"></BackgroundImage>
+</LeftEdge>
+
+<BottomRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpBottomRightCorner.png"></BottomRightCorner>
+
+<HeaderContent>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderBack.gif"></BackgroundImage>
+</HeaderContent>
+
+<ContentPaddings Padding="0px"></ContentPaddings>
+
+<NoHeaderTopRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopRightCorner.png"></NoHeaderTopRightCorner>
+
+<RightEdge>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif"></BackgroundImage>
+</RightEdge>
+
+<HeaderRightEdge>
+<BackgroundImage VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderRightEdge.gif"></BackgroundImage>
+</HeaderRightEdge>
+
+<Border BorderWidth="1px" BorderStyle="Solid" BorderColor="#7EACB1"></Border>
+
+<HeaderStyle BackColor="White" Height="23px">
+<Paddings PaddingTop="0px" PaddingBottom="0px" PaddingLeft="2px"></Paddings>
+
+<BorderBottom BorderStyle="None"></BorderBottom>
+</HeaderStyle>
+
+<Content>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpContentBack.gif"></BackgroundImage>
+</Content>
+
+<HeaderLeftEdge>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderLeftEdge.gif"></BackgroundImage>
+</HeaderLeftEdge>
+
+<BottomEdge BackColor="#D7E9F1"></BottomEdge>
+
+<TopRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpTopRightCorner.png"></TopRightCorner>
+
+<NoHeaderTopLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopLeftCorner.png"></NoHeaderTopLeftCorner>
+<PanelCollection>
+<dxp:PanelContent runat="server"><TABLE style="DISPLAY: block; OVERFLOW: hidden; BORDER-COLLAPSE: collapse" cellPadding=0><TBODY><TR><TD style="VERTICAL-ALIGN: top" dir=ltr align=right><TSPControls:CustomTextBox runat="server" Text=" "  ToolTip="بازگشت" CausesValidation="False" Width="25px" ID="ASPxButton1" UseSubmitBehavior="False" EnableViewState="False" EnableTheming="False" OnClick="btnBack_Click">
+<ClientSideEvents Click="function(s, e) {	
+
+}
+"></ClientSideEvents>
+
+<HoverStyle BackColor="#FFE0C0">
+<Border BorderWidth="1px" BorderStyle="Outset" BorderColor="Gray"></Border>
+</HoverStyle>
+
+<Image  Url="~/Images/icons/Back.png"></Image>
+</TSPControls:CustomTextBox>
+ </TD><TD style="VERTICAL-ALIGN: top" dir=ltr align=right><TSPControls:CustomTextBox runat="server" Text=" "  ToolTip="حذف" CausesValidation="False" Width="25px" ID="btnDelete2" UseSubmitBehavior="False" EnableViewState="False" EnableTheming="False" OnClick="btnDelete_Click">
+<ClientSideEvents Click="function(s, e) {	
+e.processOnServer= confirm('آیا مطمئن به حذف این ردیف هستید؟');
+}
+"></ClientSideEvents>
+
+<HoverStyle BackColor="#FFE0C0">
+<Border BorderWidth="1px" BorderStyle="Outset" BorderColor="Gray"></Border>
+</HoverStyle>
+
+<Image  Url="~/Images/icons/delete.png"></Image>
+</TSPControls:CustomTextBox>
+ </TD></TR></TBODY></TABLE></dxp:PanelContent>
+</PanelCollection>
+
+<TopLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpTopLeftCorner.png"></TopLeftCorner>
+
+<NoHeaderTopEdge BackColor="#EBF2F4"></NoHeaderTopEdge>
+
+<BottomLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpBottomLeftCorner.png"></BottomLeftCorner>
+</dxrp:ASPxRoundPanel> </DIV> <asp:ObjectDataSource id="ObdMessages" runat="server" DeleteMethod="Delete" InsertMethod="Insert" SelectMethod="SelectMessageOFInbox" TypeName="TSP.DataManager.MessageManager" UpdateMethod="Update" FilterExpression="NeedConfirm={0}" OldValuesParameterFormatString="original_{0}">
+            <DeleteParameters>
+                <asp:Parameter Name="Original_MsgId" Type="Int32" />
+                <asp:Parameter Name="Original_LastTimeStamp" Type="Object" />
+            </DeleteParameters>
+            <UpdateParameters>
+                <asp:Parameter Name="SenderId" Type="Int32" />
+                <asp:Parameter Name="SenderType" Type="Int16" />
+                <asp:Parameter Name="IsSenderPart" Type="Boolean" />
+                <asp:Parameter Name="RecieverId" Type="Int32" />
+                <asp:Parameter Name="RecieverType" Type="Int16" />
+                <asp:Parameter Name="IsRecieverPart" Type="Boolean" />
+                <asp:Parameter Name="MsgTypeId" Type="Int16" />
+                <asp:Parameter Name="NeedConfirm" Type="Boolean" />
+                <asp:Parameter Name="MsgBody" Type="String" />
+                <asp:Parameter Name="Date" Type="String" />
+                <asp:Parameter Name="IsRead" Type="Byte" />
+                <asp:Parameter Name="RefMsg" Type="Int32" />
+                <asp:Parameter Name="TableType" Type="Int32" />
+                <asp:Parameter Name="TableId" Type="Int32" />
+                <asp:Parameter Name="UserId" Type="Int32" />
+                <asp:Parameter Name="ModifiedDate" Type="DateTime" />
+                <asp:Parameter Name="Original_MsgId" Type="Int32" />
+                <asp:Parameter Name="Original_LastTimeStamp" Type="Object" />
+                <asp:Parameter Name="MsgId" Type="Int32" />
+            </UpdateParameters>
+            <InsertParameters>
+                <asp:Parameter Name="SenderId" Type="Int32" />
+                <asp:Parameter Name="SenderType" Type="Int16" />
+                <asp:Parameter Name="IsSenderPart" Type="Boolean" />
+                <asp:Parameter Name="RecieverId" Type="Int32" />
+                <asp:Parameter Name="RecieverType" Type="Int16" />
+                <asp:Parameter Name="IsRecieverPart" Type="Boolean" />
+                <asp:Parameter Name="MsgTypeId" Type="Int16" />
+                <asp:Parameter Name="NeedConfirm" Type="Boolean" />
+                <asp:Parameter Name="MsgBody" Type="String" />
+                <asp:Parameter Name="Date" Type="String" />
+                <asp:Parameter Name="IsRead" Type="Byte" />
+                <asp:Parameter Name="RefMsg" Type="Int32" />
+                <asp:Parameter Name="TableType" Type="Int32" />
+                <asp:Parameter Name="TableId" Type="Int32" />
+                <asp:Parameter Name="UserId" Type="Int32" />
+                <asp:Parameter Name="ModifiedDate" Type="DateTime" />
+            </InsertParameters>
+            <SelectParameters>
+                <asp:Parameter Name="ReceiverId" Type="Int32" DefaultValue="-1" />
+                <asp:Parameter Name="ReceiverType" Type="Int32" DefaultValue="-1" />
+            </SelectParameters>
+            <FilterParameters>
+                <asp:Parameter DefaultValue="0" Name="NeedConfirm" />
+            </FilterParameters>
+        </asp:ObjectDataSource> <asp:ModalUpdateProgress id="ModalUpdateProgress2" runat="server" BackgroundCssClass="modalProgressGreyBackground" DisplayAfter="0" AssociatedUpdatePanelID="UpdatePanel1">
+            <progresstemplate>
+                        <div class="modalPopup">
+                            لطفا صبر نمایید
+                            <img src="../../Image/indicator.gif" align="middle" />
+                        </div>
+                    </progresstemplate>
+        </asp:ModalUpdateProgress> </DIV>
+</contenttemplate>
+        </asp:updatepanel>
+    </div>
+</asp:Content>
+
+

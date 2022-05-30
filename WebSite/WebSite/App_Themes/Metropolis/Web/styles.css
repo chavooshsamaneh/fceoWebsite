@@ -1,0 +1,4683 @@
+/* CheckBox */
+.dxICBFocused_Metropolis
+{
+    outline: 1px dotted #F7A233;
+}
+/* -- ASPxCloudControl -- */
+.dxccControl_Metropolis
+{
+    font: 12px 'Segoe UI', Helvetica, 'Droid Sans', Tahoma, Geneva, sans-serif;
+    text-decoration: none;
+    color: #F7A233;
+    background-color: #FFFFFF;
+}
+.dxccControl_Metropolis a
+{
+    text-decoration: none !important;
+    color: #F7A233;
+}
+.dxccControl_Metropolis a:hover
+{
+    text-decoration: underline !important;
+}
+.dxccControl_Metropolis .dxccValue
+{
+    color: silver;
+}
+/* Disabled */
+.dxccDisabled_Metropolis,
+.dxccDisabled_Metropolis span.dxccValue,
+.dxccDisabled_Metropolis span.dxccBEText
+{
+    color: #b8b8b8;
+    cursor: default;
+}
+/* -- ASPxDataView -- */
+.dxdvControl_Metropolis
+{
+    font: 12px 'Segoe UI', Helvetica, 'Droid Sans', Tahoma, Geneva, sans-serif;
+    color: #333333;
+}
+.dxdvControl_Metropolis td.dxdvCtrl_Metropolis
+{
+    padding: 12px 40px;
+}
+.dxdvContent_Metropolis
+{
+    border-top: 1px solid Silver;
+    border-bottom: 1px solid Silver;
+}
+.dxdvItem_Metropolis,
+.dxdvFlowItem_Metropolis
+{
+    padding: 12px 12px 12px 14px;
+    height: 180px;
+    height: expression("154px");
+}
+.dxdvFlowItem_Metropolis
+{
+    float: left;
+    overflow: hidden;
+}
+.dxdvEmptyItem_Metropolis
+{
+    text-align: left;
+    vertical-align: top;
+    padding: 12px 12px 12px 14px;
+    height: 180px;
+    height: expression("154px");
+}
+.dxdvEmptyData_Metropolis
+{
+    color: Gray;
+}
+.dxdvPagerShowMoreItemsContainer_Metropolis
+{
+    height: 48px;
+    text-align: center;
+}
+.dxdvPagerShowMoreItemsContainer_Metropolis a
+{
+    display: block;
+    padding-top: 12px;
+    color: #F7A233;
+}
+/* Disabled */
+.dxdvDisabled_Metropolis
+{
+    color: #b8b8b8;
+    cursor: default;
+}
+/* -- ASPxHeadline -- */
+.dxhlControl_Metropolis
+{
+    font: 12px 'Segoe UI', Helvetica, 'Droid Sans', Tahoma, Geneva, sans-serif;
+    color: black;
+}
+.dxhlControl_Metropolis a
+{
+    color: #F7A233;
+}
+.dxhlContent_Metropolis img
+{
+    display: none !important;
+}
+.dxhlDate_Metropolis
+{
+    white-space: nowrap;
+    color: silver;
+}
+.dxhlHeader_Metropolis
+{
+    font-size: 2em;
+    color: #F7A233;
+    vertical-align: top;
+}
+.dxhlDateHeader_Metropolis
+{
+    color: white;
+    background-color: Silver;
+    padding: 0 4px;
+    margin: 4px 0;
+}
+.dxhlLeftPanel_Metropolis,
+.dxhlRightPanel_Metropolis
+{
+    padding: 2px 0;
+}
+.dxhlDateLeftPanel_Metropolis,
+.dxhlDateRightPanel_Metropolis
+{
+    padding: 12px 0 0;
+    white-space: nowrap;
+}
+.dxhlTailDiv_Metropolis,
+.dxhlTailDiv_Metropolis a
+{
+    color: #999999;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+.dxhlTailDiv_Metropolis
+{
+    padding: 8px 0;
+}
+.dxhlTailDiv_Metropolis img
+{
+    vertical-align: middle;
+    margin-top: -2px;
+}
+/* Disabled */
+.dxhlDisabled_Metropolis
+{
+    color: #b8b8b8;
+    cursor: default;
+}
+/* -- ASPxLoadingPanel -- */
+.dxlpLoadingPanel_Metropolis,
+.dxlpLoadingPanelWithContent_Metropolis
+{
+    border: 1px solid #C3C3C3;
+    background-color: white;
+    font: 12px 'Segoe UI', Helvetica, 'Droid Sans', Tahoma, Geneva, sans-serif;
+    color: #333333;
+}
+.dxlpLoadingPanel_Metropolis td.dx,
+.dxlpLoadingPanelWithContent_Metropolis td.dx
+{
+    font-size: 1.17em;
+    white-space: nowrap;
+    text-align: center;
+    padding: 10px 14px;
+}
+.dxlpLoadingPanel_Metropolis .dxlp-loadingImage,
+.dxlpLoadingPanelWithContent_Metropolis .dxlp-loadingImage
+{
+    background-image: url('Loading.gif');
+    height: 32px;
+    width: 32px;
+}
+/* ASPxPictureEdit */
+.dxlpControl_Metropolis
+{
+    cursor: default;
+}
+.dxlpControl_Metropolis.dxlpLoadingDiv_Metropolis
+{
+    background-color: white;
+    opacity: 0.7;
+    filter: progid:DXImageTransform.Microsoft.Alpha(Style=0, Opacity=70);
+}
+/* -- ASPxMenu Lite -- */
+.dxmLite_Metropolis
+{
+    font: 12px 'Segoe UI', Helvetica, 'Droid Sans', Tahoma, Geneva, sans-serif;
+}
+.dxmLite_Metropolis .dxm-main
+{
+    background-color: #f0f0f0;
+    padding: 0;
+}
+.dxmLite_Metropolis .dxm-vertical
+{
+    width: 150px;
+}
+.dxmLite_Metropolis .dxm-popup
+{
+    color: #333333;
+    background-color: white;
+    border: 1px solid #c0c0c0;
+    padding: 1px;
+}
+.dxmBrdCor_Metropolis
+{
+    background-color: white;
+}
+.dxmLite_Metropolis .dxm-item
+{
+    cursor: default;
+    text-align: left;
+}
+.dxmLite_Metropolis.dxm-rtl .dxm-item
+{
+    text-align: right;
+}
+.dxmLite_Metropolis .dxm-image-t .dxm-item,
+.dxmLite_Metropolis .dxm-image-b .dxm-item
+{
+    text-align: center;
+}
+.dxmLite_Metropolis .dxm-content
+{
+    display: block;
+    white-space: nowrap;
+}
+.dxmLite_Metropolis,
+.dxmLite_Metropolis .dxm-item a.dx
+{
+    color: #333333;
+}
+.dxmLite_Metropolis .dxm-disabled,
+.dxmLite_Metropolis .dxm-disabled a.dx
+{
+    color: #b8b8b8;
+}
+.dxmLite_Metropolis .dxm-item a.dx
+{
+    text-decoration: none;
+}
+.dxmLite_Metropolis .dxm-item
+{
+    border: 0px;
+}
+.dxmLite_Metropolis .dxm-popOut
+{
+    border: solid 1px transparent;
+}
+/* Checked, Selected, Hovered */
+.dxmLite_Metropolis .dxm-dropDownMode.dxm-checked .dxm-popOut,
+.dxmLite_Metropolis .dxm-dropDownMode.dxm-selected .dxm-popOut,
+.dxmLite_Metropolis .dxm-dropDownMode.dxm-hovered .dxm-popOut
+{
+    border-left-color: white;
+}
+.dxmLite_Metropolis .dxm-image-r .dxm-dropDownMode.dxm-checked .dxm-popOut,
+.dxmLite_Metropolis .dxm-image-r .dxm-dropDownMode.dxm-selected .dxm-popOut,
+.dxmLite_Metropolis .dxm-image-r .dxm-dropDownMode.dxm-hovered .dxm-popOut,
+.dxmLite_Metropolis.dxm-rtl .dxm-dropDownMode.dxm-checked .dxm-popOut,
+.dxmLite_Metropolis.dxm-rtl .dxm-dropDownMode.dxm-selected .dxm-popOut,
+.dxmLite_Metropolis.dxm-rtl .dxm-dropDownMode.dxm-hovered .dxm-popOut
+{
+    border-right-color: white;
+}
+.dxmLite_Metropolis .dxm-main .dxm-checked,
+.dxmLite_Metropolis .dxm-main .dxm-selected
+{
+    background-color: #e0e0e0;
+}
+.dxmLite_Metropolis .dxm-popup .dxm-checked .dxm-image
+{
+    border: 1px solid #ffffff;
+    outline: 1px solid #F7A233;
+    background-color: transparent;
+}
+.dxmLite_Metropolis .dxm-popup .dxm-checked .dxm-image.dxWeb_mSubMenuItemChecked_Metropolis
+{
+    border: none;
+    outline: none;
+    background-color: transparent;
+}
+.dxmLite_Metropolis .dxm-main .dxm-hovered
+{
+    background-color: #F7A233;
+    color: #FFFFFF;
+}
+.dxmLite_Metropolis .dxm-main .dxm-hovered a.dx
+{
+    color: #FFFFFF;
+}
+.dxmLite_Metropolis .dxm-popup .dxm-selected
+{
+    background-color: #e0e0e0;
+}
+.dxmLite_Metropolis .dxm-popup .dxm-hovered,
+.dxmLite_Metropolis .dxm-popup .dxm-hovered a.dx
+{
+    background-color: #F7A233;
+    color: #FFFFFF;
+}
+.dxmLite_Metropolis .dxm-popup .dxm-hovered .dxm-content a.dx
+{
+    color: #FFFFFF;
+}
+/* Content */
+.dxmLite_Metropolis .dxm-horizontal .dxm-image-l .dxm-content,
+.dxmLite_Metropolis .dxm-horizontal .dxm-image-r .dxm-content
+{
+    padding: 3px 7px 4px;
+}
+.dxmLite_Metropolis .dxm-horizontal .dxm-image-t .dxm-content,
+.dxmLite_Metropolis .dxm-horizontal .dxm-image-b .dxm-content
+{
+    padding: 3px 11px 4px 10px;
+}
+.dxmLite_Metropolis .dxm-horizontal .dxm-image-t.dxm-noImages .dxm-item .dxm-content,
+.dxmLite_Metropolis .dxm-horizontal .dxm-image-b.dxm-noImages .dxm-item .dxm-content,
+.dxmLite_Metropolis .dxm-horizontal .dxm-image-t .dxm-noImage .dxm-content,
+.dxmLite_Metropolis .dxm-horizontal .dxm-image-b .dxm-noImage .dxm-content
+{
+    padding: 4px 11px 5px 10px;
+}
+.dxmLite_Metropolis .dxm-horizontal .dxm-image-l .dxm-subMenu .dxm-content,
+.dxmLite_Metropolis .dxm-horizontal .dxm-image-t .dxm-subMenu .dxm-content,
+.dxmLite_Metropolis .dxm-horizontal .dxm-image-b .dxm-subMenu .dxm-content
+{
+    padding-right: 3px;
+}
+.dxmLite_Metropolis .dxm-horizontal .dxm-image-l .dxm-dropDownMode .dxm-content
+{
+    padding-right: 4px;
+}
+.dxmLite_Metropolis .dxm-horizontal .dxm-image-r .dxm-subMenu .dxm-content
+{
+    padding-left: 3px;
+    padding-right: 5px;
+}
+.dxmLite_Metropolis .dxm-horizontal .dxm-image-r .dxm-dropDownMode .dxm-content
+{
+    padding-left: 4px;
+    padding-right: 5px;
+}
+.dxmLite_Metropolis .dxm-horizontal .dxm-image-t .dxm-dropDownMode .dxm-content,
+.dxmLite_Metropolis .dxm-horizontal .dxm-image-b .dxm-dropDownMode .dxm-content
+{
+    padding-right: 8px;
+}
+.dxmLite_Metropolis .dxm-vertical .dxm-image-l .dxm-content,
+.dxmLite_Metropolis .dxm-vertical .dxm-image-r .dxm-content,
+.dxmLite_Metropolis .dxm-popup .dxm-content
+{
+    padding: 3px 18px 3px 3px;
+}
+.dxmLite_Metropolis.dxm-rtl .dxm-vertical .dxm-image-l .dxm-content,
+.dxmLite_Metropolis.dxm-rtl .dxm-vertical .dxm-image-r .dxm-content,
+.dxmLite_Metropolis.dxm-rtl .dxm-popup .dxm-content
+{
+    padding: 3px 3px 3px 18px;
+}
+.dxmLite_Metropolis .dxm-vertical .dxm-image-r .dxm-noSubMenu .dxm-content,
+.dxmLite_Metropolis .dxm-vertical .dxm-image-r .dxm-subMenu .dxm-content,
+.dxmLite_Metropolis .dxm-vertical .dxm-image-r .dxm-dropDownMode .dxm-content
+{
+    padding-right: 5px;
+    padding-left: 14px;
+}
+.dxmLite_Metropolis .dxm-vertical .dxm-image-t .dxm-content,
+.dxmLite_Metropolis .dxm-vertical .dxm-image-b .dxm-content
+{
+    padding: 5px 10px 6px;
+}
+/* Image */
+.dxmLite_Metropolis .dxm-horizontal .dxm-image-l .dxm-hasText .dxm-image
+{
+    margin-right: 5px;
+}
+.dxmLite_Metropolis .dxm-horizontal .dxm-image-r .dxm-hasText .dxm-image
+{
+    margin-left: 5px;
+}
+.dxmLite_Metropolis .dxm-horizontal .dxm-image-t .dxm-hasText .dxm-image
+{
+    margin-bottom: 4px;
+}
+.dxmLite_Metropolis .dxm-horizontal .dxm-image-b .dxm-hasText .dxm-image
+{
+    margin-top: 4px;
+}
+.dxmLite_Metropolis .dxm-vertical .dxm-image-l .dxm-image
+{
+    margin-right: 7px;
+}
+.dxmLite_Metropolis .dxm-vertical .dxm-image-r .dxm-image
+{
+    margin-left: 7px;
+}
+.dxmLite_Metropolis.dxm-ltr .dxm-popup .dxm-image
+{
+    margin-right: 12px;
+}
+.dxmLite_Metropolis.dxm-rtl .dxm-popup .dxm-image
+{
+    margin-left: 12px;
+}
+.dxmLite_Metropolis.dxm-ltr .dxm-popup .dxm-checked .dxm-image
+{
+    margin: -1px 11px -1px -1px;
+}
+.dxmLite_Metropolis.dxm-rtl .dxm-popup .dxm-checked .dxm-image
+{
+    margin: -1px -1px -1px 11px;
+}
+.dxmLite_Metropolis.dxm-ltr .dxm-popup .dxm-image.dxWeb_mSubMenuItem_Metropolis
+{
+    margin-right: 13px;
+    margin-left: 1px;
+}
+.dxmLite_Metropolis.dxm-rtl .dxm-popup .dxm-image.dxWeb_mSubMenuItem_Metropolis
+{
+    margin-left: 13px;
+    margin-right: 1px;
+}
+/* Image replacement */
+.dxmLite_Metropolis.dxm-ltr .dxm-vertical .dxm-image-l.dxm-noImages .dxm-content,
+.dxmLite_Metropolis.dxm-ltr .dxm-vertical .dxm-image-r.dxm-noImages .dxm-content
+{
+    padding-left: 7px;
+}
+.dxmLite_Metropolis.dxm-rtl .dxm-vertical .dxm-image-l.dxm-noImages .dxm-content,
+.dxmLite_Metropolis.dxm-rtl .dxm-vertical .dxm-image-r.dxm-noImages .dxm-content
+{
+    padding-right: 7px;
+}
+.dxmLite_Metropolis .dxm-vertical .dxm-image-l .dxm-noImage
+{
+    padding-left: 23px;
+}
+.dxmLite_Metropolis .dxm-vertical .dxm-image-r .dxm-noImage
+{
+    padding-right: 23px;
+}
+.dxmLite_Metropolis.dxm-ltr .dxm-popup .dxm-noImage
+{
+    padding-left: 28px;
+}
+.dxmLite_Metropolis.dxm-rtl .dxm-popup .dxm-noImage
+{
+    padding-right: 28px;
+}
+/* PopOut */
+.dxmLite_Metropolis .dxm-horizontal .dxm-image-l .dxm-popOut,
+.dxmLite_Metropolis .dxm-horizontal .dxm-image-r .dxm-popOut,
+.dxmLite_Metropolis .dxm-horizontal .dxm-image-t.dxm-noImages .dxm-popOut,
+.dxmLite_Metropolis .dxm-horizontal .dxm-image-t .dxm-noImage .dxm-popOut,
+.dxmLite_Metropolis .dxm-horizontal .dxm-image-b.dxm-noImages .dxm-popOut,
+.dxmLite_Metropolis .dxm-horizontal .dxm-image-b .dxm-noImage .dxm-popOut
+{
+    padding-top: 9px;
+    padding-bottom: 9px;
+}
+.dxmLite_Metropolis .dxm-horizontal .dxm-image-t .dxm-popOut,
+.dxmLite_Metropolis .dxm-horizontal .dxm-image-b .dxm-popOut
+{
+    padding-top: 18px;
+    padding-bottom: 19px;
+}
+.dxmLite_Metropolis .dxm-horizontal .dxm-image-l .dxm-popOut,
+.dxmLite_Metropolis .dxm-horizontal .dxm-image-t .dxm-popOut,
+.dxmLite_Metropolis .dxm-horizontal .dxm-image-b .dxm-popOut
+{
+    padding-right: 5px;
+}
+.dxmLite_Metropolis .dxm-horizontal .dxm-image-r .dxm-popOut
+{
+    padding-left: 7px;
+}
+.dxmLite_Metropolis .dxm-horizontal .dxm-dropDownMode .dxm-popOut
+{
+    padding-left: 4px;
+    padding-right: 4px;
+}
+.dxmLite_Metropolis .dxm-vertical .dxm-image-l .dxm-popOut,
+.dxmLite_Metropolis .dxm-vertical .dxm-image-r .dxm-popOut,
+.dxmLite_Metropolis .dxm-popup .dxm-popOut
+{
+    padding-top: 6px;
+    padding-bottom: 6px;
+}
+.dxmLite_Metropolis .dxm-vertical .dxm-image-t.dxm-noImages .dxm-popOut,
+.dxmLite_Metropolis .dxm-vertical .dxm-image-t .dxm-noImage .dxm-popOut,
+.dxmLite_Metropolis .dxm-vertical .dxm-image-b.dxm-noImages .dxm-popOut,
+.dxmLite_Metropolis .dxm-vertical .dxm-image-b .dxm-noImage .dxm-popOut
+{
+    padding-top: 8px;
+    padding-bottom: 9px;
+}
+.dxmLite_Metropolis .dxm-vertical .dxm-image-t .dxm-popOut,
+.dxmLite_Metropolis .dxm-vertical .dxm-image-b .dxm-popOut
+{
+    padding-top: 18px;
+    padding-bottom: 19px;
+}
+.dxmLite_Metropolis .dxm-vertical .dxm-image-l .dxm-popOut,
+.dxmLite_Metropolis .dxm-vertical .dxm-image-r .dxm-popOut,
+.dxmLite_Metropolis .dxm-vertical .dxm-image-t .dxm-popOut,
+.dxmLite_Metropolis .dxm-vertical .dxm-image-b .dxm-popOut,
+.dxmLite_Metropolis .dxm-popup .dxm-popOut
+{
+    padding-left: 4px;
+    padding-right: 4px;
+}
+/* PopOut replacement */
+.dxmLite_Metropolis.dxm-ltr .dxm-popup .dxm-noSubMenu
+{
+    padding-right: 13px;
+}
+.dxmLite_Metropolis.dxm-rtl .dxm-popup .dxm-noSubMenu
+{
+    padding-left: 13px;
+}
+/* Spacings, Separator */
+.dxmLite_Metropolis .dxm-horizontal .dxm-spacing
+{
+    width: 2px;
+    min-width: 2px;
+    height: 1px;
+}
+.dxmLite_Metropolis .dxm-vertical .dxm-image-l .dxm-spacing,
+.dxmLite_Metropolis .dxm-vertical .dxm-image-r .dxm-spacing,
+.dxmLite_Metropolis .dxm-popup .dxm-spacing
+{
+    height: 1px;
+}
+.dxmLite_Metropolis .dxm-vertical .dxm-image-t .dxm-spacing,
+.dxmLite_Metropolis .dxm-vertical .dxm-image-b .dxm-spacing
+{
+    height: 2px;
+}
+.dxmLite_Metropolis .dxm-horizontal .dxm-separator
+{
+    padding: 0px 2px;
+}
+.dxmLite_Metropolis .dxm-vertical .dxm-image-l .dxm-separator,
+.dxmLite_Metropolis .dxm-vertical .dxm-image-r .dxm-separator,
+.dxmLite_Metropolis .dxm-popup .dxm-separator
+{
+    padding: 1px 0px;
+}
+.dxmLite_Metropolis .dxm-vertical .dxm-image-t .dxm-separator,
+.dxmLite_Metropolis .dxm-vertical .dxm-image-b .dxm-separator
+{
+    padding: 2px 0px;
+}
+.dxmLite_Metropolis .dxm-separator b
+{
+    background-color: #FFFFFF;
+}
+.dxmLite_Metropolis .dxm-popup .dxm-separator b
+{
+    background-color: #C0C0C0;
+}
+.dxmLite_Metropolis .dxm-horizontal .dxm-separator b
+{
+    height: 100%;
+    width: 1px;
+}
+.dxmLite_Metropolis .dxm-vertical .dxm-separator b,
+.dxmLite_Metropolis .dxm-popup .dxm-separator b
+{
+    height: 1px;
+}
+.dxmLite_Metropolis.dxm-ltr .dxm-popup .dxm-separator
+{
+    padding-left: 29px;
+}
+.dxmLite_Metropolis.dxm-rtl .dxm-popup .dxm-separator
+{
+    padding-right: 29px;
+}
+.dxmLite_Metropolis.dxm-ltr .dxm-popup .dxm-noImages .dxm-separator
+{
+    padding-left: 0;
+}
+.dxmLite_Metropolis.dxm-rtl .dxm-popup .dxm-noImages .dxm-separator
+{
+    padding-left: 0;
+}
+/* Scroll elements */
+.dxmLite_Metropolis .dxm-scrollUpBtn,
+.dxmLite_Metropolis .dxm-scrollDownBtn
+{
+    background-color: white;
+    padding: 1px;
+    text-align: center;
+}
+.dxmLite_Metropolis .dxm-scrollUpBtn
+{
+    margin-bottom: 1px;
+}
+.dxmLite_Metropolis .dxm-scrollDownBtn
+{
+    margin-top: 1px;
+}
+.dxmLite_Metropolis .dxm-scrollBtnHovered
+{
+    background-color: #F7A233;
+}
+.dxmLite_Metropolis .dxm-scrollBtnPressed
+{
+    background-color: #f0f0f0;
+}
+.dxmLite_Metropolis .dxm-scrollBtnDisabled
+{
+    cursor: default;
+}
+.dxmLite_Metropolis .dxm-scrollArea
+{
+    overflow: hidden;
+    position: relative;
+}
+/* -- ASPxMenu Lite Toolbar mode -- */
+.dxmLite_Metropolis .dxm-main.dxmtb
+{
+    padding: 2px;
+}
+/* has image */
+.dxmLite_Metropolis .dxm-horizontal.dxmtb .dxm-image-l .dxm-content,
+.dxmLite_Metropolis .dxm-horizontal.dxmtb .dxm-image-r .dxm-content,
+.dxmLite_Metropolis .dxm-horizontal.dxmtb .dxm-image-l .dxm-subMenu .dxm-content,
+.dxmLite_Metropolis .dxm-horizontal.dxmtb .dxm-image-r .dxm-subMenu .dxm-content,
+.dxmLite_Metropolis .dxm-horizontal.dxmtb .dxm-image-t .dxm-content,
+.dxmLite_Metropolis .dxm-horizontal.dxmtb .dxm-image-b .dxm-content,
+.dxmLite_Metropolis .dxm-horizontal.dxmtb .dxm-image-t .dxm-subMenu .dxm-content,
+.dxmLite_Metropolis .dxm-horizontal.dxmtb .dxm-image-b .dxm-subMenu .dxm-content
+{
+    padding: 4px;
+}
+/* no image */
+.dxmLite_Metropolis .dxm-horizontal.dxmtb .dxm-image-l .dxm-subMenu.dxm-noImage .dxm-content,
+.dxmLite_Metropolis .dxm-horizontal.dxmtb .dxm-image-r .dxm-subMenu.dxm-noImage .dxm-content,
+.dxmLite_Metropolis .dxm-horizontal.dxmtb .dxm-image-l.dxm-noImages .dxm-item .dxm-content,
+.dxmLite_Metropolis .dxm-horizontal.dxmtb .dxm-image-r.dxm-noImages .dxm-item .dxm-content,
+.dxmLite_Metropolis .dxm-horizontal.dxmtb .dxm-image-l .dxm-noImage .dxm-content,
+.dxmLite_Metropolis .dxm-horizontal.dxmtb .dxm-image-r .dxm-noImage .dxm-content,
+.dxmLite_Metropolis .dxm-horizontal.dxmtb .dxm-image-t .dxm-subMenu.dxm-noImage .dxm-content,
+.dxmLite_Metropolis .dxm-horizontal.dxmtb .dxm-image-b .dxm-subMenu.dxm-noImage .dxm-content,
+.dxmLite_Metropolis .dxm-horizontal.dxmtb .dxm-image-t.dxm-noImages .dxm-item .dxm-content,
+.dxmLite_Metropolis .dxm-horizontal.dxmtb .dxm-image-b.dxm-noImages .dxm-item .dxm-content,
+.dxmLite_Metropolis .dxm-horizontal.dxmtb .dxm-image-t .dxm-noImage .dxm-content,
+.dxmLite_Metropolis .dxm-horizontal.dxmtb .dxm-image-b .dxm-noImage .dxm-content
+{
+    padding: 4px 4px 5px;
+}
+/* dd has image */
+.dxmLite_Metropolis .dxm-horizontal.dxmtb .dxm-image-l .dxm-dropDownMode .dxm-content,
+.dxmLite_Metropolis .dxm-horizontal.dxmtb .dxm-image-r .dxm-dropDownMode .dxm-content,
+.dxmLite_Metropolis .dxm-horizontal.dxmtb .dxm-image-t .dxm-dropDownMode .dxm-content,
+.dxmLite_Metropolis .dxm-horizontal.dxmtb .dxm-image-b .dxm-dropDownMode .dxm-content
+{
+    padding: 4px 5px 4px 4px;
+}
+/* dd no image */
+.dxmLite_Metropolis .dxm-horizontal.dxmtb .dxm-image-l .dxm-dropDownMode.dxm-noImage .dxm-content,
+.dxmLite_Metropolis .dxm-horizontal.dxmtb .dxm-image-r .dxm-dropDownMode.dxm-noImage .dxm-content,
+.dxmLite_Metropolis .dxm-horizontal.dxmtb .dxm-image-t .dxm-dropDownMode.dxm-noImage .dxm-content,
+.dxmLite_Metropolis .dxm-horizontal.dxmtb .dxm-image-b .dxm-dropDownMode.dxm-noImage .dxm-content
+{
+    padding: 4px;
+}
+.dxmLite_Metropolis .dxm-popup.dxmtb .dxm-image
+{
+    margin-right: 10px;
+    margin-top: -1px;
+}
+.dxmLite_Metropolis.dxm-rtl .dxm-popup.dxmtb .dxm-image
+{
+    margin-right: 0px;
+}
+.dxmLite_Metropolis .dxm-horizontal.dxmtb .dxm-popOut,
+.dxmLite_Metropolis .dxm-horizontal.dxmtb .dxm-dropDownMode .dxm-popOut
+{
+    padding: 9px 3px;
+}
+.dxmLite_Metropolis .dxmtb .dxtb-comboBoxMenuItem
+{
+    padding: 2px 2px 1px;
+}
+.dxmLite_Metropolis .dxm-horizontal.dxmtb .dxtb-labelMenuItem
+{
+    padding: 7px 2px 0 !important;
+    padding: 6px 2px 0\0 !important;
+}
+.dxFirefox .dxmLite_Metropolis .dxm-horizontal.dxmtb .dxtb-labelMenuItem
+{
+    padding: 6px 2px 0 !important;
+}
+/* -- CommandToolbar -- */
+.dxmLite_Metropolis .dxctToolbar_Metropolis.dxm-main
+{
+    background-color: white;
+}
+.dxmLite_Metropolis .dxctToolbar_Metropolis .dxm-separator b
+{
+    background-color: #c0c0c0;
+}
+.dxctToolbar_Metropolis .dxm-tmpl > .dxeTextBoxSys,
+.dxctToolbar_Metropolis .dxm-tmpl > .dxeButtonEditSys,
+.dxctToolbar_Metropolis .dxm-tmpl > .dxeRoot_Metropolis
+{
+    margin: 2px 2px 1px;
+}
+/* -- ASPxNavBar Lite -- */
+.dxnbLite_Metropolis
+{
+    color: #333333;
+    background-color: white;
+    font: 12px 'Segoe UI', Helvetica, 'Droid Sans', Tahoma, Geneva, sans-serif;
+    list-style: none none outside;
+    margin: 0;
+    padding: 0px;
+    float: left;
+    width: 200px;
+}
+.dxnbLite_Metropolis a
+{
+    color: black;
+    text-decoration: none;
+}
+.dxnbLite_Metropolis .dxnb-gr
+{
+    margin-bottom: 13px;
+}
+.dxnbLite_Metropolis .dxnb-header,
+.dxnbLite_Metropolis .dxnb-headerCollapsed
+{
+    background-color: #f0f0f0;
+    padding: 9px 10px 6px;
+    color: #666666;
+    font-weight: bold;
+    white-space: nowrap;
+}
+.dxnbLite_Metropolis .dxnb-header a,
+.dxnbLite_Metropolis .dxnb-headerCollapsed a
+{
+    color: #666666;
+    text-decoration: underline;
+}
+.dxnbLite_Metropolis .dxnb-content
+{
+    list-style: none none outside;
+    margin: 0;
+    padding: 5px;
+    overflow: hidden;
+}
+.dxnbLite_Metropolis.dxnb-noHeads .dxnb-content
+{
+    border-top-width: 1px;
+}
+.dxnbLite_Metropolis .dxnb-item,
+.dxnbLite_Metropolis .dxnb-large,
+.dxnbLite_Metropolis .dxnb-bullet
+{
+    color: black;
+    clear: both;
+    overflow: hidden;
+    cursor: default;
+}
+.dxnbLite_Metropolis .dxnb-item,
+.dxnbLite_Metropolis .dxnb-large,
+.dxnbLite_Metropolis .dxnb-tmpl
+{
+    margin-bottom: 1px;
+}
+.dxnbLite_Metropolis .dxnb-item.dxnb-link,
+.dxnbLite_Metropolis .dxnb-item .dxnb-link
+{
+    padding: 3px 4px 4px;
+    white-space: nowrap;
+}
+.dxnbLite_Metropolis .dxnb-large.dxnb-link,
+.dxnbLite_Metropolis .dxnb-large .dxnb-link
+{
+    padding: 6px 12px 7px;
+    white-space: nowrap;
+}
+.dxnbLite_Metropolis .dxnb-bullet,
+.dxnbLite_Metropolis .dxnb-bulletHover,
+.dxnbLite_Metropolis .dxnb-bulletSelected
+{
+    padding: 0 5px;
+    overflow: visible;
+    margin-bottom: 6px;
+}
+.dxnbLite_Metropolis .dxnb-itemSelected,
+.dxnbLite_Metropolis .dxnb-largeSelected
+{
+    background-color: #f0f0f0;
+}
+.dxnbLite_Metropolis .dxnb-itemHover,
+.dxnbLite_Metropolis .dxnb-itemHover a,
+.dxnbLite_Metropolis .dxnb-largeHover,
+.dxnbLite_Metropolis .dxnb-largeHover a
+{
+    background-color: #F7A233;
+    color: #FFFFFF;
+}
+.dxnbLite_Metropolis .dxnb-header,
+.dxnbLite_Metropolis .dxnb-headerCollapsed,
+.dxnbLite_Metropolis .dxnb-item,
+.dxnbLite_Metropolis .dxnb-itemHover,
+.dxnbLite_Metropolis .dxnb-itemSelected,
+.dxnbLite_Metropolis .dxnb-bullet,
+.dxnbLite_Metropolis .dxnb-bulletHover,
+.dxnbLite_Metropolis .dxnb-bulletSelected
+{
+    text-align: left;
+}
+.dxnbLite_Metropolis .dxnb-large,
+.dxnbLite_Metropolis .dxnb-largeHover,
+.dxnbLite_Metropolis .dxnb-largeSelected
+{
+    text-align: center;
+}
+.dxnbLite_Metropolis .dxnb-last
+{
+    margin-bottom: 0;
+}
+.dxnbLite_Metropolis .dxnb-btn,
+.dxnbLite_Metropolis .dxnb-btnLeft,
+.dxnbLite_Metropolis .dxnb-img
+{
+    border-width: 0;
+}
+.dxnbLite_Metropolis .dxnb-btn
+{
+    float: right;
+    margin: 0 0 0 4px;
+}
+.dxnbLite_Metropolis .dxnb-btnLeft,
+.dxnbLite_Metropolis .dxnb-rtlHeader .dxnb-btn
+{
+    float: left;
+    margin: 0 4px 0 0;
+}
+.dxnbLite_Metropolis .dxnb-img
+{
+    margin: 0 4px 0 0;
+}
+.dxnbLite_Metropolis .dxnb-right .dxnb-item .dxnb-img,
+.dxnbLite_Metropolis .dxnb-rtlHeader .dxnb-img
+{
+    margin: 0 0 0 4px;
+}
+.dxnbLite_Metropolis .dxnb-header.dxnb-header-left,
+.dxnbLite_Metropolis .dxnb-headerCollapsed.dxnb-header-left,
+.dxnbLite_Metropolis .dxnb-rtlHeader
+{
+    text-align: right;
+}
+.dxnbLite_Metropolis .dxnb-top .dxnb-large .dxnb-img
+{
+    margin-bottom: 3px;
+}
+.dxnbLite_Metropolis .dxnb-bottom .dxnb-large .dxnb-img
+{
+    margin-top: 3px;
+}
+.dxnbLite_Metropolis .dxnb-large .dxnb-img
+{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+.dxnbLiteDisabled_Metropolis,
+.dxnbLite_Metropolis .dxnbLiteDisabled_Metropolis,
+.dxnbLiteDisabled_Metropolis a,
+.dxnbLiteDisabled_Metropolis .dxnb-item,
+.dxnbLiteDisabled_Metropolis .dxnb-large,
+.dxnbLiteDisabled_Metropolis .dxnb-bullet,
+.dxnbLiteDisabled_Metropolis .dxnb-header,
+.dxnbLiteDisabled_Metropolis .dxnb-headerCollapsed
+{
+    color: #b8b8b8;
+    cursor: default;
+}
+/* -- ASPxNewsControl -- */
+.dxncControl_Metropolis
+{
+    font: 12px 'Segoe UI', Helvetica, 'Droid Sans', Tahoma, Geneva, sans-serif;
+    color: #333333;
+    background-color: White;
+}
+.dxncControl_Metropolis a
+{
+    color: #F7A233;
+}
+.dxncControl_Metropolis td.dxncCtrl_Metropolis
+{
+    padding: 18px;
+}
+.dxncPagerPanel_Metropolis
+{
+    padding: 0px 3px;
+}
+.dxncItem_Metropolis
+{
+    vertical-align: top;
+    border-bottom: 1px solid #c0c0c0;
+    border-top: 1px solid #c0c0c0;
+    padding: 12px 8px;
+}
+.dxncEmptyItem_Metropolis
+{
+    vertical-align: top;
+    padding: 12px 12px 12px 14px;
+}
+.dxncBackToTop_Metropolis
+{
+    padding: 12px 0;
+    margin-top: -40px !important;
+}
+.dxncBackToTop_Metropolis,
+.dxncBackToTop_Metropolis a
+{
+    color: #999999;
+    text-align: right;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+.dxncBackToTop_Metropolis img
+{
+    float: right;
+    margin-left: 4px;
+    margin-top: -4px;
+    vertical-align: middle;
+}
+.dxncPagerShowMoreItemsContainer_Metropolis
+{
+    height: 48px;
+    text-align: center;
+}
+.dxncPagerShowMoreItemsContainer_Metropolis a
+{
+    display: block;
+    padding-top: 12px;
+    color: #F7A233;
+}
+.dxncItem_Metropolis > table:not(:last-child) .dxhlContent_Metropolis:last-child
+{
+    margin-bottom: 40px !important;
+}
+.dxncControl_Metropolis .dxhlTailDiv_Metropolis a
+{
+    color: #999999;
+}
+.dxncEmptyData_Metropolis
+{
+    color: Gray;
+}
+/* Disabled */
+.dxncDisabled_Metropolis
+{
+    color: #b8b8b8;
+    cursor: default;
+}
+/* -- ASPxPager Lite -- */
+.dxpLite_Metropolis
+{
+    font: 12px 'Segoe UI', Helvetica, 'Droid Sans', Tahoma, Geneva, sans-serif;
+    color: #333333;
+    float: left;
+    padding: 2px 8px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+.dxpLite_Metropolis .dxp-summary,
+.dxpLite_Metropolis .dxp-sep,
+.dxpLite_Metropolis .dxp-button,
+.dxpLite_Metropolis .dxp-pageSizeItem,
+.dxpLite_Metropolis .dxp-num,
+.dxpLite_Metropolis .dxp-current,
+.dxpLite_Metropolis .dxp-ellip
+{
+    margin-left: 4px;
+    font-weight: normal;
+}
+.dxpLite_Metropolis .dxp-lead
+{
+    margin-left: 0 !important;
+}
+.dxpLite_Metropolis a
+{
+    color: #333333;
+    text-decoration: underline;
+}
+.dxpLite_Metropolis .dxp-button
+{
+    white-space: nowrap;
+    text-align: center;
+    padding: 6px 14px;
+    text-decoration: none;
+}
+.dxpLite_Metropolis .dxp-button img
+{
+    border: none;
+    text-decoration: none;
+}
+.dxpLite_Metropolis .dxp-button span
+{
+    text-decoration: none;
+}
+.dxpLite_Metropolis .dxp-button.dxp-bi
+{
+    padding: 0 3px;
+}
+.dxpLite_Metropolis .dxp-button.dxp-bti
+{
+    padding: 0 14px;
+}
+.dxpLite_Metropolis .dxp-disabledButton
+{
+    text-decoration: none;
+    color: #acacac;
+}
+.dxpLite_Metropolis .dxp-pageSizeItem
+{
+    padding: 1px 4px 0 16px;
+    white-space: nowrap;
+}
+.dxFirefox .dxpLite_Metropolis .dxp-pageSizeItem
+{
+    padding: 2px 4px 0 16px;
+}
+.dxpLite_Metropolis .dxp-pageSizeItem .dx
+{
+    display: block;
+    float: left;
+    margin-top: 3px;
+    white-space: nowrap;
+}
+*[dir="rtl"].dxpLite_Metropolis .dxp-pageSizeItem .dx
+{
+    float: right;
+}
+.dxpLite_Metropolis .dxp-comboBox
+{
+    display: block;
+    float: left;
+    background-color: White;
+    border: 1px solid #c0c0c0;
+    padding: 0px;
+    margin: -2px 0px;
+}
+.dxpLite_Metropolis .dxp-comboBox input
+{
+    margin: 4px 1px 4px 3px;
+}
+*[dir="rtl"].dxpLite_Metropolis .dxp-comboBox input
+{
+    float: right;
+}
+.dxFirefox .dxpLite_Metropolis .dxp-comboBox input
+{
+    margin-top: 6px;
+}
+.dxpLite_Metropolis .dxp-dropDownButton
+{
+    padding: 10px 5px 9px;
+    background-color: White;
+}
+.dxpLite_Metropolis .dxp-hoverDropDownButton
+{
+    background-color: #F7A233;
+}
+.dxpLite_Metropolis .dxp-pressedDropDownButton
+{
+    background-color: Silver;
+}
+.dxpLite_Metropolis .dxp-num
+{
+    color: #333333;
+    text-decoration: none;
+    padding: 3px 14px;
+    margin-top: 3px;
+}
+.dxpLite_Metropolis .dxp-current
+{
+    background-color: #F7A233;
+    color: #FFFFFF;
+    text-decoration: none;
+}
+.dxpLite_Metropolis .dxp-summary,
+.dxpLite_Metropolis .dxp-ellip
+{
+    white-space: nowrap;
+    padding: 6px 16px;
+}
+.dxpLite_Metropolis .dxp-sep
+{
+    background-color: #cccccc;
+    width: 1px;
+    height: 15px;
+    margin-top: 5px;
+}
+.dxpLiteDisabled_Metropolis,
+.dxpLiteDisabled_Metropolis a,
+.dxpLiteDisabled_Metropolis .dxp-summary,
+.dxpLiteDisabled_Metropolis .dxp-sep,
+.dxpLiteDisabled_Metropolis .dxp-button,
+.dxpLiteDisabled_Metropolis .dxp-num,
+.dxpLiteDisabled_Metropolis .dxp-current,
+.dxpLiteDisabled_Metropolis .dxp-ellip
+{
+    color: #acacac;
+    border-color: #808080;
+    cursor: default;
+}
+.dxpLite_Metropolis .dxp-disabledComboBox
+{
+    border: 1px solid #9F9F9F;
+}
+.dxpLite_Metropolis .dxp-disabledComboBox input
+{
+    color: #acacac;
+}
+.dxpLite_Metropolis .dxp-disabledDropDownButton
+{
+    border-color: #C3C3C3;
+    cursor: default;
+}
+/* -- ASPxPopupControl Lite -- */
+.dxpcLite_Metropolis,
+.dxdpLite_Metropolis
+{
+    width: 250px;
+    left: 0;
+    top: 0;
+    position: absolute;
+    border-spacing: 0;
+    font: 12px 'Segoe UI', Helvetica, 'Droid Sans', Tahoma, Geneva, sans-serif;
+    color: black;
+}
+.dxdpLite_Metropolis
+{
+    display: none;
+    visibility: hidden;
+}
+.dxpcLite_Metropolis .dxpc-mainDiv,
+.dxpcLite_Metropolis.dxpc-mainDiv,
+.dxdpLite_Metropolis .dxpc-mainDiv,
+.dxdpLite_Metropolis.dxpc-mainDiv
+{
+    top: 0;
+    left: 0;
+    background-color: white;
+    border: 1px solid silver;
+}
+.dxpcLite_Metropolis a.dxpc-link,
+.dxdpLite_Metropolis a.dxpc-link
+{
+    color: #F7A233;
+}
+.dxpcLite_Metropolis a.dxpc-link *,
+.dxdpLite_Metropolis a.dxpc-link *
+{
+    cursor: pointer;
+    text-decoration: underline;
+}
+.dxpcLite_Metropolis .dxpc-closeBtn,
+.dxpcLite_Metropolis .dxpc-pinBtn,
+.dxpcLite_Metropolis .dxpc-refreshBtn,
+.dxpcLite_Metropolis .dxpc-collapseBtn,
+.dxpcLite_Metropolis .dxpc-maximizeBtn,
+.dxdpLite_Metropolis .dxpc-closeBtn,
+.dxdpLite_Metropolis .dxpc-pinBtn,
+.dxdpLite_Metropolis .dxpc-refreshBtn,
+.dxdpLite_Metropolis .dxpc-collapseBtn,
+.dxdpLite_Metropolis .dxpc-maximizeBtn
+{
+    padding: 6px;
+    float: right;
+}
+.dxpcLite_Metropolis.dxRtl .dxpc-closeBtn,
+.dxpcLite_Metropolis.dxRtl .dxpc-pinBtn,
+.dxpcLite_Metropolis.dxRtl .dxpc-refreshBtn,
+.dxpcLite_Metropolis.dxRtl .dxpc-collapseBtn,
+.dxpcLite_Metropolis.dxRtl .dxpc-maximizeBtn,
+.dxdpLite_Metropolis.dxRtl .dxpc-closeBtn,
+.dxdpLite_Metropolis.dxRtl .dxpc-pinBtn,
+.dxdpLite_Metropolis.dxRtl .dxpc-refreshBtn,
+.dxdpLite_Metropolis.dxRtl .dxpc-collapseBtn,
+.dxdpLite_Metropolis.dxRtl .dxpc-maximizeBtn
+{
+    float: left;
+}
+.dxpcLite_Metropolis .dxpc-header,
+.dxdpLite_Metropolis .dxpc-header
+{
+    color: #F7A233;
+    font-size: 1.66em;
+    padding: 7px 2px 7px 12px;
+    white-space: nowrap;
+}
+.dxpcLite_Metropolis.dxRtl .dxpc-header,
+.dxdpLite_Metropolis.dxRtl .dxpc-header
+{
+    padding: 7px 12px 7px 2px;
+}
+.dxpcLite_Metropolis .dxpc-headerText,
+.dxdpLite_Metropolis .dxpc-headerText
+{
+    white-space: nowrap;
+    margin-top: -2px;
+}
+.dxpcLite_Metropolis .dxpc-headerImg,
+.dxdpLite_Metropolis .dxpc-headerImg
+{
+    margin: 0 16px 0 0;
+}
+.dxpcLite_Metropolis.dxRtl .dxpc-headerImg,
+.dxdpLite_Metropolis.dxRtl .dxpc-headerImg
+{
+    margin: 0 0 0 16px;
+}
+.dxpcLite_Metropolis .dxpc-expandableDiv,
+.dxdpLite_Metropolis .dxpc-expandableDiv
+{
+    float: left;
+    overflow: hidden;
+}
+.dxpcLite_Metropolis.dxRtl .dxpc-expandableDiv,
+.dxdpLite_Metropolis.dxRtl .dxpc-expandableDiv
+{
+    float: right;
+}
+.dxpcLite_Metropolis .dxpc-content,
+.dxdpLite_Metropolis .dxpc-content
+{
+    white-space: normal;
+    padding: 9px 12px;
+}
+.dxpcLite_Metropolis.dxpc-hierarchycal .dxpc-content
+{
+    padding-right: 30px;
+}
+.dxpcLite_Metropolis.dxpc-hierarchycal.dxRtl .dxpc-content
+{
+    padding-right: 12px;
+    padding-left: 30px;
+}
+.dxpcLite_Metropolis .dxpc-footer,
+.dxdpLite_Metropolis .dxpc-footer
+{
+    color: #c0c0c0;
+}
+.dxpcLite_Metropolis .dxpc-footerContent,
+.dxdpLite_Metropolis .dxpc-footerContent
+{
+    padding: 6px 20px 8px 12px;
+    min-height: 8px;
+}
+.dxpcLite_Metropolis.dxRtl .dxpc-footerContent,
+.dxdpLite_Metropolis.dxRtl .dxpc-footerContent
+{
+    padding: 6px 12px 8px 20px;
+}
+.dxpcLite_Metropolis .dxpc-footerText,
+.dxdpLite_Metropolis .dxpc-footerText
+{
+    white-space: nowrap;
+}
+.dxpcLite_Metropolis .dxpc-footerImg,
+.dxdpLite_Metropolis .dxpc-footerImg
+{
+    margin: 0 8px 0 0;
+}
+.dxpcLite_Metropolis.dxRtl .dxpc-footerImg,
+.dxdpLite_Metropolis.dxRtl .dxpc-footerImg
+{
+    margin: 0 0 0 8px;
+}
+.dxpcLite_Metropolis .dxpc-sizeGrip,
+.dxdpLite_Metropolis .dxpc-sizeGrip
+{
+    float: right;
+}
+.dxpcLite_Metropolis.dxRtl .dxpc-sizeGrip,
+.dxdpLite_Metropolis.dxRtl .dxpc-sizeGrip
+{
+    float: left;
+}
+.dxpcModalBackLite_Metropolis,
+.dxdpModalBackLite_Metropolis
+{
+    background-color: #777777;
+    opacity: 0.7;
+    filter: progid:DXImageTransform.Microsoft.Alpha(Style=0, Opacity=70);
+    position: fixed;
+    left: 0;
+    top: 0;
+    visibility: hidden;
+}
+.dxpcLiteDisabled_Metropolis,
+.dxdpLiteDisabled_Metropolis
+{
+    color: #b8b8b8;
+    cursor: default;
+}
+/* -- ASPxPanel -- */
+.dxpnlControl_Metropolis
+{
+    font: 12px 'Segoe UI', Helvetica, 'Droid Sans', Tahoma, Geneva, sans-serif;
+    border: 0px solid #c0c0c0;
+}
+.dxpnlControl_Metropolis.dxpnl-edge,
+.dxpnlControl_Metropolis.dxpnl-edge.dxpnl-bar
+{
+    background-color: white;
+}
+.dxpnlControl_Metropolis.dxpnl-edge,
+.dxpnlControl_Metropolis.dxpnl-edge .dxpnl-scc,
+.dxpnlControl_Metropolis.dxpnl-bar
+{
+    padding: 8px;
+}
+.dxpnlDisabled_Metropolis
+{
+    color: #acacac;
+    cursor: default;
+}
+/* -- ASPxRoundPanel -- */
+.dxrpControl_Metropolis,
+.dxrpControlGB_Metropolis
+{
+    font: 12px 'Segoe UI', Helvetica, 'Droid Sans', Tahoma, Geneva, sans-serif;
+    color: #333333;
+}
+.dxrpControl_Metropolis .dxrpCI
+{
+    display: block;
+}
+/* Header */
+.dxrpControl_Metropolis td.dxrpHeader_Metropolis
+{
+    color: #F7A233;
+    font-size: 1.66em;
+}
+* + html .dxrpControl_Metropolis .dxrpHeader_Metropolis span.dx-vam,
+* + html .dxrpControl_Metropolis .dxrpHeader_Metropolis span.dx-vat,
+* + html .dxrpControl_Metropolis .dxrpHeader_Metropolis span.dx-vab,
+* + html .dxrpControl_Metropolis .dxrpHeader_Metropolis a.dx-vam,
+* + html .dxrpControl_Metropolis .dxrpHeader_Metropolis a.dx-vat,
+* + html .dxrpControl_Metropolis .dxrpHeader_Metropolis a.dx-vab
+{
+    padding-bottom: 12px;
+}
+.dxrpControlGB_Metropolis span.dxrpHeader_Metropolis
+{
+    font-weight: bold;
+    color: Silver;
+}
+.dxrpControl_Metropolis > tbody > tr > .dxrpHeader_Metropolis > a,
+.dxrpControl_Metropolis > tbody > tr > .dxrpHeader_Metropolis > a > span.dxrpHT,
+.dxrpControlGB_Metropolis span.dxrpHeader_Metropolis a
+{
+    color: #1E3695;
+}
+.dxrpControl_Metropolis td.dxrpHeader_Metropolis
+{
+    line-height: 100%;
+    white-space: nowrap;
+}
+/* Header image */
+.dxrpControl_Metropolis .dxrpHI
+{
+    margin-right: 4px;
+}
+.dxrpControl_Metropolis .dxrpHIR
+{
+    margin-left: 4px;
+}
+/* Content */
+.dxrpControl_Metropolis > tbody > tr.dxrpCR > .dxrpcontent,
+.dxrpControlGB_Metropolis > tbody > tr.dxrpCR > .dxrpcontent
+{
+    vertical-align: top;
+}
+.dxrpControlGB_Metropolis
+{
+    border: 1px solid Silver;
+}
+.dxrpControl_Metropolis
+{
+    border-top: 1px solid Silver;
+    border-bottom: 1px solid Silver;
+}
+.dxrpControlGB_Metropolis > tbody > tr.dxrpCR > .dxrpcontent,
+.dxrpControlGB_Metropolis span.dxrpHeader_Metropolis
+{
+    background: white none;
+}
+/* Paddings */
+.dxrpControl_Metropolis td.dxrpHeader_Metropolis
+{
+    padding: 7px 15px 8px 10px;
+}
+.dxrpControlGB_Metropolis span.dxrpHeader_Metropolis
+{
+    padding: 0px 3px 0px 3px;
+}
+.dxrpControl_Metropolis.dxrp-noCollapsing > tbody > tr.dxrpCR > .dxrpcontent,
+.dxrpControl_Metropolis > tbody > tr.dxrpCR > .dxrpcontent > .dxrpAW > .dxrpCW, .dxrpControl_Metropolis > tbody > tr.dxrpCR > .dxrpcontent > .dxrpCW
+{
+    padding: 9px 10px 10px 10px;
+}
+.dxrpControlGB_Metropolis > tbody > tr.dxrpCR > .dxrpcontent
+{
+    padding: 6px 10px 10px 10px;
+}
+/* GroupboxCaptionOffset */
+.dxrpControlGB_Metropolis > tbody > tr.dxrpCR > .dxrpcontent > div:first-child
+{
+    top: -13px;
+    left: -6px;
+    margin-bottom: -7px;
+}
+.dxrpControlGB_Metropolis
+{
+    margin-top: 6px;
+}
+/* Disabled */
+.dxrpDisabled_Metropolis,
+.dxrpDisabled_Metropolis td.dxrp
+{
+    color: #b8b8b8;
+    cursor: default;
+}
+.dxrpDisabled_Metropolis.dxrpCollapsed > tbody > tr > td.dxrpHeader_Metropolis
+{
+    border-radius: 0px;
+    border: 0px none #F7A233;
+}
+/* -- ASPxSiteMapControl -- */
+.dxsmControl_Metropolis
+{
+    color: #333333;
+    background-color: white;
+    font: 12px 'Segoe UI', Helvetica, 'Droid Sans', Tahoma, Geneva, sans-serif;
+}
+.dxsmControl_Metropolis a:hover
+{
+    text-decoration: none !important;
+}
+.dxsmControl_Metropolis a:visited
+{
+    color: #996085 !important;
+}
+/* - Category Level - */
+.dxsmCategoryLevel_Metropolis,
+.dxsmCategoryLevel_Metropolis a
+{
+    font-weight: bold;
+    text-decoration: none;
+    color: #999999;
+}
+.dxsmCategoryLevel_Metropolis
+{
+    font-size: 1.5em;
+    white-space: nowrap;
+    padding: 0px 0px 5px;
+}
+.dxsmCategoryLevel_Metropolis
+{
+    border-bottom: 1px solid #B8B8B8;
+}
+/*flow layout*/
+.dxsmLevelCategoryFlow_Metropolis,
+.dxsmLevelCategoryFlow_Metropolis a
+{
+    color: #1E3695;
+    font-weight: bold;
+    text-decoration: underline;
+}
+.dxsmLevelCategoryFlow_Metropolis
+{
+    font-size: 1.5em;
+}
+/* - Level 0 - */
+.dxsmLevel0_Metropolis,
+.dxsmLevel0_Metropolis a,
+.dxsmLevel0Categorized_Metropolis a,
+.dxsmLevel0Categorized_Metropolis
+{
+    color: #999999;
+    text-decoration: none;
+}
+.dxsmLevel0_Metropolis,
+.dxsmLevel0Categorized_Metropolis
+{
+    font-size: 1.5em;
+    white-space: nowrap;
+    padding: 0px 0px 2px;
+}
+.dxsmLevel0_Metropolis
+{
+    padding: 0px 0px 5px;
+}
+/*flow layout*/
+.dxsmLevel0Flow_Metropolis,
+.dxsmLevel0Flow_Metropolis a,
+.dxsmLevel0CategorizedFlow_Metropolis a,
+.dxsmLevel0CategorizedFlow_Metropolis
+{
+    color: #F7A233;
+    font-weight: bold;
+    text-decoration: underline;
+}
+.dxsmLevel0Flow_Metropolis
+{
+    padding: 0px;
+}
+.dxsmLevel0Flow_Metropolis
+{
+    text-decoration: none;
+}
+/* - Level 1 - */
+.dxsmLevel1_Metropolis,
+.dxsmLevel1_Metropolis a,
+.dxsmLevel1Categorized_Metropolis a,
+.dxsmLevel1Categorized_Metropolis
+{
+    color: #F7A233;
+    text-decoration: none;
+}
+.dxsmLevel1_Metropolis,
+.dxsmLevel1Categorized_Metropolis
+{
+    white-space: nowrap;
+    padding: 0px;
+}
+.dxsmLevel1_Metropolis ul,
+.dxsmLevel1Categorized_Metropolis ul
+{
+    list-style-type: none !important;
+}
+/*flow layout*/
+.dxsmLevel1Flow_Metropolis,
+.dxsmLevel1Flow_Metropolis a,
+.dxsmLevel1CategorizedFlow_Metropolis,
+.dxsmLevel1CategorizedFlow_Metropolis a
+{
+    color: #F7A233;
+    text-decoration: underline;
+}
+.dxsmLevel1Flow_Metropolis
+{
+    text-decoration: none;
+    padding: 0px;
+}
+/* - Level 2 - */
+.dxsmLevel2_Metropolis,
+.dxsmLevel2_Metropolis a,
+.dxsmLevel2Categorized_Metropolis a,
+.dxsmLevel2Categorized_Metropolis
+{
+    color: #F7A233;
+    text-decoration: none;
+}
+.dxsmLevel2_Metropolis,
+.dxsmLevel2Categorized_Metropolis
+{
+    font-size: 0.91em;
+    white-space: nowrap;
+    padding: 0px;
+}
+/*flow layout*/
+.dxsmLevel2Flow_Metropolis,
+.dxsmLevel2Flow_Metropolis a
+{
+    color: #5078DC;
+    text-decoration: underline;
+}
+.dxsmLevel2Flow_Metropolis
+{
+    font-size: 0.91em;
+    padding: 0px;
+}
+/* - Level 3 - */
+.dxsmLevel3_Metropolis,
+.dxsmLevel3_Metropolis a
+{
+    color: #F7A233;
+    text-decoration: none;
+}
+.dxsmLevel3_Metropolis
+{
+    font-size: 0.75em;
+    white-space: nowrap;
+    padding: 0px;
+}
+/*flow layout*/
+.dxsmLevel3Flow_Metropolis,
+.dxsmLevel3Flow_Metropolis a
+{
+    color: #999999;
+    text-decoration: underline;
+}
+.dxsmLevel3Flow_Metropolis
+{
+    font-size: 0.75em;
+}
+/* - Level 4 - */
+.dxsmLevel4_Metropolis,
+.dxsmLevel4_Metropolis a
+{
+    color: #F7A233;
+    text-decoration: none;
+}
+.dxsmLevel4_Metropolis
+{
+    font-size: 0.66em;
+    white-space: nowrap;
+    padding: 0px;
+}
+/*flow layout*/
+.dxsmLevel4Flow_Metropolis,
+.dxsmLevel4Flow_Metropolis a
+{
+    color: #A8A8A8;
+    text-decoration: underline;
+}
+.dxsmLevel4Flow_Metropolis
+{
+    font-size: 0.66em;
+    padding: 0px;
+}
+/* - Other Levels - */
+.dxsmLevelOther_Metropolis,
+.dxsmLevelOther_Metropolis a
+{
+    color: #F7A233;
+    text-decoration: none;
+}
+.dxsmLevelOther_Metropolis
+{
+    font-size: 0.75em;
+    white-space: nowrap;
+    padding: 0px;
+}
+/*flow layout*/
+.dxsmLevelOtherFlow_Metropolis,
+.dxsmLevelOtherFlow_Metropolis a
+{
+    color: #A8A8A8;
+    text-decoration: underline;
+}
+/* Disabled */
+.dxsmDisabled_Metropolis
+{
+    color: #b8b8b8;
+    cursor: default;
+}
+/* -- ASPxTabControl Lite -- */
+.dxtcLite_Metropolis
+{
+    overflow: hidden;
+    color: #666666;
+    float: left;
+    font: 12px 'Segoe UI', Helvetica, 'Droid Sans', Tahoma, Geneva, sans-serif;
+}
+.dxtcLite_Metropolis > .dxtc-stripContainer,
+.dxtcLite_Metropolis > .dxtc-stripContainer .dxtc-strip
+{
+    list-style: none outside none;
+    float: left;
+    padding: 0;
+    margin: 0;
+}
+.dxtcLite_Metropolis.dxtc-top > .dxtc-stripContainer
+{
+    padding-top: 3px;
+}
+.dxtcLite_Metropolis > .dxtc-stripContainer .dxtc-tab,
+.dxtcLite_Metropolis > .dxtc-stripContainer .dxtc-activeTab,
+.dxtcLite_Metropolis > .dxtc-stripContainer .dxtc-leftIndent,
+.dxtcLite_Metropolis > .dxtc-stripContainer .dxtc-spacer,
+.dxtcLite_Metropolis > .dxtc-stripContainer .dxtc-rightIndent,
+.dxtcLite_Metropolis > .dxtc-stripContainer .dxtc-sbWrapper,
+.dxtcLite_Metropolis > .dxtc-stripContainer .dxtc-sbIndent,
+.dxtcLite_Metropolis > .dxtc-stripContainer .dxtc-sbSpacer
+{
+    display: block;
+    margin: 0;
+}
+.dxtcLite_Metropolis > .dxtc-stripContainer .dxtc-lineBreak
+{
+    float: none;
+    display: block;
+    clear: both;
+    height: 0;
+    width: 0;
+    font-size: 0;
+    line-height: 0;
+    overflow: hidden;
+    visibility: hidden;
+}
+.dxtcLite_Metropolis.dxtc-noSpacing > .dxtc-stripContainer .dxtc-tab,
+.dxtcLite_Metropolis.dxtc-noSpacing > .dxtc-stripContainer .dxtc-activeTab
+{
+    border-left-style: none;
+}
+.dxtcLite_Metropolis > .dxtc-stripContainer .dxtc-tab,
+.dxtcLite_Metropolis > .dxtc-stripContainer .dxtc-activeTab
+{
+    float: left;
+    overflow: hidden;
+    text-align: center;
+    white-space: nowrap;
+}
+.dxtcLite_Metropolis > .dxtc-stripContainer .dxtc-tab
+{
+    background: #E0E0E0 url('tcTabBack.gif') repeat-x bottom;
+}
+.dxtcLite_Metropolis > .dxtc-stripContainer .dxtc-activeTab
+{
+    background-color: #F7A233;
+}
+.dxtcLite_Metropolis > .dxtc-stripContainer .dxtc-activeTab,
+.dxtcLite_Metropolis > .dxtc-stripContainer .dxtc-activeTab a
+{
+    color: #FFFFFF;
+}
+.dxtcLite_Metropolis > .dxtc-stripContainer .dxtc-tab a
+{
+    color: #666666;
+}
+.dxtcLite_Metropolis > .dxtc-stripContainer .dxtc-tabHover,
+.dxtcLite_Metropolis > .dxtc-stripContainer .dxtc-tabHover a
+{
+    color: #FFFFFF;
+}
+.dxtcLite_Metropolis > .dxtc-stripContainer .dxtc-tabHover
+{
+    background: #F7A233 url('tcTabBack.gif') repeat-x bottom;
+}
+.dxtcLite_Metropolis > .dxtc-stripContainer .dxtc-leftIndent,
+.dxtcLite_Metropolis > .dxtc-stripContainer .dxtc-spacer,
+.dxtcLite_Metropolis > .dxtc-stripContainer .dxtc-rightIndent,
+.dxtcLite_Metropolis > .dxtc-stripContainer .dxtc-sbWrapper,
+.dxtcLite_Metropolis > .dxtc-stripContainer .dxtc-sbIndent,
+.dxtcLite_Metropolis > .dxtc-stripContainer .dxtc-sbSpacer
+{
+    float: left;
+    border-right-width: 0;
+    border-left-width: 0;
+    overflow: hidden;
+}
+.dxtcLite_Metropolis > .dxtc-stripContainer .dxtc-spacer
+{
+    width: 1px;
+}
+.dxtcLite_Metropolis > .dxtc-stripContainer .dxtc-leftIndent,
+.dxtcLite_Metropolis > .dxtc-stripContainer .dxtc-rightIndent
+{
+    width: 5px;
+}
+.dxtcLite_Metropolis > .dxtc-stripContainer .dxtc-link
+{
+    padding: 4px 36px;
+    display: block;
+    height: 100%;
+}
+.dxtcLite_Metropolis > .dxtc-stripContainer .dxtc-link,
+.dxtcLite_Metropolis > .dxtc-stripContainer .dxtc-leftIndent,
+.dxtcLite_Metropolis > .dxtc-stripContainer .dxtc-rightIndent
+{
+    text-decoration: none;
+    white-space: nowrap;
+}
+.dxtcLite_Metropolis > .dxtc-stripContainer .dxtc-img
+{
+    border-style: none;
+    margin: 0 3px 0 0;
+}
+.dxtcLite_Metropolis.dxtc-rtl > .dxtc-stripContainer .dxtc-img
+{
+    margin: 0 0 0 3px;
+}
+.dxtcLite_Metropolis > .dxtc-content
+{
+    background-color: #FFFFFF;
+    float: left;
+    clear: left;
+    border: 1px none #A8A8A8 !important;
+    overflow: hidden;
+    padding: 11px;
+}
+.dxtcLite_Metropolis.dxtc-top > .dxtc-content
+{
+    border-top-style: none !important;
+}
+.dxtcLite_Metropolis.dxtc-top > .dxtc-stripContainer .dxtc-activeTab,
+.dxtcLite_Metropolis.dxtc-top > .dxtc-stripContainer .dxtc-tab,
+.dxtcLite_Metropolis.dxtc-top > .dxtc-stripContainer .dxtc-leftIndent,
+.dxtcLite_Metropolis.dxtc-top > .dxtc-stripContainer .dxtc-spacer,
+.dxtcLite_Metropolis.dxtc-top > .dxtc-stripContainer .dxtc-rightIndent,
+.dxtcLite_Metropolis.dxtc-top > .dxtc-stripContainer .dxtc-sbWrapper,
+.dxtcLite_Metropolis.dxtc-top > .dxtc-stripContainer .dxtc-sbIndent,
+.dxtcLite_Metropolis.dxtc-top > .dxtc-stripContainer .dxtc-sbSpacer
+{
+    border-bottom: 4px solid #F7A233;
+}
+/* Rtl */
+.dxtcLite_Metropolis.dxtc-rtl,
+.dxtcLite_Metropolis.dxtc-rtl > .dxtc-content,
+.dxtcLite_Metropolis.dxtc-rtl > .dxtc-stripContainer,
+.dxtcLite_Metropolis.dxtc-rtl > .dxtc-stripContainer .dxtc-strip,
+.dxtcLite_Metropolis.dxtc-rtl > .dxtc-stripContainer .dxtc-leftIndent,
+.dxtcLite_Metropolis.dxtc-rtl > .dxtc-stripContainer .dxtc-spacer,
+.dxtcLite_Metropolis.dxtc-rtl > .dxtc-stripContainer .dxtc-rightIndent,
+.dxtcLite_Metropolis.dxtc-rtl > .dxtc-stripContainer .dxtc-sbWrapper,
+.dxtcLite_Metropolis.dxtc-rtl > .dxtc-stripContainer .dxtc-sbIndent,
+.dxtcLite_Metropolis.dxtc-rtl > .dxtc-stripContainer .dxtc-sbSpacer,
+.dxtcLite_Metropolis.dxtc-rtl > .dxtc-stripContainer .dxtc-tab,
+.dxtcLite_Metropolis.dxtc-rtl > .dxtc-stripContainer .dxtc-activeTab
+{
+    float: right;
+}
+.dxtcLite_Metropolis.dxtc-top.dxtc-rtl > .dxtc-content,
+.dxtcLite_Metropolis.dxtc-bottom.dxtc-rtl > .dxtc-stripContainer,
+.dxtcLite_Metropolis.dxtc-bottom.dxtc-rtl > .dxtc-stripContainer .dxtc-strip
+{
+    clear: right !important;
+}
+.dxtcLite_Metropolis.dxtc-left.dxtc-rtl > .dxtc-strip,
+.dxtcLite_Metropolis.dxtc-left.dxtc-rtl > .dxtc-stripContainer .dxtc-strip
+{
+    float: left;
+}
+/* Scrolling */
+.dxtcLite_Metropolis.dxtc-bottom > .dxtc-stripContainer .dxtc-sb
+{
+    margin-top: 0;
+}
+.dxtcLite_Metropolis > .dxtc-stripContainer .dxtc-sbDisabled
+{
+    cursor: default;
+}
+.dxtcLite_Metropolis > .dxtc-stripContainer .dxtc-sb img
+{
+    border: none;
+    border-style: none;
+}
+.dxtcLite_Metropolis > .dxtc-stripContainer .dxtc-sbIndent
+{
+    width: 5px;
+}
+.dxtcLite_Metropolis > .dxtc-stripContainer .dxtc-sbSpacer
+{
+    width: 1px;
+}
+/* Multi-row */
+.dxtcLiteDisabled_Metropolis,
+.dxtcLiteDisabled_Metropolis > .dxtc-stripContainer .dxtcLiteDisabled_Metropolis.dxtc-activeTab,
+.dxtcLiteDisabled_Metropolis > .dxtc-stripContainer .dxtc-link,
+.dxtcLiteDisabled_Metropolis > .dxtc-stripContainer .dxtc-activeTab .dxtc-link,
+.dxtcLiteDisabled_Metropolis > .dxtc-content,
+.dxtcLite_Metropolis > .dxtc-stripContainer .dxtcLiteDisabled_Metropolis .dxtc-link
+{
+    color: #acacac;
+    cursor: default;
+}
+/* bottom  */
+.dxtcLite_Metropolis.dxtc-bottom > .dxtc-stripContainer
+{
+    padding-bottom: 3px;
+}
+.dxtcLite_Metropolis.dxtc-bottom > .dxtc-stripContainer,
+.dxtcLite_Metropolis.dxtc-bottom > .dxtc-stripContainer .dxtc-strip
+{
+    clear: left;
+}
+.dxtcLite_Metropolis.dxtc-bottom > .dxtc-stripContainer .dxtc-leftIndent,
+.dxtcLite_Metropolis.dxtc-bottom > .dxtc-stripContainer .dxtc-spacer,
+.dxtcLite_Metropolis.dxtc-bottom > .dxtc-stripContainer .dxtc-rightIndent,
+.dxtcLite_Metropolis.dxtc-bottom > .dxtc-stripContainer .dxtc-sbWrapper,
+.dxtcLite_Metropolis.dxtc-bottom > .dxtc-stripContainer .dxtc-sbIndent,
+.dxtcLite_Metropolis.dxtc-bottom > .dxtc-stripContainer .dxtc-sbSpacer
+{
+    border-bottom: 1px solid transparent;
+}
+.dxtcLite_Metropolis.dxtc-bottom > .dxtc-stripContainer .dxtc-tab
+{
+    background: #E0E0E0 url('tcTabBack.gif') repeat-x top;
+}
+.dxtcLite_Metropolis.dxtc-bottom > .dxtc-stripContainer .dxtc-tabHover
+{
+    background: #F7A233 url('tcTabBack.gif') repeat-x top;
+}
+.dxtcLite_Metropolis.dxtc-bottom > .dxtc-stripContainer .dxtc-activeTab
+{
+    background-color: #F7A233;
+    color: #FFFFFF;
+}
+.dxtcLite_Metropolis.dxtc-bottom > .dxtc-stripContainer .dxtc-activeTab,
+.dxtcLite_Metropolis.dxtc-bottom > .dxtc-stripContainer .dxtc-tab,
+.dxtcLite_Metropolis.dxtc-bottom > .dxtc-stripContainer .dxtc-leftIndent,
+.dxtcLite_Metropolis.dxtc-bottom > .dxtc-stripContainer .dxtc-spacer,
+.dxtcLite_Metropolis.dxtc-bottom > .dxtc-stripContainer .dxtc-rightIndent,
+.dxtcLite_Metropolis.dxtc-bottom > .dxtc-stripContainer .dxtc-sbWrapper,
+.dxtcLite_Metropolis.dxtc-bottom > .dxtc-stripContainer .dxtc-sbIndent,
+.dxtcLite_Metropolis.dxtc-bottom > .dxtc-stripContainer .dxtc-sbSpacer
+{
+    border-top: 4px solid #F7A233;
+}
+.dxtcLite_Metropolis.dxtc-bottom > .dxtc-content
+{
+    border-top: 1px solid #A8A8A8;
+    border-right: 1px solid #A8A8A8;
+    border-bottom-color: #A8A8A8;
+    border-left: 1px solid #A8A8A8;
+    border-bottom-width: 1px;
+    border-bottom-style: none !important;
+}
+/* left */
+.dxtcLite_Metropolis.dxtc-left > .dxtc-stripContainer
+{
+    padding-left: 3px;
+}
+.dxtcLite_Metropolis.dxtc-left > .dxtc-stripContainer .dxtc-tab,
+.dxtcLite_Metropolis.dxtc-left > .dxtc-stripContainer .dxtc-activeTab,
+.dxtcLite_Metropolis.dxtc-left > .dxtc-stripContainer .dxtc-leftIndent,
+.dxtcLite_Metropolis.dxtc-left > .dxtc-stripContainer .dxtc-spacer,
+.dxtcLite_Metropolis.dxtc-left > .dxtc-stripContainer .dxtc-rightIndent
+{
+    float: none;
+    clear: none;
+    width: auto;
+    height: auto;
+}
+.dxtcLite_Metropolis.dxtc-left.dxtc-noSpacing > .dxtc-stripContainer .dxtc-tab,
+.dxtcLite_Metropolis.dxtc-left.dxtc-noSpacing > .dxtc-stripContainer .dxtc-activeTab
+{
+    border-top-style: none;
+    border-bottom-style: none;
+}
+.dxtcLite_Metropolis.dxtc-left > .dxtc-stripContainer .dxtc-link
+{
+    padding: 3px 15px 4px;
+}
+.dxtcLite_Metropolis.dxtc-left > .dxtc-stripContainer .dxtc-tab
+{
+    background: #E0E0E0 url('tcTabBack.gif') repeat-y right;
+}
+.dxtcLite_Metropolis.dxtc-left > .dxtc-stripContainer .dxtc-tabHover
+{
+    background: #F7A233 url('tcTabBack.gif') repeat-y right;
+}
+.dxtcLite_Metropolis.dxtc-left > .dxtc-stripContainer .dxtc-activeTab
+{
+    background-color: #F7A233;
+    color: #FFFFFF;
+}
+.dxtcLite_Metropolis.dxtc-left > .dxtc-stripContainer .dxtc-leftIndent,
+.dxtcLite_Metropolis.dxtc-left > .dxtc-stripContainer .dxtc-spacer,
+.dxtcLite_Metropolis.dxtc-left > .dxtc-stripContainer .dxtc-rightIndent
+{
+    border: none;
+    border-left: 1px solid transparent;
+    width: auto;
+}
+.dxtcLite_Metropolis.dxtc-left > .dxtc-stripContainer .dxtc-activeTab,
+.dxtcLite_Metropolis.dxtc-left > .dxtc-stripContainer .dxtc-tab,
+.dxtcLite_Metropolis.dxtc-left > .dxtc-stripContainer .dxtc-leftIndent,
+.dxtcLite_Metropolis.dxtc-left > .dxtc-stripContainer .dxtc-spacer,
+.dxtcLite_Metropolis.dxtc-left > .dxtc-stripContainer .dxtc-rightIndent,
+.dxtcLite_Metropolis.dxtc-left > .dxtc-stripContainer .dxtc-sbWrapper,
+.dxtcLite_Metropolis.dxtc-left > .dxtc-stripContainer .dxtc-sbIndent,
+.dxtcLite_Metropolis.dxtc-left > .dxtc-stripContainer .dxtc-sbSpacer
+{
+    border-right: 4px solid #F7A233;
+}
+.dxtcLite_Metropolis.dxtc-left > .dxtc-stripContainer .dxtc-leftIndent,
+.dxtcLite_Metropolis.dxtc-left > .dxtc-stripContainer .dxtc-rightIndent
+{
+    height: 5px;
+}
+.dxtcLite_Metropolis.dxtc-left > .dxtc-stripContainer .dxtc-spacer
+{
+    height: 1px;
+}
+.dxtcLite_Metropolis.dxtc-left > .dxtc-content
+{
+    border-top: 1px solid #A8A8A8;
+    border-right: 1px solid #A8A8A8;
+    border-bottom: 1px solid #A8A8A8;
+    border-left-color: #A8A8A8;
+    border-left-width: 1px;
+    border-left-style: none !important;
+    float: left;
+    clear: none;
+}
+/* right */
+.dxtcLite_Metropolis.dxtc-right > .dxtc-stripContainer
+{
+    padding-right: 3px;
+}
+.dxtcLite_Metropolis.dxtc-right > .dxtc-stripContainer .dxtc-tab,
+.dxtcLite_Metropolis.dxtc-right > .dxtc-stripContainer .dxtc-activeTab,
+.dxtcLite_Metropolis.dxtc-right > .dxtc-stripContainer .dxtc-leftIndent,
+.dxtcLite_Metropolis.dxtc-right > .dxtc-stripContainer .dxtc-spacer,
+.dxtcLite_Metropolis.dxtc-right > .dxtc-stripContainer .dxtc-rightIndent
+{
+    float: none;
+    clear: none;
+    width: auto;
+    height: auto;
+}
+.dxtcLite_Metropolis.dxtc-right.dxtc-noSpacing > .dxtc-stripContainer .dxtc-tab,
+.dxtcLite_Metropolis.dxtc-right.dxtc-noSpacing > .dxtc-stripContainer .dxtc-activeTab
+{
+    border-top-style: none;
+    border-bottom-style: none;
+    border-right-style: none;
+}
+.dxtcLite_Metropolis.dxtc-right > .dxtc-stripContainer .dxtc-link
+{
+    padding: 3px 15px 4px;
+}
+.dxtcLite_Metropolis.dxtc-right > .dxtc-stripContainer .dxtc-tab
+{
+    background: #E0E0E0 url('tcTabBack.gif') repeat-y left;
+}
+.dxtcLite_Metropolis.dxtc-right > .dxtc-stripContainer .dxtc-tabHover
+{
+    background: #F7A233 url('tcTabBack.gif') repeat-y left;
+}
+.dxtcLite_Metropolis.dxtc-right > .dxtc-stripContainer .dxtc-activeTab
+{
+    background-color: #F7A233;
+    color: #FFFFFF;
+}
+.dxtcLite_Metropolis.dxtc-right > .dxtc-stripContainer .dxtc-leftIndent,
+.dxtcLite_Metropolis.dxtc-right > .dxtc-stripContainer .dxtc-spacer,
+.dxtcLite_Metropolis.dxtc-right > .dxtc-stripContainer .dxtc-rightIndent
+{
+    border: none;
+    border-right: 1px solid transparent;
+}
+.dxtcLite_Metropolis.dxtc-right > .dxtc-stripContainer .dxtc-activeTab,
+.dxtcLite_Metropolis.dxtc-right > .dxtc-stripContainer .dxtc-tab,
+.dxtcLite_Metropolis.dxtc-right > .dxtc-stripContainer .dxtc-leftIndent,
+.dxtcLite_Metropolis.dxtc-right > .dxtc-stripContainer .dxtc-spacer,
+.dxtcLite_Metropolis.dxtc-right > .dxtc-stripContainer .dxtc-rightIndent,
+.dxtcLite_Metropolis.dxtc-right > .dxtc-stripContainer .dxtc-sbWrapper,
+.dxtcLite_Metropolis.dxtc-right > .dxtc-stripContainer .dxtc-sbIndent,
+.dxtcLite_Metropolis.dxtc-right > .dxtc-stripContainer .dxtc-sbSpacer
+{
+    border-left: 4px solid #F7A233;
+}
+.dxtcLite_Metropolis.dxtc-right > .dxtc-stripContainer .dxtc-leftIndent,
+.dxtcLite_Metropolis.dxtc-right > .dxtc-stripContainer .dxtc-rightIndent
+{
+    height: 5px;
+}
+.dxtcLite_Metropolis.dxtc-right > .dxtc-stripContainer .dxtc-spacer
+{
+    height: 1px;
+}
+.dxtcLite_Metropolis.dxtc-right > .dxtc-content
+{
+    border-top: 1px solid #A8A8A8;
+    border-right-color: #A8A8A8;
+    border-bottom: 1px solid #A8A8A8;
+    border-left: 1px solid #A8A8A8;
+    border-right-width: 1px;
+    border-right-style: none !important;
+    float: left;
+    clear: none;
+}
+/* -- ASPxTitleIndex -- */
+.dxtiControl_Metropolis
+{
+    color: #F7A233;
+    font: 12px 'Segoe UI', Helvetica, 'Droid Sans', Tahoma, Geneva, sans-serif;
+}
+.dxtiControl_Metropolis a
+{
+    color: #F7A233;
+}
+.dxtiItem_Metropolis
+{
+    white-space: nowrap;
+}
+.dxtiGroupHeader_Metropolis,
+.dxtiGroupHeaderCategorized_Metropolis
+{
+    font-size: 1.5em;
+    text-decoration: none;
+}
+.dxtiGroupHeader_Metropolis,
+.dxtiGroupHeaderCategorized_Metropolis
+{
+    white-space: nowrap;
+    padding: 0px 0px 8px;
+}
+.dxtiGroupHeaderCategorized_Metropolis
+{
+    border-bottom: 1px Solid #C0C0C0;
+}
+/* - GroupHeaderText - */
+.dxtiGroupHeaderText_Metropolis
+{
+    background-color: #F7A233;
+    color: #FFFFFF;
+}
+.dxtiGroupHeaderText_Metropolis
+{
+    padding: 0px 8px 3px;
+}
+.dxtiGroupHeaderTextCategorized_Metropolis
+{
+    color: #FFFFFF;
+    background-color: #F7A233;
+}
+.dxtiGroupHeaderTextCategorized_Metropolis
+{
+    padding: 1px 8px;
+}
+/* - FilterBox - */
+.dxtiFilterBoxInfoText_Metropolis
+{
+    font-size: 0.75em;
+    font-weight: normal;
+    color: #999999;
+    padding-top: 0px;
+    padding-bottom: 4px;
+}
+.dxtiFilterBoxEdit_Metropolis
+{
+    border: 1px Solid silver;
+}
+.dxtiFilterBox_Metropolis,
+.dxtiFilterBox_Metropolis table
+{
+    color: #333333;
+}
+.dxtiFilterBox_Metropolis
+{
+    padding: 15px;
+    background-color: #FAFAFA;
+}
+/* - IndexPanel - */
+.dxtiIndexPanel_Metropolis
+{
+    font-size: 1.33em;
+    padding: 10px 0;
+    text-decoration: none;
+}
+.dxtiIndexPanelItem_Metropolis,
+.dxtiCurrentIndexPanelItem_Metropolis
+{
+    text-decoration: none;
+}
+.dxtiIndexPanelItem_Metropolis,
+.dxtiCurrentIndexPanelItem_Metropolis
+{
+    padding: 0px 6px 3px;
+}
+.dxtiCurrentIndexPanelItem_Metropolis
+{
+    color: #FFFFFF;
+    background-color: #F7A233;
+}
+/* - BackToTop - */
+.dxtiBackToTop_Metropolis,
+.dxtiBackToTop_Metropolis a
+{
+    color: #999999;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+.dxtiBackToTop_Metropolis
+{
+    border-top: 1px solid silver;
+    padding: 8px 0px;
+    text-align: right !important;
+}
+.dxtiBackToTopRtl_Metropolis
+{
+    padding: 8px 0px;
+}
+.dxtiBackToTop_Metropolis img
+{
+    float: right;
+    margin-top: -4px;
+    margin-left: 4px;
+}
+/* Disabled */
+.dxtiDisabled_Metropolis,
+.dxtiDisabled_Metropolis a
+{
+    color: #b8b8b8;
+    cursor: default !important;
+}
+/* -- ASPxUploadControl -- */
+.dxucControl_Metropolis,
+.dxucEditArea_Metropolis,
+input[type="text"].dxucEditArea_Metropolis
+{
+    font: 12px 'Segoe UI', Helvetica, 'Droid Sans', Tahoma, Geneva, sans-serif;
+}
+.dxucControl_Metropolis,
+.dxucEditArea_Metropolis,
+body input.dxucEditArea_Metropolis
+{
+    color: #333333;
+}
+.dxucEditArea_Metropolis,
+input[type="text"].dxucEditArea_Metropolis
+{
+    padding: 1px;
+}
+.dxucControl_Metropolis .dxucInputs_Metropolis
+{
+    border-collapse: separate;
+    border-width: 0;
+}
+.dxucTextBox_Metropolis
+{
+    background-color: white;
+    border: 1px solid #c0c0c0;
+    padding: 1px 2px;
+}
+.dxucTextBox_Metropolis .dxucEditArea_Metropolis
+{
+    margin: 0px;
+    background-color: white;
+}
+.dxucNullText_Metropolis .dxucEditArea_Metropolis
+{
+    color: #818181;
+}
+.dxucErrorCell_Metropolis
+{
+    color: Red;
+    text-align: left;
+}
+.dxucButton_Metropolis,
+.dxucButton_Metropolis a
+{
+    color: #F7A233;
+    white-space: nowrap;
+}
+.dxucBrowseButton_Metropolis,
+.dxucBrowseButton_Metropolis a
+{
+    cursor: pointer;
+    white-space: nowrap;
+    text-decoration: none;
+}
+.dxucControl_Metropolis .dxucBrowseButton_Metropolis a
+{
+    color: #000000;
+}
+.dxucControl_Metropolis a[unselectable="on"]
+{
+    user-select: none;
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+}
+.dxucBrowseButton_Metropolis
+{
+    border: 1px solid Silver;
+    padding: 3px 8px 4px;
+    background-color: White;
+}
+.dxucBrowseButton_Metropolis.dxbf
+{
+    padding: 3px 7px 4px;
+}
+.dxucBrowseButton_Metropolis.dxbf a
+{
+    border: 1px dotted black;
+}
+.dxucBrowseButtonHover_Metropolis
+{
+    background-color: #F7A233;
+    color: #FFFFFF;
+}
+.dxucBrowseButtonPressed_Metropolis
+{
+    background-color: Silver;
+    color: #FFFFFF;
+}
+/* ProgressBar */
+.dxucProgressBar_Metropolis
+{
+    background-color: #E0E0E0;
+    height: 23px;
+}
+.dxucProgressBar_Metropolis,
+.dxucProgressBar_Metropolis td.dx
+{
+    color: #333333;
+}
+.dxucProgressBar_Metropolis .dxPBMainCell,
+.dxucProgressBar_Metropolis td.dx
+{
+    padding: 0;
+}
+.dxucProgressBarIndicator_Metropolis
+{
+    background-color: #F7A233;
+}
+/* Silverlight Plugin Link */
+.dxucSilverlightPluginLinkPanel_Metropolis
+{
+    font-size: 0.75em;
+    color: #7d7d7d;
+    text-align: left;
+}
+.dxucSilverlightPluginLinkPanel_Metropolis td
+{
+    padding: 0px 3px;
+    vertical-align: middle;
+}
+.dxucSilverlightPluginLinkPanel_Metropolis a
+{
+    color: #0D45B7;
+}
+/* Disabled */
+.dxucDisabled_Metropolis,
+.dxucDisabled_Metropolis a
+{
+    cursor: default;
+    color: #B8B8B8;
+}
+.dxucTextBoxDisabled_Metropolis
+{
+    border-color: #C3C3C3;
+}
+.dxucButtonDisabled_Metropolis,
+.dxucButtonDisabled_Metropolis a
+{
+    text-decoration: none;
+}
+.dxucBrowseButtonDisabled_Metropolis
+{
+    cursor: default;
+}
+.dxucControl_Metropolis .dxucBrowseButtonDisabled_Metropolis a
+{
+    color: #b8b8b8;
+}
+/* -- ASPxSplitter -- */
+.dxsplControl_Metropolis
+{
+    font: 12px 'Segoe UI', Helvetica, 'Droid Sans', Tahoma, Geneva, sans-serif;
+}
+.dxsplControl_Metropolis,
+.dxsplVSeparator_Metropolis,
+.dxsplHSeparator_Metropolis
+{
+    background-color: White;
+}
+.dxsplVSeparator_Metropolis,
+.dxsplHSeparator_Metropolis
+{
+    font-size: 0;
+    padding: 0 1px 1px 0;
+}
+.dxsplPane_Metropolis,
+.dxsplPaneCollapsed_Metropolis
+{
+    background-color: white;
+}
+.dxsplPaneCollapsed_Metropolis
+{
+    border-right-width: 0px;
+    border-bottom-width: 0px;
+}
+.dxsplVSeparatorHover_Metropolis
+{
+    cursor: w-resize;
+}
+.dxsplHSeparatorHover_Metropolis
+{
+    cursor: n-resize;
+}
+.dxsplVSeparatorCollapsed_Metropolis
+{
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+}
+.dxsplHSeparatorCollapsed_Metropolis
+{
+    border-left-width: 1px;
+    border-right-width: 1px;
+}
+.dxsplVSeparatorCollapsed_Metropolis,
+.dxsplHSeparatorCollapsed_Metropolis
+{
+    cursor: default !important;
+}
+.dxsplVSeparatorButton_Metropolis
+{
+    cursor: pointer;
+    padding: 5px 3px 5px 2px;
+}
+.dxsplHSeparatorButton_Metropolis
+{
+    cursor: pointer;
+    padding: 2px 5px 3px;
+}
+.dxsplDisabled_Metropolis .dxsplVSeparatorButton_Metropolis,
+.dxsplDisabled_Metropolis .dxsplHSeparatorButton_Metropolis
+{
+    cursor: default;
+}
+.dxsplVSeparatorHover_Metropolis,
+.dxsplHSeparatorHover_Metropolis,
+.dxsplVSeparatorButtonHover_Metropolis,
+.dxsplHSeparatorButtonHover_Metropolis
+{
+    background-color: #F7A233;
+}
+.dxsplResizingPointer_Metropolis
+{
+    background: url('splResizingPointer.gif') repeat;
+    font-size: 0;
+    line-height: 0px;
+}
+.dxsplControl_Metropolis .dxsplLCC
+{
+    padding: 8px;
+}
+/* -- ASPxTreeView -- */
+.dxtvControl_Metropolis
+{
+    font: 12px 'Segoe UI', Helvetica, 'Droid Sans', Tahoma, Geneva, sans-serif;
+    color: #333333;
+    float: left;
+}
+.dxtvControl_Metropolis li
+{
+    overflow-y: hidden;
+}
+.dxtvControl_Metropolis ul
+{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow-y: hidden;
+}
+.dxtvControl_Metropolis a
+{
+    color: #333333;
+    text-decoration: none;
+}
+.dxtvControl_Metropolis .dxtv-ln
+{
+    vertical-align: top;
+}
+.dxtvControl_Metropolis .dxtv-nd
+{
+    margin-top: 1px;
+    float: left;
+    padding: 3px 5px 4px;
+    display: block;
+    text-decoration: none;
+    outline: 0 none;
+}
+.dxtvControl_Metropolis .dxtv-elbNoLn,
+.dxtvControl_Metropolis .dxtv-elb
+{
+    width: 26px;
+    height: 21px;
+    vertical-align: top;
+    float: left;
+}
+.dxtvControl_Metropolis .dxtv-elbHide
+{
+    display: none;
+}
+.dxtvControl_Metropolis .dxtv-btn
+{
+    margin-left: 10px;
+    margin-top: 5px;
+}
+.dxtvControl_Metropolis .dxtv-subnd
+{
+    margin-left: 22px;
+}
+.dxtvControl_Metropolis .dxtv-ndImg
+{
+    margin: 0 4px 0 2px;
+}
+.dxtvControl_Metropolis .dxtv-ndTxt
+{
+    white-space: nowrap;
+}
+.dxtvControl_Metropolis .dxtv-ndChk
+{
+    cursor: default;
+    margin: 0 6px 0 2px;
+}
+.dxtvControl_Metropolis .dxtv-ndTmpl
+{
+    float: left;
+    white-space: nowrap;
+}
+.dxtvControl_Metropolis .dxtv-ndSel
+{
+    background-color: #f0f0f0;
+    cursor: default;
+}
+.dxtvControl_Metropolis .dxtv-ndHov
+{
+    background-color: #F7A233;
+    color: #FFFFFF;
+}
+.dxtvControl_Metropolis.dxtvRtl,
+.dxtvControl_Metropolis.dxtvRtl .dxtv-nd,
+.dxtvControl_Metropolis.dxtvRtl .dxtv-elbNoLn,
+.dxtvControl_Metropolis.dxtvRtl .dxtv-elb,
+.dxtvControl_Metropolis.dxtvRtl .dxtv-ndTmpl
+{
+    float: right;
+}
+.dxtvControl_Metropolis.dxtvRtl .dxtv-elb,
+.dxtvControl_Metropolis.dxtvRtl .dxtv-ln
+{
+    background-position: right top;
+}
+.dxtvControl_Metropolis.dxtvRtl .dxtv-elb
+{
+    background-image: url('tvElbowRtl.gif');
+}
+.dxtvControl_Metropolis.dxtvRtl .dxtv-btn
+{
+    margin: 5px 10px 0 0;
+}
+.dxtvControl_Metropolis.dxtvRtl .dxtv-subnd
+{
+    margin: 0 22px 0 0;
+}
+.dxtvControl_Metropolis.dxtvRtl .dxtv-ndImg
+{
+    margin: 0 2px 0 4px;
+}
+.dxtvControl_Metropolis.dxtvRtl.OperaRtlFix .dxtv-btn
+{
+    margin: 5px 10px 0 0;
+}
+.dxtvControl_Metropolis.dxtvRtl .dxtv-ndChk
+{
+    margin: 0 2px 0 6px;
+}
+.dxtvControl_Metropolis.dxtvRtl.OperaRtlFix .dxtv-subnd
+{
+    overflow-x: hidden;
+}
+.dxtvDisabled_Metropolis,
+.dxtvControl_Metropolis .dxtvDisabled_Metropolis,
+.dxtvDisabled_Metropolis a,
+.dxtvDisabled_Metropolis .dxtv-btn,
+.dxtvDisabled_Metropolis .dxtv-nd
+{
+    color: #b8b8b8;
+    cursor: default;
+}
+/* ASPxFileManager */
+.dxfmControl_Metropolis,
+.dxfmControl_Metropolis .dxfm-rInput
+{
+    font: 12px 'Segoe UI', Helvetica, 'Droid Sans', Tahoma, Geneva, sans-serif;
+    outline: 0px;
+    color: #333333;
+}
+.dxfmDisabled_Metropolis
+{
+    color: #b8b8b8;
+}
+/* FileManager - Splitter */
+.dxfmControl_Metropolis .dxsplControl_Metropolis
+{
+    border: 1px solid silver;
+}
+.dxfmControl_Metropolis .dxsplPane_Metropolis
+{
+    border-width: 0px;
+    background-color: White;
+}
+.dxfmControl_Metropolis .dxsplLCC
+{
+    outline-width: 0px;
+    padding: 4px;
+}
+.dxfmControl_Metropolis.dxfm-dst .dxsplVSeparator_Metropolis
+{
+    width: 3px;
+    background: url('fmSplitterSeparator.gif') repeat-y right;
+    border-width: 0px;
+}
+.dxfmControl_Metropolis.dxfm-dst.dxfm-rtl .dxsplVSeparator_Metropolis
+{
+    background-position-x: left;
+}
+.dxfmControl_Metropolis.dxfm-tch .dxsplVSeparator_Metropolis
+{
+    border-width: 0 1px;
+    border-color: #E0E0E0;
+}
+.dxfmControl_Metropolis .dxsplHSeparator_Metropolis
+{
+    border-width: 0px;
+    background-color: #E0E0E0;
+}
+.dxfmControl_Metropolis .dxfm-filePane .dxsplLCC
+{
+    padding: 0;
+}
+/* FileManager - TreeView */
+.dxfmControl_Metropolis .dxtvControl_Metropolis
+{
+    margin-left: -5px;
+}
+.dxfmControl_Metropolis .dxtvControl_Metropolis .dxtv-nd.dxfm-folderSI
+{
+    border: 1px dotted #888888;
+    padding: 2px 4px 3px;
+}
+/* FileManager - File */
+.dxfmControl_Metropolis div.dxfm-file
+{
+    float: left;
+    text-align: center;
+    cursor: pointer;
+    white-space: nowrap;
+    padding: 6px;
+    margin: 4px;
+}
+.dxfmControl_Metropolis.dxfm-rtl div.dxfm-file
+{
+    float: right;
+}
+.dxfmDisabled_Metropolis .dxfm-file
+{
+    cursor: default;
+}
+.dxfmControl_Metropolis div.dxfm-fileSI
+{
+    border: 1px dotted #888888;
+}
+.dxfmControl_Metropolis div.dxfm-fileSA
+{
+    background-color: #e0e0e0;
+}
+.dxfmControl_Metropolis div.dxfm-fileH,
+.dxfmControl_Metropolis div.dxfm-fileF
+{
+    background-color: #F7A233;
+    color: #FFFFFF;
+}
+.dxfmControl_Metropolis td.dxgv .dxfm-fileName
+{
+    padding: 2px 0;
+}
+.dxfmControl_Metropolis .dxfm-file .dxfm-highlight
+{
+    background-color: #CFCFCF;
+    background-repeat: repeat;
+    color: #333333;
+    font-weight: bold;
+}
+.dxfmControl_Metropolis .fileContainer
+{
+    margin: 4px;
+}
+.dxfmControl_Metropolis .dxfm-fileContainer .dxfm-file.dxfm-fileSI > .dxichSys
+{
+    top: 0;
+    right: 0;
+}
+.dxfmControl_Metropolis .dxfm-fileContainer .dxfm-file > .dxichSys,
+.dxfmControl_Metropolis .dxfm-fileContainer .dxfm-file.dxfm-fileSA > .dxichSys,
+.dxfmControl_Metropolis .dxfm-fileContainer .dxfm-file.dxfm-fileF > .dxichSys
+{
+    top: 1px;
+    right: 1px;
+}
+.dxfmControl_Metropolis.dxfm-rtl .dxfm-fileContainer .dxfm-file > .dxichSys,
+.dxfmControl_Metropolis.dxfm-rtl .dxfm-fileContainer .dxfm-file.dxfm-fileSA > .dxichSys,
+.dxfmControl_Metropolis.dxfm-rtl .dxfm-fileContainer .dxfm-file.dxfm-fileF > .dxichSys
+{
+    right: initial;
+    left: 1px;
+}
+/* FileManager - GridView */
+.dxfmControl_Metropolis .dxgvControl_Metropolis
+{
+    outline: none;
+}
+.dxfmControl_Metropolis .dxgvTable_Metropolis td.dxgv
+{
+    border-bottom-width: 0px;
+}
+.dxfmControl_Metropolis .dxgvTable_Metropolis tr.dxfm-fileSA
+{
+    background-color: #F7B033;
+    color: White;
+}
+.dxfmControl_Metropolis .dxgvTable_Metropolis tr.dxfm-fileSI
+{
+    background-color: #999999;
+    color: White;
+}
+.dxfmControl_Metropolis .dxfm-fileF.dxgvFocusedRow_Metropolis
+{
+    background-color: #F7A233;
+    color: White;
+}
+.dxfmControl_Metropolis .dxgvTable_Metropolis tr.dxfm-fileH
+{
+    background-color: #E3E3E3;
+    color: Black;
+}
+.dxfmControl_Metropolis tr.dxgvFocusedRow_Metropolis
+{
+    background: White;
+    color: Black;
+}
+.dxfm-file .dxgv.dxgvCommandColumn_Metropolis
+{
+    text-overflow: clip;
+}
+/* FileManager - Toolbar */
+.dxfmControl_Metropolis .dxfm-toolbar
+{
+    background-color: #FAFAFA;
+}
+.dxfmControl_Metropolis .dxfm-toolbar.dxsplPane_Metropolis table.dxfm
+{
+    width: 100%;
+}
+.dxfmControl_Metropolis .dxfm-toolbar.dxsplPane_Metropolis .dxfm-filter
+{
+    text-align: right;
+    vertical-align: top;
+    white-space: nowrap;
+}
+.dxfmControl_Metropolis.dxfm-rtl .dxfm-toolbar.dxsplPane_Metropolis .dxfm-filter
+{
+    text-align: left;
+}
+.dxfmControl_Metropolis .dxfm-toolbar.dxsplPane_Metropolis .dxfm-filter input,
+.dxfmControl_Metropolis .dxfm-toolbar.dxsplPane_Metropolis .dxfm-path input
+{
+    border: 1px solid silver;
+}
+.dxgvHeader_Metropolis.dxfmGridHeader
+{
+    background: White;
+}
+/* FileManager - Toolbar - Light */
+.dxfmControl_Metropolis .dxfm-toolbar .dxsplLCC
+{
+    padding: 5px;
+}
+.dxfmControl_Metropolis .dxfm-toolbar .dxmLite_Metropolis .dxm-main
+{
+    margin-top: 0px;
+    border-width: 0px;
+    background: transparent none;
+}
+.dxfmControl_Metropolis .dxfm-toolbar .dxmLite_Metropolis .dxm-horizontal.dxmtb .dxm-separator
+{
+    padding: 0px 11px;
+}
+.dxfmControl_Metropolis .dxfm-toolbar .dxmLite_Metropolis .dxm-horizontal.dxmtb .dxm-separator b
+{
+    background-color: #e0e0e0;
+}
+.dxfmControl_Metropolis .dxfm-toolbar .dxmLite_Metropolis .dxfm-path
+{
+    padding-left: 1px;
+}
+.dxfmControl_Metropolis .dxfm-toolbar .dxmLite_Metropolis .dxfm-path input
+{
+    margin: 3px 8px 0px 4px;
+}
+.dxfmControl_Metropolis.dxfm-rtl .dxfm-toolbar .dxmLite_Metropolis .dxfm-path input
+{
+    margin: 3px 4px 0px 8px;
+}
+.dxfmControl_Metropolis .dxfm-toolbar .dxmLite_Metropolis .dxm-item .dxm-content
+{
+    padding-top: 4px;
+}
+/* FileManager - BreadCrumbs */
+.dxfmControl_Metropolis .dxfm-breadCrumbs .dxfm-bcItem.dxfm-bcItemH,
+.dxfmControl_Metropolis .dxfm-bcPopup .dxfm-bcItem.dxfm-bcItemH
+{
+    background-color: #F7A233;
+    color: white;
+}
+.dxfmControl_Metropolis .dxfm-breadCrumbs .dxfm-bcLineSeparator
+{
+    border-color: #E0E0E0;
+}
+/* FileManager - Upload Progress Popup*/
+.dxfmControl_Metropolis .dxfm-upPopup.dxpc-mainDiv .dxeProgressBarIndicator_Metropolis
+{
+    background: #F7B35A;
+}
+/* FileManager - UploadPanel */
+.dxfmControl_Metropolis .dxfm-uploadPanel
+{
+    background-color: #FAFAFA;
+    text-align: right;
+}
+.dxfmControl_Metropolis.dxfm-rtl .dxfm-uploadPanel
+{
+    text-align: left;
+}
+.dxfmControl_Metropolis .dxfm-uploadPanel.dxsplPane_Metropolis table.dxfm-uploadPanelTable
+{
+    display: inline-block;
+    margin-right: 5px;
+    margin-top: 1px;
+}
+.dxfmControl_Metropolis .dxfm-uploadPanel.dxsplPane_Metropolis table.dxfm-uploadPanelTable .dxucControl_Metropolis
+{
+    margin-top: 4px;
+    margin-right: 10px;
+}
+.dxfmControl_Metropolis.dxfm-rtl .dxfm-uploadPanel.dxsplPane_Metropolis table.dxfm-uploadPanelTable .dxucControl_Metropolis
+{
+    margin-right: 0px;
+    margin-left: 10px;
+}
+.dxfmControl_Metropolis .dxfm-uploadPanel.dxsplPane_Metropolis table.dxfm-uploadPanelTable td.dxfm-uploadPanelTableBCell
+{
+    padding: 7px 0 0;
+    vertical-align: top;
+}
+.dxfmControl_Metropolis .dxfm-uploadPanel.dxsplPane_Metropolis table.dxfm-uploadPanelTable td.dxfm-uploadPanelTableBCell a
+{
+    color: #F7A233;
+    text-decoration: underline;
+}
+.dxfmControl_Metropolis .dxfm-uploadPanel.dxsplPane_Metropolis table.dxfm-uploadPanelTable td.dxfm-uploadPanelTableBCell a.dxfm-uploadDisable
+{
+    color: #777777;
+    text-decoration: none;
+    cursor: default;
+}
+.dxfmControl_Metropolis .dxfm-uploadPanel.dxsplPane_Metropolis .dxucTextBox_Metropolis
+{
+    padding: 0px 2px;
+}
+.dxfmControl_Metropolis .dxfm-uploadPanel.dxsplPane_Metropolis .dxucBrowseButton_Metropolis
+{
+    padding: 2px 8px 3px;
+}
+.dxfmControl_Metropolis .dxfm-uploadPanel.dxsplPane_Metropolis .dxucBrowseButton_Metropolis.dxbf
+{
+    padding: 2px 7px 3px;
+}
+.dxfmControl_Metropolis .dxfm-uploadPanel.dxsplPane_Metropolis .dxucSilverlightPluginLinkPanel_Metropolis
+{
+    margin-top: -8px;
+}
+/* FileManager - Create, Rename input */
+.dxfmControl_Metropolis .dxfm-cInput,
+.dxfmControl_Metropolis .dxfm-rInput
+{
+    border: 1px solid silver;
+}
+.dxfmControl_Metropolis input[type="text"].dxfm-cInput,
+.dxfmControl_Metropolis input[type="text"].dxfm-rInput
+{
+    color: #333333;
+}
+/* FileManager - item mask */
+.dxfmControl_Metropolis .dxfm-itemMask
+{
+    background-color: #e0e0e0;
+}
+/* FileManager - Move PopupControl */
+.dxfmControl_Metropolis .dxpc-content
+{
+    padding: 5px 0px 0px;
+    background-color: White;
+}
+.dxfmControl_Metropolis .dxpc-content .dxfm-mpFoldersC
+{
+    overflow: auto;
+    padding: 0px 0px 20px 5px;
+}
+.dxfmControl_Metropolis .dxpc-content .dxfm-mpButtonC
+{
+    margin-top: 5px;
+    background-color: #F3F3F3;
+    border-top: 1px solid #E0E0E0;
+    text-align: right;
+    padding: 10px 15px 10px 10px;
+}
+.dxfmControl_Metropolis .dxpc-content .dxfm-mpButtonC a
+{
+    margin-left: 12px;
+    color: #F7A233;
+}
+/* ASPxImageSlider */
+.dxisControl_Metropolis
+{
+    width: 660px;
+    height: 505px;
+    outline: 0;
+    user-select: none;
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    font: 12px 'Segoe UI', Helvetica, 'Droid Sans', Tahoma, Geneva, sans-serif;
+}
+.dxisControl_Metropolis .dxis-playPauseBtnWrapper
+{
+    top: 0;
+    right: 0;
+    padding: 6px 12px 6px 14px;
+    position: absolute;
+    background-color: #333333;
+    background-color: rgba(0,0,0,0.75);
+    cursor: pointer;
+}
+*[dir="rtl"].dxisControl_Metropolis .dxis-playPauseBtnWrapper
+{
+    right: auto;
+    left: 0;
+}
+.dxisControl_Metropolis > .dxis-passePartout
+{
+    position: relative;
+    background-color: #000000;
+    width: 100%;
+    height: 100%;
+}
+.dxisControl_Metropolis .dxis-imageArea
+{
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+}
+.dxisControl_Metropolis .dxis-slidePanel,
+.dxisControl_Metropolis .dxis-nbSlidePanel,
+.dxisControl_Metropolis .dxis-nbSlidePanelWrapper
+{
+    position: absolute;
+}
+.dxisControl_Metropolis .dxis-nbSlidePanelWrapper
+{
+    overflow: hidden;
+}
+.dxisControl_Metropolis .dxis-nbTop,
+.dxisControl_Metropolis .dxis-nbBottom,
+.dxisControl_Metropolis .dxis-nbLeft,
+.dxisControl_Metropolis .dxis-nbRight,
+.dxisControl_Metropolis .dxis-nbDotsBottom,
+.dxisControl_Metropolis .dxis-nbDotsTop,
+.dxisControl_Metropolis .dxis-nbDotsLeft,
+.dxisControl_Metropolis .dxis-nbDotsRight
+{
+    position: relative;
+}
+.dxisControl_Metropolis .dxis-nbTop
+{
+    padding-bottom: 5px;
+}
+.dxisControl_Metropolis .dxis-nbBottom
+{
+    padding-top: 5px;
+}
+.dxisControl_Metropolis .dxis-nbLeft
+{
+    padding-right: 5px;
+}
+.dxisControl_Metropolis .dxis-nbRight
+{
+    padding-left: 5px;
+}
+.dxisControl_Metropolis .dxis-nbDotsBottom,
+.dxisControl_Metropolis .dxis-nbDotsTop
+{
+    padding: 20px 0;
+}
+.dxisControl_Metropolis .dxis-nbDotsLeft
+{
+    padding-right: 20px;
+}
+.dxisControl_Metropolis .dxis-nbDotsRight
+{
+    padding-left: 20px;
+}
+.dxisControl_Metropolis .dxis-nbLeft,
+.dxisControl_Metropolis .dxis-nbRight,
+.dxisControl_Metropolis .dxis-nbDotsLeft,
+.dxisControl_Metropolis .dxis-nbDotsRight
+{
+    float: left;
+}
+.dxisControl_Metropolis .dxis-item,
+.dxisControl_Metropolis .dxis-nbItem
+{
+    background-image: url('isLoading.gif');
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+.dxisControl_Metropolis .dxis-nbItem .dxis-nbHoverItem
+{
+    display: none;
+    position: absolute;
+    border: 2px solid #9f9f9f;
+}
+.dxisControl_Metropolis .dxis-nbItem .dxis-nbHoverItem > div
+{
+    border: 2px solid #ffffff;
+}
+.dxisControl_Metropolis .dxis-nbItem.dxis-hover .dxis-nbHoverItem
+{
+    display: block;
+}
+.dxisControl_Metropolis .dxis-item,
+.dxisControl_Metropolis .dxis-nbItem,
+.dxisControl_Metropolis .dxis-nbDotItem
+{
+    position: absolute;
+    overflow: hidden;
+}
+.dxisControl_Metropolis .dxis-nbItem,
+.dxisControl_Metropolis .dxis-nbDotItem
+{
+    cursor: pointer;
+}
+.dxisControl_Metropolis .dxis-nbDotItemSelected,
+.dxisControl_Metropolis .dxis-nbDotItemDisabled
+{
+    cursor: default;
+}
+.dxisControl_Metropolis .dxis-nbItem
+{
+    width: 90px;
+    height: 60px;
+    background-color: black;
+}
+.dxisControl_Metropolis .dxis-itemTextArea
+{
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    position: absolute;
+    cursor: default;
+    padding: 22px;
+    color: white;
+    background-color: #333333;
+    background-color: rgba(0,0,0,0.75);
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.dxisControl_Metropolis .dxis-nbSelectedItem
+{
+    z-index: 1;
+    cursor: default;
+    position: absolute;
+    border: 2px solid black;
+    background-color: rgba(255,255,255,0);
+}
+.dxisControl_Metropolis .dxis-nbSelectedItem > div
+{
+    border: 2px solid White;
+}
+.dxisControl_Metropolis .dxis-prevBtnVertWrapper,
+.dxisControl_Metropolis .dxis-prevBtnVertOutsideWrapper,
+.dxisControl_Metropolis .dxis-nextBtnVertWrapper,
+.dxisControl_Metropolis .dxis-nextBtnVertOutsideWrapper,
+.dxisControl_Metropolis .dxis-prevBtnHorWrapper,
+.dxisControl_Metropolis .dxis-prevBtnHorOutsideWrapper,
+.dxisControl_Metropolis .dxis-nextBtnHorWrapper,
+.dxisControl_Metropolis .dxis-nextBtnHorOutsideWrapper
+{
+    cursor: pointer;
+    z-index: 1;
+    position: absolute;
+    background-color: #333333;
+    background-color: rgba(0,0,0,0.75);
+}
+.dxisControl_Metropolis .dxis-prevBtnHorWrapperDisabled,
+.dxisControl_Metropolis .dxis-prevBtnHorOutsideWrapperDisabled,
+.dxisControl_Metropolis .dxis-nextBtnHorWrapperDisabled,
+.dxisControl_Metropolis .dxis-nextBtnHorOutsideWrapperDisabled,
+.dxisControl_Metropolis .dxis-prevBtnVertWrapperDisabled,
+.dxisControl_Metropolis .dxis-prevBtnVertOutsideWrapperDisabled,
+.dxisControl_Metropolis .dxis-nextBtnVertWrapperDisabled,
+.dxisControl_Metropolis .dxis-nextBtnVertOutsideWrapperDisabled
+{
+    cursor: default;
+}
+.dxisControl_Metropolis .dxis-prevBtnHorWrapper,
+.dxisControl_Metropolis .dxis-prevBtnHorOutsideWrapper
+{
+    left: 0px;
+}
+.dxisControl_Metropolis .dxis-nextBtnHorWrapper,
+.dxisControl_Metropolis .dxis-nextBtnHorOutsideWrapper
+{
+    right: 0px;
+}
+.dxisControl_Metropolis .dxis-prevBtnVertWrapper,
+.dxisControl_Metropolis .dxis-prevBtnVertOutsideWrapper
+{
+    top: 0px;
+}
+.dxisControl_Metropolis .dxis-nextBtnVertWrapper,
+.dxisControl_Metropolis .dxis-nextBtnVertOutsideWrapper
+{
+    bottom: 0px;
+}
+.dxisControl_Metropolis > .dxis-passePartout > .dxis-prevBtnHorWrapper,
+.dxisControl_Metropolis > .dxis-passePartout > .dxis-prevBtnHorOutsideWrapper,
+.dxisControl_Metropolis > .dxis-passePartout > .dxis-nextBtnHorWrapper,
+.dxisControl_Metropolis > .dxis-passePartout > .dxis-nextBtnHorOutsideWrapper
+{
+    top: 50%;
+    margin-top: -32px;
+}
+.dxisControl_Metropolis > .dxis-passePartout > .dxis-prevBtnVertWrapper,
+.dxisControl_Metropolis > .dxis-passePartout > .dxis-prevBtnVertOutsideWrapper,
+.dxisControl_Metropolis > .dxis-passePartout > .dxis-nextBtnVertWrapper,
+.dxisControl_Metropolis > .dxis-passePartout > .dxis-nextBtnVertOutsideWrapper
+{
+    left: 50%;
+    margin-left: -30px;
+}
+.dxisControl_Metropolis .dxis-prevBtnHor
+{
+    margin: 16px 12px 16px 8px;
+}
+.dxisControl_Metropolis .dxis-nextBtnHor
+{
+    margin: 16px 8px 16px 12px;
+}
+.dxisControl_Metropolis .dxis-prevBtnVert
+{
+    margin: 8px 16px 12px 16px;
+}
+.dxisControl_Metropolis .dxis-nextBtnVert
+{
+    margin: 12px 16px 8px 16px;
+}
+.dxisControl_Metropolis > .dxis-nbBottom > .dxis-prevBtnHorWrapper,
+.dxisControl_Metropolis > .dxis-nbBottom > .dxis-prevBtnHorOutsideWrapper,
+.dxisControl_Metropolis > .dxis-nbBottom > .dxis-nextBtnHorWrapper,
+.dxisControl_Metropolis > .dxis-nbBottom > .dxis-nextBtnHorOutsideWrapper,
+.dxisControl_Metropolis > .dxis-nbTop > .dxis-prevBtnHorWrapper,
+.dxisControl_Metropolis > .dxis-nbTop > .dxis-prevBtnHorOutsideWrapper,
+.dxisControl_Metropolis > .dxis-nbTop > .dxis-nextBtnHorWrapper,
+.dxisControl_Metropolis > .dxis-nbTop > .dxis-nextBtnHorOutsideWrapper
+{
+    height: inherit;
+}
+.dxisControl_Metropolis > .dxis-nbLeft > .dxis-prevBtnVertWrapper,
+.dxisControl_Metropolis > .dxis-nbLeft > .dxis-prevBtnVertOutsideWrapper,
+.dxisControl_Metropolis > .dxis-nbLeft > .dxis-nextBtnVertWrapper,
+.dxisControl_Metropolis > .dxis-nbLeft > .dxis-nextBtnVertOutsideWrapper,
+.dxisControl_Metropolis > .dxis-nbRight > .dxis-prevBtnVertWrapper,
+.dxisControl_Metropolis > .dxis-nbRight > .dxis-prevBtnVertOutsideWrapper,
+.dxisControl_Metropolis > .dxis-nbRight > .dxis-nextBtnVertWrapper,
+.dxisControl_Metropolis > .dxis-nbRight > .dxis-nextBtnVertOutsideWrapper
+{
+    width: inherit;
+}
+.dxisControl_Metropolis .dxis-prevPageBtnHor,
+.dxisControl_Metropolis .dxis-prevPageBtnHorOutside,
+.dxisControl_Metropolis .dxis-nextPageBtnHor,
+.dxisControl_Metropolis .dxis-nextPageBtnHorOutside
+{
+    top: 50%;
+    position: relative;
+    margin: -11px 7px 0 7px;
+}
+.dxisControl_Metropolis .dxis-prevPageBtnVert,
+.dxisControl_Metropolis .dxis-prevPageBtnVertOutside,
+.dxisControl_Metropolis .dxis-nextPageBtnVert,
+.dxisControl_Metropolis .dxis-nextPageBtnVertOutside
+{
+    margin: 7px auto 6px;
+}
+.dxisControl_Metropolis .dxis-prevBtnHorWrapperPressed > .dxis-prevBtnHor,
+.dxisControl_Metropolis .dxis-prevBtnHorOutsideWrapperPressed > .dxis-prevBtnHor,
+.dxisControl_Metropolis .dxis-nextBtnHorWrapperPressed > .dxis-nextBtnHor,
+.dxisControl_Metropolis .dxis-nextBtnHorOutsideWrapperPressed > .dxis-nextBtnHor,
+.dxisControl_Metropolis .dxis-prevBtnHorWrapperPressed > .dxis-prevPageBtnHor,
+.dxisControl_Metropolis .dxis-prevBtnHorWrapperPressed > .dxis-prevPageBtnHorOutside,
+.dxisControl_Metropolis .dxis-prevBtnHorOutsideWrapperPressed > .dxis-prevPageBtnHor,
+.dxisControl_Metropolis .dxis-prevBtnHorOutsideWrapperPressed > .dxis-prevPageBtnHorOutside,
+.dxisControl_Metropolis .dxis-nextBtnHorWrapperPressed > .dxis-nextPageBtnHor,
+.dxisControl_Metropolis .dxis-nextBtnHorWrapperPressed > .dxis-nextPageBtnHorOutside,
+.dxisControl_Metropolis .dxis-nextBtnHorOutsideWrapperPressed > .dxis-nextPageBtnHor,
+.dxisControl_Metropolis .dxis-nextBtnHorOutsideWrapperPressed > .dxis-nextPageBtnHorOutside,
+.dxisControl_Metropolis .dxis-prevBtnVertWrapperPressed > .dxis-prevBtnVert,
+.dxisControl_Metropolis .dxis-prevBtnVertOutsideWrapperPressed > .dxis-prevBtnVert,
+.dxisControl_Metropolis .dxis-nextBtnVertWrapperPressed > .dxis-nextBtnVert,
+.dxisControl_Metropolis .dxis-nextBtnVertOutsideWrapperPressed > .dxis-nextBtnVert,
+.dxisControl_Metropolis .dxis-prevBtnVertWrapperPressed > .dxis-prevPageBtnVert,
+.dxisControl_Metropolis .dxis-prevBtnVertWrapperPressed > .dxis-prevPageBtnVertOutside,
+.dxisControl_Metropolis .dxis-prevBtnVertOutsideWrapperPressed > .dxis-prevPageBtnVert,
+.dxisControl_Metropolis .dxis-prevBtnVertOutsideWrapperPressed > .dxis-prevPageBtnVertOutside,
+.dxisControl_Metropolis .dxis-nextBtnVertWrapperPressed > .dxis-nextPageBtnVert,
+.dxisControl_Metropolis .dxis-nextBtnVertWrapperPressed > .dxis-nextPageBtnVertOutside,
+.dxisControl_Metropolis .dxis-nextBtnVertOutsideWrapperPressed > .dxis-nextPageBtnVert,
+.dxisControl_Metropolis .dxis-nextBtnVertOutsideWrapperPressed > .dxis-nextPageBtnVertOutside,
+.dxisControl_Metropolis .dxis-prevBtnVertPressed,
+.dxisControl_Metropolis .dxis-nextBtnVertPressed,
+.dxisControl_Metropolis .dxis-nextBtnHorPressed,
+.dxisControl_Metropolis .dxis-prevBtnHorPressed,
+.dxisControl_Metropolis .dxis-prevPageBtnVertPressed,
+.dxisControl_Metropolis .dxis-prevPageBtnVertOutsidePressed,
+.dxisControl_Metropolis .dxis-nextPageBtnVertPressed,
+.dxisControl_Metropolis .dxis-nextPageBtnVertOutsidePressed,
+.dxisControl_Metropolis .dxis-prevPageBtnHorPressed,
+.dxisControl_Metropolis .dxis-prevPageBtnHorOutsidePressed,
+.dxisControl_Metropolis .dxis-nextPageBtnHorPressed,
+.dxisControl_Metropolis .dxis-nextPageBtnHorOutsidePressed,
+.dxisControl_Metropolis .dxis-prevBtnVertDisabled,
+.dxisControl_Metropolis .dxis-nextBtnVertDisabled,
+.dxisControl_Metropolis .dxis-nextBtnHorDisabled,
+.dxisControl_Metropolis .dxis-prevBtnHorDisabled,
+.dxisControl_Metropolis .dxis-prevPageBtnVertDisabled,
+.dxisControl_Metropolis .dxis-prevPageBtnVertOutsideDisabled,
+.dxisControl_Metropolis .dxis-nextPageBtnVertDisabled,
+.dxisControl_Metropolis .dxis-nextPageBtnVertOutsideDisabled,
+.dxisControl_Metropolis .dxis-prevPageBtnHorDisabled,
+.dxisControl_Metropolis .dxis-prevPageBtnHorOutsideDisabled,
+.dxisControl_Metropolis .dxis-nextPageBtnHorDisabled,
+.dxisControl_Metropolis .dxis-nextPageBtnHorOutsideDisabled
+{
+    opacity: 0.25;
+    filter: progid:DXImageTransform.Microsoft.Alpha(Style=0, Opacity=25);
+}
+.dxisControl_Metropolis .dxis-nextBtnHorOutsideWrapper,
+.dxisControl_Metropolis .dxis-prevBtnHorOutsideWrapper,
+.dxisControl_Metropolis .dxis-nextBtnVertOutsideWrapper,
+.dxisControl_Metropolis .dxis-prevBtnVertOutsideWrapper
+{
+    background-color: transparent;
+}
+.dxisControl_Metropolis .dxis-nextPageBtnHorOutside,
+.dxisControl_Metropolis .dxis-prevPageBtnHorOutside
+{
+    margin-top: -14px;
+}
+/* ASPxImageGallery */
+.dxigControl_Metropolis
+{
+    font: 12px 'Segoe UI', Helvetica, 'Droid Sans', Tahoma, Geneva, sans-serif;
+    color: #333333;
+}
+.dxigControl_Metropolis td.dxigCtrl
+{
+    padding: 12px 40px;
+}
+.dxigContent_Metropolis
+{
+    border-top: 1px solid Silver;
+    border-bottom: 1px solid Silver;
+    padding: 6px 0;
+}
+.dxigEmptyData_Metropolis
+{
+    color: Gray;
+}
+.dxigEmptyItem_Metropolis
+{
+    text-align: left;
+    vertical-align: top;
+}
+.dxigFlowItem_Metropolis
+{
+    float: left;
+}
+.dxigItem_Metropolis
+{
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-image: url('igLoading.gif');
+}
+.dxigItem_Metropolis a
+{
+    outline: 0;
+}
+.dxigItem_Metropolis a > img
+{
+    display: block;
+}
+.dxigItem_Metropolis .dxig-thumbnailBorder
+{
+    top: 0;
+    display: none;
+    position: absolute;
+    border: 1px solid gray;
+    border: 1px solid rgba(0,0,0,0.2);
+}
+.dxigItem_Metropolis .dxig-thumbnailWrapper,
+.dxigFlowItem_Metropolis
+{
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    position: relative;
+}
+.dxigControl_Metropolis .dxig-thumbnailTextArea
+{
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    position: absolute;
+    padding: 10px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: white;
+    background-color: #333333;
+    background-color: rgba(0,0,0,0.75);
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    display: none;
+}
+.dxigControl_Metropolis .dxpcLite_Metropolis .dxpc-mainDiv,
+.dxigControl_Metropolis .dxpcLite_Metropolis .dxpc-contentWrapper
+{
+    border: 0;
+    background-color: #000;
+    background-color: rgba(0,0,0,0.9);
+}
+.dxigControl_Metropolis .dxpcLite_Metropolis .dxpc-content
+{
+    padding: 0;
+    background-color: transparent;
+}
+.dxigControl_Metropolis .dxig-imageSliderWrapper
+{
+    overflow: hidden;
+    padding: 50px 65px;
+}
+.dxigControl_Metropolis.dxTouchUI .dxig-imageSliderWrapper
+{
+    padding: 0;
+}
+.dxigControl_Metropolis .dxig-imageSliderWrapper .dxisControl_Metropolis .dxis-item > img
+{
+    box-shadow: 0 0 50px black;
+    -moz-box-shadow: 0 0 50px black;
+    -webkit-box-shadow: 0 0 50px black;
+}
+.dxigControl_Metropolis .dxig-bottomPanel
+{
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    position: absolute;
+}
+.dxigControl_Metropolis .dxig-bottomPanel > .dxig-overflowPanel
+{
+    overflow: hidden;
+}
+.dxigControl_Metropolis .dxig-bottomPanel .dxisControl_Metropolis
+{
+    position: relative;
+}
+.dxigControl_Metropolis .dxisControl_Metropolis > .dxis-passePartout
+{
+    background-color: transparent;
+}
+.dxigControl_Metropolis .dxisControl_Metropolis .dxis-nbBottom
+{
+    padding: 4px 4px 0 4px;
+}
+.dxigControl_Metropolis .dxig-bottomPanel .dxis-nbBottom > .dxis-prevBtnHorWrapper,
+.dxigControl_Metropolis .dxig-bottomPanel .dxis-nbBottom > .dxis-nextBtnHorWrapper
+{
+    width: 43px;
+    background: url('igNavBtnsBack.png') repeat-y;
+}
+.dxigControl_Metropolis .dxig-bottomPanel .dxis-nbBottom > .dxis-prevBtnHorWrapper
+{
+    background-position: 0 0;
+}
+.dxigControl_Metropolis .dxig-bottomPanel .dxis-nbBottom > .dxis-nextBtnHorWrapper
+{
+    background-position: -39px 0;
+}
+.dxigControl_Metropolis .dxig-bottomPanel .dxis-nbBottom > .dxis-prevBtnHorWrapperDisabled,
+.dxigControl_Metropolis .dxig-bottomPanel .dxis-nbBottom > .dxis-nextBtnHorWrapperDisabled
+{
+    display: none;
+}
+.dxigControl_Metropolis .dxig-bottomPanel .dxis-nbBottom > .dxis-prevBtnHorWrapper .dxis-prevPageBtnHor,
+.dxigControl_Metropolis .dxig-bottomPanel .dxis-nbBottom > .dxis-nextBtnHorWrapper .dxis-nextPageBtnHor
+{
+    position: absolute;
+}
+.dxigControl_Metropolis .dxig-bottomPanel .dxis-nbBottom > .dxis-nextBtnHorWrapper .dxis-nextPageBtnHor
+{
+    right: 0;
+}
+.dxigControl_Metropolis .dxig-fullscreenViewerTextArea
+{
+    z-index: 1;
+    padding: 10px;
+    text-align: center;
+    color: white;
+}
+.dxigControl_Metropolis .dxig-prevButtonArea,
+.dxigControl_Metropolis .dxig-nextButtonArea
+{
+    top: 0;
+    position: absolute;
+}
+.dxigControl_Metropolis .dxig-prevButtonArea
+{
+    left: 0;
+}
+.dxigControl_Metropolis .dxig-nextButtonArea
+{
+    right: 0;
+}
+.dxigControl_Metropolis .dxig-prevButton,
+.dxigControl_Metropolis .dxig-nextButton
+{
+    top: 50%;
+    cursor: pointer;
+    position: relative;
+    margin: -32px 11px 0;
+}
+.dxigControl_Metropolis .dxig-prevButtonDisabled,
+.dxigControl_Metropolis .dxig-nextButtonDisabled
+{
+    cursor: auto;
+    opacity: 0.5;
+    filter: progid:DXImageTransform.Microsoft.Alpha(Style=0, Opacity=50);
+}
+.dxigControl_Metropolis .dxig-closeButtonWrapper,
+.dxigControl_Metropolis .dxig-playPauseButtonWrapper
+{
+    padding: 15px;
+    cursor: pointer;
+    position: absolute;
+}
+.dxigControl_Metropolis .dxig-closeButtonWrapper
+{
+    top: 4px;
+    right: 7px;
+}
+.dxigControl_Metropolis .dxig-closeButtonWrapper > .dxig-closeButton
+{
+    z-index: 1;
+}
+.dxigControl_Metropolis .dxig-playPauseButtonWrapper
+{
+    top: 2px;
+    right: 48px;
+}
+*[dir="rtl"].dxigControl_Metropolis .dxig-closeButtonWrapper
+{
+    left: 7px;
+    right: auto;
+}
+*[dir="rtl"].dxigControl_Metropolis .dxig-playPauseButtonWrapper
+{
+    left: 48px;
+    right: auto;
+}
+.dxigControl_Metropolis .dxisControl_Metropolis .dxis-nbBottom,
+.dxigControl_Metropolis .dxig-fullscreenViewerTextArea
+{
+    background-color: #000;
+    background-color: rgba(0,0,0,0.8);
+}
+.dxigControl_Metropolis .dxig-overflowPanel .dxig-navigationBarMarker
+{
+    left: 50%;
+    bottom: 0;
+    margin-left: -10px;
+    position: absolute;
+    opacity: 0.7;
+    filter: progid:DXImageTransform.Microsoft.Alpha(Style=0, Opacity=70);
+}
+.dxigControl_Metropolis .dxisControl_Metropolis .dxis-nbSelectedItem
+{
+    border: 2px solid #fff;
+}
+.dxigControl_Metropolis .dxisControl_Metropolis .dxis-nbHoverItem
+{
+    border: 2px solid #9F9F9F;
+}
+.dxigControl_Metropolis .dxisControl_Metropolis .dxis-nbSelectedItem > div,
+.dxigControl_Metropolis .dxisControl_Metropolis .dxis-nbHoverItem > div
+{
+    border: 2px solid #000;
+}
+.dxigPagerShowMoreItemsContainer_Metropolis
+{
+    height: 48px;
+    text-align: center;
+}
+.dxigPagerShowMoreItemsContainer_Metropolis a
+{
+    display: block;
+    padding-top: 12px;
+    color: #F7A233;
+}
+/* Removes flicking in iOS Safari*/
+.dxfmControl_Metropolis,
+.dxnbGroupHeader_Metropolis,
+.dxnbGroupHeaderCollapsed_Metropolis,
+.dxnbGroupContent_Metropolis > TABLE > TBODY > TR,
+.dxtcTab_Metropolis,
+.dxtcActiveTab_Metropolis,
+.dxtvControl_Metropolis .dxtv-nd
+{
+    -webkit-tap-highlight-color: transparent;
+}
+/* Form Layout */
+.dxflFormLayout_Metropolis
+{
+    display: table;
+    font: 12px 'Segoe UI', Helvetica, 'Droid Sans', Tahoma, Geneva, sans-serif;
+    font-weight: inherit;
+    color: #333;
+}
+.dxflButtonItemSys .dxflVATSys.dxflCaptionCell_Metropolis
+{
+    padding-top: 5px;
+}
+.dxflButtonItemSys .dxflVAMSys.dxflCaptionCell_Metropolis
+{
+    padding-bottom: 1px;
+}
+.dxflTextItemSys .dxflVATSys.dxflCaptionCell_Metropolis
+{
+    padding-top: 0px;
+}
+.dxflTextEditItemSys .dxflVATSys.dxflCaptionCell_Metropolis,
+.dxflViewFormLayoutSys .dxflItemSys .dxflVATSys.dxflCaptionCell_Metropolis,
+.dxflViewFormLayoutSys .dxflItemSys .dxflNestedControlCell_Metropolis
+{
+    padding-top: 2px;
+}
+.dxflViewFormLayoutSys .dxflItemSys.dxflEditFormItemSys .dxflNestedControlCell_Metropolis
+{
+    padding-top: 0;
+}
+.dxflViewFormLayoutSys .dxflItemSys.dxflCLLSys:not(.dxflEditFormItemSys) .dxflNestedControlCell_Metropolis > .dxichSys,
+.dxflViewFormLayoutSys .dxflItemSys.dxflCLRSys:not(.dxflEditFormItemSys) .dxflNestedControlCell_Metropolis > .dxichSys,
+.dxflViewFormLayoutSys .dxflItemSys.dxflCLLSys:not(.dxflEditFormItemSys) .dxflNestedControlCell_Metropolis > div > .dxichSys,
+.dxflViewFormLayoutSys .dxflItemSys.dxflCLRSys:not(.dxflEditFormItemSys) .dxflNestedControlCell_Metropolis > div > .dxichSys
+{
+    margin-top: -1px;
+}
+.dxflViewFormLayoutSys .dxflItemSys.dxflEditFormItemSys.dxflCLLSys .dxflNestedControlCell_Metropolis > div > .dxichCellSys,
+.dxflViewFormLayoutSys .dxflItemSys.dxflEditFormItemSys.dxflCLRSys .dxflNestedControlCell_Metropolis > div > .dxichCellSys
+{
+    margin-top: -1px;
+    margin-left: 2px;
+    margin-bottom: 1px;
+}
+*[dir="rtl"] .dxflViewFormLayoutSys .dxflItemSys.dxflEditFormItemSys.dxflCLLSys .dxflNestedControlCell_Metropolis > div > .dxichCellSys,
+*[dir="rtl"] .dxflViewFormLayoutSys .dxflItemSys.dxflEditFormItemSys.dxflCLRSys .dxflNestedControlCell_Metropolis > div > .dxichCellSys
+{
+    margin-top: -1px;
+    margin-left: 1px;
+    margin-right: 2px;
+    margin-bottom: 1px;
+}
+.dxflCheckBoxItemSys .dxflVATSys.dxflCaptionCell_Metropolis
+{
+    padding-top: 3px;
+}
+.dxflRadioButtonItemSys .dxflVATSys.dxflCaptionCell_Metropolis
+{
+    padding-top: 4px;
+}
+.dxflCheckBoxListItemSys .dxflVATSys.dxflCaptionCell_Metropolis
+{
+    padding-top: 11px;
+}
+.dxflRadioButtonListItemSys .dxflVATSys.dxflCaptionCell_Metropolis
+{
+    padding-top: 12px;
+}
+.dxflListBoxItemSys .dxflVATSys.dxflCaptionCell_Metropolis
+{
+    padding-top: 5px;
+}
+.dxflTrackBarItemSys .dxflVATSys.dxflCaptionCell_Metropolis
+{
+    padding-top: 2px;
+}
+.dxflProgressBarItemSys .dxflVATSys.dxflCaptionCell_Metropolis
+{
+    padding-top: 3px;
+}
+.dxflMemoItemSys .dxflVATSys.dxflCaptionCell_Metropolis
+{
+    padding-top: 4px;
+}
+.dxflCustomItemSys .dxflVATSys.dxflCaptionCell_Metropolis
+{
+    padding-top: 2px;
+}
+.dxflTextEditItemSys.dxflSafariItemSys .dxflVATSys.dxflCaptionCell_Metropolis
+{
+    /*Safari*/
+    padding-top: 2px;
+}
+noindex:-o-prefocus, body:first-of-type .dxflTextEditItemSys .dxflVATSys.dxflCaptionCell_Metropolis,
+noindex:-o-prefocus, body:first-of-type .dxflViewFormLayoutSys .dxflItemSys .dxflVATSys.dxflCaptionCell_Metropolis,
+noindex:-o-prefocus, body:first-of-type .dxflViewFormLayoutSys .dxflItemSys .dxflNestedControlCell_Metropolis
+{
+    /*Opera*/
+    padding-top: 3px;
+}
+noindex:-o-prefocus, body:first-of-type .dxflViewFormLayoutSys .dxflItemSys.dxflEditFormItemSys .dxflNestedControlCell_Metropolis
+{
+    /*Opera*/
+    padding-top: 0;
+}
+html[xmlns*=""] .dxflMemoItemSys .dxflVATSys.dxflCaptionCell_Metropolis
+{
+    /*IE 8*/
+    padding-top: 3px;
+}
+.dxflMemoItemSys .dxflVATSys.dxflCaptionCell_Metropolis
+{
+    /*IE 7*/
+    *padding-top: 3px;
+}
+.dxFirefox .dxflMemoItemSys .dxflVATSys.dxflCaptionCell_Metropolis
+{
+    padding-top: 3px;
+}
+.dxflCLTSys .dxflCaptionCell_Metropolis,
+.dxflCLBSys .dxflCaptionCell_Metropolis
+{
+    padding: 3px 0;
+}
+.dxflCLLSys .dxflCaptionCell_Metropolis,
+*[dir="rtl"].dxflFormLayout_Metropolis .dxflCLRSys .dxflCaptionCell_Metropolis
+{
+    padding-left: 0px;
+    padding-right: 6px;
+}
+.dxflCLRSys .dxflCaptionCell_Metropolis,
+*[dir="rtl"].dxflFormLayout_Metropolis .dxflCLLSys .dxflCaptionCell_Metropolis
+{
+    padding-right: 0px;
+    padding-left: 6px;
+}
+.dxflCaptionCell_Metropolis
+{
+    white-space: nowrap;
+    line-height: 16px;
+    height: 100%;
+}
+div.dxflTextItemSys .dxflNestedControlCell_Metropolis
+{
+    line-height: 16px;
+}
+.dxflCaptionCell_Metropolis
+{
+    width: 1%;
+}
+td.dxflNestedControlCell_Metropolis
+{
+    height: 0;
+}
+.dxflCheckBoxItemSys.dxflItem_Metropolis .dxichCellSys.dxeBase_Metropolis
+{
+    padding-left: 0px;
+}
+*[dir="rtl"] .dxflCheckBoxItemSys.dxflItem_Metropolis .dxichCellSys.dxeBase_Metropolis
+{
+    padding-right: 0px;
+}
+.dxflEmptyItem_Metropolis
+{
+    height: 21px;
+}
+.dxflItem_Metropolis
+{
+    width: 100%;
+}
+.dxflItem_Metropolis,
+.dxflViewFormLayoutSys .dxflEditFormItemSys.dxflItem_Metropolis
+{
+    padding: 2px 0;
+}
+.dxflViewFormLayoutSys .dxflItem_Metropolis
+{
+    padding-bottom: 5px;
+}
+.dxflItem_Metropolis > table.dxflItemTable_Metropolis
+{
+    width: 100%;
+}
+.dxflGroup_Metropolis
+{
+    padding: 6px 5px;
+    width: 100%;
+}
+.dxflGroup_Metropolis > table.dxflGroupTable_Metropolis
+{
+    width: 100%;
+}
+.dxflGroupCell_Metropolis
+{
+    padding: 0 8px;
+}
+.dxflGroupBox_Metropolis
+{
+    display: table;
+    border-collapse: separate;
+    width: 100%;
+    border: 1px Solid #C0C0C0;
+    padding: 0 0 12px;
+    margin: 10px 0;
+}
+.dxflGroupBox_Metropolis.dxflHeadingLineGroupBoxSys
+{
+    border-width: 1px 0 0;
+}
+.dxflGroupBox_Metropolis.dxflHeadingLineGroupBoxSys.dxflWithCaptionSys
+{
+    margin-top: 22px !important;
+}
+.dxflHeadingLineGroupBoxSys > .dxflGroup_Metropolis
+{
+    margin-top: -6px;
+}
+.dxflGroupCell_Metropolis > .dxtcControl_Metropolis
+{
+    margin: 0px;
+}
+.dxflGroupBox_Metropolis > .dxflGroup_Metropolis
+{
+    margin-top: -9px;
+    padding: 0 4px;
+}
+.dxflGroupBox_Metropolis > .dxflGroup_Metropolis tr:first-child > .dxflGroupCell_Metropolis > .dxflItem_Metropolis,
+.dxflGroupBox_Metropolis > .dxflGroup_Metropolis tr.dxflFVRSys > .dxflGroupCell_Metropolis > .dxflItem_Metropolis,
+.dxflGroupBox_Metropolis > .dxflGroup_Metropolis > .dxflChildInFirstRowSys > .dxflGroupCell_Metropolis > .dxflItem_Metropolis
+{
+    padding-top: 9px;
+}
+.dxflGroupBox_Metropolis > .dxflGroup_Metropolis tr:first-child > .dxflGroupCell_Metropolis > .dxtcControl_Metropolis,
+.dxflGroupBox_Metropolis > .dxflGroup_Metropolis tr.dxflFVRSys > .dxflGroupCell_Metropolis > .dxtcControl_Metropolis,
+.dxflGroupBox_Metropolis > .dxflGroup_Metropolis > .dxflChildInFirstRowSys > .dxflGroupCell_Metropolis > .dxtcControl_Metropolis
+{
+    margin-top: 10px;
+}
+.dxflGroupBox_Metropolis > .dxflGroup_Metropolis tr:last-child > .dxflGroupCell_Metropolis > .dxflItem_Metropolis,
+.dxflGroupBox_Metropolis > .dxflGroup_Metropolis tr.dxflLVRSys > .dxflGroupCell_Metropolis > .dxflItem_Metropolis,
+.dxflGroupBox_Metropolis > .dxflGroup_Metropolis > .dxflChildInLastRowSys > .dxflGroupCell_Metropolis > .dxflItem_Metropolis
+{
+    padding-bottom: 0px;
+}
+.dxflGroup_Metropolis tr:first-child > .dxflGroupCell_Metropolis > .dxflGroupBox_Metropolis,
+.dxflGroup_Metropolis tr.dxflFVRSys > .dxflGroupCell_Metropolis > .dxflGroupBox_Metropolis,
+.dxflGroup_Metropolis > .dxflChildInFirstRowSys > .dxflGroupCell_Metropolis > .dxflGroupBox_Metropolis
+{
+    margin-top: 13px;
+}
+.dxflGroup_Metropolis tr:last-child > .dxflGroupCell_Metropolis > .dxflGroupBox_Metropolis,
+.dxflGroup_Metropolis tr.dxflLVRSys > .dxflGroupCell_Metropolis > .dxflGroupBox_Metropolis,
+.dxflGroup_Metropolis > .dxflChildInLastRowSys > .dxflGroupCell_Metropolis > .dxflGroupBox_Metropolis
+{
+    margin-bottom: 0px;
+}
+.dxtcPageContent_Metropolis > div > .dxflGroup_Metropolis
+{
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+.dxtcPageContent_Metropolis > div > .dxflGroup_Metropolis tr:first-child > .dxflGroupCell_Metropolis > .dxflItem_Metropolis,
+.dxtcPageContent_Metropolis > div > .dxflGroup_Metropolis tr.dxflFVRSys > .dxflGroupCell_Metropolis > .dxflItem_Metropolis,
+.dxtcPageContent_Metropolis > div > .dxflGroup_Metropolis > .dxflChildInFirstRowSys > .dxflGroupCell_Metropolis > .dxflItem_Metropolis
+{
+    padding-top: 12px;
+}
+.dxtcPageContent_Metropolis > div > .dxflGroup_Metropolis tr:last-child > .dxflGroupCell_Metropolis > .dxflItem_Metropolis,
+.dxtcPageContent_Metropolis > div > .dxflGroup_Metropolis tr.dxflLVRSys > .dxflGroupCell_Metropolis > .dxflItem_Metropolis,
+.dxtcPageContent_Metropolis > div > .dxflGroup_Metropolis > .dxflChildInLastRowSys > .dxflGroupCell_Metropolis > .dxflItem_Metropolis
+{
+    padding-bottom: 12px;
+}
+.dxflGroupBoxCaption_Metropolis
+{
+    background-color: White;
+    color: #B2B2B2;
+    font-weight: bold;
+    display: inline-block;
+    left: 9px;
+    margin-right: 18px;
+    line-height: 16px;
+    padding: 0px 3px 0px 3px;
+    position: relative;
+    top: -9px;
+}
+*[dir="rtl"].dxflFormLayout_Metropolis .dxflGroupBoxCaption_Metropolis
+{
+    padding: 0px 3px 0px 7px;
+    left: 0px;
+    right: 9px;
+    margin-left: 18px;
+    margin-right: 0;
+}
+.dxflGroupBox_Metropolis > div.dxflGroup_Metropolis:first-child,
+.dxflGroupBox_Metropolis > table.dxflGroup_Metropolis:first-child
+{
+    margin-top: 0px;
+    padding-top: 7px;
+}
+.dxflHeadingLineGroupBoxSys > .dxflGroupBoxCaption_Metropolis
+{
+    top: -19px;
+}
+.dxflOptional_Metropolis
+{
+    color: gray;
+    font-style: normal;
+}
+.dxflRequired_Metropolis
+{
+    color: green;
+    font-style: normal;
+}
+.dxflInternalEditorTable_Metropolis
+{
+    width: 100%;
+}
+.dxflHelpText_Metropolis
+{
+    color: #9F9F9F;
+    font-size: 0.91em;
+}
+.dxflHelpText_Metropolis.dxflLHelpTextSys,
+.dxflHelpText_Metropolis.dxflRHelpTextSys
+{
+    padding: 0 6px;
+}
+.dxflHelpText_Metropolis.dxflTHelpTextSys
+{
+    padding: 6px 0 2px;
+}
+.dxflHelpText_Metropolis.dxflBHelpTextSys
+{
+    padding: 2px 0 6px;
+}
+/* Ribbon */
+.dxrControl_Metropolis
+{
+    font: 12px 'Segoe UI',Helvetica,'Droid Sans',Tahoma,Geneva,sans-serif;
+}
+.dxrControl_Metropolis .dxr-tabContent
+{
+    border: 1px solid #c0c0c0;
+    border-top-width: 0px;
+    height: 95px;
+    background: #ffffff;
+}
+.dxrControl_Metropolis.dxr-oneLineMode .dxr-tabContent,
+.dxrControl_Metropolis.dxr-grLabelsHidden.dxr-oneLineMode .dxr-tabContent
+{
+    height: 31px;
+}
+.dxrControl_Metropolis.dxr-grLabelsHidden .dxr-tabContent
+{
+    height: 81px;
+}
+.dxrControl_Metropolis.dxr-tabsHidden .dxr-tabContent
+{
+    border-top-width: 1px;
+}
+.dxrControl_Metropolis,
+.dxrControl_Metropolis a
+{
+    color: #201f35;
+}
+.dxrControl_Metropolis .dxr-itemDisabled.dxr-item,
+.dxrControl_Metropolis .dxr-groupLabelDisabled.dxr-groupLabel,
+.dxrControl_Metropolis .dxr-grExpBtnDisabled.dxr-grExpBtn,
+.dxrControl_Metropolis .dxr-grExpBtnDisabled.dxr-grExpBtn .dxr-img32,
+.dxrControl_Metropolis .dxr-minBtn.dxr-minBtnDisabled,
+.dxrControl_Metropolis .dxr-itemDisabled a,
+.dxrControl_Metropolis .dxr-olmGrExpBtn.dxr-olmGrExpBtnDisabled
+{
+    cursor: default;
+    color: #c0c0c0;
+}
+.dxrControl_Metropolis .dxtc-tab.dxtc-tabHover .dxr-contextTabColor
+{
+    margin-left: 0px;
+    padding-right: 0px;
+}
+.dxrControl_Metropolis .dxr-contextTab.dxtc-tabHover .dxr-contextTabBodyColor
+{
+    opacity: 0.35;
+    filter: progid:DXImageTransform.Microsoft.Alpha(Style=0, Opacity=35);
+}
+.dxrControl_Metropolis .dxtc-tab.dxtc-tabHover.dxr-contextTab .dxr-contextTabColor
+{
+    margin-bottom: 0px;
+    padding-top: 1px;
+}
+/* Ribbon Popup */
+.dxrControl_Metropolis .dxr-minPopupWindow
+{
+    padding: 0;
+}
+.dxrControl_Metropolis .dxr-minPopup.dxpc-mainDiv
+{
+    border: 0;
+}
+.dxrControl_Metropolis .dxr-groupPopup .dxpc-mainDiv
+{
+    border: 1px solid #c0c0c0;
+}
+/* Ribbon Group List */
+.dxrControl_Metropolis .dxr-groupList
+{
+    padding: 0;
+    margin: 0;
+    height: 100%;
+}
+.dxrControl_Metropolis .dxr-groupList .dxr-groupSep
+{
+    height: 100%;
+    list-style: none;
+}
+.dxrControl_Metropolis .dxr-groupList .dxr-groupSep b
+{
+    display: block;
+    width: 1px;
+    height: 100%;
+    background: #c0c0c0;
+}
+/* Ribbon Groups */
+.dxrControl_Metropolis .dxr-groupList .dxr-group
+{
+    margin: 3px 3px 0 3px;
+    text-align: center;
+}
+.dxrControl_Metropolis .dxr-groupContent
+{
+    height: 75px;
+}
+.dxrControl_Metropolis.dxr-oneLineMode .dxr-groupContent
+{
+    height: 31px;
+}
+.dxrControl_Metropolis .dxr-groupLabel
+{
+    text-align: center;
+    color: #333333;
+    line-height: 16px;
+    padding: 0px 5px 0 5px;
+    overflow: hidden;
+    white-space: nowrap;
+    -ms-text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+}
+.dxrControl_Metropolis .dxr-grDialogBoxLauncher
+{
+    float: right;
+    margin: 2px -4px 0 5px;
+    cursor: pointer;
+}
+.dxrControl_Metropolis .dxr-grExpBtn,
+.dxrControl_Metropolis .dxr-grExpBtn .dxr-img32
+{
+    cursor: pointer;
+}
+.dxrControl_Metropolis .dxr-grExpBtn
+{
+    height: 89px;
+    text-align: center;
+}
+.dxrControl_Metropolis .dxr-groupPopupWindow
+{
+    padding: 2px 3px;
+}
+.dxrControl_Metropolis .dxr-olmGrExpBtn
+{
+    cursor: pointer;
+    border: 1px solid transparent;
+    margin: 0 3px;
+    height: 23px;
+    white-space: nowrap;
+}
+.dxrControl_Metropolis .dxr-groupContent .dxr-olmGrExpBtn .dxr-label
+{
+    padding-left: 3px;
+    padding-right: 3px;
+}
+.dxrControl_Metropolis .dxr-olmGrExpBtn .dxr-popOut
+{
+    padding: 7px 3px;
+    font-size: 0;
+}
+/* Ribbon Item Separator */
+.dxrControl_Metropolis .dxr-blRegItems .dxr-itemSep,
+.dxrControl_Metropolis .dxr-blLrgItems .dxr-itemSep
+{
+    width: 3px;
+}
+.dxrControl_Metropolis .dxr-blRegItems .dxr-itemSep b,
+.dxrControl_Metropolis .dxr-blLrgItems .dxr-itemSep b
+{
+    display: block;
+    background: #9da0aa;
+    width: 1px;
+}
+.dxrControl_Metropolis .dxr-blRegItems .dxr-itemSep b
+{
+    margin: 3px auto;
+    height: 19px;
+}
+.dxrControl_Metropolis .dxr-blLrgItems .dxr-itemSep b
+{
+    margin: 4px auto;
+    height: 67px;
+}
+/* Ribbon Item */
+.dxrControl_Metropolis .dxr-item
+{
+    border: none;
+}
+.dxrControl_Metropolis .dxr-blLrgItems .dxr-item,
+.dxrControl_Metropolis .dxr-blSepItems .dxr-item,
+.dxrControl_Metropolis.dxr-grLabelsHidden .dxr-grExpBtn
+{
+    text-align: center;
+    height: 75px;
+}
+.dxrControl_Metropolis .dxr-blRegItems .dxr-item,
+.dxrControl_Metropolis .dxr-blHorItems .dxr-item
+{
+    height: 25px;
+    white-space: nowrap;
+}
+.dxrControl_Metropolis .dxr-blRegItems .dxr-item
+{
+    overflow: hidden;
+    margin-left: 2px;
+    margin-right: 2px;
+}
+.dxrControl_Metropolis .dxr-blHorItems .dxr-item
+{
+    margin: 0 3px;
+}
+.dxrControl_Metropolis .dxr-blHorItems .dxr-item .dxr-lblText
+{
+    padding-left: 2px;
+    padding-right: 3px;
+}
+.dxrControl_Metropolis .dxr-blHorItems .dxr-item .dxr-popOut
+{
+    height: 100%;
+    margin-left: 1px;
+}
+/* Ribbon Item Label */
+.dxrControl_Metropolis .dxr-blLrgItems .dxr-item .dxr-label
+{
+    border-top: 1px solid transparent;
+    width: 100%;
+}
+.dxrControl_Metropolis .dxr-blLrgItems .dxr-item .dxr-label .dxr-lblContent,
+.dxrControl_Metropolis .dxr-grExpBtn .dxr-lblContent
+{
+    margin-left: 3px;
+    margin-right: 3px;
+    margin-bottom: 2px;
+    text-align: center;
+    vertical-align: middle;
+}
+.dxrControl_Metropolis .dxr-blLrgItems .dxr-item.dxr-itemHover.dxr-ddMode .dxr-label
+{
+    border-top: 1px solid #FFFFFF;
+}
+.dxrControl_Metropolis .dxr-blHorItems .dxr-item .dxr-label,
+.dxrControl_Metropolis .dxr-olmGrExpBtn .dxr-label
+{
+    margin: 4px 0;
+    line-height: 100% !important;
+    padding: 2px 0;
+    line-height: 100%;
+    text-decoration: inherit;
+    vertical-align: middle;
+    display: inline-block !important;
+}
+/* Ribbon Item Label PopOut */
+.dxrControl_Metropolis .dxr-blLrgItems .dxr-item .dxr-label .dxr-popOut,
+.dxrControl_Metropolis .dxr-grExpBtn .dxr-popOut
+{
+    margin: -1px 3px 1px;
+}
+.dxrControl_Metropolis .dxr-blRegItems .dxr-item .dxr-popOut,
+.dxrControl_Metropolis .dxr-blHorItems .dxr-item .dxr-popOut
+{
+    padding: 11px 3px;
+    margin: -8px 0 -6px;
+    border-left: 1px solid #FFFFFF;
+    font-size: 0;
+}
+.dxSafari .dxrControl_Metropolis .dxr-blRegItems .dxr-item .dxr-popOut,
+.dxSafari .dxrControl_Metropolis .dxr-blHorItems .dxr-item .dxr-popOut
+{
+    margin: -9px 0 -6px;
+}
+noindex:-o-prefocus,
+.dxrControl_Metropolis .dxr-blRegItems .dxr-item .dxr-popOut,
+.dxrControl_Metropolis .dxr-blHorItems .dxr-item .dxr-popOut
+{
+    margin: -7px 0 -8px;
+}
+.dxrControl_Metropolis .dxr-itemHover a
+{
+    color: #FFFFFF;
+}
+.dxrControl_Metropolis .dxr-blRegItems .dxr-item.dxr-itemHover.dxr-ddMode .dxr-label .dxr-popOut,
+.dxrControl_Metropolis .dxr-blHorItems .dxr-item.dxr-itemHover.dxr-ddMode .dxr-label .dxr-popOut
+{
+    border-left: 1px solid #FFFFFF;
+}
+/* Ribbon Editors Item */
+.dxrControl_Metropolis .dxr-item.dxr-edtItem
+{
+    border: 0;
+    padding: 1px 0 0;
+    height: 24px;
+}
+.dxrControl_Metropolis .dxr-item.dxr-edtItem .dxr-label
+{
+    padding: 1px 3px 0 0;
+}
+/* Ribbon Item Types */
+.dxrControl_Metropolis .dxr-buttonItem
+{
+    cursor: pointer;
+    text-decoration: none;
+}
+.dxrControl_Metropolis .dxr-blLrgItems .dxr-buttonItem,
+.dxrControl_Metropolis .dxr-grExpBtn
+{
+    min-width: 42px;
+}
+.dxrControl_Metropolis .dxr-buttonItem.dxr-itemChecked
+{
+    background: #D0D0D0;
+}
+.dxrControl_Metropolis .dxr-buttonItem.dxr-itemPressed,
+.dxrControl_Metropolis .dxr-olmGrExpBtn.dxr-itemPressed
+{
+    background: #D0D0D0;
+}
+.dxrControl_Metropolis .dxr-buttonItem.dxr-itemHover,
+.dxrControl_Metropolis .dxr-grExpBtn.dxr-grExpBtnHover,
+.dxrControl_Metropolis .dxr-olmGrExpBtn.dxr-itemHover
+{
+    background: #F7A233;
+    color: #FFFFFF;
+}
+.dxrControl_Metropolis .dxr-img32,
+.dxrControl_Metropolis .dxr-blLrgItems .dxr-colorBtn .dxr-colorBtnNoImg32
+{
+    width: 32px;
+    height: 32px;
+    margin: 2px auto 1px auto;
+}
+.dxrControl_Metropolis .dxr-img16,
+.dxrControl_Metropolis .dxr-blRegItems .dxr-colorBtn .dxr-colorBtnNoImg16,
+.dxrControl_Metropolis .dxr-blHorItems .dxr-colorBtn .dxr-colorBtnNoImg16
+{
+    width: 16px;
+    height: 16px;
+    margin: 4px;
+}
+.dxrControl_Metropolis .dxr-ddImageContainer
+{
+    display: inline-block;
+}
+.dxrControl_Metropolis .dxr-blLrgItems .dxr-ddImageContainer
+{
+    width: 100%;
+}
+/* Ribbon Color Button */
+.dxrControl_Metropolis .dxr-colorBtn .dxr-colorDiv
+{
+    height: 4px;
+    width: 16px;
+    display: block;
+    margin: -6px 0 2px 4px;
+    position: relative;
+}
+.dxrControl_Metropolis .dxr-blLrgItems .dxr-colorBtn .dxr-colorDiv
+{
+    width: 32px;
+    margin: -5px auto 1px;
+}
+.dxrControl_Metropolis .dxr-blLrgItems .dxr-colorBtn .dxr-colorBtnNoImg32
+{
+    display: block;
+    margin-bottom: 4px;
+}
+.dxrControl_Metropolis .dxr-blLrgItems .dxr-colorBtn .dxr-colorBtnNoImg32 .dxr-colorDiv,
+.dxrControl_Metropolis .dxr-blRegItems .dxr-colorBtn .dxr-colorBtnNoImg16 .dxr-colorDiv,
+.dxrControl_Metropolis .dxr-blHorItems .dxr-colorBtn .dxr-colorBtnNoImg16 .dxr-colorDiv
+{
+    height: 100%;
+    width: 100%;
+    margin: 0px;
+}
+.dxrControl_Metropolis .dxpc-content.dxr-itemDDPopup
+{
+    padding: 0;
+}
+.dxrControl_Metropolis .dxeColorTable_Metropolis
+{
+    border: none;
+}
+.dxrControl_Metropolis .dxr-minBtn
+{
+    cursor: pointer;
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    font-size: 0;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 14px;
+}
+.dxrControl_Metropolis .dxr-minBtn img
+{
+    vertical-align: middle;
+}
+/* Ribbon TabControl */
+.dxrControl_Metropolis .dxtcLite_Metropolis.dxtc-top .dxtc-tab.dxr-fileTab .dxtc-link
+{
+    color: #FFFFFF;
+}
+.dxrControl_Metropolis .dxtcLite_Metropolis.dxtc-top .dxtc-tab.dxr-fileTab
+{
+    background: #bfbfbf;
+    border-color: #bfbfbf;
+}
+.dxrControl_Metropolis .dxtcLite_Metropolis.dxtc-top .dxtc-tabHover.dxr-fileTab
+{
+    background: #F7A233;
+    border-color: #F7A233;
+}
+.dxrControl_Metropolis .dxtcLite_Metropolis.dxtc-top .dxr-fileTabPressed.dxr-fileTab
+{
+    background: #bfbfbf;
+    border-color: #bfbfbf;
+}
+.dxrControl_Metropolis .dxtcLite_Metropolis.dxtc-top .dxtc-leftIndent,
+.dxrControl_Metropolis .dxtcLite_Metropolis.dxtc-top .dxtc-spacer,
+.dxrControl_Metropolis .dxtcLite_Metropolis.dxtc-top .dxtc-rightIndent,
+.dxrControl_Metropolis .dxtcLite_Metropolis.dxtc-top .dxtc-sbWrapper,
+.dxrControl_Metropolis .dxtcLite_Metropolis.dxtc-top .dxtc-sbIndent,
+.dxrControl_Metropolis .dxtcLite_Metropolis.dxtc-top .dxtc-sbSpacer
+.dxrControl_Metropolis .dxtcLite_Metropolis.dxtc-top .dxtc-spacer.dxr-fileTabSpacing
+{
+    border-bottom: 1px solid #c0c0c0;
+}
+.dxrControl_Metropolis .dxtcLite_Metropolis.dxtc-top .dxtc-tab .dxtc-link,
+.dxrControl_Metropolis .dxtcLite_Metropolis.dxtc-top .dxtc-activeTab .dxtc-link
+{
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+.dxrControl_Metropolis .dxtcLite_Metropolis.dxtc-top .dxtc-tab
+{
+    border-top: 1px solid transparent;
+    border-left-width: 0px;
+    border-right-width: 0px;
+    border-bottom: 1px solid #c0c0c0;
+    background: #FFFFFF;
+}
+.dxrControl_Metropolis .dxtcLite_Metropolis.dxtc-top .dxtc-activeTab
+{
+    border: 1px solid #c0c0c0;
+    border-bottom-width: 0;
+    padding-bottom: 1px;
+}
+.dxrControl_Metropolis .dxtcLite_Metropolis.dxtc-top .dxtc-activeTab,
+.dxrControl_Metropolis .dxtcLite_Metropolis.dxtc-top .dxtc-activeTab a
+{
+    background: #ffffff;
+}
+.dxrControl_Metropolis .dxtcLite_Metropolis.dxtc-top .dxtc-activeTab .dxtc-link
+{
+    color: #F7A233;
+}
+.dxrControl_Metropolis .dxtcLite_Metropolis.dxtc-top .dxtcLiteDisabled_Metropolis .dxtc-link
+{
+    color: #ACACAC;
+}
+.dxrControl_Metropolis .dxtcLite_Metropolis.dxtc-top .dxtc-activeTab .dxtc-link
+{
+    padding: 3px 35px;
+}
+.dxrControl_Metropolis .dxtcLite_Metropolis.dxtc-top .dxtc-tab .dxtc-link
+{
+    padding: 3px 36px;
+}
+.dxrControl_Metropolis .dxtcLite_Metropolis.dxtc-top .dxtc-tabHover .dxtc-link
+{
+    color: #F7A233;
+}
+.dxrControl_Metropolis .dxtcLite_Metropolis.dxtc-top .dxtc-leftIndent
+{
+    width: 0px;
+}
+.dxrControl_Metropolis .dxtcLite_Metropolis.dxtc-top .dxtc-rightIndent
+{
+    text-align: right;
+}
+/*Ribbon Gallery Control*/
+.dxrControl_Metropolis .dxr-item.dxr-glrBarItem
+{
+    border: 1px solid #c0c0c0;
+    background-color: white;
+}
+.dxrControl_Metropolis .dxr-glrBarContainer
+{
+    margin-right: 14px;
+    height: 73px;
+}
+.dxrControl_Metropolis .dxr-glrItem.dxr-itemDisabled
+{
+    cursor: default;
+}
+.dxrControl_Metropolis .dxr-glrItem.dxr-itemHover,
+.dxrControl_Metropolis .dxr-glrBtnHover
+{
+    background-color: #F7A233;
+    color: #FFFFFF;
+}
+.dxrControl_Metropolis .dxr-glrItem.dxr-itemChecked
+{
+    background-color: #e0e0e0;
+    color: #201f35;
+}
+.dxrControl_Metropolis .dxr-glrItem.dxr-itemPressed,
+.dxrControl_Metropolis .dxr-glrBtnPressed
+{
+    background: #D0D0D0;
+}
+.dxrControl_Metropolis .dxr-glrItemContent
+{
+    margin: 0 auto;
+    padding: 2px;
+}
+.dxrControl_Metropolis .dxr-glrImgBottom .dxr-glrItemContent,
+.dxrControl_Metropolis .dxr-glrImgTop .dxr-glrItemContent
+{
+    text-align: center;
+}
+.dxrControl_Metropolis .dxr-glrImgRight .dxr-glrItemContent img
+{
+    vertical-align: middle;
+}
+.dxrControl_Metropolis .dxr-glrImgLeft .dxr-glrItemContent img
+{
+    vertical-align: middle;
+}
+.dxrControl_Metropolis .dxr-glrNoText .dxr-glrItemContent img
+{
+    display: block;
+}
+.dxrControl_Metropolis .dxr-glrItemText
+{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    margin: 5px;
+}
+.dxrControl_Metropolis .dxr-glrImgLeft .dxr-glrItemText,
+.dxrControl_Metropolis .dxr-glrImgRight .dxr-glrItemText
+{
+    display: inline-block;
+    vertical-align: middle;
+}
+.dxrControl_Metropolis .dxr-glrGroup
+{
+    background-color: #eeeeee;
+    font-weight: bold;
+    color: #777777;
+    padding: 3px;
+}
+.dxrControl_Metropolis .dxr-glrMainDiv
+{
+    text-align: left;
+    font-size: 0px;
+}
+.dxrControl_Metropolis .dxr-glrMainDiv > div
+{
+    font-size: 12px;
+}
+.dxrControl_Metropolis .dxr-glrBarItem .dxr-glrButtons
+{
+    float: right;
+    height: 100%;
+}
+.dxrControl_Metropolis .dxr-glrBarItem .dxr-glrButtons div
+{
+    cursor: pointer;
+    height: 25px;
+    border-left: 1px solid #c0c0c0;
+    border-bottom: 1px solid #c0c0c0;
+    padding-left: 4px;
+    padding-right: 4px;
+    font-size: 0px;
+}
+.dxrControl_Metropolis .dxr-glrBarItem .dxr-glrButtons img
+{
+    position: relative;
+    top: 50%;
+    margin-top: -2px;
+    margin-bottom: 3px;
+}
+.dxrControl_Metropolis .dxr-glrBarItem .dxr-glrButtons .dxr-itemDisabled
+{
+    cursor: default;
+}
+/* DocumentViewer Ribbon */
+.dxrControl_Metropolis .dxr-tmplItem .dxxrdvrCurrentPageLabel
+{
+    padding: 0 0 2px 0;
+    display: block;
+}
+.dxrControl_Metropolis .dxr-tmplItem .dxxrdvrPageCountLabel
+{
+    padding: 1px 0 0 0;
+    display: block;
+}
+.dxrControl_Metropolis .dxr-tmplItem .dxxrdvrPageNumberComboBox
+{
+    width: 100px;
+}
+.dxrControl_Metropolis.dxr-oneLineMode .dxr-tmplItem .dxxrdvrPageNumberComboBox
+{
+    float: left;
+    width: 70px;
+    padding: 0;
+    margin-top: 2px;
+}
+.dxrControl_Metropolis.dxr-oneLineMode .dxr-tmplItem .dxxrdvrCurrentPageLabel
+{
+    float: left;
+    padding: 4px 4px 0 2px;
+}
+.dxrControl_Metropolis.dxr-oneLineMode .dxr-tmplItem .dxxrdvrPageCountLabel
+{
+    float: left;
+    padding: 4px 2px 0 4px;
+}
+/* ASPxImageZoom */
+.dxizControl_Metropolis
+{
+    border: 1px solid #d8d8d8;
+}
+.dxizControl_Metropolis .dxiz-hint
+{
+    padding: 3px;
+    top: 0;
+    position: absolute;
+}
+.dxizControl_Metropolis .dxiz-hint > span
+{
+    margin-left: 3px;
+    color: gray;
+    vertical-align: top;
+    font: 12px Tahoma, Geneva, sans-serif;
+}
+.dxizControl_Metropolis .dxiz-EWCloseButton
+{
+    top: 0;
+    right: 1px;
+    cursor: pointer;
+    position: absolute;
+}
+.dxizControl_Metropolis .dxiz-expandWindow .dxpc-content
+{
+    height: inherit;
+}
+.dxizControl_Metropolis .dxiz-wrapper
+{
+    position: relative;
+}
+.dxizControl_Metropolis .dxiz-wrapper > img,
+.dxizControl_Metropolis .dxiz-clipPanel > img,
+.dxizControl_Metropolis .dxiz-expandWindow .dxpc-content > img
+{
+    display: block;
+}
+.dxizControl_Metropolis .dxiz-clipPanel > img
+{
+    position: absolute;
+}
+.dxizControl_Metropolis .dxiz-clipPanel
+{
+    overflow: hidden;
+    position: relative;
+}
+.dxizControl_Metropolis .dxiz-clipPanel.dxiz-inside
+{
+    top: 0;
+    position: absolute;
+    opacity: 0;
+    filter: progid:DXImageTransform.Microsoft.Alpha(Style=0, Opacity=0);
+}
+.dxizControl_Metropolis .dxpcLite .dxpc-content
+{
+    padding: 0;
+}
+.dxizControl_Metropolis .dxiz-lens
+{
+    overflow: hidden;
+    top: 0;
+    position: absolute;
+}
+.dxizControl_Metropolis .dxiz-lens > .dxiz-pc
+{
+    opacity: 0;
+    filter: progid:DXImageTransform.Microsoft.Alpha(Style=0, Opacity=0);
+    z-index: 1;
+    position: absolute;
+}
+.dxizControl_Metropolis .dxiz-lens .dxiz-llp,
+.dxizControl_Metropolis .dxiz-lens .dxiz-lrp,
+.dxizControl_Metropolis .dxiz-lens .dxiz-ltp,
+.dxizControl_Metropolis .dxiz-lens .dxiz-lbp,
+.dxizControl_Metropolis .dxiz-lens .dxiz-lcp
+{
+    position: absolute;
+}
+.dxizControl_Metropolis .dxiz-lens .dxiz-lcp
+{
+    background: white;
+    outline: 1px solid #969292;
+    outline: 1px solid rgba(128,128,128,0.5);
+    filter: progid:DXImageTransform.Microsoft.Alpha(Style=0, Opacity=50);
+    background: rgba(255,255,255,0.5);
+}
+.dxizControl_Metropolis .dxiz-lens.outside .dxiz-lcp
+{
+    background: transparent;
+    outline: 1px solid black;
+    outline: 1px solid rgba(0,0,0,0.5);
+}
+.dxizControl_Metropolis .dxiz-lens.outside .dxiz-llp,
+.dxizControl_Metropolis .dxiz-lens.outside .dxiz-lrp,
+.dxizControl_Metropolis .dxiz-lens.outside .dxiz-ltp,
+.dxizControl_Metropolis .dxiz-lens.outside .dxiz-lbp
+{
+    opacity: 0.25;
+    filter: progid:DXImageTransform.Microsoft.Alpha(Style=0, Opacity=25);
+    background-color: #000;
+}
+.dxizControl_Metropolis .dxizLoadingPanel_Metropolis
+{
+    position: absolute;
+}
+.dxisControl_Metropolis.dxis-zoomNavigator .dxis-nbItem
+{
+    width: 75px;
+    height: 75px;
+}
+/* OfficeControls */
+.dxitcControl_Metropolis
+{
+    padding-bottom: 2px;
+    border: 1px solid #C0C0C0;
+}
+.dxitcControl_Metropolis > div:first-child
+{
+    padding: 1px;
+}
+.dxitcControl_Metropolis .dxitcItem
+{
+    width: 12px;
+    height: 12px;
+    margin: 1px;
+    border: 1px solid #C0C0C0;
+    background-color: white;
+}
+.dxitcControl_Metropolis .dxitcItemHover
+{
+    margin: 0px;
+    border: 2px solid #F7A233;
+}
+.dxitcCaption_Metropolis
+{
+    padding: 2px;
+    border: 1px solid #C0C0C0;
+    margin: 2px 2px 0px 2px;
+}
+/* -- ASPxHint -- */
+.dxhControl_Metropolis
+{
+    font: 12px 'Segoe UI', Helvetica, 'Droid Sans', Tahoma, Geneva, sans-serif;
+    color: #000;
+    background-color: #fff;
+    border: 1px solid #cecece;
+    border-radius: 4px;
+}
+.dxhControl_Metropolis .dxh-content
+{
+    padding: 8px 9px 10px;
+}
+.dxhControl_Metropolis .dxh-title
+{
+    font-size: 16px;
+    font-weight: bold;
+    padding: 3px 9px 1px;
+    border-radius: 4px 4px 0 0;
+}
+.dxhControl_Metropolis.dxh-top .dxh-callout
+{
+    border-top-color: inherit;
+}
+.dxhControl_Metropolis.dxh-top .dxh-callout:after
+{
+    border-top-color: #fff;
+}
+.dxhControl_Metropolis.dxh-right .dxh-callout
+{
+    border-right-color: inherit;
+}
+.dxhControl_Metropolis.dxh-right .dxh-callout:after
+{
+    border-right-color: #fff;
+}
+.dxhControl_Metropolis.dxh-bottom .dxh-callout
+{
+    border-bottom-color: inherit;
+}
+.dxhControl_Metropolis.dxh-bottom .dxh-callout:after
+{
+    border-bottom-color: #fff;
+}
+.dxhControl_Metropolis.dxh-left .dxh-callout
+{
+    border-left-color: inherit;
+}
+.dxhControl_Metropolis.dxh-left .dxh-callout:after
+{
+    border-left-color: #fff;
+}

@@ -1,0 +1,267 @@
+﻿<%@ Page Language="C#" MasterPageFile="~/MasterPagePortals.master" AutoEventWireup="true"
+    CodeFile="DevelopmentObservers.aspx.cs" Inherits="Employee_TechnicalServices_Project_DevelopmentObservers"
+    Title="ناظرین عالی" %>
+
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxp" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxuc" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxrp" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxm" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxpc" %>
+<%@ Register Assembly="TSP.WebControls" Namespace="TSP.WebControls" TagPrefix="TSPControls" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxe" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxwgv" %>
+<%@ Register Assembly="PersianDateControls 2.0" Namespace="PersianDateControls" TagPrefix="pdc" %>
+<%@ Register Assembly="AjaxControls" Namespace="AjaxControls" TagPrefix="asp" %>
+<%@ Register Assembly="PersianDateControls 2.0" Namespace="PersianDateControls" TagPrefix="pdc" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+    <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+        <ContentTemplate>
+            <div style="text-align: right" id="DivReport" class="DivErrors" runat="server">
+                <asp:Label ID="LabelWarning" runat="server" Text="Label"></asp:Label>[<a class="closeLink"
+                    href="#">بستن</a>]
+            </div>
+            <TSPControls:CustomASPxRoundPanelMenu ID="CustomASPxRoundPanelMenu1" runat="server">
+                <PanelCollection>
+                    <dxp:PanelContent>
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <TSPControls:CustomAspxButton IsMenuButton="true" runat="server" Text=" " ToolTip="جدید"
+                                            ID="BtnNew" UseSubmitBehavior="False" EnableViewState="False" EnableTheming="False"
+                                            OnClick="BtnNew_Click">
+                                            <hoverstyle backcolor="#FFE0C0">
+                                                                            <Border BorderWidth="1px" BorderStyle="Outset" BorderColor="Gray"></Border>
+                                                                        </hoverstyle>
+                                            <image url="~/Images/icons/new.png">
+                                                                        </image>
+                                        </TSPControls:CustomAspxButton>
+                                    </td>
+                                    <td>
+                                        <TSPControls:CustomAspxButton IsMenuButton="true" runat="server" Text=" " ToolTip="مشاهده"
+                                            ID="btnView" UseSubmitBehavior="False" EnableViewState="False" EnableTheming="False"
+                                            OnClick="btnView_Click">
+                                            <ClientSideEvents Click="function(s, e) {
+	 if (grid.GetFocusedRowIndex()&lt;0)
+ {
+   e.processOnServer=false;
+   alert('ردیفی انتخاب نشده است');
+ }
+}"></ClientSideEvents>
+                                            <hoverstyle backcolor="#FFE0C0">
+                                                                            <Border BorderWidth="1px" BorderStyle="Outset" BorderColor="Gray"></Border>
+                                                                        </hoverstyle>
+                                            <image url="~/Images/icons/view.png">
+                                                                        </image>
+                                        </TSPControls:CustomAspxButton>
+                                    </td>
+                                    <td>
+                                        <TSPControls:CustomAspxButton IsMenuButton="true" runat="server" Text=" " ToolTip="غیر فعال"
+                                            ID="btnInAcitve" UseSubmitBehavior="False" EnableViewState="False" EnableTheming="False"
+                                            OnClick="btnInAcitve_Click">
+                                            <ClientSideEvents Click="function(s, e) {
+	 if (grid.GetFocusedRowIndex()&lt;0)
+ {
+   e.processOnServer=false;
+   alert('ردیفی انتخاب نشده است');
+ }
+else
+	 e.processOnServer= confirm('آیا مطمئن به غیر فعال کردن این ردیف هستید؟');
+}"></ClientSideEvents>
+                                            <hoverstyle backcolor="#FFE0C0">
+                                                                            <Border BorderWidth="1px" BorderStyle="Outset" BorderColor="Gray"></Border>
+                                                                        </hoverstyle>
+                                            <image url="~/Images/icons/disactive.png">
+                                                                        </image>
+                                        </TSPControls:CustomAspxButton>
+                                    </td>
+                                    <td>
+                                        <TSPControls:CustomAspxButton IsMenuButton="true" runat="server" Text=" " ToolTip="بازگشت"
+                                            ID="btnBack" UseSubmitBehavior="False" EnableViewState="False" EnableTheming="False"
+                                            OnClick="btnBack_Click">
+                                            <ClientSideEvents Click="function(s, e) {
+	 if (grid.GetFocusedRowIndex()&lt;0)
+ {
+   e.processOnServer=false;
+   alert('ردیفی انتخاب نشده است');
+ }
+}"></ClientSideEvents>
+                                            <hoverstyle backcolor="#FFE0C0">
+                                                                            <Border BorderWidth="1px" BorderStyle="Outset" BorderColor="Gray"></Border>
+                                                                        </hoverstyle>
+                                            <image url="~/Images/icons/Back.png">
+                                                                        </image>
+                                        </TSPControls:CustomAspxButton>
+                                    </td>
+                                    <td>
+                                        <TSPControls:CustomAspxButton IsMenuButton="true" runat="server" Text=" " ToolTip="بازگشت به مدیریت پروژه"
+                                            CausesValidation="False" ID="btnBackToManagment" UseSubmitBehavior="False" EnableViewState="False"
+                                            EnableTheming="False" OnClick="btnBackToManagment_Click">
+                                            <hoverstyle backcolor="#FFE0C0">
+                                                                            <Border BorderWidth="1px" BorderStyle="Outset" BorderColor="Gray"></Border>
+                                                                        </hoverstyle>
+                                            <image url="../../../Images/icons/BakToManagment.png">
+                                                                        </image>
+                                        </TSPControls:CustomAspxButton>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </dxp:PanelContent>
+                </PanelCollection>
+            </TSPControls:CustomASPxRoundPanelMenu>
+            <br />
+            <TSPControls:CustomAspxDevGridView ID="CustomAspxDevGridView1" runat="server" DataSourceID="ObjectDataSource1"
+                AutoGenerateColumns="False"
+                KeyFieldName="DevObsId" ClientInstanceName="grid">
+                <Columns>
+                    <dxwgv:GridViewDataTextColumn VisibleIndex="1" FieldName="TypeName" Caption="سمت ناظر">
+                    </dxwgv:GridViewDataTextColumn>
+                    <dxwgv:GridViewDataTextColumn VisibleIndex="1" FieldName="ObsName" Caption="ناظر">
+                    </dxwgv:GridViewDataTextColumn>
+                    <dxwgv:GridViewDataTextColumn VisibleIndex="2" FieldName="MemberType" Caption="نوع ناظر">
+                    </dxwgv:GridViewDataTextColumn>
+                    <dxwgv:GridViewDataCheckColumn VisibleIndex="0" FieldName="IsAgent" Caption="نماینده">
+                    </dxwgv:GridViewDataCheckColumn>
+                    <dxwgv:GridViewDataTextColumn VisibleIndex="4" FieldName="Confirm" Caption="وضعیت تایید">
+                    </dxwgv:GridViewDataTextColumn>
+                    <dxwgv:GridViewDataTextColumn VisibleIndex="5" FieldName="ConfirmDate" Caption="تاریخ پاسخ">
+                        <CellStyle Wrap="False">
+                        </CellStyle>
+                    </dxwgv:GridViewDataTextColumn>
+                    <dxwgv:GridViewDataTextColumn VisibleIndex="6" FieldName="CreateDate" Caption="تاریخ ایجاد">
+                        <CellStyle Wrap="False">
+                        </CellStyle>
+                    </dxwgv:GridViewDataTextColumn>
+                    <dxwgv:GridViewDataTextColumn VisibleIndex="7" FieldName="InActiveName" Caption="وضعیت">
+                    </dxwgv:GridViewDataTextColumn>
+                    <dxwgv:GridViewDataTextColumn VisibleIndex="8" FieldName="InActiveDate" Caption="تاریخ تغییر وضعیت">
+                        <CellStyle Wrap="False">
+                        </CellStyle>
+                    </dxwgv:GridViewDataTextColumn>
+                    <dxwgv:GridViewDataTextColumn Visible="False" VisibleIndex="8" FieldName="Type">
+                    </dxwgv:GridViewDataTextColumn>
+                    <dxwgv:GridViewCommandColumn VisibleIndex="9" Caption=" " ShowClearFilterButton="true">
+                    </dxwgv:GridViewCommandColumn>
+                    <dxwgv:GridViewDataTextColumn Visible="False" VisibleIndex="10" FieldName="InActive">
+                    </dxwgv:GridViewDataTextColumn>
+                </Columns>
+            </TSPControls:CustomAspxDevGridView>
+            <br />
+            <TSPControls:CustomASPxRoundPanelMenu ID="CustomASPxRoundPanelMenu2" runat="server">
+                <PanelCollection>
+                    <dxp:PanelContent>
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <TSPControls:CustomAspxButton IsMenuButton="true" runat="server" Text=" " ToolTip="جدید"
+                                            ID="btnNew2" UseSubmitBehavior="False" EnableViewState="False" EnableTheming="False"
+                                            OnClick="BtnNew_Click">
+                                            <hoverstyle backcolor="#FFE0C0">
+                                                                            <Border BorderWidth="1px" BorderStyle="Outset" BorderColor="Gray"></Border>
+                                                                        </hoverstyle>
+                                            <image url="~/Images/icons/new.png">
+                                                                        </image>
+                                        </TSPControls:CustomAspxButton>
+                                    </td>
+                                    <td>
+                                        <TSPControls:CustomAspxButton IsMenuButton="true" runat="server" Text=" " ToolTip="مشاهده"
+                                            ID="btnView2" UseSubmitBehavior="False" EnableViewState="False" EnableTheming="False"
+                                            OnClick="btnView_Click">
+                                            <ClientSideEvents Click="function(s, e) {
+	 if (grid.GetFocusedRowIndex()&lt;0)
+ {
+   e.processOnServer=false;
+   alert('ردیفی انتخاب نشده است');
+ }
+}"></ClientSideEvents>
+                                            <hoverstyle backcolor="#FFE0C0">
+                                                                            <Border BorderWidth="1px" BorderStyle="Outset" BorderColor="Gray"></Border>
+                                                                        </hoverstyle>
+                                            <image url="~/Images/icons/view.png">
+                                                                        </image>
+                                        </TSPControls:CustomAspxButton>
+                                    </td>
+                                    <td>
+                                        <TSPControls:CustomAspxButton IsMenuButton="true" runat="server" Text=" " ToolTip="غیر فعال"
+                                            ID="btnInAcitve2" UseSubmitBehavior="False" EnableViewState="False" EnableTheming="False"
+                                            OnClick="btnInAcitve_Click">
+                                            <ClientSideEvents Click="function(s, e) {
+	 if (grid.GetFocusedRowIndex()&lt;0)
+ {
+   e.processOnServer=false;
+   alert('ردیفی انتخاب نشده است');
+ }
+else
+	 e.processOnServer= confirm('آیا مطمئن به غیر فعال کردن این ردیف هستید؟');
+}"></ClientSideEvents>
+                                            <hoverstyle backcolor="#FFE0C0">
+                                                                            <Border BorderWidth="1px" BorderStyle="Outset" BorderColor="Gray"></Border>
+                                                                        </hoverstyle>
+                                            <image url="~/Images/icons/disactive.png">
+                                                                        </image>
+                                        </TSPControls:CustomAspxButton>
+                                    </td>
+                                    <td>
+                                        <TSPControls:CustomAspxButton IsMenuButton="true" runat="server" Text=" " ToolTip="بازگشت"
+                                            ID="ASPxButton1" UseSubmitBehavior="False" EnableViewState="False" EnableTheming="False"
+                                            OnClick="btnBack_Click">
+                                            <ClientSideEvents Click="function(s, e) {
+	 if (grid.GetFocusedRowIndex()&lt;0)
+ {
+   e.processOnServer=false;
+   alert('ردیفی انتخاب نشده است');
+ }
+}"></ClientSideEvents>
+                                            <hoverstyle backcolor="#FFE0C0">
+                                                                            <Border BorderWidth="1px" BorderStyle="Outset" BorderColor="Gray"></Border>
+                                                                        </hoverstyle>
+                                            <image url="~/Images/icons/Back.png">
+                                                                        </image>
+                                        </TSPControls:CustomAspxButton>
+                                    </td>
+                                    <td>
+                                        <TSPControls:CustomAspxButton IsMenuButton="true" runat="server" Text=" " ToolTip="بازگشت به مدیریت پروژه"
+                                            CausesValidation="False" ID="ASPxButton2" UseSubmitBehavior="False" EnableViewState="False"
+                                            EnableTheming="False" OnClick="btnBackToManagment_Click">
+                                            <hoverstyle backcolor="#FFE0C0">
+                                                                            <Border BorderWidth="1px" BorderStyle="Outset" BorderColor="Gray"></Border>
+                                                                        </hoverstyle>
+                                            <image url="../../../Images/icons/BakToManagment.png">
+                                                                        </image>
+                                        </TSPControls:CustomAspxButton>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </dxp:PanelContent>
+                </PanelCollection>
+            </TSPControls:CustomASPxRoundPanelMenu>
+            <asp:ModalUpdateProgress ID="ModalUpdateProgress2" runat="server" BackgroundCssClass="modalProgressGreyBackground"
+                DisplayAfter="0">
+                <ProgressTemplate>
+                    <div class="modalPopup">
+                        لطفا صبر نمایید
+                            <img src="../../../Image/indicator.gif" align="middle" />
+                    </div>
+                </ProgressTemplate>
+            </asp:ModalUpdateProgress>
+            <asp:ObjectDataSource ID="ObjectDataSource1" runat="server" SelectMethod="FindByDevelopmentPercentId"
+                TypeName="TSP.DataManager.TechnicalServices.DevelopmentObserversManager">
+                <SelectParameters>
+                    <asp:Parameter Type="Int32" DefaultValue="-1" Name="DevelopmentPercentId"></asp:Parameter>
+                </SelectParameters>
+            </asp:ObjectDataSource>
+            <asp:HiddenField ID="HDdevelopmentPercentId" runat="server" Visible="False"></asp:HiddenField>
+        </ContentTemplate>
+    </asp:UpdatePanel>
+</asp:Content>

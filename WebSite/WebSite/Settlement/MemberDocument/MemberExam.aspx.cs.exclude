@@ -1,0 +1,162 @@
+﻿using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+using DevExpress.Web;
+
+public partial class Settlement_MemberDocument_MemberExam : System.Web.UI.Page
+{
+    #region Events
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (Request.QueryString["MFId"] == null || Request.QueryString["PgMd"] == null)
+        {
+            Response.Redirect("MemberFile.aspx");
+        }
+
+        this.DivReport.Visible = false;
+        this.DivReport.Attributes.Add("onclick", "ChangeVisible(this)");
+        this.DivReport.Attributes.Add("onmouseover", "ChangeIcon(this)");
+
+        if (!IsPostBack)
+        {
+
+            HiddenFieldExam["PrePageMode"] = Request.QueryString["PgMd"];
+            HiddenFieldExam["MFId"] = Request.QueryString["MFId"];
+            string MFId = Utility.DecryptQS(HiddenFieldExam["MFId"].ToString());
+            TSP.DataManager.DocMemberFileManager DocMemberFileManager = new TSP.DataManager.DocMemberFileManager();
+            DocMemberFileManager.FindByCode(int.Parse(MFId), 0);
+            if (DocMemberFileManager.Count == 1)
+            {
+                string MeId = DocMemberFileManager[0]["MeId"].ToString();
+                ObjdsExam.SelectParameters[0].DefaultValue = MFId;
+                ObjdsExam.SelectParameters["MeId"].DefaultValue = MeId;
+                HiddenFieldExam["MeId"] = Utility.EncryptQS(MeId);
+                TSP.DataManager.MemberManager MemberManager = new TSP.DataManager.MemberManager();
+                MemberManager.FindByCode(int.Parse(MeId));
+                if (MemberManager.Count == 1)
+                {
+                    RoundPanelDocument.HeaderText = "پروانه اشتغال به کار: " + MemberManager[0]["FirstName"].ToString() + " " + MemberManager[0]["LastName"].ToString();
+                }
+            }
+            else
+            {
+                Response.Redirect("MemberFile.aspx");
+            }
+        }
+
+    }
+
+    protected void btnView_Click(object sender, EventArgs e)
+    {
+        NextPage("View");
+    }
+
+    protected void btnBack_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("MemberFile.aspx");
+    }
+
+    protected void GridViewDetail_BeforePerformDataSelect(object sender, EventArgs e)
+    {
+        Session["MExmId"] = (sender as ASPxGridView).GetMasterRowKeyValue();
+    }
+
+    protected void MenuMemberFile_ItemClick(object source, DevExpress.Web.MenuItemEventArgs e)
+    {
+        switch (e.Item.Name)
+        {
+            case "JobHistory":
+                Response.Redirect("MemberJobHistory.aspx?MFId=" + HiddenFieldExam["MFId"].ToString() + "&PgMd=" + HiddenFieldExam["PrePageMode"].ToString() + "&DocType=" + Utility.EncryptQS(((int)TSP.DataManager.DocumentTypesOfMember.DocMemberFile).ToString()));
+                break;
+            case "Attachment":
+                Response.Redirect("DocumentAttachment.aspx?MFId=" + HiddenFieldExam["MFId"].ToString() + "&PgMd=" + HiddenFieldExam["PrePageMode"].ToString() + "&DocType=" + Utility.EncryptQS(((int)TSP.DataManager.DocumentTypesOfMember.DocMemberFile).ToString()));
+                break;
+            case "Major":
+                Response.Redirect("MemberFileBasicInfo.aspx?MFId=" + HiddenFieldExam["MFId"].ToString() + "&MeId=" + HiddenFieldExam["MeId"].ToString() + "&PgMd=" + HiddenFieldExam["PrePageMode"].ToString() + "&DocType=" + Utility.EncryptQS(((int)TSP.DataManager.DocumentTypesOfMember.DocMemberFile).ToString()));
+                break;
+            case "MeDatail":
+                Response.Redirect("DocResponsibility.aspx?MFId=" + HiddenFieldExam["MFId"].ToString() + "&PgMd=" + HiddenFieldExam["PrePageMode"].ToString() + "&DocType=" + Utility.EncryptQS(((int)TSP.DataManager.DocumentTypesOfMember.DocMemberFile).ToString()));
+                break;
+            case "Periods":
+                Response.Redirect("MemberPeriods.aspx?MFId=" + HiddenFieldExam["MFId"].ToString() + "&MeId=" + HiddenFieldExam["MeId"].ToString() + "&PgMd=" + HiddenFieldExam["PrePageMode"].ToString() + "&DocType=" + Utility.EncryptQS(((int)TSP.DataManager.DocumentTypesOfMember.DocMemberFile).ToString()));
+                break;
+        }
+    }
+
+    protected void GridViewMemberExam_HtmlRowPrepared(object sender, ASPxGridViewTableRowEventArgs e)
+    {
+        if (e.RowType != GridViewRowType.Data)
+            return;
+        if (HiddenFieldExam["MFId"] != null)
+        {
+            string MFId = Utility.DecryptQS(HiddenFieldExam["MFId"].ToString());
+            if (e.GetValue("MFId") == null)
+                return;
+            string CurretnMfId = e.GetValue("MFId").ToString();
+            if (MFId == CurretnMfId)
+            {
+                e.Row.BackColor = System.Drawing.Color.LightGray;
+            }
+        }
+    }
+
+    protected void GridViewMemberExam_AutoFilterCellEditorInitialize(object sender, ASPxGridViewEditorEventArgs e)
+    {
+        switch (e.Column.FieldName)
+        {
+            case "Year":
+                e.Editor.Style["direction"] = "ltr";
+                break;
+        }
+    }
+
+    protected void GridViewMemberExam_HtmlDataCellPrepared(object sender, ASPxGridViewTableDataCellEventArgs e)
+    {
+        switch (e.DataColumn.FieldName)
+        {
+            case "Year":
+                e.Cell.Style["direction"] = "ltr";
+                break;
+        }
+    }
+    #endregion
+
+    #region Methods
+
+    private void NextPage(string Mode)
+    {
+        int MExmId = -1;
+        int focucedIndex = GridViewMemberExam.FocusedRowIndex;
+
+        if (focucedIndex > -1)
+        {
+            DataRow row = GridViewMemberExam.GetDataRow(focucedIndex);
+            MExmId = (int)row["MExmId"];
+        }
+        if (MExmId == -1 && Mode != "New")
+        {
+            this.DivReport.Visible = true;
+            this.LabelWarning.Text = "لطفاً برای مشاهده اطلاعات ابتدا یک رکورد را انتخاب نمائید";
+        }
+        else
+        {
+            if (Mode == "New")
+            {
+                MExmId = -1;
+                Response.Redirect("AddMemberExam.aspx?MExmId=" + Utility.EncryptQS(MExmId.ToString()) + "&PgMd=" + Utility.EncryptQS(Mode) + "&MFId=" + HiddenFieldExam["MFId"].ToString() + "&PrePgMd=" + HiddenFieldExam["PrePageMode"].ToString());
+            }
+            else
+            {
+                Response.Redirect("AddMemberExam.aspx?MExmId=" + Utility.EncryptQS(MExmId.ToString()) + "&PgMd=" + Utility.EncryptQS(Mode) + "&MFId=" + HiddenFieldExam["MFId"].ToString() + "&PrePgMd=" + HiddenFieldExam["PrePageMode"].ToString());
+            }
+        }
+    }
+    #endregion
+}

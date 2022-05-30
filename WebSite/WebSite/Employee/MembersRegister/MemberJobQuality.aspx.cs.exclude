@@ -1,0 +1,493 @@
+﻿using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+using DevExpress.Web;
+
+public partial class Employee_MembersRegister_MemberJobQuality : System.Web.UI.Page
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+
+        if (!IsPostBack)
+        {
+            TSP.DataManager.Permission per = TSP.DataManager.DocOffJobHistoryQualityManager.GetUserPermission(Utility.GetCurrentUser_UserId(), (TSP.DataManager.UserType)Utility.GetCurrentUser_LoginType());
+            BtnNew.Enabled = per.CanNew;
+            BtnNew2.Enabled = per.CanNew;
+            btnEdit.Enabled = per.CanEdit;
+            btnEdit2.Enabled = per.CanEdit;
+            btnView.Enabled = per.CanView;
+            btnView2.Enabled = per.CanView;
+            CustomGridJobQuality.ClientVisible = per.CanView;
+
+            if (string.IsNullOrEmpty(Request.QueryString["MReId"]) || string.IsNullOrEmpty(Request.QueryString["MeId"]) || string.IsNullOrEmpty(Request.QueryString["JhId"]))
+            {
+                Response.Redirect("Members.aspx");
+                return;
+            }
+
+            try
+            {
+                MemberId.Value = Server.HtmlDecode(Request.QueryString["MeId"]).ToString();
+                MemberRequest.Value = Server.HtmlDecode(Request.QueryString["MReId"]).ToString();
+                PgMode.Value = Server.HtmlDecode(Request.QueryString["PageMode"]).ToString();
+                JobId.Value = Server.HtmlDecode(Request.QueryString["JhId"]).ToString();
+                HDMode.Value = Server.HtmlDecode(Request.QueryString["Mode"]).ToString();
+
+            }
+            catch
+            {
+                this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+                return;
+            }
+
+            string PageMode = Utility.DecryptQS(PgMode.Value);
+
+            string MeId = Utility.DecryptQS(MemberId.Value);
+            string MReId = Utility.DecryptQS(MemberRequest.Value);
+            string JhId = Utility.DecryptQS(JobId.Value);
+            string Mode = Utility.DecryptQS(HDMode.Value);
+
+
+            if (string.IsNullOrEmpty(MeId) || string.IsNullOrEmpty(MReId) || string.IsNullOrEmpty(JhId))
+            {
+                this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+                return;
+            }
+            OdbFactorDocuments.SelectParameters[0].DefaultValue = JhId;
+
+            TSP.DataManager.MemberManager MeManager = new TSP.DataManager.MemberManager();
+            MeManager.FindByCode(int.Parse(MeId));
+
+            CheckWorkFlowPermission();
+            TSP.DataManager.MemberRequestManager ReqManager = new TSP.DataManager.MemberRequestManager();
+
+            switch (Mode)
+            {
+
+                case "Home":
+
+                    try
+                    {
+
+                        ReqManager.FindByMemberId(int.Parse(MeId), -1, 1);
+                        if (!Convert.ToBoolean(ReqManager[0]["Requester"]) || (ReqManager[0]["IsConfirm"].ToString() != "0"))//FromMember
+                        {
+                            btnEdit.Enabled = false;
+                            btnEdit2.Enabled = false;
+                            BtnNew.Enabled = false;
+                            BtnNew2.Enabled = false;
+                        
+                        }
+
+                        if (MeManager[0]["MrsId"].ToString() == "1")//تایید شده
+                        {
+                            btnEdit.Enabled = false;
+                            btnEdit2.Enabled = false;
+                            BtnNew.Enabled = false;
+                            BtnNew2.Enabled = false;
+                        
+                        }
+
+                    }
+                    catch (Exception)
+                    { }
+
+
+                    break;
+
+                case "Request":
+                    try
+                    {
+                        if (string.IsNullOrEmpty(MReId))
+                        {
+                            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+                            return;
+                        }
+                   
+
+
+                        string ReqestMode = Server.HtmlDecode(Request.QueryString["TP"]).ToString();
+                        string TPType = Utility.DecryptQS(ReqestMode);
+                        if (!string.IsNullOrEmpty(TPType))
+                        {
+                            if (TPType == "0")//Menu
+                            {
+                               
+                                BtnNew.Enabled = false;
+                                BtnNew2.Enabled = false;
+                                btnEdit.Enabled = false;
+                                btnEdit2.Enabled = false;
+                              
+                            }
+                            else
+                            {
+
+                                ReqManager.FindByCode(int.Parse(MReId));
+                                if (ReqManager.Count > 0)
+                                {
+                                    if ((Convert.ToBoolean(ReqManager[0]["Requester"]) == false) || (ReqManager[0]["IsConfirm"].ToString() != "0"))//Request From Member or answer request
+                                    {
+                                        BtnNew.Enabled = false;
+                                        BtnNew2.Enabled = false;                                     
+                                        btnEdit.Enabled = false;
+                                        btnEdit2.Enabled = false;
+                                      
+                                    }
+
+                                }
+                                TSP.DataManager.ProjectJobHistoryManager JhManager = new TSP.DataManager.ProjectJobHistoryManager();
+                                if (!string.IsNullOrEmpty(JhId))
+                                {
+                                    JhManager.FindByCode(int.Parse(JhId));
+                                    if (JhManager.Count == 1)
+                                    {
+                                        if (JhManager[0]["TableId"].ToString() != MReId)
+                                        {
+                                            BtnNew.Enabled = false;
+                                            BtnNew2.Enabled = false;
+                                            btnEdit.Enabled = false;
+                                            btnEdit2.Enabled = false;
+                                          
+                                        }
+                                    }
+                                }
+
+                            }
+                        }
+
+                    }
+                    catch (Exception err)
+                    {
+                    }
+
+                
+
+                    break;
+
+            }
+            this.ViewState["BtnEdit"] = btnEdit.Enabled;
+            this.ViewState["BtnNew"] = BtnNew.Enabled;
+            this.ViewState["BtnView"] = btnView.Enabled;
+            
+        }
+
+        FillMemberName();
+        if (this.ViewState["BtnView"] != null)
+            this.btnView.Enabled = this.btnView2.Enabled = CustomGridJobQuality.ClientVisible = (bool)this.ViewState["BtnView"];
+        if (this.ViewState["BtnEdit"] != null)
+            this.btnEdit.Enabled = this.btnEdit2.Enabled = (bool)this.ViewState["BtnEdit"];
+        if (this.ViewState["BtnNew"] != null)
+            this.BtnNew.Enabled = this.BtnNew2.Enabled = (bool)this.ViewState["BtnNew"];
+      
+        this.DivReport.Visible = false;
+        this.DivReport.Attributes.Add("onclick", "ChangeVisible(this)");
+        this.DivReport.Attributes.Add("onmouseover", "ChangeIcon(this)");
+    }
+
+    protected void BtnNew_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("MemberJobQualityInsert.aspx?JhqId=" + Utility.EncryptQS("") + "&aPageMode=" + Request.QueryString["aPageMode"] + "&JPageMode=" + Utility.EncryptQS("New") + "&MeId=" + MemberId.Value + "&PageMode=" + PgMode.Value + "&MReId=" + MemberRequest.Value + "&JhId=" + JobId.Value + "&GrdFlt=" + Request.QueryString["GrdFlt"] + "&SrchFlt=" + Request.QueryString["SrchFlt"] + "&Mode=" + HDMode.Value + "&TP=" + Request.QueryString["TP"]);
+           
+    }
+    protected void btnEdit_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            int JhqId = -1;
+            int JhId = int.Parse(Utility.DecryptQS(JobId.Value));
+
+            if (CustomGridJobQuality.FocusedRowIndex > -1)
+            {
+
+                DataRow row = CustomGridJobQuality.GetDataRow(CustomGridJobQuality.FocusedRowIndex);
+                JhqId = (int)row["JhqId"];
+
+            }
+            if (JhqId == -1)
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "لطفاً برای ویرایش اطلاعات ابتدا یک رکورد را انتخاب نمائید";
+
+            }
+            else
+            {
+                TSP.DataManager.ProjectJobHistoryManager JobManager = new TSP.DataManager.ProjectJobHistoryManager();
+                JobManager.FindByCode(JhId);
+                if (JobManager.Count == 1)
+                {
+                    int MReId = int.Parse(JobManager[0]["TableId"].ToString());
+                    int CurrentMReId = int.Parse(Utility.DecryptQS(MemberRequest.Value));
+                    if (MReId == CurrentMReId)
+                    {
+                        if (CheckPermitionForEdit(MReId))
+                            Response.Redirect("MemberJobQualityInsert.aspx?JhqId=" + Utility.EncryptQS(JhqId.ToString()) + "&aPageMode=" + Request.QueryString["aPageMode"] + "&JPageMode=" + Utility.EncryptQS("Edit") + "&MeId=" + MemberId.Value + "&PageMode=" + PgMode.Value + "&MReId=" + MemberRequest.Value + "&JhId=" + JobId.Value + "&GrdFlt=" + Request.QueryString["GrdFlt"] + "&SrchFlt=" + Request.QueryString["SrchFlt"]
+                               + "&Mode=" + HDMode.Value + "&TP=" + Request.QueryString["TP"]);
+
+                        else
+                        {
+                            this.DivReport.Visible = true;
+                            this.LabelWarning.Text = "امکان ویرایش اطلاعات در این مرحله از جریان کار برای شما وجود ندارد.";
+                        }
+
+
+                    }
+                    else
+                    {
+                        this.DivReport.Visible = true;
+                        this.LabelWarning.Text = "امکان ویرایش اطلاعات مربوط به درخواست های قبل وجود ندارد.";
+                    }
+
+
+                }
+                else
+                {
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "خطایی در بازخوانی اطلاعات رخ داده است";
+                }
+
+            }
+        }
+        catch (Exception)
+        {
+
+            this.DivReport.Visible = true;
+            this.LabelWarning.Text = "خطایی در مشاهده اطلاعات رخ داده است";
+        }
+    }
+
+    protected void btnView_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            int JhqId = -1;
+
+            if (CustomGridJobQuality.FocusedRowIndex > -1)
+            {
+
+                DataRow row = CustomGridJobQuality.GetDataRow(CustomGridJobQuality.FocusedRowIndex);
+                JhqId = (int)row["JhqId"];
+
+            }
+            if (JhqId == -1)
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "لطفاً برای ویرایش اطلاعات ابتدا یک رکورد را انتخاب نمائید";
+
+            }
+            else
+            {
+                Response.Redirect("MemberJobQualityInsert.aspx?JhqId=" + Utility.EncryptQS(JhqId.ToString()) + "&aPageMode=" + Request.QueryString["aPageMode"] + "&JPageMode=" + Utility.EncryptQS("View") + "&MeId=" + MemberId.Value + "&PageMode=" + PgMode.Value + "&MReId=" + MemberRequest.Value + "&JhId=" + JobId.Value + "&GrdFlt=" + Request.QueryString["GrdFlt"] + "&SrchFlt=" + Request.QueryString["SrchFlt"]
+                               + "&Mode=" + HDMode.Value + "&TP=" + Request.QueryString["TP"]);
+
+            }
+        }
+        catch (Exception)
+        {
+            this.DivReport.Visible = true;
+            this.LabelWarning.Text = "خطایی در مشاهده اطلاعات رخ داده است";
+        }
+
+    }
+
+    protected void btnBack_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("MemberJobInsert.aspx?MeId=" + MemberId.Value + "&PageMode=" + PgMode.Value + "&aPageMode=" + Request.QueryString["aPageMode"] + "&MReId=" + MemberRequest.Value + "&JhId=" + JobId.Value + "&GrdFlt=" + Request.QueryString["GrdFlt"] + "&SrchFlt=" + Request.QueryString["SrchFlt"]
+            + "&Mode=" + HDMode.Value + "&TP=" + Request.QueryString["TP"]);
+
+    }
+
+   
+    protected void GridViewJudge_BeforePerformDataSelect(object sender, EventArgs e)
+    {
+        Session["PKId"] = (sender as ASPxGridView).GetMasterRowKeyValue();
+    }
+
+    protected void GridViewFinancialStatus_DetailRowExpandedChanged(object sender, ASPxGridViewDetailRowEventArgs e)
+    {
+        CustomGridJobQuality.FocusedRowIndex = e.VisibleIndex;
+    }
+    private void CheckWorkFlowPermission()
+    {
+        CheckWorkFlowPermissionForSave();
+    }
+
+    private void CheckWorkFlowPermissionForSave()
+    {
+        TSP.DataManager.TaskDoerManager TaskDoerManager = new TSP.DataManager.TaskDoerManager();
+        TSP.DataManager.WorkFlowTaskManager WorkFlowTaskManager = new TSP.DataManager.WorkFlowTaskManager();
+        TSP.DataManager.NezamMemberChartManager NezamMemberChartManager = new TSP.DataManager.NezamMemberChartManager();
+        TSP.DataManager.LoginManager LoginManager = new TSP.DataManager.LoginManager();
+
+        int CurrentTaskOrder = -1;
+        int TaskOrder = -1;
+        //****TableId
+        //string MeId = Utility.DecryptQS(MemberId.Value);
+        string MReId = Utility.DecryptQS(MemberRequest.Value);
+        //****TableType
+        int TableType = (int)TSP.DataManager.TableCodes.MemberRequest;
+
+        TSP.DataManager.WorkFlowStateManager WorkFlowStateManager = new TSP.DataManager.WorkFlowStateManager();
+
+        DataTable dtWorkFlowState = WorkFlowStateManager.SelectLastState(TableType, int.Parse(MReId));
+        if (dtWorkFlowState.Rows.Count > 0)
+        {
+            CurrentTaskOrder = int.Parse(dtWorkFlowState.Rows[0]["TaskOrder"].ToString());
+        }
+        int TaskCode = (int)TSP.DataManager.WorkFlowTask.SaveMemberInfoForConfirming;
+        WorkFlowTaskManager.FindByTaskCode(TaskCode);
+        if (WorkFlowTaskManager.Count > 0)
+        {
+            TaskOrder = int.Parse(WorkFlowTaskManager[0]["TaskOrder"].ToString());
+        }
+
+        if (TaskOrder != 0 && CurrentTaskOrder == TaskOrder)
+        {
+            WorkFlowTaskManager.FindByTaskCode(TaskCode);
+            int TaskId = int.Parse(WorkFlowTaskManager[0]["TaskId"].ToString());
+            TaskDoerManager.FindByTaskId(TaskId);
+
+            if (TaskDoerManager.Count > 0)
+            {
+                int NcId = int.Parse(TaskDoerManager[0]["NcId"].ToString());
+                NezamMemberChartManager.FindByNcId(NcId);
+
+                int EmpId = int.Parse(NezamMemberChartManager[0]["EmpId"].ToString());
+
+                LoginManager.FindByMeIdUltId(EmpId, 4);
+                if (LoginManager.Count > 0)
+                {
+                    int userId = int.Parse(LoginManager[0]["UserId"].ToString());
+                    int CurrentUserId = Utility.GetCurrentUser_UserId();
+                    if (CurrentUserId == userId)
+                    {
+                        BtnNew.Enabled = true;
+                        BtnNew2.Enabled = true;
+                        btnEdit.Enabled = true;
+                        btnEdit2.Enabled = true;
+                    
+                    }
+                    else
+                    {
+
+                        BtnNew.Enabled = false;
+                        BtnNew2.Enabled = false;
+                        btnEdit.Enabled = false;
+                        btnEdit2.Enabled = false;
+                      
+                    }
+                }
+                else
+                {
+                    BtnNew.Enabled = false;
+                    BtnNew2.Enabled = false;
+                    btnEdit.Enabled = false;
+                    btnEdit2.Enabled = false;
+                 
+                }
+            }
+            else
+            {
+                BtnNew.Enabled = false;
+                BtnNew2.Enabled = false;
+                btnEdit.Enabled = false;
+                btnEdit2.Enabled = false;
+              
+            }
+        }
+        else
+        {
+            BtnNew.Enabled = false;
+            BtnNew2.Enabled = false;
+            btnEdit.Enabled = false;
+            btnEdit2.Enabled = false;
+          
+        }
+        this.ViewState["BtnEdit"] = btnEdit.Enabled;
+        this.ViewState["BtnNew"] = BtnNew.Enabled;
+
+    }
+    private Boolean CheckPermitionForEdit(int TableId)
+    {
+        TSP.DataManager.TaskDoerManager TaskDoerManager = new TSP.DataManager.TaskDoerManager();
+        TSP.DataManager.WorkFlowTaskManager WorkFlowTaskManager = new TSP.DataManager.WorkFlowTaskManager();
+        TSP.DataManager.WorkFlowStateManager WorkFlowStateManager = new TSP.DataManager.WorkFlowStateManager();
+        WorkFlowStateManager.ClearBeforeFill = true;
+        int TaskOrder = -1;
+        int TaskCode = (int)TSP.DataManager.WorkFlowTask.SaveMemberInfoForConfirming;
+        WorkFlowTaskManager.FindByTaskCode(TaskCode);
+        if (WorkFlowTaskManager.Count > 0)
+        {
+            TaskOrder = int.Parse(WorkFlowTaskManager[0]["TaskOrder"].ToString());
+            if (TaskOrder != 0)
+            {
+                int TableType = (int)TSP.DataManager.TableCodes.MemberRequest;
+                DataTable dtWorkFlowLastState = WorkFlowStateManager.SelectLastState(TableType, TableId);
+                if (dtWorkFlowLastState.Rows.Count > 0)
+                {
+                    int CurrentTaskCode = int.Parse(dtWorkFlowLastState.Rows[0]["TaskCode"].ToString());
+                    int CurrentNmcId = int.Parse(dtWorkFlowLastState.Rows[0]["NmcId"].ToString());
+                    int CurrentNmcIdType = int.Parse(dtWorkFlowLastState.Rows[0]["NmcIdType"].ToString());
+                    int CurrentTaskId = int.Parse(dtWorkFlowLastState.Rows[0]["TaskId"].ToString());
+                    int CurrentWorkFlowCode = int.Parse(dtWorkFlowLastState.Rows[0]["WorkFlowCode"].ToString());
+                    //int DocMeFileSaveInfoTaskCode = (int)TSP.DataManager.WorkFlowTask.SaveMemberInfoForConfirming;
+
+                    if (CurrentTaskCode == TaskCode)
+                    {
+                        return true;
+                       
+                    }
+                }
+            }
+        }
+        return false;
+
+    }
+    protected void CustomGridJobQuality_AutoFilterCellEditorInitialize(object sender, DevExpress.Web.ASPxGridViewEditorEventArgs e)
+    {
+        if (e.Column.FieldName == "CreateDate")
+            e.Editor.Style["direction"] = "ltr";
+    }
+    protected void CustomGridJobQuality_HtmlDataCellPrepared(object sender, DevExpress.Web.ASPxGridViewTableDataCellEventArgs e)
+    {
+        if ( e.DataColumn.FieldName == "CreateDate")
+            e.Cell.Style["direction"] = "ltr";
+    }
+  
+    protected void GridViewJudge_HtmlDataCellPrepared(object sender, DevExpress.Web.ASPxGridViewTableDataCellEventArgs e)
+    {
+        if (e.DataColumn.FieldName == "CreateDate" || e.DataColumn.FieldName == "MeetingDate")
+            e.Cell.Style["direction"] = "ltr";
+    }
+    protected void ASPxMenu1_ItemClick(object source, DevExpress.Web.MenuItemEventArgs e)
+    {
+        switch (e.Item.Name)
+        {
+            case "Job":
+                Response.Redirect("MemberJobInsert.aspx?MeId=" + MemberId.Value + "&PageMode=" + PgMode.Value + "&aPageMode=" + Request.QueryString["aPageMode"] + "&MReId=" + MemberRequest.Value + "&JhId=" + JobId.Value + "&GrdFlt=" + Request.QueryString["GrdFlt"] + "&SrchFlt=" + Request.QueryString["SrchFlt"]
+            + "&Mode=" + HDMode.Value + "&TP=" + Request.QueryString["TP"]);
+
+                break;
+
+        }
+    }
+
+    private void FillMemberName()
+    {
+        string MeId = Utility.DecryptQS(MemberId.Value);
+        string Mode = Utility.DecryptQS(HDMode.Value);
+        MemberInfoUserControl1.MeId = Convert.ToInt32(MeId);
+        if (Mode == "TempMe")
+        {
+            MemberInfoUserControl1.IsMeTemp = true;
+        }
+    }
+}

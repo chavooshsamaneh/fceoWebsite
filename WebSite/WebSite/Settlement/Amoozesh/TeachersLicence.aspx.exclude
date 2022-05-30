@@ -1,0 +1,595 @@
+﻿<%@ Page Language="C#" MasterPageFile="~/Settlement/Amoozesh/SettlmentMaster.master"
+    AutoEventWireup="true" CodeFile="TeachersLicence.aspx.cs" Inherits="Settlement_Amoozesh_TeachersLicence"
+    Title="مدارک تحصیلی استاد" %>
+
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxhf" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxcp" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxp" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxuc" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxrp" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxm" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxpc" %>
+<%@ Register Assembly="TSP.WebControls" Namespace="TSP.WebControls" TagPrefix="TSPControls" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxe" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxwgv" %>
+<%@ Register Assembly="PersianDateControls 2.0" Namespace="PersianDateControls" TagPrefix="pdc" %>
+<%@ Register Assembly="AjaxControls" Namespace="AjaxControls" TagPrefix="asp" %>
+<%@ Register Assembly="PersianDateControls 2.0" Namespace="PersianDateControls" TagPrefix="pdc" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+    <div id="Content" runat="server" style="width: 100%; text-align: center; display: block;"
+        dir="ltr">
+              <asp:updatepanel id="UpdatePanel1" runat="server">
+        <contenttemplate>
+        <div style="text-align: right" dir="rtl" id="DivReport" class="DivErrors" runat="server"
+            visible="true">
+            <asp:label id="LabelWarning" runat="server" text="Label"></asp:label>
+            [<a class="closeLink" href="#">بستن</a>]</div>
+        <div style="width: 100%" dir="ltr" align="right">
+            <dxrp:ASPxRoundPanel ID="ASPxRoundPanel1" runat="server" Width="100%" BackColor="#EBF2F4"
+                  HorizontalAlign="Right"
+                ShowHeader="False">
+                <LeftEdge>
+                    <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif">
+                    </BackgroundImage>
+                </LeftEdge>
+                <BottomRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpBottomRightCorner.png">
+                </BottomRightCorner>
+                <HeaderContent>
+                    <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderBack.gif">
+                    </BackgroundImage>
+                </HeaderContent>
+                <ContentPaddings PaddingTop="0px" Padding="0px" PaddingBottom="0px" PaddingLeft="0px">
+                </ContentPaddings>
+                <NoHeaderTopRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopRightCorner.png">
+                </NoHeaderTopRightCorner>
+                <RightEdge>
+                    <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif">
+                    </BackgroundImage>
+                </RightEdge>
+                <HeaderRightEdge>
+                    <BackgroundImage VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderRightEdge.gif">
+                    </BackgroundImage>
+                </HeaderRightEdge>
+                <Border BorderWidth="1px" BorderStyle="Solid" BorderColor="#7EACB1"></Border>
+                <HeaderStyle BackColor="White" Height="23px">
+                    <Paddings PaddingTop="0px" PaddingBottom="0px" PaddingLeft="2px"></Paddings>
+                    <BorderBottom BorderStyle="None"></BorderBottom>
+                </HeaderStyle>
+                <Content>
+                    <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpContentBack.gif">
+                    </BackgroundImage>
+                </Content>
+                <HeaderLeftEdge>
+                    <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderLeftEdge.gif">
+                    </BackgroundImage>
+                </HeaderLeftEdge>
+                <BottomEdge BackColor="#D7E9F1">
+                </BottomEdge>
+                <TopRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpTopRightCorner.png">
+                </TopRightCorner>
+                <NoHeaderTopLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopLeftCorner.png">
+                </NoHeaderTopLeftCorner>
+                <PanelCollection>
+                    <dxp:PanelContent runat="server">
+                        <div style="width: 100%" dir="rtl">
+                            <table style="border-collapse: collapse; background-color: transparent" dir="rtl"
+                                cellpadding="0">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <TSPControls:CustomTextBox runat="server" Text=" "  ToolTip="مشاهده"
+                                                ID="btnView" EnableClientSideAPI="True" UseSubmitBehavior="False" Visible="False"
+                                                EnableViewState="False" EnableTheming="False" OnClick="btnView_Click">
+                                                <ClientSideEvents Click="function(s, e) {
+		if (GridViewTeacherLicence.GetFocusedRowIndex()&lt;0)
+ 	{
+   		e.processOnServer=false;
+   		alert(&quot;ردیفی انتخاب نشده است&quot;);
+ 	}
+
+}"></ClientSideEvents>
+                                                <HoverStyle BackColor="#FFE0C0">
+                                                    <Border BorderWidth="1px" BorderStyle="Outset" BorderColor="Gray"></Border>
+                                                </HoverStyle>
+                                                <Image  Url="~/Images/icons/view.png">
+                                                </Image>
+                                            </TSPControls:CustomTextBox>
+                                        </td>
+                                        <td>
+                                            <TSPControls:CustomTextBox runat="server" Text=" "  ToolTip="بازگشت"
+                                                ID="btnBack" UseSubmitBehavior="False" EnableViewState="False" EnableTheming="False"
+                                                OnClick="btnBack_Click">
+                                                <HoverStyle BackColor="#FFE0C0">
+                                                    <Border BorderWidth="1px" BorderStyle="Outset" BorderColor="Gray"></Border>
+                                                </HoverStyle>
+                                                <Image  Url="~/Images/icons/Back.png">
+                                                </Image>
+                                            </TSPControls:CustomTextBox>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </dxp:PanelContent>
+                </PanelCollection>
+                <TopLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpTopLeftCorner.png">
+                </TopLeftCorner>
+                <NoHeaderTopEdge BackColor="#EBF2F4">
+                </NoHeaderTopEdge>
+                <BottomLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpBottomLeftCorner.png">
+                </BottomLeftCorner>
+            </dxrp:ASPxRoundPanel>
+        </div>
+        <div style="width: 100%; height: 24px" align="right" dir="rtl" id="DivMenu">    
+            <TSPControls:CustomAspxMenuHorizontal ID="MenuTeacherInfo" runat="server" 
+                 AutoSeparators="RootOnly" 
+                ItemSpacing="0px" SeparatorColor="#A5A6A8" SeparatorHeight="100%" SeparatorWidth="1px"
+                OnItemClick="MenuTeacherInfo_ItemClick" Enabled="False">
+                <Items>
+                    <dxm:MenuItem Name="BasicInfo" Text="مشخصات استاد">
+                    </dxm:MenuItem>
+                    <dxm:MenuItem Name="Licence" Selected=true Text="مدارک تحصیلی">
+                    </dxm:MenuItem>
+                    <dxm:MenuItem Name="Job" Text="سوابق کاری">
+                    </dxm:MenuItem>
+                    <dxm:MenuItem Name="Research" Text="تالیفات و تحقیقات">
+                    </dxm:MenuItem>
+                    <dxm:MenuItem Name="Attachment" Text="مستندات">
+                    </dxm:MenuItem>
+                </Items>
+                <RootItemSubMenuOffset FirstItemX="-1" FirstItemY="-2" LastItemX="-1" LastItemY="-2"
+                    X="-1" Y="-2" />
+                <Border BorderColor="#A5A6A8" BorderStyle="Solid" BorderWidth="1px" />
+                <VerticalPopOutImage Height="8px" Width="4px" />
+                <ItemStyle HorizontalAlign="Right" ImageSpacing="5px" PopOutImageSpacing="7px" VerticalAlign="Middle">
+                    <CheckedStyle BackColor="#80FFFF" ForeColor="#400040">
+                    </CheckedStyle>
+                </ItemStyle>
+                <SubMenuItemStyle ImageSpacing="7px">
+                </SubMenuItemStyle>
+                <SubMenuStyle BackColor="#EDF3F4" GutterWidth="0px" SeparatorColor="#7EACB1" />
+                <HorizontalPopOutImage Height="7px" Width="7px" />
+            </TSPControls:CustomAspxMenuHorizontal>
+        </div>
+        <br />
+        </br><div dir="ltr">
+            <dxrp:ASPxRoundPanel ID="RoundPanelTeacherLicence" runat="server" Width="100%" BackColor="#EBF2F4"
+                  HeaderText="مدارک تحصیلی">
+                <LeftEdge>
+                    <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif">
+                    </BackgroundImage>
+                </LeftEdge>
+                <BottomRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpBottomRightCorner.png">
+                </BottomRightCorner>
+                <HeaderContent>
+                    <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderBack.gif">
+                    </BackgroundImage>
+                </HeaderContent>
+                <ContentPaddings PaddingTop="10px" PaddingBottom="10px" PaddingLeft="4px"></ContentPaddings>
+                <NoHeaderTopRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopRightCorner.png">
+                </NoHeaderTopRightCorner>
+                <RightEdge>
+                    <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif">
+                    </BackgroundImage>
+                </RightEdge>
+                <HeaderRightEdge>
+                    <BackgroundImage VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderRightEdge.gif">
+                    </BackgroundImage>
+                </HeaderRightEdge>
+                <Border BorderWidth="1px" BorderStyle="Solid" BorderColor="#7EACB1"></Border>
+                <HeaderStyle HorizontalAlign="Right" BackColor="White" Height="26px">
+                    <Paddings PaddingTop="0px" PaddingBottom="0px" PaddingLeft="2px"></Paddings>
+                    <BorderBottom BorderStyle="None"></BorderBottom>
+                </HeaderStyle>
+                <Content>
+                    <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpContentBack.gif">
+                    </BackgroundImage>
+                </Content>
+                <HeaderLeftEdge>
+                    <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderLeftEdge.gif">
+                    </BackgroundImage>
+                </HeaderLeftEdge>
+                <BottomEdge BackColor="#D7E9F1">
+                </BottomEdge>
+                <TopRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpTopRightCorner.png">
+                </TopRightCorner>
+                <NoHeaderTopLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopLeftCorner.png">
+                </NoHeaderTopLeftCorner>
+                <PanelCollection>
+                    <dxp:PanelContent runat="server">
+                      
+                            <TSPControls:CustomAspxDevGridView runat="server"  EnableViewState="False"
+                                Width="100%" EnableCallBacks="False" ID="GridViewTeacherLicence" AutoGenerateColumns="False"
+                                ClientInstanceName="GridViewTeacherLicence"  
+                                OnAutoFilterCellEditorInitialize="GridViewTeacherLicence_OnAutoFilterCellEditorInitialize" OnHtmlDataCellPrepared="GridViewTeacherLicence_OnHtmlDataCellPrepared">
+                                <SettingsDetail ShowDetailRow="True" AllowOnlyOneMasterRowExpanded="True" ></SettingsDetail>
+                                <Templates>
+                                    <DetailRow>
+                                        <div align="center">
+                                            <TSPControls:CustomAspxDevGridView ID="GridViewJudge" runat="server" AutoGenerateColumns="False"
+                                                  DataSourceID="ObjdsJudgment"
+                                                EnableViewState="False" KeyFieldName="JudgeId" OnBeforePerformDataSelect="GridViewJudge_BeforePerformDataSelect"
+                                                Width="419px">                                                
+                                                
+                                                <Columns>
+                                                    <dxwgv:GridViewDataTextColumn Caption="نام" FieldName="FirstName" VisibleIndex="0">
+                                                    </dxwgv:GridViewDataTextColumn>
+                                                    <dxwgv:GridViewDataTextColumn Caption="نام خانوادگی" FieldName="LastName" VisibleIndex="1">
+                                                    </dxwgv:GridViewDataTextColumn>
+                                                    <dxwgv:GridViewDataTextColumn Caption="سمت" FieldName="NcName" VisibleIndex="2">
+                                                    </dxwgv:GridViewDataTextColumn>
+                                                    <dxwgv:GridViewDataTextColumn Caption="شماره جلسه" VisibleIndex="3">
+                                                    </dxwgv:GridViewDataTextColumn>
+                                                    <dxwgv:GridViewDataTextColumn Caption="امتیاز" FieldName="JudgeGrade" VisibleIndex="4">
+                                                    </dxwgv:GridViewDataTextColumn>
+                                                    <dxwgv:GridViewDataTextColumn Caption="نظر کارشناسی" FieldName="JudgeViewPoint" VisibleIndex="6"
+                                                        Width="200px">
+                                                    </dxwgv:GridViewDataTextColumn>
+                                                </Columns>
+                                               
+                                                <Settings ShowHorizontalScrollBar="True" />
+                                                <SettingsDetail IsDetailGrid="True" />
+                                            </TSPControls:CustomAspxDevGridView>
+                                        </div>
+                                    </DetailRow>
+                                </Templates>
+                                <ClientSideEvents RowClick="function(s, e) {
+	//btn.SetEnabled(false);
+	//SetControlValues();
+}"></ClientSideEvents>
+                              
+                                <Settings ShowGroupPanel="True" ShowFilterRowMenu=true ShowFilterRow=true></Settings>
+                              
+                                <Columns>
+                                    <dxwgv:GridViewDataTextColumn Visible="False" VisibleIndex="0" FieldName="MlId" Name="MlId">
+                                    </dxwgv:GridViewDataTextColumn>
+                                    <dxwgv:GridViewDataTextColumn VisibleIndex="0" FieldName="LiName" Caption="مدرک"
+                                        Name="LiName">
+                                    </dxwgv:GridViewDataTextColumn>
+                                    <dxwgv:GridViewDataTextColumn VisibleIndex="1" FieldName="MjName" Caption="رشته"
+                                        Name="MjName">
+                                    </dxwgv:GridViewDataTextColumn>
+                                    <dxwgv:GridViewDataTextColumn VisibleIndex="2" FieldName="UnName" Caption="دانشگاه"
+                                        Name="UnName">
+                                    </dxwgv:GridViewDataTextColumn>
+                                    <dxwgv:GridViewDataTextColumn VisibleIndex="3" FieldName="CitName" Caption="شهر"
+                                        Name="CitName">
+                                    </dxwgv:GridViewDataTextColumn>
+                                    <dxwgv:GridViewDataTextColumn VisibleIndex="4" FieldName="StartDate" Caption="تاریخ شروع"
+                                        Name="StartDate" Width="100px">
+                                    </dxwgv:GridViewDataTextColumn>
+                                    <dxwgv:GridViewDataTextColumn VisibleIndex="5" FieldName="EndDate" Caption="تاریخ فارغ التحصیلی"
+                                        Name="EndDate" Width="100px">
+                                        <headerstyle wrap="True"></headerstyle>
+                                    </dxwgv:GridViewDataTextColumn>
+                                    <dxwgv:GridViewDataTextColumn VisibleIndex="6" FieldName="NumUnit" Caption="تعداد واحد"
+                                        Name="NumUnit">
+                                    </dxwgv:GridViewDataTextColumn>
+                                    <dxwgv:GridViewDataTextColumn VisibleIndex="8" FieldName="Avg" Caption="معدل" Name="Avg">                             
+                                    </dxwgv:GridViewDataTextColumn>
+                                    <dxwgv:GridViewDataTextColumn VisibleIndex="7" FieldName="Grade" Caption="امتیاز">
+                                    </dxwgv:GridViewDataTextColumn>
+                                    <dxwgv:GridViewDataTextColumn Visible="False" VisibleIndex="5" FieldName="LiId" Name="LiId">
+                                    </dxwgv:GridViewDataTextColumn>
+                                    <dxwgv:GridViewDataTextColumn Visible="False" VisibleIndex="5" FieldName="MjId" Name="MjId">
+                                    </dxwgv:GridViewDataTextColumn>
+                                    <dxwgv:GridViewDataTextColumn Visible="False" VisibleIndex="5" FieldName="UnId" Name="UnId">
+                                    </dxwgv:GridViewDataTextColumn>
+                                    <dxwgv:GridViewDataTextColumn Visible="False" VisibleIndex="5" FieldName="Description"
+                                        Name="Description">
+                                    </dxwgv:GridViewDataTextColumn>
+                                                                            <dxwgv:GridViewCommandColumn Caption=" " VisibleIndex="10" width="30px">
+                                            <clearfilterbutton visible="True"></clearfilterbutton>
+                                        </dxwgv:GridViewCommandColumn>
+                                </Columns>
+                           
+                            </TSPControls:CustomAspxDevGridView>
+                    </dxp:PanelContent>
+                </PanelCollection>
+                <TopLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpTopLeftCorner.png">
+                </TopLeftCorner>
+                <NoHeaderTopEdge BackColor="#EBF2F4">
+                </NoHeaderTopEdge>
+                <BottomLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpBottomLeftCorner.png">
+                </BottomLeftCorner>
+            </dxrp:ASPxRoundPanel>
+        </div>
+        <br />
+        <div style="width: 100%" dir="ltr" align="right">
+            <dxrp:ASPxRoundPanel ID="RoundPanelHeader" runat="server" Width="100%" BackColor="#EBF2F4"
+                  HorizontalAlign="Right"
+                ShowHeader="False">
+                <LeftEdge>
+                    <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif">
+                    </BackgroundImage>
+                </LeftEdge>
+                <BottomRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpBottomRightCorner.png">
+                </BottomRightCorner>
+                <HeaderContent>
+                    <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderBack.gif">
+                    </BackgroundImage>
+                </HeaderContent>
+                <ContentPaddings PaddingTop="0px" Padding="0px" PaddingBottom="0px" PaddingLeft="0px">
+                </ContentPaddings>
+                <NoHeaderTopRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopRightCorner.png">
+                </NoHeaderTopRightCorner>
+                <RightEdge>
+                    <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif">
+                    </BackgroundImage>
+                </RightEdge>
+                <HeaderRightEdge>
+                    <BackgroundImage VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderRightEdge.gif">
+                    </BackgroundImage>
+                </HeaderRightEdge>
+                <Border BorderWidth="1px" BorderStyle="Solid" BorderColor="#7EACB1"></Border>
+                <HeaderStyle BackColor="White" Height="23px">
+                    <Paddings PaddingTop="0px" PaddingBottom="0px" PaddingLeft="2px"></Paddings>
+                    <BorderBottom BorderStyle="None"></BorderBottom>
+                </HeaderStyle>
+                <Content>
+                    <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpContentBack.gif">
+                    </BackgroundImage>
+                </Content>
+                <HeaderLeftEdge>
+                    <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderLeftEdge.gif">
+                    </BackgroundImage>
+                </HeaderLeftEdge>
+                <BottomEdge BackColor="#D7E9F1">
+                </BottomEdge>
+                <TopRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpTopRightCorner.png">
+                </TopRightCorner>
+                <NoHeaderTopLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopLeftCorner.png">
+                </NoHeaderTopLeftCorner>
+                <PanelCollection>
+                    <dxp:PanelContent runat="server">
+                        <div style="width: 100%" dir="rtl">
+                            <table style="border-collapse: collapse; background-color: transparent" dir="rtl"
+                                cellpadding="0">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <TSPControls:CustomTextBox runat="server" Text=" "  ToolTip="مشاهده"
+                                                ID="btnView2" EnableClientSideAPI="True" UseSubmitBehavior="False" Visible="False"
+                                                EnableViewState="False" EnableTheming="False">
+                                                <ClientSideEvents Click="function(s, e) {
+		if (GridViewTeacherLicence.GetFocusedRowIndex()&lt;0)
+ 	{
+   		e.processOnServer=false;
+   		alert(&quot;ردیفی انتخاب نشده است&quot;);
+ 	}
+
+}"></ClientSideEvents>
+                                                <HoverStyle BackColor="#FFE0C0">
+                                                    <Border BorderWidth="1px" BorderStyle="Outset" BorderColor="Gray"></Border>
+                                                </HoverStyle>
+                                                <Image  Url="~/Images/icons/view.png">
+                                                </Image>
+                                            </TSPControls:CustomTextBox>
+                                        </td>
+                                        <td>
+                                            <TSPControls:CustomTextBox runat="server" Text=" "  ToolTip="بازگشت"
+                                                ID="btnBack2" UseSubmitBehavior="False" EnableViewState="False" EnableTheming="False"
+                                                OnClick="btnBack_Click">
+                                                <HoverStyle BackColor="#FFE0C0">
+                                                    <Border BorderWidth="1px" BorderStyle="Outset" BorderColor="Gray"></Border>
+                                                </HoverStyle>
+                                                <Image  Url="~/Images/icons/Back.png">
+                                                </Image>
+                                            </TSPControls:CustomTextBox>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <dxhf:ASPxHiddenField runat="server" ID="HiddenFieldTeacherLicnce">
+                            </dxhf:ASPxHiddenField>
+                        </div>
+                    </dxp:PanelContent>
+                </PanelCollection>
+                <TopLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpTopLeftCorner.png">
+                </TopLeftCorner>
+                <NoHeaderTopEdge BackColor="#EBF2F4">
+                </NoHeaderTopEdge>
+                <BottomLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpBottomLeftCorner.png">
+                </BottomLeftCorner>
+            </dxrp:ASPxRoundPanel>
+        </div>
+        <asp:objectdatasource id="ObjdsTeacherLicence" runat="server" typename="TSP.DataManager.TeacherLicenceManger"
+            selectmethod="SelectByTeacher" oldvaluesparameterformatstring="original_{0}"><SelectParameters>
+<asp:Parameter Type="Int32" DefaultValue="-1" Name="TeacherId"></asp:Parameter>
+<asp:Parameter Type="Int32" DefaultValue="0" Name="InActive"></asp:Parameter>
+<asp:Parameter Type="Int32" DefaultValue="-1" Name="TcId"></asp:Parameter>
+</SelectParameters>
+</asp:objectdatasource>
+        <asp:objectdatasource id="ObjdsMemberLicence" runat="server" updatemethod="Update"
+            typename="TSP.DataManager.MemberLicenceManager" selectmethod="SelectByMember"
+            oldvaluesparameterformatstring="original_{0}" insertmethod="Insert" deletemethod="Delete">
+                <DeleteParameters>
+                    <asp:Parameter Name="Original_MlId" Type="Int32" />
+                    <asp:Parameter Name="Original_LastTimeStamp" Type="Object" />
+                </DeleteParameters>
+                <UpdateParameters>
+                    <asp:Parameter Name="LiId" Type="Int32" />
+                    <asp:Parameter Name="MeId" Type="Int32" />
+                    <asp:Parameter Name="MjId" Type="Int32" />
+                    <asp:Parameter Name="UnId" Type="Int32" />
+                    <asp:Parameter Name="CitId" Type="Int32" />
+                    <asp:Parameter Name="Avg" Type="Single" />
+                    <asp:Parameter Name="NumUnit" Type="Single" />
+                    <asp:Parameter Name="StartDate" Type="String" />
+                    <asp:Parameter Name="EndDate" Type="String" />
+                    <asp:Parameter Name="IsConfirm" Type="Byte" />
+                    <asp:Parameter Name="Description" Type="String" />
+                    <asp:Parameter Name="UserId" Type="Int32" />
+                    <asp:Parameter Name="ModifiedDate" Type="DateTime" />
+                    <asp:Parameter Name="Original_MlId" Type="Int32" />
+                    <asp:Parameter Name="Original_LastTimeStamp" Type="Object" />
+                    <asp:Parameter Name="MlId" Type="Int32" />
+                </UpdateParameters>
+                <SelectParameters>
+                    <asp:Parameter DefaultValue="-1" Name="MemberId" Type="Int32" />
+                    <asp:Parameter DefaultValue="0" Name="InActive" Type="Int32" />
+                    <asp:Parameter DefaultValue="%" Name="Date" Type="String" />
+                </SelectParameters>
+                <InsertParameters>
+                    <asp:Parameter Name="LiId" Type="Int32" />
+                    <asp:Parameter Name="MeId" Type="Int32" />
+                    <asp:Parameter Name="MjId" Type="Int32" />
+                    <asp:Parameter Name="UnId" Type="Int32" />
+                    <asp:Parameter Name="CitId" Type="Int32" />
+                    <asp:Parameter Name="Avg" Type="Single" />
+                    <asp:Parameter Name="NumUnit" Type="Single" />
+                    <asp:Parameter Name="StartDate" Type="String" />
+                    <asp:Parameter Name="EndDate" Type="String" />
+                    <asp:Parameter Name="IsConfirm" Type="Byte" />
+                    <asp:Parameter Name="Description" Type="String" />
+                    <asp:Parameter Name="UserId" Type="Int32" />
+                    <asp:Parameter Name="ModifiedDate" Type="DateTime" />
+                </InsertParameters>
+            </asp:objectdatasource>
+        <asp:objectdatasource id="ObjdsJudgment" runat="server" typename="TSP.DataManager.TeacherJudgmentManager"
+            selectmethod="FindByTableType" oldvaluesparameterformatstring="original_{0}">
+                <SelectParameters>
+                    <asp:SessionParameter DefaultValue="-1" Name="TeId" SessionField="TeId" Type="Int32" />
+                    <asp:SessionParameter DefaultValue="-1" Name="TableId" SessionField="TableId" Type="Int32" />
+                    <asp:SessionParameter DefaultValue="-1" Name="TableType" SessionField="TableType"
+                        Type="Int32" />
+                </SelectParameters>
+            </asp:objectdatasource>
+        </contenttemplate> </asp:updatepanel>
+        <asp:modalupdateprogress id="ModalUpdateProgress2" runat="server" associatedupdatepanelid="UpdatePanel1"
+            backgroundcssclass="modalProgressGreyBackground" displayafter="0">
+        <ProgressTemplate>
+            <div class="modalPopup">
+                لطفا صبر نمایید
+                <img align="middle" src="../../Image/indicator.gif" />
+            </div>
+        </ProgressTemplate>
+    </asp:modalupdateprogress>
+        <asp:objectdatasource id="ODBMadrak" runat="server" deletemethod="Delete" filterexpression="MeId={0}"
+            insertmethod="Insert" oldvaluesparameterformatstring="original_{0}" selectmethod="GetData"
+            typename="TSP.DataManager.MemberLicenceManager" updatemethod="Update">
+        <DeleteParameters>
+            <asp:Parameter Name="Original_MlId" Type="Int32" />
+            <asp:Parameter Name="Original_LastTimeStamp" Type="Object" />
+        </DeleteParameters>
+        <FilterParameters>
+            <asp:Parameter Name="newparameter" />
+        </FilterParameters>
+        <UpdateParameters>
+            <asp:Parameter Name="LiId" Type="Int32" />
+            <asp:Parameter Name="MeId" Type="Int32" />
+            <asp:Parameter Name="MjId" Type="Int32" />
+            <asp:Parameter Name="UnId" Type="Int32" />
+            <asp:Parameter Name="CitId" Type="Int32" />
+            <asp:Parameter Name="Avg" Type="Single" />
+            <asp:Parameter Name="NumUnit" Type="Single" />
+            <asp:Parameter Name="StartDate" Type="String" />
+            <asp:Parameter Name="EndDate" Type="String" />
+            <asp:Parameter Name="IsConfirm" Type="Byte" />
+            <asp:Parameter Name="Description" Type="String" />
+            <asp:Parameter Name="UserId" Type="Int32" />
+            <asp:Parameter Name="ModifiedDate" Type="DateTime" />
+            <asp:Parameter Name="Original_MlId" Type="Int32" />
+            <asp:Parameter Name="Original_LastTimeStamp" Type="Object" />
+            <asp:Parameter Name="MlId" Type="Int32" />
+        </UpdateParameters>
+        <InsertParameters>
+            <asp:Parameter Name="LiId" Type="Int32" />
+            <asp:Parameter Name="MeId" Type="Int32" />
+            <asp:Parameter Name="MjId" Type="Int32" />
+            <asp:Parameter Name="UnId" Type="Int32" />
+            <asp:Parameter Name="CitId" Type="Int32" />
+            <asp:Parameter Name="Avg" Type="Single" />
+            <asp:Parameter Name="NumUnit" Type="Single" />
+            <asp:Parameter Name="StartDate" Type="String" />
+            <asp:Parameter Name="EndDate" Type="String" />
+            <asp:Parameter Name="IsConfirm" Type="Byte" />
+            <asp:Parameter Name="Description" Type="String" />
+            <asp:Parameter Name="UserId" Type="Int32" />
+            <asp:Parameter Name="ModifiedDate" Type="DateTime" />
+        </InsertParameters>
+    </asp:objectdatasource>
+        <asp:objectdatasource id="ODBLicence" runat="server" cacheduration="30" deletemethod="Delete"
+            enablecaching="True" insertmethod="Insert" selectmethod="GetData" typename="TSP.DataManager.LicenceManager"
+            updatemethod="Update">
+        <DeleteParameters>
+            <asp:Parameter Name="Original_LiId" Type="Int32" />
+            <asp:Parameter Name="Original_LastTimeStamp" Type="Object" />
+        </DeleteParameters>
+        <UpdateParameters>
+            <asp:Parameter Name="LiCode" Type="String" />
+            <asp:Parameter Name="LiName" Type="String" />
+            <asp:Parameter Name="Decription" Type="String" />
+            <asp:Parameter Name="UserId" Type="Int32" />
+            <asp:Parameter Name="ModifiedDate" Type="DateTime" />
+            <asp:Parameter Name="Original_LiId" Type="Int32" />
+            <asp:Parameter Name="Original_LastTimeStamp" Type="Object" />
+            <asp:Parameter Name="LiId" Type="Int32" />
+        </UpdateParameters>
+        <InsertParameters>
+            <asp:Parameter Name="LiCode" Type="String" />
+            <asp:Parameter Name="LiName" Type="String" />
+            <asp:Parameter Name="Decription" Type="String" />
+            <asp:Parameter Name="UserId" Type="Int32" />
+            <asp:Parameter Name="ModifiedDate" Type="DateTime" />
+        </InsertParameters>
+    </asp:objectdatasource>
+        <asp:objectdatasource id="ODBMajor" runat="server" cacheduration="30" deletemethod="Delete"
+            enablecaching="True" oldvaluesparameterformatstring="original_{0}" selectmethod="GetData"
+            typename="TSP.DataManager.MajorManager" updatemethod="Update">
+        <DeleteParameters>
+            <asp:Parameter Name="Original_MjId" Type="Int32" />
+            <asp:Parameter Name="Original_LastTimeStamp" Type="Object" />
+        </DeleteParameters>
+        <UpdateParameters>
+            <asp:Parameter Name="MjCode" Type="String" />
+            <asp:Parameter Name="ParentId" Type="Int32" />
+            <asp:Parameter Name="Description" Type="String" />
+            <asp:Parameter Name="UserId" Type="Int32" />
+            <asp:Parameter Name="ModifiedDate" Type="DateTime" />
+            <asp:Parameter Name="Original_MjId" Type="Int32" />
+            <asp:Parameter Name="Original_LastTimeStamp" Type="Object" />
+            <asp:Parameter Name="MjId" Type="Int32" />
+        </UpdateParameters>
+    </asp:objectdatasource>
+        <asp:objectdatasource id="ODBUniversity" runat="server" cacheduration="30" deletemethod="Delete"
+            enablecaching="True" insertmethod="Insert" oldvaluesparameterformatstring="original_{0}"
+            selectmethod="GetData" typename="TSP.DataManager.UniversityManager" updatemethod="Update">
+        <DeleteParameters>
+            <asp:Parameter Name="Original_UnId" Type="Int32" />
+            <asp:Parameter Name="Original_LastTimeStamp" Type="Object" />
+        </DeleteParameters>
+        <UpdateParameters>
+            <asp:Parameter Name="UnCode" Type="String" />
+            <asp:Parameter Name="UnName" Type="String" />
+            <asp:Parameter Name="UnType" Type="Byte" />
+            <asp:Parameter Name="IsForeign" Type="Byte" />
+            <asp:Parameter Name="Description" Type="String" />
+            <asp:Parameter Name="UserId" Type="Int32" />
+            <asp:Parameter Name="ModifiedDate" Type="DateTime" />
+            <asp:Parameter Name="Original_UnId" Type="Int32" />
+            <asp:Parameter Name="Original_LastTimeStamp" Type="Object" />
+            <asp:Parameter Name="UnId" Type="Int32" />
+        </UpdateParameters>
+        <InsertParameters>
+            <asp:Parameter Name="UnCode" Type="String" />
+            <asp:Parameter Name="UnName" Type="String" />
+            <asp:Parameter Name="UnType" Type="Byte" />
+            <asp:Parameter Name="IsForeign" Type="Byte" />
+            <asp:Parameter Name="Description" Type="String" />
+            <asp:Parameter Name="UserId" Type="Int32" />
+            <asp:Parameter Name="ModifiedDate" Type="DateTime" />
+        </InsertParameters>
+    </asp:objectdatasource>
+    </div>
+</asp:Content>

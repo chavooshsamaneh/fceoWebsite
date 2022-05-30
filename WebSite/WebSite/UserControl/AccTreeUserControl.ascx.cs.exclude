@@ -1,0 +1,184 @@
+using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+using System.ComponentModel;
+using DevExpress.Web.ASPxTreeList;
+using System.IO;
+using System.Collections.Generic;
+public partial class UserControl_AccTreeUserControl : System.Web.UI.UserControl
+{
+    //DataTable dtFullNezam
+    [Browsable(true), Category("Events"), Description("when callback is called")]
+    public event DevExpress.Web.CallbackEventHandlerBase Callback;
+
+
+    string textBoxAccNameClientName = "";
+    [Browsable(true), Category("Behavior"), Description("TextBoxClientName that's supposed to hold TextBoxClientName")]
+    public string TextBoxAccNameClientName
+    {
+        get
+        {
+            return this.textBoxAccNameClientName;
+        }
+        set
+        {
+            this.textBoxAccNameClientName = value;
+        }
+    }
+
+    string textBoxAccCodeClientName = "";
+    [Browsable(true), Category("Behavior"), Description("TextBoxClientName that's supposed to hold TextBoxClientName")]
+    public string TextBoxAccCodeClientName
+    {
+        get
+        {
+            return this.textBoxAccCodeClientName;
+        }
+        set
+        {
+            this.textBoxAccCodeClientName = value;
+        }
+    }
+
+    string hiddenFieldClientName = "";
+    [Browsable(true), Category("Behavior"), Description("HiddenFieldClientName that's supposed to hold HiddenFieldClientName")]
+    public string HiddenFieldClientName
+    {
+        get
+        {
+            return this.hiddenFieldClientName;
+        }
+        set
+        {
+            this.hiddenFieldClientName = value;
+        }
+    }
+
+
+    protected void Page_Load(object sender, EventArgs e)
+    {
+
+        if (!IsPostBack)
+        {
+            if (!string.IsNullOrEmpty(textBoxAccNameClientName) && !string.IsNullOrEmpty(hiddenFieldClientName))
+                CallbackPanelAcc.ClientSideEvents.EndCallback = "function(s,e){" + TextBoxAccNameClientName + ".SetText(s.cpAccName);"
+                        + textBoxAccCodeClientName + ".SetText(s.cpAccCode);"
+                        + hiddenFieldClientName + ".Set('AccId',s.cpAccId);" + "}"; //"Alert(" + TextBoxClientName + ".GetText(''));" + "}";           
+            TreeListUnBind();
+        }
+
+    }
+
+    protected void CallbackPanelAcc_Callback(object sender, DevExpress.Web.CallbackEventArgsBase e)
+    {
+        if (this.Callback != null)
+            this.Callback(sender, e);
+
+    }
+
+    public void PerformCallback(DevExpress.Web.CallbackEventArgsBase e)
+    {
+        string[] Parameters = e.Parameter.Split(';');
+        CallbackPanelAcc.JSProperties["cpCallbackReqType"] = Parameters[0];
+        switch (Parameters[0])
+        {
+            case "Search":
+                ObjdsAcc.SelectParameters["AccCode"].DefaultValue = txtAccCode_UserControl.Text.Trim();
+                ObjdsAcc.SelectParameters["AccName"].DefaultValue = "%" + txtAccName_UserControl.Text.Trim() + "%";
+                TreeListDataBinding();
+                break;
+            case "NodeClick":
+                int AccId = Convert.ToInt32(Parameters[1]);
+                CallbackPanelAcc.JSProperties["cpAccId"] = AccId;
+                TSP.DataManager.AccountingAccountManager Manager = new TSP.DataManager.AccountingAccountManager();
+                Manager.FindByAccId(AccId);
+                if (Manager.Count == 1)
+                {
+                    CallbackPanelAcc.JSProperties["cpAccName"] = Manager[0]["AccName"].ToString();
+                    CallbackPanelAcc.JSProperties["cpAccCode"] = Manager[0]["AccCode"].ToString();
+                    TreeListDataBinding();
+                }
+                break;
+        }
+    }
+
+    protected void TreeListAcc_VirtualModeCreateChildren(object sender, DevExpress.Web.ASPxTreeList.TreeListVirtualModeCreateChildrenEventArgs e)
+    {
+        List<DataRow> children = new List<DataRow>();
+        // DataRow[] dataRows;
+        TSP.DataManager.AccountingAccountManager AccManager = new TSP.DataManager.AccountingAccountManager();
+        if (Utility.IsDBNullOrNullValue(e.NodeObject))
+        {
+            AccManager.Fill();
+            //dataRows = AccManager.DataTable.Select("ParentId Is null");
+            AccManager.FindByParentId(-2);
+            //foreach (DataRow dr in dataRows)
+            //{
+            //    children.Add(dr);
+            //}
+            //  e.Children = (System.Collections.IList)dataRows;
+            e.Children = (System.Collections.IList)AccManager.DataTable.Select();
+
+        }
+        else
+        {
+            AccManager.FindByParentId(Convert.ToInt32(((DataRow)e.NodeObject)["AccId"]));
+            //foreach (DataRow dr in AccManager.DataTable.Rows)
+            //{
+            //    children.Add(dr);
+            //}
+            e.Children = (System.Collections.IList)AccManager.DataTable.Select();
+        }
+        //e.Children = children;
+    }
+
+    protected void TreeListAcc_VirtualModeNodeCreating(object sender, DevExpress.Web.ASPxTreeList.TreeListVirtualModeNodeCreatingEventArgs e)
+    {
+        TSP.DataManager.AccountingAccountManager AccManager = new TSP.DataManager.AccountingAccountManager();
+        //string nodePath = e.NodeObject.ToString();
+        AccManager.FindByParentId(Convert.ToInt32(((DataRow)e.NodeObject)["AccId"]));
+        if (AccManager.Count == 0)
+            e.IsLeaf = true;
+        else
+            e.IsLeaf = false;
+        e.NodeKeyValue = ((DataRow)e.NodeObject)["AccId"];
+        e.SetNodeValue("AccName", ((DataRow)e.NodeObject)["AccName"]);
+        e.SetNodeValue("AccTypeName", ((DataRow)e.NodeObject)["AccTypeName"]);
+        e.SetNodeValue("GroupName", ((DataRow)e.NodeObject)["GroupName"]);
+        e.SetNodeValue("GroupTypeName", ((DataRow)e.NodeObject)["GroupTypeName"]);
+        e.SetNodeValue("GroupStatusName", ((DataRow)e.NodeObject)["GroupStatusName"]);
+        e.SetNodeValue("InActiveName", ((DataRow)e.NodeObject)["InActiveName"]);
+        e.SetNodeValue("AccDescription", ((DataRow)e.NodeObject)["AccDescription"]);
+
+
+        //e.IsLeaf = !Directory.Exists(nodePath);
+        //e.SetNodeValue("name", Path.GetFileName(nodePath));
+        //e.SetNodeValue("date", Directory.GetCreationTime(nodePath));
+    }
+
+    protected void TreeListAcc_CustomCallback(object sender, TreeListCustomCallbackEventArgs e)
+    {
+        if (e.Argument == "Bind")
+            TreeListDataBinding();
+    }
+
+    private void TreeListDataBinding()
+    {
+        TreeListAcc.DataSourceID = ObjdsAcc.ID;
+        TreeListAcc.DataBind();
+    }
+
+    private void TreeListUnBind()
+    {
+        TreeListAcc.DataSourceID = "";
+        TreeListAcc.DataBind();
+    }
+
+}

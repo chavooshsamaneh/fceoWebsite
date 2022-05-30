@@ -1,0 +1,55 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.ComponentModel;
+
+public partial class FormBuilder_ActiveFormsUserControl : System.Web.UI.UserControl
+{
+    #region Properties
+    private TSP.DataManager.FormBuilder.DisplayLocationTypesManager.Types _DisplayLocationType;
+    [Browsable(true), Category("TSP")]
+    public TSP.DataManager.FormBuilder.DisplayLocationTypesManager.Types DisplayLocationType
+    {
+        get
+        {
+            return this._DisplayLocationType;
+        }
+        set
+        {
+            this._DisplayLocationType = value;
+        }
+    }
+    #endregion
+
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (IsPostBack == false)
+            Load_Forms();
+    }
+
+    protected void lnkShowForm_DataBinding(object sender, EventArgs e)
+    {
+        DevExpress.Web.ASPxHyperLink lnkShowForm = (DevExpress.Web.ASPxHyperLink)sender;
+        lnkShowForm.NavigateUrl = "~/FormBuilder/InputForms.aspx?FId=" + Utility.EncryptQS(lnkShowForm.ToolTip);
+        lnkShowForm.ToolTip = "";
+    }
+
+    void Load_Forms()
+    {
+        TSP.DataManager.FormBuilder.FormsManager FormsManager = new TSP.DataManager.FormBuilder.FormsManager();
+        System.Data.DataTable dtForms = FormsManager.FindByDisplayLocation(DisplayLocationType);
+        if (dtForms.Rows.Count > 0)
+        {
+            PanelFormBuilder_ActiveForms.Visible = true;
+            DataListForms.DataSource = dtForms;
+            DataListForms.DataBind();
+        }
+        else
+        {
+            PanelFormBuilder_ActiveForms.Visible = false;
+        }
+    }
+}

@@ -1,0 +1,165 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Test.aspx.cs" Inherits="Test" %>
+
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dx" %>
+
+
+
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxm" %>
+<%@ Register Assembly="TSP.WebControls" Namespace="TSP.WebControls" TagPrefix="TSPControls" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <%--  <link href="../StyleSheet/Default.css" rel="stylesheet" type="text/css" />--%>
+</head>
+<body>
+    <form id="form1" runat="server">
+    <%-- <div id="logo">
+        <a id="oderSiteAdd" title="First" href="http://www.fceo.ir" target="_blank" style ="vertical-align:middle">First</a> 
+    </div>--%>
+    <asp:Button runat="server" ID="ButtonStart" OnClick="ButtonStart_Click" Text="Start" />
+    <br />
+    <dx:ASPxLabel ID="ASPxLabel1" runat="server" Text="ASPxLabel">
+    </dx:ASPxLabel>
+    <br />
+    <br />
+    <dx:ASPxLabel ID="lblMsg" runat="server" Text="ASPxLabel">
+    </dx:ASPxLabel>
+    <br />
+    <asp:Button runat="server" ID="ButtonStart0" OnClick="ButtonStart0_Click" Text="StartFindImages" />
+    <TSPControls:CustomASPXMemo ID="txtMeIdWithoutImg" runat="server" Height="149px" Width="745px">
+    </TSPControls:CustomASPXMemo>
+    <br />
+    <%--  <asp:ImageMap ID="ImageMap1" runat="server" Height="125px" 
+        HotSpotMode="PostBack" ImageUrl="~/Images/HomePage/Theme/bg-logo.jpg">
+        <asp:RectangleHotSpot Bottom="10" HotSpotMode="Navigate" 
+            NavigateUrl="www.fceo.ir" Right="10" />
+    </asp:ImageMap>--%>
+    <%--    <img ID="Pic" runat="server" usemap="#map1" src="~/Images/HomePage/Theme/bg-logo.jpg" >    
+    </img>
+    <map name="map1" >
+    <area  shape="rect" coords="0,0,500,300" href="http://www.fceo.ir" target="_blank" />
+
+    </map>--%>
+    <TSPControls:CustomASPxCheckBox ID="ASPxCheckBox1" runat="server" CheckState="Unchecked" 
+         >
+    </TSPControls:CustomASPxCheckBox>
+    <TSPControls:CustomAspxDevDataView ID="CustomAspxDevDataView1" runat="server">
+    </TSPControls:CustomAspxDevDataView>
+    <br />
+      <%--<dx:ASPxMenu ID="ASPxMenu1" runat="server" DataSourceID="ASPxSiteMapDataSource1" OnItemDataBound="ASPxMenu1_ItemDataBound"
+            EncodeHtml="False" AllowSelectItem="True" Orientation="Vertical" />--%>
+        <dx:ASPxSiteMapDataSource ID="ASPxSiteMapDataSource1" runat="server" SiteMapFileName="~/App_Data/Menu/WorldCup2010.sitemap" />
+    <dx:ASPxSiteMapDataSource ID="ASPxSiteMapDataSource2" runat="server" />
+
+    <TSPControls:CustomAspxMenuHorizontal ID="MainMenu" runat="server">
+        <Items>
+            <dxm:MenuItem Text="اعلام وضعیت" Name="StatusAnnouncement">
+            </dxm:MenuItem>
+            <dxm:MenuItem Text="پروانه ساخت" Name="BuildingsLicense">
+            </dxm:MenuItem>
+            <dxm:MenuItem Text="زمان بندی" Name="Timing">
+            </dxm:MenuItem>
+            <dxm:MenuItem Text="قرارداد" Name="Contract">
+            </dxm:MenuItem>
+            <dxm:MenuItem Text="مجری" Name="Implementer">
+            </dxm:MenuItem>
+            <dxm:MenuItem Text="ناظر" Name="Observers">
+            </dxm:MenuItem>
+            <dxm:MenuItem Text="نقشه" Name="Plans">
+            </dxm:MenuItem>
+            <dxm:MenuItem Text="مالک" Name="Owner">
+            </dxm:MenuItem>
+            <dxm:MenuItem Name="Project" Text="مشخصات پروژه">
+                <Items>
+                    <dxm:MenuItem Text="Item1" >
+                        <ItemStyle>
+                        <Border BorderColor="#000099" />
+                        </ItemStyle>
+                    </dxm:MenuItem>
+                    <dxm:MenuItem Text="Item2">
+                    </dxm:MenuItem>
+                    <dxm:MenuItem Text="Item3">
+                    </dxm:MenuItem>
+                </Items>
+            </dxm:MenuItem>
+        </Items>
+        <LoadingPanelImage Url="~/App_Themes/Glass/Web/Loading.gif">
+        </LoadingPanelImage>
+        <RootItemSubMenuOffset X="-1" LastItemY="-2" LastItemX="-1" FirstItemY="-2" FirstItemX="-1"
+            Y="-2"></RootItemSubMenuOffset>
+        <ItemStyle VerticalAlign="Middle" PopOutImageSpacing="7px" DropDownButtonSpacing="12px"
+            ToolbarDropDownButtonSpacing="8px" ToolbarPopOutImageSpacing="8px"></ItemStyle>
+        <SubMenuStyle GutterWidth="0px"></SubMenuStyle>
+    </TSPControls:CustomAspxMenuHorizontal>
+    <%--   <table width="100%">
+       
+         <tr>
+            <td width="30%">
+                <TSPControls:CustomASPxNavBar ID="CustomASPxMenu2" runat="server" Width="100%" DataSourceID="XmlDataSourceMainMenu">
+         
+                </TSPControls:CustomASPxNavBar>
+                <asp:XmlDataSource ID="XmlDataSource1" runat="server" DataFile="~/App_Data/NavBarItems/Main.xml"
+                    XPath="/Items/*" />
+            </td>
+            <td width="30%">
+            </td>
+        </tr>
+
+         <tr>
+            <td width="30%">
+                <TSPControls:CustomAspxMenuHorizontal ID="CustomASPxMenu1" runat="server" Width="100%" DataSourceID="XmlDataSourceMainMenu">
+                </TSPControls:CustomAspxMenuHorizontal>
+                <asp:XmlDataSource ID="XmlDataSourceMainMenu" runat="server" DataFile="~/App_Data/NavBarItems/Main.xml"
+                    XPath="/Items/*" />
+            </td>
+            <td width="30%">
+            </td>
+        </tr>
+    </table>--%>
+    <table width="100%">
+        <tr>
+            <td style="width: 50%">
+            </td>
+            <td style="width: 50%">
+                <TSPControls:CustomAspxMenuHorizontal ID="CustomASPxMenu1" runat="server" Width="100%" 
+                    DataSourceID="XmlDataSourceMainMenu" onitemclick="CustomASPxMenu1_ItemClick">
+                </TSPControls:CustomAspxMenuHorizontal>
+            </td>
+        </tr>
+    </table>
+    <asp:XmlDataSource ID="XmlDataSourceMainMenu" runat="server" DataFile="~/App_Data/NavBarItems/Main.xml"
+        XPath="/Items/*" />
+    <asp:Button runat="server" ID="btnTestTransaction" OnClick="btnTestTransaction_Click"
+        Text="TestTransaction" />
+    <asp:Button runat="server" ID="btnInitString" OnClick="btnInitString_Click" Text="btnInitString" />
+    <TSPControls:CustomASPxNewsControl ID="NewControlNews" runat="server" DataSourceID="ODBNews"
+        Width="100%" NavigateUrlFormatString="javascript:void('{0}');" NameField="NewsId"
+        DateField="Date" HeaderTextField="NewsHeader" TextField="Summary" ImageUrlField="url">
+        <ItemSettings ImagePosition="Right">
+        </ItemSettings>
+        <%--<ItemSettings ></ItemSettings>--%>
+        <%--NameField, DateField, HeaderTextField, NavigateUrlField and TextField--%>
+        <ItemSettings ShowImageAsLink="True" MaxLength="120" ImagePosition="Right" />
+        <ItemImage Height="100px" Width="100px" Url="~/Images/noimage.gif">
+        </ItemImage>
+        <PagerSettings ShowSeparators="True">
+            <Summary Text="صفحه: {0} از {1} (تعداد کل:{2})"></Summary>
+        </PagerSettings>
+        <ContentStyle BackColor="#EDF3F4">
+        </ContentStyle>
+    </TSPControls:CustomASPxNewsControl>
+    <asp:ObjectDataSource ID="ODBNews" runat="server" SelectMethod="selectTenNews" TypeName="TSP.DataManager.NewsManager">
+        <SelectParameters>
+            <asp:Parameter DefaultValue="-1" Name="SubjectId" Type="Int16" />
+            <asp:Parameter DefaultValue="%" Name="Title" Type="String" />
+            <asp:Parameter DefaultValue="%" Name="Body" Type="String" />
+            <asp:Parameter DefaultValue="1" Name="FromDate" Type="String" />
+            <asp:Parameter DefaultValue="2" Name="ToDate" Type="String" />
+            <asp:Parameter DefaultValue="-1" Name="Importance" Type="Int16" />
+        </SelectParameters>
+    </asp:ObjectDataSource>
+    </form>
+</body>
+</html>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Groups>
+  <NavBarGroup Text="گزارشات" Expanded="False" Name="grpReport">
+    <!--<NavBarItem NavigateUrl="~/Employee/TechnicalServices/Report/ProjectReport.aspx" Text="گزارش پروژه ها" Name="">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="~/Employee/TechnicalServices/Report/Summary.aspx" Text="خلاصه پرونده"/>
+    <NavBarItem NavigateUrl="~/Employee/TechnicalServices/Report/DesignerCurrentProjects.aspx" Text="پروژه های در دست اجرا طراح"/>
+    <NavBarItem NavigateUrl="~/Employee/TechnicalServices/Report/ObserversCurrentProjects.aspx" Text="پروژه های در دست اجرا ناظر"/>
+    <NavBarItem NavigateUrl="~/Employee/TechnicalServices/Report/ImplementersCurrentProjects.aspx" Text="پروژه های در دست اجرا مجری"/>
+    <NavBarItem NavigateUrl="~/Employee/TechnicalServices/Report/OffDsgnCapacity.aspx" Text="گزارش سالانه ظرفیت طراحی"/>
+    <NavBarItem NavigateUrl="~/Employee/TechnicalServices/Report/MemberObsCapacity.aspx" Text="گزارش سالانه ظرفیت نظارت"/>
+    <NavBarItem NavigateUrl="~/Employee/TechnicalServices/Report/MemberImpCapacity.aspx" Text="گزارش سالانه ظرفیت اجرا"/>
+    <NavBarItem NavigateUrl="~/Employee/TechnicalServices/Report/OffDsgnCapacityInfo.aspx" Text="گزارش ظرفیت طراحی"/>
+    <NavBarItem NavigateUrl="~/Employee/TechnicalServices/Report/MemberObsCapacityInfo.aspx" Text="گزارش ظرفیت نظارت"/>
+    <NavBarItem NavigateUrl="~/Employee/TechnicalServices/Report/MemberImpCapacityInfo.aspx" Text="گزارش ظرفیت اجرا"/>-->
+    <NavBarItem NavigateUrl="~/Employee/TechnicalServices/Report/ProjectObserverReportList.aspx" Text="لیست پرداخت حق الزحمه ناظرین و مانده واریزی"  Name="1555" />
+    
+    <NavBarItem NavigateUrl="~/Employee/TechnicalServices/Report/ProjectObserverReport.aspx" Text="گزارش حق الزحمه ناظران"/>
+    <NavBarItem NavigateUrl="~/Employee/TechnicalServices/Report/MemberOperationReport.aspx" Text="گزارش ریز کارکرد اعضا"/>
+    <NavBarItem NavigateUrl="~/Employee/TechnicalServices/Report/ReportAccountingFishHistory.aspx" Text="گزارش چاپ فیش های بانکی" />   
+    <NavBarItem NavigateUrl="~/Employee/TechnicalServices/Report/ReportDesignersCity.aspx" Text="گزارش طراحان پروژه" />  
+  </NavBarGroup>
+</Groups>

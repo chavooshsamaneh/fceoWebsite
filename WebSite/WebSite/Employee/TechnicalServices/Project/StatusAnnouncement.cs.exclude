@@ -1,0 +1,514 @@
+﻿using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+using DevExpress.Web.ASPxGridView;
+using System.Drawing;
+
+public partial class Employee_TechnicalServices_Project_StatusAnnouncement : System.Web.UI.Page
+{
+    string ProjectId;
+    string PrjReId;
+    string PrjPgMode;
+
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (string.IsNullOrEmpty(Request.QueryString["ProjectId"]) || string.IsNullOrEmpty(Request.QueryString["PrjReId"]) || string.IsNullOrEmpty(Request.QueryString["PageMode"]))
+        {
+            Response.Redirect("Project.aspx");
+        }
+
+        this.DivReport.Visible = false;
+        this.DivReport.Attributes.Add("onclick", "ChangeVisible(this)");
+        this.DivReport.Attributes.Add("onmouseover", "ChangeIcon(this)");
+
+        if (!IsPostBack)
+        {
+            TSP.DataManager.Permission per = TSP.DataManager.TechnicalServices.ProjectRequestManager.GetUserPermission(Utility.GetCurrentUser_UserId(), (TSP.DataManager.UserType)Utility.GetCurrentUser_LoginType());
+            btnNew.Enabled = per.CanNew;
+            btnNew2.Enabled = per.CanNew;
+            btnEdit.Enabled = per.CanEdit;
+            btnEdit2.Enabled = per.CanEdit;
+            btnView.Enabled = per.CanView;
+            btnView2.Enabled = per.CanView;
+            btnDeleteReq.Enabled = per.CanDelete;
+            btnDeleteReq2.Enabled = per.CanDelete;
+            CustomAspxDevGridView1.Visible = per.CanView;
+
+            SetKeys();
+
+            this.ViewState["BtnNew"] = btnNew.Enabled;
+            this.ViewState["BtnView"] = btnView.Enabled;
+            this.ViewState["BtnEdit"] = btnEdit.Enabled;
+            this.ViewState["BtnDelete"] = btnDeleteReq.Enabled;
+            //this.ViewState["BtnPrint"] = btnPrint.Enabled;
+
+            ObjdsWorkFlowTask.SelectParameters["WorkFlowCode"].DefaultValue = ((int)TSP.DataManager.WorkFlows.TSProjectConfirming).ToString();
+        }
+
+        if (this.ViewState["BtnNew"] != null)
+            this.btnNew.Enabled = this.btnNew2.Enabled = (bool)this.ViewState["BtnNew"];
+        if (this.ViewState["BtnView"] != null)
+            this.btnView.Enabled = this.btnView2.Enabled = (bool)this.ViewState["BtnView"];
+        if (this.ViewState["BtnEdit"] != null)
+            this.btnEdit.Enabled = this.btnEdit2.Enabled = (bool)this.ViewState["BtnEdit"];
+        if (this.ViewState["BtnDelete"] != null)
+            this.btnDeleteReq.Enabled = this.btnDeleteReq2.Enabled = (bool)this.ViewState["BtnDelete"];
+        //if (this.ViewState["BtnPrint"] != null)
+        //    this.btnPrint.Enabled = this.btnPrint2.Enabled = (bool)this.ViewState["BtnPrint"];
+    }
+
+    protected void btnNew_Click(object sender, EventArgs e)
+    {
+        NextPage("New");
+    }
+
+    protected void btnEdit_Click(object sender, EventArgs e)
+    {
+        NextPage("Edit");
+    }
+
+    protected void btnView_Click(object sender, EventArgs e)
+    {
+        NextPage("View");
+    }
+
+    protected void btnDeleteReq_Click(object sender, EventArgs e)
+    {
+        DeleteReq();
+    }
+
+    protected void btnback_Click(object sender, EventArgs e)
+    {
+        if (Utility.DecryptQS(PkProjectId.Value) == "-1")
+            Response.Redirect("Project.aspx");
+        string GrdFlt = Request.QueryString["GrdFlt"].ToString();
+        string SrchFlt = Request.QueryString["SrchFlt"].ToString();
+        string QS = "ProjectId=" + PkProjectId.Value
+            + "&PrjReId=" + PkPrjReId.Value
+            + "&PageMode=" + PgMode.Value
+               + "&GrdFlt=" + GrdFlt + "&SrchFlt=" + SrchFlt;
+        Response.Redirect("ProjectInsert.aspx?" + QS);
+
+    }
+
+    protected void btnBackToManagment_Click(object sender, EventArgs e)
+    {
+        if (!string.IsNullOrEmpty(Request.QueryString["GrdFlt"]) && !string.IsNullOrEmpty(Request.QueryString["SrchFlt"]))
+        {
+            string GrdFlt = Server.HtmlDecode(Request.QueryString["GrdFlt"].ToString());
+            string SrchFlt = Server.HtmlDecode(Request.QueryString["SrchFlt"].ToString());
+            Response.Redirect("Project.aspx?PostId=" + PkProjectId.Value + "&GrdFlt=" + GrdFlt + "&SrchFlt=" + SrchFlt);
+        }
+        else
+        {
+            Response.Redirect("Project.aspx");
+        }
+    }
+
+    /****************************************************************************************************************************************/
+    private void SetKeys()
+    {
+        try
+        {
+            PgMode.Value = Server.HtmlDecode(Request.QueryString["PageMode"].ToString());
+            PkProjectId.Value = Server.HtmlDecode(Request.QueryString["ProjectId"]).ToString();
+            PkPrjReId.Value = Server.HtmlDecode(Request.QueryString["PrjReId"]).ToString();
+
+            ProjectId = Utility.DecryptQS(PkProjectId.Value);
+            PrjReId = Utility.DecryptQS(PkPrjReId.Value);
+            PrjPgMode = Utility.DecryptQS(PgMode.Value);
+
+            if (string.IsNullOrEmpty(ProjectId) || string.IsNullOrEmpty(PrjReId) || string.IsNullOrEmpty(PrjPgMode))
+            {
+                this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+                return;
+            }
+
+            if (ProjectId == "-1")
+            {
+                prjInfo.Visible = false;
+                MainMenu.Visible = false;
+
+                btnNew.Visible = false;
+                btnNew2.Visible = false;
+                btnEdit.Visible = false;
+                btnEdit2.Visible = false;
+                btnDeleteReq.Visible = false;
+                btnDeleteReq2.Visible = false;
+
+            }
+            else
+            {
+                FillProjectInfo(int.Parse(PrjReId));
+                CheckWorkFlowPermission();
+                SetProjectMainMenuEnabled();
+            }
+
+            ObjectDataSourceProjectRequest.SelectParameters["ProjectId"].DefaultValue = ProjectId;
+
+        }
+        catch (Exception err)
+        {
+            Utility.SaveWebsiteError(err);
+            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+            return;
+        }
+    }
+
+    protected void FillProjectInfo(int Id)
+    {
+        prjInfo.Fill(Id);
+    }
+
+    /****************************************************************************************************************************************/
+    private void NextPage(string Mode)
+    {
+        int PrjReId = -1;
+        int FocucedIndex = -1;
+        if (Mode != "New")
+        {
+            if (CustomAspxDevGridView1.FocusedRowIndex > -1)
+            {
+                FocucedIndex = CustomAspxDevGridView1.FocusedRowIndex;
+                if (FocucedIndex > -1)
+                {
+                    DataRow row = CustomAspxDevGridView1.GetDataRow(FocucedIndex);
+                    PrjReId = (int)row["PrjReId"];
+                }
+            }
+        }
+
+        if (PrjReId == -1 && Mode != "New")
+            SetLabelWarning("لطفاً برای مشاهده اطلاعات ابتدا یک رکورد را انتخاب نمائید");
+        else
+        {
+            if (Mode == "Edit" && !CheckWorkFlowPermissionForEdit(PrjReId))
+            {
+                SetLabelWarning("در این مرحله از جریان کار قادر به ویرایش اطلاعات درخواست نیستید.");
+                return;
+            }
+            else
+            {
+                string GrdFlt = Request.QueryString["GrdFlt"].ToString();
+                string SrchFlt = Request.QueryString["SrchFlt"].ToString();
+                string QS = "PrjReId=" + Utility.EncryptQS(PrjReId.ToString())
+                    + "&ProjectId=" + PkProjectId.Value
+                    + "&MPrjReId=" + PkPrjReId.Value
+                    + "&PageMode=" + Utility.EncryptQS(Mode)
+                    + "&MPageMode=" + PgMode.Value
+                       + "&GrdFlt=" + GrdFlt + "&SrchFlt=" + SrchFlt;
+
+                Response.Redirect("StatusAnnouncementInsert.aspx?" + QS);
+            }
+        }
+    }
+
+    private void SetLabelWarning(string Warning)
+    {
+        this.DivReport.Visible = true;
+        this.LabelWarning.Text = Warning;
+    }
+
+    private void SetError(Exception err)
+    {
+        if (err.GetType() == typeof(System.Data.SqlClient.SqlException))
+        {
+            System.Data.SqlClient.SqlException se = (System.Data.SqlClient.SqlException)err;
+            if (se.Number == 2601)
+            {
+                SetLabelWarning("اطلاعات تکراری می باشد");
+            }
+            else if (se.Number == 2627)
+            {
+                SetLabelWarning("کد تکراری می باشد");
+            }
+            else if (se.Number == 547)
+            {
+                SetLabelWarning("به علت وجود اطلاعات وابسته امکان حذف نمی باشد.");
+            }
+            else
+            {
+                SetLabelWarning("خطایی در ذخیره انجام گرفته است");
+            }
+        }
+        else
+        {
+            SetLabelWarning("خطایی در ذخیره انجام گرفته است");
+        }
+    }
+
+    private int FindNmcId(int TaskId)
+    {
+        int UserId = Utility.GetCurrentUser_UserId();
+        TSP.DataManager.NezamChartManager NezamChartManager = new TSP.DataManager.NezamChartManager();
+        TSP.DataManager.LoginManager LoginManager = new TSP.DataManager.LoginManager();
+
+        int NmcId = -1;
+        NmcId = NezamChartManager.FindNmcId(UserId, TaskId, LoginManager);
+        if (NmcId > 0)
+        {
+            return NmcId;
+        }
+        else
+        {
+            //SetlblRequestMsg(true, false, "اطلاعات شما به عنوان انجام دهنده عملیات انتخاب شده در جریان کار ثبت نشده است.", System.Drawing.Color.Red);
+            return (-1);
+        }
+    }
+
+    /*********************************************************** DeleteRequest **************************************************************/
+    private void DeleteReq()
+    {
+        int PrjReId = -1;
+
+        if (CustomAspxDevGridView1.FocusedRowIndex > -1)
+        {
+            DataRow row = CustomAspxDevGridView1.GetDataRow(CustomAspxDevGridView1.FocusedRowIndex);
+            PrjReId = (int)row["PrjReId"];
+
+            if (CheckWFPermissionForDeleteRequest(PrjReId))
+                DeleteRequest(PrjReId);
+            else
+                SetLabelWarning("شما تنها قادر به لغو درخواست هایی می باشید که توسط خودتان ایجاد شده و در مرحله ثبت اولیه اطلاعات باشند. ");
+        }
+        else
+            SetLabelWarning("لطفاً برای حذف درخواست ابتدا یک رکورد را انتخاب نمائید");
+    }
+
+    private void DeleteRequest(int PrjReId)
+    {
+        TSP.DataManager.TechnicalServices.ProjectRequestManager ProjectRequestManager = new TSP.DataManager.TechnicalServices.ProjectRequestManager();
+        TSP.DataManager.WorkFlowStateManager WorkFlowStateManager = new TSP.DataManager.WorkFlowStateManager();
+
+        TSP.DataManager.TransactionManager Transact = new TSP.DataManager.TransactionManager();
+
+        Transact.Add(ProjectRequestManager);
+        Transact.Add(WorkFlowStateManager);
+
+        try
+        {
+            Transact.BeginSave();
+
+            if (!DeleteProjectRequest(ProjectRequestManager, PrjReId))
+            {
+                Transact.CancelSave();
+                SetLabelWarning("خطایی در ذخیره انجام گرفته است.");
+            }
+
+            DeleteWorkFlowState(WorkFlowStateManager, PrjReId);
+
+            Transact.EndSave();
+            SetLabelWarning("ذخیره انجام شد.");
+        }
+        catch (Exception err)
+        {
+            Transact.CancelSave();
+            SetError(err);
+        }
+    }
+
+    private bool DeleteProjectRequest(TSP.DataManager.TechnicalServices.ProjectRequestManager ProjectRequestManager, int PrjReId)
+    {
+        ProjectRequestManager.FindByCode(PrjReId);
+        if (ProjectRequestManager.Count == 1)
+        {
+            ProjectRequestManager[0].Delete();
+            ProjectRequestManager.Save();
+            return true;
+        }
+        return false;
+    }
+
+    private void DeleteWorkFlowState(TSP.DataManager.WorkFlowStateManager WorkFlowStateManager, int PrjReId)
+    {
+        WorkFlowStateManager.SelectByWorkFlowCodeForDelete((int)TSP.DataManager.WorkFlows.TSStatusAnnouncementConfirming, PrjReId);
+
+        int Count = WorkFlowStateManager.Count;
+        for (int i = 0; i < Count; i++)
+        {
+            WorkFlowStateManager[0].Delete();
+        }
+        WorkFlowStateManager.Save();
+    }
+
+    /****************************************************************************************************************************************/
+    protected void MainMenu_ItemClick(object source, DevExpress.Web.ASPxMenu.MenuItemEventArgs e)
+    {
+        ProjectId = Utility.DecryptQS(PkProjectId.Value);
+        PrjReId = PkPrjReId.Value;
+        PrjPgMode = PgMode.Value;
+        string GrdFlt = Request.QueryString["GrdFlt"].ToString();
+        string SrchFlt = Request.QueryString["SrchFlt"].ToString();
+        PrjMainMenu MainMenu = new PrjMainMenu("StatusAnnouncement", Convert.ToInt32(ProjectId));
+        Response.Redirect(MainMenu.GetRedirectLink(e.Item.Name, PrjReId, PrjPgMode, GrdFlt, SrchFlt));
+    }
+
+    private void SetProjectMainMenuEnabled()
+    {
+        ProjectId = Utility.DecryptQS(PkProjectId.Value);
+        if (ProjectId == "-1")
+            ProjectId = "-2";
+
+        PrjMainMenu PrjMainMenu = new PrjMainMenu("StatusAnnouncement", Convert.ToInt32(ProjectId));
+        MainMenu.Items.FindByName("StatusAnnouncement").Selected = true; //StatusAnnouncement
+        MainMenu.Items.FindByName("StatusAnnouncement").Enabled = PrjMainMenu.GetEnabled("StatusAnnouncement");
+        MainMenu.Items.FindByName("BuildingsLicense").Enabled = PrjMainMenu.GetEnabled("BuildingsLicense");
+        MainMenu.Items.FindByName("Timing").Enabled = PrjMainMenu.GetEnabled("Timing");
+        MainMenu.Items.FindByName("Contract").Enabled = PrjMainMenu.GetEnabled("Contract");
+        MainMenu.Items.FindByName("Implementer").Enabled = PrjMainMenu.GetEnabled("Implementer");
+        MainMenu.Items.FindByName("Observers").Enabled = PrjMainMenu.GetEnabled("Observers");
+        MainMenu.Items.FindByName("Plans").Enabled = PrjMainMenu.GetEnabled("Plans");
+        MainMenu.Items.FindByName("Owner").Enabled = PrjMainMenu.GetEnabled("Owner");
+        MainMenu.Items.FindByName("Project").Enabled = PrjMainMenu.GetEnabled("Project");
+        MainMenu.Items.FindByName("Accounting").Enabled = PrjMainMenu.GetEnabled("Accounting");
+        MainMenu.Items.FindByName("Designer").Enabled = PrjMainMenu.GetEnabled("Designer");
+    }
+
+    /****************************************************************************************************************************************/
+    protected void CustomAspxDevGridView1_HtmlRowPrepared(object sender, ASPxGridViewTableRowEventArgs e)
+    {
+        if (e.RowType != GridViewRowType.Data)
+            return;
+
+        if (PkPrjReId != null)
+        {
+            string PrjReId = Utility.DecryptQS(PkPrjReId.Value);
+            if (e.GetValue("PrjReId") == null)
+                return;
+            string CurretnPrjReId = e.GetValue("PrjReId").ToString();
+            if (PrjReId == CurretnPrjReId)
+            {
+                e.Row.BackColor = System.Drawing.Color.LightGray;
+            }
+        }
+    }
+
+    protected void CustomAspxDevGridView1_HtmlDataCellPrepared(object sender, ASPxGridViewTableDataCellEventArgs e)
+    {
+        switch (e.DataColumn.FieldName)
+        {
+            case "RequestDate":
+                e.Cell.Style["direction"] = "ltr";
+                break;
+        }
+
+        if (e.DataColumn.FieldName == "TaskId")
+        {
+            //DevExpress.Web.ASPxGridView.ASPxGridView GridViewRequest = (DevExpress.Web.ASPxGridView.ASPxGridView)GridViewProject.FindDetailRowTemplateControl(GridViewProject.FocusedRowIndex, "GridViewProjectRequest");
+            //if (GridViewRequest == null)
+            //    return;
+            DevExpress.Web.ASPxEditors.ASPxImage btnWFState = (DevExpress.Web.ASPxEditors.ASPxImage)CustomAspxDevGridView1.FindRowCellTemplateControl(e.VisibleIndex, (DevExpress.Web.ASPxGridView.GridViewDataColumn)CustomAspxDevGridView1.Columns["WFState"], "btnWFState");
+            if (btnWFState != null)
+            {
+                if (Utility.IsDBNullOrNullValue(e.GetValue("WFTaskType")))
+                {
+                    btnWFState.ToolTip = "تعریف نشده";
+                    btnWFState.ImageUrl = "~/Images/WFUnNounState.png";
+                    return;
+                }
+
+                if (int.Parse(e.GetValue("WFTaskType").ToString()) == (int)TSP.DataManager.WorkFlowTaskType.StartingTask)
+                {
+                    btnWFState.ToolTip = e.GetValue("TaskName").ToString();
+                    btnWFState.ImageUrl = "~/Images/WFStart.png";
+                }
+                else if (int.Parse(e.GetValue("WFTaskType").ToString()) == (int)TSP.DataManager.WorkFlowTaskType.MeddleTask)
+                {
+                    btnWFState.ToolTip = e.GetValue("TaskName").ToString();
+                    btnWFState.ImageUrl = "~/Images/WFInProcess.png";
+                }
+                else if (int.Parse(e.GetValue("WFTaskType").ToString()) == (int)TSP.DataManager.WorkFlowTaskType.ConfirmingAndEndProccessTask)
+                {
+                    btnWFState.ToolTip = e.GetValue("TaskName").ToString();
+                    btnWFState.ImageUrl = "~/Images/WFConfirmAndEnd.png";
+                }
+                else if (int.Parse(e.GetValue("WFTaskType").ToString()) == (int)TSP.DataManager.WorkFlowTaskType.RejectingingAndEndProccessTask)
+                {
+                    btnWFState.ToolTip = e.GetValue("TaskName").ToString();
+                    btnWFState.ImageUrl = "~/Images/WFREjectAndEnd.png";
+                }
+                else
+                {
+                    btnWFState.ToolTip = "تعریف نشده";
+                    btnWFState.ImageUrl = "~/Images/WFUnNounState.png";
+                    return;
+                }
+            }
+        }
+    }
+
+    protected void CustomAspxDevGridView1_AutoFilterCellEditorInitialize(object sender, ASPxGridViewEditorEventArgs e)
+    {
+        switch (e.Column.FieldName)
+        {
+            case "RequestDate":
+                e.Editor.Style["direction"] = "ltr";
+                break;
+        }
+    }
+
+    /***************************************************************** WorkFlow *****************************************************************/
+    #region WorkFlow
+
+    #region WorkFlowPermission
+
+    /****************************************************************** BtnNew *************************************************************/
+    private void CheckWorkFlowPermission()
+    {
+        CheckWorkFlowPermissionForSave();
+    }
+
+    private void CheckWorkFlowPermissionForSave()
+    {
+        //*****TableType
+        int TableType = (int)TSP.DataManager.TableCodes.TSProjectRequest;
+
+        int WFCode = (int)TSP.DataManager.WorkFlows.TSStatusAnnouncementConfirming;
+
+        //*******Editing Task Code
+        int TaskCode = (int)TSP.DataManager.WorkFlowTask.SaveStatusAnnouncementInfo;
+
+        TSP.DataManager.WFPermission WFPer = TSP.DataManager.WorkFlowPermission.CheckWFPermissionForSaveNewForManagementPage(TaskCode, TableType, Utility.GetCurrentUser_UserId());
+        btnNew.Enabled = WFPer.BtnNew;
+        btnNew2.Enabled = WFPer.BtnNew;
+    }
+
+    /****************************************************************** BtnEdit *************************************************************/
+    private bool CheckWorkFlowPermissionForEdit(int PrjReId)
+    {
+        int WFCode = (int)TSP.DataManager.WorkFlows.TSStatusAnnouncementConfirming;
+
+        //*******Editing Task Code
+        int TaskCode = (int)TSP.DataManager.WorkFlowTask.SaveStatusAnnouncementInfo;
+
+        TSP.DataManager.WFPermission WFPer = TSP.DataManager.WorkFlowPermission.CheckWFPermissionForEditForManagementPage(TaskCode, WFCode, PrjReId, Utility.GetCurrentUser_UserId());
+
+        return WFPer.BtnEdit;
+    }
+
+    /****************************************************************** BtnDeleteReq ************************************************************/
+    private bool CheckWFPermissionForDeleteRequest(int PrjReId)
+    {
+        int WFCode = (int)TSP.DataManager.WorkFlows.TSStatusAnnouncementConfirming;
+
+        //*******Editing Task Code
+        int TaskCode = (int)TSP.DataManager.WorkFlowTask.SaveStatusAnnouncementInfo;
+
+        //TSP.DataManager.WorkFlowPermission WFPermission = new TSP.DataManager.WorkFlowPermission();
+        return TSP.DataManager.WorkFlowPermission.CheckWFPermissionForDeleteRequest(PrjReId, WFCode, TaskCode, Utility.GetCurrentUser_UserId(), (int)TSP.DataManager.WorkFlowStateNmcIdType.NmcId);
+    }
+
+    #endregion
+
+    #endregion
+
+
+}

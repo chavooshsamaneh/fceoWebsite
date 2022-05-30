@@ -1,0 +1,21 @@
+<%@ Register TagPrefix="dx" Namespace="DevExpress.Data" Assembly="DevExpress.Data.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<%@ Register TagPrefix="dx" Namespace="DevExpress.Web" Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+
+<dx:ASPxGridView runat="server" CssFilePath="~/App_Themes/Metropolis/{0}/styles.css" CssPostfix="Metropolis">
+    <SettingsPager CurrentPageNumberFormat="{0}">
+        <PageSizeItemSettings ShowPopupShadow="False">
+        </PageSizeItemSettings>
+    </SettingsPager>
+    <Images SpriteCssFilePath="~/App_Themes/Metropolis/{0}/sprite.css">
+    </Images>
+    <Styles CssPostfix="Metropolis" CssFilePath="~/App_Themes/Metropolis/{0}/styles.css" />
+    <StylesPager>
+        <Pager ItemSpacing="0px" Spacing="0px" />
+    </StylesPager>
+    <StylesEditors>
+        <Calendar>
+            <Border BorderColor="Silver" BorderStyle="Solid" BorderWidth="1px" />
+        </Calendar>
+    </StylesEditors>
+</dx:ASPxGridView>
+

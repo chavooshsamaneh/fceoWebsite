@@ -1,0 +1,640 @@
+﻿using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+using DevExpress.Web;
+using System.IO;
+
+public partial class Members_TechnicalServices_Project_TimingInsert : System.Web.UI.Page
+{
+    Boolean IsPageRefresh = false;
+
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        //btnEdit.Enabled = false;
+        //btnEdit2.Enabled = false;
+
+        this.DivReport.Visible = false;
+        this.DivReport.Attributes.Add("onclick", "ChangeVisible(this)");
+        this.DivReport.Attributes.Add("onmouseover", "ChangeIcon(this)");
+
+        if (!IsPostBack)
+        {
+            ViewState["postids"] = System.Guid.NewGuid().ToString();
+            Session["postid"] = ViewState["postids"].ToString();
+        }
+        else
+        {
+            if (!IsCallback && Session["postid"] != null)
+            {
+                if (ViewState["postids"].ToString() != Session["postid"].ToString()) { IsPageRefresh = true; }
+                Session["postid"] = System.Guid.NewGuid().ToString(); ViewState["postids"] = Session["postid"];
+            }
+        }
+
+        if (!IsPostBack)
+        {
+            Session["AttachTimingName"] = null;
+            Session["AttachTiming"] = null;
+
+            if (string.IsNullOrEmpty(Request.QueryString["ProjectId"]) || string.IsNullOrEmpty(Request.QueryString["TimingId"]))
+            {
+                Response.Redirect("Project.aspx");
+            }
+
+            try
+            {
+                PgMode.Value = Server.HtmlDecode(Request.QueryString["PageMode2"].ToString());
+                HDProjectId.Value = Server.HtmlDecode(Request.QueryString["ProjectId"]).ToString();
+                HDTimingId.Value = Server.HtmlDecode(Request.QueryString["TimingId"]).ToString();
+                RequestId.Value = Server.HtmlDecode(Request.QueryString["PrjReId"]).ToString();
+                HDContractId.Value = Server.HtmlDecode(Request.QueryString["ContractId"]).ToString();
+
+            }
+            catch
+            {
+                this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+                return;
+            }
+
+            string PageMode = Utility.DecryptQS(PgMode.Value);
+            string ProjectId = Utility.DecryptQS(HDProjectId.Value);
+            string TimingId = Utility.DecryptQS(HDTimingId.Value);
+            string ContractId = Utility.DecryptQS(HDContractId.Value);
+            string PrjReId = Utility.DecryptQS(RequestId.Value);
+
+            if (string.IsNullOrEmpty(PageMode) || string.IsNullOrEmpty(ProjectId) || string.IsNullOrEmpty(ContractId))
+            {
+                this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+                return;
+            }
+
+            FillProjectInfo(int.Parse(PrjReId));
+            ObjectDataSource1.SelectParameters[0].DefaultValue = TimingId;
+
+            switch (PageMode)
+            {
+                case "View":
+
+                    if (string.IsNullOrEmpty(TimingId))
+                    {
+                        this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+                        return;
+                    }
+                    ASPxTreeList1.Columns[3].Visible = false;
+                    ASPxTreeList1.Columns[4].Visible = false;
+                    ASPxTreeList1.Columns[5].Visible = false;
+
+                    ASPxTreeList1.Columns[6].Visible = true;
+                    ASPxTreeList1.Columns[7].Visible = true;
+                    ASPxTreeList1.Columns[8].Visible = true;
+
+                    //btnEdit.Enabled = false;
+                    //btnEdit2.Enabled = false;
+                    flpTiming.ClientVisible = false;
+                    btnSave.Enabled = false;
+                    btnSave2.Enabled = false;
+                    FillForm(int.Parse(TimingId));
+                    //ASPxTreeList1.Enabled = false;
+                    ASPxRoundPanel3.HeaderText = "مشاهده";
+
+                    break;
+
+
+                case "New":
+
+                    //btnEdit.Visible = true;
+                    //btnEdit2.Visible = true;
+                    btnSave.Visible = true;
+                    btnSave2.Visible = true;
+
+                    //btnEdit2.Enabled = false;
+                    //btnEdit.Enabled = false;
+                    btnPredecessor.Enabled = false;
+                    btnPredecessor2.Enabled = false;
+                    ASPxRoundPanel3.HeaderText = "جدید";
+
+                    break;
+
+                case "Edit":
+
+                    //btnEdit.Visible = true;
+                    //btnEdit2.Visible = true;
+                    btnSave.Visible = true;
+                    btnSave2.Visible = true;
+
+                    //btnEdit2.Enabled = false;
+                    //btnEdit.Enabled = false;
+
+                    if (string.IsNullOrEmpty(TimingId))
+                    {
+                        this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+                        return;
+                    }
+
+                    FillForm(int.Parse(TimingId));
+                    ASPxRoundPanel3.HeaderText = "ویرایش";
+
+                    break;
+
+            }
+
+            this.ViewState["BtnSave"] = btnSave.Enabled;
+            //this.ViewState["BtnEdit"] = btnEdit.Enabled;
+            this.ViewState["BtnPredecessor"] = btnPredecessor.Enabled;
+
+
+        }
+        if (this.ViewState["BtnSave"] != null)
+            this.btnSave.Enabled = this.btnSave2.Enabled = (bool)this.ViewState["BtnSave"];
+        //if (this.ViewState["BtnEdit"] != null)
+        //    this.btnEdit.Enabled = this.btnEdit2.Enabled = (bool)this.ViewState["BtnEdit"];
+        if (this.ViewState["BtnPredecessor"] != null)
+            this.btnPredecessor.Enabled = this.btnPredecessor2.Enabled = (bool)this.ViewState["BtnPredecessor"];
+
+    }
+    protected void btnSave_Click(object sender, EventArgs e)
+    {
+        string PageMode = Utility.DecryptQS(PgMode.Value);
+        string TimingId = Utility.DecryptQS(HDTimingId.Value);
+
+
+        if (string.IsNullOrEmpty(PageMode))
+        {
+            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+            return;
+        }
+        else
+        {
+
+
+            if (PageMode == "New")
+            {
+
+                Insert();
+
+            }
+            else if (PageMode == "Edit")
+            {
+
+                if (string.IsNullOrEmpty(TimingId))
+                {
+                    this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+                    return;
+                }
+                else
+                {
+                    Edit(int.Parse(TimingId));
+                }
+
+            }
+
+        }
+
+    }
+
+    protected void Insert()
+    {
+        if (IsPageRefresh)
+            return;
+
+        TSP.DataManager.TransactionManager trans = new TSP.DataManager.TransactionManager();
+        TSP.DataManager.TechnicalServices.TimingItemsStatusManager TimingItemsManager = new TSP.DataManager.TechnicalServices.TimingItemsStatusManager();
+        TSP.DataManager.TechnicalServices.TimingManager TimingManager = new TSP.DataManager.TechnicalServices.TimingManager();
+        TSP.DataManager.TechnicalServices.AttachmentsManager AttachManager = new TSP.DataManager.TechnicalServices.AttachmentsManager();
+
+        trans.Add(TimingItemsManager);
+        trans.Add(TimingManager);
+        trans.Add(AttachManager);
+
+        bool IsAttach = false;
+
+        try
+        {
+            //ArrayList ar = new ArrayList();
+
+            //for (int i = 0; i < ASPxTreeList1.Nodes.Count; i++)
+            //{
+            //    PersianDateControls.PersianDateTextBox StartDate2 = (PersianDateControls.PersianDateTextBox)ASPxTreeList1.FindDataCellTemplateControl(ASPxTreeList1.Nodes[i].Key.ToString(), (DevExpress.Web.ASPxTreeList.TreeListDataColumn)ASPxTreeList1.Columns["StartDate"], "txtStartDate");
+
+            //    if (!string.IsNullOrEmpty(StartDate2.Text))
+            //        ar.Add(StartDate2.Text);
+            //    else
+            //        ar.Add(null);
+
+            //    DevExpress.Web.ASPxTextBox Duration2 = (DevExpress.Web.ASPxTextBox)ASPxTreeList1.FindDataCellTemplateControl(ASPxTreeList1.Nodes[i].Key.ToString(), (DevExpress.Web.ASPxTreeList.TreeListDataColumn)ASPxTreeList1.Columns["Duration"], "txtDuration");
+            //    string s = Duration2.Text;
+
+
+            //}
+
+            DataRow dr = TimingManager.NewRow();
+            dr["ContractId"] = Utility.DecryptQS(HDContractId.Value);
+            dr["PrjReId"] = Utility.DecryptQS(RequestId.Value);
+            dr["CreateDate"] = Utility.GetDateOfToday();
+            dr["UserId"] = Utility.GetCurrentUser_UserId();
+            dr["ModifiedDate"] = DateTime.Now;
+
+            TimingManager.AddRow(dr);
+            trans.BeginSave();
+            int cn = TimingManager.Save();
+            if (cn > 0)
+            {
+                int TimingId = int.Parse(TimingManager[0]["TimingId"].ToString());
+
+                #region Attachment
+                if (Session["AttachTiming"] != null && Session["AttachTimingName"] != null)
+                {
+                    DataRow drAtt = AttachManager.NewRow();
+                    drAtt["TableTypeId"] = TimingId;
+                    drAtt["TableType"] = (int)TSP.DataManager.TableCodes.TSTiming;
+                    drAtt["AttachTypeId"] = (int)TSP.DataManager.TSAttachType.Timing;
+                    drAtt["FilePath"] = "~/Image/TechnicalServices/Timing/" + Path.GetFileName(Session["AttachTiming"].ToString());
+                    drAtt["FileName"] = Session["AttachTimingName"];
+                    drAtt["UserId"] = Utility.GetCurrentUser_UserId();
+                    drAtt["ModifiedDate"] = DateTime.Now;
+                    AttachManager.AddRow(drAtt);
+                    if (AttachManager.Save() > 0)
+                        IsAttach = true;
+                }
+
+                #endregion
+
+                if (ASPxTreeList1.Nodes.Count > 0)
+                {
+                    for (int i = 0; i < ASPxTreeList1.Nodes.Count; i++)
+                    {
+                        DataRow drT = TimingItemsManager.NewRow();
+                        drT["TimingId"] = TimingId;
+                        drT["TimingDevelopmentItemsId"] = ASPxTreeList1.Nodes[i]["ID"].ToString(); //ASPxTreeList1.Nodes[0].Key.ToString();
+                        drT["Title"] = ASPxTreeList1.Nodes[i]["DVTitle"].ToString();
+                        drT["DevelopmentPercent"] = ASPxTreeList1.Nodes[i]["DVDevelopmentPercent"].ToString();
+                        //drT["StartDate"] = ar[i].ToString();
+                        PersianDateControls.PersianDateTextBox StartDate = (PersianDateControls.PersianDateTextBox)ASPxTreeList1.FindDataCellTemplateControl(ASPxTreeList1.Nodes[i].Key.ToString(), (DevExpress.Web.ASPxTreeList.TreeListDataColumn)ASPxTreeList1.Columns["StartDate"], "txtStartDate");
+                        if (!string.IsNullOrEmpty(StartDate.Text))
+                            drT["StartDate"] = StartDate.Text;
+                        else
+                            drT["StartDate"] = DBNull.Value;
+                        PersianDateControls.PersianDateTextBox EndDate = (PersianDateControls.PersianDateTextBox)ASPxTreeList1.FindDataCellTemplateControl(ASPxTreeList1.Nodes[i].Key.ToString(), (DevExpress.Web.ASPxTreeList.TreeListDataColumn)ASPxTreeList1.Columns["EndDate"], "txtEndDate");
+                        if (!string.IsNullOrEmpty(EndDate.Text))
+                            drT["EndDate"] = EndDate.Text;
+                        else
+                            drT["EndDate"] = DBNull.Value;
+                        DevExpress.Web.ASPxTextBox Duration = (DevExpress.Web.ASPxTextBox)ASPxTreeList1.FindDataCellTemplateControl(ASPxTreeList1.Nodes[i].Key.ToString(), (DevExpress.Web.ASPxTreeList.TreeListDataColumn)ASPxTreeList1.Columns["Duration"], "txtDuration");
+                        if (!string.IsNullOrEmpty(Duration.Text))
+                            drT["Duration"] = Duration.Text;
+                        else
+                            drT["Duration"] = DBNull.Value;
+                        drT["UserId"] = Utility.GetCurrentUser_UserId();
+                        drT["ModifiedDate"] = DateTime.Now;
+                        TimingItemsManager.AddRow(drT);
+                    }
+                    TimingItemsManager.Save();
+                }
+
+                trans.EndSave();
+                HDTimingId.Value = Utility.EncryptQS(TimingId.ToString());
+                PgMode.Value = Utility.EncryptQS("Edit");
+                ASPxRoundPanel3.HeaderText = "ویرایش";
+
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "ذخیره انجام شد";
+
+                btnPredecessor2.Enabled = true;
+                btnPredecessor.Enabled = true;
+                this.ViewState["BtnPredecessor"] = btnPredecessor.Enabled;
+
+
+            }
+            else
+            {
+                trans.CancelSave();
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+                return;
+            }
+
+        }
+        catch (Exception err)
+        {
+            trans.CancelSave();
+
+            if (err.GetType() == typeof(System.Data.SqlClient.SqlException))
+            {
+                System.Data.SqlClient.SqlException se = (System.Data.SqlClient.SqlException)err;
+                if (se.Number == 2601)
+                {
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "اطلاعات تکراری می باشد";
+                }
+                else
+                {
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+                }
+            }
+            else
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+            }
+        }
+
+
+        if (IsAttach)
+        {
+            try
+            {
+                string ImgSoource = Session["AttachTiming"].ToString();
+                string ImgTarget = Server.MapPath("~/Image/TechnicalServices/Timing/") + Path.GetFileName(Session["AttachTiming"].ToString());
+                File.Copy(ImgSoource, ImgTarget, true);
+                HpTiming.ClientVisible = true;
+                HpTiming.NavigateUrl = ImgSoource;
+
+                Session["AttachTiming"] = null;
+                Session["AttachTimingName"] = null;
+
+            }
+            catch (Exception)
+            {
+            }
+        }
+    }
+    protected void Edit(int TimingId)
+    {
+        if (IsPageRefresh)
+            return;
+
+        TSP.DataManager.TransactionManager trans = new TSP.DataManager.TransactionManager();
+        TSP.DataManager.TechnicalServices.TimingItemsStatusManager TimingItemsManager = new TSP.DataManager.TechnicalServices.TimingItemsStatusManager();
+
+        //TSP.DataManager.TechnicalServices.TimingManager TimingManager = new TSP.DataManager.TechnicalServices.TimingManager();
+        TSP.DataManager.TechnicalServices.AttachmentsManager AttachManager = new TSP.DataManager.TechnicalServices.AttachmentsManager();
+
+        trans.Add(TimingItemsManager);
+        trans.Add(AttachManager);
+
+        bool IsAttach = false;
+
+        try
+        {
+
+            TimingItemsManager.FindByTimingId(TimingId);
+            if (TimingItemsManager.Count > 0)
+            {
+                trans.BeginSave();
+                int cnt = 0;
+
+                if (ASPxTreeList1.Nodes.Count > 0)
+                {
+                    for (int i = 0; i < ASPxTreeList1.Nodes.Count; i++)
+                    {
+                        string TimingDevelopmentItemsId = ASPxTreeList1.Nodes[i]["ID"].ToString();
+                        //TimingItemsManager2.DataTable = TimingItemsManager.DataTable.Select("TimingId=" + TimingId.ToString() + "&TimingDevelopmentItemsId=" + TimingDevelopmentItemsId.ToString());
+                        TimingItemsManager.CurrentFilter = "TimingDevelopmentItemsId=" + TimingDevelopmentItemsId + "AND TimingId=" + TimingId.ToString();
+                        if (TimingItemsManager.Count != 0)
+                        {
+                            TimingItemsManager[0].BeginEdit();
+                            PersianDateControls.PersianDateTextBox StartDate = (PersianDateControls.PersianDateTextBox)ASPxTreeList1.FindDataCellTemplateControl(ASPxTreeList1.Nodes[i].Key.ToString(), (DevExpress.Web.ASPxTreeList.TreeListDataColumn)ASPxTreeList1.Columns["StartDate"], "txtStartDate");
+                            if (!string.IsNullOrEmpty(StartDate.Text))
+                                TimingItemsManager[0]["StartDate"] = StartDate.Text;
+                            else
+                                TimingItemsManager[0]["StartDate"] = DBNull.Value;
+                            PersianDateControls.PersianDateTextBox EndDate = (PersianDateControls.PersianDateTextBox)ASPxTreeList1.FindDataCellTemplateControl(ASPxTreeList1.Nodes[i].Key.ToString(), (DevExpress.Web.ASPxTreeList.TreeListDataColumn)ASPxTreeList1.Columns["EndDate"], "txtEndDate");
+                            if (!string.IsNullOrEmpty(EndDate.Text))
+                                TimingItemsManager[0]["EndDate"] = EndDate.Text;
+                            else
+                                TimingItemsManager[0]["EndDate"] = DBNull.Value;
+                            DevExpress.Web.ASPxTextBox Duration = (DevExpress.Web.ASPxTextBox)ASPxTreeList1.FindDataCellTemplateControl(ASPxTreeList1.Nodes[i].Key.ToString(), (DevExpress.Web.ASPxTreeList.TreeListDataColumn)ASPxTreeList1.Columns["Duration"], "txtDuration");
+                            if (!string.IsNullOrEmpty(Duration.Text))
+                                TimingItemsManager[0]["Duration"] = Duration.Text;
+                            else
+                                TimingItemsManager[0]["Duration"] = DBNull.Value;
+                            TimingItemsManager[0]["UserId"] = Utility.GetCurrentUser_UserId();
+                            TimingItemsManager[0].EndEdit();
+
+                        }
+                        else
+                        {
+                            trans.CancelSave();
+                            this.DivReport.Visible = true;
+                            this.LabelWarning.Text = "خطایی در بازخوانی اطلاعات رخ داده است";
+                        }
+
+
+                    }
+                    TimingItemsManager.Save();
+                }
+
+                #region Attachment
+                if (Session["AttachTiming"] != null && Session["AttachTimingName"] != null)
+                {
+                    AttachManager.FindByTableTypeId(TimingId, (int)TSP.DataManager.TableCodes.TSTiming, (int)TSP.DataManager.TSAttachType.Timing);
+                    if (AttachManager.Count > 0)
+                    {
+                        AttachManager[0].BeginEdit();
+                        if ((!string.IsNullOrEmpty(AttachManager[0]["FilePath"].ToString())) && (File.Exists(Server.MapPath(AttachManager[0]["FilePath"].ToString()))))
+                        {
+                            File.Delete(Server.MapPath(AttachManager[0]["FilePath"].ToString()));
+
+                            HpTiming.NavigateUrl = Session["AttachTiming"].ToString();
+
+                            AttachManager[0]["FilePath"] = "~/Image/TechnicalServices/Timing/" + Path.GetFileName(Session["AttachTiming"].ToString());
+                            AttachManager[0]["FileName"] = Session["AttachTimingName"];
+
+                        }
+                        else
+                        {
+                            HpTiming.NavigateUrl = Session["AttachTiming"].ToString();
+                            AttachManager[0]["FilePath"] = "~/Image/TechnicalServices/Timing/" + Path.GetFileName(Session["AttachTiming"].ToString());
+                            AttachManager[0]["FileName"] = Session["AttachTimingName"];
+
+                        }
+                        AttachManager[0]["UserId"] = Utility.GetCurrentUser_UserId();
+                        AttachManager[0].EndEdit();
+                        if (AttachManager.Save() > 0)
+                            IsAttach = true;
+
+                    }
+                    else
+                    {
+                        DataRow drAtt = AttachManager.NewRow();
+                        drAtt["TableTypeId"] = TimingId;
+                        drAtt["TableType"] = (int)TSP.DataManager.TableCodes.TSTiming;
+                        drAtt["AttachTypeId"] = (int)TSP.DataManager.TSAttachType.Timing;
+                        drAtt["FilePath"] = "~/Image/TechnicalServices/Timing/" + Path.GetFileName(Session["AttachTiming"].ToString());
+                        drAtt["FileName"] = Session["AttachTimingName"];
+                        drAtt["UserId"] = Utility.GetCurrentUser_UserId();
+                        drAtt["ModifiedDate"] = DateTime.Now;
+                        AttachManager.AddRow(drAtt);
+                        if (AttachManager.Save() > 0)
+                            IsAttach = true;
+                    }
+
+                }
+                #endregion
+
+
+                trans.EndSave();
+
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "ذخیره انجام شد";
+            }
+            else
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "خطایی در بازخوانی اطلاعات رخ داده است";
+
+            }
+
+        }
+        catch (Exception err)
+        {
+            trans.CancelSave();
+
+            if (err.GetType() == typeof(System.Data.SqlClient.SqlException))
+            {
+                System.Data.SqlClient.SqlException se = (System.Data.SqlClient.SqlException)err;
+                if (se.Number == 2601)
+                {
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "اطلاعات تکراری می باشد";
+                }
+                else
+                {
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+                }
+            }
+            else
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+            }
+        }
+
+
+        if (IsAttach)
+        {
+            try
+            {
+                string ImgSoource = Session["AttachTiming"].ToString();
+                string ImgTarget = Server.MapPath("~/Image/TechnicalServices/Timing/") + Path.GetFileName(Session["AttachTiming"].ToString());
+                File.Copy(ImgSoource, ImgTarget, true);
+                HpTiming.ClientVisible = true;
+                HpTiming.NavigateUrl = ImgSoource;
+
+                Session["AttachTiming"] = null;
+                Session["AttachTimingName"] = null;
+
+            }
+            catch (Exception)
+            {
+            }
+        }
+    }
+    protected void FillForm(int TimingId)
+    {
+
+        TSP.DataManager.TechnicalServices.AttachmentsManager AttachManager = new TSP.DataManager.TechnicalServices.AttachmentsManager();
+        AttachManager.FindByTableTypeId(TimingId, (int)TSP.DataManager.TableCodes.TSTiming, (int)TSP.DataManager.TSAttachType.Timing);
+        if (AttachManager.Count > 0)
+        {
+            HpTiming.ClientVisible = true;
+            HpTiming.NavigateUrl = AttachManager[0]["FilePath"].ToString();
+
+        }
+    }
+
+    //protected void btnEdit_Click(object sender, EventArgs e)
+    //{
+    //    ASPxTreeList1.Columns[3].Visible = true;
+    //    ASPxTreeList1.Columns[4].Visible = true;
+    //    ASPxTreeList1.Columns[5].Visible = true;
+
+    //    ASPxTreeList1.Columns[6].Visible = false;
+    //    ASPxTreeList1.Columns[7].Visible = false;
+    //    ASPxTreeList1.Columns[8].Visible = false;
+
+    //    btnSave.Enabled = true;
+    //    btnSave2.Enabled = true;
+    //    this.ViewState["BtnSave"] = btnSave.Enabled;
+
+    //    flpTiming.ClientVisible = true;
+    //    //ASPxTreeList1.Enabled = true;
+
+    //    PgMode.Value = Utility.EncryptQS("Edit");
+    //    ASPxRoundPanel3.HeaderText = "ویرایش";
+    //}
+    protected void btnBack_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("Timing.aspx?ProjectId=" + HDProjectId.Value + "&PrjReId=" + RequestId.Value + "&PageMode=" + Request.QueryString["PageMode"]);
+    }
+    protected void flpContract_FileUploadComplete(object sender, DevExpress.Web.FileUploadCompleteEventArgs e)
+    {
+        try
+        {
+            e.CallbackData = SaveImage(e.UploadedFile);
+        }
+        catch (Exception ex)
+        {
+            e.IsValid = false;
+            e.ErrorText = ex.Message;
+        }
+    }
+    protected string SaveImage(UploadedFile uploadedFile)
+    {
+        string ret = "";
+        if (uploadedFile.IsValid)
+        {
+            do
+            {
+                FileInfo ImageType = new FileInfo(uploadedFile.PostedFile.FileName);
+                Session["AttachTimingName"] = Path.GetFileName(uploadedFile.PostedFile.FileName);
+
+                ret = Path.GetRandomFileName() + ImageType.Extension;
+            } while (File.Exists(MapPath("~/Image/TechnicalServices/Timing/") + ret) == true || File.Exists(MapPath("~/Image/Temp/") + ret) == true);
+            string tempFileName = MapPath("~/Image/Temp/") + ret;
+            uploadedFile.SaveAs(tempFileName, true);
+            Session["AttachTiming"] = tempFileName;
+
+        }
+        return ret;
+    }
+    protected void btnPredecessor_Click(object sender, EventArgs e)
+    {
+        int ItemStatusId = -1;
+
+        if (int.Parse(ASPxTreeList1.FocusedNode.Key) > -1)
+        {
+            ItemStatusId = int.Parse(ASPxTreeList1.FocusedNode.Key);
+
+        }
+        else
+        {
+            this.DivReport.Visible = true;
+            this.LabelWarning.Text = "لطفاً ابتدا یک رکورد را انتخاب نمائید";
+            return;
+
+        }
+        Response.Redirect("TimingPredecessors.aspx?ProjectId=" + HDProjectId.Value + "&TimingId=" + HDTimingId.Value + "&PageMode2=" + PgMode.Value + "&PageMode=" + Request.QueryString["PageMode"] + "&PrjReId=" + RequestId.Value + "&ContractId=" + HDContractId.Value + "&ItemStatusId=" + Utility.EncryptQS(ItemStatusId.ToString()));
+
+
+    }
+
+    private void FillProjectInfo(int Id)
+    {
+        prjInfo.Fill(Id);
+    }
+}

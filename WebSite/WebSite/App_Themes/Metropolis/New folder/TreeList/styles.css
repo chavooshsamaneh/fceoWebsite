@@ -1,0 +1,228 @@
+.dxtlControl_Metropolis
+{
+    cursor: default;
+    font: 12px 'Segoe UI', Helvetica, 'Droid Sans', Tahoma, Geneva, sans-serif;
+    color: #333333;
+    border: 1px none #c0c0c0;
+}
+.dxtlControl_Metropolis caption
+{
+    background: #ACACAC none;
+    border-bottom: 0 solid #c0c0c0;
+    border: 1px solid #c0c0c0;
+    color: White;
+    font-size: 1.25em;
+    font-weight: normal;
+    padding: 3px 3px 5px;
+    text-align: center;
+}
+/* Indent cells */
+.dxtlIndent_Metropolis,
+.dxtlIndentWithButton_Metropolis
+{
+    vertical-align: top;
+    background: white none no-repeat top center;
+}
+.dxtlIndent_Metropolis
+{
+    padding: 0 11px;
+}
+.dxtlIndentWithButton_Metropolis
+{
+    padding: 5px 7px 6px;
+}
+.dxtlSelectionCell_Metropolis
+{
+    border: 1px solid #cfcfcf;
+    padding: 3px 5px 5px 6px;
+}
+/* Tree-lines cells */
+/* Headers */
+.dxtlHeader_Metropolis
+{
+    background-color: white;
+    border: 1px solid #c0c0c0;
+    padding: 4px 6px 5px;
+    font-weight: normal;
+}
+.dxtlHeader_Metropolis table.dxtl
+{
+    border-collapse: collapse;
+    width: 100%;
+}
+.dxtlHeader_Metropolis td.dxtl
+{
+    padding: 0;
+}
+.dxtlHeader_Metropolis,
+.dxtlHeader_Metropolis td.dxtl
+{
+    white-space: nowrap;
+    text-align: left;
+    overflow: hidden;
+}
+/* Nodes */
+.dxtlNode_Metropolis
+{
+    background: white none;
+}
+.dxtlAltNode_Metropolis
+{
+    background-color: WhiteSmoke;
+}
+.dxtlSelectedNode_Metropolis
+{
+    background: #e0e0e0 none;
+}
+.dxtlFocusedNode_Metropolis
+{
+    background: #ff8800 none;
+    color: white;
+}
+.dxtlInlineEditNode_Metropolis
+{
+    background: white none;
+}
+.dxtlEditFormDisplayNode_Metropolis
+{
+    background: white none;
+}
+.dxtlNode_Metropolis td.dxtl,
+.dxtlAltNode_Metropolis td.dxtl,
+.dxtlSelectedNode_Metropolis td.dxtl,
+.dxtlFocusedNode_Metropolis td.dxtl,
+.dxtlEditFormDisplayNode_Metropolis td.dxtl,
+.dxtlCommandCell_Metropolis
+{
+    padding: 3px 6px 4px;
+    border: 1px solid #cfcfcf;
+    white-space: nowrap;
+    overflow: hidden;
+}
+.dxtlHeader_Metropolis .dxbButton_Metropolis,
+.dxtlCommandCell_Metropolis .dxbButton_Metropolis
+{
+    margin: 0 2px -1px;
+}
+.dxtlHeader_Metropolis .dxbButton_Metropolis .dxb,
+.dxtlCommandCel_Metropolis .dxbButton_Metropolis .dxb
+{
+    padding-top: 0;
+    padding-bottom: 2px;
+}
+.dxtlInlineEditNode_Metropolis td.dxtl
+{
+    border: 1px solid #cfcfcf;
+    padding: 1px;
+}
+/* Preview */
+.dxtlPreview_Metropolis
+{
+    color: #7f7f7f;
+    padding: 14px;
+    border: 1px solid #cfcfcf;
+    overflow: hidden;
+}
+/* Footers */
+.dxtlGroupFooter_Metropolis td.dxtl,
+.dxtlFooter_Metropolis td.dxtl
+{
+    padding: 5px 6px 6px;
+    white-space: nowrap;
+    border: 1px solid #cfcfcf;
+    overflow: hidden;
+}
+.dxtlGroupFooter_Metropolis .dx-ar > br,
+.dxtlFooter_Metropolis .dx-ar > br
+{
+    float: none;
+}
+/* Pagers */
+.dxtlPagerTopPanel_Metropolis
+{
+    border-bottom: 1px none #c0c0c0;
+    padding: 4px 0;
+}
+.dxtlPagerBottomPanel_Metropolis
+{
+    border-top: 1px none #c0c0c0;
+    padding: 7px 0;
+}
+/* Editing */
+.dxtlEditForm_Metropolis
+{
+    border: 1px solid #D3D3D3;
+    padding: 8px 10px 10px;
+}
+.dxtlEditFormCaption_Metropolis,
+.dxtlEditFormEditCell_Metropolis
+{
+    padding: 4px;
+}
+.dxtlEditFormCaption_Metropolis
+{
+    padding-left: 10px;
+    white-space: nowrap;
+}
+.dxtlError_Metropolis
+{
+    background: #FFC8C8 none;
+    color: #FF0000;
+    padding: 6px 10px;
+    border: 1px solid #cfcfcf;
+}
+.dxtlPopupEditForm_Metropolis
+{
+    padding: 10px;
+    min-width: 300px;
+}
+/* Links */
+.dxtlControl_Metropolis a
+{
+    color: #ff8800;
+}
+.dxtlFocusedNode_Metropolis a
+{
+    color: White;
+}
+.dxtlSelectedNode_Metropolis a
+{
+    color: #ff8800;
+}
+.dxtlCommandCell_Metropolis a
+{
+    margin-right: 3px;
+}
+/* Customization window */
+.dxtlControl_Metropolis .dxpcLite_Metropolis .dxpc-content
+{
+    min-width: 220px;
+}
+/* Loading panel */
+.dxtlLoadingPanel_Metropolis
+{
+    border: 1px solid #C3C3C3;
+    background-color: white;
+    font: 12px 'Segoe UI', Helvetica, 'Droid Sans', Tahoma, Geneva, sans-serif;
+    color: #333333;
+}
+.dxtlLoadingPanel_Metropolis td.dx
+{
+    font-size: 1.17em;
+    white-space: nowrap;
+    text-align: center;
+    padding: 10px 14px;
+}
+.dxtlLoadingPanel_Metropolis .dxlp-loadingImage
+{
+    background-image: url('../Web/Loading.gif');
+    height: 32px;
+    width: 32px;
+}
+/* Disabled */
+.dxtlDisabled_Metropolis,
+.dxtlDisabled_Metropolis .dxtl
+{
+    color: #b8b8b8;
+    cursor: default;
+}

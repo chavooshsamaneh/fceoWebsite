@@ -1,0 +1,1052 @@
+﻿using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+using DevExpress.Web;
+using System.IO;
+
+public partial class Members_TechnicalServices_Project_DevelopmentPercentInsert : System.Web.UI.Page
+{
+    Boolean IsPageRefresh = false;
+
+    protected void Page_Load(object sender, EventArgs e)
+    {
+      
+        this.DivReport.Visible = false;
+        this.DivReport.Attributes.Add("onclick", "ChangeVisible(this)");
+        this.DivReport.Attributes.Add("onmouseover", "ChangeIcon(this)");
+
+        if (!IsPostBack)
+        {
+            ViewState["postids"] = System.Guid.NewGuid().ToString();
+            Session["postid"] = ViewState["postids"].ToString();
+        }
+        else
+        {
+            if (!IsCallback && Session["postid"] != null)
+            {
+                if (ViewState["postids"].ToString() != Session["postid"].ToString()) { IsPageRefresh = true; }
+                Session["postid"] = System.Guid.NewGuid().ToString(); ViewState["postids"] = Session["postid"];
+            }
+        }
+
+
+        if (!IsPostBack)
+        {
+            Session["AttachImpName"] = null;
+            Session["AttachImp"] = null;
+            Session["AttachObsName"] = null;
+            Session["AttachObs"] = null;
+            Session["TreeSource"] = null;
+
+            if (string.IsNullOrEmpty(Request.QueryString["PageMode"]) || string.IsNullOrEmpty(Request.QueryString["DevelopmentPercentId"]))
+            {
+                Response.Redirect("DevelopmentPercent.aspx");
+            }
+ 
+
+            try
+            {
+                PgMode.Value = Server.HtmlDecode(Request.QueryString["PageMode"].ToString());
+                HDDevelopmentPercentId.Value = Server.HtmlDecode(Request.QueryString["DevelopmentPercentId"]).ToString();
+
+            }
+            catch
+            {
+                this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+                return;
+            }
+
+            string PageMode = Utility.DecryptQS(PgMode.Value);
+            string DevelopmentPercentId = Utility.DecryptQS(HDDevelopmentPercentId.Value);
+
+            if (string.IsNullOrEmpty(PageMode))
+            {
+                this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+                return;
+            }
+
+            switch (PageMode)
+            {
+                case "View":
+                    Disable();
+                    if (string.IsNullOrEmpty(DevelopmentPercentId))
+                    {
+                        this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+                        return;
+                    }
+                
+                    FillForm(int.Parse(DevelopmentPercentId));
+                    ASPxTreeList1.Columns[5].Visible = false;
+                    ASPxTreeList1.Columns[6].Visible = true;
+                    AspxRoundPanelMain.HeaderText = "مشاهده";
+                    
+
+                    break;
+
+
+                case "New":
+
+                    btnSave.Visible = true;
+                    btnSave2.Visible = true;
+                   
+                    AspxRoundPanelMain.HeaderText = "جدید";
+            
+                    break;
+
+                case "Edit":
+
+                    btnSave.Visible = true;
+                    btnSave2.Visible = true;
+
+                    if (string.IsNullOrEmpty(DevelopmentPercentId))
+                    {
+                        this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+                        return;
+                    }
+
+                    FillForm(int.Parse(DevelopmentPercentId));
+                    AspxRoundPanelMain.HeaderText = "ویرایش";
+
+                    break;
+
+                case "Observation":
+
+                    btnSave.Visible = true;
+                    btnSave2.Visible = true;
+                    if (string.IsNullOrEmpty(DevelopmentPercentId))
+                    {
+                        this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+                        return;
+                    }
+
+                    FillForm(int.Parse(DevelopmentPercentId));
+                    SetObservationMode(int.Parse(DevelopmentPercentId));
+                    AspxRoundPanelMain.HeaderText = "مشاهده";
+
+                    break;
+
+            }
+
+            this.ViewState["BtnSave"] = btnSave.Visible;
+        
+        }
+        if (this.ViewState["BtnSave"] != null)
+            this.btnSave.Visible = this.btnSave2.Visible = (bool)this.ViewState["BtnSave"];
+       
+
+        if (Session["TreeSource"] != null)
+        {
+            ASPxTreeList1.DataSource = (DataTable)Session["TreeSource"];
+            ASPxTreeList1.DataBind();
+        }
+    }
+    protected void btnBack_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("DevelopmentPercent.aspx");
+    }
+   
+    protected void btnSave_Click(object sender, EventArgs e)
+    {
+        string PageMode = Utility.DecryptQS(PgMode.Value);
+        string DevelopmentPercentId = Utility.DecryptQS(HDDevelopmentPercentId.Value);
+
+
+        if (string.IsNullOrEmpty(PageMode))
+        {
+            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+            return;
+        }
+        else
+        {
+            switch (PageMode)
+            {
+                case "New":
+                    if (ASPxTreeList1.Nodes.Count > 0)
+                        Insert();
+                    else
+                        return;
+                    
+                    break;
+                case "Edit":
+                    if (string.IsNullOrEmpty(DevelopmentPercentId))
+                    {
+                        this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+                        return;
+                    }
+                    else
+                        Edit(int.Parse(DevelopmentPercentId));
+                   
+                    break;
+                case "Observation":
+                    if (string.IsNullOrEmpty(DevelopmentPercentId))
+                    {
+                        this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+                        return;
+                    }
+                    else
+                        InsertObservation(int.Parse(DevelopmentPercentId));
+                    break;
+            }
+
+        }
+    }
+    protected void txtProjectId_TextChanged(object sender, EventArgs e)
+    {
+        string ProjectId = txtProjectId.Text;
+        if (!string.IsNullOrEmpty(ProjectId))
+        {
+            TSP.DataManager.TechnicalServices.ProjectManager ProjectManager = new TSP.DataManager.TechnicalServices.ProjectManager();
+            TSP.DataManager.TechnicalServices.OwnerManager OwnerManager = new TSP.DataManager.TechnicalServices.OwnerManager();
+            TSP.DataManager.TechnicalServices.Project_ImplementerManager ImpManager = new TSP.DataManager.TechnicalServices.Project_ImplementerManager();
+            TSP.DataManager.TechnicalServices.ContractManager ContractManager = new TSP.DataManager.TechnicalServices.ContractManager();
+            TSP.DataManager.TechnicalServices.TimingManager TimingManager = new TSP.DataManager.TechnicalServices.TimingManager();
+            TSP.DataManager.TechnicalServices.DevelopmentItemsStatusManager DevelopmentItemsStatusManager = new TSP.DataManager.TechnicalServices.DevelopmentItemsStatusManager();
+
+            ImpManager.FindImpMother(int.Parse(ProjectId));
+            if (ImpManager.Count > 0)
+            {
+                if (Convert.ToInt32(ImpManager[0]["MeOfficeId"]) == Utility.GetCurrentUser_MeId() && Convert.ToInt32(ImpManager[0]["MeOfficeId"]) == Utility.GetCurrentUser_LoginType())
+                {
+                    ProjectManager.FindByProjectId(int.Parse(ProjectId));
+                    if (ProjectManager.Count > 0)
+                    {
+                        if (!Utility.IsDBNullOrNullValue(ProjectManager[0]["CitName"]))
+                            txtPrCitName.Text = ProjectManager[0]["CitName"].ToString();
+                        if (!Utility.IsDBNullOrNullValue(ProjectManager[0]["FileNo"]))
+                            txtPrFileNo.Text = ProjectManager[0]["FileNo"].ToString();
+                        if (!Utility.IsDBNullOrNullValue(ProjectManager[0]["MunName"]))
+                            txtPrMunName.Text = ProjectManager[0]["MunName"].ToString();
+                        if (!Utility.IsDBNullOrNullValue(ProjectManager[0]["RegisteredNo"]))
+                            txtPrRegisteredNo.Text = ProjectManager[0]["RegisteredNo"].ToString();
+                        if (!Utility.IsDBNullOrNullValue(ProjectManager[0]["LicenseNo"]))
+                            txtPrLicenceNo.Text = ProjectManager[0]["LicenseNo"].ToString();
+                        if (!Utility.IsDBNullOrNullValue(ProjectManager[0]["GroupName"]))
+                            txtPrGroup.Text = ProjectManager[0]["GroupName"].ToString();
+
+                        //txtPrStructure.Text = "";
+                        OwnerManager.FindOwnerAgent(int.Parse(ProjectId));
+                        if (OwnerManager.Count > 0)
+                        {
+                            if (!Utility.IsDBNullOrNullValue(OwnerManager[0]["Name"]))
+                                txtPrOwnerName.Text = OwnerManager[0]["Name"].ToString();
+                        }
+
+                        int ImpId = int.Parse(ImpManager[0]["PrjImpId"].ToString());
+
+                        ContractManager.FindByProjectId(int.Parse(ProjectId));
+                        if (ContractManager.Count > 0)
+                        {
+                            ContractManager.FindByPrjImpObsDsgnId(ImpId, (int)TSP.DataManager.TSProjectIngridientType.Implementer);
+                            if (ContractManager.Count > 0)
+                            {
+                                int ContractId = int.Parse(ContractManager[0]["ContractId"].ToString());
+                                TimingManager.FindByContractId(ContractId);
+                                if (TimingManager.Count > 0)
+                                {
+                                    int TimingId = int.Parse(TimingManager[0]["TimingId"].ToString());
+
+                                    ASPxTreeList1.DataSource = DevelopmentItemsStatusManager.FindByTimingId(TimingId);
+                                    ASPxTreeList1.DataBind();
+                                    Session["TreeSource"] = ASPxTreeList1.DataSource;
+
+                                }
+                                else
+                                {
+                                    this.DivReport.Visible = true;
+                                    this.LabelWarning.Text = "برای پروژه مورد نظر زمان بندی تعریف نشده است";
+                                    return;
+                                }
+
+                            }
+                            else
+                            {
+                                this.DivReport.Visible = true;
+                                this.LabelWarning.Text = "برای پروژه مورد نظر قرارداد مجری تعریف نشده است";
+                                return;
+                            }
+
+                        }
+                        else
+                        {
+                            this.DivReport.Visible = true;
+                            this.LabelWarning.Text = "برای پروژه مورد نظر قرارداد مجری تعریف نشده است";
+                            return;
+                        }
+
+
+
+
+                    }
+                    else
+                    {
+                        this.DivReport.Visible = true;
+                        this.LabelWarning.Text = "کد پروژه وارد شده معتبر نمی باشد.مجدداً وارد نمایید";
+                    }
+                }
+                else
+                {
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "امکان ثبت زمان بندی پروژه مورد نظر برای شما وجود ندارد";
+                    return;
+                }
+            }
+            else
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "برای پروژه مورد نظر زمان بندی تعریف نشده است";
+                return;
+            }
+           
+        }
+        else
+        {
+            this.DivReport.Visible = true;
+            this.LabelWarning.Text = "کد پروژه را مجدداً وارد نمایید";
+        }
+       
+    }
+    protected void FillForm(int DevelopmentPercentId)
+    {
+        TSP.DataManager.TechnicalServices.ProjectManager ProjectManager = new TSP.DataManager.TechnicalServices.ProjectManager();
+        TSP.DataManager.TechnicalServices.OwnerManager OwnerManager = new TSP.DataManager.TechnicalServices.OwnerManager();
+        TSP.DataManager.TechnicalServices.Project_ImplementerManager ImpManager = new TSP.DataManager.TechnicalServices.Project_ImplementerManager();
+        TSP.DataManager.TechnicalServices.ContractManager ContractManager = new TSP.DataManager.TechnicalServices.ContractManager();
+        TSP.DataManager.TechnicalServices.TimingManager TimingManager = new TSP.DataManager.TechnicalServices.TimingManager();
+        TSP.DataManager.TechnicalServices.DevelopmentItemsStatusManager DevelopmentItemsStatusManager = new TSP.DataManager.TechnicalServices.DevelopmentItemsStatusManager();
+        TSP.DataManager.TechnicalServices.DevelopmentPercentManager DevelopmentPercentManager = new TSP.DataManager.TechnicalServices.DevelopmentPercentManager();
+        TSP.DataManager.TechnicalServices.AttachmentsManager AttachManager = new TSP.DataManager.TechnicalServices.AttachmentsManager();
+
+
+        try
+        {
+            DevelopmentPercentManager.FindByDevelopmentPercentId(DevelopmentPercentId);
+            if (DevelopmentPercentManager.Count > 0)
+            {
+               
+                txtDescription.Text = DevelopmentPercentManager[0]["Description"].ToString();
+                txtProjectId.Text = DevelopmentPercentManager[0]["ProjectId"].ToString();
+
+                ProjectManager.FindByProjectId(int.Parse(txtProjectId.Text));
+                if (ProjectManager.Count > 0)
+                {
+                    if (!Utility.IsDBNullOrNullValue(ProjectManager[0]["CitName"]))
+                        txtPrCitName.Text = ProjectManager[0]["CitName"].ToString();
+                    if (!Utility.IsDBNullOrNullValue(ProjectManager[0]["FileNo"]))
+                        txtPrFileNo.Text = ProjectManager[0]["FileNo"].ToString();
+                    if (!Utility.IsDBNullOrNullValue(ProjectManager[0]["MunName"]))
+                        txtPrMunName.Text = ProjectManager[0]["MunName"].ToString();
+                    if (!Utility.IsDBNullOrNullValue(ProjectManager[0]["RegisteredNo"]))
+                        txtPrRegisteredNo.Text = ProjectManager[0]["RegisteredNo"].ToString();
+                    if (!Utility.IsDBNullOrNullValue(ProjectManager[0]["LicenseNo"]))
+                        txtPrLicenceNo.Text = ProjectManager[0]["LicenseNo"].ToString();
+                    if (!Utility.IsDBNullOrNullValue(ProjectManager[0]["GroupName"]))
+                        txtPrGroup.Text = ProjectManager[0]["GroupName"].ToString();
+
+                    //txtPrStructure.Text = "";
+                    OwnerManager.FindOwnerAgent(int.Parse(txtProjectId.Text));
+                    if (OwnerManager.Count > 0)
+                    {
+                        if (!Utility.IsDBNullOrNullValue(OwnerManager[0]["Name"]))
+                            txtPrOwnerName.Text = OwnerManager[0]["Name"].ToString();
+                    }
+
+                    ASPxTreeList1.DataSource = DevelopmentItemsStatusManager.FindByDevelopmentPercentId(DevelopmentPercentId);
+                    ASPxTreeList1.DataBind();
+                    Session["TreeSource"] = ASPxTreeList1.DataSource;
+
+                    AttachManager.FindByTableTypeId(DevelopmentPercentId, (int)TSP.DataManager.TableCodes.TSDevelopmentPercent, (int)TSP.DataManager.TSAttachType.DevelopmentPercent);
+                    if (AttachManager.Count > 0)
+                    {
+                        HpImpFile.ClientVisible = true;
+                        HpImpFile.NavigateUrl = AttachManager[0]["FilePath"].ToString();
+                        //hd["name"] = 1;
+
+                    }
+                }
+
+
+                if (Utility.IsDBNullOrNullValue(DevelopmentPercentManager[0]["SObserversCreateDate"]))
+                    txtSObserversCreateDate.Text = Utility.GetDateOfToday();
+                else
+                {
+                    txtSObserversCreateDate.Text = DevelopmentPercentManager[0]["SObserversCreateDate"].ToString();
+                    SetViewMode();
+                }
+
+             
+                if (!Utility.IsDBNullOrNullValue(DevelopmentPercentManager[0]["SObserversDate"]))
+                    txtSObserversDate.Text = DevelopmentPercentManager[0]["SObserversDate"].ToString();
+                if (!Utility.IsDBNullOrNullValue(DevelopmentPercentManager[0]["SObserversDescription"]))
+                    txtSObserversDescription.Text = DevelopmentPercentManager[0]["SObserversDescription"].ToString();
+
+                AttachManager.FindByTableTypeId(DevelopmentPercentId, (int)TSP.DataManager.TableCodes.TSDevelopmentPercent, (int)TSP.DataManager.TSAttachType.ObserversDevelopmentPercent);
+                if (AttachManager.Count > 0)
+                {
+                    HpObsFile.ClientVisible = true;
+                    HpObsFile.NavigateUrl = AttachManager[0]["FilePath"].ToString();
+                    HDFlpContract["name"] = 1;
+
+                }
+
+            }
+            else
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "اطلاعات توسط کاربر دیگری تغییر یافته است";
+                return;
+            }
+
+            
+        }
+        catch (Exception)
+        {
+            this.DivReport.Visible = true;
+            this.LabelWarning.Text = "خطایی در مشاهده اطلاعات رخ داده است";
+        }
+    }
+    protected void ClearForm()
+    {
+        DataTable dt = (DataTable)Session["TreeSource"];
+        dt.Rows.Clear();
+        ASPxTreeList1.DataSource = dt;
+        ASPxTreeList1.DataBind();
+
+        Session["TreeSource"] = null;
+    
+        txtDescription.Text = "";
+        txtPrCitName.Text = "";
+        txtPrFileNo.Text = "";
+        txtPrGroup.Text = "";
+        txtPrLicenceNo.Text = "";
+        txtProjectId.Text = "";
+        txtPrMunName.Text = "";
+        txtPrOwnerName.Text = "";
+        txtPrRegisteredNo.Text = "";
+        txtPrStructure.Text = "";
+        HpImpFile.NavigateUrl = "";
+        HpImpFile.ClientVisible = false;
+        ASPxTreeList1.Columns[9].Visible = false;
+        ASPxTreeList1.Columns[10].Visible = false;
+     
+    }
+    protected void Disable()
+    {
+        ASPxTreeList1.Enabled = false;
+        txtProjectId.Enabled = false;       
+        txtDescription.Enabled = false;
+        flpImpFile.ClientVisible = false;
+        ASPxTreeList1.Columns[5].Visible = false;
+        ASPxTreeList1.Columns[6].Visible = true;
+    }
+    protected void Enable()
+    {
+        ASPxTreeList1.Enabled = true;
+        txtProjectId.Enabled = true;
+        txtDescription.Enabled = true;
+        flpImpFile.ClientVisible = true;
+        ASPxTreeList1.Columns[6].Visible = false;
+        ASPxTreeList1.Columns[5].Visible = true;
+
+    }
+    protected void SetObservationMode(int DevelopmentPercentId)
+    {
+        txtProjectId.Enabled = false;
+        txtDescription.Enabled = false;
+        ASPxTreeList1.Columns[5].Visible = false;
+        ASPxTreeList1.Columns[6].Visible = true;
+        ASPxTreeList1.Columns[9].Visible = true;
+        flpImpFile.ClientVisible = false;
+        flpObsFile.ClientVisible = true;
+        ASPxRoundPanelObservation.ClientVisible = true;
+        txtSObserversDate.Enabled = true;
+        txtSObserversDescription.Enabled = true;
+    }
+    protected void SetViewMode()
+    {
+        ASPxTreeList1.Columns[9].Visible = false;
+        ASPxTreeList1.Columns[10].Visible = true;
+        ASPxRoundPanelObservation.ClientVisible = true;
+        txtSObserversDate.Enabled = false;
+        txtSObserversDescription.Enabled = false;
+      
+        flpObsFile.ClientVisible = false;
+
+    }
+    protected void Insert()
+    {
+        if (IsPageRefresh)
+            return;
+
+        TSP.DataManager.TransactionManager trans = new TSP.DataManager.TransactionManager();
+        TSP.DataManager.TechnicalServices.DevelopmentPercentManager DevelopmentPercentManager = new TSP.DataManager.TechnicalServices.DevelopmentPercentManager();
+        TSP.DataManager.TechnicalServices.DevelopmentItemsStatusManager DevItemsStatusManager = new TSP.DataManager.TechnicalServices.DevelopmentItemsStatusManager();
+        TSP.DataManager.TechnicalServices.AttachmentsManager AttachManager = new TSP.DataManager.TechnicalServices.AttachmentsManager();
+        TSP.DataManager.TechnicalServices.DevelopmentObserversManager DevelopmentObserversManager = new TSP.DataManager.TechnicalServices.DevelopmentObserversManager();
+        TSP.DataManager.TechnicalServices.Project_ObserversManager ProjectObserversManager = new TSP.DataManager.TechnicalServices.Project_ObserversManager();
+       
+        trans.Add(DevelopmentPercentManager);
+        trans.Add(DevItemsStatusManager);
+        trans.Add(AttachManager);
+        trans.Add(DevelopmentObserversManager);
+        trans.Add(ProjectObserversManager);
+       
+
+        bool IsAttach = false;
+
+        try
+        {
+            DataRow dr = DevelopmentPercentManager.NewRow();
+            dr["ProjectId"] = txtProjectId.Text;
+            dr["IsConfirmed"] = 0;
+            dr["CreateDate"] = Utility.GetDateOfToday();
+            dr["Description"] = txtDescription.Text;
+            dr["UserId"] = Utility.GetCurrentUser_UserId();
+            dr["ModifiedDate"] = DateTime.Now;
+            DevelopmentPercentManager.AddRow(dr);
+            trans.BeginSave();
+            if (DevelopmentPercentManager.Save() > 0)
+            {
+                int DevelopmentPercentId = int.Parse(DevelopmentPercentManager[0]["DevelopmentPercentId"].ToString());
+
+                #region Attachment
+                if (Session["AttachImp"] != null && Session["AttachImpName"] != null)
+                {
+                    DataRow drAtt = AttachManager.NewRow();
+                    drAtt["TableTypeId"] = DevelopmentPercentId;
+                    drAtt["TableType"] = (int)TSP.DataManager.TableCodes.TSDevelopmentPercent;
+                    drAtt["AttachTypeId"] = (int)TSP.DataManager.TSAttachType.DevelopmentPercent;
+                    drAtt["FilePath"] = "~/Image/TechnicalServices/DevelopmentPercent/" + Path.GetFileName(Session["AttachImp"].ToString());
+                    drAtt["FileName"] = Session["AttachImpName"];
+                    drAtt["UserId"] = Utility.GetCurrentUser_UserId();
+                    drAtt["ModifiedDate"] = DateTime.Now;
+                    AttachManager.AddRow(drAtt);
+                    if (AttachManager.Save() > 0)
+                        IsAttach = true;
+                }
+                #endregion
+
+                int PercentCount = InserItemsStatus(DevelopmentPercentId, DevItemsStatusManager);
+                if (PercentCount >= 75)
+                    InsertDevelopmentObservers(DevelopmentPercentId, DevelopmentObserversManager, ProjectObserversManager);
+
+                trans.EndSave();
+                HDDevelopmentPercentId.Value = Utility.EncryptQS(DevelopmentPercentId.ToString());
+                PgMode.Value = Utility.EncryptQS("Edit");
+                AspxRoundPanelMain.HeaderText = "ویرایش";
+
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "ذخیره انجام شد";
+             
+                //ASPxTreeList1.DataSource = (DataTable)Session["TreeSource"];
+                //ASPxTreeList1.DataBind();
+            }
+            else
+            {
+                trans.CancelSave();
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+            }
+
+        }
+        catch (Exception err)
+        {
+            trans.CancelSave();
+
+            if (err.GetType() == typeof(System.Data.SqlClient.SqlException))
+            {
+                System.Data.SqlClient.SqlException se = (System.Data.SqlClient.SqlException)err;
+                if (se.Number == 2601)
+                {
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "اطلاعات تکراری می باشد";
+                }
+                else
+                {
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+                }
+            }
+            else
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+            }
+        }
+        if (IsAttach)
+        {
+            try
+            {
+                string ImgSoource = Session["AttachImp"].ToString();
+                string ImgTarget = Server.MapPath("~/Image/TechnicalServices/DevelopmentPercent/") + Path.GetFileName(Session["AttachImp"].ToString());
+                File.Copy(ImgSoource, ImgTarget, true);
+                HpImpFile.ClientVisible = true;
+                HpImpFile.NavigateUrl = ImgSoource;
+
+                Session["AttachImp"] = null;
+                Session["AttachImpName"] = null;
+
+            }
+            catch (Exception)
+            {
+            }
+        }
+    }
+    protected void InsertDevelopmentObservers(int DevelopmentPercentId, TSP.DataManager.TechnicalServices.DevelopmentObserversManager DevelopmentObserversManager, TSP.DataManager.TechnicalServices.Project_ObserversManager ProjectObserversManager)
+    {
+        ProjectObserversManager.FindByProjectId(int.Parse(txtProjectId.Text));
+        for (int i = 0; i < ProjectObserversManager.Count; i++)
+        {
+
+            DataRow drOb = DevelopmentObserversManager.NewRow();
+            drOb["DevelopmentPercentId"] = DevelopmentPercentId;
+            drOb["PrjObsMeId"] = ProjectObserversManager[i]["ProjectObserversId"];
+            drOb["Type"] = 1;
+            drOb["IsConfirm"] = 0;
+            drOb["CreateDate"] = Utility.GetDateOfToday();
+            drOb["UserId"] = Utility.GetCurrentUser_UserId();
+            drOb["ModifiedDate"] = DateTime.Now;
+            DevelopmentObserversManager.AddRow(drOb);
+
+        }
+        DevelopmentObserversManager.Save();
+
+    }
+    protected int InserItemsStatus(int DevelopmentPercentId, TSP.DataManager.TechnicalServices.DevelopmentItemsStatusManager DevItemsStatusManager)
+    {
+        int PercentCount = 0;
+        if (ASPxTreeList1.Nodes.Count > 0)
+        {
+            for (int i = 0; i < ASPxTreeList1.Nodes.Count; i++)
+            {
+                DataRow drSt = DevItemsStatusManager.NewRow();
+                drSt["DevelopmentPercentId"] = DevelopmentPercentId;
+                drSt["TimingItemsStatusId"] = ASPxTreeList1.Nodes[i]["TimingItemsStatusId2"].ToString();
+
+                DevExpress.Web.ASPxTextBox PercentComplete = (DevExpress.Web.ASPxTextBox)ASPxTreeList1.FindDataCellTemplateControl(ASPxTreeList1.Nodes[i].Key.ToString(), (DevExpress.Web.ASPxTreeList.TreeListDataColumn)ASPxTreeList1.Columns["PercentComplete"], "txtPercentComplete");
+                if (!string.IsNullOrEmpty(PercentComplete.Text))
+                {
+                    drSt["PercentComplete"] = int.Parse(PercentComplete.Text);
+                    PercentCount = int.Parse(PercentComplete.Text);
+                }
+                else
+                    drSt["PercentComplete"] = DBNull.Value;
+                drSt["UserId"] = Utility.GetCurrentUser_UserId();
+                drSt["ModifiedDate"] = DateTime.Now;
+                DevItemsStatusManager.AddRow(drSt);
+            }
+            DevItemsStatusManager.Save();
+        }
+        return PercentCount;
+
+    }
+    protected void Edit(int DevelopmentPercentId)
+    {
+        if (IsPageRefresh)
+            return;
+
+        TSP.DataManager.TransactionManager trans = new TSP.DataManager.TransactionManager();
+        TSP.DataManager.TechnicalServices.DevelopmentPercentManager DevelopmentPercentManager = new TSP.DataManager.TechnicalServices.DevelopmentPercentManager();
+        TSP.DataManager.TechnicalServices.DevelopmentItemsStatusManager DevItemsStatusManager = new TSP.DataManager.TechnicalServices.DevelopmentItemsStatusManager();
+        TSP.DataManager.TechnicalServices.AttachmentsManager AttachManager = new TSP.DataManager.TechnicalServices.AttachmentsManager();
+        trans.Add(DevelopmentPercentManager);
+        trans.Add(DevItemsStatusManager);
+        trans.Add(AttachManager);
+
+        bool IsAttach = false;
+       
+        try
+        {
+            DevelopmentPercentManager.FindByDevelopmentPercentId(DevelopmentPercentId);
+            if (DevelopmentPercentManager.Count > 0)
+            {
+                trans.BeginSave();
+                DevelopmentPercentManager[0].BeginEdit();
+                DevelopmentPercentManager[0]["Description"] = txtDescription.Text;
+                DevelopmentPercentManager[0]["UserId"] = Utility.GetCurrentUser_UserId();
+
+                DevelopmentPercentManager[0].EndEdit();
+                if (DevelopmentPercentManager.Save() > 0)
+                {
+                    #region Attachment
+                    if (Session["AttachImp"] != null && Session["AttachImpName"] != null)
+                    {
+                        AttachManager.FindByTableTypeId(DevelopmentPercentId, (int)TSP.DataManager.TableCodes.TSDevelopmentPercent, (int)TSP.DataManager.TSAttachType.DevelopmentPercent);
+                        if (AttachManager.Count > 0)
+                        {
+                            AttachManager[0].BeginEdit();
+                            if ((!string.IsNullOrEmpty(AttachManager[0]["FilePath"].ToString())) && (File.Exists(Server.MapPath(AttachManager[0]["FilePath"].ToString()))))
+                            {
+                                File.Delete(Server.MapPath(AttachManager[0]["FilePath"].ToString()));
+
+                                HpImpFile.NavigateUrl = Session["AttachImp"].ToString();
+
+                                AttachManager[0]["FilePath"] = "~/Image/TechnicalServices/DevelopmentPercent/" + Path.GetFileName(Session["AttachImp"].ToString());
+                                AttachManager[0]["FileName"] = Session["AttachImpName"];
+
+                            }
+                            else
+                            {
+                                HpImpFile.NavigateUrl = Session["AttachImp"].ToString();
+                                AttachManager[0]["FilePath"] = "~/Image/TechnicalServices/DevelopmentPercent/" + Path.GetFileName(Session["AttachImp"].ToString());
+                                AttachManager[0]["FileName"] = Session["AttachImpName"];
+
+                            }
+                            AttachManager[0]["UserId"] = Utility.GetCurrentUser_UserId();
+                            AttachManager[0].EndEdit();
+                            if (AttachManager.Save() > 0)
+                                IsAttach = true;
+
+                        }
+                        else
+                        {
+                            DataRow drAtt = AttachManager.NewRow();
+                            drAtt["TableTypeId"] = DevelopmentPercentId;
+                            drAtt["TableType"] = (int)TSP.DataManager.TableCodes.TSDevelopmentPercent;
+                            drAtt["AttachTypeId"] = (int)TSP.DataManager.TSAttachType.DevelopmentPercent;
+                            drAtt["FilePath"] = "~/Image/TechnicalServices/DevelopmentPercent/" + Path.GetFileName(Session["AttachImp"].ToString());
+                            drAtt["FileName"] = Session["AttachImpName"];
+                            drAtt["UserId"] = Utility.GetCurrentUser_UserId();
+                            drAtt["ModifiedDate"] = DateTime.Now;
+                            AttachManager.AddRow(drAtt);
+                            if (AttachManager.Save() > 0)
+                                IsAttach = true;
+                        }
+
+                    }
+                    #endregion
+
+                    if (ASPxTreeList1.Nodes.Count > 0)
+                    {
+                        for (int i = 0; i < ASPxTreeList1.Nodes.Count; i++)
+                        {
+                            string DevelopmentItemsStatustId = ASPxTreeList1.Nodes[i]["DevelopmentItemsStatustId"].ToString();
+                            //TimingItemsManager.CurrentFilter = "TimingDevelopmentItemsId=" + TimingDevelopmentItemsId + "AND TimingId=" + TimingId.ToString();
+                            DevItemsStatusManager.FindByDevelopmentItemsStatustId(int.Parse(DevelopmentItemsStatustId));
+                            if (DevItemsStatusManager.Count != 0)
+                            {
+                                DevItemsStatusManager[0].BeginEdit();
+                                DevExpress.Web.ASPxTextBox PercentComplete = (DevExpress.Web.ASPxTextBox)ASPxTreeList1.FindDataCellTemplateControl(ASPxTreeList1.Nodes[i].Key.ToString(), (DevExpress.Web.ASPxTreeList.TreeListDataColumn)ASPxTreeList1.Columns["PercentComplete"], "txtPercentComplete");
+                                if (!string.IsNullOrEmpty(PercentComplete.Text))
+                                    DevItemsStatusManager[0]["PercentComplete"] = PercentComplete.Text;
+                                else
+                                    DevItemsStatusManager[0]["PercentComplete"] = DBNull.Value;
+                                DevItemsStatusManager[0]["UserId"] = Utility.GetCurrentUser_UserId();
+                                DevItemsStatusManager[0].EndEdit();
+                                DevItemsStatusManager.Save();
+
+                            }
+                            else
+                            {
+                                trans.CancelSave();
+                                this.DivReport.Visible = true;
+                                this.LabelWarning.Text = "خطایی در بازخوانی اطلاعات رخ داده است";
+                            }
+
+
+                        }
+                    }
+
+                    trans.EndSave();
+
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "ذخیره انجام شد";
+                }
+                else
+                {
+                    trans.CancelSave();
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+                }
+
+               
+            }
+        }
+        catch (Exception err)
+        {
+            trans.CancelSave();
+
+            if (err.GetType() == typeof(System.Data.SqlClient.SqlException))
+            {
+                System.Data.SqlClient.SqlException se = (System.Data.SqlClient.SqlException)err;
+                if (se.Number == 2601)
+                {
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "اطلاعات تکراری می باشد";
+                }
+                else
+                {
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+                }
+            }
+            else
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+            }
+        }
+        if (IsAttach)
+        {
+            try
+            {
+                string ImgSoource = Session["AttachImp"].ToString();
+                string ImgTarget = Server.MapPath("~/Image/TechnicalServices/DevelopmentPercent/") + Path.GetFileName(Session["AttachImp"].ToString());
+                File.Copy(ImgSoource, ImgTarget, true);
+                HpImpFile.ClientVisible = true;
+                HpImpFile.NavigateUrl = ImgSoource;
+
+                Session["AttachImp"] = null;
+                Session["AttachImpName"] = null;
+
+            }
+            catch (Exception)
+            {
+            }
+        }
+    }
+    protected void InsertObservation(int DevelopmentPercentId)
+    {
+        if (IsPageRefresh)
+            return;
+
+        TSP.DataManager.TransactionManager trans = new TSP.DataManager.TransactionManager();
+        TSP.DataManager.TechnicalServices.DevelopmentPercentManager DevelopmentPercentManager = new TSP.DataManager.TechnicalServices.DevelopmentPercentManager();
+        TSP.DataManager.TechnicalServices.DevelopmentItemsStatusManager DevItemsStatusManager = new TSP.DataManager.TechnicalServices.DevelopmentItemsStatusManager();
+        TSP.DataManager.TechnicalServices.AttachmentsManager AttachManager = new TSP.DataManager.TechnicalServices.AttachmentsManager();
+        trans.Add(DevelopmentPercentManager);
+        trans.Add(DevItemsStatusManager);
+        trans.Add(AttachManager);
+
+        bool IsAttach = false;
+
+        try
+        {
+            DevelopmentPercentManager.FindByDevelopmentPercentId(DevelopmentPercentId);
+            if (DevelopmentPercentManager.Count > 0)
+            {
+                trans.BeginSave();
+                DevelopmentPercentManager[0].BeginEdit();
+                DevelopmentPercentManager[0]["SObserversDate"] = txtSObserversDate.Text;
+                DevelopmentPercentManager[0]["SObserversDescription"] = txtSObserversDescription.Text;
+                DevelopmentPercentManager[0]["SObserversCreateDate"] = txtSObserversCreateDate.Text;
+                DevelopmentPercentManager[0]["UserId"] = Utility.GetCurrentUser_UserId();
+
+                DevelopmentPercentManager[0].EndEdit();
+                if (DevelopmentPercentManager.Save() > 0)
+                {
+                    #region Attachment
+                    if (Session["AttachObsName"] != null && Session["AttachObs"] != null)
+                    {
+                        AttachManager.FindByTableTypeId(DevelopmentPercentId, (int)TSP.DataManager.TableCodes.TSDevelopmentPercent, (int)TSP.DataManager.TSAttachType.ObserversDevelopmentPercent);
+                        if (AttachManager.Count > 0)
+                        {
+                            AttachManager[0].BeginEdit();
+                            if ((!string.IsNullOrEmpty(AttachManager[0]["FilePath"].ToString())) && (File.Exists(Server.MapPath(AttachManager[0]["FilePath"].ToString()))))
+                            {
+                                File.Delete(Server.MapPath(AttachManager[0]["FilePath"].ToString()));
+
+                                HpObsFile.NavigateUrl = Session["AttachObs"].ToString();
+
+                                AttachManager[0]["FilePath"] = "~/Image/TechnicalServices/DevelopmentPercent/" + Path.GetFileName(Session["AttachObs"].ToString());
+                                AttachManager[0]["FileName"] = Session["AttachImpName"];
+
+                            }
+                            else
+                            {
+                                HpObsFile.NavigateUrl = Session["AttachObs"].ToString();
+                                AttachManager[0]["FilePath"] = "~/Image/TechnicalServices/DevelopmentPercent/" + Path.GetFileName(Session["AttachObs"].ToString());
+                                AttachManager[0]["FileName"] = Session["AttachObsName"];
+
+                            }
+                            AttachManager[0]["UserId"] = Utility.GetCurrentUser_UserId();
+                            AttachManager[0].EndEdit();
+                            if (AttachManager.Save() > 0)
+                                IsAttach = true;
+
+                        }
+                        else
+                        {
+                            DataRow drAtt = AttachManager.NewRow();
+                            drAtt["TableTypeId"] = DevelopmentPercentId;
+                            drAtt["TableType"] = (int)TSP.DataManager.TableCodes.TSDevelopmentPercent;
+                            drAtt["AttachTypeId"] = (int)TSP.DataManager.TSAttachType.ObserversDevelopmentPercent;
+                            drAtt["FilePath"] = "~/Image/TechnicalServices/DevelopmentPercent/" + Path.GetFileName(Session["AttachObs"].ToString());
+                            drAtt["FileName"] = Session["AttachObsName"];
+                            drAtt["UserId"] = Utility.GetCurrentUser_UserId();
+                            drAtt["ModifiedDate"] = DateTime.Now;
+                            AttachManager.AddRow(drAtt);
+                            if (AttachManager.Save() > 0)
+                                IsAttach = true;
+                        }
+
+                    }
+                    #endregion
+
+                    if (ASPxTreeList1.Nodes.Count > 0)
+                    {
+                        for (int i = 0; i < ASPxTreeList1.Nodes.Count; i++)
+                        {
+                            string DevelopmentItemsStatustId = ASPxTreeList1.Nodes[i]["DevelopmentItemsStatustId"].ToString();
+                            DevItemsStatusManager.FindByDevelopmentItemsStatustId(int.Parse(DevelopmentItemsStatustId));
+                            if (DevItemsStatusManager.Count != 0)
+                            {
+                                DevItemsStatusManager[0].BeginEdit();
+                                DevExpress.Web.ASPxTextBox SObserversPercent = (DevExpress.Web.ASPxTextBox)ASPxTreeList1.FindDataCellTemplateControl(ASPxTreeList1.Nodes[i].Key.ToString(), (DevExpress.Web.ASPxTreeList.TreeListDataColumn)ASPxTreeList1.Columns["SObserversPercent"], "txtSObserversPercent");
+                                if (!string.IsNullOrEmpty(SObserversPercent.Text))
+                                    DevItemsStatusManager[0]["SObserversPercent"] = SObserversPercent.Text;
+                                else
+                                    DevItemsStatusManager[0]["SObserversPercent"] = DBNull.Value;
+                                DevItemsStatusManager[0]["UserId"] = Utility.GetCurrentUser_UserId();
+                                DevItemsStatusManager[0].EndEdit();
+                                DevItemsStatusManager.Save();
+
+                            }
+                            else
+                            {
+                                trans.CancelSave();
+                                this.DivReport.Visible = true;
+                                this.LabelWarning.Text = "خطایی در بازخوانی اطلاعات رخ داده است";
+                            }
+
+
+                        }
+                    }
+
+                    trans.EndSave();
+
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "ذخیره انجام شد";
+                }
+                else
+                {
+                    trans.CancelSave();
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+                }
+
+
+            }
+        }
+        catch (Exception err)
+        {
+            trans.CancelSave();
+
+            if (err.GetType() == typeof(System.Data.SqlClient.SqlException))
+            {
+                System.Data.SqlClient.SqlException se = (System.Data.SqlClient.SqlException)err;
+                if (se.Number == 2601)
+                {
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "اطلاعات تکراری می باشد";
+                }
+                else
+                {
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+                }
+            }
+            else
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+            }
+        }
+        if (IsAttach)
+        {
+            try
+            {
+                string ImgSoource = Session["AttachObs"].ToString();
+                string ImgTarget = Server.MapPath("~/Image/TechnicalServices/DevelopmentPercent/") + Path.GetFileName(Session["AttachObs"].ToString());
+                File.Copy(ImgSoource, ImgTarget, true);
+                HpObsFile.ClientVisible = true;
+                HpObsFile.NavigateUrl = ImgSoource;
+
+                Session["AttachObs"] = null;
+                Session["AttachObsName"] = null;
+
+            }
+            catch (Exception)
+            {
+            }
+        }
+    }
+    protected void flpImpFile_FileUploadComplete(object sender, DevExpress.Web.FileUploadCompleteEventArgs e)
+    {
+        try
+        {
+            e.CallbackData = SaveImageImp(e.UploadedFile);
+        }
+        catch (Exception ex)
+        {
+            e.IsValid = false;
+            e.ErrorText = ex.Message;
+        }
+    }
+    protected string SaveImageImp(UploadedFile uploadedFile)
+    {
+        string ret = "";
+        if (uploadedFile.IsValid)
+        {
+            do
+            {
+                FileInfo ImageType = new FileInfo(uploadedFile.PostedFile.FileName);
+                Session["AttachImpName"] = Path.GetFileName(uploadedFile.PostedFile.FileName);
+
+                ret = Path.GetRandomFileName() + ImageType.Extension;
+            } while (File.Exists(MapPath("~/Image/TechnicalServices/DevelopmentPercent/") + ret) == true || File.Exists(MapPath("~/Image/Temp/") + ret) == true);
+            string tempFileName = MapPath("~/Image/Temp/") + ret;
+            uploadedFile.SaveAs(tempFileName, true);
+            Session["AttachImp"] = tempFileName;
+            //Session["FileOfArm2"] = ret;
+
+        }
+        return ret;
+    }
+    protected void flpObsFile_FileUploadComplete(object sender, DevExpress.Web.FileUploadCompleteEventArgs e)
+    {
+        try
+        {
+            e.CallbackData = SaveImageObs(e.UploadedFile);
+        }
+        catch (Exception ex)
+        {
+            e.IsValid = false;
+            e.ErrorText = ex.Message;
+        }
+    }
+    protected string SaveImageObs(UploadedFile uploadedFile)
+    {
+        string ret = "";
+        if (uploadedFile.IsValid)
+        {
+            do
+            {
+                FileInfo ImageType = new FileInfo(uploadedFile.PostedFile.FileName);
+                Session["AttachObsName"] = Path.GetFileName(uploadedFile.PostedFile.FileName);
+
+                ret = Path.GetRandomFileName() + ImageType.Extension;
+            } while (File.Exists(MapPath("~/Image/TechnicalServices/DevelopmentPercent/") + ret) == true || File.Exists(MapPath("~/Image/Temp/") + ret) == true);
+            string tempFileName = MapPath("~/Image/Temp/") + ret;
+            uploadedFile.SaveAs(tempFileName, true);
+            Session["AttachObs"] = tempFileName;
+            //Session["FileOfArm2"] = ret;
+
+        }
+        return ret;
+    }
+   
+}

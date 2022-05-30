@@ -1,0 +1,336 @@
+﻿using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+using DevExpress.Web.ASPxGridView;
+
+public partial class Members_Message_GroupMembers : System.Web.UI.Page
+{
+  
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (Session["Login"] == null || Session["Login"].ToString() == "0")
+        {
+            //Response.Redirect("../../Login.aspx?ReferPage=" + Request.Url.AbsoluteUri);
+            //return;
+        }
+        if (!IsPostBack)
+        {
+            ASPxHiddenField1.Set("Selected", false);
+            TSP.DataManager.Permission per = TSP.DataManager.GroupManager.GetUserPermission(int.Parse(Session["Login"].ToString()), (TSP.DataManager.UserType)int.Parse(Session["LoginType"].ToString()));
+            if (!per.CanView)
+                CustomAspxDevGridView1.Visible = false;
+            if (!per.CanNew)
+            {
+                Aspxbutton1.Enabled = false;
+                Aspxbutton2.Enabled = false;
+            }
+              
+               
+            string s = Utility.DecryptQS(Server.HtmlDecode(Request.QueryString["GrId"]).ToString());
+            if (!string.IsNullOrEmpty(s))
+            {
+                ObjectDataSource1.SelectParameters["GrId"].DefaultValue = s;
+                TSP.DataManager.GroupManager GrManager = new TSP.DataManager.GroupManager();
+                GrManager.FindByCode(int.Parse(s), int.Parse(Session["Login"].ToString()));
+               
+                if (GrManager.Count > 0)
+                {
+                    LabelSucceded.Visible = true;
+                    LabelSucceded.Text = "گروه " + GrManager[0]["GrName"].ToString();
+                }
+            }
+
+
+            if (string.IsNullOrEmpty(s))
+            {
+                this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+                
+                return;
+            }           
+
+        }
+        this.DivReport.Visible = false;
+        //  Literal1.Text = "<script>div1.outerHTML='';</script>";
+        // msg.Visible = false;
+        this.DivReport.Attributes.Add("onclick", "ChangeVisible(this)");
+        this.DivReport.Attributes.Add("onmouseover", "ChangeIcon(this)");
+        //this.DivReport.Attributes.Add("style","POSITION: fixed; BACKGROUND-COLOR: yellow; LAYER-BACKGROUND-COLOR: yellow; width: 400; BORDER-LEFT: 1px solid black; BORDER-TOP: 1px solid black; BORDER-BOTTOM: 3px solid black; BORDER-RIGHT: 3px solid black; PADDING: 3px; z-index: 1000");  
+
+
+
+
+    }
+    protected void ButtonAdd_Click(object sender, EventArgs e)
+    {
+        TSP.DataManager.GroupDetailManager GrDManager = new TSP.DataManager.GroupDetailManager();
+        for (int i = 0; i < CustomAspxDevGridView1.VisibleRowCount; i++)
+        {
+            if (CustomAspxDevGridView1.Selection.IsRowSelected(i) == true)
+            {
+                
+                GrDManager.FindByMeId(int.Parse( Utility.DecryptQS(Server.HtmlDecode(Request.QueryString["GrId"]).ToString())),
+                    int.Parse(CustomAspxDevGridView1.GetDataRow(i)["MeId"].ToString()));
+                if (GrDManager.Count == 0)
+                {
+
+
+
+                    ////TSP.DataManager.GroupDetailManager GrDManager = new TSP.DataManager.GroupDetailManager();
+                    // TextBox1.Text = CustomAspxDevGridView1.Selection.Count.ToString();
+                    //string[] field="Select";
+                    //TextBox2.Text=Convert.ToBoolean(CustomAspxDevGridView1.GetDataRow(1)["Select"]).ToString();
+                    // TextBox2.Text = CustomAspxDevGridView1.Selection.IsRowSelected(1).ToString();
+                    //CustomAspxDevGridView1.Selection.IsRowSelected(1);
+
+                    // TextBox2.Text = CustomAspxDevGridView1.GetDataRow(0)["Select"].ToString();
+
+                    //for (int i = 0; i < ASPxTreeList1.Nodes.Count; i++)
+                    //{
+                    //    if (ASPxTreeList1.Nodes[i].Selected == true)
+                    //    {
+
+
+
+
+                    try
+                    {
+                        DataRow d = GrDManager.NewRow();
+                        string s = Utility.DecryptQS(Server.HtmlDecode(Request.QueryString["GrId"]).ToString());
+
+                        if (string.IsNullOrEmpty(s))
+                        {
+                            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+                            
+                            return;
+                        }
+                        int GrId = int.Parse(s);
+                        d["GrId"] = GrId;
+                        d["MeType"] = 1;
+                        d["MeId"] = CustomAspxDevGridView1.GetDataRow(i)["MeId"];//ASPxTreeList1.Nodes[i].GetValue("MeId");
+                        d["ModifiedDate"] = DateTime.Now;
+                        GrDManager.AddRow(d);
+                        int cnt = GrDManager.Save();
+
+
+                        if (cnt > 0)
+                        {
+                            //GridView1.DataBind();
+                            this.DivReport.Visible = true;
+                            this.LabelWarning.Text = "ذخیره انجام شد";
+                        }
+                        else
+                        {
+                            this.DivReport.Visible = true;
+                            this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+                        }
+                    }
+                    catch (Exception err)
+                    {
+
+                        if (err.GetType() == typeof(System.Data.SqlClient.SqlException))
+                        {
+                            System.Data.SqlClient.SqlException se = (System.Data.SqlClient.SqlException)err;
+                            if (se.Number == 2601)
+                            {
+                                this.DivReport.Visible = true;
+                                this.LabelWarning.Text = "اطلاعات تکراری می باشد";
+                            }
+                            else
+                            {
+                                this.DivReport.Visible = true;
+                                this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+                            }
+                        }
+                        else
+                        {
+                            this.DivReport.Visible = true;
+                            this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+                        }
+
+                    }
+                }
+            }
+            else 
+            {
+               
+                GrDManager.FindByMeId(int.Parse(Utility.DecryptQS(Server.HtmlDecode(Request.QueryString["GrId"]).ToString())),
+               int.Parse(CustomAspxDevGridView1.GetDataRow(i)["MeId"].ToString()));
+                if (GrDManager.Count > 0)
+                {
+                    try
+                    {
+                        GrDManager[0].Delete();
+                        int cnt = GrDManager.Save();
+
+                        if (cnt == 0)
+                        {
+                            this.DivReport.Visible = true;
+                            this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+                        }
+                        else
+                        {
+                            this.DivReport.Visible = true;
+                            this.LabelWarning.Text = "ذخیره انجام شد";
+                        }
+                    }
+                    catch (Exception err)
+                    {
+                        this.DivReport.Visible = true;
+                        this.LabelWarning.Text = "خطایی در  ذخیره انجام گرفته است";
+                    }
+                }
+
+            }
+        }
+    }
+    protected void DownImg_Click(object sender, ImageClickEventArgs e)
+    {
+        TableSearch.Visible = true;
+        UpImg.Visible = true;
+        DownImg.Visible = false;
+
+    }
+    protected void UpImg_Click(object sender, ImageClickEventArgs e)
+    {
+        TableSearch.Visible = true;
+        UpImg.Visible = false;
+        DownImg.Visible = true;
+
+    }
+    //protected void CheckBox1_CheckedChanged(object sender, EventArgs e)
+    //{
+    //    if(CustomAspxDevGridView1.FindHeaderTemplateControl()
+    //    CustomAspxDevGridView1.Selection.SelectAll();
+    //}
+  
+    protected void CheckBox1_CheckedChanged(object sender, EventArgs e)
+    {
+        if (((CheckBox)(CustomAspxDevGridView1.FindHeaderTemplateControl(CustomAspxDevGridView1.Columns[0], "CheckBox1"))).Checked == true)
+        {
+            CustomAspxDevGridView1.Selection.SelectAll();
+            ((CheckBox)(CustomAspxDevGridView1.FindHeaderTemplateControl(CustomAspxDevGridView1.Columns[0], "CheckBox1"))).Checked = true;
+            ASPxHiddenField1.Set("Selected", true);
+           
+
+        }
+        else
+        {
+           // if (CustomAspxDevGridView1.Selection.Count == CustomAspxDevGridView1.VisibleRowCount)
+          //  {
+                //((CheckBox)(CustomAspxDevGridView1.FindHeaderTemplateControl(CustomAspxDevGridView1.Columns[0], "CheckBox1"))).Checked = false;
+                CustomAspxDevGridView1.Selection.UnselectAll();
+           // }
+           // IsSelectAll = false;
+        }  
+  
+       
+    }
+    protected void CustomAspxDevGridView1_HtmlRowCreated(object sender, DevExpress.Web.ASPxGridView.ASPxGridViewTableRowEventArgs e)
+    {
+
+        //if (e.RowType != GridViewRowType.Data) return;
+        //if (IsSelectAll&&CustomAspxDevGridView1.Selection.IsRowSelected(e.VisibleIndex)==false)
+        //    ((CheckBox)(CustomAspxDevGridView1.FindHeaderTemplateControl(CustomAspxDevGridView1.Columns[0], "CheckBox1"))).Checked = false;
+       
+    //    bool IsMember = false;
+    //    CustomAspxDevGridView1.SettingsPager.Visible = false;
+
+    //    IsMember = Convert.ToBoolean(CustomAspxDevGridView1.GetDataRow(e.VisibleIndex)["IsMember"]);
+    //    if (IsMember == true)
+    //    //    CustomAspxDevGridView1.Selection.SetSelection(e.VisibleIndex, IsMember);
+    //    CustomAspxDevGridView1.Selection.SelectRow(e.VisibleIndex);
+    //CustomAspxDevGridView1.SettingsPager.Visible = true;
+
+    //CustomAspxDevGridView1.DoRowValidation();
+
+    }
+    protected void CustomAspxDevGridView1_DataBound(object sender, EventArgs e)
+    {
+        CustomAspxDevGridView1.FocusedRowIndex = -1;
+        if (!IsPostBack)
+        {
+            bool IsMember = false;
+
+            for (int i = 0; i < CustomAspxDevGridView1.VisibleRowCount; i++)
+            {
+
+                IsMember = Convert.ToBoolean(CustomAspxDevGridView1.GetDataRow(i)["IsMember"]);
+                if (IsMember == true)
+                    //    //    CustomAspxDevGridView1.Selection.SetSelection(e.VisibleIndex, IsMember);
+                    CustomAspxDevGridView1.Selection.SelectRow(i);
+            }
+        }
+    
+
+    }
+    protected void CustomAspxDevGridView1_PageIndexChanged(object sender, EventArgs e)
+    {
+      // if (IsSelectAll)
+        {
+    //        //if (CustomAspxDevGridView1.Selection.Count == CustomAspxDevGridView1.VisibleRowCount)
+               //((CheckBox)(CustomAspxDevGridView1.FindHeaderTemplateControl(CustomAspxDevGridView1.Columns[0], "CheckBox1"))).Checked = true;
+        }
+    }
+    protected void CustomAspxDevGridView1_SelectionChanged(object sender, EventArgs e)
+    {
+        //if (e.RowType != GridViewRowType.Data) return;
+        //if (CustomAspxDevGridView1.Selection.Count < CustomAspxDevGridView1.VisibleRowCount)
+        //    if (IsSelectAll)
+        //    {
+        //        IsSelectAll = false;
+        //        ((CheckBox)(CustomAspxDevGridView1.FindHeaderTemplateControl(CustomAspxDevGridView1.Columns[0], "CheckBox1"))).Checked = true;
+        //    } 
+
+
+    }
+    protected void CustomAspxDevGridView1_CustomButtonInitialize(object sender, ASPxGridViewCustomButtonEventArgs e)
+    {
+        if (CustomAspxDevGridView1.Selection.Count == CustomAspxDevGridView1.VisibleRowCount)
+        {
+            ASPxHiddenField1.Set("Selected", true);
+            
+            e.Button.Text = "عدم انتخاب همه";
+        }
+        else
+        {
+            ASPxHiddenField1.Set("Selected", false);
+           
+            e.Button.Text = "انتخاب همه";
+
+        }
+    }
+    protected void CustomAspxDevGridView1_CustomButtonCallback(object sender, ASPxGridViewCustomButtonCallbackEventArgs e)
+    {
+        bool selected = false;
+        if (ASPxHiddenField1.Contains("Selected"))
+            selected = (bool)ASPxHiddenField1.Get("Selected");
+        if (selected)
+        {
+            ASPxHiddenField1.Set("Selected", false);
+            
+            CustomAspxDevGridView1.Selection.UnselectAll();
+            customButton.Text = "انتخاب همه";
+
+        }
+        else
+        {
+            ASPxHiddenField1.Set("Selected", true);
+            
+            CustomAspxDevGridView1.Selection.SelectAll();
+            customButton.Text = "عدم انتخاب همه";
+        }
+    }
+    protected void ASPxButton1_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("~/Members/Message/GroupDetail.aspx?GrId=" + Utility.EncryptQS(Utility.DecryptQS(Server.HtmlDecode(Request.QueryString["GrId"]).ToString())));
+
+        }
+
+}

@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Groups>
+  <Attachment>
+    <ID>1</ID>
+    <Name>AttachInformationFlash</Name>
+    <Page>Default.aspx</Page>
+    <Text>
+    </Text>
+    <File>~/Image/Homepage/jz2yozoy.dg3.swf</File>
+    <Enabled>1</Enabled>
+  </Attachment>
+  <Attachment>
+    <ID>2</ID>
+    <Name>AttachEvents</Name>
+    <Page>Default.aspx</Page>
+    <Text>آزمایشی</Text>
+    <File>~/Image/Homepage/bgoccqgc.hqq.jpg</File>
+    <Enabled>1</Enabled>
+  </Attachment>
+  <Attachment>
+    <ID>3</ID>
+    <Name>HelpLMS</Name>
+    <Page>Default.aspx</Page>
+    <Text>راهنمای وب کنفرانس</Text>
+    <File>../../Help/Amoozesh/4fcapw5w.5by.pdf</File>
+    <Enabled>1</Enabled>
+  </Attachment>
+  <Attachment>
+    <ID>4</ID>
+    <Name>AmoozeshSchedule</Name>
+    <Page>Default.aspx</Page>
+    <Text>برنامه آموزشی سال جاری</Text>
+    <File>../../Help/Amoozesh/gywmtpny.zzp.pdf</File>
+    <Enabled>1</Enabled>
+  </Attachment>
+</Groups>

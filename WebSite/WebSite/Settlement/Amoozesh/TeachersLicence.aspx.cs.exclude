@@ -1,0 +1,235 @@
+﻿using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+using DevExpress.Web;
+
+public partial class Settlement_Amoozesh_TeachersLicence : System.Web.UI.Page
+{
+    #region Events
+    protected void Page_Load(object sender, EventArgs e)
+    {
+
+        if (string.IsNullOrEmpty(Request.QueryString["PgMd"]) || string.IsNullOrEmpty(Request.QueryString["TeId"]))
+        {
+            Response.Redirect("Teachers.aspx");
+            return;
+        }
+
+        if (!IsPostBack)
+        {
+
+            MenuTeacherInfo.Enabled = true;
+
+            HiddenFieldTeacherLicnce["TeacherId"] = Request.QueryString["TeId"].ToString();
+            HiddenFieldTeacherLicnce["PrePageMode"] = Request.QueryString["PgMd"];
+            HiddenFieldTeacherLicnce["IsMember"] = true;
+            string TeId = Utility.DecryptQS(HiddenFieldTeacherLicnce["TeacherId"].ToString());
+            SetObjectDataSource(int.Parse(TeId));
+
+            this.ViewState["BtnView"] = btnView.Enabled;
+
+            TSP.DataManager.TeacherManager TeacherManager = new TSP.DataManager.TeacherManager();
+            TeacherManager.FindByCode(int.Parse(TeId));
+            if (TeacherManager.Count > 0)
+            {
+                RoundPanelTeacherLicence.HeaderText = TeacherManager[0]["Name"].ToString() + " " + TeacherManager[0]["Family"].ToString();
+            }
+            else
+            {
+                Response.Redirect("Teachers.aspx");
+                return;
+            }
+        }
+
+        if (this.ViewState["BtnView"] != null)
+            this.btnView.Enabled = this.btnView2.Enabled = (bool)this.ViewState["BtnView"];
+
+        this.DivReport.Visible = false;
+        this.DivReport.Attributes.Add("onclick", "ChangeVisible(this)");
+        this.DivReport.Attributes.Add("onmouseover", "ChangeIcon(this)");
+    }
+
+    protected void btnView_Click(object sender, EventArgs e)
+    {
+        NextPage("View");
+    }
+
+    protected void btnBack_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("Teachers.aspx");
+    }
+
+    protected void MenuTeacherInfo_ItemClick(object source, DevExpress.Web.MenuItemEventArgs e)
+    {
+        switch (e.Item.Name)
+        {
+            case "BasicInfo":
+                Response.Redirect("TeacherBasicInfo.aspx?TeId=" + HiddenFieldTeacherLicnce["TeacherId"].ToString() + "&PgMd=" + HiddenFieldTeacherLicnce["PrePageMode"]);
+                break;
+            case "Research":
+                Response.Redirect("TeacherResearchAct.aspx?TeId=" + HiddenFieldTeacherLicnce["TeacherId"].ToString() + "&PgMd=" + HiddenFieldTeacherLicnce["PrePageMode"].ToString());
+                break;
+            case "licence":
+                Response.Redirect("TeachersLicence.aspx?TeId=" + HiddenFieldTeacherLicnce["TeacherId"].ToString() + "&PgMd=" + HiddenFieldTeacherLicnce["PrePageMode"].ToString());
+                break;
+            case "Job":
+                Response.Redirect("TeacherJobHistory.aspx?TeId=" + HiddenFieldTeacherLicnce["TeacherId"].ToString() + "&PgMd=" + HiddenFieldTeacherLicnce["PrePageMode"].ToString());
+                break;
+            case "Judge":
+                Response.Redirect("SettlmentConfirmingTeacher.aspx?TeId=" + HiddenFieldTeacherLicnce["TeacherId"].ToString());
+                break;
+            case "Attachment":
+                Response.Redirect("TeacherAttachment.aspx?TeId=" + HiddenFieldTeacherLicnce["TeacherId"].ToString() + "&PgMd=" + HiddenFieldTeacherLicnce["PrePageMode"].ToString());
+                break;         
+        }
+    }
+
+    protected void GridViewJudge_BeforePerformDataSelect(object sender, EventArgs e)
+    {
+        Session["TableId"] = (sender as ASPxGridView).GetMasterRowKeyValue();
+        string TeId = Utility.DecryptQS(HiddenFieldTeacherLicnce["TeacherId"].ToString());
+        Session["TeId"] = TeId;
+        int TableType = -1;
+        if (IsTeacherMember())
+        {
+            TableType = (int)(TSP.DataManager.TableCodes.MemberLicence);
+            Session["TableType"] = TableType;
+        }
+        else
+        {
+            TableType = (int)(TSP.DataManager.TableCodes.TeacherLicence);
+            Session["TableType"] = TableType;
+        }
+    }
+
+    protected void GridViewTeacherLicence_OnAutoFilterCellEditorInitialize(object sender, ASPxGridViewEditorEventArgs e)
+    {
+        if (e.Column.FieldName == "StartDate" || e.Column.FieldName == "EndDate")
+            e.Editor.Style["direction"] = "ltr";
+    }
+
+    protected void GridViewTeacherLicence_OnHtmlDataCellPrepared(object sender, ASPxGridViewTableDataCellEventArgs e)
+    {
+        if (e.DataColumn.FieldName == "StartDate" || e.DataColumn.FieldName == "EndDate")
+        {
+            e.Cell.Style["direction"] = "ltr";
+        }
+    }
+    #endregion
+
+    #region Methods
+    private void SetObjectDataSource(int TeacherId)
+    {
+        TSP.DataManager.TeacherManager TeacherManager = new TSP.DataManager.TeacherManager();
+        TeacherManager.FindByCode(TeacherId);
+        if (TeacherManager.Count > 0)
+        {
+            string TeacherName = TeacherManager[0]["Name"].ToString() + " " + TeacherManager[0]["Family"].ToString();
+            RoundPanelTeacherLicence.HeaderText = TeacherName;
+            if (!string.IsNullOrEmpty(TeacherManager[0]["MeId"].ToString()))
+            {
+                
+                TSP.DataManager.TeacherCertificateManager TeacherCertificateManager = new TSP.DataManager.TeacherCertificateManager();
+                DataTable dtTeCertificate = TeacherCertificateManager.SelectLastVersion(TeacherId);
+                if (dtTeCertificate.Rows.Count > 0)
+                {
+                    string CreateDate = dtTeCertificate.Rows[0]["CreateDate"].ToString().Substring(0,10);
+                    
+                   
+
+                    HiddenFieldTeacherLicnce["IsMember"] = true;
+                    GridViewTeacherLicence.DataSource = ObjdsMemberLicence;
+                    GridViewTeacherLicence.KeyFieldName = "MlId";
+                    ObjdsMemberLicence.DataBind();
+                    ObjdsMemberLicence.SelectParameters[0].DefaultValue = TeacherManager[0]["MeId"].ToString();
+                    ObjdsMemberLicence.SelectParameters[2].DefaultValue = CreateDate;
+                    GridViewTeacherLicence.DataBind();
+                }
+            }
+            else
+            {
+                TSP.DataManager.TeacherCertificateManager TeacherCertificateManager = new TSP.DataManager.TeacherCertificateManager();
+                DataTable dtTeCertificate = TeacherCertificateManager.SelectLastVersion(TeacherId);
+                if (dtTeCertificate.Rows.Count > 0)
+                {
+                    string TcId = dtTeCertificate.Rows[0]["TcId"].ToString();
+
+                    HiddenFieldTeacherLicnce["IsMember"] = false;
+                    ObjdsTeacherLicence.SelectParameters[0].DefaultValue = TeacherId.ToString();
+                    ObjdsTeacherLicence.SelectParameters[1].DefaultValue ="-1";
+                    ObjdsTeacherLicence.SelectParameters[2].DefaultValue = TcId;
+                    GridViewTeacherLicence.DataSource = ObjdsTeacherLicence;
+                    GridViewTeacherLicence.KeyFieldName = "TLiId";
+                    ObjdsTeacherLicence.DataBind();
+                   
+                    GridViewTeacherLicence.DataBind();
+                }
+                else
+                {
+                    Response.Redirect("Teachers.aspx");
+                    return;
+                }
+            }
+        }
+        else
+        {
+            Response.Redirect("Teachers.aspx");
+            return;
+        }
+    }
+
+    private void NextPage(string Mode)
+    {
+        int TeLiId = -1;
+        int focucedIndex = GridViewTeacherLicence.FocusedRowIndex;
+
+        if (focucedIndex > -1)
+        {
+            string TeacherId = Utility.DecryptQS(HiddenFieldTeacherLicnce["TeacherId"].ToString());
+            SetObjectDataSource(int.Parse(TeacherId));
+            DataRow row = GridViewTeacherLicence.GetDataRow(focucedIndex);
+            if (!Boolean.Parse(HiddenFieldTeacherLicnce["IsMember"].ToString()))
+                TeLiId = (int)row["TLiId"];
+            else
+                TeLiId = (int)row["MLId"];
+
+        }
+        if (TeLiId == -1 && Mode != "New")
+        {
+            this.DivReport.Visible = true;
+            this.LabelWarning.Text = "لطفاً برای مشاهده اطلاعات ابتدا یک رکورد را انتخاب نمائید";
+        }
+        else
+        {
+            if (Mode == "New")
+            {
+                TeLiId = -1;
+                Response.Redirect("AddTeacherLicence.aspx?TeLiId=" + Utility.EncryptQS(TeLiId.ToString()) + "&PageMode=" + Utility.EncryptQS(Mode) + "&PrePageMode=" + HiddenFieldTeacherLicnce["PrePageMode"] + "&TeacherId=" + HiddenFieldTeacherLicnce["TeacherId"]);
+            }
+            else
+            {
+                Response.Redirect("AddTeacherLicence.aspx?TeLiId=" + Utility.EncryptQS(TeLiId.ToString()) + "&PageMode=" + Utility.EncryptQS(Mode) + "&PrePageMode=" + HiddenFieldTeacherLicnce["PrePageMode"] + "&TeacherId=" + HiddenFieldTeacherLicnce["TeacherId"]);
+            }
+        }
+    }
+
+    private Boolean IsTeacherMember()
+    {
+        TSP.DataManager.TeacherManager TeacherManager = new TSP.DataManager.TeacherManager();
+        string TeId = Utility.DecryptQS(HiddenFieldTeacherLicnce["TeacherId"].ToString());
+        TeacherManager.FindByCode(int.Parse(TeId));
+
+        if (!string.IsNullOrEmpty(TeacherManager[0]["MeId"].ToString()))
+            return true;
+        else
+            return false;
+    }
+    #endregion  
+}

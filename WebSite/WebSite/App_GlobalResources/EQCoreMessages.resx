@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="opEqualCaption" xml:space="preserve">
+    <value>is equal to</value>
+  </data>
+  <data name="opNotEqualCaption" xml:space="preserve">
+    <value>is not equal to</value>
+  </data>
+  <data name="opLessThanCaption" xml:space="preserve">
+    <value>is less than</value>
+  </data>
+  <data name="opGreaterThanCaption" xml:space="preserve">
+    <value>is greater than</value>
+  </data>
+  <data name="opLessOrEqualCaption" xml:space="preserve">
+    <value>is less than or equal to</value>
+  </data>
+  <data name="opGreaterOrEqualCaption" xml:space="preserve">
+    <value>is greater than or equal to</value>
+  </data>
+  <data name="opIsNullCaption" xml:space="preserve">
+    <value>is null</value>
+  </data>
+  <data name="opIsNotNullCaption" xml:space="preserve">
+    <value>is not null</value>
+  </data>
+  <data name="opInListCaption" xml:space="preserve">
+    <value>is in list</value>
+  </data>
+  <data name="opNotInListCaption" xml:space="preserve">
+    <value>is not in list</value>
+  </data>
+  <data name="opStartsWithCaption" xml:space="preserve">
+    <value>starts with</value>
+  </data>
+  <data name="opNotStartsWithCaption" xml:space="preserve">
+    <value>does not start with</value>
+  </data>
+  <data name="opContainsCaption" xml:space="preserve">
+    <value>contains</value>
+  </data>
+  <data name="opNotContainsCaption" xml:space="preserve">
+    <value>does not contain</value>
+  </data>
+  <data name="opBetweenCaption" xml:space="preserve">
+    <value>is between</value>
+  </data>
+  <data name="opNotBetweenCaption" xml:space="preserve">
+    <value>is not between</value>
+  </data>
+  <data name="opEqualFormat" xml:space="preserve">
+    <value>{expr1} [[is equal to]] {expr2}</value>
+  </data>
+  <data name="opNotEqualFormat" xml:space="preserve">
+    <value>{expr1} [[is not equal to]] {expr2}</value>
+  </data>
+  <data name="opLessThanFormat" xml:space="preserve">
+    <value>{expr1} [[is less than]] {expr2}</value>
+  </data>
+  <data name="opGreaterThanFormat" xml:space="preserve">
+    <value>{expr1} [[is greater than]] {expr2}</value>
+  </data>
+  <data name="opLessOrEqualFormat" xml:space="preserve">
+    <value>{expr1} [[is less than or equal to]] {expr2}</value>
+  </data>
+  <data name="opGreaterOrEqualFormat" xml:space="preserve">
+    <value>{expr1} [[is greater than or equal to]] {expr2}</value>
+  </data>
+  <data name="opIsNullFormat" xml:space="preserve">
+    <value>{expr1} [[is null]] </value>
+  </data>
+  <data name="opIsNotNullFormat" xml:space="preserve">
+    <value>{expr1} [[is not null]] </value>
+  </data>
+  <data name="opInListFormat" xml:space="preserve">
+    <value>{expr1} [[is in list]] {expr2}</value>
+  </data>
+  <data name="opNotInListFormat" xml:space="preserve">
+    <value>{expr1} [[is not in list]] {expr2}</value>
+  </data>
+  <data name="opStartsWithFormat" xml:space="preserve">
+    <value>{expr1} [[starts with]] {expr2}</value>
+  </data>
+  <data name="opNotStartsWithFormat" xml:space="preserve">
+    <value>{expr1} [[does not start with]] {expr2}</value>
+  </data>
+  <data name="opContainsFormat" xml:space="preserve">
+    <value>{expr1} [[contains]] {expr2}</value>
+  </data>
+  <data name="opNotContainsFormat" xml:space="preserve">
+    <value>{expr1} [[does not contain]] {expr2}</value>
+  </data>
+  <data name="opBetweenFormat" xml:space="preserve">
+    <value>{expr1} [[is between]] {expr2} and {expr3}</value>
+  </data>
+  <data name="opNotBetweenFormat" xml:space="preserve">
+    <value>{expr1} [[is not between]] {expr2} and {expr3}</value>
+  </data>
+  <data name="opDateEqualSpecialCaption" xml:space="preserve">
+    <value>is (special date)</value>
+  </data>
+  <data name="opDateEqualSpecialFormat" xml:space="preserve">
+    <value>{expr1} [[is]] {expr2}</value>
+  </data>
+  <data name="opDateEqualPreciseCaption" xml:space="preserve">
+    <value>is (precise date)</value>
+  </data>
+  <data name="opDateEqualPreciseFormat" xml:space="preserve">
+    <value>{expr1} [[is]] {expr2}</value>
+  </data>
+  <data name="opDateNotEqualSpecialCaption" xml:space="preserve">
+    <value>is not (special date)</value>
+  </data>
+  <data name="opDateNotEqualSpecialFormat" xml:space="preserve">
+    <value>{expr1} [[is not]] {expr2}</value>
+  </data>
+  <data name="opDateNotEqualPreciseCaption" xml:space="preserve">
+    <value>is not (precise date)</value>
+  </data>
+  <data name="opDateNotEqualPreciseFormat" xml:space="preserve">
+    <value>{expr1} [[is not]] {expr2}</value>
+  </data>
+  <data name="opDateBeforeSpecialCaption" xml:space="preserve">
+    <value>is before (special date)</value>
+  </data>
+  <data name="opDateBeforeSpecialFormat" xml:space="preserve">
+    <value>{expr1} [[is before]] {expr2}</value>
+  </data>
+  <data name="opDateBeforePreciseCaption" xml:space="preserve">
+    <value>is before (precise date)</value>
+  </data>
+  <data name="opDateBeforePreciseFormat" xml:space="preserve">
+    <value>{expr1} [[is before]] {expr2}</value>
+  </data>
+  <data name="opDateAfterSpecialCaption" xml:space="preserve">
+    <value>is after (special date)</value>
+  </data>
+  <data name="opDateAfterSpecialFormat" xml:space="preserve">
+    <value>{expr1} [[is after]] {expr2}</value>
+  </data>
+  <data name="opDateAfterPreciseCaption" xml:space="preserve">
+    <value>is after (precise date)</value>
+  </data>
+  <data name="opDateAfterPreciseFormat" xml:space="preserve">
+    <value>{expr1} [[is after]] {expr2}</value>
+  </data>
+  <data name="opDatePeriodPreciseCaption" xml:space="preserve">
+    <value>is between</value>
+  </data>
+  <data name="opDatePeriodPreciseFormat" xml:space="preserve">
+    <value>{expr1} [[is between]] {expr2} and {expr3}</value>
+  </data>
+  <data name="opTimeEqualSpecialCaption" xml:space="preserve">
+    <value>is (special time)</value>
+  </data>
+  <data name="opTimeEqualSpecialFormat" xml:space="preserve">
+    <value>{expr1} [[is]] {expr2}</value>
+  </data>
+  <data name="opTimeEqualPreciseCaption" xml:space="preserve">
+    <value>is (precise time)</value>
+  </data>
+  <data name="opTimeEqualPreciseFormat" xml:space="preserve">
+    <value>{expr1} [[is]] {expr2}</value>
+  </data>
+  <data name="opTimeNotEqualSpecialCaption" xml:space="preserve">
+    <value>is not (special time)</value>
+  </data>
+  <data name="opTimeNotEqualSpecialFormat" xml:space="preserve">
+    <value>{expr1} [[is not]] {expr2}</value>
+  </data>
+  <data name="opTimeNotEqualPreciseCaption" xml:space="preserve">
+    <value>is not (precise time)</value>
+  </data>
+  <data name="opTimeNotEqualPreciseFormat" xml:space="preserve">
+    <value>{expr1} [[is not]] {expr2}</value>
+  </data>
+  <data name="opTimeBeforeSpecialCaption" xml:space="preserve">
+    <value>is before (special time)</value>
+  </data>
+  <data name="opTimeBeforeSpecialFormat" xml:space="preserve">
+    <value>{expr1} [[is before]] {expr2}</value>
+  </data>
+  <data name="opTimeBeforePreciseCaption" xml:space="preserve">
+    <value>is before (precise time)</value>
+  </data>
+  <data name="opTimeBeforePreciseFormat" xml:space="preserve">
+    <value>{expr1} [[is before]] {expr2}</value>
+  </data>
+  <data name="opTimeAfterSpecialCaption" xml:space="preserve">
+    <value>is after (special time)</value>
+  </data>
+  <data name="opTimeAfterSpecialFormat" xml:space="preserve">
+    <value>{expr1} [[is after]] {expr2}</value>
+  </data>
+  <data name="opTimeAfterPreciseCaption" xml:space="preserve">
+    <value>is after (precise time)</value>
+  </data>
+  <data name="opTimeAfterPreciseFormat" xml:space="preserve">
+    <value>{expr1} [[is after]] {expr2}</value>
+  </data>
+  <data name="opTimePeriodPreciseCaption" xml:space="preserve">
+    <value>is between</value>
+  </data>
+  <data name="opTimePeriodPreciseFormat" xml:space="preserve">
+    <value>{expr1} [[is between]] {expr2} and {expr3}</value>
+  </data>
+  <data name="opMaximumOfAttrCaption" xml:space="preserve">
+    <value>is maximum of</value>
+  </data>
+  <data name="opMaximumOfAttrFormat" xml:space="preserve">
+    <value>{expr1} [[is equal to maximum of]] {expr2}</value>
+  </data>
+  <data name="opInSubQueryCaption" xml:space="preserve">
+    <value>in sub query</value>
+  </data>
+  <data name="opInSubQueryFormat" xml:space="preserve">
+    <value>{expr1} [[in sub query]] {expr2}</value>
+  </data>
+  
+  <data name="AggrFunctionAverage" xml:space="preserve">
+    <value>Average</value>
+  </data>
+  <data name="AggrFunctionCount" xml:space="preserve">
+    <value>Count</value>
+  </data>
+  <data name="AggrFunctionCountDistinct" xml:space="preserve">
+    <value>Distinct count</value>
+  </data>
+  <data name="AggrFunctionMax" xml:space="preserve">
+    <value>Maximum</value>
+  </data>
+  <data name="AggrFunctionMin" xml:space="preserve">
+    <value>Minimum</value>
+  </data>
+  <data name="AggrFunctionSum" xml:space="preserve">
+    <value>Sum</value>
+  </data>
+  <data name="AggrOf" xml:space="preserve">
+    <value>of</value>
+  </data>
+  <data name="BoolOpAnd" xml:space="preserve">
+    <value>AND</value>
+  </data>
+  <data name="BoolOpOr" xml:space="preserve">
+    <value>OR</value>
+  </data>
+  <data name="LinkTypeAll" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="LinkTypeAny" xml:space="preserve">
+    <value>Any</value>
+  </data>
+  <data name="LinkTypeNone" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="LinkTypeNotAll" xml:space="preserve">
+    <value>Not All</value>
+  </data>
+  <data name="PredicateHeader" xml:space="preserve">
+    <value>{lt} of the following apply</value>
+  </data>
+  <data name="MsgNotInfoToBuild" xml:space="preserve">
+    <value>No enough information to build the query</value>
+  </data>
+</root>

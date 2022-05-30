@@ -1,0 +1,284 @@
+﻿using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+using System.Drawing;
+
+public partial class Members_TechnicalServices_CapacityInfo : System.Web.UI.Page
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        this.DivReport.Attributes.Add("onclick", "ChangeVisible(this)");
+        this.DivReport.Attributes.Add("onmouseover", "ChangeIcon(this)");
+        this.DivReport.Visible = false;
+
+        if (!IsPostBack)
+        {
+            SetKeys();
+        }
+    }
+
+    protected void btnOffice_Click(object sender, EventArgs e)
+    {
+        string Qs = "MFType=" + Utility.EncryptQS(GetMfType(Utility.GetCurrentUser_MeId()).ToString());
+        Response.Redirect("OfficeMemberCapacity.aspx?" + Qs);
+    }
+
+    protected void btnBack_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("../TsHome.aspx");
+    }
+
+    /*******************************************************************************************************************************************/
+    private void SetKeys()
+    {
+        ASPxComboBoxYear.Value = Utility.GetYearOfToday();
+        SetValues(Utility.GetYearOfToday());
+    }
+
+    private void SetValues(string Year)
+    {
+        int OfficeId = Utility.GetCurrentUser_MeId();        
+        int MFType = GetMfType(OfficeId);
+
+        Capacity Cpcty = new Capacity();
+        ArrayList CapacityInfoArr = new ArrayList();
+        ArrayList MemberArr = new ArrayList();
+
+        switch (MFType)
+        {
+            case (int)TSP.DataManager.DocumentOfficeResponsibilityType.ObservationAndDesign:
+                SetDesignCapacity(OfficeId, CapacityInfoArr, MemberArr, Cpcty, Year);
+                SetObservationCapacity(OfficeId, CapacityInfoArr, MemberArr, Cpcty, Year);
+                SetImpTexts("---", "---", "---", "---", "---", "---", "---", "---", "---");
+                break;
+
+            case (int)TSP.DataManager.DocumentOfficeResponsibilityType.Implement:
+                SetDsgTexts("---", "---", "---", "---", "---", "---", "---");
+                SetObsTexts("---", "---", "---", "---", "---", "---", "---");
+                SetImplimentationCapacity(OfficeId, CapacityInfoArr, MemberArr, Cpcty, Year);
+                break;
+
+            case (int)TSP.DataManager.DocumentOfficeResponsibilityType.ObservationAndDesignAndImplement:
+                SetDesignCapacity(OfficeId, CapacityInfoArr, MemberArr, Cpcty, Year);
+                SetObservationCapacity(OfficeId, CapacityInfoArr, MemberArr, Cpcty, Year);
+                SetImplimentationCapacity(OfficeId, CapacityInfoArr, MemberArr, Cpcty, Year);
+                break;
+
+            default:
+                SetDsgTexts("---", "---", "---", "---", "---", "---", "---");
+                SetObsTexts("---", "---", "---", "---", "---", "---", "---");
+                SetImpTexts("---", "---", "---", "---", "---", "---", "---", "---", "---");
+                break;
+        }
+        
+    }
+
+    private void SetDesignCapacity(int OfficeId, ArrayList CapacityInfoArr, ArrayList MemberArr, Capacity Cpcty, string Year)
+    {
+        // CapacityInfoArr -----> ArrayList[0]: TotalCapacity(int), ArrayList[1]:UsedCapacity(int) , ArrayList[2]: RemainCapacity(int), 
+        //                        ArrayList[3]:ReservedCapacity(int) , ArrayList[4]: ProjectNum(int), ArrayList[5]: MaxJoubCount(int), 
+        //                        ArrayList[6]: MaxFloor(string), ArrayList[7]: ConditionalCapacity(string)
+        //???????????????????????????
+        //???????????????????????????
+        //???????????????????????????
+        //???????????????????????????
+       // CapacityInfoArr = Cpcty.GetCapacityInformationInYear((int)TSP.DataManager.TSProjectIngridientType.Designer, (int)TSP.DataManager.TSMemberType.Office, OfficeId, Year);
+        //???????????????????????????
+        //???????????????????????????
+        //???????????????????????????
+        //???????????????????????????
+        if (CapacityInfoArr.Count >0 )
+        {
+            SetDsgTexts(CapacityInfoArr[0].ToString(), CapacityInfoArr[5].ToString(), CapacityInfoArr[1].ToString(), CapacityInfoArr[2].ToString(), CapacityInfoArr[3].ToString(), CapacityInfoArr[4].ToString(), CapacityInfoArr[7].ToString());
+        }
+        else
+            SetDsgTexts("---", "---", "---", "---", "---", "---", "---");
+        //???????????????
+        //CustomAspxDevGridViewDsgn.DataSource = Cpcty.GetYearStagesInformation((int)TSP.DataManager.TSProjectIngridientType.Designer, (int)TSP.DataManager.TSMemberType.Office, OfficeId, Year);
+        //CustomAspxDevGridViewDsgn.DataBind();
+        //???????????????
+
+    }
+
+    private void SetObservationCapacity(int OfficeId, ArrayList CapacityInfoArr, ArrayList MemberArr, Capacity Cpcty, string Year)
+    {
+        // CapacityInfoArr -----> ArrayList[0]: TotalCapacity(int), ArrayList[1]:UsedCapacity(int) , ArrayList[2]: RemainCapacity(int), 
+        //                        ArrayList[3]:ReservedCapacity(int) , ArrayList[4]: ProjectNum(int), ArrayList[5]: MaxJoubCount(int),
+        //                        ArrayList[6]: MaxFloor(string), ArrayList[7]: ConditionalCapacity(string)
+        //???????????????????????????
+        //???????????????????????????
+        //???????????????????????????
+        //???????????????????????????
+       // CapacityInfoArr = Cpcty.GetCapacityInformationInYear((int)TSP.DataManager.TSProjectIngridientType.Observer, (int)TSP.DataManager.TSMemberType.Office, OfficeId, Year);
+        //???????????????????????????
+        //???????????????????????????
+        //???????????????????????????
+        //???????????????????????????
+        if (CapacityInfoArr.Count > 0 )
+        {
+            SetObsTexts(CapacityInfoArr[0].ToString(), CapacityInfoArr[5].ToString(), CapacityInfoArr[1].ToString(), CapacityInfoArr[2].ToString(), CapacityInfoArr[3].ToString(), CapacityInfoArr[4].ToString(), CapacityInfoArr[7].ToString());
+        }
+        else
+            SetObsTexts("---", "---", "---", "---", "---", "---", "---");
+        //???????????????
+        //CustomAspxDevGridViewObs.DataSource = Cpcty.GetYearStagesInformation((int)TSP.DataManager.TSProjectIngridientType.Observer, (int)TSP.DataManager.TSMemberType.Office, OfficeId, Year);
+        //CustomAspxDevGridViewObs.DataBind();
+        //???????????????
+
+    }
+
+    private void SetImplimentationCapacity(int OfficeId, ArrayList CapacityInfoArr, ArrayList MemberArr, Capacity Cpcty, string Year)
+    {
+        // CapacityInfoArr -----> ArrayList[0]: TotalCapacity(int), ArrayList[1]:UsedCapacity(int) , ArrayList[2]: RemainCapacity(int), 
+        //                        ArrayList[3]:ReservedCapacity(int) , ArrayList[4]: ProjectNum(int), ArrayList[5]: MaxJoubCount(int),
+        //                        ArrayList[6]: MaxFloor(string), ArrayList[7]: ConditionalCapacity(string)
+
+        // MemberArr -----> ArrayList[0]: MaxFloor, ArrayList[1]:MaxCapacity , ArrayList[2]: MaxJobCount, ArrayList[3]: ConditionalCapacity, ArrayList[4]: GradeId
+        //???????????????????????????
+        //???????????????????????????
+        //???????????????????????????
+        //???????????????????????????
+        //CapacityInfoArr = Cpcty.GetCapacityInformationInYear((int)TSP.DataManager.TSProjectIngridientType.Implementer, (int)TSP.DataManager.TSMemberType.Office, OfficeId, Year);
+        //???????????????????????????
+        //???????????????????????????
+        //???????????????????????????
+        //???????????????????????????
+       // MemberArr = Cpcty.GetOfficesImpCapacityInYear(OfficeId, Year);
+
+        //if (CapacityInfoArr.Count > 0 && MemberArr.Count>0)
+        //{
+        //    SetImpTexts(CapacityInfoArr[0].ToString(), CapacityInfoArr[5].ToString(), CapacityInfoArr[1].ToString(), CapacityInfoArr[2].ToString(), CapacityInfoArr[3].ToString(), CapacityInfoArr[4].ToString(), CapacityInfoArr[6].ToString(), MemberArr[4].ToString(), CapacityInfoArr[7].ToString());
+        //}
+        //else
+        //    SetImpTexts("---", "---", "---", "---", "---", "---", "---", "---", "---");
+
+        //CustomAspxDevGridViewImp.DataSource = Cpcty.GetYearStagesInformation((int)TSP.DataManager.TSProjectIngridientType.Implementer, (int)TSP.DataManager.TSMemberType.Office, OfficeId, Year);
+        //CustomAspxDevGridViewImp.DataBind();
+        //???????????????????????????
+        //???????????????????????????
+        //???????????????????????????
+        //???????????????????????????
+
+    }
+
+    private void SetDsgTexts(string TotalCapacity, string MaxJobCount, string TotalUsed, string RemainCapacity, string Reserve, string ProjectCount, string ConditionalCapacity)
+    {
+        ASPxTextBoxDsgTotalCapacity.Text = TotalCapacity;
+        ASPxTextBoxDsgMaxJobCount.Text = MaxJobCount;
+        ASPxTextBoxDsgTotalUsed.Text = TotalUsed;
+        ASPxTextBoxDsgRemainCapacity.Text = RemainCapacity;
+        ASPxTextBoxDsgReserve.Text = Reserve;
+        ASPxTextBoxDsgProjectCount.Text = ProjectCount;
+        ASPxTextBoxDsgnConditionalCapacity.Text = ConditionalCapacity;
+    }
+
+    private void SetObsTexts(string TotalCapacity, string MaxJobCount, string TotalUsed, string RemainCapacity, string Reserve, string ProjectCount, string ConditionalCapacity)
+    {
+        ASPxTextBoxObsTotalCapacity.Text = TotalCapacity;
+        ASPxTextBoxObsMaxJobCount.Text = MaxJobCount;
+        ASPxTextBoxObsTotalUsed.Text = TotalUsed;
+        ASPxTextBoxObsRemainCapacity.Text = RemainCapacity;
+        ASPxTextBoxObsReserve.Text = Reserve;
+        ASPxTextBoxObsProjectCount.Text = ProjectCount;
+        ASPxTextBoxObsConditionalCapacity.Text = ConditionalCapacity;
+    }
+
+    private void SetImpTexts(string TotalCapacity, string MaxJobCount, string TotalUsed, string RemainCapacity, string Reserve, string ProjectCount, string MaxFloor, string Grade, string ConditionalCapacity)
+    {
+        ASPxTextBoxImpTotalCapacity.Text = TotalCapacity;
+        ASPxTextBoxImpMaxJobCount.Text = MaxJobCount;
+        ASPxTextBoxImpTotalUsed.Text = TotalUsed;
+        ASPxTextBoxImpRemainCapacity.Text = RemainCapacity;
+        ASPxTextBoxImpReserve.Text = Reserve;
+        ASPxTextBoxImpProjectCount.Text = ProjectCount;
+        ASPxTextBoxImpMaxFloor.Text = MaxFloor;
+        if (Grade != "" && Grade != "---")
+            ASPxTextBoxImpGrade.Text = GetGrdName(Convert.ToInt32(Grade));
+        else
+            ASPxTextBoxImpGrade.Text = "---";
+        ASPxTextBoxImpConditionalCapacity.Text = ConditionalCapacity;
+    }
+
+    private string GetGrdName(int GrdId)
+    {
+        TSP.DataManager.GradeManager GradeManager = new TSP.DataManager.GradeManager();
+        GradeManager.FindByCode(GrdId);
+        if (GradeManager.Count > 0)
+            return GradeManager[0]["GrdName"].ToString();
+        else
+            return "";
+    }
+
+    private void SetComponents()
+    {
+        TSP.DataManager.TechnicalServices.CapacityAssignmentManager CapacityAssignmentManager = new TSP.DataManager.TechnicalServices.CapacityAssignmentManager();
+        CapacityAssignmentManager.FindLastStageInYear("");
+
+        if (ASPxComboBoxYear.Value.ToString() == Utility.GetYearOfToday() || CapacityAssignmentManager.Count == 0 || ASPxComboBoxYear.Value.ToString() == CapacityAssignmentManager[0]["Year"].ToString())
+        {
+            LabelDsgnRemain.Visible = true;
+            LabelObsRemain.Visible = true;
+            LabelImpRemain.Visible = true;
+
+            LableDsgnWaste.Visible = false;
+            LableObsWaste.Visible = false;
+            LableImpWaste.Visible = false;
+
+            LableDsgnReserved.Visible = true;
+            LableObsReserved.Visible = true;
+            LableImpReserved.Visible = true;
+            ASPxTextBoxDsgReserve.Visible = true;
+            ASPxTextBoxObsReserve.Visible = true;
+            ASPxTextBoxImpReserve.Visible = true;
+
+            CustomAspxDevGridViewDsgn.Columns["RemainCapacity"].Caption = "ظرفیت باقیمانده";
+            CustomAspxDevGridViewObs.Columns["RemainCapacity"].Caption = "ظرفیت باقیمانده";
+            CustomAspxDevGridViewImp.Columns["RemainCapacity"].Caption = "ظرفیت باقیمانده";
+        }
+        else
+        {
+            LabelDsgnRemain.Visible = false;
+            LabelObsRemain.Visible = false;
+            LabelImpRemain.Visible = false;
+
+            LableDsgnWaste.Visible = true;
+            LableObsWaste.Visible = true;
+            LableImpWaste.Visible = true;
+
+            LableDsgnReserved.Visible = false;
+            LableObsReserved.Visible = false;
+            LableImpReserved.Visible = false;
+            ASPxTextBoxDsgReserve.Visible = false;
+            ASPxTextBoxObsReserve.Visible = false;
+            ASPxTextBoxImpReserve.Visible = false;
+
+            CustomAspxDevGridViewDsgn.Columns["RemainCapacity"].Caption = "ظرفیت سوخت شده";
+            CustomAspxDevGridViewObs.Columns["RemainCapacity"].Caption = "ظرفیت سوخت شده";
+            CustomAspxDevGridViewImp.Columns["RemainCapacity"].Caption = "ظرفیت سوخت شده";
+        }
+    }
+
+    private int GetMfType(int OfficeId)
+    {
+        TSP.DataManager.OfficeManager OfficeManager = new TSP.DataManager.OfficeManager();
+        OfficeManager.FindByCode(OfficeId);
+        if (OfficeManager.Count > 0)
+            return Convert.ToInt32(OfficeManager[0]["MFType"]);
+        else
+            return 0;
+    }
+
+    protected void ASPxComboBoxYear_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        SetComponents();
+        SetValues(ASPxComboBoxYear.Value.ToString());
+    }
+    
+}

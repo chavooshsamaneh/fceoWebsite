@@ -1,0 +1,106 @@
+﻿using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+
+public partial class Members_TechnicalServices_Capacity_ConditionalCapacityView : System.Web.UI.Page
+{
+    string ConditionalCapacityId;
+
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        this.DivReport.Attributes.Add("onclick", "ChangeVisible(this)");
+        this.DivReport.Attributes.Add("onmouseover", "ChangeIcon(this)");
+        this.DivReport.Visible = false;
+        
+        if (!IsPostBack)
+        {
+            if (string.IsNullOrEmpty(Request.QueryString["ConditionalCapacityId"]))
+            {
+                Response.Redirect("ConditionalCapacity.aspx");
+                return;
+            }
+
+            ObjectDataSourceProjectIngridientType.FilterParameters[0].DefaultValue = "4";
+            
+            SetKeys();
+        }
+        
+    }
+
+    protected void btnBack_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("ConditionalCapacity.aspx");
+    }
+
+    /*******************************************************************************************************************************************/
+    private void SetKeys()
+    {
+        try
+        {
+            PkConditionalCapacityId.Value = Server.HtmlDecode(Request.QueryString["ConditionalCapacityId"]).ToString();
+        }
+        catch
+        {
+            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+            return;
+        }
+
+        ConditionalCapacityId = Utility.DecryptQS(PkConditionalCapacityId.Value);
+
+        if (string.IsNullOrEmpty(ConditionalCapacityId))
+        {
+            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+            return;
+        }
+
+        SetValues();
+
+    }
+    
+    private void SetValues()
+    {
+        ConditionalCapacityId = Utility.DecryptQS(PkConditionalCapacityId.Value);
+
+        if (string.IsNullOrEmpty(ConditionalCapacityId))
+        {
+            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+            return;
+        }
+
+        TSP.DataManager.TechnicalServices.ConditionalCapacityManager Manager = new TSP.DataManager.TechnicalServices.ConditionalCapacityManager();
+        Manager.FindByConditionalCapacityId(Convert.ToInt32(ConditionalCapacityId));
+        if (Manager.Count == 1)
+        {
+            ASPxTextBoxMeOfficeEngOId.Text = Manager[0]["MeOfficeEngOId"].ToString();
+            ASPxTextBoxName.Text = Manager[0]["Name"].ToString();
+            ASPxComboBoxReason.DataBind();
+            ASPxComboBoxReason.Value = Manager[0]["ReasonId"].ToString();
+            ASPxComboBoxProjectIngridientType.DataBind();
+            ASPxComboBoxProjectIngridientType.Value = Manager[0]["ProjectIngridientTypeId"].ToString();
+            ASPxTextBoxCapacity.Text = Manager[0]["Capacity"].ToString();
+            FromDate.Text = Manager[0]["FromDate"].ToString();
+            ToDate.Text = Manager[0]["ToDate"].ToString();
+            ASPxTextBoxProjectId.Text = Manager[0]["ProjectId"].ToString();
+            ASPxMemoDescription.Text = Manager[0]["Description"].ToString();
+            ASPxCheckBoxIsConfirmed.Checked = Convert.ToBoolean(Manager[0]["IsConfirmed"]);
+            ASPxCheckBoxInActive.Checked = !Convert.ToBoolean(Manager[0]["InActive"]);            
+        }
+        else
+        {
+            this.DivReport.Visible = true;
+            this.LabelWarning.Text = "خطایی در بازخوانی اطلاعات رخ داده است";
+        }
+    }
+    
+    /*****************************************************************************************************************************/
+
+}

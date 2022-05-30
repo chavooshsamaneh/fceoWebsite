@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Groups>
+  <NavBarGroup Text="اطلاعات پایه" Expanded="False" Name="grpBaseInfo">
+    <NavBarItem NavigateUrl="~/Office/TechnicalServices/BaseInfo/DiscountPercent.aspx" Text="درصد تخفیف برای پروژه های خاص"/>
+    <NavBarItem NavigateUrl="~/Office/TechnicalServices/BaseInfo/ProjectIngridientMajors.aspx" Text="رشته های مجاز عوامل پروِژه"/>
+  </NavBarGroup>
+</Groups>

@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="srvEngineerToOthers" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://esup.shiraz.ir/EngineerToOther/srvEngineerToOthers.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://esup.shiraz.ir/EngineerToOther/srvEngineerToOthers.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://esup.shiraz.ir/EngineerToOther/srvEngineerToOthers.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Biz.Engineering" />
+      <xsd:import schemaLocation="http://esup.shiraz.ir/EngineerToOther/srvEngineerToOthers.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Biz.Error" />
+      <xsd:import schemaLocation="http://esup.shiraz.ir/EngineerToOther/srvEngineerToOthers.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/WCF.EngineerToOthers" />
+      <xsd:import schemaLocation="http://esup.shiraz.ir/EngineerToOther/srvEngineerToOthers.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/BIZ.SC" />
+      <xsd:import schemaLocation="http://esup.shiraz.ir/EngineerToOther/srvEngineerToOthers.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/DtoSC" />
+      <xsd:import schemaLocation="http://esup.shiraz.ir/EngineerToOther/srvEngineerToOthers.svc?xsd=xsd7" namespace="http://schemas.datacontract.org/2004/07/BIZ.SA" />
+      <xsd:import schemaLocation="http://esup.shiraz.ir/EngineerToOther/srvEngineerToOthers.svc?xsd=xsd8" namespace="http://schemas.datacontract.org/2004/07/DataAccess.Engineers" />
+      <xsd:import schemaLocation="http://esup.shiraz.ir/EngineerToOther/srvEngineerToOthers.svc?xsd=xsd9" namespace="http://schemas.datacontract.org/2004/07/Biz.Engineering.EngineerClass" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IsrvEngineerToOthers_GetEngInfoForRxportFiche_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetEngInfoForRxportFiche" />
+  </wsdl:message>
+  <wsdl:message name="IsrvEngineerToOthers_GetEngInfoForRxportFiche_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetEngInfoForRxportFicheResponse" />
+  </wsdl:message>
+  <wsdl:message name="IsrvEngineerToOthers_GetCodeInformation_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetCodeInformation" />
+  </wsdl:message>
+  <wsdl:message name="IsrvEngineerToOthers_GetCodeInformation_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetCodeInformationResponse" />
+  </wsdl:message>
+  <wsdl:message name="IsrvEngineerToOthers_SaveRefToEngineer_InputMessage">
+    <wsdl:part name="parameters" element="tns:SaveRefToEngineer" />
+  </wsdl:message>
+  <wsdl:message name="IsrvEngineerToOthers_SaveRefToEngineer_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SaveRefToEngineerResponse" />
+  </wsdl:message>
+  <wsdl:message name="IsrvEngineerToOthers_GetAllReferToEngineer_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllReferToEngineer" />
+  </wsdl:message>
+  <wsdl:message name="IsrvEngineerToOthers_GetAllReferToEngineer_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetAllReferToEngineerResponse" />
+  </wsdl:message>
+  <wsdl:message name="IsrvEngineerToOthers_GetEngInfo_InEngineerCode_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetEngInfo_InEngineerCode" />
+  </wsdl:message>
+  <wsdl:message name="IsrvEngineerToOthers_GetEngInfo_InEngineerCode_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetEngInfo_InEngineerCodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="IsrvEngineerToOthers_InsertEngineerList_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsertEngineerList" />
+  </wsdl:message>
+  <wsdl:message name="IsrvEngineerToOthers_InsertEngineerList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertEngineerListResponse" />
+  </wsdl:message>
+  <wsdl:message name="IsrvEngineerToOthers_InsertEngineerList2_InputMessage">
+    <wsdl:part name="parameters" element="tns:InsertEngineerList2" />
+  </wsdl:message>
+  <wsdl:message name="IsrvEngineerToOthers_InsertEngineerList2_OutputMessage">
+    <wsdl:part name="parameters" element="tns:InsertEngineerList2Response" />
+  </wsdl:message>
+  <wsdl:message name="IsrvEngineerToOthers_SaveFill_Info_InputMessage">
+    <wsdl:part name="parameters" element="tns:SaveFill_Info" />
+  </wsdl:message>
+  <wsdl:message name="IsrvEngineerToOthers_SaveFill_Info_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SaveFill_InfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IsrvEngineerToOthers_SaveRef_Info_InputMessage">
+    <wsdl:part name="parameters" element="tns:SaveRef_Info" />
+  </wsdl:message>
+  <wsdl:message name="IsrvEngineerToOthers_SaveRef_Info_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SaveRef_InfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IsrvEngineerToOthers_SaveEng_Info_InputMessage">
+    <wsdl:part name="parameters" element="tns:SaveEng_Info" />
+  </wsdl:message>
+  <wsdl:message name="IsrvEngineerToOthers_SaveEng_Info_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SaveEng_InfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="IsrvEngineerToOthers_SaveEng_Competence_InputMessage">
+    <wsdl:part name="parameters" element="tns:SaveEng_Competence" />
+  </wsdl:message>
+  <wsdl:message name="IsrvEngineerToOthers_SaveEng_Competence_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SaveEng_CompetenceResponse" />
+  </wsdl:message>
+  <wsdl:message name="IsrvEngineerToOthers_SaveEng_JobAgreement_InputMessage">
+    <wsdl:part name="parameters" element="tns:SaveEng_JobAgreement" />
+  </wsdl:message>
+  <wsdl:message name="IsrvEngineerToOthers_SaveEng_JobAgreement_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SaveEng_JobAgreementResponse" />
+  </wsdl:message>
+  <wsdl:message name="IsrvEngineerToOthers_SaveEng_Picture_InputMessage">
+    <wsdl:part name="parameters" element="tns:SaveEng_Picture" />
+  </wsdl:message>
+  <wsdl:message name="IsrvEngineerToOthers_SaveEng_Picture_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SaveEng_PictureResponse" />
+  </wsdl:message>
+  <wsdl:message name="IsrvEngineerToOthers_RemoveRefToEngineer_InputMessage">
+    <wsdl:part name="parameters" element="tns:RemoveRefToEngineer" />
+  </wsdl:message>
+  <wsdl:message name="IsrvEngineerToOthers_RemoveRefToEngineer_OutputMessage">
+    <wsdl:part name="parameters" element="tns:RemoveRefToEngineerResponse" />
+  </wsdl:message>
+  <wsdl:message name="IsrvEngineerToOthers_GetBuildingExecRep_Info_Main_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetBuildingExecRep_Info_Main" />
+  </wsdl:message>
+  <wsdl:message name="IsrvEngineerToOthers_GetBuildingExecRep_Info_Main_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetBuildingExecRep_Info_MainResponse" />
+  </wsdl:message>
+  <wsdl:message name="IsrvEngineerToOthers_GetBuildingExecRep_Detail_Main_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetBuildingExecRep_Detail_Main" />
+  </wsdl:message>
+  <wsdl:message name="IsrvEngineerToOthers_GetBuildingExecRep_Detail_Main_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetBuildingExecRep_Detail_MainResponse" />
+  </wsdl:message>
+  <wsdl:message name="IsrvEngineerToOthers_SaveQtaInfo_InputMessage">
+    <wsdl:part name="parameters" element="tns:SaveQtaInfo" />
+  </wsdl:message>
+  <wsdl:message name="IsrvEngineerToOthers_SaveQtaInfo_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SaveQtaInfoResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IsrvEngineerToOthers">
+    <wsdl:operation name="GetEngInfoForRxportFiche">
+      <wsdl:input wsaw:Action="http://tempuri.org/IsrvEngineerToOthers/GetEngInfoForRxportFiche" message="tns:IsrvEngineerToOthers_GetEngInfoForRxportFiche_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IsrvEngineerToOthers/GetEngInfoForRxportFicheResponse" message="tns:IsrvEngineerToOthers_GetEngInfoForRxportFiche_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCodeInformation">
+      <wsdl:input wsaw:Action="http://tempuri.org/IsrvEngineerToOthers/GetCodeInformation" message="tns:IsrvEngineerToOthers_GetCodeInformation_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IsrvEngineerToOthers/GetCodeInformationResponse" message="tns:IsrvEngineerToOthers_GetCodeInformation_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveRefToEngineer">
+      <wsdl:input wsaw:Action="http://tempuri.org/IsrvEngineerToOthers/SaveRefToEngineer" message="tns:IsrvEngineerToOthers_SaveRefToEngineer_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IsrvEngineerToOthers/SaveRefToEngineerResponse" message="tns:IsrvEngineerToOthers_SaveRefToEngineer_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAllReferToEngineer">
+      <wsdl:input wsaw:Action="http://tempuri.org/IsrvEngineerToOthers/GetAllReferToEngineer" message="tns:IsrvEngineerToOthers_GetAllReferToEngineer_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IsrvEngineerToOthers/GetAllReferToEngineerResponse" message="tns:IsrvEngineerToOthers_GetAllReferToEngineer_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEngInfo_InEngineerCode">
+      <wsdl:input wsaw:Action="http://tempuri.org/IsrvEngineerToOthers/GetEngInfo_InEngineerCode" message="tns:IsrvEngineerToOthers_GetEngInfo_InEngineerCode_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IsrvEngineerToOthers/GetEngInfo_InEngineerCodeResponse" message="tns:IsrvEngineerToOthers_GetEngInfo_InEngineerCode_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertEngineerList">
+      <wsdl:input wsaw:Action="http://tempuri.org/IsrvEngineerToOthers/InsertEngineerList" message="tns:IsrvEngineerToOthers_InsertEngineerList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IsrvEngineerToOthers/InsertEngineerListResponse" message="tns:IsrvEngineerToOthers_InsertEngineerList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertEngineerList2">
+      <wsdl:input wsaw:Action="http://tempuri.org/IsrvEngineerToOthers/InsertEngineerList2" message="tns:IsrvEngineerToOthers_InsertEngineerList2_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IsrvEngineerToOthers/InsertEngineerList2Response" message="tns:IsrvEngineerToOthers_InsertEngineerList2_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveFill_Info">
+      <wsdl:input wsaw:Action="http://tempuri.org/IsrvEngineerToOthers/SaveFill_Info" message="tns:IsrvEngineerToOthers_SaveFill_Info_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IsrvEngineerToOthers/SaveFill_InfoResponse" message="tns:IsrvEngineerToOthers_SaveFill_Info_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveRef_Info">
+      <wsdl:input wsaw:Action="http://tempuri.org/IsrvEngineerToOthers/SaveRef_Info" message="tns:IsrvEngineerToOthers_SaveRef_Info_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IsrvEngineerToOthers/SaveRef_InfoResponse" message="tns:IsrvEngineerToOthers_SaveRef_Info_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveEng_Info">
+      <wsdl:input wsaw:Action="http://tempuri.org/IsrvEngineerToOthers/SaveEng_Info" message="tns:IsrvEngineerToOthers_SaveEng_Info_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IsrvEngineerToOthers/SaveEng_InfoResponse" message="tns:IsrvEngineerToOthers_SaveEng_Info_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveEng_Competence">
+      <wsdl:input wsaw:Action="http://tempuri.org/IsrvEngineerToOthers/SaveEng_Competence" message="tns:IsrvEngineerToOthers_SaveEng_Competence_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IsrvEngineerToOthers/SaveEng_CompetenceResponse" message="tns:IsrvEngineerToOthers_SaveEng_Competence_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveEng_JobAgreement">
+      <wsdl:input wsaw:Action="http://tempuri.org/IsrvEngineerToOthers/SaveEng_JobAgreement" message="tns:IsrvEngineerToOthers_SaveEng_JobAgreement_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IsrvEngineerToOthers/SaveEng_JobAgreementResponse" message="tns:IsrvEngineerToOthers_SaveEng_JobAgreement_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveEng_Picture">
+      <wsdl:input wsaw:Action="http://tempuri.org/IsrvEngineerToOthers/SaveEng_Picture" message="tns:IsrvEngineerToOthers_SaveEng_Picture_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IsrvEngineerToOthers/SaveEng_PictureResponse" message="tns:IsrvEngineerToOthers_SaveEng_Picture_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RemoveRefToEngineer">
+      <wsdl:input wsaw:Action="http://tempuri.org/IsrvEngineerToOthers/RemoveRefToEngineer" message="tns:IsrvEngineerToOthers_RemoveRefToEngineer_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IsrvEngineerToOthers/RemoveRefToEngineerResponse" message="tns:IsrvEngineerToOthers_RemoveRefToEngineer_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetBuildingExecRep_Info_Main">
+      <wsdl:input wsaw:Action="http://tempuri.org/IsrvEngineerToOthers/GetBuildingExecRep_Info_Main" message="tns:IsrvEngineerToOthers_GetBuildingExecRep_Info_Main_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IsrvEngineerToOthers/GetBuildingExecRep_Info_MainResponse" message="tns:IsrvEngineerToOthers_GetBuildingExecRep_Info_Main_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetBuildingExecRep_Detail_Main">
+      <wsdl:input wsaw:Action="http://tempuri.org/IsrvEngineerToOthers/GetBuildingExecRep_Detail_Main" message="tns:IsrvEngineerToOthers_GetBuildingExecRep_Detail_Main_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IsrvEngineerToOthers/GetBuildingExecRep_Detail_MainResponse" message="tns:IsrvEngineerToOthers_GetBuildingExecRep_Detail_Main_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SaveQtaInfo">
+      <wsdl:input wsaw:Action="http://tempuri.org/IsrvEngineerToOthers/SaveQtaInfo" message="tns:IsrvEngineerToOthers_SaveQtaInfo_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IsrvEngineerToOthers/SaveQtaInfoResponse" message="tns:IsrvEngineerToOthers_SaveQtaInfo_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IsrvEngineerToOthers" type="tns:IsrvEngineerToOthers">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetEngInfoForRxportFiche">
+      <soap:operation soapAction="http://tempuri.org/IsrvEngineerToOthers/GetEngInfoForRxportFiche" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCodeInformation">
+      <soap:operation soapAction="http://tempuri.org/IsrvEngineerToOthers/GetCodeInformation" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveRefToEngineer">
+      <soap:operation soapAction="http://tempuri.org/IsrvEngineerToOthers/SaveRefToEngineer" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAllReferToEngineer">
+      <soap:operation soapAction="http://tempuri.org/IsrvEngineerToOthers/GetAllReferToEngineer" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEngInfo_InEngineerCode">
+      <soap:operation soapAction="http://tempuri.org/IsrvEngineerToOthers/GetEngInfo_InEngineerCode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertEngineerList">
+      <soap:operation soapAction="http://tempuri.org/IsrvEngineerToOthers/InsertEngineerList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertEngineerList2">
+      <soap:operation soapAction="http://tempuri.org/IsrvEngineerToOthers/InsertEngineerList2" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveFill_Info">
+      <soap:operation soapAction="http://tempuri.org/IsrvEngineerToOthers/SaveFill_Info" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveRef_Info">
+      <soap:operation soapAction="http://tempuri.org/IsrvEngineerToOthers/SaveRef_Info" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveEng_Info">
+      <soap:operation soapAction="http://tempuri.org/IsrvEngineerToOthers/SaveEng_Info" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveEng_Competence">
+      <soap:operation soapAction="http://tempuri.org/IsrvEngineerToOthers/SaveEng_Competence" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveEng_JobAgreement">
+      <soap:operation soapAction="http://tempuri.org/IsrvEngineerToOthers/SaveEng_JobAgreement" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveEng_Picture">
+      <soap:operation soapAction="http://tempuri.org/IsrvEngineerToOthers/SaveEng_Picture" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RemoveRefToEngineer">
+      <soap:operation soapAction="http://tempuri.org/IsrvEngineerToOthers/RemoveRefToEngineer" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBuildingExecRep_Info_Main">
+      <soap:operation soapAction="http://tempuri.org/IsrvEngineerToOthers/GetBuildingExecRep_Info_Main" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBuildingExecRep_Detail_Main">
+      <soap:operation soapAction="http://tempuri.org/IsrvEngineerToOthers/GetBuildingExecRep_Detail_Main" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SaveQtaInfo">
+      <soap:operation soapAction="http://tempuri.org/IsrvEngineerToOthers/SaveQtaInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="srvEngineerToOthers">
+    <wsdl:port name="BasicHttpBinding_IsrvEngineerToOthers" binding="tns:BasicHttpBinding_IsrvEngineerToOthers">
+      <soap:address location="http://esup.shiraz.ir/EngineerToOther/srvEngineerToOthers.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

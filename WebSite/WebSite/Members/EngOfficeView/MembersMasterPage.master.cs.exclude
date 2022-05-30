@@ -1,0 +1,93 @@
+﻿using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+
+public partial class Employee_EmpMasterPage : System.Web.UI.MasterPage
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (Page.User.Identity.IsAuthenticated == true)
+        {
+            if (Session["MemberManager"] == null)
+            {
+                if (Utility.GetCurrentUser_LoginType() == (int)TSP.DataManager.UserType.TemporaryMembers)
+                {
+                    TSP.DataManager.TempMemberManager TempMemberManager = new TSP.DataManager.TempMemberManager();
+                    TempMemberManager.FindByCode(Utility.GetCurrentUser_MeId());
+                    Session["MemberManager"] = TempMemberManager;
+                }
+                else
+                {
+                    TSP.DataManager.MemberManager MemberManager = new TSP.DataManager.MemberManager();
+                    MemberManager.FindByCode(Utility.GetCurrentUser_MeId());
+                    Session["MemberManager"] = MemberManager;
+                    if ((bool)MemberManager[0]["IsLock"] == true)
+                    {
+                        TSP.DataManager.LockHistoryManager lockHistoryManager = new TSP.DataManager.LockHistoryManager();
+                        Session["MemberLockers"] = lockHistoryManager.FindLockers(Utility.GetCurrentUser_MeId(), 0, 1);
+                    }
+                }                                              
+            }
+
+        }
+
+        if (IsPostBack == false)
+        {
+            ASPxNavBar1.DataBind();
+            ASPxNavBar1.Groups.FindByName("grpMemberInfo").Expanded = true;
+            int MRSId=1;
+            if (Utility.GetCurrentUser_LoginType() == (int)TSP.DataManager.UserType.TemporaryMembers)
+            {
+                TSP.DataManager.TempMemberManager TempMemberManager = Session["MemberManager"] as TSP.DataManager.TempMemberManager;
+               // MRSId = Convert.ToInt32(TempMemberManager[0]["MrsId"]);
+            }
+            else
+            {
+                TSP.DataManager.MemberManager MemManager = Session["MemberManager"] as TSP.DataManager.MemberManager;
+                MRSId = Convert.ToInt32(MemManager[0]["MrsId"]);
+            }
+
+            if (MRSId != 1 || Utility.GetCurrentUser_LoginType()==(int)TSP.DataManager.UserType.TemporaryMembers)
+            {
+                //Response.Redirect("~/Members/MemberHome.aspx?MeId=" + Utility.EncryptQS(Session["MeId"].ToString()));
+                //ASPxNavBar1.Enabled = false;
+                foreach (DevExpress.Web.NavBarGroup grp in ASPxNavBar1.Groups)
+                {
+                    if (grp.Name != "grpMemberInfo")
+                        grp.Enabled = false;
+                    else
+                    {
+                        grp.Enabled = true;
+                        foreach (DevExpress.Web.NavBarItem item in grp.Items)
+                        {
+                            if (!string.IsNullOrEmpty(item.Name) && item.Name == "MeRequest")
+                            {
+                                item.Enabled = true;
+                            }
+                            else
+                                item.Enabled = false;
+                        }
+                    }
+                }
+            }
+        }
+        TSP.DataManager.MessageManager MesManager = new TSP.DataManager.MessageManager();
+        TSP.DataManager.LoginManager LoManager = new TSP.DataManager.LoginManager();
+        LoManager.FindByCode(Utility.GetCurrentUser_UserId());
+        if (LoManager.Count > 0)
+        {
+            int Count = MesManager.CountOfUnRead(int.Parse(LoManager[0]["MeId"].ToString()), int.Parse(LoManager[0]["UltId"].ToString()), false);
+            ASPxNavBar1.Items.FindByName("NbiRecieve").Text = "پیام های رسیده" + "(" + Count.ToString() + ")";
+
+            Count = MesManager.CountOfUnRead2(int.Parse(LoManager[0]["MeId"].ToString()), int.Parse(LoManager[0]["UltId"].ToString()), false);
+            Count = MesManager.CountOfUnRead(9, 1, false);
+        }
+    }
+}

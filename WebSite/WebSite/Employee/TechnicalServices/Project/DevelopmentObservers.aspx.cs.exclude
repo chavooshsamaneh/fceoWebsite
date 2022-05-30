@@ -1,0 +1,193 @@
+﻿using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+
+public partial class Employee_TechnicalServices_Project_DevelopmentObservers : System.Web.UI.Page
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        this.DivReport.Visible = false;
+        this.DivReport.Attributes.Add("onclick", "ChangeVisible(this)");
+        this.DivReport.Attributes.Add("onmouseover", "ChangeIcon(this)");
+
+        if (!IsPostBack)
+        {
+            TSP.DataManager.Permission per = TSP.DataManager.TechnicalServices.DevelopmentObserversManager.GetUserPermission(Utility.GetCurrentUser_UserId(), (TSP.DataManager.UserType)Utility.GetCurrentUser_LoginType());
+            BtnNew.Enabled = per.CanNew;
+            btnNew2.Enabled = per.CanNew;
+            btnInAcitve.Enabled = per.CanEdit;
+            btnInAcitve2.Enabled = per.CanEdit;
+            btnView.Enabled = per.CanView;
+            btnView2.Enabled = per.CanView;
+
+            try
+            {
+                HDdevelopmentPercentId.Value = Server.HtmlDecode(Request.QueryString["DevelopmentPercentId"]).ToString();
+
+            }
+            catch
+            {
+                this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+                return;
+            }
+
+            string DevelopmentPercentId = Utility.DecryptQS(HDdevelopmentPercentId.Value);
+            if (string.IsNullOrEmpty(DevelopmentPercentId))
+            {
+                this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+                return;
+            }
+            ObjectDataSource1.SelectParameters[0].DefaultValue = DevelopmentPercentId;
+
+            this.ViewState["BtnInActive"] = btnInAcitve.Enabled;
+            this.ViewState["BtnNew"] = BtnNew.Enabled;
+            this.ViewState["BtnView"] = btnView.Enabled;
+        }
+
+        if (this.ViewState["BtnView"] != null)
+            this.btnView.Enabled = this.btnView2.Enabled = (bool)this.ViewState["BtnView"];
+        if (this.ViewState["BtnInActive"] != null)
+            this.btnInAcitve.Enabled = this.btnInAcitve2.Enabled = (bool)this.ViewState["BtnInActive"];
+        if (this.ViewState["BtnNew"] != null)
+            this.BtnNew.Enabled = this.btnNew2.Enabled = (bool)this.ViewState["BtnNew"];
+    }
+    protected void btnBack_Click(object sender, EventArgs e)
+    {
+        string GrdFlt = Request.QueryString["GrdFlt"].ToString();
+        string SrchFlt = Request.QueryString["SrchFlt"].ToString();
+        Response.Redirect("DevelopmentPercent.aspx" + "&GrdFlt=" + GrdFlt + "&SrchFlt=" + SrchFlt);
+    }
+    protected void btnBackToManagment_Click(object sender, EventArgs e)
+    {
+        if (!string.IsNullOrEmpty(Request.QueryString["GrdFlt"]) && !string.IsNullOrEmpty(Request.QueryString["SrchFlt"]))
+        {
+            string GrdFlt = Server.HtmlDecode(Request.QueryString["GrdFlt"].ToString());
+            string SrchFlt = Server.HtmlDecode(Request.QueryString["SrchFlt"].ToString());
+            Response.Redirect("Project.aspx?GrdFlt=" + GrdFlt + "&SrchFlt=" + SrchFlt);
+        }
+        else
+        {
+            Response.Redirect("Project.aspx");
+        }
+    }
+    protected void btnInAcitve_Click(object sender, EventArgs e)
+    {
+        int DevObsId = -1;
+        byte Type = 0;
+        bool InActive = false;
+
+        if (CustomAspxDevGridView1.FocusedRowIndex > -1)
+        {
+            DataRow row = CustomAspxDevGridView1.GetDataRow(CustomAspxDevGridView1.FocusedRowIndex);
+            DevObsId = (int)row["DevObsId"];
+            Type = (byte)row["Type"];
+            InActive = (bool)row["InActive"];
+
+        }
+        if (DevObsId == -1)
+        {
+            this.DivReport.Visible = true;
+            this.LabelWarning.Text = "لطفاً ابتدا یک رکورد را انتخاب نمائید";
+
+        }
+        else
+        {
+            if (Type == 2)
+            {
+                if (InActive)
+                {
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "رکورد مورد نظر غیر فعال می باشد";
+
+                }
+                else
+                    InActiveMethod(DevObsId);
+
+            }
+            else
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "امکان غیر فعال کردن ناظر پروژه وجود ندارد";
+            }
+        }
+    }
+    protected void BtnNew_Click(object sender, EventArgs e)
+    {
+       // string GrdFlt = Request.QueryString["GrdFlt"].ToString();
+      //  string SrchFlt = Request.QueryString["SrchFlt"].ToString();
+        Response.Redirect("DevelopmentObserverInsert.aspx?DevelopmentPercentId=" + HDdevelopmentPercentId.Value
+            + "&DevObsId=" + Utility.EncryptQS("")
+            + "&PageMode=" + Utility.EncryptQS("New")
+           // + "&GrdFlt=" + GrdFlt + "&SrchFlt=" + SrchFlt
+           );
+    }
+
+    protected void btnView_Click(object sender, EventArgs e)
+    {
+        int DevObsId = -1;
+        byte Type = 0;
+        string GrdFlt = Request.QueryString["GrdFlt"].ToString();
+        string SrchFlt = Request.QueryString["SrchFlt"].ToString();
+
+        if (CustomAspxDevGridView1.FocusedRowIndex > -1)
+        {
+            DataRow row = CustomAspxDevGridView1.GetDataRow(CustomAspxDevGridView1.FocusedRowIndex);
+            DevObsId = (int)row["DevObsId"];
+            Type = (byte)row["Type"];
+
+        }
+        if (DevObsId == -1)
+        {
+            this.DivReport.Visible = true;
+            this.LabelWarning.Text = "لطفاً ابتدا یک رکورد را انتخاب نمائید";
+
+        }
+        else
+        {
+            if (Type == 2)
+                Response.Redirect("DevelopmentObserverInsert.aspx?DevObsId=" + Utility.EncryptQS(DevObsId.ToString())
+                    + "&DevelopmentPercentId=" + HDdevelopmentPercentId.Value
+                    + "&PageMode=" + Utility.EncryptQS("View")
+                      + "&GrdFlt=" + GrdFlt + "&SrchFlt=" + SrchFlt);
+            //else
+            //    Response.Redirect("DevelopmentObserverInsert.aspx?DevObsId=" + Utility.EncryptQS(DevObsId.ToString()) + "&DevelopmentPercentId=" + HDdevelopmentPercentId.Value + "&PageMode=" + Utility.EncryptQS("View"));
+        }
+
+    }
+    protected void InActiveMethod(int DevObsId)
+    {
+        TSP.DataManager.TechnicalServices.DevelopmentObserversManager ObserversManager = new TSP.DataManager.TechnicalServices.DevelopmentObserversManager();
+        ObserversManager.FindByDevObsId(DevObsId);
+        if (ObserversManager.Count > 0)
+        {
+            ObserversManager[0].BeginEdit();
+            ObserversManager[0]["InActive"] = 1;
+            ObserversManager[0]["InActiveDate"] = Utility.GetDateOfToday();
+            ObserversManager[0]["UserId"] = Utility.GetCurrentUser_UserId();
+            ObserversManager[0].EndEdit();
+            if (ObserversManager.Save() > 0)
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "ذخیره انجام شد";
+                CustomAspxDevGridView1.DataBind();
+            }
+            else
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+            }
+        }
+        else
+        {
+            this.DivReport.Visible = true;
+            this.LabelWarning.Text = "اطلاعات توسط کاربر دیگری تغییر یافته است";
+        }
+    }
+}

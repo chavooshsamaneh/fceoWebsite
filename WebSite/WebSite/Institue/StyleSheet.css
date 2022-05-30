@@ -1,0 +1,262 @@
+﻿body
+{
+	font-size: 9pt;
+	font-family: Tahoma, 'Microsoft Sans Serif';
+	text-align: center;
+}
+
+INPUT
+{
+	color: #000000;
+	font-family: tahoma;
+	direction: rtl;
+	text-align: right;
+	margin-right: 0px;
+}
+SELECT
+{
+	color: #000000;
+	font-family: tahoma;
+	direction: rtl;
+	text-align: right;
+}
+.ModalWindow
+
+{
+
+  border: solid1px#c0c0c0;
+
+  background:#f0f0f0;
+
+  padding: 0px10px10px10px;
+  position:fixed;
+
+  top:-1000px;
+  z-index : 10000; 
+}
+.modalBackground      
+{
+	background-color: Gray;     
+	filter: alpha(opacity=50);     
+	opacity: 0.50; 
+	}  
+.updateProgress      
+{
+	border-width: 1px;     
+	border-style: solid;     
+	background-color: #FFFFFF;     
+	position: absolute;     
+	width: 180px;     
+	height: 99px;
+	top: 1037px;
+	right: 10px;
+} 
+.PickerCSS
+{
+	background-color: #ffffff;
+	border-right: #000000 2px solid;
+	border-top: #000000 2px solid;
+	border-left: #000000 2px solid;
+	border-bottom: #000000 2px solid;
+}
+.PickerHeaderCSS
+{
+	background-color: lightgrey;
+	height: 30px;
+}
+.PickerFooterCSS
+{
+	background-color: lightgrey;
+}
+.PickerWeekDayCSS
+{
+	background-color: lightgrey;
+	text-align: center;
+	font-size: 8pt;
+	border-right: black 1px solid;
+	border-top: black 1px solid;
+	border-left: black 1px solid;
+	border-bottom: black 1px solid;
+	height: 19px;
+}
+.PickerCalendarCSS
+{
+	background-color: #e8f4ff;
+	border-right: black 1px solid;
+	border-top: black 1px solid;
+	border-left: black 1px solid;
+	border-bottom: black 1px solid;
+	height: 19px;
+}
+.PickerWorkDayCSS
+{
+	background-color: #ffffff;
+	border-right: black 1px solid;
+	border-top: black 1px solid;
+	border-left: black 1px solid;
+	border-bottom: black 1px solid;
+}
+A.PickerWorkDayCSS
+{
+	color: black;
+	text-decoration: none;
+	border: none;
+}
+.PickerForbidenCSS
+{
+	background-color: #e8f4ff;
+	color: Red;
+	border-right: black 1px solid;
+	border-top: black 1px solid;
+	border-left: black 1px solid;
+	border-bottom: black 1px solid;
+	font-weight: bold;
+}
+.PickerSelectedCSS
+{
+	background-color: #e4e8ff;
+	border-right: black 1px solid;
+	border-top: black 1px solid;
+	border-left: black 1px solid;
+	border-bottom: black 1px solid;
+}
+A.PickerSelectedCSS
+{
+	font-weight: bold;
+	color: #0066ff;
+	text-decoration: underline;
+	border: none;
+}
+.modalProgressGreyBackground 
+{
+    background:#CCCCCC;
+	filter:alpha(opacity=60);
+	opacity:0.6;
+}
+.modalProgressRedBackground 
+{
+    background:Red;
+	filter:alpha(opacity=60);
+	opacity:0.6;
+}
+
+.modalPopup
+{
+  	text-align: center;
+	padding-top: 25px;
+	
+	width: 300px;
+	height: 41px;
+	background-image: url(../Images/UploadBg.png);
+}
+.DivErrors
+{
+	POSITION: fixed; 
+	BACKGROUND-COLOR: yellow; 
+	width: 400px; 
+	BORDER-LEFT: 1px solid black; 
+	BORDER-TOP: 1px solid black; 
+	BORDER-BOTTOM: 3px solid black; 
+	BORDER-RIGHT: 3px solid black; 
+	PADDING: 3px; 
+	z-index: 1000;
+	top: 89px;
+	right: 16px;
+	left: 276px;
+}
+.DivErrors1
+{
+	position: absolute; 
+	left: 10px; 
+	top: 15px; 
+	width: 571px;
+}
+.topbar
+{   
+	PADDING-TOP: 5px;
+	PADDING-BOTTOM: 5px;
+	PADDING-RIGHT: 5px; 
+	PADDING-LEFT: 5px;
+	BORDER-TOP: black 1px solid;
+	BORDER-BOTTOM: black 1px solid;
+	BORDER-RIGHT: black 1px solid;
+	BORDER-LEFT: black 1px solid;
+	WIDTH: 450px;
+	POSITION: absolute;
+	BACKGROUND-COLOR: white
+}
+.TableBorder
+{
+	border-right: #8f8f8f 1px solid;
+	border-left: #8f8f8f 1px solid;
+	border-bottom: #8f8f8f 1px solid;
+	text-align: right;
+	border-collapse: collapse;
+	border-Top:#8F8F8F 1px solid;
+
+}
+.TableCells
+{
+	text-align: right;
+	padding-right: 5px;
+	padding-left: 5px;
+}
+.GridBorder
+{
+	/*background-color: #F1F1F1;
+	border-top: 0px solid;*/
+	border-right: #8F8F8F 1px solid;
+	border-top: #8F8F8F 1px solid;
+	border-left: #8F8F8F 1px solid;
+	border-bottom: #8F8F8F 1px solid;
+	font-size: 7pt;
+}
+.GridHeader
+{
+	background-color: #58626b;
+	color: #ffffff;
+	text-align: center;
+	background-image: url(../Images/bar5.png);
+	background-repeat: repeat-x;
+	height: 25px;
+
+
+}
+.TableTitle
+{
+	color: #ffffff; /*background-color: #58626b;*/
+	text-align: center;
+	background-image: url(../Images/bar5.png);
+	height: 25px;
+	background-repeat: repeat-x;
+	 /*border-collapse: collapse;*/
+}
+.GridPager
+{
+	color: #000000;
+	text-align: center;
+	background-image: url(../Images/Bar6.png);
+	height: 25px;
+	background-repeat: repeat-x;
+}
+.GridAlternate
+{
+	background-color:#EFF3FB
+}
+.DownImg
+{
+	background-image: url(../Images/Down_symbol.png);
+		background-repeat: no-repeat;	
+	width: 20px;
+	height:20px;
+	
+	background-color: transparent;
+}
+.UpImg
+{
+	background-image: url(../Images/Up_symbol.png);
+	background-repeat: no-repeat;	
+	width: 20px;
+	height:20px;
+
+}

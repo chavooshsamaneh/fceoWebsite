@@ -1,0 +1,203 @@
+﻿<%@ Page Title="درخواست پشتیبانی" Language="C#" MasterPageFile="~/MasterPagePortals.master" AutoEventWireup="true" CodeFile="AddTicket.aspx.cs" Inherits="Employee_Ticketing_AddTicket" %>
+
+<%@ Register Assembly="DevExpress.Web.v11.2, Version=11.2.10.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web.ASPxHiddenField" TagPrefix="dxhf" %>
+<%@ Register Assembly="DevExpress.Web.v11.2, Version=11.2.10.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web.ASPxPanel" TagPrefix="dxp" %>
+<%@ Register Assembly="DevExpress.Web.v11.2, Version=11.2.10.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web.ASPxUploadControl" TagPrefix="dxuc" %>
+<%@ Register Assembly="DevExpress.Web.v11.2, Version=11.2.10.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web.ASPxRoundPanel" TagPrefix="dxrp" %>
+<%@ Register Assembly="DevExpress.Web.v11.2, Version=11.2.10.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web.ASPxMenu" TagPrefix="dxm" %>
+
+<%@ Register Assembly="TSP.WebControls" Namespace="TSP.WebControls" TagPrefix="TSPControls" %>
+<%@ Register Assembly="DevExpress.Web.ASPxEditors.v11.2, Version=11.2.10.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web.ASPxEditors" TagPrefix="dxe" %>
+
+<%@ Register Assembly="PersianDateControls 2.0" Namespace="PersianDateControls" TagPrefix="pdc" %>
+<%@ Register Assembly="AjaxControls" Namespace="AjaxControls" TagPrefix="asp" %>
+<%@ Register Assembly="PersianDateControls 2.0" Namespace="PersianDateControls" TagPrefix="pdc" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
+<%@ Register Assembly="DevExpress.Web.v11.2, Version=11.2.10.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web.ASPxCallbackPanel" TagPrefix="dxcp" %>
+<%@ Register Assembly="DevExpress.Web.v11.2, Version=11.2.10.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web.ASPxPanel" TagPrefix="dxp" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+    <dxcp:ASPxCallbackPanel ID="CallBackMembers" ClientInstanceName="CallBackMembers"
+        HideContentOnCallback="false" Width="100%" runat="server" OnCallback="CallBackMembers_Callback"
+        LoadingPanelText="لطفا صبر کنید" ShowLoadingPanel="false">
+
+        <PanelCollection>
+            <dxp:PanelContent>
+                <div align="right" id="DivReport" class="DivErrors" runat="server" visible="true">
+                    <asp:Label ID="LabelWarning" runat="server" Text="Label"></asp:Label>
+                    [<a class="closeLink" href="#">بستن</a>]
+                </div>
+                <TSPControls:CustomASPxRoundPanelMenu ID="ASPxRoundPanel1" runat="server" Width="100%">
+                    <PanelCollection>
+                        <dxp:PanelContent>
+                            <table cellpadding="0" dir="rtl" style="border-collapse: collapse; background-color: transparent">
+                                <tr>
+                                    <td style="width: 27px; height: 27px">
+                                        <dxe:ASPxButton runat="server" Text=" " EnableDefaultAppearance="False" ToolTip="جدید"
+                                            CausesValidation="False" ID="btnNew" UseSubmitBehavior="False" EnableViewState="False"
+                                            EnableTheming="False" OnClick="btnNew_Click">
+                                            <HoverStyle BackColor="#FFE0C0">
+                                                <Border BorderWidth="1px" BorderStyle="Outset" BorderColor="Gray"></Border>
+                                            </HoverStyle>
+                                            <Image Height="25px" Width="25px" Url="~/Images/icons/new.png">
+                                            </Image>
+                                        </dxe:ASPxButton>
+                                    </td>
+                                    <td>
+                                        <dxe:ASPxButton ID="btnSave" runat="server" EnableDefaultAppearance="False" EnableTheming="False"
+                                            EnableViewState="False" OnClick="btnSave_Click" Text=" " ToolTip="ذخیره" UseSubmitBehavior="False">
+                                            <HoverStyle BackColor="#FFE0C0">
+                                                <Border BorderColor="Gray" BorderStyle="Outset" BorderWidth="1px" />
+                                            </HoverStyle>
+                                            <Image Height="25px" Url="~/Images/icons/save.png" Width="25px" />
+
+                                        </dxe:ASPxButton>
+                                    </td>
+                                    <td>
+                                        <dxe:ASPxButton ID="btnBack" runat="server" CausesValidation="False" EnableDefaultAppearance="False"
+                                            EnableTheming="False" EnableViewState="False" OnClick="btnBack_Click" Text=" "
+                                            ToolTip="بازگشت" UseSubmitBehavior="False">
+                                            <HoverStyle BackColor="#FFE0C0">
+                                                <Border BorderColor="Gray" BorderStyle="Outset" BorderWidth="1px" />
+                                            </HoverStyle>
+                                            <Image Height="25px" Url="~/Images/icons/Back.png" Width="25px" />
+                                        </dxe:ASPxButton>
+                                    </td>
+                                </tr>
+                            </table>
+                        </dxp:PanelContent>
+                    </PanelCollection>
+                </TSPControls:CustomASPxRoundPanelMenu>
+
+
+                <div style="position: relative">
+                    <div style="position: absolute; z-index: 1; top: 4px; right: 5px;">
+                        <TSPControls:CustomAspxButton ID="CustomAspxButton1" ClientInstanceName="btnTooggle" runat="server"
+                            Width="10px" Text="+" AutoPostBack="false" ToolTip="جهت پاسخ و بازنمودن درخواست کلیک کنید"
+                            BackColor="Transparent">
+                            <Border BorderColor="Transparent" BorderWidth="0" />
+                            <ClientSideEvents Click="function(s,e){
+            if(document.getElementById('NewTicket').style.visibility == 'visible')
+            {
+            btnTooggle.SetText('+');
+            document.getElementById('NewTicket').style.visibility = 'hidden';
+             ASPxRoundPanelNewTicket.SetVisible(false);
+            }
+            else
+            {
+             btnTooggle.SetText('-');
+             document.getElementById('NewTicket').style.visibility = 'visible';
+             ASPxRoundPanelNewTicket.SetVisible(true);
+            }
+            }" />
+                        </TSPControls:CustomAspxButton>
+                    </div>
+                    <div style="position: absolute; z-index: 1; top: 7px; right: 30px;">
+                        جهت پاسخ و بازنمودن درخواست کلیک کنید
+                    </div>
+                    <div style="position: initial; z-index: 0; right: 0px;">
+                        <TSPControls:CustomASPxRoundPanel ID="ASPxRoundPanelNewTicket" ClientInstanceName="ASPxRoundPanelNewTicket" ClientVisible="true" DefaultButton="btnTooggle" HeaderText=" " runat="server"
+                            Width="100%">
+
+                            <PanelCollection>
+                                <dxp:PanelContent>
+                                    <div id="NewTicket" style="visibility: visible">
+                                        <table width="100%">
+                                              <tr>
+                                                <td width="15%">موضوع</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td>نقص پرونده عضویت
+                                        </td>
+                                        <td>
+                                            <dxe:ASPxComboBox ID="CmbFaultMemberRegister" runat="server" CssFilePath="~/App_Themes/Glass/{0}/styles.css"
+                                                CssPostfix="Glass" ImageFolder="~/App_Themes/Glass/{0}/" ValueType="System.String"
+                                                RightToLeft="True" ClientInstanceName="CmbFaultMemberRegister" Width="100%"
+                                                HorizontalAlign="Right" EnableIncrementalFiltering="True">
+                                                <ItemStyle HorizontalAlign="Right" />
+                                             
+                                                <Items>
+                                                    <dxe:ListEditItem Text="همه موارد" Value="-1" Selected="true" />
+                                                    <dxe:ListEditItem Text="فاقد نقص" Value="0" />
+                                                    <dxe:ListEditItem Text="دارای نقص" Value="1" />
+                                                </Items>
+                                            </dxe:ASPxComboBox>
+                                            </td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="4">
+                                                    <TSPControls:CustomASPxHtmlEditor ID="txtNewsBody" runat="server" Width="100%">
+                                                        <Settings AllowHtmlView="true" />
+                                                        <SettingsImageUpload UploadImageFolder="~/Image/Ticket" />
+                                                        <SettingsHtmlEditing AllowIFrames="true" />
+                                                    </TSPControls:CustomASPxHtmlEditor>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </dxp:PanelContent>
+                            </PanelCollection>
+                        </TSPControls:CustomASPxRoundPanel>
+                    </div>
+                </div>
+
+                <TSPControls:CustomASPxRoundPanelMenu ID="ASPxRoundPanel3" runat="server" Width="100%">
+                    <PanelCollection>
+                        <dxp:PanelContent>
+                            <table cellpadding="0" dir="rtl" style="border-collapse: collapse; background-color: transparent">
+                                <tr>
+                                    <td style="width: 27px; height: 27px">
+                                        <dxe:ASPxButton runat="server" Text=" " EnableDefaultAppearance="False" ToolTip="جدید"
+                                            CausesValidation="False" ID="btnNew2" UseSubmitBehavior="False" EnableViewState="False"
+                                            EnableTheming="False" OnClick="btnNew_Click">
+                                            <HoverStyle BackColor="#FFE0C0">
+                                                <Border BorderWidth="1px" BorderStyle="Outset" BorderColor="Gray"></Border>
+                                            </HoverStyle>
+                                            <Image Height="25px" Width="25px" Url="~/Images/icons/new.png">
+                                            </Image>
+                                        </dxe:ASPxButton>
+                                    </td>
+                                    <td>
+                                        <dxe:ASPxButton ID="btnSave2" runat="server" EnableDefaultAppearance="False" EnableTheming="False"
+                                            EnableViewState="False" OnClick="btnSave_Click" Text=" " ToolTip="ذخیره" UseSubmitBehavior="False">
+                                            <HoverStyle BackColor="#FFE0C0">
+                                                <Border BorderColor="Gray" BorderStyle="Outset" BorderWidth="1px" />
+                                            </HoverStyle>
+                                            <Image Height="25px" Url="~/Images/icons/save.png" Width="25px" />
+
+                                        </dxe:ASPxButton>
+                                    </td>
+                                    <td>
+                                        <dxe:ASPxButton ID="ASPxButton6" runat="server" CausesValidation="False" EnableDefaultAppearance="False"
+                                            EnableTheming="False" EnableViewState="False" OnClick="btnBack_Click" Text=" "
+                                            ToolTip="بازگشت" UseSubmitBehavior="False">
+                                            <HoverStyle BackColor="#FFE0C0">
+                                                <Border BorderColor="Gray" BorderStyle="Outset" BorderWidth="1px" />
+                                            </HoverStyle>
+                                            <Image Height="25px" Url="~/Images/icons/Back.png" Width="25px" />
+                                        </dxe:ASPxButton>
+                                    </td>
+                                </tr>
+                            </table>
+                        </dxp:PanelContent>
+                    </PanelCollection>
+                </TSPControls:CustomASPxRoundPanelMenu>
+
+            </dxp:PanelContent>
+        </PanelCollection>
+    </dxcp:ASPxCallbackPanel>
+</asp:Content>
+

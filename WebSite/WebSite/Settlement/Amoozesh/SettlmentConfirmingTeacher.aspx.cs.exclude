@@ -1,0 +1,507 @@
+﻿using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+
+public partial class Settlement_Amoozesh_SettlmentConfirming : System.Web.UI.Page
+{
+    #region Events
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        txtSerialNo.Attributes["onkeyup"] = "return ltr_override(event)";
+        txtFileNo.Attributes["onkeyup"] = "return ltr_override(event)";
+        if (string.IsNullOrEmpty(Request.QueryString["TcId"]))
+        {
+            Response.Redirect("Teachers.aspx");
+            return;
+        }
+        this.DivReport.Visible = false;
+        this.DivReport.Attributes.Add("onclick", "ChangeVisible(this)");
+        this.DivReport.Attributes.Add("onmouseover", "ChangeIcon(this)");
+        if (!IsPostBack)
+        {
+            SetKey();
+            this.ViewState["BtnSave"] = btnSave.Enabled;
+            this.ViewState["Btnedit"] = btnEdit.Enabled;
+        }
+        if (this.ViewState["BtnSave"] != null)
+            this.btnSave.Enabled = this.btnSave2.Enabled = (bool)this.ViewState["BtnSave"];
+        if (this.ViewState["Btnedit"] != null)
+            this.btnEdit.Enabled = this.btnEdit2.Enabled = (bool)this.ViewState["Btnedit"];
+    }
+
+    protected void btnSave_Click(object sender, EventArgs e)
+    {
+        string PageMode = Utility.DecryptQS(HiddenFieldTeacher["PageMode"].ToString());
+
+        string TeId = Utility.DecryptQS(HiddenFieldTeacher["TeId"].ToString());
+
+        if (string.IsNullOrEmpty(PageMode))
+        {
+            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+        }
+        else
+        {
+            if (PageMode == "New")
+            {
+                Insert();
+            }
+            else if (PageMode == "Edit" || PageMode == "Revival" || PageMode == "Change")
+            {
+
+                if (string.IsNullOrEmpty(TeId))
+                {
+                    this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+                    return;
+                }
+                else
+                {
+                    Edit(int.Parse(TeId));
+                }
+            }
+        }
+    }
+
+    protected void btnBack_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("Teachers.aspx");
+    }
+
+    protected void btnEdit_Click(object sender, EventArgs e)
+    {
+        SetEditMode();
+
+    }
+
+    protected void ASPxMenu1_ItemClick(object source, DevExpress.Web.MenuItemEventArgs e)
+    {
+        TSP.DataManager.TeacherCertificateManager TeacherCertificateManager = new TSP.DataManager.TeacherCertificateManager();
+        string TeId = Utility.DecryptQS(HiddenFieldTeacher["TeId"].ToString());
+        string TcId = "";
+        DataTable dtCertificate = TeacherCertificateManager.SelectLastVersion(int.Parse(TeId));
+        if (dtCertificate.Rows.Count == 1)
+            TcId = dtCertificate.Rows[0]["TcId"].ToString();
+
+        switch (e.Item.Name)
+        {
+            case "Madrak":
+                Response.Redirect("TeachersLicence.aspx?TeId=" + HiddenFieldTeacher["TeId"].ToString() + "&PgMd=" + Utility.EncryptQS("View") + "&PgMdTeBase=" + HiddenFieldTeacher["PageMode"].ToString() + "&TcId=" + Utility.EncryptQS(TcId));
+                break;
+            case "Research":
+                Response.Redirect("TeacherResearchAct.aspx?TeId=" + HiddenFieldTeacher["TeId"].ToString() + "&PgMd=" + Utility.EncryptQS("View") + "&PgMdTeBase=" + HiddenFieldTeacher["PageMode"].ToString() + "&TcId=" + Utility.EncryptQS(TcId));
+                break;
+            case "Job":
+                Response.Redirect("TeacherJobHistory.aspx?TeId=" + HiddenFieldTeacher["TeId"].ToString() + "&PgMd=" + Utility.EncryptQS("View") + "&PgMdTeBase=" + HiddenFieldTeacher["PageMode"].ToString() + "&TcId=" + Utility.EncryptQS(TcId));
+                break;
+            case "Atachment":
+                Response.Redirect("TeacherAttachment.aspx?TeId=" + HiddenFieldTeacher["TeId"].ToString() + "&PgMd=" + Utility.EncryptQS("View") + "&PgMdTeBase=" + HiddenFieldTeacher["PageMode"].ToString() + "&TcId=" + Utility.EncryptQS(TcId));
+                break;
+        }
+    }
+    #endregion
+
+    #region Methods
+    private void Insert()
+    {
+        TSP.DataManager.TransactionManager TransactionManager = new TSP.DataManager.TransactionManager();
+        TSP.DataManager.TeacherCertificateManager TeacherCertificateManager = new TSP.DataManager.TeacherCertificateManager();
+        TSP.DataManager.TeachersCourseManager TeachersCourseManager = new TSP.DataManager.TeachersCourseManager();
+        TransactionManager.Add(TeacherCertificateManager);
+        TransactionManager.Add(TeachersCourseManager);
+
+        try
+        {
+
+            TransactionManager.BeginSave();
+            DataRow TCertificateRow = TeacherCertificateManager.NewRow();
+            string TeId = Utility.DecryptQS(HiddenFieldTeacher["TeId"].ToString());
+            TCertificateRow["TeId"] = int.Parse(TeId);
+            TCertificateRow["FileNo"] = txtFileNo.Text;
+            TCertificateRow["SerialNo"] = txtSerialNo.Text;
+            TCertificateRow["StartDate"] = txtFileDate.Text;
+            TCertificateRow["Type"] = 0;
+            TCertificateRow["EndDate"] = txtEndDate.Text;
+            TCertificateRow["Date"] = Utility.GetDateOfToday();
+            TCertificateRow["UserId"] = Utility.GetCurrentUser_UserId();
+            TCertificateRow["ModifiedDate"] = DateTime.Now;
+
+            TeacherCertificateManager.AddRow(TCertificateRow);
+            int cn = TeacherCertificateManager.Save();
+            if (cn > 0)
+            {
+                int TCId = int.Parse(TeacherCertificateManager[0]["TcId"].ToString());
+                //DataTable dtTeacherCourse = TeachersCourseManager.SelectAcceptedCourse(int.Parse(TeId));
+                DataTable dtTeacherCourse = TeachersCourseManager.SelecteachersCourseLastVesion(int.Parse(TeId), -1);
+                int CourseCount = dtTeacherCourse.Rows.Count;
+                if (CourseCount > 0)
+                {
+                    for (int i = 0; i < CourseCount; i++)
+                    {
+                        int TCrsId = int.Parse(dtTeacherCourse.Rows[i]["TCrsId"].ToString());
+                        TeachersCourseManager.FindByCode(TCrsId);
+                        if (TeachersCourseManager.Count == 1)
+                        {
+                            int IsConfirm = int.Parse(TeachersCourseManager[0]["IsConfirmed"].ToString());
+                            if (IsConfirm == 0)
+                            {
+                                TeachersCourseManager[0].BeginEdit();
+                                TeachersCourseManager[0]["IsConfirmed"] = 2;
+                                TeachersCourseManager[0].EndEdit();
+                            }
+                            else
+                            {
+                                TeachersCourseManager[0].BeginEdit();
+                                TeachersCourseManager[0]["TCId"] = TCId;
+                                TeachersCourseManager[0].EndEdit();
+                            }
+                            int cnt = TeachersCourseManager.Save();
+                            if (cnt <= 0)
+                            {
+                                TransactionManager.CancelSave();
+                                this.DivReport.Visible = true;
+                                this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+                            }
+                        }
+                        else
+                        {
+                            TransactionManager.CancelSave();
+                            this.DivReport.Visible = true;
+                            this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+                        }
+                    }
+                }
+                TransactionManager.EndSave();
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "ذخیره انجام شد.";
+            }
+            else
+            {
+                TransactionManager.CancelSave();
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+            }
+        }
+        catch (Exception err)
+        {
+            Utility.SaveWebsiteError(err);
+            TransactionManager.CancelSave();
+            SetError(err);
+        }
+    }
+
+    private void Edit(int TeId)
+    {
+        TSP.DataManager.TeacherCertificateManager TeacherCertificateManager = new TSP.DataManager.TeacherCertificateManager();
+        try
+        {
+            DataTable dtCertificate = TeacherCertificateManager.SelectLastVersion(TeId);
+            if (dtCertificate.Rows.Count == 1)
+            {
+                int TcId = int.Parse(dtCertificate.Rows[0]["TcId"].ToString());
+                TeacherCertificateManager.FindByCode(TcId);
+                if (TeacherCertificateManager.Count == 1)
+                {
+                    TeacherCertificateManager[0].BeginEdit();
+                    TeacherCertificateManager[0]["FileNo"] = txtFileNo.Text;
+                    TeacherCertificateManager[0]["StartDate"] = txtFileDate.Text;
+                    TeacherCertificateManager[0]["SerialNo"] = txtSerialNo.Text;
+                    TeacherCertificateManager[0]["EndDate"] = txtEndDate.Text;
+                    TeacherCertificateManager[0]["UserId"] = Utility.GetCurrentUser_UserId();
+                    TeacherCertificateManager[0]["ModifiedDate"] = DateTime.Now;
+                    TeacherCertificateManager[0].EndEdit();
+
+                    int cn = TeacherCertificateManager.Save();
+                    if (cn > 0)
+                    {
+                        this.DivReport.Visible = true;
+                        this.LabelWarning.Text = "ذخیره انجام شد.";
+                    }
+                    else
+                    {
+                        this.DivReport.Visible = true;
+                        this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است.";
+                    }
+                }
+            }
+            else
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "اطلاعات مورد نظر توسط کاربر دیگری تغییر یافته است.";
+            }
+        }
+        catch (Exception err)
+        {
+            Utility.SaveWebsiteError(err);
+            if (err.GetType() == typeof(System.Data.SqlClient.SqlException))
+            {
+                System.Data.SqlClient.SqlException se = (System.Data.SqlClient.SqlException)err;
+                if (se.Number == 2601)
+                {
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "اطلاعات تکراری می باشد";
+                }
+                else
+                {
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+                }
+            }
+            else
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+            }
+        }
+    }
+
+    private void FillForm(int TeId)
+    {
+        TSP.DataManager.TeacherManager TeacherManager = new TSP.DataManager.TeacherManager();
+        TeacherManager.FindByCode(TeId);
+        if (TeacherManager.Count == 1)
+        {
+            lblTeName.Text = TeacherManager[0]["Name"].ToString();
+            lblTeFamily.Text = TeacherManager[0]["Family"].ToString();
+            lblFather.Text = TeacherManager[0]["Father"].ToString();
+            lblBirthDate.Text = TeacherManager[0]["BirthDate"].ToString();
+            lblIdNo.Text = TeacherManager[0]["IdNo"].ToString();
+            lblSSN.Text = TeacherManager[0]["SSN"].ToString();
+            lblTell.Text = TeacherManager[0]["Tel"].ToString();
+            lblMobileNo.Text = TeacherManager[0]["MobileNo"].ToString();
+            lblAddress.Text = TeacherManager[0]["Address"].ToString();
+            lblEmail.Text = TeacherManager[0]["Email"].ToString();
+            lblMajor.Text = TeacherManager[0]["MjName"].ToString();
+            lblLastMajor.Text = TeacherManager[0]["LiName"].ToString();
+            lblDescription.Text = TeacherManager[0]["Description"].ToString();
+
+            if (!string.IsNullOrEmpty(TeacherManager[0]["MeId"].ToString()))
+            {
+                lblMemberType.Text = "عضو نظام";
+                lblMeId.Text = TeacherManager[0]["MeID"].ToString();
+                lblMeIdName.Visible = true;
+                lblMeId.Visible = true;
+            }
+            else
+            {
+                lblMeIdName.Visible = false;
+                lblMeId.Visible = false;
+                lblMemberType.Text = "شخص جدید";
+            }
+
+            //txtFileDate.Text = TeacherManager[0]["FileDate"].ToString();
+            //txtFileNo.Text = TeacherManager[0]["FileNo"].ToString();
+            //txtSerialNo.Text = TeacherManager[0]["SerialNo"].ToString();
+        }
+        else
+        {
+            Response.Redirect("Teachers.aspx");
+        }
+    }
+
+    private void FillFormCertificate(int TcId)
+    {
+        TSP.DataManager.TeacherCertificateManager TeacherCertificateManager = new TSP.DataManager.TeacherCertificateManager();
+
+        TeacherCertificateManager.FindByCode(TcId);
+        if (TeacherCertificateManager.Count > 0)
+        {
+            txtEndDate.Text = TeacherCertificateManager[0]["EndDate"].ToString();
+            txtFileDate.Text = TeacherCertificateManager[0]["StartDate"].ToString();
+            txtFileNo.Text = TeacherCertificateManager[0]["FileNo"].ToString();
+            txtSerialNo.Text = TeacherCertificateManager[0]["SerialNo"].ToString();
+        }
+    }
+
+    private void SetError(Exception err)
+    {
+        if (err.GetType() == typeof(System.Data.SqlClient.SqlException))
+        {
+            System.Data.SqlClient.SqlException se = (System.Data.SqlClient.SqlException)err;
+            if (se.Number == 2601)
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "اطلاعات تکراری می باشد";
+            }
+            else
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+            }
+        }
+        else
+        {
+            this.DivReport.Visible = true;
+            this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+        }
+    }
+
+    private void SetKey()
+    {
+        try
+        {
+            string TeId = "-1";
+            HiddenFieldTeacher["PageMode"] = Request.QueryString["PgMd"];
+            HiddenFieldTeacher["TcId"] = Request.QueryString["TcId"];
+            int TcId = int.Parse(Utility.DecryptQS(HiddenFieldTeacher["TcId"].ToString()));
+            TSP.DataManager.TeacherCertificateManager TeacherCertificateManager = new TSP.DataManager.TeacherCertificateManager();
+            TeacherCertificateManager.FindByCode(TcId);
+            if (TeacherCertificateManager.Count == 1)
+            {
+                TeId = TeacherCertificateManager[0]["TeId"].ToString();
+                HiddenFieldTeacher["TeId"] = Utility.EncryptQS(TeId);
+            }
+            else
+            {
+                this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+                return;
+            }
+            string PageMode = Utility.DecryptQS(HiddenFieldTeacher["PageMode"].ToString());
+            if (string.IsNullOrEmpty(PageMode))
+            {
+                this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+                return;
+            }
+            else
+            {
+                SetMode(PageMode);
+                btnSave.Enabled = btnSave2.Enabled = btnEdit2.Enabled = btnEdit.Enabled = CheckPermitionForEdit(int.Parse(TeId));
+            }
+        }
+        catch
+        {
+            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+            return;
+        }
+    }
+
+    private void SetMode(string Mode)
+    {
+        switch (Mode)
+        {
+            case "View":
+                SetViewMode();
+                break;
+
+            case "Edit":
+                SetEditMode();
+                break;
+
+            case "Revival":
+                SetRevivalMode();
+                break;
+
+            case "Change":
+                SetChangeMode();
+                break;
+        }
+    }
+
+    private void SetRevivalMode()
+    {
+        string TeId = Utility.DecryptQS(HiddenFieldTeacher["TeId"].ToString());
+        string TcId = Utility.DecryptQS(HiddenFieldTeacher["TcId"].ToString());
+
+        FillForm(int.Parse(TeId));
+        FillFormCertificate(int.Parse(TcId));
+        txtEndDate.Enabled = true;
+        txtFileDate.Enabled = true;
+        txtFileNo.Enabled = false;
+        txtSerialNo.Enabled = true;
+        RoundPanelTeacherConf.HeaderText = "مشخصات گواهینامه _ تمدید پروانه آموزشی";
+    }
+
+    private void SetChangeMode()
+    {
+        string TeId = Utility.DecryptQS(HiddenFieldTeacher["TeId"].ToString());
+        string TcId = Utility.DecryptQS(HiddenFieldTeacher["TcId"].ToString());
+
+        FillForm(int.Parse(TeId));
+        FillFormCertificate(int.Parse(TcId));
+        txtEndDate.Enabled = false;
+        txtFileDate.Enabled = false;
+        txtFileNo.Enabled = false;
+        txtSerialNo.Enabled = true;
+        ASPxRoundPanel2.HeaderText = "مشاهده";
+        RoundPanelTeacherConf.HeaderText = "مشخصات گواهینامه _ تغییر پروانه آموزشی";
+    }
+
+    private void SetEditMode()
+    {
+        HiddenFieldTeacher["PageMode"] = Utility.EncryptQS("Edit");
+        string TeId = Utility.DecryptQS(HiddenFieldTeacher["TeId"].ToString());
+        string TcId = Utility.DecryptQS(HiddenFieldTeacher["TcId"].ToString());
+        FillForm(int.Parse(TeId));
+        FillFormCertificate(int.Parse(TcId));
+        txtEndDate.Enabled = true;
+        txtFileDate.Enabled = true;
+        txtFileNo.Enabled = true;
+        txtSerialNo.Enabled = true;
+        RoundPanelTeacherConf.HeaderText = "مشخصات گواهینامه _ صدور پروانه آموزشی";
+    }
+
+    private void SetViewMode()
+    {
+        string TeId = Utility.DecryptQS(HiddenFieldTeacher["TeId"].ToString());
+        string TcId = Utility.DecryptQS(HiddenFieldTeacher["TcId"].ToString());
+        if (string.IsNullOrEmpty(TeId))
+        {
+            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+            return;
+        }
+        FillForm(int.Parse(TeId));
+        FillFormCertificate(int.Parse(TcId));
+        txtEndDate.Enabled = false;
+        txtFileDate.Enabled = false;
+        txtFileNo.Enabled = false;
+        txtSerialNo.Enabled = false;
+        ASPxRoundPanel2.HeaderText = "مشاهده";
+        RoundPanelTeacherConf.HeaderText = "مشخصات گواهینامه";
+    }
+
+    private void Enable()
+    {
+        txtEndDate.Enabled = true;
+        txtFileDate.Enabled = true;
+        txtFileNo.Enabled = true;
+        txtSerialNo.Enabled = true;
+    }
+
+    private Boolean CheckPermitionForEdit(int TableId)
+    {
+        TSP.DataManager.TaskDoerManager TaskDoerManager = new TSP.DataManager.TaskDoerManager();
+        TSP.DataManager.WorkFlowTaskManager WorkFlowTaskManager = new TSP.DataManager.WorkFlowTaskManager();
+        TSP.DataManager.WorkFlowStateManager WorkFlowStateManager = new TSP.DataManager.WorkFlowStateManager();
+        WorkFlowStateManager.ClearBeforeFill = true;
+        int TaskOrder = -1;
+        int TaskCode = (int)TSP.DataManager.WorkFlowTask.settlementAgentConfiringTeacher;
+        WorkFlowTaskManager.FindByTaskCode(TaskCode);
+        if (WorkFlowTaskManager.Count > 0)
+        {
+            TaskOrder = int.Parse(WorkFlowTaskManager[0]["TaskOrder"].ToString());
+            if (TaskOrder != 0)
+            {
+                int WFCode = (int)TSP.DataManager.WorkFlows.TeachersConfirming;
+                DataTable dtWorkFlowLastState = WorkFlowStateManager.SelectLastStateByWfCode(WFCode, TableId);
+                if (dtWorkFlowLastState.Rows.Count > 0)
+                {
+                    int CurrentTaskCode = int.Parse(dtWorkFlowLastState.Rows[0]["TaskCode"].ToString());
+                    if (CurrentTaskCode == TaskCode)
+                        return true;
+                }
+            }
+        }
+        return false;
+
+    }
+
+    #endregion
+}

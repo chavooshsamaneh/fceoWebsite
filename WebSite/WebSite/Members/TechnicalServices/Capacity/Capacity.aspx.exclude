@@ -1,0 +1,725 @@
+﻿<%@ Page Language="C#" MasterPageFile="~/MasterPagePortals.master" AutoEventWireup="true" CodeFile="Capacity.aspx.cs" Inherits="Members_TechnicalServices_Project_Capacity" Title="اطلاعات ظرفیت" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxm" %>
+
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxhf" %>
+
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxrp" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxp" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxe" %>
+
+<%@ Register Assembly="AjaxControls" Namespace="AjaxControls" TagPrefix="asp" %>
+<%@ Register Assembly="PersianDateControls 2.0" Namespace="PersianDateControls" TagPrefix="pdc" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxwgv" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxuc" %>
+<%@ Register Assembly="TSP.WebControls" Namespace="TSP.WebControls" TagPrefix="TSPControls" %>
+
+
+<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+    
+    <div id="content" style="display: block" align="center">
+        <pdc:PersianDateScriptManager ID="PersianDateScriptManager" runat="server" CalendarCSS="PickerCalendarCSS"
+           CalendarDayWidth="33" CalendarDayHeight="15" FooterCSS="PickerFooterCSS" ForbidenCSS="PickerForbidenCSS"
+           FrameCSS="PickerCSS" HeaderCSS="PickerHeaderCSS" SelectedCSS="PickerSelectedCSS"
+           WeekDayCSS="PickerWeekDayCSS" WorkDayCSS="PickerWorkDayCSS">
+       </pdc:PersianDateScriptManager>        
+        <div dir="ltr" style="display: block; overflow: hidden">
+            <asp:updatepanel id="UpdatePanel1" runat="server">
+               <contenttemplate>
+<DIV style="TEXT-ALIGN: right" dir=rtl id="DivReport" class="DivErrors" runat="server" visible="false"><asp:label id="LabelWarning" runat="server" text="Label"></asp:label> [<A class="closeLink" href="#">بستن</A>]</DIV><DIV style="WIDTH: 100%" dir=ltr align=right><dxrp:ASPxRoundPanel id="ASPxRoundPanel1" runat="server" Width="100%"  BackColor="#EBF2F4"  ShowHeader="False">
+<LeftEdge>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif"></BackgroundImage>
+</LeftEdge>
+
+<BottomRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpBottomRightCorner.png"></BottomRightCorner>
+
+<HeaderContent>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderBack.gif"></BackgroundImage>
+</HeaderContent>
+
+<ContentPaddings Padding="0px"></ContentPaddings>
+
+<NoHeaderTopRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopRightCorner.png"></NoHeaderTopRightCorner>
+
+<RightEdge>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif"></BackgroundImage>
+</RightEdge>
+
+<HeaderRightEdge>
+<BackgroundImage VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderRightEdge.gif"></BackgroundImage>
+</HeaderRightEdge>
+
+<Border BorderWidth="1px" BorderStyle="Solid" BorderColor="#7EACB1"></Border>
+
+<HeaderStyle BackColor="White" Height="23px">
+<Paddings PaddingTop="0px" PaddingBottom="0px" PaddingLeft="2px"></Paddings>
+
+<BorderBottom BorderStyle="None"></BorderBottom>
+</HeaderStyle>
+
+<Content>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpContentBack.gif"></BackgroundImage>
+</Content>
+
+<HeaderLeftEdge>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderLeftEdge.gif"></BackgroundImage>
+</HeaderLeftEdge>
+
+<BottomEdge BackColor="#D7E9F1"></BottomEdge>
+
+<TopRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpTopRightCorner.png"></TopRightCorner>
+
+<NoHeaderTopLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopLeftCorner.png"></NoHeaderTopLeftCorner>
+<PanelCollection>
+<dxp:PanelContent runat="server"><DIV dir=rtl><TABLE style="DISPLAY: block; OVERFLOW: hidden; BORDER-COLLAPSE: collapse" cellPadding=0 width="100%" align=right><TBODY><TR><TD style="VERTICAL-ALIGN: top"><TABLE style="BORDER-COLLAPSE: collapse; BACKGROUND-COLOR: transparent" dir=rtl cellPadding=0 align=right><TBODY><TR>
+    <td>
+        <TSPControls:CustomTextBox runat="server" Text=" "  ToolTip="اطلاعات ظرفیت دفتر" CausesValidation="False" ID="btnEngOffice" UseSubmitBehavior="False" EnableViewState="False" EnableTheming="False" OnClick="btnEngOffice_Click" Visible="False">
+            <HoverStyle BackColor="#FFE0C0">
+                <Border BorderColor="Gray" BorderStyle="Outset" BorderWidth="1px" />
+            </HoverStyle>
+            <Image Height="25px" Url="~/Images/icons/Compact Disk.png" Width="25px" />
+        </TSPControls:CustomTextBox>
+    </td>
+    <TD><TSPControls:CustomTextBox runat="server" Text=" "  ToolTip="بازگشت" CausesValidation="False" ID="btnBack" UseSubmitBehavior="False" EnableViewState="False" EnableTheming="False" OnClick="btnBack_Click">
+<HoverStyle BackColor="#FFE0C0">
+<Border BorderWidth="1px" BorderStyle="Outset" BorderColor="Gray"></Border>
+</HoverStyle>
+
+<Image  Url="~/Images/icons/Back.png"></Image>
+</TSPControls:CustomTextBox>
+ </TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></DIV></dxp:PanelContent>
+</PanelCollection>
+
+<TopLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpTopLeftCorner.png"></TopLeftCorner>
+
+<NoHeaderTopEdge BackColor="#EBF2F4"></NoHeaderTopEdge>
+
+<BottomLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpBottomLeftCorner.png"></BottomLeftCorner>
+</dxrp:ASPxRoundPanel>&nbsp; </DIV><BR /><dxrp:ASPxRoundPanel id="ASPxRoundPanelDsgn" runat="server" Width="100%"  BackColor="#EBF2F4"  HeaderText="ظرفیت طراحی">
+<LeftEdge>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif"></BackgroundImage>
+</LeftEdge>
+
+<BottomRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpBottomRightCorner.png"></BottomRightCorner>
+
+<HeaderContent>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderBack.gif"></BackgroundImage>
+</HeaderContent>
+
+<ContentPaddings PaddingTop="10px" PaddingBottom="10px" PaddingLeft="4px"></ContentPaddings>
+
+<NoHeaderTopRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopRightCorner.png"></NoHeaderTopRightCorner>
+
+<RightEdge>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif"></BackgroundImage>
+</RightEdge>
+
+<HeaderRightEdge>
+<BackgroundImage VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderRightEdge.gif"></BackgroundImage>
+</HeaderRightEdge>
+
+<Border BorderWidth="1px" BorderStyle="Solid" BorderColor="#7EACB1"></Border>
+
+<HeaderStyle HorizontalAlign="Right" BackColor="White" Height="23px">
+<Paddings PaddingTop="0px" PaddingBottom="0px" PaddingLeft="2px"></Paddings>
+
+<BorderBottom BorderStyle="None"></BorderBottom>
+</HeaderStyle>
+
+<Content>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpContentBack.gif"></BackgroundImage>
+</Content>
+
+<HeaderLeftEdge>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderLeftEdge.gif"></BackgroundImage>
+</HeaderLeftEdge>
+
+<BottomEdge BackColor="#D7E9F1"></BottomEdge>
+
+<TopRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpTopRightCorner.png"></TopRightCorner>
+
+<NoHeaderTopLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopLeftCorner.png"></NoHeaderTopLeftCorner>
+<PanelCollection>
+<dxp:PanelContent runat="server"><TABLE dir=rtl width="100%"><TBODY>
+    <tr>
+        <td align="right" valign="top">
+            <dxe:ASPxLabel runat="server" Text="ظرفیت کل" ID="ASPxLabel25">
+            </dxe:ASPxLabel>
+        </td>
+        <td align="right" valign="top">
+            <TSPControls:CustomTextBox runat="server" ID="ASPxTextBoxDsgTotalCapacity"  Width="160px" ReadOnly="True" >
+                <ValidationSettings>
+                    
+                    <ErrorFrameStyle ImageSpacing="4px">
+                        <ErrorTextPaddings PaddingLeft="4px" />
+                    </ErrorFrameStyle>
+                </ValidationSettings>
+            </TSPControls:CustomTextBox>
+        </td>
+        <td align="right" valign="top">
+            <dxe:ASPxLabel runat="server" Text="حداکثر تعداد کار" ID="ASPxLabel17">
+            </dxe:ASPxLabel>
+        </td>
+        <td align="right" valign="top">
+            <TSPControls:CustomTextBox runat="server" ID="ASPxTextBoxDsgMaxJobCount"  Width="160px"  ReadOnly="True">
+                <ValidationSettings Display="Dynamic" ErrorTextPosition="Bottom">
+                    
+                    <RequiredField ErrorText="کسر ظرفیت را وارد نمایید" IsRequired="True" />
+                    <ErrorFrameStyle ImageSpacing="4px">
+                        <ErrorTextPaddings PaddingLeft="4px" />
+                    </ErrorFrameStyle>
+                </ValidationSettings>
+            </TSPControls:CustomTextBox>
+        </td>
+    </tr>
+    <TR>
+        <TD vAlign=top align=right>
+            <dxe:ASPxLabel runat="server" Text="ضریب تبدیل طراحی به نظارت" ID="ASPxLabel18">
+            </dxe:ASPxLabel>
+        </td>
+        <TD vAlign=top align=right>
+            <TSPControls:CustomTextBox runat="server" ID="ASPxTextBoxDsgObservationPercent"  Width="160px" ReadOnly="True" >
+                <ValidationSettings>
+                    
+                    <ErrorFrameStyle ImageSpacing="4px">
+                        <ErrorTextPaddings PaddingLeft="4px" />
+                    </ErrorFrameStyle>
+                </ValidationSettings>
+            </TSPControls:CustomTextBox>
+        </td>
+        <TD vAlign=top align=right>
+            <dxe:ASPxLabel runat="server" Text="پایه" ID="ASPxLabel19">
+            </dxe:ASPxLabel>
+        </td>
+        <TD vAlign=top align=right>
+            <TSPControls:CustomTextBox runat="server" ID="ASPxTextBoxDsgGrade"  Width="160px"  ReadOnly="True">
+                <ValidationSettings Display="Dynamic" ErrorTextPosition="Bottom">
+                    
+                    <RequiredField ErrorText="کسر دستمزد را وارد نمایید" IsRequired="True" />
+                    <ErrorFrameStyle ImageSpacing="4px">
+                        <ErrorTextPaddings PaddingLeft="4px" />
+                    </ErrorFrameStyle>
+                </ValidationSettings>
+            </TSPControls:CustomTextBox>
+        </td>
+    </tr>
+    <TR>
+        <TD vAlign=top align=right>
+            <dxe:ASPxLabel runat="server" Text="تعداد پروژه های در دست اجرا" ID="ASPxLabel21">
+            </dxe:ASPxLabel>
+        </td>
+        <TD vAlign=top align=right>
+            <TSPControls:CustomTextBox runat="server" ID="ASPxTextBoxDsgProjectCount"  Width="160px" ReadOnly="True" >
+                <ValidationSettings>
+                    
+                    <ErrorFrameStyle ImageSpacing="4px">
+                        <ErrorTextPaddings PaddingLeft="4px" />
+                    </ErrorFrameStyle>
+                </ValidationSettings>
+            </TSPControls:CustomTextBox>
+        </td>
+        <TD vAlign=top align=right>
+            <dxe:ASPxLabel runat="server" Text="کل کارکرد" ID="ASPxLabel20">
+            </dxe:ASPxLabel>
+        </td>
+        <TD vAlign=top align=right>
+            <TSPControls:CustomTextBox runat="server" ID="ASPxTextBoxDsgTotalUsed"  Width="160px" ReadOnly="True" >
+                <ValidationSettings>
+                    
+                    <ErrorFrameStyle ImageSpacing="4px">
+                        <ErrorTextPaddings PaddingLeft="4px" />
+                    </ErrorFrameStyle>
+                </ValidationSettings>
+            </TSPControls:CustomTextBox>
+        </td>
+    </tr>
+    <TR>
+        <TD vAlign=top align=right>
+            <dxe:ASPxLabel runat="server" Text="ظرفیت باقیمانده" ID="ASPxLabel26">
+            </dxe:ASPxLabel>
+        </td>
+        <TD vAlign=top align=right>
+            <TSPControls:CustomTextBox runat="server" ID="ASPxTextBoxDsgRemainCapacity"  Width="160px" ReadOnly="True" >
+                <ValidationSettings>
+                    
+                    <ErrorFrameStyle ImageSpacing="4px">
+                        <ErrorTextPaddings PaddingLeft="4px" />
+                    </ErrorFrameStyle>
+                </ValidationSettings>
+            </TSPControls:CustomTextBox>
+        </td>
+        <TD vAlign=top align=right>
+            <dxe:ASPxLabel runat="server" Text="کل رزرو شده" ID="ASPxLabel22">
+            </dxe:ASPxLabel>
+        </td>
+        <TD vAlign=top align=right>
+            <TSPControls:CustomTextBox runat="server" ID="ASPxTextBoxDsgReserve"  Width="160px" ReadOnly="True" >
+                <ValidationSettings>
+                    
+                    <ErrorFrameStyle ImageSpacing="4px">
+                        <ErrorTextPaddings PaddingLeft="4px" />
+                    </ErrorFrameStyle>
+                </ValidationSettings>
+            </TSPControls:CustomTextBox>
+        </td>
+    </tr>
+</TBODY></TABLE></dxp:PanelContent>
+</PanelCollection>
+
+<TopLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpTopLeftCorner.png"></TopLeftCorner>
+
+<NoHeaderTopEdge BackColor="#EBF2F4"></NoHeaderTopEdge>
+
+<BottomLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpBottomLeftCorner.png"></BottomLeftCorner>
+</dxrp:ASPxRoundPanel><DIV style="DISPLAY: block" dir=ltr>&nbsp;<dxrp:ASPxRoundPanel id="ASPxRoundPanelObs" runat="server" Width="100%"  BackColor="#EBF2F4"  HeaderText="ظرفیت نظارت">
+<LeftEdge>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif"></BackgroundImage>
+</LeftEdge>
+
+<BottomRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpBottomRightCorner.png"></BottomRightCorner>
+
+<HeaderContent>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderBack.gif"></BackgroundImage>
+</HeaderContent>
+
+<ContentPaddings PaddingTop="10px" PaddingBottom="10px" PaddingLeft="4px"></ContentPaddings>
+
+<NoHeaderTopRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopRightCorner.png"></NoHeaderTopRightCorner>
+
+<RightEdge>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif"></BackgroundImage>
+</RightEdge>
+
+<HeaderRightEdge>
+<BackgroundImage VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderRightEdge.gif"></BackgroundImage>
+</HeaderRightEdge>
+
+<Border BorderWidth="1px" BorderStyle="Solid" BorderColor="#7EACB1"></Border>
+
+<HeaderStyle HorizontalAlign="Right" BackColor="White" Height="23px">
+<Paddings PaddingTop="0px" PaddingBottom="0px" PaddingLeft="2px"></Paddings>
+
+<BorderBottom BorderStyle="None"></BorderBottom>
+</HeaderStyle>
+
+<Content>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpContentBack.gif"></BackgroundImage>
+</Content>
+
+<HeaderLeftEdge>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderLeftEdge.gif"></BackgroundImage>
+</HeaderLeftEdge>
+
+<BottomEdge BackColor="#D7E9F1"></BottomEdge>
+
+<TopRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpTopRightCorner.png"></TopRightCorner>
+
+<NoHeaderTopLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopLeftCorner.png"></NoHeaderTopLeftCorner>
+<PanelCollection>
+<dxp:PanelContent runat="server"><TABLE dir=rtl width="100%">
+    <TBODY>
+        <tr>
+            <td align="right" valign="top">
+                <dxe:ASPxLabel runat="server" Text="ظرفیت کل" ID="ASPxLabel1">
+                </dxe:ASPxLabel>
+            </td>
+            <td align="right" valign="top">
+                <TSPControls:CustomTextBox runat="server" ID="ASPxTextBoxObsTotalCapacity"  Width="160px" ReadOnly="True" >
+                    <ValidationSettings>
+                        
+                        <ErrorFrameStyle ImageSpacing="4px">
+                            <ErrorTextPaddings PaddingLeft="4px" />
+                        </ErrorFrameStyle>
+                    </ValidationSettings>
+                </TSPControls:CustomTextBox>
+            </td>
+            <td align="right" valign="top">
+                <dxe:ASPxLabel runat="server" Text="حداکثر تعداد کار" ID="ASPxLabel2">
+                </dxe:ASPxLabel>
+            </td>
+            <td align="right" valign="top">
+                <TSPControls:CustomTextBox runat="server" ID="ASPxTextBoxObsMaxJobCount"  Width="160px"  ReadOnly="True">
+                    <ValidationSettings Display="Dynamic" ErrorTextPosition="Bottom">
+                        
+                        <RequiredField ErrorText="کسر ظرفیت را وارد نمایید" IsRequired="True" />
+                        <ErrorFrameStyle ImageSpacing="4px">
+                            <ErrorTextPaddings PaddingLeft="4px" />
+                        </ErrorFrameStyle>
+                    </ValidationSettings>
+                </TSPControls:CustomTextBox>
+            </td>
+        </tr>
+        <TR>
+            <TD vAlign=top align=right>
+                <dxe:ASPxLabel runat="server" Text="ضریب تبدیل طراحی به نظارت" ID="ASPxLabel3">
+                </dxe:ASPxLabel>
+            </td>
+            <TD vAlign=top align=right>
+                <TSPControls:CustomTextBox runat="server" ID="ASPxTextBoxObsObservationPercent"  Width="160px" ReadOnly="True" >
+                    <ValidationSettings>
+                        
+                        <ErrorFrameStyle ImageSpacing="4px">
+                            <ErrorTextPaddings PaddingLeft="4px" />
+                        </ErrorFrameStyle>
+                    </ValidationSettings>
+                </TSPControls:CustomTextBox>
+            </td>
+            <TD vAlign=top align=right>
+                <dxe:ASPxLabel runat="server" Text="پایه" ID="ASPxLabel4">
+                </dxe:ASPxLabel>
+            </td>
+            <TD vAlign=top align=right>
+                <TSPControls:CustomTextBox runat="server" ID="ASPxTextBoxObsGrade"  Width="160px"  ReadOnly="True">
+                    <ValidationSettings Display="Dynamic" ErrorTextPosition="Bottom">
+                        
+                        <RequiredField ErrorText="کسر دستمزد را وارد نمایید" IsRequired="True" />
+                        <ErrorFrameStyle ImageSpacing="4px">
+                            <ErrorTextPaddings PaddingLeft="4px" />
+                        </ErrorFrameStyle>
+                    </ValidationSettings>
+                </TSPControls:CustomTextBox>
+            </td>
+        </tr>
+        <TR>
+            <TD vAlign=top align=right>
+                <dxe:ASPxLabel runat="server" Text="تعداد پروژه های در دست اجرا" ID="ASPxLabel5">
+                </dxe:ASPxLabel>
+            </td>
+            <TD vAlign=top align=right>
+                <TSPControls:CustomTextBox runat="server" ID="ASPxTextBoxObsProjectCount"  Width="160px" ReadOnly="True" >
+                    <ValidationSettings>
+                        
+                        <ErrorFrameStyle ImageSpacing="4px">
+                            <ErrorTextPaddings PaddingLeft="4px" />
+                        </ErrorFrameStyle>
+                    </ValidationSettings>
+                </TSPControls:CustomTextBox>
+            </td>
+            <TD vAlign=top align=right>
+                <dxe:ASPxLabel runat="server" Text="کل کارکرد" ID="ASPxLabel6">
+                </dxe:ASPxLabel>
+            </td>
+            <TD vAlign=top align=right>
+                <TSPControls:CustomTextBox runat="server" ID="ASPxTextBoxObsTotalUsed"  Width="160px" ReadOnly="True" >
+                    <ValidationSettings>
+                        
+                        <ErrorFrameStyle ImageSpacing="4px">
+                            <ErrorTextPaddings PaddingLeft="4px" />
+                        </ErrorFrameStyle>
+                    </ValidationSettings>
+                </TSPControls:CustomTextBox>
+            </td>
+        </tr>
+        <TR>
+            <TD vAlign=top align=right>
+                <dxe:ASPxLabel runat="server" Text="ظرفیت باقیمانده" ID="ASPxLabel7">
+                </dxe:ASPxLabel>
+            </td>
+            <TD vAlign=top align=right>
+                <TSPControls:CustomTextBox runat="server" ID="ASPxTextBoxObsRemainCapacity"  Width="160px" ReadOnly="True" >
+                    <ValidationSettings>
+                        
+                        <ErrorFrameStyle ImageSpacing="4px">
+                            <ErrorTextPaddings PaddingLeft="4px" />
+                        </ErrorFrameStyle>
+                    </ValidationSettings>
+                </TSPControls:CustomTextBox>
+            </td>
+            <TD vAlign=top align=right>
+                <dxe:ASPxLabel runat="server" Text="کل رزرو شده" ID="ASPxLabel8">
+                </dxe:ASPxLabel>
+            </td>
+            <TD vAlign=top align=right>
+                <TSPControls:CustomTextBox runat="server" ID="ASPxTextBoxObsReserve"  Width="160px" ReadOnly="True" >
+                    <ValidationSettings>
+                        
+                        <ErrorFrameStyle ImageSpacing="4px">
+                            <ErrorTextPaddings PaddingLeft="4px" />
+                        </ErrorFrameStyle>
+                    </ValidationSettings>
+                </TSPControls:CustomTextBox>
+            </td>
+        </tr>
+    </tbody>
+</table>
+</dxp:PanelContent>
+</PanelCollection>
+
+<TopLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpTopLeftCorner.png"></TopLeftCorner>
+
+<NoHeaderTopEdge BackColor="#EBF2F4"></NoHeaderTopEdge>
+
+<BottomLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpBottomLeftCorner.png"></BottomLeftCorner>
+</dxrp:ASPxRoundPanel></DIV><BR /><dxrp:ASPxRoundPanel id="ASPxRoundPanelImp" runat="server" Width="100%"  BackColor="#EBF2F4"  HeaderText="ظرفیت اجرا">
+<LeftEdge>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif"></BackgroundImage>
+</LeftEdge>
+
+<BottomRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpBottomRightCorner.png"></BottomRightCorner>
+
+<HeaderContent>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderBack.gif"></BackgroundImage>
+</HeaderContent>
+
+<ContentPaddings PaddingTop="10px" PaddingBottom="10px" PaddingLeft="4px"></ContentPaddings>
+
+<NoHeaderTopRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopRightCorner.png"></NoHeaderTopRightCorner>
+
+<RightEdge>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif"></BackgroundImage>
+</RightEdge>
+
+<HeaderRightEdge>
+<BackgroundImage VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderRightEdge.gif"></BackgroundImage>
+</HeaderRightEdge>
+
+<Border BorderWidth="1px" BorderStyle="Solid" BorderColor="#7EACB1"></Border>
+
+<HeaderStyle HorizontalAlign="Right" BackColor="White" Height="23px">
+<Paddings PaddingTop="0px" PaddingBottom="0px" PaddingLeft="2px"></Paddings>
+
+<BorderBottom BorderStyle="None"></BorderBottom>
+</HeaderStyle>
+
+<Content>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpContentBack.gif"></BackgroundImage>
+</Content>
+
+<HeaderLeftEdge>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderLeftEdge.gif"></BackgroundImage>
+</HeaderLeftEdge>
+
+<BottomEdge BackColor="#D7E9F1"></BottomEdge>
+
+<TopRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpTopRightCorner.png"></TopRightCorner>
+
+<NoHeaderTopLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopLeftCorner.png"></NoHeaderTopLeftCorner>
+<PanelCollection>
+<dxp:PanelContent runat="server">
+    <br />
+    <TABLE dir=rtl width="100%">
+        <TBODY>
+            <tr>
+                <td align="right" valign="top">
+                    <dxe:ASPxLabel runat="server" Text="ظرفیت کل" ID="ASPxLabel9">
+                    </dxe:ASPxLabel>
+                </td>
+                <td align="right" valign="top">
+                    <TSPControls:CustomTextBox runat="server" ID="ASPxTextBoxImpTotalCapacity"  Width="160px" ReadOnly="True" >
+                        <ValidationSettings>
+                            
+                            <ErrorFrameStyle ImageSpacing="4px">
+                                <ErrorTextPaddings PaddingLeft="4px" />
+                            </ErrorFrameStyle>
+                        </ValidationSettings>
+                    </TSPControls:CustomTextBox>
+                </td>
+                <td align="right" valign="top">
+                    <dxe:ASPxLabel runat="server" Text="حداکثر تعداد کار" ID="ASPxLabel10">
+                    </dxe:ASPxLabel>
+                </td>
+                <td align="right" valign="top">
+                    <TSPControls:CustomTextBox runat="server" ID="ASPxTextBoxImpMaxJobCount"  Width="160px"  ReadOnly="True">
+                        <ValidationSettings Display="Dynamic" ErrorTextPosition="Bottom">
+                            
+                            <RequiredField ErrorText="کسر ظرفیت را وارد نمایید" IsRequired="True" />
+                            <ErrorFrameStyle ImageSpacing="4px">
+                                <ErrorTextPaddings PaddingLeft="4px" />
+                            </ErrorFrameStyle>
+                        </ValidationSettings>
+                    </TSPControls:CustomTextBox>
+                </td>
+            </tr>
+            <TR>
+                <TD vAlign=top align=right>
+                    <dxe:ASPxLabel runat="server" Text="حداکثر تعداد طبقات" ID="ASPxLabel23">
+                    </dxe:ASPxLabel>
+                </td>
+                <TD vAlign=top align=right>
+                    <TSPControls:CustomTextBox runat="server" ID="ASPxTextBoxImpMaxFloor"  Width="160px" ReadOnly="True" >
+                        <ValidationSettings>
+                            
+                            <ErrorFrameStyle ImageSpacing="4px">
+                                <ErrorTextPaddings PaddingLeft="4px" />
+                            </ErrorFrameStyle>
+                        </ValidationSettings>
+                    </TSPControls:CustomTextBox>
+                </td>
+                <TD vAlign=top align=right>
+                    <dxe:ASPxLabel runat="server" Text="پایه" ID="ASPxLabel24">
+                    </dxe:ASPxLabel>
+                </td>
+                <TD vAlign=top align=right>
+                    <TSPControls:CustomTextBox runat="server" ID="ASPxTextBoxImpGrade"  Width="160px"  ReadOnly="True">
+                        <ValidationSettings Display="Dynamic" ErrorTextPosition="Bottom">
+                            
+                            <RequiredField ErrorText="کسر دستمزد را وارد نمایید" IsRequired="True" />
+                            <ErrorFrameStyle ImageSpacing="4px">
+                                <ErrorTextPaddings PaddingLeft="4px" />
+                            </ErrorFrameStyle>
+                        </ValidationSettings>
+                    </TSPControls:CustomTextBox>
+                </td>
+            </tr>
+            <TR>
+                <TD vAlign=top align=right>
+                    <dxe:ASPxLabel runat="server" Text="تعداد پروژه های در دست اجرا" ID="ASPxLabel31">
+                    </dxe:ASPxLabel>
+                </td>
+                <TD vAlign=top align=right>
+                    <TSPControls:CustomTextBox runat="server" ID="ASPxTextBoxImpProjectCount"  Width="160px" ReadOnly="True" >
+                        <ValidationSettings>
+                            
+                            <ErrorFrameStyle ImageSpacing="4px">
+                                <ErrorTextPaddings PaddingLeft="4px" />
+                            </ErrorFrameStyle>
+                        </ValidationSettings>
+                    </TSPControls:CustomTextBox>
+                </td>
+                <TD vAlign=top align=right>
+                    <dxe:ASPxLabel runat="server" Text="کل کارکرد" ID="ASPxLabel32">
+                    </dxe:ASPxLabel>
+                </td>
+                <TD vAlign=top align=right>
+                    <TSPControls:CustomTextBox runat="server" ID="ASPxTextBoxImpTotalUsed"  Width="160px" ReadOnly="True" >
+                        <ValidationSettings>
+                            
+                            <ErrorFrameStyle ImageSpacing="4px">
+                                <ErrorTextPaddings PaddingLeft="4px" />
+                            </ErrorFrameStyle>
+                        </ValidationSettings>
+                    </TSPControls:CustomTextBox>
+                </td>
+            </tr>
+            <TR>
+                <TD vAlign=top align=right>
+                    <dxe:ASPxLabel runat="server" Text="ظرفیت باقیمانده" ID="ASPxLabel33">
+                    </dxe:ASPxLabel>
+                </td>
+                <TD vAlign=top align=right>
+                    <TSPControls:CustomTextBox runat="server" ID="ASPxTextBoxImpRemainCapacity"  Width="160px" ReadOnly="True" >
+                        <ValidationSettings>
+                            
+                            <ErrorFrameStyle ImageSpacing="4px">
+                                <ErrorTextPaddings PaddingLeft="4px" />
+                            </ErrorFrameStyle>
+                        </ValidationSettings>
+                    </TSPControls:CustomTextBox>
+                </td>
+                <TD vAlign=top align=right>
+                    <dxe:ASPxLabel runat="server" Text="کل رزرو شده" ID="ASPxLabel34">
+                    </dxe:ASPxLabel>
+                </td>
+                <TD vAlign=top align=right>
+                    <TSPControls:CustomTextBox runat="server" ID="ASPxTextBoxImpReserve"  Width="160px" ReadOnly="True" >
+                        <ValidationSettings>
+                            
+                            <ErrorFrameStyle ImageSpacing="4px">
+                                <ErrorTextPaddings PaddingLeft="4px" />
+                            </ErrorFrameStyle>
+                        </ValidationSettings>
+                    </TSPControls:CustomTextBox>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</dxp:PanelContent>
+</PanelCollection>
+
+<TopLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpTopLeftCorner.png"></TopLeftCorner>
+
+<NoHeaderTopEdge BackColor="#EBF2F4"></NoHeaderTopEdge>
+
+<BottomLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpBottomLeftCorner.png"></BottomLeftCorner>
+</dxrp:ASPxRoundPanel><BR /><DIV style="WIDTH: 100%" dir=ltr><dxrp:ASPxRoundPanel id="ASPxRoundPanel3" runat="server" Width="100%"  BackColor="#EBF2F4"  ShowHeader="False">
+<LeftEdge>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif"></BackgroundImage>
+</LeftEdge>
+
+<BottomRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpBottomRightCorner.png"></BottomRightCorner>
+
+<HeaderContent>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderBack.gif"></BackgroundImage>
+</HeaderContent>
+
+<ContentPaddings Padding="0px"></ContentPaddings>
+
+<NoHeaderTopRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopRightCorner.png"></NoHeaderTopRightCorner>
+
+<RightEdge>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif"></BackgroundImage>
+</RightEdge>
+
+<HeaderRightEdge>
+<BackgroundImage VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderRightEdge.gif"></BackgroundImage>
+</HeaderRightEdge>
+
+<Border BorderWidth="1px" BorderStyle="Solid" BorderColor="#7EACB1"></Border>
+
+<HeaderStyle BackColor="White" Height="23px">
+<Paddings PaddingTop="0px" PaddingBottom="0px" PaddingLeft="2px"></Paddings>
+
+<BorderBottom BorderStyle="None"></BorderBottom>
+</HeaderStyle>
+
+<Content>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpContentBack.gif"></BackgroundImage>
+</Content>
+
+<HeaderLeftEdge>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderLeftEdge.gif"></BackgroundImage>
+</HeaderLeftEdge>
+
+<BottomEdge BackColor="#D7E9F1"></BottomEdge>
+
+<TopRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpTopRightCorner.png"></TopRightCorner>
+
+<NoHeaderTopLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopLeftCorner.png"></NoHeaderTopLeftCorner>
+<PanelCollection>
+<dxp:PanelContent runat="server"><DIV dir=rtl><TABLE cellPadding=0 width="100%" align=right><TBODY><TR><TD style="VERTICAL-ALIGN: top" align=right><TABLE style="BORDER-COLLAPSE: collapse; BACKGROUND-COLOR: transparent" dir=rtl cellPadding=0 align=right><TBODY><TR>
+    <td>
+        <TSPControls:CustomTextBox runat="server" Text=" "  ToolTip="اطلاعات ظرفیت دفتر" CausesValidation="False" ID="btnEngOffice2" UseSubmitBehavior="False" EnableViewState="False" EnableTheming="False" OnClick="btnEngOffice_Click" Visible="False">
+            <HoverStyle BackColor="#FFE0C0">
+                <Border BorderColor="Gray" BorderStyle="Outset" BorderWidth="1px" />
+            </HoverStyle>
+            <Image Height="25px" Url="~/Images/icons/Compact Disk.png" Width="25px" />
+        </TSPControls:CustomTextBox>
+    </td>
+    <TD><TSPControls:CustomTextBox runat="server" Text=" "  ToolTip="بازگشت" CausesValidation="False" ID="ASPxButton6" UseSubmitBehavior="False" EnableViewState="False" EnableTheming="False" OnClick="btnBack_Click">
+<HoverStyle BackColor="#FFE0C0">
+<Border BorderWidth="1px" BorderStyle="Outset" BorderColor="Gray"></Border>
+</HoverStyle>
+
+<Image  Url="~/Images/icons/Back.png"></Image>
+</TSPControls:CustomTextBox>
+ </TD></TR></TBODY></TABLE></TD></TR></TBODY></TABLE></DIV></dxp:PanelContent>
+</PanelCollection>
+
+<TopLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpTopLeftCorner.png"></TopLeftCorner>
+
+<NoHeaderTopEdge BackColor="#EBF2F4"></NoHeaderTopEdge>
+
+<BottomLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpBottomLeftCorner.png"></BottomLeftCorner>
+</dxrp:ASPxRoundPanel> </DIV>
+</contenttemplate>
+           </asp:updatepanel>
+            
+            <asp:modalupdateprogress id="ModalUpdateProgress2" runat="server" displayafter="0"
+                associatedupdatepanelid="UpdatePanel1" backgroundcssclass="modalProgressGreyBackground">
+        <progresstemplate>
+                        <div class="modalPopup" style="font-family: Tahoma; font-size: 9pt">
+                    <img id="IMG1" src="../../../Image/indicator.gif" align="middle" />
+                    لطفا صبر نمایید ...</div>
+                    </progresstemplate>
+    </asp:modalupdateprogress>
+    <asp:hiddenfield id="PkEngOId" runat="server" visible="False" />
+        </div>
+    </div>
+</asp:Content>

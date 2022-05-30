@@ -1,0 +1,193 @@
+﻿using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+
+public partial class Settlement_Amoozesh_InstitueManagerView : System.Web.UI.Page
+{
+    string InsMngId;
+    string PageMode;
+
+    #region Events
+    protected void Page_Load(object sender, EventArgs e)
+    {
+
+        if (Session["Login"] == null || Session["Login"].ToString() == "0")
+        {
+            Response.Redirect("../../Login.aspx?ReferPage=" + Request.Url.AbsoluteUri);
+            return;
+        }
+        this.DivReport.Visible = false;
+        this.DivReport.Attributes.Add("onclick", "ChangeVisible(this)");
+        this.DivReport.Attributes.Add("onmouseover", "ChangeIcon(this)");
+
+        if (!IsPostBack)
+        {
+            if (Cache["CachePersonMember"] == null)
+                Cache["CachePersonMember"] = new object();
+
+            SetKeys();
+        }
+    }
+
+    protected void btnBack_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("Institue.aspx");
+    }
+
+    #endregion
+
+    #region Methods
+    private void SetError(Exception err)
+    {
+        if (err.GetType() == typeof(System.Data.SqlClient.SqlException))
+        {
+            System.Data.SqlClient.SqlException se = (System.Data.SqlClient.SqlException)err;
+
+            if (se.Number == 2601)
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "اطلاعات تکراری می باشد";
+            }
+            else if (se.Number == 2627)
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "کد تکراری می باشد";
+            }
+            else if (se.Number == 547)
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "به علت وجود اطلاعات وابسته امکان حذف نمی باشد.";
+            }
+            else
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+            }
+        }
+        else
+        {
+            this.DivReport.Visible = true;
+            this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+        }
+    }
+
+    private void ClearForm()
+    {
+        txtAddress.Text = "";
+        txtBrithDate.Text = "";
+        txtDescription.Text = "";
+        txtFamily.Text = "";
+        txtFather.Text = "";
+        txtName.Text = "";
+        txtSSN.Text = "";
+        txtIdNo.Text = "";
+        txtMeNo.Text = "";
+        txtMobile.Text = "";
+        txtSSN.Text = "";
+        txtTell.Text = "";
+        txtInsShares.Text = "";
+        txtJobDuration.Text = "";
+        txtMajor.Text = "";
+        txtLicence.Text = "";
+        txtMeType.Text = "";
+    }
+
+    private void SetKeys()
+    {
+        HiddenFieldInsManager["InsId"] = Request.QueryString["InsId"].ToString();
+        HiddenFieldInsManager["PrePageMode"] = Request.QueryString["PrePageMode"];
+        HiddenFieldInsManager["PageMode"] = Request.QueryString["PageMode"];
+        HiddenFieldInsManager["InsMngId"] = Request.QueryString["InsMngId"];
+        string InsId = Utility.DecryptQS(HiddenFieldInsManager["InsId"].ToString());
+        PageMode = Utility.DecryptQS(HiddenFieldInsManager["PageMode"].ToString());
+        InsMngId = Utility.DecryptQS(HiddenFieldInsManager["InsMngId"].ToString());
+        TSP.DataManager.InstitueManager InstitueManager = new TSP.DataManager.InstitueManager();
+        InstitueManager.FindByCode(int.Parse(InsId));
+
+        if (InstitueManager.Count > 0)
+        {
+            lblInsName.Text = InstitueManager[0]["InsName"].ToString();
+        }
+        else
+        {
+            Response.Redirect("Institue.aspx");
+            return;
+        }
+        if (string.IsNullOrEmpty(PageMode))
+        {
+            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+            return;
+        }
+        SetMode();
+    }
+
+    private void SetMode()
+    {
+        if (string.IsNullOrEmpty(PageMode))
+        {
+            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+            return;
+        }
+        switch (PageMode)
+        {
+            case "View":
+                SetViewModeKeys();
+                break;
+        }
+    }
+
+    private void SetViewModeKeys()
+    {
+        FillForm(int.Parse(InsMngId));
+
+        RoundPanelInsManager.HeaderText = "مشاهده";
+    }
+
+    private void FillForm(int InsMngId)
+    {
+        TSP.DataManager.InstitueManagerManager InstitueManagerManager = new TSP.DataManager.InstitueManagerManager();
+        TSP.DataManager.LicenceManager LicenceManager = new TSP.DataManager.LicenceManager();
+        TSP.DataManager.MajorManager MajorManager = new TSP.DataManager.MajorManager();
+        InstitueManagerManager.FindByCode(InsMngId);
+
+        if (InstitueManagerManager.Count > 0)
+        {
+            txtDescription.Text = InstitueManagerManager[0]["Description"].ToString();
+            txtAddress.Text = InstitueManagerManager[0]["Address"].ToString();
+            txtBrithDate.Text = InstitueManagerManager[0]["BirthDate"].ToString();
+            txtFamily.Text = InstitueManagerManager[0]["Family"].ToString();
+            txtFather.Text = InstitueManagerManager[0]["Father"].ToString();
+            txtName.Text = InstitueManagerManager[0]["Name"].ToString();
+            txtSSN.Text = InstitueManagerManager[0]["SSN"].ToString();
+            txtIdNo.Text = InstitueManagerManager[0]["IdNo"].ToString();
+            txtMobile.Text = InstitueManagerManager[0]["MobileNo"].ToString();
+            txtTell.Text = InstitueManagerManager[0]["Tel"].ToString();
+            int MjId = int.Parse(InstitueManagerManager[0]["MjId"].ToString());
+            MajorManager.FindByCode(MjId);
+            if (MajorManager.Count == 1)
+            {
+                txtMajor.Text = MajorManager[0]["MjName"].ToString();
+            }
+            int LiId = int.Parse(InstitueManagerManager[0]["LiId"].ToString());
+            LicenceManager.FindByCode(MjId);
+            if (LicenceManager.Count == 1)
+            {
+                txtLicence.Text = LicenceManager[0]["LiName"].ToString();
+            }
+            
+            if (!string.IsNullOrEmpty(InstitueManagerManager[0]["MeId"].ToString()))
+                txtMeType.Text = "عضو نظام";
+            else
+                txtMeType.Text = "شخص جدید";
+        }
+
+    }
+    #endregion       
+}

@@ -1,0 +1,253 @@
+﻿using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+
+public partial class Settlement_Amoozesh_TeacherBasicInfo : System.Web.UI.Page
+{
+    #region Events
+    protected void Page_Load(object sender, EventArgs e)
+    {
+
+        this.DivReport.Visible = false;
+        this.DivReport.Attributes.Add("onclick", "ChangeVisible(this)");
+        this.DivReport.Attributes.Add("onmouseover", "ChangeIcon(this)");
+        if (!IsPostBack)
+        {
+
+            if (string.IsNullOrEmpty(Request.QueryString["PgMd"]) || string.IsNullOrEmpty(Request.QueryString["TeId"]))
+            {
+                Response.Redirect("Teachers.aspx");
+                return;
+            }
+            SetKey();
+            CheckWorkFlowPermission();
+
+        }
+
+    }
+
+    protected void btnBack_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("Teachers.aspx");
+    }
+
+    protected void ASPxMenu1_ItemClick(object source, DevExpress.Web.MenuItemEventArgs e)
+    {
+        switch (e.Item.Name)
+        {
+            case "Madrak":
+                Response.Redirect("TeachersLicence.aspx?TeId=" + TeacherId.Value.ToString() + "&PgMd=" + Utility.EncryptQS("View"));
+                break;
+            case "Research":
+                Response.Redirect("TeacherResearchAct.aspx?TeId=" + TeacherId.Value.ToString() + "&PgMd=" + Utility.EncryptQS("View"));
+                break;
+            case "Job":
+                Response.Redirect("TeacherJobHistory.aspx?TeId=" + TeacherId.Value.ToString() + "&PgMd=" + Utility.EncryptQS("View"));
+                break;
+            case "Atachment":
+                Response.Redirect("TeacherAttachment.aspx?TeId=" + TeacherId.Value.ToString() + "&PgMd=" + Utility.EncryptQS("View"));
+                break;
+            case "StlConfirm":
+                string TeId = Utility.DecryptQS(TeacherId.Value);
+                TSP.DataManager.TeacherCertificateManager TeacherCertificateManager = new TSP.DataManager.TeacherCertificateManager();
+                DataTable dtTeacherCertificate = TeacherCertificateManager.SelectLastVersion(int.Parse(TeId));
+                if (dtTeacherCertificate.Rows.Count > 0)
+                {
+                    int CertificateType = int.Parse(dtTeacherCertificate.Rows[0]["Type"].ToString());
+                    if (CertificateType == 0)//*****صدور
+                    {
+                        Response.Redirect("SettlmentConfirmingTeacher.aspx?TcId=" + Utility.EncryptQS(dtTeacherCertificate.Rows[0]["TcId"].ToString()) + "&PgMd=" + Utility.EncryptQS("Edit"));
+                    }
+                    else
+                    {
+                        if (CertificateType == 1)//*****تمدید
+                        {
+                            Response.Redirect("SettlmentConfirmingTeacher.aspx?TcId=" + Utility.EncryptQS(dtTeacherCertificate.Rows[0]["TcId"].ToString()) + "&PgMd=" + Utility.EncryptQS("Revival"));
+                        }
+                        else
+                        {
+                            if (CertificateType == 2)//*****تغییرات
+                            {
+                                Response.Redirect("SettlmentConfirmingTeacher.aspx?TcId=" + Utility.EncryptQS(dtTeacherCertificate.Rows[0]["TcId"].ToString()) + "&PgMd=" + Utility.EncryptQS("Change"));
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    DivReport.Visible = true;
+                    LabelWarning.Text = "وضعیت پروانه انتخاب شده نامشخص می باشد.";
+                    //Response.Redirect("SettlmentConfirmingTeacher.aspx?TeId=" + TeacherId.Value.ToString() + "&PgMd=" + Utility.EncryptQS("New"));
+
+                }
+                break;
+        }
+    }
+    #endregion
+
+    #region Methods
+    private void SetKey()
+    {
+        try
+        {
+            PgMode.Value = Server.HtmlDecode(Request.QueryString["PgMd"].ToString());
+            TeacherId.Value = Server.HtmlDecode(Request.QueryString["TeId"]).ToString();
+        }
+        catch
+        {
+            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+            return;
+        }
+
+        string PageMode = Utility.DecryptQS(PgMode.Value);
+        string TeId = Utility.DecryptQS(TeacherId.Value);
+        //if ((!string.IsNullOrEmpty(Utility.DecryptQS(Server.HtmlDecode(Request.QueryString["TeId"]).ToString()))) && (CrId == -1))
+        //    //CrId = int.Parse(Utility.DecryptQS(Server.HtmlDecode(Request.QueryString["TeId"]).ToString()));
+        if (string.IsNullOrEmpty(PageMode))
+        {
+            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+            return;
+        }
+        else
+        {
+            SetMode(PageMode);
+          //  CheckWorkFlowPermission();
+        }
+    }
+
+    private void SetMode(string PageMode)
+    {
+        switch (PageMode)
+        {
+            case "View":
+                SetViewModeKeys();
+                break;
+        }
+    }
+
+    private void SetViewModeKeys()
+    {
+        string TeId = Utility.DecryptQS(TeacherId.Value.ToString());
+        if (string.IsNullOrEmpty(TeId))
+        {
+            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+            return;
+        }
+
+        FillForm(int.Parse(TeId));
+    }
+
+    protected void FillForm(int TeId)
+    {
+        string PageMode = Utility.DecryptQS(PgMode.Value);
+
+        TSP.DataManager.TeacherManager manager = new TSP.DataManager.TeacherManager();
+        TSP.DataManager.TeacherCertificateManager TeacherCertificateManager = new TSP.DataManager.TeacherCertificateManager();
+        manager.FindByCode(TeId);
+        if (manager.Count == 1)
+        {
+            lblTeName.Text = manager[0]["Name"].ToString()+manager[0]["Family"].ToString();
+            lblFather.Text = manager[0]["Father"].ToString();
+            lblBirthDate.Text = manager[0]["BirthDate"].ToString();
+            lblIdNo.Text = manager[0]["IdNo"].ToString();
+            lblSSN.Text = manager[0]["SSN"].ToString();
+            lblTell.Text = manager[0]["Tel"].ToString();
+            lblMobileNo.Text = manager[0]["MobileNo"].ToString();
+            lblAddress.Text = manager[0]["Address"].ToString();
+            lblEmail.Text = manager[0]["Email"].ToString();
+            lblMajor.Text = manager[0]["MjName"].ToString();
+            lblLastMajor.Text = manager[0]["LiName"].ToString();
+            lblDescription.Text = manager[0]["Description"].ToString();
+            if (!string.IsNullOrEmpty(manager[0]["MeId"].ToString()))
+            {
+                lblMemberType.Text = "عضو نظام";                
+                lblMeId.Text = manager[0]["MeID"].ToString();
+                lblMeIdName.Visible = true;
+                lblMeId.Visible = true;
+                ObjectDataSourceMember.SelectParameters[2].DefaultValue = manager[0]["MeId"].ToString();
+
+            }
+            else
+            {
+                lblMeIdName.Visible = false;
+                lblMeId.Visible = false;
+                lblMemberType.Text = "شخص جدید";
+            }
+
+        }
+        DataTable dtTeCert = TeacherCertificateManager.SelectLastVersion(TeId);
+        if (dtTeCert.Rows.Count > 0)
+        {
+            lblFileNo.Text = dtTeCert.Rows[0]["FileNo"].ToString();
+        }
+    }
+
+    private void CheckWorkFlowPermission()
+    {
+        int CurrentSubOrder = -1;
+        TSP.DataManager.WorkFlowTaskManager WorkFlowTaskManager = new TSP.DataManager.WorkFlowTaskManager();
+        WorkFlowTaskManager.ClearBeforeFill = true;
+        int SettlementAgentConfirmingTeacherOrder = -1;
+        int SettlementAgentConfirmingTeacherCode = (int)TSP.DataManager.WorkFlowTask.settlementAgentConfiringTeacher;
+        WorkFlowTaskManager.FindByTaskCode(SettlementAgentConfirmingTeacherCode);
+        if (WorkFlowTaskManager.Count > 0)
+        {
+            SettlementAgentConfirmingTeacherOrder = int.Parse(WorkFlowTaskManager[0]["TaskOrder"].ToString());
+        }
+
+        int CurrentStateOrder = -1;
+        TSP.DataManager.WorkFlowStateManager WorkFlowStateManager = new TSP.DataManager.WorkFlowStateManager();
+        int TableType = (int)(TSP.DataManager.TableCodes.Teachers);
+        int TableId = int.Parse(Utility.DecryptQS(TeacherId.Value));
+        DataTable dtWorkState = WorkFlowStateManager.SelectLastState(TableType, TableId);
+        if (dtWorkState.Rows.Count > 0)
+        {
+            CurrentStateOrder = int.Parse(dtWorkState.Rows[0]["TaskOrder"].ToString());
+            CurrentSubOrder = int.Parse(dtWorkState.Rows[0]["SubOrder"].ToString());
+        }
+        if ((CurrentStateOrder == SettlementAgentConfirmingTeacherOrder) || (CurrentStateOrder != -1))
+        {
+            if (SettlementAgentConfirmingTeacherOrder != 0)
+            {
+                Boolean SettlementAgentConfirmingTeacherPer = CheckWorkFlowPermissionForSettlementAgentConfirmingTeacher(CurrentSubOrder);
+                if (SettlementAgentConfirmingTeacherPer)
+                    MenuTeacherInfo.Items[4].Enabled = true;
+                else
+                    MenuTeacherInfo.Items[4].Enabled = false;
+            }
+        }
+        else
+        {
+            MenuTeacherInfo.Items[4].Enabled = false;
+        }
+    }
+
+
+    private Boolean CheckWorkFlowPermissionForSettlementAgentConfirmingTeacher(int CurrentSubOrder)
+    {
+        TSP.DataManager.TaskDoerManager TaskDoerManager = new TSP.DataManager.TaskDoerManager();
+        TSP.DataManager.WorkFlowTaskManager WorkFlowTaskManager = new TSP.DataManager.WorkFlowTaskManager();
+        int SettlementAgentConfirmingTeacherCode = (int)TSP.DataManager.WorkFlowTask.settlementAgentConfiringTeacher;
+        WorkFlowTaskManager.FindByTaskCode(SettlementAgentConfirmingTeacherCode);
+        int DoerId = -1;
+        DoerId = TaskDoerManager.CheckWorkFlowPermissionForTask(SettlementAgentConfirmingTeacherCode, CurrentSubOrder, Utility.GetCurrentUser_UserId(), true);
+        if (DoerId > 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    #endregion
+}

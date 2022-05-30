@@ -1,0 +1,94 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using DevExpress.Web;
+public partial class Employee_Document_DocumentAccounting : System.Web.UI.Page
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        HiddenFieldDocMemberFile["PrePageMode"] = Request.QueryString["PgMd"];
+        HiddenFieldDocMemberFile["MFId"] = Request.QueryString["MFId"];
+        HiddenFieldDocMemberFile["DocType"] = Request.QueryString["DocType"];
+
+        string DocType = Utility.DecryptQS(HiddenFieldDocMemberFile["DocType"].ToString());
+        string MFId = Utility.DecryptQS(HiddenFieldDocMemberFile["MFId"].ToString());
+        string MeId = Utility.DecryptQS(HiddenFieldDocMemberFile["MeId"].ToString());
+
+        HiddenFieldDocMemberFile["MeId"] = Utility.EncryptQS(MeId);
+        if (!Utility.IsDBNullOrNullValue(HiddenFieldDocMemberFile["MeId"]))
+            MemberInfoUserControl1.MeId = Convert.ToInt32(Utility.DecryptQS(HiddenFieldDocMemberFile["MeId"].ToString()));
+    }
+
+    protected void btnBack_Click(object sender, EventArgs e)
+    {
+
+    }
+
+    protected void MenuMemberFile_ItemClick(object source, DevExpress.Web.MenuItemEventArgs e)
+    {
+        switch (e.Item.Name)
+        {
+            case "JobConfirmition":
+                Response.Redirect("MemberConfirmJobHistory.aspx?MFId=" + HiddenFieldDocMemberFile["MFId"].ToString() + "&PgMd=" + HiddenFieldDocMemberFile["PrePageMode"].ToString() + "&DocType=" + Utility.EncryptQS("0") + "&GrdFlt=" + Request.QueryString["GrdFlt"] + "&PostId=" + Request.QueryString["PostId"] + "&SrchFlt=" + Request.QueryString["SrchFlt"]);
+                break;
+            case "JobHistory":
+                Response.Redirect("MemberJobHistory.aspx?MFId=" + HiddenFieldDocMemberFile["MFId"].ToString() + "&PgMd=" + HiddenFieldDocMemberFile["PageMode"].ToString() + "&DocType=" + Utility.EncryptQS("0") + "&GrdFlt=" + Request.QueryString["GrdFlt"] + "&PostId=" + Request.QueryString["PostId"] + "&SrchFlt=" + Request.QueryString["SrchFlt"]);
+                break;
+            case "Attachment":
+                Response.Redirect("DocumentAttachment.aspx?MFId=" + HiddenFieldDocMemberFile["MFId"].ToString() + "&PgMd=" + HiddenFieldDocMemberFile["PageMode"].ToString() + "&GrdFlt=" + Request.QueryString["GrdFlt"] + "&PostId=" + Request.QueryString["PostId"] + "&SrchFlt=" + Request.QueryString["SrchFlt"]);
+                break;
+            case "Major":
+                Response.Redirect("AddMemberFile.aspx?MFId=" + HiddenFieldDocMemberFile["MFId"].ToString() + "&MeId=" + HiddenFieldDocMemberFile["MeId"].ToString() + "&PgMd=" + HiddenFieldDocMemberFile["PageMode"].ToString() + "&GrdFlt=" + Request.QueryString["GrdFlt"] + "&PostId=" + Request.QueryString["PostId"] + "&SrchFlt=" + Request.QueryString["SrchFlt"]);
+                break;
+            case "Exam":
+                Response.Redirect("MemberExam.aspx?MFId=" + HiddenFieldDocMemberFile["MFId"].ToString() + "&PgMd=" + HiddenFieldDocMemberFile["PageMode"].ToString() + "&GrdFlt=" + Request.QueryString["GrdFlt"] + "&PostId=" + Request.QueryString["PostId"] + "&SrchFlt=" + Request.QueryString["SrchFlt"]);
+                break;
+            case "Periods":
+                Response.Redirect("MemberPeriods.aspx?MFId=" + HiddenFieldDocMemberFile["MFId"].ToString() + "&MeId=" + HiddenFieldDocMemberFile["MeId"].ToString() + "&PgMd=" + HiddenFieldDocMemberFile["PrePageMode"].ToString() + "&GrdFlt=" + Request.QueryString["GrdFlt"] + "&PostId=" + Request.QueryString["PostId"] + "&SrchFlt=" + Request.QueryString["SrchFlt"]);
+                break;
+            case "MeDetail":
+                Response.Redirect("DocResponsibility.aspx?MFId=" + HiddenFieldDocMemberFile["MFId"].ToString() + "&PgMd=" + HiddenFieldDocMemberFile["PageMode"].ToString() + "&GrdFlt=" + Request.QueryString["GrdFlt"] + "&PostId=" + Request.QueryString["PostId"] + "&SrchFlt=" + Request.QueryString["SrchFlt"]);
+                break;
+            case "Accounting":
+                Response.Redirect("DocumentAccounting.aspx?MFId=" + HiddenFieldDocMemberFile["MFId"].ToString() + "&MeId=" + HiddenFieldDocMemberFile["MeId"].ToString() + "&PgMd=" + HiddenFieldDocMemberFile["PrePageMode"].ToString() + "&GrdFlt=" + Request.QueryString["GrdFlt"] + "&PostId=" + Request.QueryString["PostId"] + "&SrchFlt=" + Request.QueryString["SrchFlt"]);
+                break;
+        }
+    }
+
+    protected void GridViewAccounting_HtmlRowPrepared(object sender, DevExpress.Web.ASPxGridViewTableRowEventArgs e)
+    {
+        if (e.RowType != GridViewRowType.Data)
+            return;
+
+        if (Utility.DecryptQS(HiddenFieldDocMemberFile["PageMode"].ToString()) == "View")
+        {
+            if (e.Row.Cells.Count > 5)
+                e.Row.Cells[4].Controls[0].Visible = false;
+        }
+
+        if (HiddenFieldDocMemberFile["MFId"] != null)
+        {
+            string MFId = Utility.DecryptQS(HiddenFieldDocMemberFile["MFId"].ToString());
+          System.Data.  DataRow dr = GridViewAccounting.GetDataRow(e.VisibleIndex);
+            if (dr != null)
+            {
+                if (dr.RowState == System.Data.DataRowState.Unchanged)
+                {
+                    string CurretnMfId = e.GetValue("TableTypeId").ToString();
+                    if (MFId == CurretnMfId)
+                    {
+                        e.Row.BackColor = System.Drawing.Color.LightGray;
+                    }
+                }
+                if (dr.RowState == System.Data.DataRowState.Added)
+                {
+                    e.Row.BackColor = System.Drawing.Color.LightGray;
+                }
+            }
+        }
+    }
+
+}

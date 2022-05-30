@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Items>
+
+
+  <MenuItem NavigateUrl="~/IntroductionWebSite.aspx" Text="معرفی سامانه الکترونیکی نظام مهندسی" Image="~/Images/HomePage/2.png" >
+  </MenuItem>
+  <MenuItem NavigateUrl="~/Introduction.aspx" Text="معرفی سازمان"
+		Image-Height="20px" Image-Url="~/flash/Home/Entire Network.png" Image-Width="20px" Image="~/Images/HomePage/3.png"  >
+  </MenuItem>
+  <!--<MenuItem NavigateUrl="~/NezamChart.aspx" Text="چارت سازمانی" Image="~/Images/HomePage/2.png"  >
+  </MenuItem>-->
+  <MenuItem  NavigateUrl="~/Agents.aspx" Text="نمایندگی ها" Image="~/Images/HomePage/1.png" >
+  </MenuItem>
+  <MenuItem NavigateUrl="~/MembersInfo/Members.aspx" Text="اعضای حقیقی سازمان"
+		Image-Height="20px" Image="~/Images/HomePage/1.png" Image-Width="20px" >
+  </MenuItem>
+  <MenuItem NavigateUrl="~/MembersInfo/Office.aspx" Text="اعضای حقوقی سازمان"
+		Image-Height="20px" Image="~/Images/HomePage/1.png" Image-Width="20px" >
+  </MenuItem>
+  <MenuItem NavigateUrl="~/NezamRegister/Membership.aspx" Text="عضویت در سازمان"
+		Image-Height="20px" Image="~/Images/HomePage/1.png" Image-UrlSelected="20" >
+  </MenuItem>
+ <MenuItem NavigateUrl="~/Learning/Course.aspx" Text="واحدهای درسی مورد تایید نظام مهندسی"  Image="~/Images/HomePage/1.png">
+    </MenuItem>
+ <MenuItem NavigateUrl="~/Period.aspx" Text="دوره های آموزشی در حال برگزاری"
+   Image-Height="20px"  Image="~/Images/HomePage/1.png" Image-Width="20px" >
+  </MenuItem>
+
+    <MenuItem   NavigateUrl="~/Members/Amoozesh/PeriodRegister.aspx" Name="PeriodReg" Text="ثبت نام دوره های آموزشی"  Image="~/Images/HomePage/1.png">
+    </MenuItem>
+
+
+  <!--<NavBarGroup Expanded="False" Text="واحد آموزش" Name="grpLearning" >
+    <NavBarItem NavigateUrl="~/Learning/Course.aspx" Text="واحدهای درسی مورد تایید نظام مهندسی">
+    </NavBarItem>
+    <MenuItem NavigateUrl="~/Period.aspx" Text="دوره های آموزشی در حال برگزاری"
+   Image-Height="20px" Image-Url="~/flash/Home/tutorials.png" Image-Width="20px" >
+    </MenuItem>
+
+    <MenuItem   NavigateUrl="~/Members/Amoozesh/PeriodRegister.aspx" Name="PeriodReg" Text="ثبت نام دوره های آموزشی">
+    </MenuItem>
+  </NavBarGroup>-->
+  <MenuItem  NavigateUrl="~/Association/ExGroupPeriods.aspx" Text="تشکل ها"  Image="~/Images/HomePage/1.png" >
+  </MenuItem>
+  <MenuItem NavigateUrl="~/News.aspx" Text="آرشیو اخبار"
+		Image-Height="20px" Image="~/Images/HomePage/1.png" Image-UrlSelected="20" >
+  </MenuItem>
+  <MenuItem Text="آرشیو مناقصات" NavigateUrl="~/Tender.aspx"
+		Image-Height="20px" Image="~/Images/HomePage/1.png" Image-Width="20px" >
+  </MenuItem>
+  <MenuItem Text="آرشیو فرم ها" NavigateUrl="~/Forms.aspx"
+		Image-Height="20px" Image="~/Images/HomePage/2.png" Image-Width="20px" >
+  </MenuItem>
+  <!--<MenuItem NavigateUrl="~/ImageReport.aspx" Text="آرشیو گزارشات تصویری"  
+		Image-Height="20px" Image-Url="~/flash/Home/Movie Clip.png" Image-Width="20px" >
+	</MenuItem>
+	<MenuItem Enabled="False" Text="مجلات الکترونیکی">
+	</MenuItem>	
+	<MenuItem Enabled="False" Text="همایش ها">
+	</MenuItem>
+	<MenuItem Enabled="False" Text="کمیته ورزشی فرهنگی">
+	</MenuItem>-->
+  <MenuItem NavigateUrl="~/Rules.aspx" Text="قوانین و بخشنامه ها"  Image="~/Images/HomePage/1.png" >
+  </MenuItem>
+  <MenuItem Text="گالری تصاویر" NavigateUrl="~/ImageGallery/ImageGallery.aspx"
+		Image-Height="20px" Image="~/Images/HomePage/1.png" Image-Width="20px" >
+  </MenuItem>
+  <MenuItem Text="لینک های مرتبط" NavigateUrl="~/Links.aspx"
+		Image-Height="20px" Image="~/Images/HomePage/3.png" Image-Width="20px" >
+  </MenuItem>
+  <MenuItem Text="تعرفه خدمات مهندسی طراحی و نظارت" NavigateUrl="~/PriceArchive.aspx" Image="~/Images/HomePage/2.png">
+  </MenuItem>
+</Items>

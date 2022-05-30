@@ -1,0 +1,18 @@
+<%@ Register TagPrefix="dx" Namespace="DevExpress.Data" Assembly="DevExpress.Data.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<%@ Register Assembly="DevExpress.Web.ASPxPivotGrid.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" Namespace="DevExpress.Web.ASPxPivotGrid" TagPrefix="dx" %>
+<%@ Register Assembly="DevExpress.PivotGrid.v17.1.Core, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" Namespace="DevExpress.XtraPivotGrid" TagPrefix="dx" %>
+
+<dx:ASPxPivotGrid runat="server" >
+    <OptionsPager CurrentPageNumberFormat="{0}">
+        <PageSizeItemSettings ShowPopupShadow="False">
+        </PageSizeItemSettings>
+    </OptionsPager>
+    <Images SpriteCssFilePath="{0}/sprite.css">
+        <TreeViewNodeLoadingPanel Url="PivotGrid/pgTVNodeLoading.gif" />
+    </Images>
+    <Styles CssPostfix="Metropolis" CssFilePath="{0}/styles.css" />
+    <StylesPager>
+        <Pager ItemSpacing="0px" Spacing="0px" />
+    </StylesPager>
+</dx:ASPxPivotGrid>
+

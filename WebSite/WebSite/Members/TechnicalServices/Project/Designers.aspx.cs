@@ -1,0 +1,180 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using DevExpress.Web;
+using System.Data;
+using System.Collections;
+
+public partial class Members_TechnicalServices_Project_Designers : System.Web.UI.Page
+{
+    #region Properties
+    private string PageMode
+    {
+        get
+        {
+            return Utility.DecryptQS(HiddenFieldDesPlans["PageMode"].ToString());
+        }
+        set
+        {
+            HiddenFieldDesPlans["PageMode"] = Utility.EncryptQS(value.ToString());
+        }
+    }
+
+    private string PrjReId
+    {
+        get
+        {
+            return Utility.DecryptQS(HiddenFieldDesPlans["PrjReId"].ToString());
+        }
+        set
+        {
+            HiddenFieldDesPlans["PrjReId"] = Utility.EncryptQS(value.ToString());
+        }
+    }
+
+    private string ProjectId
+    {
+        get
+        {
+            return Utility.DecryptQS(HiddenFieldDesPlans["PrjId"].ToString());
+        }
+        set
+        {
+            HiddenFieldDesPlans["PrjId"] = Utility.EncryptQS(value.ToString());
+        }
+    }
+    #endregion
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        this.DivReport.Visible = false;
+        this.DivReport.Attributes.Add("onclick", "ChangeVisible(this)");
+        this.DivReport.Attributes.Add("onmouseover", "ChangeIcon(this)");
+
+        if (!IsPostBack)
+        {
+            if (string.IsNullOrEmpty(Request.QueryString["ProjectId"]) || string.IsNullOrEmpty(Request.QueryString["PageMode"]) || string.IsNullOrEmpty(Request.QueryString["PrjReId"]))
+            {
+                Response.Redirect("Project.aspx");
+            }
+
+            SetKeys();
+        }
+    }
+
+    protected void btnView_Click(object sender, EventArgs e)
+    {
+        NextPage("View");
+    }
+
+    protected void btnback_Click(object sender, EventArgs e)
+    {
+        string QS = "ProjectId=" + HiddenFieldDesPlans["ProjectId"].ToString()
+             + "&PrjReId=" + HiddenFieldDesPlans["PrjReId"].ToString()
+             + "&PageMode=" + HiddenFieldDesPlans["PageMode"].ToString();
+        Response.Redirect("ProjectInsert.aspx?" + QS);
+    }
+
+    private void SetKeys()
+    {
+        try
+        {
+            HiddenFieldDesPlans["PageMode"] = Request.QueryString["PageMode"];
+            HiddenFieldDesPlans["PrjReId"] = Request.QueryString["PrjReId"];
+            HiddenFieldDesPlans["ProjectId"] = Request.QueryString["ProjectId"];
+
+            PrjReId = Utility.DecryptQS(Request.QueryString["PrjReId"].ToString());
+            ProjectId = Utility.DecryptQS(Request.QueryString["ProjectId"].ToString());
+            PageMode = Utility.DecryptQS(Request.QueryString["PageMode"].ToString());
+
+            if (Utility.IsDBNullOrNullValue(ProjectId) || Utility.IsDBNullOrNullValue(PrjReId) || Utility.IsDBNullOrNullValue(PageMode))
+            {
+                this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+                return;
+            }
+
+            ObjdsDesigner.SelectParameters["ProjectId"].DefaultValue = ProjectId.ToString();
+            ObjdsDesigner.SelectParameters["PrjReId"].DefaultValue = PrjReId.ToString();
+            GridViewDesigner.DataBind();
+
+            FillProjectInfo(int.Parse(PrjReId));
+            SetProjectMainMenuEnabled();
+        }
+        catch (Exception err)
+        {
+            Utility.SaveWebsiteError(err);
+            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+            return;
+        }
+    }
+
+    protected void FillProjectInfo(int Id)
+    {
+        prjInfo.Fill(Id);
+    }
+
+    private void NextPage(string Mode)
+    {
+        int focucedIndex = GridViewDesigner.FocusedRowIndex;
+        int DesignerPlansId = -1;
+        int PrjDesignerId = -1;
+        int PlansId = -1;
+
+        if (Mode == "New") DesignerPlansId = PrjDesignerId = PlansId = -1;
+        else
+        {
+            if (focucedIndex > -1)
+            {
+                DataRow row = GridViewDesigner.GetDataRow(focucedIndex);
+                DesignerPlansId = (int)row["DesignerPlansId"];
+                PrjDesignerId = (int)row["PrjDesignerId"];
+                PlansId = (int)row["PlansId"];
+            }
+
+            if (DesignerPlansId == -1)
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "لطفاً برای مشاهده اطلاعات ابتدا یک رکورد را انتخاب نمائید";
+                return;
+            }
+        }
+
+
+        string QS = "DsPId=" + Utility.EncryptQS(DesignerPlansId.ToString()) +
+            "&PgMd=" + Utility.EncryptQS(Mode) +
+            "&ProjectId=" + Utility.EncryptQS(ProjectId) +
+            "&PrjReId=" + Utility.EncryptQS(PrjReId) +
+            "&PageMode=" + Utility.EncryptQS(PageMode) +
+            "&PrjDesignerId=" + Utility.EncryptQS(PrjDesignerId.ToString()) +
+            "&PlnId=" + Utility.EncryptQS(PlansId.ToString());
+
+        Response.Redirect("AddPlanDesigner.aspx?" + QS);
+    }
+
+    private void SetProjectMainMenuEnabled()
+    {
+        if (ProjectId == "-1")
+            ProjectId = "-2";
+
+        PrjMainMenu PrjMainMenu = new PrjMainMenu("Designer", Convert.ToInt32(ProjectId));
+        MainMenu.Items.FindByName("Designer").Selected = true;
+        MainMenu.Items.FindByName("BuildingsLicense").Enabled = PrjMainMenu.GetEnabled("BuildingsLicense");
+        MainMenu.Items.FindByName("Timing").Enabled = PrjMainMenu.GetEnabled("Timing");
+        MainMenu.Items.FindByName("Contract").Enabled = PrjMainMenu.GetEnabled("Contract");
+        MainMenu.Items.FindByName("Implementer").Enabled = PrjMainMenu.GetEnabled("Implementer");
+        MainMenu.Items.FindByName("Observers").Enabled = PrjMainMenu.GetEnabled("Observers");
+        MainMenu.Items.FindByName("Plans").Enabled = PrjMainMenu.GetEnabled("Plans");
+        MainMenu.Items.FindByName("Owner").Enabled = PrjMainMenu.GetEnabled("Owner");
+        MainMenu.Items.FindByName("Project").Enabled = PrjMainMenu.GetEnabled("Project");
+        MainMenu.Items.FindByName("Accounting").Enabled = PrjMainMenu.GetEnabled("Accounting");
+        MainMenu.Items.FindByName("Designer").Enabled = PrjMainMenu.GetEnabled("Designer");
+    }
+
+    protected void MainMenu_ItemClick(object source, DevExpress.Web.MenuItemEventArgs e)
+    {
+        PrjMainMenu MainMenu = new PrjMainMenu("Designer", Convert.ToInt32(ProjectId));
+        Response.Redirect(MainMenu.GetRedirectLink(e.Item.Name, Utility.EncryptQS(PrjReId), Utility.EncryptQS(PageMode)));
+    }
+}

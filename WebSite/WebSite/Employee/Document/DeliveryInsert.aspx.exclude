@@ -1,0 +1,287 @@
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPagePortals.master" AutoEventWireup="true" CodeFile="DeliveryInsert.aspx.cs" Inherits="Employee_Document_DeliveryInsert" %>
+
+
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxhf" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxp" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxuc" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxrp" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxm" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxpc" %>
+<%@ Register Assembly="TSP.WebControls" Namespace="TSP.WebControls" TagPrefix="TSPControls" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxe" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxwgv" %>
+<%@ Register Assembly="PersianDateControls 2.0" Namespace="PersianDateControls" TagPrefix="pdc" %>
+<%@ Register Assembly="AjaxControls" Namespace="AjaxControls" TagPrefix="asp" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
+
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxcp" %>
+<%@ Register Src="../../UserControl/MemberInfoUserControl.ascx" TagName="MemberInfoUserControl"
+    TagPrefix="uc2" %>
+
+
+<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+    <pdc:PersianDateScriptManager ID="PersianDateScriptManager" runat="server" CalendarCSS="PickerCalendarCSS"
+        CalendarDayWidth="33" CalendarDayHeight="15" FooterCSS="PickerFooterCSS" ForbidenCSS="PickerForbidenCSS"
+        FrameCSS="PickerCSS" HeaderCSS="PickerHeaderCSS" SelectedCSS="PickerSelectedCSS"
+        WeekDayCSS="PickerWeekDayCSS" WorkDayCSS="PickerWorkDayCSS">
+    </pdc:PersianDateScriptManager>
+    <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+        <ContentTemplate>
+
+            <div style="text-align: right" dir="rtl" id="DivReport" class="DivErrors" runat="server">
+                <asp:Label ID="LabelWarning" runat="server" Text="Label"></asp:Label>
+                [<a class="closeLink" href="#"><span style="color: #000000"></span>بستن</a>]
+            </div>
+            <TSPControls:CustomASPxRoundPanelMenu ID="CustomASPxRoundPanelMenu1" runat="server"
+                Width="100%">
+                <PanelCollection>
+                    <dxp:PanelContent>
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <TSPControls:CustomAspxButton IsMenuButton="true" runat="server" Text=" " ToolTip="جدید"
+                                            ID="btnNew" UseSubmitBehavior="False" EnableViewState="False" EnableTheming="False"
+                                            OnClick="btnNew_Click">
+
+
+                                            <Image Url="~/Images/icons/new.png">
+                                            </Image>
+                                        </TSPControls:CustomAspxButton>
+                                    </td>
+                                    <td>
+                                        <TSPControls:CustomAspxButton IsMenuButton="true" runat="server" Text=" " ToolTip="ویرایش"
+                                            CausesValidation="False" ID="btnEdit" OnClick="btnEdit_Click" UseSubmitBehavior="False"
+                                            EnableViewState="true" EnableTheming="False">
+                                            <Image Url="~/Images/icons/Edit.png">
+                                            </Image>
+                                        </TSPControls:CustomAspxButton>
+                                    </td>
+                                    <td>
+                                        <TSPControls:CustomAspxButton IsMenuButton="true" ID="btnSave" runat="server" EnableTheming="False"
+                                            EnableViewState="False" OnClick="btnSave_Click" Text=" " ToolTip="ذخیره" UseSubmitBehavior="False">
+                                            <Image Height="25px" Url="~/Images/icons/save.png" Width="25px" />
+                                            <ClientSideEvents Click="function(s, e) {
+                     if (ASPxClientEdit.ValidateGroup() == false ||  HiddenFieldPage.Get('Letter') == 0 || HiddenFieldPage.Get('Form') == 0)
+                        {
+                        e.processOnServer= false;   
+                        alert('تکمیل موارد لازم و بارکذاری تصاویر اجباری است');
+                        return;
+                        }
+	                    e.processOnServer= confirm('آیا از ذخیره بازگشت ظرفیت در این پروژه مطمئن می باشید؟');
+                        }" />
+                                        </TSPControls:CustomAspxButton>
+                                    </td>
+                                    <td width="10px" align="center">
+                                        <TSPControls:MenuSeprator runat="server" ID="MenuSeprator3"></TSPControls:MenuSeprator>
+                                    </td>
+                                    <td>
+                                        <TSPControls:CustomAspxButton IsMenuButton="true" ID="btnBack" runat="server" CausesValidation="False"
+                                            EnableTheming="False" EnableViewState="False" OnClick="btnBack_Click" Text=" "
+                                            ToolTip="بازگشت" UseSubmitBehavior="False">
+                                            <Image Height="25px" Url="~/Images/icons/Back.png" Width="25px" />
+                                        </TSPControls:CustomAspxButton>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </dxp:PanelContent>
+                </PanelCollection>
+            </TSPControls:CustomASPxRoundPanelMenu>
+            <br />
+            <TSPControls:CustomASPxRoundPanel ID="RoundPanelProjectSearch" HeaderText="جستجو پروژه"
+                runat="server" Width="100%">
+                <PanelCollection>
+                    <dxp:PanelContent>
+                        <table width="100%">
+                            <tbody>
+                                <tr>
+                                    <td width="15%">کد پروژه*
+                                    </td>
+                                    <td width="35%">
+                                        <TSPControls:CustomTextBox runat="server" ID="txtMeId" ClientInstanceName="txtMeId" AutoPostBack="true" OnTextChanged="txtMeId_TextChanged"
+                                            Width="100%">
+                                            <ValidationSettings Display="Dynamic" ValidationGroup="ValidAttach" ErrorTextPosition="Bottom">
+
+                                                <RequiredField IsRequired="True" ErrorText="ورود عضویت اجباری است"></RequiredField>
+                                                <RegularExpression ErrorText="کد عضویت را صحیح وارد نمایید" ValidationExpression="\d*"></RegularExpression>
+                                                <ErrorFrameStyle ImageSpacing="4px">
+                                                    <ErrorTextPaddings PaddingLeft="4px"></ErrorTextPaddings>
+                                                </ErrorFrameStyle>
+                                            </ValidationSettings>
+                                        </TSPControls:CustomTextBox>
+                                    </td>
+                                    <td  colspan="4">
+
+                                        <uc2:memberinfousercontrol id="MemberInfoUserControl" runat="server" />
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </dxp:PanelContent>
+                </PanelCollection>
+            </TSPControls:CustomASPxRoundPanel>
+            <br />
+           
+            <br />
+            <TSPControls:CustomASPxRoundPanel ID="RoundPanelPage" HeaderText="مشاهده" runat="server"
+                Width="100%">
+                <PanelCollection>
+                    <dxp:PanelContent>
+                        <table width="100%">
+                            <tbody>
+                                <tr>
+
+
+                                    <tr>
+                                        <td>
+                                            <dxe:ASPxLabel runat="server" Text="تصویر نامه تعطیلی کارگاه ثبت شده در سازمان*"
+                                                ID="lblTrFileUplodeLetter" ClientInstanceName="lblTrFileUplodeLetter">
+                                            </dxe:ASPxLabel>
+                                        </td>
+                                        <td>
+                                            <table dir="rtl" visible="true">
+                                                <tbody>
+                                                    <tr>
+                                                        <td valign="top" align="right">
+                                                            <TSPControls:CustomAspxUploadControl runat="server" Width="258px" ShowProgressPanel="True"
+                                                                UploadWhenFileChoosed="True" ID="flpLetter" InputType="Files"
+                                                                ClientInstanceName="flpLetter" OnFileUploadComplete="flpAttach_FileUploadComplete">
+                                                                <ClientSideEvents FileUploadComplete="function(s, e) {
+  if(e.isValid){
+	imgEndUploadLetter.SetVisible(true);
+	HiddenFieldPage.Set('Letter',1);
+	lblValidationLetter.SetVisible(false);
+	hpFilePathLetter.SetVisible(true);
+	hpFilePathLetter.SetNavigateUrl('../../../Image/TechnicalServices/Release/'+e.callbackData);
+    HiddenFieldPage.Set('LetterUrl','../../../Image/TechnicalServices/Release/'+e.callbackData);
+	}
+	else{
+	imgEndUploadLetter.SetVisible(false);
+	HiddenFieldPage.Set('Letter',0);
+	lblValidationLetter.SetVisible(true);
+	hpFilePathLetter.SetVisible(false);
+	hpFilePathLetter.SetNavigateUrl('');
+    HiddenFieldPage.Set('LetterUrl','');
+	}
+}"></ClientSideEvents>
+                                                            </TSPControls:CustomAspxUploadControl>
+                                                            <dxe:ASPxLabel runat="server" Text="تصویر را انتخاب نمایید" ClientVisible="False"
+                                                                ID="lblValidationLetter" ForeColor="Red" ClientInstanceName="lblValidationLetter">
+                                                            </dxe:ASPxLabel>
+                                                        </td>
+                                                        <td>
+                                                            <dxe:ASPxImage runat="server" ClientVisible="False" ToolTip="تصویر انتخاب شد" ImageUrl="~/Images/icons/button_ok.png"
+                                                                ID="imgEndUploadLetter" ClientInstanceName="imgEndUploadLetter">
+                                                            </dxe:ASPxImage>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <dxe:ASPxHyperLink runat="server" Text="آدرس فایل" ClientVisible="False" Target="_blank"
+                                                ID="hpFilePathLetter" NavigateUrl='<%# Bind("FilePathLetter") %>' ClientInstanceName="hpFilePathLetter">
+                                            </dxe:ASPxHyperLink>
+
+                                        </td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>توضیحات</td>
+                                        <td colspan="3">
+                                            <TSPControls:CustomASPXMemo runat="server" Height="37px" ID="txtDes" Width="100%">
+                                                <ValidationSettings>
+
+                                                    <ErrorFrameStyle ImageSpacing="4px">
+                                                        <ErrorTextPaddings PaddingLeft="4px"></ErrorTextPaddings>
+                                                    </ErrorFrameStyle>
+                                                </ValidationSettings>
+                                            </TSPControls:CustomASPXMemo>
+                                        </td>
+                                    </tr>
+                            </tbody>
+                        </table>
+
+                    </dxp:PanelContent>
+                </PanelCollection>
+            </TSPControls:CustomASPxRoundPanel>
+            <br />
+            <TSPControls:CustomASPxRoundPanelMenu ID="CustomASPxRoundPanelMenu2" runat="server"
+                Width="100%">
+                <PanelCollection>
+                    <dxp:PanelContent>
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <TSPControls:CustomAspxButton IsMenuButton="true" runat="server" Text=" " ToolTip="جدید"
+                                            ID="btnNew2" UseSubmitBehavior="False" EnableViewState="False" EnableTheming="False"
+                                            OnClick="btnNew_Click">
+                                            <Image Url="~/Images/icons/new.png">
+                                            </Image>
+                                        </TSPControls:CustomAspxButton>
+                                    </td>
+                                    <td>
+                                        <TSPControls:CustomAspxButton IsMenuButton="true" runat="server" Text=" " ToolTip="ویرایش"
+                                            CausesValidation="False" ID="btnEdit2" OnClick="btnEdit_Click" UseSubmitBehavior="False"
+                                            EnableViewState="true" EnableTheming="False">
+                                            <Image Url="~/Images/icons/Edit.png">
+                                            </Image>
+                                        </TSPControls:CustomAspxButton>
+                                    </td>
+                                    <td>
+                                        <TSPControls:CustomAspxButton IsMenuButton="true" ID="btnSave2" runat="server" EnableTheming="False"
+                                            EnableViewState="False" OnClick="btnSave_Click" Text=" " ToolTip="ذخیره" UseSubmitBehavior="False">
+                                            <ClientSideEvents Click="function(s, e) {
+                     if (ASPxClientEdit.ValidateGroup() == false ||  HiddenFieldPage.Get('Letter') == 0 || HiddenFieldPage.Get('Form') == 0)
+                        {
+                        e.processOnServer= false;   
+                         alert('تکمیل موارد لازم و بارگذاری تصاویر اجباری است');
+                        return;
+                        }
+	                    e.processOnServer= confirm('آیا از ذخیره بازگشت ظرفیت در این پروژه مطمئن می باشید؟');
+                        }" />
+                                            <Image Height="25px" Url="~/Images/icons/save.png" Width="25px" />
+                                        </TSPControls:CustomAspxButton>
+                                    </td>
+                                    <td width="10px" align="center">
+                                        <TSPControls:MenuSeprator runat="server" ID="MenuSeprator1"></TSPControls:MenuSeprator>
+                                    </td>
+                                    <td>
+                                        <TSPControls:CustomAspxButton IsMenuButton="true" ID="btnBack2" runat="server" CausesValidation="False"
+                                            EnableTheming="False" EnableViewState="False" OnClick="btnBack_Click" Text=" "
+                                            ToolTip="بازگشت" UseSubmitBehavior="False">
+                                            <Image Height="25px" Url="~/Images/icons/Back.png" Width="25px" />
+                                        </TSPControls:CustomAspxButton>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </dxp:PanelContent>
+                </PanelCollection>
+            </TSPControls:CustomASPxRoundPanelMenu>
+            <br />
+            <dxhf:ASPxHiddenField runat="server" ID="HiddenFieldPage" ClientInstanceName="HiddenFieldPage">
+            </dxhf:ASPxHiddenField>
+            <asp:ModalUpdateProgress ID="ModalUpdateProgress2" runat="server" DisplayAfter="0"
+                BackgroundCssClass="modalProgressGreyBackground" AssociatedUpdatePanelID="UpdatePanel1">
+                <ProgressTemplate>
+                    <div class="modalPopup">
+                        لطفا صبر نمایید
+                    <img src="../../Image/indicator.gif" align="middle" />
+                    </div>
+                </ProgressTemplate>
+            </asp:ModalUpdateProgress>
+        </ContentTemplate>
+    </asp:UpdatePanel>
+
+</asp:Content>

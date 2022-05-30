@@ -1,0 +1,102 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage.master.cs" Inherits="Admin_MasterPage" %>
+
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxrp" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxp" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxe" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxm" %>
+<%@ Register Assembly="TSP.WebControls" Namespace="TSP.WebControls" TagPrefix="TSPControls" %>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>مدیریت سایت</title>
+    <link href="../StyleSheet/MainStyleSheet.css" rel="stylesheet" type="text/css" />
+</head>
+<body align="center" dir="rtl">
+    <form id="form1" runat="server">
+    <script type="text/javascript" src="../Script/Utility.js"></script>
+             <TSPControls:CustomASPxRoundPanelMenu ID="CustomASPxRoundPanelMenu1" runat="server"
+                    Width="100%">
+                    <PanelCollection>
+                        <dxp:PanelContent>
+
+
+ 
+                    <table width="100%">
+                        <tr>
+                            <td align="right">
+                                <TSPControls:CustomAspxMenuHorizontal ID="MenuAdmin" runat="server"  
+                                    AutoSeparators="RootOnly"  ItemSpacing="0px"
+                                    RightToLeft="True" SeparatorColor="#A5A6A8" SeparatorHeight="100%" SeparatorWidth="1px"
+                                    ItemImagePosition="Left">
+                                    <Items>
+                                        <dxm:MenuItem Name="AdminPanel" Text="پنل مدیریت سایت" NavigateUrl="Admin.aspx">
+                                            <Image Url="~/Images/Administrator-32.png" Height="20px" Width="20px">
+                                            </Image>
+                                        </dxm:MenuItem>
+                                        <dxm:MenuItem Name="Home" Text="صفحه اصلی" NavigateUrl="~/Default.aspx">
+                                            <Image Url="~/Images/icons/Home-32.png" Height="20px" Width="20px">
+                                            </Image>
+                                        </dxm:MenuItem>
+                                        <dxm:MenuItem Name="Portal" Text="ورود به پرتال" NavigateUrl="~/Login.aspx">
+                                            <Image Url="~/Images/x-office-contact.png" Height="20px" Width="20px">
+                                            </Image>
+                                        </dxm:MenuItem>
+                                        <dxm:MenuItem Name="ChangePassword" Text="تغییر رمز عبور" NavigateUrl="AdminConfirm.aspx">
+                                            <Image Url="~/Images/password.png" Height="20px" Width="20px">
+                                            </Image>
+                                        </dxm:MenuItem>
+                                        <dxm:MenuItem Name="WebSiteError" Text="خطاهای سایت" NavigateUrl="WebSiteError.aspx">
+                                            <Image Url="~/Images/Errors-64.png" Height="20px" Width="20px">
+                                            </Image>
+                                        </dxm:MenuItem>
+                                        <dxm:MenuItem Name="DatabaseAdmin" Text="مدیریت دیتابیس" NavigateUrl="DBAdmin.aspx">
+                                            <Image Url="~/Images/DatabaseAdmin-64.png" Height="20px" Width="20px">
+                                            </Image>
+                                        </dxm:MenuItem>
+                                        <dxm:MenuItem Name="SiteSettings" Text="تنظیمات سایت" NavigateUrl="SiteSettings.aspx">
+                                            <Image Url="~/Images/Settings-64.png" Height="20px" Width="20px">
+                                            </Image>
+                                        </dxm:MenuItem>
+                                        <dxm:MenuItem Name="SiteSettings" Text="رمزگذاری و رمزگشایی" NavigateUrl="StringEncryptDecrypt.aspx">
+                                            <Image Url="~/Images/Half Encrypted-32.png" Height="20px" Width="20px">
+                                            </Image>
+                                        </dxm:MenuItem>
+                                    </Items>
+                                    <RootItemSubMenuOffset FirstItemX="-1" FirstItemY="-2" LastItemX="-1" LastItemY="-2"
+                                        X="-1" Y="-2" />
+                                    <Border BorderColor="#A5A6A8" BorderStyle="Solid" BorderWidth="1px" />
+                                    <VerticalPopOutImage Height="8px" Width="4px" />
+                                    <ItemStyle ImageSpacing="5px" PopOutImageSpacing="7px" VerticalAlign="Middle" />
+                                    <SubMenuItemStyle ImageSpacing="7px">
+                                    </SubMenuItemStyle>
+                                    <SubMenuStyle BackColor="#EDF3F4" GutterWidth="0px" SeparatorColor="#7EACB1" />
+                                    <HorizontalPopOutImage Height="7px" Width="7px" />
+                                </TSPControls:CustomAspxMenuHorizontal>
+                            </td>
+                            <td align="left">
+                                <TSPControls:CustomAspxButton IsMenuButton="true" runat="server" Text="" ID="btnRefresh" ToolTip="بارگذاری مجدد صفحه" UseSubmitBehavior="false"
+                                    EncodeHtml="false"  OnClick="btnRefresh_Click"
+                                    >
+                                    <%--AutoPostBack="false"--%>
+                                    <%--<ClientSideEvents Click="function(s,e){ window.location.reload(); }" />--%>
+                                    <Image Width="20px" Height="20px" Url="~/Images/Refresh.png" />
+                                </TSPControls:CustomAspxButton>
+                            </td>
+                        </tr>
+                    </table>
+                </dxp:PanelContent>
+                    </PanelCollection>
+                </TSPControls:CustomASPxRoundPanelMenu>
+    <br />
+    <div>
+        <%--style="border: 1px solid darkblue; padding: 10px 10px 10px 10px"--%>
+        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+        </asp:ContentPlaceHolder>
+    </div>
+    </form>
+</body>
+</html>

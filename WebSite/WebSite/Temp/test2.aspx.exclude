@@ -1,0 +1,155 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="test2.aspx.cs" Inherits="Temp_test2" %>
+
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dx" %>
+    <%@ Register Assembly="TSP.WebControls" Namespace="TSP.WebControls" TagPrefix="TSPControls" %>d
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+    <link href="../StyleSheet/MainStyleSheet.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div>
+        <asp:Button ID="Button1" runat="server" Text="Button" ToolTip="توضیحات" />
+        <asp:Label ID="Label1" runat="server" Text="Label" />
+        <ul class="HelpUL">
+            <li>help!!!!!!</li>
+        </ul>
+        <table id="tblTest" runat="server" style="color: Gray;">
+        </table>
+        <dx:ASPxMenu ID="MenueMajors" runat="server" AutoSeparators="RootOnly" 
+             RightToLeft="True" 
+            Width="100%" Height="2px">
+            <LoadingPanelImage Url="~/App_Themes/Glass/Web/Loading.gif">
+            </LoadingPanelImage>
+            <RootItemSubMenuOffset FirstItemX="-1" FirstItemY="-2" LastItemX="-1" LastItemY="-2"
+                X="-1" Y="-2" />
+            <ItemStyle DropDownButtonSpacing="0px" PopOutImageSpacing="0px" ToolbarDropDownButtonSpacing="0px"
+                ToolbarPopOutImageSpacing="0px" VerticalAlign="Middle" Wrap="true" Font-Size="9px" />
+            <SubMenuStyle GutterWidth="0px" />
+            <Items>
+                <dx:MenuItem Text="جدید" Image-Url="~/Images/icons/new.png" Image-Height="15px">
+                </dx:MenuItem>
+                <dx:MenuItem  Image-Url="~/Images/icons/edit.png">
+                </dx:MenuItem>
+            </Items>
+        </dx:ASPxMenu>
+        <br />
+        <br />
+        <br />
+        <TSPControls:CustomAspxMenuHorizontalManagmentPage runat="server">
+           <Items>
+                <dx:MenuItem Text="جدید" Image-Url="~/Images/icons/new.png" Image-Height="15px">
+                </dx:MenuItem>
+                <dx:MenuItem Image-Url="~/Images/icons/edit.png" text="ویرایش">
+                </dx:MenuItem>
+                <dx:MenuItem Image-Url="~/Images/icons/view.png" text="مشاهده">
+                </dx:MenuItem>
+                <dx:MenuItem Image-Url="~/Images/icons/edit.png" text="عامل پروژه جدید">
+                <Items>
+                <dx:MenuItem  Image-Url="~/Images/TS/Observers.png" text="ناظر جدید">
+                </dx:MenuItem>
+                   <dx:MenuItem  Image-Url="~/Images/TS/Designers.png" text="طراح جدید">
+                </dx:MenuItem>
+                   <dx:MenuItem  Image-Url="~/Images/TS/Implementers.png" text="مجری جدید">
+                </dx:MenuItem>
+                </Items>
+                </dx:MenuItem>
+                <dx:MenuItem Image-Url="~/Images/icons/edit.png">
+                </dx:MenuItem>
+              
+            </Items>
+        </TSPControls:CustomAspxMenuHorizontalManagmentPage>
+        <br />
+        <br />
+        <dx:ASPxMenu ID="mMain" SkinID="None" runat="server" RightToLeft="True" 
+              AutoSeparators="All"
+            ItemLinkMode="TextOnly" AllowSelectItem="True" Font-Names="Tahoma" Font-Size="11px"
+            Font-Underline="False" ForeColor="#162436" SeparatorColor="#5386CB" SeparatorHeight="10px"
+            SeparatorWidth="1px">
+            <Items>
+                <dx:MenuItem Text="جدید" Image-Url="~/Images/icons/new.png" Image-Height="15px">
+                </dx:MenuItem>
+                <dx:MenuItem Image-Url="~/Images/icons/edit.png" text="ویرایش">
+                </dx:MenuItem>
+                <dx:MenuItem Image-Url="~/Images/icons/view.png" text="مشاهده">
+                </dx:MenuItem>
+                <dx:MenuItem Image-Url="~/Images/icons/edit.png" text="عامل پروژه جدید">
+                <Items>
+                <dx:MenuItem  Image-Url="~/Images/TS/Observers.png" text="ناظر جدید">
+                </dx:MenuItem>
+                   <dx:MenuItem  Image-Url="~/Images/TS/Designers.png" text="طراح جدید">
+                </dx:MenuItem>
+                   <dx:MenuItem  Image-Url="~/Images/TS/Implementers.png" text="مجری جدید">
+                </dx:MenuItem>
+                </Items>
+                </dx:MenuItem>
+                <dx:MenuItem Image-Url="~/Images/icons/edit.png">
+                </dx:MenuItem>
+                <dx:MenuItem Text="Support">
+                    <Items>
+                        <dx:MenuItem Text="News">
+                            <Items>
+                                <dx:MenuItem Text="For Developers">
+                                </dx:MenuItem>
+                                <dx:MenuItem Text="Website news">
+                                </dx:MenuItem>
+                            </Items>
+                        </dx:MenuItem>
+                        <dx:MenuItem Text="Our Mission">
+                        </dx:MenuItem>
+                        <dx:MenuItem Text="Our Customers">
+                        </dx:MenuItem>
+                    </Items>
+                </dx:MenuItem>
+            </Items>
+            <LoadingPanelImage Url="~/App_Themes/Glass/Web/Loading.gif">
+            </LoadingPanelImage>
+            <RootItemSubMenuOffset FirstItemX="-1" FirstItemY="-2" LastItemX="-1" LastItemY="-2"
+                X="-1" Y="-2" />
+            <ItemStyle DropDownButtonSpacing="12px" PopOutImageSpacing="7px" ToolbarDropDownButtonSpacing="8px"
+                ToolbarPopOutImageSpacing="8px" VerticalAlign="Middle" />
+            <Paddings Padding="0px" />
+            <SeparatorPaddings PaddingLeft="14px" PaddingRight="14px" PaddingTop="1px" />
+            <LinkStyle>
+                <HoverFont Underline="True" />
+            </LinkStyle>
+            <SubMenuStyle GutterWidth="0px" />
+        </dx:ASPxMenu>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <dx:ASPxMenu ID="ASPxMenu2" SkinID="None" runat="server" AutoSeparators="RootOnly"
+            ItemLinkMode="TextOnly"  Font-Names="Tahoma" Font-Size="11px"
+            Font-Underline="False" ForeColor="#162436" SeparatorColor="#5386CB" SeparatorHeight="10px"
+            SeparatorWidth="1px">
+            <Items>
+                <dx:MenuItem NavigateUrl="javascript:void(0)" Name="home" Text="Home">
+                </dx:MenuItem>
+                <dx:MenuItem NavigateUrl="javascript:void(0)" Name="products" Text="Products">
+                </dx:MenuItem>
+                <dx:MenuItem NavigateUrl="javascript:void(0)" Name="downloads" Text="Downloads">
+                </dx:MenuItem>
+                <dx:MenuItem NavigateUrl="javascript:void(0)" Name="support" Text="Support">
+                </dx:MenuItem>
+                <dx:MenuItem NavigateUrl="javascript:void(0)" Name="order" Text="Order">
+                </dx:MenuItem>
+            </Items>
+            <Paddings Padding="0px" />
+            <SeparatorPaddings PaddingLeft="14px" PaddingRight="14px" PaddingTop="1px" />
+            <LinkStyle>
+                <HoverFont Underline="True" />
+            </LinkStyle>
+        </dx:ASPxMenu>
+    </div>
+    </form>
+</body>
+</html>

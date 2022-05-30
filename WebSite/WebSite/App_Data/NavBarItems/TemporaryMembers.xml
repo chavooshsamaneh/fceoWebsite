@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Groups>
+  <NavBarGroup Text="واحد عضویت" Name="grpMemberInfo" Expanded="True"  Target="">
+    <NavBarItem NavigateUrl="/Members/MemberInfo/MemberRequest.aspx" Text="مدیریت درخواست ها" Name="MeRequest">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Members/Office/Office.aspx" Text="سوابق عضویت در شرکت ها">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Members/EngOfficeView/EngOffice.aspx" Text="سوابق عضویت در دفاتر">
+    </NavBarItem>
+  </NavBarGroup>
+
+  <NavBarGroup Text="واحد مالی" Expanded="False" Name="grpAccounting" Visiblity = "true"  Target="">
+    <NavBarItem NavigateUrl="/Members/Accounting/EpaymentFishes.aspx" Text="مدیریت فیش های پرداخت الکترونیکی">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="/Members/Accounting/EpaymentFishes.aspx?P=N" Name="EpayFishNotPayed" Text="مدیریت فیش های پرداخت نشده پرداخت الکترونیکی">
+    </NavBarItem>
+  </NavBarGroup>
+
+
+
+</Groups>

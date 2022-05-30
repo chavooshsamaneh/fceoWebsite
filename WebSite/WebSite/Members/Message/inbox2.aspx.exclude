@@ -1,0 +1,496 @@
+﻿<%@ Page Language="C#" MasterPageFile="~/MasterPagePortals.master" AutoEventWireup="true"
+    CodeFile="inbox2.aspx.cs" Inherits="Members_Message_inbox2" Title="مدیریت نامه های تاییدی" %>
+
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxcp" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxrp" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxp" %>
+<%@ Register Assembly="DevExpress.Web.ASPxHtmlEditor.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web.ASPxHtmlEditor" TagPrefix="dxhe" %>
+<%@ Register Assembly="DevExpress.Web.ASPxSpellChecker.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web.ASPxSpellChecker" TagPrefix="dxwsc" %>
+<%@ Register Assembly="obout_Editor" Namespace="OboutInc.Editor" TagPrefix="obout" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxdv" %>
+<%@ Register Assembly="TSP.WebControls" Namespace="TSP.WebControls" TagPrefix="TSPControls" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxe" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxwgv" %>
+<%@ Register Assembly="AjaxControls" Namespace="AjaxControls" TagPrefix="asp" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+
+    <script language="javascript">
+        function SetEnabled(result) {
+            //  alert(result);
+            rbtnConf.SetEnabled(!result);
+            document.getElementById("<%=lblAnswer.ClientID%>").style.disabled = result;
+}
+    </script>
+
+    <div id="divcontent" style="width: 100%" align="center" dir="ltr">
+        <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+            <ContentTemplate>
+                <div style="width: 100%" dir="rtl" align="center">
+                    <div style="text-align: right" dir="rtl" id="DivReport" class="DivErrors" runat="server">
+                        <asp:Label ID="LabelWarning" runat="server" Text="Label"></asp:Label>[<a class="closeLink" href="#">بستن</a>]</div>
+                    <div dir="ltr">
+                        <dxrp:ASPxRoundPanel ID="RoundPanelFooter" runat="server" Width="100%" ShowHeader="False" HorizontalAlign="Right"   BackColor="#EBF2F4">
+                            <leftedge>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif"></BackgroundImage>
+</leftedge>
+
+                            <bottomrightcorner height="5px" width="5px" url="~/App_Themes/Glass/Web/rpBottomRightCorner.png"></bottomrightcorner>
+
+                            <HeaderContent>
+                                <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderBack.gif"></BackgroundImage>
+                            </HeaderContent>
+
+                            <ContentPaddings Padding="0px"></ContentPaddings>
+
+                            <noheadertoprightcorner height="5px" width="5px" url="~/App_Themes/Glass/Web/rpNoHeaderTopRightCorner.png"></noheadertoprightcorner>
+
+                            <rightedge>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif"></BackgroundImage>
+</rightedge>
+
+                            <headerrightedge>
+<BackgroundImage VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderRightEdge.gif"></BackgroundImage>
+</headerrightedge>
+
+                            <Border BorderWidth="1px" BorderStyle="Solid" BorderColor="#7EACB1"></Border>
+
+                            <HeaderStyle BackColor="White" Height="23px">
+                                <Paddings PaddingTop="0px" PaddingBottom="0px" PaddingLeft="2px"></Paddings>
+
+                                <BorderBottom BorderStyle="None"></BorderBottom>
+                            </HeaderStyle>
+
+                            <Content>
+                                <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpContentBack.gif"></BackgroundImage>
+                            </Content>
+
+                            <headerleftedge>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderLeftEdge.gif"></BackgroundImage>
+</headerleftedge>
+
+                            <bottomedge backcolor="#D7E9F1"></bottomedge>
+
+                            <toprightcorner height="5px" width="5px" url="~/App_Themes/Glass/Web/rpTopRightCorner.png"></toprightcorner>
+
+                            <noheadertopleftcorner height="5px" width="5px" url="~/App_Themes/Glass/Web/rpNoHeaderTopLeftCorner.png"></noheadertopleftcorner>
+                            <PanelCollection>
+                                <dxp:PanelContent runat="server">
+                                    <div dir="rtl">
+                                        <table>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <TSPControls:CustomTextBox runat="server" Text=" " ToolTip="ارسال پیام" CausesValidation="False" Width="25px" ID="btnSend" UseSubmitBehavior="False" EnableViewState="False" EnableTheming="False" OnClick="btnSend_Click">
+                                                            <ClientSideEvents Click="function(s, e) {	
+}
+"></ClientSideEvents>
+
+                                                            <HoverStyle BackColor="#FFE0C0">
+                                                                <border borderwidth="1px" borderstyle="Outset" bordercolor="Gray"></border>
+                                                            </HoverStyle>
+
+                                                            <Image  Url="~/Images/E-Mail.png"></Image>
+                                                        </TSPControls:CustomTextBox>
+                                                    </td>
+                                                    <td>
+                                                        <TSPControls:CustomTextBox runat="server" Text=" " ToolTip="حذف" CausesValidation="False" Width="25px" ID="btnDelete" UseSubmitBehavior="False" EnableViewState="False" EnableTheming="False" OnClick="btnDelete_Click">
+                                                            <ClientSideEvents Click="function(s, e) {	
+e.processOnServer= confirm('آیا مطمئن به حذف این ردیف هستید؟');
+}
+"></ClientSideEvents>
+
+                                                            <HoverStyle BackColor="#FFE0C0">
+                                                                <border borderwidth="1px" borderstyle="Outset" bordercolor="Gray"></border>
+                                                            </HoverStyle>
+
+                                                            <Image  Url="~/Images/icons/delete.png"></Image>
+                                                        </TSPControls:CustomTextBox>
+                                                    </td>
+                                                    <td>
+                                                        <TSPControls:CustomTextBox runat="server" Text=" " ToolTip="بازگشت" CausesValidation="False" Width="25px" ID="btnBack" UseSubmitBehavior="False" EnableViewState="False" EnableTheming="False" OnClick="btnBack_Click">
+                                                            <ClientSideEvents Click="function(s, e) {	
+}
+"></ClientSideEvents>
+
+                                                            <HoverStyle BackColor="#FFE0C0">
+                                                                <border borderwidth="1px" borderstyle="Outset" bordercolor="Gray"></border>
+                                                            </HoverStyle>
+
+                                                            <Image  Url="~/Images/icons/Back.png"></Image>
+                                                        </TSPControls:CustomTextBox>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </dxp:PanelContent>
+                            </PanelCollection>
+
+                            <topleftcorner height="5px" width="5px" url="~/App_Themes/Glass/Web/rpTopLeftCorner.png"></topleftcorner>
+
+                            <noheadertopedge backcolor="#EBF2F4"></noheadertopedge>
+
+                            <bottomleftcorner height="5px" width="5px" url="~/App_Themes/Glass/Web/rpBottomLeftCorner.png"></bottomleftcorner>
+                        </dxrp:ASPxRoundPanel>
+                        <br />
+                    </div>
+                    <TSPControls:CustomAspxDevGridView Style="width: 100%" ID="GridViewConfirmMessages" runat="server" DataSourceID="ObjdsMsg" Width="100%"   ClientInstanceName="GridConfMsg" EnableViewState="False" OnHtmlRowPrepared="CustomAspxDevGridView5_HtmlRowPrepared" OnHtmlRowCreated="CustomAspxDevGridView5_HtmlRowCreated" OnDetailRowExpandedChanged="CustomAspxDevGridView5_DetailRowExpandedChanged" KeyFieldName="MsgId" AutoGenerateColumns="False" OnCustomDataCallback="GridViewConfirmMessages_CustomDataCallback">
+                        <ClientSideEvents FocusedRowChanged="function(s, e) {
+//Callbackmsg.cpAnswer=-1;
+	Callbackmsg.PerformCallback(GridConfMsg.GetFocusedRowIndex());
+}"
+                            EndCallback="function(s, e) {
+}"></ClientSideEvents>
+                        <Templates>
+                            <DetailRow>
+                            </DetailRow>
+                        </Templates>
+                        <SettingsBehavior ConfirmDelete="True" AllowFocusedRow="True"></SettingsBehavior>
+                        <Styles  >
+                            <GroupPanel BackColor="CornflowerBlue" ForeColor="White">
+                            </GroupPanel>
+                            <Header Wrap="True" HorizontalAlign="Center">
+                            </Header>
+                            <SelectedRow BackColor="White" ForeColor="Black">
+                            </SelectedRow>
+                            <FocusedRow BackColor="PowderBlue" ForeColor="Black">
+                            </FocusedRow>
+                            <Row BackColor="LightSteelBlue">
+                            </Row>
+                        </Styles>
+                        <SettingsPager AlwaysShowPager="True">
+                            <AllButton Text="همه رکوردها">
+                            </AllButton>
+                            <FirstPageButton Text="اولین صفحه">
+                            </FirstPageButton>
+                            <LastPageButton Text="آخرین صفحه">
+                            </LastPageButton>
+                            <Summary Text="صفحه: {0} از {1} (تعداد کل:{2})"></Summary>
+                            <NextPageButton Text="صفحه بعد">
+                            </NextPageButton>
+                            <PrevPageButton Text="صفحه قبل">
+                            </PrevPageButton>
+                        </SettingsPager>
+                        <Columns>
+                            <dxwgv:GridViewDataTextColumn VisibleIndex="0" FieldName="EmpName" Caption="فرستنده">
+                            </dxwgv:GridViewDataTextColumn>
+                            <dxwgv:GridViewDataTextColumn VisibleIndex="1" FieldName="MsgSubject" Caption="موضوع">
+                            </dxwgv:GridViewDataTextColumn>
+                            <dxwgv:GridViewDataTextColumn VisibleIndex="2" FieldName="Date" Caption="تاریخ">
+                                <HeaderStyle HorizontalAlign="Center"></HeaderStyle>
+                                <CellStyle Wrap="False"></CellStyle>
+                            </dxwgv:GridViewDataTextColumn>
+                            <dxwgv:GridViewDataTextColumn VisibleIndex="3" FieldName="ExpireDate" Caption="مهلت">
+                                <HeaderStyle HorizontalAlign="Center"></HeaderStyle>
+                                <CellStyle Wrap="False"></CellStyle>
+                            </dxwgv:GridViewDataTextColumn>
+                            <dxwgv:GridViewDataTextColumn VisibleIndex="4" FieldName="FS" Caption="وضعیت در آینده">
+                                <HeaderStyle HorizontalAlign="Center"></HeaderStyle>
+                            </dxwgv:GridViewDataTextColumn>
+                            <dxwgv:GridViewDataTextColumn Visible="False" VisibleIndex="5" FieldName="CountReceived"
+                                Caption="تعداد گیرندگان">
+                                <HeaderStyle HorizontalAlign="Center"></HeaderStyle>
+                                <DataItemTemplate>
+                                    <asp:Label ID="LabelCountRec" runat="server" Text="1"></asp:Label>
+                                </DataItemTemplate>
+                                <CellStyle HorizontalAlign="Center"></CellStyle>
+                            </dxwgv:GridViewDataTextColumn>
+                            <dxwgv:GridViewDataTextColumn Visible="False" VisibleIndex="5" FieldName="CountReply"
+                                Caption="تعداد پاسخ">
+                                <HeaderStyle HorizontalAlign="Center"></HeaderStyle>
+                                <DataItemTemplate>
+                                    <asp:Label ID="LabelCountReply" runat="server" Text="0"></asp:Label>
+                                </DataItemTemplate>
+                                <CellStyle HorizontalAlign="Center"></CellStyle>
+                            </dxwgv:GridViewDataTextColumn>
+                            <dxwgv:GridViewCommandColumn VisibleIndex="5" Caption=" ">
+                                <clearfilterbutton visible="True"></clearfilterbutton>
+                            </dxwgv:GridViewCommandColumn>
+                        </Columns>
+                        <SettingsText CommandClearFilter="پاک کردن فیلتر" ConfirmDelete="آیا مطمئن به حذف این ردیف هستید؟"
+                            EmptyDataRow="هیچ داده ای وجود ندارد" GroupPanel="برای گروه بندی از این قسمت استفاده کنید"
+                            CommandEdit="ویرایش" CommandDelete="حذف" CommandSelect="انتخاب" CommandNew="جدید"
+                            CommandUpdate="ذخیره" CommandCancel="انصراف"></SettingsText>
+                        <SettingsLoadingPanel Text="در حال بارگذاری"></SettingsLoadingPanel>
+                        <Settings ShowGroupPanel="True" ShowFilterRow="True"></Settings>
+                        <SettingsDetail AllowOnlyOneMasterRowExpanded="True"></SettingsDetail>
+                    </TSPControls:CustomAspxDevGridView>
+                    <br />
+                    <TSPControls:CustomAspxCallbackPanel ID="CallbackPanelMsg" runat="server" Width="100%" ClientInstanceName="Callbackmsg" OnCallback="CallbackPanelMsg_Callback">
+                        <PanelCollection>
+                            <dxp:PanelContent runat="server">
+                                <table class="TableBorder" width="100%">
+                                    <tbody>
+                                        <tr>
+                                            <td style="vertical-align: top" align="right" colspan="3">
+                                                <dxe:ASPxLabel runat="server" Text="متن پیام:" ID="ASPxLabel1"></dxe:ASPxLabel>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="vertical-align: top" align="right" colspan="3">
+                                                <asp:Panel runat="server" Direction="RightToLeft" CssClass="TableBorder" Height="150px" ScrollBars="Auto" ID="Panel2">
+                                                    <asp:Label runat="server" Width="100%" Height="100%" ID="lblMsgBody"></asp:Label>
+
+
+
+
+                                                </asp:Panel>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right" colspan="3" style="vertical-align: top">
+                                                <dxe:ASPxLabel runat="server" Text="پاسخ پیام:" ID="ASPxLabel2"></dxe:ASPxLabel>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right" colspan="3" style="vertical-align: top">
+                                                <dxe:ASPxRadioButtonList runat="server" ID="rdbConfirm" ClientInstanceName="rbtnConf">
+                                                    <Border BorderWidth="0px"></Border>
+                                                    <Items>
+                                                        <dxe:ListEditItem Value="0" Text="تایید می کنم"></dxe:ListEditItem>
+                                                        <dxe:ListEditItem Value="1" Text="تایید نمی کنم"></dxe:ListEditItem>
+                                                    </Items>
+                                                </dxe:ASPxRadioButtonList>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td align="right" colspan="3" style="vertical-align: top">
+                                                <asp:Panel runat="server" Direction="RightToLeft" CssClass="TableBorder" Height="150px" ScrollBars="Auto" ID="Panel1">
+                                                    <asp:Label ID="lblAnswer" runat="server" Height="100%" Width="100%"></asp:Label>
+
+
+                                                </asp:Panel>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </dxp:PanelContent>
+                        </PanelCollection>
+
+                        <ClientSideEvents EndCallback="function(s, e) {
+	if(Callbackmsg.cpAnswer==0)
+	{
+		SetEnabled(false);
+	}
+	if(Callbackmsg.cpAnswer==1 || Callbackmsg.cpAnswer==2)
+	{
+		SetEnabled(true);
+	}
+}"></ClientSideEvents>
+                    </TSPControls:CustomAspxCallbackPanel>
+                    <div dir="ltr">
+                        <div dir="ltr">
+                            <br />
+                            <dxrp:ASPxRoundPanel ID="ASPxRoundPanel1" runat="server" Width="100%" ShowHeader="False" HorizontalAlign="Right"   BackColor="#EBF2F4">
+                                <leftedge>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif"></BackgroundImage>
+</leftedge>
+
+                                <bottomrightcorner height="5px" width="5px" url="~/App_Themes/Glass/Web/rpBottomRightCorner.png"></bottomrightcorner>
+
+                                <HeaderContent>
+                                    <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderBack.gif"></BackgroundImage>
+                                </HeaderContent>
+
+                                <ContentPaddings Padding="0px"></ContentPaddings>
+
+                                <noheadertoprightcorner height="5px" width="5px" url="~/App_Themes/Glass/Web/rpNoHeaderTopRightCorner.png"></noheadertoprightcorner>
+
+                                <rightedge>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif"></BackgroundImage>
+</rightedge>
+
+                                <headerrightedge>
+<BackgroundImage VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderRightEdge.gif"></BackgroundImage>
+</headerrightedge>
+
+                                <Border BorderWidth="1px" BorderStyle="Solid" BorderColor="#7EACB1"></Border>
+
+                                <HeaderStyle BackColor="White" Height="23px">
+                                    <Paddings PaddingTop="0px" PaddingBottom="0px" PaddingLeft="2px"></Paddings>
+
+                                    <BorderBottom BorderStyle="None"></BorderBottom>
+                                </HeaderStyle>
+
+                                <Content>
+                                    <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpContentBack.gif"></BackgroundImage>
+                                </Content>
+
+                                <headerleftedge>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderLeftEdge.gif"></BackgroundImage>
+</headerleftedge>
+
+                                <bottomedge backcolor="#D7E9F1"></bottomedge>
+
+                                <toprightcorner height="5px" width="5px" url="~/App_Themes/Glass/Web/rpTopRightCorner.png"></toprightcorner>
+
+                                <noheadertopleftcorner height="5px" width="5px" url="~/App_Themes/Glass/Web/rpNoHeaderTopLeftCorner.png"></noheadertopleftcorner>
+                                <PanelCollection>
+                                    <dxp:PanelContent runat="server">
+                                        <div dir="rtl">
+                                            <table>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <TSPControls:CustomTextBox runat="server" Text=" " ToolTip="ارسال پیام" CausesValidation="False" Width="25px" ID="btnSend2" UseSubmitBehavior="False" EnableViewState="False" EnableTheming="False" OnClick="btnSend_Click">
+                                                                <ClientSideEvents Click="function(s, e) {	
+}
+"></ClientSideEvents>
+
+                                                                <HoverStyle BackColor="#FFE0C0">
+                                                                    <border borderwidth="1px" borderstyle="Outset" bordercolor="Gray"></border>
+                                                                </HoverStyle>
+
+                                                                <Image  Url="~/Images/E-Mail.png"></Image>
+                                                            </TSPControls:CustomTextBox>
+                                                        </td>
+                                                        <td>
+                                                            <TSPControls:CustomTextBox runat="server" Text=" " ToolTip="حذف" CausesValidation="False" Width="25px" ID="btnDelete2" UseSubmitBehavior="False" EnableViewState="False" EnableTheming="False" OnClick="btnDelete_Click">
+                                                                <ClientSideEvents Click="function(s, e) {	
+e.processOnServer= confirm('آیا مطمئن به حذف این ردیف هستید؟');
+}
+"></ClientSideEvents>
+
+                                                                <HoverStyle BackColor="#FFE0C0">
+                                                                    <border borderwidth="1px" borderstyle="Outset" bordercolor="Gray"></border>
+                                                                </HoverStyle>
+
+                                                                <Image  Url="~/Images/icons/delete.png"></Image>
+                                                            </TSPControls:CustomTextBox>
+                                                        </td>
+                                                        <td>
+                                                            <TSPControls:CustomTextBox runat="server" Text=" " ToolTip="بازگشت" CausesValidation="False" Width="25px" ID="btnBack2" UseSubmitBehavior="False" EnableViewState="False" EnableTheming="False" OnClick="btnBack_Click">
+                                                                <ClientSideEvents Click="function(s, e) {	
+}
+"></ClientSideEvents>
+
+                                                                <HoverStyle BackColor="#FFE0C0">
+                                                                    <border borderwidth="1px" borderstyle="Outset" bordercolor="Gray"></border>
+                                                                </HoverStyle>
+
+                                                                <Image  Url="~/Images/icons/Back.png"></Image>
+                                                            </TSPControls:CustomTextBox>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </dxp:PanelContent>
+                                </PanelCollection>
+
+                                <topleftcorner height="5px" width="5px" url="~/App_Themes/Glass/Web/rpTopLeftCorner.png"></topleftcorner>
+
+                                <noheadertopedge backcolor="#EBF2F4"></noheadertopedge>
+
+                                <bottomleftcorner height="5px" width="5px" url="~/App_Themes/Glass/Web/rpBottomLeftCorner.png"></bottomleftcorner>
+                            </dxrp:ASPxRoundPanel>
+                        </div>
+                    </div>
+                    <asp:ObjectDataSource ID="ObjdsMsg" runat="server" OldValuesParameterFormatString="original_{0}" UpdateMethod="Update" TypeName="TSP.DataManager.MessageManager" SelectMethod="SelectMsgOfMember" InsertMethod="Insert" FilterExpression="RefMsg is Null" DeleteMethod="Delete">
+                        <DeleteParameters>
+                            <asp:Parameter Name="Original_MsgId" Type="Int32" />
+                            <asp:Parameter Name="Original_LastTimeStamp" Type="Object" />
+                        </DeleteParameters>
+                        <UpdateParameters>
+                            <asp:Parameter Name="SenderId" Type="Int32" />
+                            <asp:Parameter Name="SenderType" Type="Int16" />
+                            <asp:Parameter Name="IsSenderPart" Type="Boolean" />
+                            <asp:Parameter Name="RecieverId" Type="Int32" />
+                            <asp:Parameter Name="RecieverType" Type="Int16" />
+                            <asp:Parameter Name="IsRecieverPart" Type="Boolean" />
+                            <asp:Parameter Name="MsgTypeId" Type="Int16" />
+                            <asp:Parameter Name="NeedConfirm" Type="Boolean" />
+                            <asp:Parameter Name="MsgBody" Type="String" />
+                            <asp:Parameter Name="Date" Type="String" />
+                            <asp:Parameter Name="IsRead" Type="Byte" />
+                            <asp:Parameter Name="RefMsg" Type="Int32" />
+                            <asp:Parameter Name="TableType" Type="Int32" />
+                            <asp:Parameter Name="TableId" Type="Int32" />
+                            <asp:Parameter Name="UserId" Type="Int32" />
+                            <asp:Parameter Name="ModifiedDate" Type="DateTime" />
+                            <asp:Parameter Name="Original_MsgId" Type="Int32" />
+                            <asp:Parameter Name="Original_LastTimeStamp" Type="Object" />
+                            <asp:Parameter Name="MsgId" Type="Int32" />
+                        </UpdateParameters>
+                        <SelectParameters>
+                            <asp:Parameter DefaultValue="-1" Name="ReceiverId" Type="Int32" />
+                            <asp:Parameter DefaultValue="-1" Name="ReceiverType" Type="Int32" />
+                            <asp:Parameter DefaultValue="-1" Name="MsgId" Type="Int32" />
+                            <asp:Parameter DefaultValue="1" Name="NeedConfirm" Type="Int16" />
+                        </SelectParameters>
+                        <InsertParameters>
+                            <asp:Parameter Name="SenderId" Type="Int32" />
+                            <asp:Parameter Name="SenderType" Type="Int16" />
+                            <asp:Parameter Name="IsSenderPart" Type="Boolean" />
+                            <asp:Parameter Name="RecieverId" Type="Int32" />
+                            <asp:Parameter Name="RecieverType" Type="Int16" />
+                            <asp:Parameter Name="IsRecieverPart" Type="Boolean" />
+                            <asp:Parameter Name="MsgTypeId" Type="Int16" />
+                            <asp:Parameter Name="NeedConfirm" Type="Boolean" />
+                            <asp:Parameter Name="MsgBody" Type="String" />
+                            <asp:Parameter Name="Date" Type="String" />
+                            <asp:Parameter Name="IsRead" Type="Byte" />
+                            <asp:Parameter Name="RefMsg" Type="Int32" />
+                            <asp:Parameter Name="TableType" Type="Int32" />
+                            <asp:Parameter Name="TableId" Type="Int32" />
+                            <asp:Parameter Name="UserId" Type="Int32" />
+                            <asp:Parameter Name="ModifiedDate" Type="DateTime" />
+                        </InsertParameters>
+                    </asp:ObjectDataSource>
+                    <asp:ObjectDataSource ID="ObjdsMsgReceiver" runat="server" UpdateMethod="Update" TypeName="TSP.DataManager.MessageReceiverManager" SelectMethod="SelectReceiversOfThis" InsertMethod="Insert" DeleteMethod="Delete">
+                        <DeleteParameters>
+                            <asp:Parameter Name="Original_MsgrId" Type="Int32" />
+                            <asp:Parameter Name="Original_LastTimeStamp" Type="Object" />
+                        </DeleteParameters>
+                        <UpdateParameters>
+                            <asp:Parameter Name="MsgId" Type="Int32" />
+                            <asp:Parameter Name="ReceiverId" Type="Int32" />
+                            <asp:Parameter Name="ReceiverType" Type="Int32" />
+                            <asp:Parameter Name="IsReceiverPart" Type="Boolean" />
+                            <asp:Parameter Name="InActive" Type="Boolean" />
+                            <asp:Parameter Name="UserId" Type="Int32" />
+                            <asp:Parameter Name="ModifiedDate" Type="DateTime" />
+                            <asp:Parameter Name="Original_MsgrId" Type="Int32" />
+                            <asp:Parameter Name="Original_LastTimeStamp" Type="Object" />
+                            <asp:Parameter Name="MsgrId" Type="Int32" />
+                        </UpdateParameters>
+                        <SelectParameters>
+                            <asp:SessionParameter Name="MsgId" SessionField="MsgId3" Type="Int32" />
+                            <asp:Parameter Name="ReceiverId" Type="Int32" />
+                            <asp:Parameter Name="ReceiverType" Type="Int32" />
+                            <asp:Parameter Name="IsReceiverPart" Type="Boolean" />
+                        </SelectParameters>
+                        <InsertParameters>
+                            <asp:Parameter Name="MsgId" Type="Int32" />
+                            <asp:Parameter Name="ReceiverId" Type="Int32" />
+                            <asp:Parameter Name="ReceiverType" Type="Int32" />
+                            <asp:Parameter Name="IsReceiverPart" Type="Boolean" />
+                            <asp:Parameter Name="InActive" Type="Boolean" />
+                            <asp:Parameter Name="UserId" Type="Int32" />
+                            <asp:Parameter Name="ModifiedDate" Type="DateTime" />
+                        </InsertParameters>
+                    </asp:ObjectDataSource>
+                    <asp:HiddenField ID="MsgId" runat="server"></asp:HiddenField>
+                    <asp:HiddenField ID="curMsgId" runat="server"></asp:HiddenField>
+                    <asp:ModalUpdateProgress ID="ModalUpdateProgress2" runat="server" BackgroundCssClass="modalProgressGreyBackground" DisplayAfter="0" AssociatedUpdatePanelID="UpdatePanel1">
+                        <ProgressTemplate>
+                            <div class="modalPopup">
+                                لطفا صبر نمایید
+                                <img src="../../Image/indicator.gif" align="middle" />
+                            </div>
+                        </ProgressTemplate>
+                    </asp:ModalUpdateProgress>
+                </div>
+            </ContentTemplate>
+        </asp:UpdatePanel>
+    </div>
+</asp:Content>

@@ -1,0 +1,774 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using DevExpress.Web;
+using System.Data;
+using System.IO;
+
+public partial class Employee_Document_DeliveryInsert : System.Web.UI.Page
+{
+    #region Properties
+    Boolean IsPageRefresh = false;
+    public string _PageMode
+    {
+        get
+        {
+            return HiddenFieldPage["PgMd"].ToString();
+        }
+        set
+        {
+            HiddenFieldPage["PgMd"] = value.ToString();
+        }
+    }
+    private int _CurrentTaskCode
+    {
+        get
+        {
+            return Convert.ToInt32(HiddenFieldPage["CurrentTaskCode"]);
+        }
+        set
+        {
+            HiddenFieldPage["CurrentTaskCode"] = value.ToString();
+        }
+    }
+    private int _TaskId
+    {
+        get
+        {
+            return Convert.ToInt32(HiddenFieldPage["TaskId"]);
+        }
+        set
+        {
+            HiddenFieldPage["TaskId"] = value.ToString();
+        }
+    }
+
+    int _MeId
+    {
+        get
+        {
+            return Convert.ToInt32(HiddenFieldPage["MeId"]);
+        }
+        set
+        {
+            HiddenFieldPage["MeId"] = value;
+        }
+    }
+    int _DeId
+    {
+        get
+        {
+            return Convert.ToInt32(HiddenFieldPage["DeliverId"]);
+        }
+        set
+        {
+            HiddenFieldPage["DeliverId"] = value;
+        }
+    }
+    #endregion
+
+    #region Events
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        this.DivReport.Visible = false;
+        this.DivReport.Attributes.Add("onclick", "ChangeVisible(this)");
+        this.DivReport.Attributes.Add("onmouseover", "ChangeIcon(this)");
+
+        #region PageRefresh
+        if (!IsPostBack)
+        {
+            ViewState["postids"] = System.Guid.NewGuid().ToString();
+            Session["postid"] = ViewState["postids"].ToString();
+        }
+        else
+        {
+            if (!IsCallback && Session["postid"] != null)
+            {
+                if (ViewState["postids"].ToString() != Session["postid"].ToString()) { IsPageRefresh = true; }
+                Session["postid"] = System.Guid.NewGuid().ToString(); ViewState["postids"] = Session["postid"];
+            }
+        }
+        #endregion
+
+        if (!IsPostBack)
+        {
+            if (Request.QueryString["DeId"] == null || Request.QueryString["PgMd"] == null)
+            {
+                ShowMessage("خطا در بازیابی اطلاعات ایجاد شده است");
+                return;
+            }
+            SetKeys();
+            CheckWorkFlowPermissionForSave();
+            this.ViewState["BtnSave"] = btnSave.Enabled;
+
+        }
+        if (this.ViewState["BtnSave"] != null)
+            this.btnSave.Enabled = (bool)this.ViewState["BtnSave"];
+
+        if (Convert.ToInt32(HiddenFieldPage["Letter"]) == 1)
+            hpFilePathLetter.ClientVisible = true;
+
+
+    }
+    protected void txtMeId_TextChanged(object sender, EventArgs e)
+    {
+        try
+        {
+            if (_PageMode != "New")
+            {
+                ShowMessage("در این حالت قادر به تغییر کد عضویت ثبت شده نیستید");
+                return;
+            }
+            MemberInfoUserControl.MeId = -2;
+            int MeId = -1;
+            int.TryParse(txtMeId.Text, out MeId);
+            if (MeId == -1)
+            {
+                ShowMessage("کد عضویت را صحیح وارد نمایید");
+                return;
+            }
+            _MeId = MeId;
+
+            MemberInfoUserControl.MeId = Convert.ToInt32(MeId);
+            MemberInfoUserControl.MemberInfoUserControRequester = (int)TSP.DataManager.MemberInfoUserControRequester.DocMemberFile;
+
+            ////if (!FillprojectInfo())
+            ////{
+            ////    ClearForm();
+            ////    SetControlsEnabled(false);
+            ////    PanelProjectSearch(true);
+            ////    btnSave.Enabled = false;
+            ////    ShowMessage("امکان ثبت درخواست برای این عضویت وجود ندارد");
+            ////    return;
+            ////}
+            ////else
+            ////{
+            ////    ClearForm();
+            ////    txtMeId.Text = _MeId.ToString();
+            ////    ObjectDataSourceObserver.SelectParameters["ProjectId"].DefaultValue = _ProjectId.ToString();
+            ////    ObjectDataSourceObserver.SelectParameters["MeOfficeOthPEngOId"].DefaultValue = "-1";
+            ////    ObjectDataSourceObserver.SelectParameters["InActive"].DefaultValue = "0";
+            ////    comboProjectObserver.DataBind();
+            ////    comboProjectObserver.SelectedIndex = -1;
+            ////    SetControlsEnabled(true);
+            ////    btnSave.Enabled = true;
+            ////}
+        }
+        catch (Exception ex)
+        {
+            Utility.SaveWebsiteError(ex);
+        }
+
+
+    }
+
+    public void btnNew_Click(object sender, EventArgs e)
+    {
+        ClearForm();
+        _PageMode = "New";
+        SetKeys();
+    }
+    public void btnEdit_Click(object sender, EventArgs e)
+    {
+        if (!CheckEditConditions(_CapRId, _MeId))
+        {
+            ShowMessage("قادر به ویرایش این درخواست بازگشت ظرفیت نمی باشید");
+            return;
+        }
+        _PageMode = "Edit";
+        SetKeys();
+    }
+    public void btnSave_Click(object sender, EventArgs e)
+    {
+        switch (_PageMode)
+        {
+            case "New":
+                Insert();
+                break;
+
+            case "Edit":
+                Update();
+                break;
+        }
+    }
+    public void btnBack_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("CapacityRelease.aspx");
+    }
+    protected void flpAttach_FileUploadComplete(object sender, FileUploadCompleteEventArgs e)
+    {
+        try
+        {
+            e.CallbackData = SaveFile(sender, e.UploadedFile);
+        }
+        catch (Exception ex)
+        {
+            e.IsValid = false;
+            e.ErrorText = ex.Message;
+        }
+    }
+    #endregion
+
+    #region Methods
+    #region Set Key-Mode
+    public void SetKeys()
+    {
+        _ProjectId = Convert.ToInt32(Utility.DecryptQS(Request.QueryString["PRj"].ToString()));
+        _CapRId = Convert.ToInt32(Utility.DecryptQS(Request.QueryString["CapRId"].ToString()));
+        _PageMode = Utility.DecryptQS(Request.QueryString["PgMd"].ToString());
+        SetMode();
+    }
+    private void SetMode()
+    {
+        switch (_PageMode)
+        {
+            case "New":
+                SetNewModeKeys();
+                break;
+            case "View":
+                SetViewModeKeys();
+                break;
+            case "Edit":
+                SetEditModeKeys();
+                break;
+        }
+    }
+    private void SetNewModeKeys()
+    {
+        btnSave.Enabled = btnSave2.Enabled = true;
+        btnEdit.Enabled = btnEdit2.Enabled = true;
+        SetControlsEnabled(true);
+
+        txtMeId.Enabled = true;
+        ClearForm();
+        PanelProjectSearch(true);
+        RoundPanelPage.HeaderText = "جدید";
+    }
+    private void SetViewModeKeys()
+    {
+        btnSave.Enabled = btnSave2.Enabled = false;
+        SetControlsEnabled(false);
+        PanelProjectSearch(false);
+        RoundPanelPage.Enabled = false;
+        if (FillprojectInfo())
+            FillForm();
+        else
+            ShowMessage("مجوز مشاهده اطلاعات مربوط به این درخواست بازگشت ظرفیت در این نمایندگی را ندارید");
+
+        RoundPanelPage.HeaderText = "مشاهده";
+        InsertWorkFlowStateView();
+    }
+    private void SetEditModeKeys()
+    {
+        PanelProjectSearch(false);
+        if (FillprojectInfo())
+        {
+            btnSave.Enabled = btnSave2.Enabled = true;
+            SetControlsEnabled(true);
+            FillForm();
+        }
+        else
+        {
+            ShowMessage("مجوز مشاهده و ویرایش اطلاعات مربوط به این درخواست بازگشت ظرفیت در این نمایندگی را ندارید");
+            btnSave.Enabled = btnSave2.Enabled = false;
+            SetControlsEnabled(false);
+        }
+
+        RoundPanelPage.HeaderText = "ویرایش";
+    }
+
+    #endregion
+    #region Set Visible & Enabled
+    private void PanelProjectSearch(bool Enabled)
+    {
+        RoundPanelProjectSearch.Enabled =
+        txtMeId.Enabled =
+        comboProjectObserver.Enabled = Enabled;
+    }
+    private void SetControlsEnabled(Boolean Enabled)
+    {
+        cmbReasonType.Enabled =
+        txtLetterDateMun.Enabled =
+        txtLetterCode.Enabled =
+        txtLetterDateMun.Enabled =
+        flpLetter.Enabled =
+        txtDes.Enabled = Enabled;
+    }
+    #endregion
+    #region Fill Form
+    private void FillForm()
+    {
+        TSP.DataManager.WorkFlowStateManager WorkFlowStateManager = new TSP.DataManager.WorkFlowStateManager();
+        DataTable dtWorkFlowState = new DataTable();
+        dtWorkFlowState = WorkFlowStateManager.SelectLastStateByWfCode((int)TSP.DataManager.WorkFlows.TSCapacityRelease, _CapRId);
+        if (dtWorkFlowState.Rows.Count > 0)
+        {
+            _CurrentCapRTaskCode = int.Parse(dtWorkFlowState.Rows[0]["TaskCode"].ToString());
+            _CapRTaskId = int.Parse(dtWorkFlowState.Rows[0]["TaskId"].ToString());
+        }
+        TSP.DataManager.TechnicalServices.CapacityReleaseManager CapacityReleaseManager = new TSP.DataManager.TechnicalServices.CapacityReleaseManager();
+        CapacityReleaseManager.SelectCapacityRelease(_CapRId);
+        if (CapacityReleaseManager.Count != 1)
+        {
+            ShowMessage("خطای در بازیابی اطلاعات پیش آمده است");
+            return;
+        }
+        try
+        {
+            //////////////txtMeId.Text = CapacityReleaseManager[0]["MeId"].ToString();
+            _MeId = Convert.ToInt32(CapacityReleaseManager[0]["MeId"]);
+            _ObserverType = Convert.ToInt32(CapacityReleaseManager[0]["MeIdType"]);
+            txtMeId.Text = CapacityReleaseManager[0]["ProjectId"].ToString();
+
+            ObjectDataSourceObserver.SelectParameters["ProjectId"].DefaultValue = txtMeId.Text;
+            ObjectDataSourceObserver.SelectParameters["MeOfficeOthPEngOId"].DefaultValue = _MeId.ToString();
+            ObjectDataSourceObserver.SelectParameters["InActive"].DefaultValue = "-1";
+            comboProjectObserver.DataBind();
+            comboProjectObserver.SelectedIndex = 0;
+            int type = 0;
+            if (!Utility.IsDBNullOrNullValue(CapacityReleaseManager[0]["Type"]))
+            {
+                cmbReasonType.SelectedIndex = cmbReasonType.Items.FindByValue(CapacityReleaseManager[0]["Type"].ToString()).Index;
+                type = Convert.ToInt32(CapacityReleaseManager[0]["Type"].ToString());
+            }
+            else
+                cmbReasonType.SelectedIndex = 0;
+            if (!Utility.IsDBNullOrNullValue(CapacityReleaseManager[0]["LetterCode"]))
+                txtLetterCode.Text = CapacityReleaseManager[0]["LetterCode"].ToString();
+            else
+                txtLetterCode.Text = "";
+            if (!Utility.IsDBNullOrNullValue(CapacityReleaseManager[0]["LetterDate"]))
+                txtLetterDateMun.Text = CapacityReleaseManager[0]["LetterDate"].ToString();
+            else
+                txtLetterDateMun.Text = "";
+            if (!Utility.IsDBNullOrNullValue(CapacityReleaseManager[0]["Description"]))
+                txtDes.Text = CapacityReleaseManager[0]["Description"].ToString();
+            else
+                txtDes.Text = "";
+
+            if (!Utility.IsDBNullOrNullValue(CapacityReleaseManager[0]["UrlLetter"]))
+            {
+                HiddenFieldPage["Letter"] = 1;
+                hpFilePathLetter.ClientVisible = true;
+                hpFilePathLetter.NavigateUrl = CapacityReleaseManager[0]["UrlLetter"].ToString();
+            }
+        }
+        catch (Exception err)
+        {
+            Utility.SaveWebsiteError(err);
+            ShowMessage("خطایی در مشاهده اطلاعات رخ داده است");
+        }
+    }
+    #endregion
+    bool CheckInsertConditions(int ProjectId, int MeId)
+    {
+        TSP.DataManager.TechnicalServices.CapacityReleaseManager CapacityReleaseManager = new TSP.DataManager.TechnicalServices.CapacityReleaseManager();
+        CapacityReleaseManager.SelectMemberCapacityReleaseByConfirm(MeId, ProjectId, 0);
+        if (CapacityReleaseManager.Count > 0)
+        {
+            ShowMessage("عضو انتخاب شده پیش تر درخواست آزاد سازی ظرفیت نظارت برای این پروژه را ثبت کردیده اید.");
+            return false;
+        }
+
+        //***عضو دارای ظرفیت آزاد نشده نباشد
+        TSP.DataManager.TechnicalServices.ObserversManager ObserversManager = new TSP.DataManager.TechnicalServices.ObserversManager();
+        DataTable dtObserverCapacityDecrementActive = ObserversManager.SelectObserverCapacityDecrementActiveByProjectId(ProjectId, MeId, 1, Utility.GetDateOfToday(), 0);
+        if (dtObserverCapacityDecrementActive.Rows.Count == 0)
+        {
+            ShowMessage("عضو انتخاب شده در این پروژه دارای ظرفیت کسر شده نمی باشد");
+            return false;
+        }
+        //********پروژه تایید نشده باشد
+        TSP.DataManager.TechnicalServices.ProjectRequestManager ProjectRequestManager = new TSP.DataManager.TechnicalServices.ProjectRequestManager();
+        DataTable dtProjectRequest = ProjectRequestManager.SelectProjectRequestCount(ProjectId, 0);
+        if (Convert.ToInt32(dtProjectRequest.Rows[0]["RequestCount"]) != 0)
+        {
+            ShowMessage("پروژه انتخاب  شده دارای درخواست در جریان می باشد. پس از تایید درخواست پروژه قادر به ثبت درخواست بازگشت ظرفیت نظارت می باشید");
+            return false;
+        }
+
+        return true;
+    }
+    bool CheckEditConditions(int TableId)
+    {
+        int CurrentTaskCode = -1;
+        int CurrentTaskId = -1;
+        TSP.DataManager.WorkFlowStateManager WorkFlowStateManager = new TSP.DataManager.WorkFlowStateManager();
+        DataTable dtWorkFlowState = new DataTable();
+        dtWorkFlowState = WorkFlowStateManager.SelectLastStateByWfCode((int)TSP.DataManager.WorkFlows.DocDeliveryConfirming, TableId);
+        if (dtWorkFlowState.Rows.Count > 0)
+        {
+            CurrentTaskCode = int.Parse(dtWorkFlowState.Rows[0]["TaskCode"].ToString());
+            CurrentTaskId = int.Parse(dtWorkFlowState.Rows[0]["TaskId"].ToString());
+        }
+        if (CurrentTaskCode != (int)TSP.DataManager.WorkFlowTask.SaveDocDeliveryRequest)
+            return false;
+        return true;
+    }
+    private string SaveFile(object sender, UploadedFile uploadedFile)
+    {
+        string ret = "";
+        if (uploadedFile.IsValid)
+        {
+            do
+            {
+                FileInfo ImageType = new FileInfo(uploadedFile.PostedFile.FileName);
+                ret = Path.GetRandomFileName() + ImageType.Extension;
+            } while (File.Exists(MapPath("~/Image/TechnicalServices/Release/") + ret) == true);
+
+            ASPxUploadControl UploadControl = (ASPxUploadControl)sender;
+            string FullFilePath = "";
+            FullFilePath = "~/Image/TechnicalServices/Release/" + ret;
+            HiddenFieldPage["LetterUrl"] = FullFilePath;
+            uploadedFile.SaveAs(MapPath(FullFilePath), true);
+
+        }
+        return ret;
+    }
+    private void Insert()
+    {
+
+        TSP.DataManager.TransactionManager TransactionManager = new TSP.DataManager.TransactionManager();
+        TSP.DataManager.WorkFlowStateManager WorkFlowStateManager = new TSP.DataManager.WorkFlowStateManager();
+        TSP.DataManager.WorkFlowTaskManager WorkFlowTaskManager = new TSP.DataManager.WorkFlowTaskManager();
+        TSP.DataManager.TechnicalServices.CapacityReleaseManager CapacityReleaseManager = new TSP.DataManager.TechnicalServices.CapacityReleaseManager();
+
+        TransactionManager.Add(WorkFlowStateManager);
+        TransactionManager.Add(WorkFlowTaskManager);
+        TransactionManager.Add(CapacityReleaseManager);
+
+        try
+        {
+            if (cmbReasonType.SelectedIndex == -1)
+            {
+                ShowMessage("دلیل بازگشت ظرفیت باید مشخص باشد");
+                return;
+            }
+            if (Convert.ToInt32(HiddenFieldPage["Letter"]) == 0 || Utility.IsDBNullOrNullValue(HiddenFieldPage["LetterUrl"]))
+            {
+                ShowMessage("بارگذاری تصویر الزامی است");
+                return;
+            }
+            if (comboProjectObserver.SelectedItem == null || comboProjectObserver.SelectedItem.Value == null)
+            {
+                ShowMessage("ناظر مود نظر را انتخاب نمایید");
+                return;
+            }
+            _MeId = Convert.ToInt32(comboProjectObserver.SelectedItem.Value);
+            if (!CheckInsertConditions(_ProjectId, _MeId))
+            {
+                return;
+            }
+            _CapRTaskId = -2;
+            TransactionManager.BeginSave();
+            DataRow drCapRelease = CapacityReleaseManager.NewRow();
+
+            drCapRelease["ProjectId"] = _ProjectId;
+            drCapRelease["MeId"] = _MeId;
+            drCapRelease["MeIdType"] = Convert.ToInt16(TSP.DataManager.TSCapacityReleaseMeIdType.Member);
+            drCapRelease["CreateDate"] = Utility.GetDateOfToday();
+
+            drCapRelease["WFCurrentTaskId"] = _CapRTaskId;
+            drCapRelease["IsConfirm"] = "0";
+
+            drCapRelease["Type"] = Convert.ToInt16(cmbReasonType.SelectedItem.Value.ToString());
+
+            if (Utility.IsDBNullOrNullValue(txtLetterDateMun.Text))
+                drCapRelease["LetterDate"] = "";
+            else
+                drCapRelease["LetterDate"] = txtLetterDateMun.Text;
+            if (Utility.IsDBNullOrNullValue(txtLetterCode.Text))
+                drCapRelease["LetterCode"] = "";
+            else
+                drCapRelease["LetterCode"] = txtLetterCode.Text;
+
+            drCapRelease["UrlLetter"] = HiddenFieldPage["LetterUrl"].ToString();
+
+            if (Utility.IsDBNullOrNullValue(txtDes.Text))
+                drCapRelease["Description"] = "";
+            else
+                drCapRelease["Description"] = txtDes.Text;
+
+            drCapRelease["UserId"] = Utility.GetCurrentUser_UserId();
+            drCapRelease["ModifiedDate"] = DateTime.Now;
+
+            CapacityReleaseManager.AddRow(drCapRelease);
+            if (CapacityReleaseManager.Save() != 1)
+            {
+                TransactionManager.CancelSave();
+                ShowMessage(Utility.Messages.GetMessage(Utility.Messages.MessageTypes.ErrorInSave));
+                return;
+            }
+            CapacityReleaseManager.DataTable.AcceptChanges();
+            _CapRId = Convert.ToInt32(CapacityReleaseManager[0]["CapRId"]);
+            if (!InsertWF(WorkFlowStateManager, WorkFlowTaskManager))
+            {
+                TransactionManager.CancelSave();
+                return;
+            }
+            if (_CapRTaskId == -2)
+            {
+                TransactionManager.CancelSave();
+                ShowMessage(Utility.Messages.GetMessage(Utility.Messages.MessageTypes.ErrorInSave));
+                return;
+            }
+            CapacityReleaseManager[0].BeginEdit();
+            CapacityReleaseManager[0]["WFCurrentTaskId"] = _CapRTaskId;
+            CapacityReleaseManager[0].EndEdit();
+            if (CapacityReleaseManager.Save() != 1)
+            {
+                TransactionManager.CancelSave();
+                ShowMessage(Utility.Messages.GetMessage(Utility.Messages.MessageTypes.ErrorInSave));
+                return;
+            }
+            TransactionManager.EndSave();
+            ShowMessage("ذخیره انجام شد");
+            _PageMode = "Edit";
+            SetMode();
+
+        }
+        catch (Exception err)
+        {
+            TransactionManager.CancelSave();
+            Utility.SaveWebsiteError(err);
+            ShowMessage("خطایی در ذخیره اطلاعات رخ داده است");
+        }
+
+    }
+    private void Update()
+    {
+        if (IsPageRefresh)
+        {
+            return;
+        }
+        if (!CheckEditConditions(_CapRId, _MeId))
+        {
+            ShowMessage("قادر به ویرایش این درخواست بازگشت ظرفیت نمی باشید");
+            return;
+        }
+        if (cmbReasonType.SelectedIndex == -1)
+        {
+            ShowMessage("دلیل بازگشت ظرفیت باید مشخص باشد");
+            return;
+        }
+
+        if (Convert.ToInt32(HiddenFieldPage["Letter"]) == 0 || Utility.IsDBNullOrNullValue(HiddenFieldPage["LetterUrl"]))
+        {
+            ShowMessage("بارگذاری تصویر نامه الزامی است");
+            return;
+        }
+        TSP.DataManager.TransactionManager TransactionManager = new TSP.DataManager.TransactionManager();
+        TSP.DataManager.WorkFlowStateManager WorkFlowStateManager = new TSP.DataManager.WorkFlowStateManager();
+        TSP.DataManager.WorkFlowTaskManager WorkFlowTaskManager = new TSP.DataManager.WorkFlowTaskManager();
+        TSP.DataManager.TechnicalServices.CapacityReleaseManager CapacityReleaseManager = new TSP.DataManager.TechnicalServices.CapacityReleaseManager();
+
+        TransactionManager.Add(WorkFlowStateManager);
+        TransactionManager.Add(WorkFlowTaskManager);
+        TransactionManager.Add(CapacityReleaseManager);
+        try
+        {
+            TransactionManager.BeginSave();
+            CapacityReleaseManager.SelectCapacityRelease(_CapRId);
+            if (CapacityReleaseManager.Count != 1)
+            {
+                TransactionManager.EndSave();
+                ShowMessage(Utility.Messages.GetMessage(Utility.Messages.MessageTypes.ErrorInSave));
+                return;
+            }
+            CapacityReleaseManager[0].BeginEdit();
+
+            CapacityReleaseManager[0]["Type"] = Convert.ToInt16(cmbReasonType.SelectedItem.Value.ToString());
+
+            if (Utility.IsDBNullOrNullValue(txtLetterDateMun.Text))
+                CapacityReleaseManager[0]["LetterDate"] = "";
+            else
+                CapacityReleaseManager[0]["LetterDate"] = txtLetterDateMun.Text;
+            if (Utility.IsDBNullOrNullValue(txtLetterCode.Text))
+                CapacityReleaseManager[0]["LetterCode"] = "";
+            else
+                CapacityReleaseManager[0]["LetterCode"] = txtLetterCode.Text;
+
+
+            CapacityReleaseManager[0]["UrlLetter"] = HiddenFieldPage["LetterUrl"].ToString();
+
+            if (Utility.IsDBNullOrNullValue(txtDes.Text))
+                CapacityReleaseManager[0]["Description"] = "";
+            else
+                CapacityReleaseManager[0]["Description"] = txtDes.Text;
+
+            CapacityReleaseManager[0]["UserId"] = Utility.GetCurrentUser_UserId();
+            CapacityReleaseManager[0]["ModifiedDate"] = DateTime.Now;
+
+            CapacityReleaseManager[0].EndEdit();
+
+            if (CapacityReleaseManager.Save() != 1)
+            {
+                TransactionManager.CancelSave();
+                ShowMessage(Utility.Messages.GetMessage(Utility.Messages.MessageTypes.ErrorInSave));
+                return;
+            }
+            CapacityReleaseManager.DataTable.AcceptChanges();
+
+            TransactionManager.EndSave();
+            ShowMessage("ذخیره انجام شد");
+        }
+        catch (Exception err)
+        {
+            TransactionManager.CancelSave();
+            Utility.SaveWebsiteError(err);
+            ShowMessage("خطایی در ذخیره اطلاعات رخ داده است");
+        }
+    }
+    #region WF
+    private int FindNmcId(int TaskId)
+    {
+        int UserId = Utility.GetCurrentUser_UserId();
+        TSP.DataManager.NezamChartManager NezamChartManager = new TSP.DataManager.NezamChartManager();
+        TSP.DataManager.LoginManager LoginManager = new TSP.DataManager.LoginManager();
+
+        int NmcId = -1;
+        NmcId = NezamChartManager.FindNmcId(UserId, TaskId, LoginManager);
+        if (NmcId > 0)
+        {
+            return NmcId;
+        }
+        else
+        {
+            ShowMessage("اطلاعات شما به عنوان انجام دهنده عملیات انتخاب شده در جریان کار ثبت نشده است.");
+            return (-1);
+        }
+    }
+    private void CheckWorkFlowPermissionForSave()
+    {
+        Boolean per = false;
+        switch (_PageMode)
+        {
+            case "New":
+                per = true;
+                break;
+            case "Edit":
+                if (_CurrentCapRTaskCode == (int)TSP.DataManager.WorkFlowTask.SaveCapacityReleaseRequestInfo)
+                    per = true;
+                else
+                    per = false;
+                break;
+            case "View":
+                per = false;
+                break;
+        }
+        btnSave.Enabled = btnSave2.Enabled = per;
+        this.ViewState["BtnSave"] = btnSave.Enabled;
+    }
+    private bool InsertWF(TSP.DataManager.WorkFlowStateManager WorkFlowStateManager, TSP.DataManager.WorkFlowTaskManager WorkFlowTaskManager)
+    {
+        WorkFlowTaskManager.FindByTaskCode((int)TSP.DataManager.WorkFlowTask.SaveCapacityReleaseRequestInfo);
+        if (WorkFlowTaskManager.Count != 1)
+            return false;
+        int NextStepTaskId = _CapRTaskId = int.Parse(WorkFlowTaskManager[0]["TaskId"].ToString());
+
+        int TableType = TSP.DataManager.TableTypeManager.FindTtId(TSP.DataManager.TableType.TSCapacityRelease);
+        int TableId = _CapRId;
+        int NmcId = FindNmcId(NextStepTaskId);
+        if (NmcId == -1)
+        {
+            ShowMessage("شما دسترسی گردش کار جهت ثبت درخواست بازگشت ظرفیت نظارت را ندارید.");
+            return false;
+        }
+        if (_PageMode == "New")
+        {
+            int StateId1 = WorkFlowStateManager.StartWorkFlow(TableId, (int)TSP.DataManager.WorkFlowTask.SaveCapacityReleaseRequestInfo, NmcId, Utility.GetCurrentUser_UserId(), 0);
+            if (StateId1 <= 0)
+            {
+                ShowMessage("خطایی در ذخیره انجام گرفته است.");
+                return false;
+            }
+            WorkFlowStateManager.DataTable.AcceptChanges();
+        }
+        //int StateId2 = 0;
+        //if (Utility.GetCurrentAgentCode() == Utility.GetCurrentUser_AgentId())
+        //{
+        //    WorkFlowTaskManager.FindByTaskCode((int)TSP.DataManager.WorkFlowTask.ControlEmployeeConfirmingCapacityReleaseRequest);
+        //    if (WorkFlowTaskManager.Count != 1)
+        //        return false;
+        //    _CapRTaskId = NextStepTaskId = int.Parse(WorkFlowTaskManager[0]["TaskId"].ToString());
+        //    StateId2 = WorkFlowStateManager.SendDocToNextStep(TableType, TableId, _CapRTaskId, "ارسال اتوماتیک درخواست بازگشت ظرفیت به کارشناس واحد کنترل و ارزیابی توسط عضو", NmcId, Utility.GetCurrentUser_NmcIdType(), Utility.GetCurrentUser_UserId(), "", Utility.GetDateOfToday());
+        //}
+        //else
+        //{
+        //    WorkFlowTaskManager.FindByTaskCode((int)TSP.DataManager.WorkFlowTask.ControlAgentEmployeeConfirminCapacityReleaseRequest);
+        //    if (WorkFlowTaskManager.Count != 1)
+        //        return false;
+        //    _CapRTaskId = NextStepTaskId = int.Parse(WorkFlowTaskManager[0]["TaskId"].ToString());
+        //    StateId2 = WorkFlowStateManager.SendDocToNextStep(TableType, TableId, _CapRTaskId, "ارسال اتوماتیک درخواست بازگشت ظرفیت به کارشناس کنترل مضاعف دفتر نمایندگی توسط عضو", NmcId, Utility.GetCurrentUser_NmcIdType(), Utility.GetCurrentUser_UserId(), "", Utility.GetDateOfToday());
+        //}
+        //if (StateId2 <= 0)
+        //{
+        //    ShowMessage("خطایی در ذخیره انجام گرفته است.");
+        //    return false;
+        //}
+        return true;
+    }
+    private void InsertWorkFlowStateView()
+    {
+        int TableType = TSP.DataManager.TableTypeManager.FindTtId(TSP.DataManager.TableType.TSCapacityRelease);
+        int TableId = _CapRId;
+        TSP.DataManager.WorkFlowStateManager WorkFlowStateManager = new TSP.DataManager.WorkFlowStateManager();
+        try
+        {
+            int ViewState = WorkFlowStateManager.InsertWorkFlowViewState(TableType, TableId, "مشاهده اطلاعات توسط عضو", Utility.GetCurrentUser_UserId());
+            if (ViewState == -4)
+            {
+                ShowMessage("خطایی در ذخیره انجام گرفته است.");
+            }
+        }
+        catch (Exception err)
+        {
+            if (err.GetType() == typeof(System.Data.SqlClient.SqlException))
+            {
+                System.Data.SqlClient.SqlException se = (System.Data.SqlClient.SqlException)err;
+                if (se.Number == 2601)
+                {
+                    ShowMessage("اطلاعات تکراری می باشد.");
+                }
+                else
+                {
+                    ShowMessage("خطایی در ذخیره انجام گرفته است.");
+                }
+            }
+            else
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+            }
+        }
+
+    }
+    #endregion
+    private void ClearForm()
+    {
+        txtMeId.Text =
+          txtLetterCode.Text =
+         txtLetterDateMun.Text = "";
+        cmbReasonType.SelectedIndex = -1;
+
+        imgEndUploadLetter.ClientVisible = false;
+        HiddenFieldPage["Letter"] = 0;
+        lblValidationLetter.ClientVisible = false;
+        hpFilePathLetter.ClientVisible = false;
+        hpFilePathLetter.NavigateUrl = "";
+        txtDes.Text = "";
+        ObjectDataSourceObserver.SelectParameters["ProjectId"].DefaultValue = "-2";
+        ObjectDataSourceObserver.SelectParameters["InActive"].DefaultValue = "0";
+        comboProjectObserver.DataBind();
+        comboProjectObserver.SelectedIndex = -1;
+    }
+    private void ShowMessage(string Warning)
+    {
+        this.DivReport.Visible = true;
+        this.LabelWarning.Text = Warning;
+    }
+    #endregion
+}

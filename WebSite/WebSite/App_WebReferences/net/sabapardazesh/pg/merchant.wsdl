@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:schema="http://tejarat/paymentGateway/definitions" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" targetNamespace="http://tejarat/paymentGateway/definitions" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <schema xmlns:tns="http://tejarat/paymentGateway/definitions" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://tejarat/paymentGateway/definitions" xmlns="http://www.w3.org/2001/XMLSchema">
+      <element name="verifyRequest">
+        <complexType>
+          <sequence>
+            <element name="merchantId" type="string" />
+            <element name="referenceNumber" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="verifyResponse" type="long" />
+      <element name="irancellValidationRequest">
+        <complexType>
+          <sequence>
+            <element name="referenceNumber" type="long" />
+            <element name="customerId" type="string" />
+          </sequence>
+        </complexType>
+      </element>
+      <element name="irancellValidationResponse" type="long" />
+    </schema>
+  </wsdl:types>
+  <wsdl:message name="verifyResponse">
+    <wsdl:part name="verifyResponse" element="schema:verifyResponse" />
+  </wsdl:message>
+  <wsdl:message name="verifyRequest">
+    <wsdl:part name="verifyRequest" element="schema:verifyRequest" />
+  </wsdl:message>
+  <wsdl:message name="irancellValidationResponse">
+    <wsdl:part name="irancellValidationResponse" element="schema:irancellValidationResponse" />
+  </wsdl:message>
+  <wsdl:message name="irancellValidationRequest">
+    <wsdl:part name="irancellValidationRequest" element="schema:irancellValidationRequest" />
+  </wsdl:message>
+  <wsdl:portType name="Merchant">
+    <wsdl:operation name="verify">
+      <wsdl:input name="verifyRequest" message="schema:verifyRequest" />
+      <wsdl:output name="verifyResponse" message="schema:verifyResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="irancellValidation">
+      <wsdl:input name="irancellValidationRequest" message="schema:irancellValidationRequest" />
+      <wsdl:output name="irancellValidationResponse" message="schema:irancellValidationResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="MerchantBinding" type="schema:Merchant">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="verify">
+      <soap:operation soapAction="" />
+      <wsdl:input name="verifyRequest">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="verifyResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="irancellValidation">
+      <soap:operation soapAction="" />
+      <wsdl:input name="irancellValidationRequest">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="irancellValidationResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="MerchantService">
+    <wsdl:port name="MerchantPort" binding="schema:MerchantBinding">
+      <soap:address location="http://pg.sabapardazesh.net:9086/paymentGateway/" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

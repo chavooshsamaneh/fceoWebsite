@@ -1,0 +1,291 @@
+﻿using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+
+public partial class Office_TechnicalServices_Report_OffImpCapacityInfo : System.Web.UI.Page
+{
+    string OfficeId;
+
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        this.DivReport.Attributes.Add("style", "display:block");
+        this.DivReport.Attributes.Add("style", "display:none");
+        this.DivReport.Attributes.Add("onclick", "ChangeVisible(this)");
+        this.DivReport.Attributes.Add("onmouseover", "ChangeIcon(this)");
+      //  this.DivReport.Visible = false;
+
+        ASPxTextBoxFileNo.Attributes["onkeyup"] = "return ltr_override(event)";
+
+        if (!IsPostBack)
+        {
+            SetKeys();
+            Search();
+        }
+
+    }
+
+    protected void btnPrint_Click(object sender, EventArgs e)
+    {
+        Print();
+    }
+
+
+    /*******************************************************************************************************************************************/
+    private void Print()
+    {
+        OfficeId = Utility.GetCurrentUser_MeId().ToString();
+
+        string Qs = "OfficeId=" + Utility.EncryptQS(OfficeId);
+        Response.Redirect("~/ReportForms/TechnicalServices/OffImpCapacityInfo.aspx?" + Qs);
+    }
+
+    private void Search()
+    {
+      //  Clear();
+
+        Capacity Cpcty = new Capacity();
+        ArrayList CapacityInfoArr = new ArrayList();
+        ArrayList MemberArr = new ArrayList();
+        ArrayList StageArr = new ArrayList();
+
+        if (!SetOfficeInfo())
+        {
+            Clear();
+            return;
+        }
+
+        SetImplementationCapacity(CapacityInfoArr, MemberArr, Cpcty);
+        FillMemberGrid(MemberArr, Cpcty);
+        SetCurrentStage(StageArr, Cpcty);
+        SetCapacityAssignmentImplementationCapacity(CapacityInfoArr, Cpcty);
+    }
+
+    /*******************************************************************************************************************************************/
+    private void SetKeys()
+    {
+        CheckAccess();
+    }
+
+    private void CheckAccess()
+    {
+        TSP.DataManager.Permission per = TSP.DataManager.TechnicalServices.CapacityManager.GetUserPermission(Utility.GetCurrentUser_UserId(), (TSP.DataManager.UserType)Utility.GetCurrentUser_LoginType());
+        if (per.CanView == false)
+        {
+            ASPxRoundPanelCapacity.Visible = false;
+            ASPxRoundPanelCapacityAssignment.Visible = false;
+          //  ASPxTextBoxOfId.Enabled = false;
+            //btnView.Enabled = false;
+            //btnView2.Enabled = false;
+            btnPrint.Enabled = false;
+            btnPrint2.Enabled = false;
+            ShowMessage("شما دسترسی به این قسمت ندارید");
+         //   this.ViewState["BtnView"] = btnView.Enabled;
+        }
+    }
+
+    /*****************************************************************************************************************************************************/
+    private bool SetOfficeInfo()
+    {
+        OfficeId = Utility.GetCurrentUser_MeId().ToString();
+        TSP.DataManager.OfficeManager OfficeManager = new TSP.DataManager.OfficeManager();
+        OfficeManager.FindByCode(Convert.ToInt32(OfficeId));
+        if (OfficeManager.Count > 0)
+        {
+            ASPxTextBoxOfName.Text = OfficeManager[0]["OfName"].ToString();
+            ASPxTextBoxMName.Text = OfficeManager[0]["MName"].ToString();
+            ASPxTextBoxRegOfNo.Text = OfficeManager[0]["RegOfNo"].ToString();
+            ASPxTextBoxFileNo.Text = OfficeManager[0]["FileNo"].ToString();
+            ASPxTextBoxMFTypeName.Text = OfficeManager[0]["MFTypeName"].ToString();
+            return true;
+        }
+        else
+        {
+            ShowMessage("کد شرکت معتبر نمی باشد");
+            return false;
+        }
+    }
+
+    private void SetImplementationCapacity(ArrayList CapacityInfoArr, ArrayList MemberArr, Capacity Cpcty)
+    {
+        OfficeId = Utility.GetCurrentUser_MeId().ToString();
+        if (Convert.ToInt32(OfficeId) > 0)
+        {
+            // CapacityInfoArr -----> ArrayList[0]: TotalCapacity(int), ArrayList[1]:UsedCapacity(int) , ArrayList[2]: RemainCapacity(int), 
+            //                        ArrayList[3]: ReservedCapacity(int) , ArrayList[4]: ProjectNum(int), ArrayList[5]: MaxJoubCount(string), 
+            //                        ArrayList[6]: MaxFloor(string), ArrayList[7]: ConditionalCapacity(int)
+
+            // MemberArr -----> ArrayList[0]: MaxFloor, ArrayList[1]:MaxCapacity , ArrayList[2]: MaxJobCount, ArrayList[3]: ConditionalCapacity, 
+            //                  ArrayList[4]: GradeId, ArrayList[5]: GrdType
+            //???????????????
+            //CapacityInfoArr = Cpcty.GetCapacityInformation((int)TSP.DataManager.TSProjectIngridientType.Implementer, (int)TSP.DataManager.TSMemberType.Office, Convert.ToInt32(OfficeId));
+            //MemberArr = Cpcty.GetOfficesImpCapacity(Convert.ToInt32(OfficeId));
+
+            //if (CapacityInfoArr.Count > 0 && MemberArr.Count > 0)
+            //{
+            //    SetImpTexts(CapacityInfoArr[0].ToString(), CapacityInfoArr[5].ToString(), CapacityInfoArr[1].ToString(), CapacityInfoArr[2].ToString(), CapacityInfoArr[3].ToString(), CapacityInfoArr[4].ToString(), CapacityInfoArr[7].ToString(), CapacityInfoArr[6].ToString(), MemberArr[4].ToString(), MemberArr[5].ToString());
+            //}
+            //???????????????
+        }
+    }
+
+    private void SetImpTexts(string TotalCapacity, string MaxJobCount, string TotalUsed, string RemainCapacity, string Reserve, string ProjectCount, string ConditionalCapacity, string MaxFloor, string Grade, string GrdType)
+    {
+        ASPxTextBoxImpTotalCapacity.Text = TotalCapacity;
+        ASPxTextBoxImpMaxJobCount.Text = MaxJobCount;
+        ASPxTextBoxImpTotalUsed.Text = TotalUsed;
+        ASPxTextBoxImpRemainCapacity.Text = RemainCapacity;
+        ASPxTextBoxImpReserve.Text = Reserve;
+        ASPxTextBoxImpProjectCount.Text = ProjectCount;
+        ASPxTextBoxConditionalCapacity.Text = ConditionalCapacity;
+        ASPxTextBoxImpMaxFloor.Text = MaxFloor;
+
+        if (Grade != "" && Grade != "---")
+            ASPxTextBoxGrade.Text = GetGrdName(Convert.ToInt32(Grade));
+        else
+            ASPxTextBoxGrade.Text = "---";
+
+        if (GrdType != "" && GrdType != "---")
+            ASPxTextBoxGrdType.Text = GetGrdType(Convert.ToInt32(GrdType));
+        else
+            ASPxTextBoxGrdType.Text = "---";
+    }
+
+    private void SetCapacityAssignmentImplementationCapacity(ArrayList CapacityInfoArr, Capacity Cpcty)
+    {
+        OfficeId = Utility.GetCurrentUser_MeId().ToString();
+        if (Convert.ToInt32(OfficeId) > 0)
+        {
+            // CapacityInfoArr -----> ArrayList[0]: TotalCapacity(int), ArrayList[1]:UsedCapacity(int) , ArrayList[2]: RemainCapacity(int), 
+            //                        ArrayList[3]:ReservedCapacity(int) , ArrayList[4]: ProjectNum(int), ArrayList[5]: MaxJoubCount(string), 
+            //                        ArrayList[6]: MaxFloor(string), ArrayList[7]: ConditionalCapacity(int)
+            //???????????????
+            //CapacityInfoArr = Cpcty.GetCapacityInformationPerStage((int)TSP.DataManager.TSProjectIngridientType.Implementer, (int)TSP.DataManager.TSMemberType.Office, Convert.ToInt32(OfficeId));
+
+
+            //if (CapacityInfoArr.Count > 0)
+            //{
+            //    SetCapacityAssignmentImpTexts(CapacityInfoArr[0].ToString(), CapacityInfoArr[5].ToString(), CapacityInfoArr[1].ToString(), CapacityInfoArr[2].ToString(), CapacityInfoArr[4].ToString(), CapacityInfoArr[7].ToString(), CapacityInfoArr[6].ToString());
+            //}
+            //???????????????
+        }
+    }
+
+    private void SetCapacityAssignmentImpTexts(string TotalCapacity, string MaxJobCount, string TotalUsed, string RemainCapacity, string ProjectCount, string ConditionalCapacity, string MaxFloor)
+    {
+        ASPxTextBoxCAImpTotalCapacity.Text = TotalCapacity;
+        ASPxTextBoxCAImpMaxJobCount.Text = MaxJobCount;
+        ASPxTextBoxCAImpTotalUsed.Text = TotalUsed;
+        ASPxTextBoxCAImpRemainCapacity.Text = RemainCapacity;
+        ASPxTextBoxCAImpProjectCount.Text = ProjectCount;
+        ASPxTextBoxCAImpConditionalCapacity.Text = ConditionalCapacity;
+        ASPxTextBoxCAImpMaxFloor.Text = MaxFloor;
+    }
+
+    private void SetCurrentStage(ArrayList StageArr, Capacity Cpcty)
+    {
+        // StageArr -----> ArrayList[0] = Year, ArrayList[1] = StageText, ArrayList[0] = CapacityPrcnt, ArrayList[1] = JobCountPrcnt
+
+        StageArr = Cpcty.GetCurrentStage();
+        if (StageArr.Count != 0)
+        {
+            ASPxTextBoxCAImpYear.Text = StageArr[0].ToString();
+            ASPxTextBoxCAImpStage.Text = StageArr[1].ToString();
+            ASPxTextBoxCAImpCapacityPrcnt.Text = StageArr[2].ToString();
+            ASPxTextBoxCAImpJobCountPrcnt.Text = StageArr[3].ToString();
+        }
+    }
+
+    private void FillMemberGrid(ArrayList MemberArr, Capacity Cpcty)
+    {
+        //???????????????
+        //OfficeId = ASPxTextBoxOfId.Text;
+        //DataTable dt = Cpcty.GetImpOffMembers(Convert.ToInt32(OfficeId));
+
+        //CustomAspxDevGridViewMembers.DataSource = dt;
+        //CustomAspxDevGridViewMembers.DataBind();
+        //???????????????
+    }
+
+    private void Clear()
+    {
+        ASPxTextBoxOfName.Text = "- - -";
+        ASPxTextBoxMName.Text = "- - -";
+        ASPxTextBoxRegOfNo.Text = "- - -";
+        ASPxTextBoxFileNo.Text = "- - -";
+        ASPxTextBoxMFTypeName.Text = "- - -";
+        ASPxTextBoxGrade.Text = "- - -";
+        ASPxTextBoxGrdType.Text = "";
+
+        SetImpTexts("- - -", "- - -", "- - -", "- - -", "- - -", "- - -", "- - -", "- - -", "- - -", "- - -");
+
+        CustomAspxDevGridViewMembers.DataSource = null;
+        CustomAspxDevGridViewMembers.DataBind();
+
+        ASPxTextBoxCAImpYear.Text = "- - -";
+        ASPxTextBoxCAImpStage.Text = "- - -";
+        ASPxTextBoxCAImpCapacityPrcnt.Text = "- - -";
+        ASPxTextBoxCAImpJobCountPrcnt.Text = "- - -";
+
+        SetCapacityAssignmentImpTexts("- - -", "- - -", "- - -", "- - -", "- - -", "- - -", "- - -");
+    }
+
+    private string GetGrdName(int GrdId)
+    {
+        TSP.DataManager.GradeManager GradeManager = new TSP.DataManager.GradeManager();
+        GradeManager.FindByCode(GrdId);
+        if (GradeManager.Count > 0)
+            return GradeManager[0]["GrdName"].ToString();
+        else
+            return "";
+    }
+
+    private string GetGrdType(int GrdType)
+    {
+        switch (GrdType)
+        {
+            case (int)TSP.DataManager.DocOffOfficeMembersQualificationType.Kardan_Kardan:
+                return "کاردان - کاردان";
+            case (int)TSP.DataManager.DocOffOfficeMembersQualificationType.Kardan_Engineer:
+                return "مهندس - کاردان";
+            case (int)TSP.DataManager.DocOffOfficeMembersQualificationType.Engineer_Engineer:
+                return "مهندس - مهندس";
+
+            default:
+                return "";
+        }
+    }
+
+    private void SetLabelWarning(string Warning)
+    {
+        this.DivReport.Visible = true;
+        this.LabelWarning.Text = Warning;
+    }
+
+    /***************************************************** CapInfoMenu *************************************************************/
+    protected void CapInfoMenu_ItemClick(object source, DevExpress.Web.MenuItemEventArgs e)
+    {
+        switch (e.Item.Name)
+        {
+            case "Member":
+                Response.Redirect("MemberImpCapacityInfo.aspx");
+                break;
+
+            case "Office":
+                Response.Redirect("OffImpCapacityInfo.aspx");
+                break;
+        }
+    }
+
+    void ShowMessage(String Message)
+    {
+        this.DivReport.Attributes.Add("style", "display:visible");
+        this.LabelWarning.Text = Message;
+    }
+}

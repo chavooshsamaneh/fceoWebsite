@@ -1,0 +1,80 @@
+.style60 {
+	font-family: Tahoma, sans-serif;
+	color: #000000;
+	font-size: 12px;
+	direction:rtl;	
+	text-align:right;
+	vertical-align:bottom;
+	font:bold;
+	color:#043A7D;
+}
+.style62 {
+	font-family: Tahoma, sans-serif;
+	color: #000000;
+	font-size: 12px;
+	direction:rtl;	
+	text-align:right;
+	vertical-align:bottom;
+	font:medium;
+}
+.style64 {
+	font-family: Tahoma, sans-serif;
+	color: #000000;
+	font-size: 12px;
+	direction:rtl;
+	text-align:right;
+	vertical-align:bottom;
+	font:medium;
+	margin-right:60px;
+	margin-left:30px;
+	list-style-type:circle;
+}
+.style63 {
+	font-family: Tahoma, sans-serif;
+	color: #000000;
+	font-size: 10px;
+	direction:rtl;
+	text-align:right;
+	margin-right:15px;
+	vertical-align:middle;
+	font:medium;
+}
+.style67 {
+	font-family: Tahoma, sans-serif;
+	color: #000000;
+	font-size: 13px;
+	direction:rtl;
+	text-align:right;
+	vertical-align:middle;
+}
+.style65 {
+	font-family: Tahoma, sans-serif;
+	color: #000000;
+	font-size: 9px;
+	direction:ltr;
+	text-align:left;
+	margin-right:15px;
+	vertical-align:middle;
+	font:medium;
+}
+.style66 {
+	font-family: Tahoma, sans-serif;
+	color: #000000;
+	font-size: 8px;
+	direction:rtl;
+	text-align:right;
+	margin-right:15px;
+	font:medium;
+}
+ .style69 {
+	font-family: Tahoma, sans-serif;
+	font-size: 9px;
+	color:#000000;
+}
+ .style70 {
+	font-family: Tahoma, sans-serif;
+	font-size: 10px;
+	color:#000000;
+}
+/* CSS Document */
+

@@ -1,0 +1,34 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="TSMasterPage.master.cs"
+    MasterPageFile="~/MainMasterPage.master" Inherits="TechnicalServices_TSMasterPage" %>
+
+<%@ Register Assembly="TSP.WebControls" Namespace="TSP.WebControls" TagPrefix="TSPControls" %>
+<asp:Content ID="TopOfMenuContent" ContentPlaceHolderID="TopOfMenuMasterPageContentPlaceHolder"
+    runat="Server">
+    <div id="Div1" class="SideBarMenue" runat="server" dir="rtl">
+        <asp:Image runat="server" ID="Image1" ImageUrl="~/flash/Home/report_khadamat_mohandesi.png"
+            CssClass="SideBarMenue" />
+        <TSPControls:CustomASPxNavBar ID="NavBarTS" runat="server" ShowGroupHeaders="false"
+            Width="100%" DataSourceID="XmlDataSourceSub">
+        </TSPControls:CustomASPxNavBar>
+        <asp:XmlDataSource ID="XmlDataSourceSub" runat="server" DataFile="~/App_Data/NavBarItems/MembersReportTechnicalServices.xml"
+            XPath="/Groups/*" />
+    </div>
+</asp:Content>
+<asp:Content ID="MenuContent" ContentPlaceHolderID="MenuMasterPageContentPlaceHolder"
+    runat="Server">
+    <div id="SideBarMenue" class="SideBarMenue" runat="server" dir="rtl">
+        <TSPControls:CustomASPxNavBar ID="ASPxNavBar1" runat="server" Width="100%" DataSourceID="XmlDataSource1">
+        </TSPControls:CustomASPxNavBar>
+        <asp:XmlDataSource ID="XmlDataSource1" runat="server" DataFile="~/App_Data/NavBarItems/Members.xml"
+            XPath="/Groups/*" />
+    </div>
+</asp:Content>
+<asp:Content ID="BottomOfMenuContent" ContentPlaceHolderID="BottomOfMenuMasterPageContentPlaceHolder"
+    runat="Server">
+</asp:Content>
+<asp:Content ID="DataContent" ContentPlaceHolderID="DataMasterPageContentPlaceHolder"
+    runat="Server">
+    <script type="text/javascript" src="../../../Script/Utility.js"></script>
+    <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+    </asp:ContentPlaceHolder>
+</asp:Content>

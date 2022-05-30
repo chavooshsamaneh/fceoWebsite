@@ -1,0 +1,90 @@
+.dxRichEdit_CenterTabDragHandle_Metropolis,
+.dxRichEdit_ColumnSeparatorDragHandle_Metropolis,
+.dxRichEdit_DecimalTabDragHandle_Metropolis,
+.dxRichEdit_FirstLineIdentDragHandle_Metropolis,
+.dxRichEdit_LeftIdentDragHandle_Metropolis,
+.dxRichEdit_LeftTabDragHandle_Metropolis,
+.dxRichEdit_QuickSearchCloseButton_Metropolis,
+.dxRichEdit_QuickSearchCollapseButton_Metropolis,
+.dxRichEdit_QuickSearchNextButton_Metropolis,
+.dxRichEdit_QuickSearchPrevButton_Metropolis,
+.dxRichEdit_RightIdentDragHandle_Metropolis,
+.dxRichEdit_RightTabDragHandle_Metropolis
+{
+    background-image: url('sprite.png');
+    background-repeat: no-repeat;
+    background-color: transparent;
+}
+.dxRichEdit_CenterTabDragHandle_Metropolis
+{
+    background-position: -16px -65px;
+    width: 8px;
+    height: 6px;
+}
+.dxRichEdit_ColumnSeparatorDragHandle_Metropolis
+{
+    background-position: -16px -50px;
+    width: 7px;
+    height: 8px;
+}
+.dxRichEdit_DecimalTabDragHandle_Metropolis
+{
+    background-position: -16px -73px;
+    width: 8px;
+    height: 6px;
+}
+.dxRichEdit_FirstLineIdentDragHandle_Metropolis
+{
+    background-position: 0px -80px;
+    width: 9px;
+    height: 8px;
+}
+.dxRichEdit_LeftIdentDragHandle_Metropolis
+{
+    background-position: 0px -89px;
+    width: 9px;
+    height: 8px;
+}
+.dxRichEdit_LeftTabDragHandle_Metropolis
+{
+    background-position: -17px -89px;
+    width: 6px;
+    height: 6px;
+}
+.dxRichEdit_QuickSearchCloseButton_Metropolis
+{
+    background-position: 0px -65px;
+    width: 15px;
+    height: 14px;
+}
+.dxRichEdit_QuickSearchCollapseButton_Metropolis
+{
+    background-position: 0px -50px;
+    width: 15px;
+    height: 14px;
+}
+.dxRichEdit_QuickSearchNextButton_Metropolis
+{
+    background-position: 0px 0px;
+    width: 24px;
+    height: 24px;
+}
+.dxRichEdit_QuickSearchPrevButton_Metropolis
+{
+    background-position: 0px -25px;
+    width: 24px;
+    height: 24px;
+}
+.dxRichEdit_RightIdentDragHandle_Metropolis
+{
+    background-position: -10px -80px;
+    width: 9px;
+    height: 8px;
+}
+.dxRichEdit_RightTabDragHandle_Metropolis
+{
+    background-position: -10px -89px;
+    width: 6px;
+    height: 6px;
+}
+

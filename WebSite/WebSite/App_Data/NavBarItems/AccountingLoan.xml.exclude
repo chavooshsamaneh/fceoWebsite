@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Groups>
+	<NavBarGroup Expanded="False" Name="grpLoan" Text="وام">
+
+		<NavBarItem NavigateUrl="~/Accounting/Loan/Loan.aspx" Text="مدیریت وامها">
+		</NavBarItem>
+		<NavBarItem NavigateUrl="~/Accounting/Loan/LoanPayment.aspx" Text="مدیریت پرداخت وامها">
+		</NavBarItem>
+		<NavBarItem NavigateUrl="~/Accounting/Loan/DebtPayment.aspx" Text="مدیریت پرداخت اقساط">
+		</NavBarItem>
+	</NavBarGroup>
+
+</Groups>

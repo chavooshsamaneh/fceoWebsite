@@ -1,0 +1,465 @@
+﻿using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+
+public partial class Settlement_Amoozesh_SettlmentConfirmingInstitue : System.Web.UI.Page
+{
+    #region Events
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        this.DivReport.Visible = false;
+        this.DivReport.Attributes.Add("onclick", "ChangeVisible(this)");
+        this.DivReport.Attributes.Add("onmouseover", "ChangeIcon(this)");
+
+        if (!IsPostBack)
+        {
+
+            if (string.IsNullOrEmpty(Request.QueryString["PgMd"]) || string.IsNullOrEmpty(Request.QueryString["InsCId"]))
+            {
+                Response.Redirect("Institue.aspx");
+                return;
+            }
+            SetKey();
+            this.ViewState["BtnSave"] = btnSave.Enabled;
+        }
+        if (this.ViewState["BtnSave"] != null)
+            this.btnSave.Enabled = this.btnSave2.Enabled = (bool)this.ViewState["BtnSave"];
+    }
+
+    protected void btnBack_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("Institue.aspx");
+    }
+
+    protected void btnSave_Click(object sender, EventArgs e)
+    {
+        string PageMode = Utility.DecryptQS(HiddenFieldInstitue["PageMode"].ToString());
+
+        string InsCId = Utility.DecryptQS(HiddenFieldInstitue["InsCId"].ToString());
+
+        if (string.IsNullOrEmpty(PageMode))
+        {
+            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+            return;
+        }
+        if (string.IsNullOrEmpty(InsCId))
+        {
+            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+            return;
+        }
+        switch (PageMode)
+        {
+            case "Edit":
+                EditInstitueCertificate(int.Parse(InsCId));
+                break;
+
+            case "Revival":
+                break;
+        }
+    }
+    #endregion
+
+    #region Methods
+
+    private void SetKey()
+    {
+        try
+        {
+            TSP.DataManager.InstitueCertificateManager InstitueCertificateManager = new TSP.DataManager.InstitueCertificateManager();
+            HiddenFieldInstitue["PageMode"] = Server.HtmlDecode(Request.QueryString["PgMd"].ToString());
+            HiddenFieldInstitue["InsCId"] = Server.HtmlDecode(Request.QueryString["InsCId"]).ToString();
+            int InsCId = int.Parse(Utility.DecryptQS(HiddenFieldInstitue["InsCId"].ToString()));
+            InstitueCertificateManager.FindByCode(InsCId);
+            if (InstitueCertificateManager.Count == 1)
+            {
+                string InsId = InstitueCertificateManager[0]["InsId"].ToString();
+                HiddenFieldInstitue["InsId"] = Utility.EncryptQS(InsId);
+            }
+            else
+            {
+                this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+                return;
+            }
+        }
+        catch
+        {
+            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+            return;
+        }
+
+        string PageMode = Utility.DecryptQS(HiddenFieldInstitue["PageMode"].ToString());
+        if (string.IsNullOrEmpty(PageMode))
+        {
+            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+            return;
+        }
+        else
+        {
+            SetMode(PageMode);
+        }
+    }
+
+    private void SetMode(string Mode)
+    {
+        //TSP.DataManager.Permission per = TSP.DataManager.InstitueManager.GetUserPermission(int.Parse(Session["Login"].ToString()), (TSP.DataManager.UserType)int.Parse(Session["LoginType"].ToString()));
+        string InsId = Utility.DecryptQS(HiddenFieldInstitue["InsId"].ToString());
+        string InsCId = Utility.DecryptQS(HiddenFieldInstitue["InsCId"].ToString());
+        switch (Mode)
+        {
+            case "View":
+                SetViewMode();
+                break;
+
+            case "Edit":
+                SetEditMode();
+                break;
+
+            case "Revival":
+                SetRevivalMode();
+                break;
+
+            case "Change":
+                SetChangeMode();
+                break;
+        }
+    }
+
+    private void SetRevivalMode()
+    {
+        string InsId = Utility.DecryptQS(HiddenFieldInstitue["InsId"].ToString());
+        string InsCId = Utility.DecryptQS(HiddenFieldInstitue["InsCId"].ToString());
+
+        FillForm(int.Parse(InsId));
+        FillFormCertificate(int.Parse(InsCId));
+        txtEndDate.Enabled = true;
+        txtStartDate.Enabled = true;
+        txtFileNo.Enabled = false;
+        txtSerialNo.Enabled = true;
+        RoundPanelTeacherConf.HeaderText = "نظر کارشناسی (تمدید پروانه آموزشی)";
+    }
+
+    private void SetChangeMode()
+    {
+        string InsId = Utility.DecryptQS(HiddenFieldInstitue["InsId"].ToString());
+        string InsCId = Utility.DecryptQS(HiddenFieldInstitue["InsCId"].ToString());
+
+        FillForm(int.Parse(InsId));
+        FillFormCertificate(int.Parse(InsCId));
+        txtEndDate.Enabled = false;
+        txtStartDate.Enabled = false;
+        txtFileNo.Enabled = false;
+        txtSerialNo.Enabled = true;
+
+
+        ASPxRoundPanel2.HeaderText = "مشاهده";
+        RoundPanelTeacherConf.HeaderText = "نظر کارشناسی (تغییر پروانه آموزشی)";
+    }
+
+    private void SetEditMode()
+    {
+        string InsId = Utility.DecryptQS(HiddenFieldInstitue["InsId"].ToString());
+        string InsCId = Utility.DecryptQS(HiddenFieldInstitue["InsCId"].ToString());
+        FillForm(int.Parse(InsId));
+        FillFormCertificate(int.Parse(InsCId));
+        txtEndDate.Enabled = true;
+        txtStartDate.Enabled = true;
+        txtFileNo.Enabled = true;
+        txtSerialNo.Enabled = true;
+        RoundPanelTeacherConf.HeaderText = "نظر کارشناسی (صدور پروانه آموزشی)";
+    }
+
+    private void SetViewMode()
+    {
+        string InsId = Utility.DecryptQS(HiddenFieldInstitue["InsId"].ToString());
+        string InsCId = Utility.DecryptQS(HiddenFieldInstitue["InsCId"].ToString());
+        if (string.IsNullOrEmpty(InsId))
+        {
+            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+            return;
+        }
+        FillForm(int.Parse(InsId));
+        txtEndDate.Enabled = false;
+        txtStartDate.Enabled = false;
+        txtFileNo.Enabled = false;
+        txtSerialNo.Enabled = false;
+
+        btnSave.Enabled = false;
+        btnSave2.Enabled = false;
+
+        ASPxRoundPanel2.HeaderText = "مشاهده";
+        RoundPanelTeacherConf.HeaderText = "نظر کارشناسی";
+        this.ViewState["BtnSave"] = btnSave.Enabled;
+    }
+
+    protected void FillForm(int InsId)
+    {
+        string PageMode = Utility.DecryptQS(HiddenFieldInstitue["PageMode"].ToString());
+
+        TSP.DataManager.InstitueManager manager = new TSP.DataManager.InstitueManager();
+        TSP.DataManager.CityManager CityManager = new TSP.DataManager.CityManager();
+
+        manager.FindByCode(InsId);
+        if (manager.Count == 1)
+        {
+            int CitId = int.Parse(manager[0]["CitId"].ToString());
+            CityManager.FindByCode(CitId);
+            if (CityManager.Count == 1)
+            {
+                if (!Utility.IsDBNullOrNullValue(CityManager[0]["CitName"]))
+                txtCity.Text = CityManager[0]["CitName"].ToString();
+            }
+            if (!Utility.IsDBNullOrNullValue(manager[0]["InsName"]))
+                txtInsName.Text = manager[0]["InsName"].ToString();
+            if (!Utility.IsDBNullOrNullValue(manager[0]["Manager"]))
+                txtManager.Text = manager[0]["Manager"].ToString();
+            if (!Utility.IsDBNullOrNullValue(manager[0]["RegNo"]))
+                txtRegNo.Text = manager[0]["RegNo"].ToString();
+            if (!Utility.IsDBNullOrNullValue(manager[0]["RegDate"]))
+                txtRegDate.Text = manager[0]["RegDate"].ToString();
+            if (!Utility.IsDBNullOrNullValue(manager[0]["RegPlace"]))
+                txtRegPlace.Text = manager[0]["RegPlace"].ToString();
+            if (!Utility.IsDBNullOrNullValue(manager[0]["Tel1"]))
+                txtTel1.Text = manager[0]["Tel1"].ToString();
+            if (!Utility.IsDBNullOrNullValue(manager[0]["Tel2"]))
+                txtTel2.Text = manager[0]["Tel2"].ToString();
+            if (!Utility.IsDBNullOrNullValue(manager[0]["MobileNo"]))
+                txtMobileNo.Text = manager[0]["MobileNo"].ToString();
+            if (!Utility.IsDBNullOrNullValue(manager[0]["Address"]))
+                txtAddress.Text = manager[0]["Address"].ToString();
+            if (!Utility.IsDBNullOrNullValue(manager[0]["Email"]))
+                txtEmail.Text = manager[0]["Email"].ToString();
+            if (!Utility.IsDBNullOrNullValue(manager[0]["WebSite"]))
+                txtWebSite.Text = manager[0]["WebSite"].ToString();
+            if (!Utility.IsDBNullOrNullValue(manager[0]["Description"]))
+                txtDesc.Text = manager[0]["Description"].ToString();
+        }
+    }
+
+    private void FillFormCertificate(int InsCId)
+    {
+        TSP.DataManager.InstitueCertificateManager InstitueCertificateManager = new TSP.DataManager.InstitueCertificateManager();
+
+        InstitueCertificateManager.FindByCode(InsCId);
+        if (InstitueCertificateManager.Count > 0)
+        {
+            txtEndDate.Text = InstitueCertificateManager[0]["EndDate"].ToString();
+            txtStartDate.Text = InstitueCertificateManager[0]["StartDate"].ToString();
+            txtFileNo.Text = InstitueCertificateManager[0]["FileNo"].ToString();
+            txtSerialNo.Text = InstitueCertificateManager[0]["SerialNo"].ToString();
+        }
+    }
+
+    protected void ClearForm()
+    {
+        txtRegDate.Text = "";
+        txtDesc.Text = "";
+        txtCity.Text = "";
+        // chbInActive.Checked = false;
+        for (int i = 0; i < ASPxRoundPanel2.Controls.Count; i++)
+        {
+
+
+            try
+            {
+                DevExpress.Web.ASPxTextBox co = (DevExpress.Web.ASPxTextBox)ASPxRoundPanel2.Controls[i];
+                co.Text = "";
+            }
+            catch
+            {
+            }
+        }
+
+
+    }
+
+    protected void Disable()
+    {
+        txtInsName.Enabled = false;
+        txtManager.Enabled = false;
+        txtFileNo.Enabled = false;
+        txtRegNo.Enabled = false;
+        txtRegDate.Enabled = false;
+        txtRegPlace.Enabled = false;
+        txtTel1.Enabled = false;
+        txtTel2.Enabled = false;
+        txtMobileNo.Enabled = false;
+        txtAddress.Enabled = false;
+        txtEmail.Enabled = false;
+        txtWebSite.Enabled = false;
+        txtDesc.Enabled = false;
+
+        // chbInActive.Enabled = false;
+
+    }
+
+    protected void Enable()
+    {
+        txtInsName.Enabled = true;
+        txtManager.Enabled = true;
+        txtFileNo.Enabled = true;
+        txtRegNo.Enabled = true;
+        txtRegDate.Enabled = true;
+        txtRegPlace.Enabled = true;
+        txtTel1.Enabled = true;
+        txtTel2.Enabled = true;
+        txtMobileNo.Enabled = true;
+        txtAddress.Enabled = true;
+        txtEmail.Enabled = true;
+        txtWebSite.Enabled = true;
+        txtDesc.Enabled = true;
+
+        //  chbInActive.Enabled = true;
+    }
+
+    //private void SendForJudge()
+    //{
+    //    int LearningManagerConfirmingInstitueOrder = -1;
+    //    int ObserverConfrimingInstitueOrder = -1;
+    //    int CommitteeConfirmingInstitueOrder = -1;
+
+    //    TSP.DataManager.WorkFlowTaskManager WorkFlowTaskManager = new TSP.DataManager.WorkFlowTaskManager();
+    //    TSP.DataManager.WorkFlowStateManager WorkFlowStateManager = new TSP.DataManager.WorkFlowStateManager();
+    //    TSP.DataManager.InstitueJudgmentManager InstitueJudgmentManager = new TSP.DataManager.InstitueJudgmentManager();
+    //    InstitueJudgmentManager.ClearBeforeFill = true;
+
+    //    WorkFlowTaskManager.ClearBeforeFill = true;
+
+    //    WorkFlowTaskManager.FindByTaskCode((int)TSP.DataManager.WorkFlowTask.LearningManagerConfirmingAndSpecifyObserverForInstitue);
+    //    if (WorkFlowTaskManager.Count != 0)
+    //        LearningManagerConfirmingInstitueOrder = int.Parse(WorkFlowTaskManager[0]["TaskOrder"].ToString());
+
+    //    WorkFlowTaskManager.FindByTaskCode((int)TSP.DataManager.WorkFlowTask.ObserverConfirmingInstitue);
+    //    if (WorkFlowTaskManager.Count != 0)
+    //        ObserverConfrimingInstitueOrder = int.Parse(WorkFlowTaskManager[0]["TaskOrder"].ToString());
+
+    //    WorkFlowTaskManager.FindByTaskCode((int)TSP.DataManager.WorkFlowTask.CommitteeConfirmingInstitue);
+    //    if (WorkFlowTaskManager.Count != 0)
+    //        CommitteeConfirmingInstitueOrder = int.Parse(WorkFlowTaskManager[0]["TaskOrder"].ToString());
+    //    int CurrentTaskOrder = -1;
+    //    //****TableId
+    //    string InsId = Utility.DecryptQS(InstitueId.Value.ToString());
+    //    //****TableType
+    //    int TableType = (int)TSP.DataManager.TableCodes.Institue;
+    //    DataTable dtWorkFlowState = WorkFlowStateManager.SelectLastState(TableType, int.Parse(InsId));
+    //    if (dtWorkFlowState.Rows.Count > 0)
+    //    {
+    //        CurrentTaskOrder = int.Parse(dtWorkFlowState.Rows[0]["TaskOrder"].ToString());
+    //        string PageMode = "New";
+    //        if (CurrentTaskOrder == LearningManagerConfirmingInstitueOrder)
+    //        {
+
+    //            DataTable dtLearningManager = InstitueJudgmentManager.SelectLearningJudgment(int.Parse(InsId));
+    //            if (dtLearningManager.Rows.Count > 0)
+    //                PageMode = "Edit";
+    //            Response.Redirect("InstitueLearningManagerJudgment.aspx?InsId=" + Utility.EncryptQS(InsId) + "&PageMode=" + Utility.EncryptQS(PageMode) + "&PrPgMd=" + PgMode.Value);
+    //        }
+    //        else
+    //        {
+    //            if (CurrentTaskOrder == ObserverConfrimingInstitueOrder)
+    //            {
+    //                TSP.DataManager.InstitueObserveManager InstitueObserveManager = new TSP.DataManager.InstitueObserveManager();
+    //                InstitueObserveManager.FindByInstitue(int.Parse(InsId));
+    //                int InsObserveId = -1;
+    //                if (InstitueObserveManager.Count > 0)
+    //                    PageMode = "Edit";
+    //                Response.Redirect("InstitueObserveJudgment.aspx?InsId=" + Utility.EncryptQS(InsId) + "&PageMode=" + Utility.EncryptQS(PageMode) + "&PrPgMd=" + PgMode.Value);
+
+    //            }
+    //            else
+    //            {
+    //                if (CurrentTaskOrder == CommitteeConfirmingInstitueOrder)
+    //                {
+    //                    DataTable dtLearningManager = InstitueJudgmentManager.SelectComitteeJudgment(int.Parse(InsId));
+    //                    if (dtLearningManager.Rows.Count > 0)
+    //                        PageMode = "Edit";
+    //                    Response.Redirect("InstitueCommitteeJudgment.aspx?InsId=" + Utility.EncryptQS(InsId) + "&PageMode=" + Utility.EncryptQS(PageMode) + "&PrPgMd=" + PgMode.Value);
+    //                }
+    //            }
+    //        }
+
+    //    }
+
+    //}
+
+    private void EditInstitueCertificate(int InsCId)
+    {
+        TSP.DataManager.InstitueCertificateManager InstitueCertificateManager = new TSP.DataManager.InstitueCertificateManager();
+
+        try
+        {
+            InstitueCertificateManager.FindByCode(InsCId);
+            if (InstitueCertificateManager.Count > 0)
+            {
+                InstitueCertificateManager[0].BeginEdit();
+
+                InstitueCertificateManager[0]["FileNo"] = txtFileNo.Text;
+                InstitueCertificateManager[0]["SerialNo"] = txtSerialNo.Text;
+                InstitueCertificateManager[0]["StartDate"] = txtStartDate.Text;
+                InstitueCertificateManager[0]["EndDate"] = txtEndDate.Text;
+                InstitueCertificateManager[0]["Date"] = Utility.GetDateOfToday();
+                InstitueCertificateManager[0]["UserId"] = Utility.GetCurrentUser_UserId();
+                InstitueCertificateManager[0]["ModifiedDate"] = DateTime.Now;
+
+                InstitueCertificateManager[0].EndEdit();
+                int cn = InstitueCertificateManager.Save();
+
+                if (cn > 0)
+                {
+
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "ذخیره انجام شد.";
+                }
+                else
+                {
+
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+                }
+            }
+            else
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "اطلاعات مورد نظر توسط کاربر دیگری تغییر یافته است.";
+            }
+
+        }
+        catch (Exception err)
+        {
+            SetError(err);
+        }
+    }
+
+    private void SetError(Exception err)
+    {
+        if (err.GetType() == typeof(System.Data.SqlClient.SqlException))
+        {
+            System.Data.SqlClient.SqlException se = (System.Data.SqlClient.SqlException)err;
+            if (se.Number == 2601)
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "اطلاعات تکراری می باشد";
+            }
+            else
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+            }
+        }
+        else
+        {
+            this.DivReport.Visible = true;
+            this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+        }
+    }
+    #endregion
+
+}

@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Groups>
+
+  <NavBarGroup Text="ظرفیت" Expanded="False" Name="grpCapacity">
+    <NavBarItem NavigateUrl="~/Office/TechnicalServices/Capacity/ConditionalCapacity.aspx" Text="مدیریت کاهش/افزایش ظرفیت"/>
+    <!--<NavBarItem NavigateUrl="~/Office/TechnicalServices/Capacity/CapacityInfo.aspx" Text="اطلاعات ظرفیت"/>-->
+    <NavBarItem NavigateUrl="~/Office/TechnicalServices/Capacity/OffDsgnCapacityInfo.aspx" Text="اطلاعات ظرفیت طراحی"/>
+    <NavBarItem NavigateUrl="~/Office/TechnicalServices/Capacity/OffObsCapacityInfo.aspx" Text="اطلاعات ظرفیت نظارت"/>
+    <NavBarItem NavigateUrl="~/Office/TechnicalServices/Capacity/OffImpCapacityInfo.aspx" Text="اطلاعات ظرفیت اجرا"/>
+  </NavBarGroup>
+
+</Groups>

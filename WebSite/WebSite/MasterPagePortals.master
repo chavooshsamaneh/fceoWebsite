@@ -1,0 +1,107 @@
+﻿<%@ Master Language="C#" MasterPageFile="~/MasterPageWebsite.master" AutoEventWireup="true" CodeFile="MasterPagePortals.master.cs" Inherits="MasterPagePortals" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxhf" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="MainContent" runat="Server">
+    <button type="button" class="hamburger is-closed" id="offcanvas">
+        <span class="hamb-top"></span>
+        <span class="hamb-middle"></span>
+        <span class="hamb-bottom"></span>
+    </button>
+    <div id="wrapper" ><%--class="active"--%>
+        <div class="overlay"></div>
+        <div runat="server" id="VerticalMenu">
+            <div id="sidebar-wrapper">
+                <ul id="sidebar" class="sidebar-nav ">
+                    <asp:Repeater runat="server" ID="RepeaterVerticalMenu" OnItemDataBound="RepeaterVerticalMenu_ItemDataBound" >
+                        <ItemTemplate>
+                            <li class="dropdown">
+                                <a href="<%# Eval("Target")%>" class="dropdown-toggle" data-toggle="dropdown"><%# Eval("Text")%> <span class="caret"></span></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <asp:Repeater runat="server" ID="RepeaterSubMenu" >
+                                        <ItemTemplate>
+                                            <li class="Headerdropdown-VMenu">
+                                                <a style="color:#404040;padding-bottom:5px" href="<%# Eval("NavigateUrl")%> "><%# Eval("Text")%> </a>                                              
+                                            </li>
+                                        </ItemTemplate>
+                                    </asp:Repeater>
+                                </ul>
+                            </li>
+                        </ItemTemplate>
+                    </asp:Repeater>
+                </ul>
+            </div>
+        </div>
+             <dxhf:ASPxHiddenField ID="HiddenFieldPage" runat="server" ClientInstanceName="HiddenFieldPage">
+            </dxhf:ASPxHiddenField>
+        <div id="page-content-wrapper" class="active">
+            <!-- Keep all page content within the page-content inset div! -->
+            <%--  <div class="page-content inset">--%>
+            <div class="row">
+                <div class="col-md-12">
+
+                    <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                    </asp:ContentPlaceHolder>
+                </div>
+            </div>
+            <%--     </div>--%>
+        </div>
+
+        <asp:XmlDataSource ID="XmlDataSourceMenu" runat="server" DataFile="~/App_Data/NavBarItems/Employee.xml"
+            XPath="/Groups/*" />
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            var trigger = $('.hamburger'),
+                overlay = $('.overlay'),
+             
+               isClosed = true;
+  
+            trigger.click(function () {
+                hamburger_cross();
+            });
+
+            function hamburger_cross() {
+                if (isClosed == true) {
+                    overlay.show();
+                    trigger.removeClass('is-closed');
+                    trigger.addClass('is-open');
+                    isClosed = false;
+
+                    var  gvwidth = $('.dxgv').css("width");
+                    gvwidth = parseFloat( gvwidth ) - 252;
+                    $('.dxgv').css({ "width": gvwidth + "px" });
+
+                    var gvCSDwidth = $('.dxgvCSD').css("width");
+                    gvCSDwidth = parseFloat(gvCSDwidth) - 252;
+                    $('.dxgvCSD').css({ "width": gvCSDwidth + "px" });
+                   
+                } else {
+                    overlay.hide();
+                    trigger.removeClass('is-open');
+                    trigger.addClass('is-closed');
+                    isClosed = true;
+
+                    var gvwidth = $('.dxgv').css("width");
+                    gvwidth = parseFloat(gvwidth) + 252;
+                    $('.dxgv').css({ "width": gvwidth + "px" });
+                   
+                    var gvCSDwidth = $('.dxgvCSD').css("width");
+                    gvCSDwidth = parseFloat(gvCSDwidth) + 252;
+                    $('.dxgvCSD').css({ "width": gvCSDwidth + "px" });
+                }
+                $("#wrapper").toggleClass("active");
+            }
+            
+            $(".body-content").css({ "padding-top": "23px" });
+            $("#DivSiteMap").removeClass('SiteMapMain');
+            $("#DivSiteMap").addClass('SiteMapPortal');
+           
+        }
+        );
+       
+      
+    </script>
+
+
+</asp:Content>

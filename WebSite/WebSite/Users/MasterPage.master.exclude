@@ -1,0 +1,67 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage.master.cs" Inherits="Users_MasterPage"
+    MasterPageFile="~/MainMasterPage.master" %>
+
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dx" %>
+
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxm" %>
+<%@ Register Assembly="TSP.WebControls" Namespace="TSP.WebControls" TagPrefix="TSPControls" %>
+<asp:Content ID="TopOfMenuContent" ContentPlaceHolderID="TopOfMenuMasterPageContentPlaceHolder"
+    runat="Server">
+</asp:Content>
+<asp:Content ID="MenuContent" ContentPlaceHolderID="MenuMasterPageContentPlaceHolder"
+    runat="Server">
+    <div id="Div2" class="SideBarMenue" runat="server" dir="rtl">
+        <TSPControls:CustomASPxNavBar ID="ASPxNavBar1" runat="server" Width="100%" DataSourceID="XmlDataSource1">
+        </TSPControls:CustomASPxNavBar>
+        <asp:XmlDataSource ID="XmlDataSource1" runat="server" XPath="/Groups/*" />
+    </div>
+</asp:Content>
+<asp:Content ID="BottomOfMenuContent" ContentPlaceHolderID="BottomOfMenuMasterPageContentPlaceHolder"
+    runat="Server">
+</asp:Content>
+<asp:Content ID="DataContent" ContentPlaceHolderID="DataMasterPageContentPlaceHolder"
+    runat="Server">
+    <script type="text/javascript" src="../Script/Utility.js"></script>
+        <TSPControls:CustomASPxRoundPanelMenu ID="RoundPanelUserSettings" runat="server"
+                    Width="100%">
+                    <PanelCollection>
+                    <dx:PanelContent>
+
+   
+                        <TSPControls:CustomAspxMenuHorizontal ID="MenuUserSettings" runat="server"  
+                            AutoSeparators="RootOnly"  ItemSpacing="0px"
+                            RightToLeft="True" SeparatorColor="#A5A6A8" SeparatorHeight="100%" SeparatorWidth="1px"
+                            ItemImagePosition="Left">
+                            <Items>
+                                <dxm:MenuItem Name="ChangePassword" Text="تغییر رمز عبور" NavigateUrl="ChangePassword.aspx">
+                                    <Image Url="~/Images/password.png" Height="20px" Width="20px">
+                                    </Image>
+                                </dxm:MenuItem>
+                                <dxm:MenuItem Name="MemberPrivateInfoSetting" Text="نحوه ارائه اطلاعت شخصی" NavigateUrl="MemberPrivateInfoSetting.aspx">
+                                    <Image Url="~/Images/PrivateSettings.png" Height="20px" Width="20px">
+                                    </Image>
+                                </dxm:MenuItem>
+                                <dxm:MenuItem Name="RecieveMagazineSetting" Text="دریافت فصلنامه" NavigateUrl="RecieveMagazineSetting.aspx">
+                                    <Image Url="~/Images/Magazine.png" Height="20px" Width="20px">
+                                    </Image>
+                                </dxm:MenuItem>
+                            </Items>
+                            <RootItemSubMenuOffset FirstItemX="-1" FirstItemY="-2" LastItemX="-1" LastItemY="-2"
+                                X="-1" Y="-2" />
+                            <Border BorderColor="#A5A6A8" BorderStyle="Solid" BorderWidth="1px" />
+                            <VerticalPopOutImage Height="8px" Width="4px" />
+                            <ItemStyle ImageSpacing="5px" PopOutImageSpacing="7px" VerticalAlign="Middle" />
+                            <SubMenuItemStyle ImageSpacing="7px">
+                            </SubMenuItemStyle>
+                            <SubMenuStyle BackColor="#EDF3F4" GutterWidth="0px" SeparatorColor="#7EACB1" />
+                            <HorizontalPopOutImage Height="7px" Width="7px" />
+                        </TSPControls:CustomAspxMenuHorizontal>
+                </dx:PanelContent>
+                    </PanelCollection>
+                </TSPControls:CustomASPxRoundPanelMenu>
+
+    <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+    </asp:ContentPlaceHolder>
+</asp:Content>

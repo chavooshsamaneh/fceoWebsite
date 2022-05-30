@@ -1,0 +1,286 @@
+﻿using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+using DevExpress.Web;
+
+public partial class Employee_TechnicalServices_Report_MemberObsCapacity : System.Web.UI.Page
+{
+    string MeId, Year;
+
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        this.DivReport.Attributes.Add("onclick", "ChangeVisible(this)");
+        this.DivReport.Attributes.Add("onmouseover", "ChangeIcon(this)");
+        this.DivReport.Visible = false;
+
+        if (!IsPostBack)
+        {
+            SetKeys();
+        }
+    }
+
+    protected void btnPrint_Click(object sender, EventArgs e)
+    {
+        Print();
+    }
+
+    /*******************************************************************************************************************************************/
+    private void Print()
+    {
+        MeId = ASPxTextBoxMeId.Text;
+        Year = ASPxComboBoxYear.Text;
+
+        string Qs = "MeId=" + Utility.EncryptQS(MeId) + "&Year=" + Utility.EncryptQS(Year);
+        Response.Redirect("~/ReportForms/TechnicalServices/MemberObsCapacity.aspx?" + Qs);
+    }
+
+    /*******************************************************************************************************************************************/
+    private void SetKeys()
+    {
+        ASPxTextBoxMeId.Text = Utility.GetCurrentUser_MeId().ToString();
+        ASPxComboBoxYear.Value = Utility.GetYearOfToday();
+
+        Search();
+    }
+
+    private void Search()
+    {
+        Capacity Cpcty = new Capacity();
+
+        if (!SetMemberInfo())
+        {
+            Clear();
+            return;
+        }
+
+        SetObservationCapacity(Cpcty);
+        SetStages(Cpcty);
+        SetComponents();
+    }
+
+    private bool SetMemberInfo()
+    {
+        MeId = ASPxTextBoxMeId.Text;
+        TSP.DataManager.MemberManager MemberManager = new TSP.DataManager.MemberManager();
+        MemberManager.FindByCode(Convert.ToInt32(MeId));
+        if (MemberManager.Count > 0)
+        {
+            ASPxTextBoxMeName.Text = MemberManager[0]["MeName"].ToString();
+            return true;
+        }
+        else
+        {
+            this.DivReport.Visible = true;
+            this.LabelWarning.Text = "کد عضویت معتبر نمی باشد";
+            return false;
+        }
+    }
+
+    private void SetObservationCapacity(Capacity Cpcty)
+    {
+        DataTable CapacityInfoDT = new DataTable();
+
+        MeId = ASPxTextBoxMeId.Text;
+        Year = ASPxComboBoxYear.Text;
+        //???????????????
+        //if (Convert.ToInt32(MeId) > 0 && Year != "")
+        //    CapacityInfoDT = Cpcty.GetYearInformation((int)TSP.DataManager.TSProjectIngridientType.Observer, (int)TSP.DataManager.TSMemberType.Member, Convert.ToInt32(MeId), Year);
+
+        //CustomAspxDevGridViewObs.DataSource = CapacityInfoDT;
+        //CustomAspxDevGridViewObs.DataBind();
+        //???????????????
+    }
+
+    private void SetStages(Capacity Cpcty)
+    {
+        TSP.DataManager.TechnicalServices.CapacityAssignmentManager CapacityAssignmentManager = new TSP.DataManager.TechnicalServices.CapacityAssignmentManager();
+
+        Year = ASPxComboBoxYear.Text;
+        //???????????????
+        //if (Year != "")
+        //    CapacityAssignmentManager = Cpcty.GetYearsStages(Year);
+
+        //CustomAspxDevGridViewCapacityAssignment.DataSource = CapacityAssignmentManager.DataTable;
+        //CustomAspxDevGridViewCapacityAssignment.DataBind();
+        //???????????????
+    }
+
+    private void SetCapacityAssignmentObservationCapacity(int CapacityAssignmentId)
+    {
+        MeId = ASPxTextBoxMeId.Text;
+        Year = ASPxComboBoxYear.Text;
+
+        if (Convert.ToInt32(MeId) > 0 && Year != "")
+        {
+            TSP.DataManager.TechnicalServices.CapacityAssignmentManager CapacityAssignmentManager = new TSP.DataManager.TechnicalServices.CapacityAssignmentManager();
+            CapacityAssignmentManager.FindByCapacityAssignmentId(CapacityAssignmentId);
+            if (CapacityAssignmentManager.Count > 0)
+            {
+                ObjectDataSourceStageInfo.SelectParameters["ProjectIngridientTypeId"].DefaultValue = ((int)TSP.DataManager.TSProjectIngridientType.Observer).ToString();
+                ObjectDataSourceStageInfo.SelectParameters["MemberTypeId"].DefaultValue = ((int)TSP.DataManager.TSMemberType.Member).ToString();
+                ObjectDataSourceStageInfo.SelectParameters["MeOfficeEngOId"].DefaultValue = MeId;
+                ObjectDataSourceStageInfo.SelectParameters["Year"].DefaultValue = Year;
+                ObjectDataSourceStageInfo.SelectParameters["Stage"].DefaultValue = CapacityAssignmentManager[0]["Stage"].ToString();
+            }
+        }
+    }
+
+    private void Clear()
+    {
+        ASPxTextBoxMeName.Text = "";
+
+        CustomAspxDevGridViewObs.DataSource = null;
+        CustomAspxDevGridViewObs.DataBind();
+
+        CustomAspxDevGridViewCapacityAssignment.DataSource = null;
+        CustomAspxDevGridViewCapacityAssignment.DataBind();
+    }
+
+    private string GetGrdName(int GrdId)
+    {
+        TSP.DataManager.GradeManager GradeManager = new TSP.DataManager.GradeManager();
+        GradeManager.FindByCode(GrdId);
+        if (GradeManager.Count > 0)
+            return GradeManager[0]["GrdName"].ToString();
+        else
+            return "";
+    }
+
+    private void SetComponents()
+    {
+        TSP.DataManager.TechnicalServices.CapacityAssignmentManager CapacityAssignmentManager = new TSP.DataManager.TechnicalServices.CapacityAssignmentManager();
+        CapacityAssignmentManager.FindLastStageInYear("");
+
+        if (ASPxComboBoxYear.Value.ToString() == Utility.GetYearOfToday() || CapacityAssignmentManager.Count == 0 || ASPxComboBoxYear.Value.ToString() == CapacityAssignmentManager[0]["Year"].ToString())
+        {
+            CustomAspxDevGridViewObs.Columns["RemainCapacity"].Caption = "ظرفیت باقیمانده";
+
+            //for (int i = 0; i < CustomAspxDevGridViewCapacityAssignment.VisibleRowCount; i++)
+            //{
+            //    TSP.WebControls.CustomAspxDevGridView GridCAObs = (TSP.WebControls.CustomAspxDevGridView)CustomAspxDevGridViewCapacityAssignment.FindDetailRowTemplateControl(i, "CustomAspxDevGridViewCAObs");
+            //    if (GridCAObs != null)
+            //        GridCAObs.Columns["RemainCapacity"].Caption = "ظرفیت باقیمانده";
+            //}
+
+        }
+        else
+        {
+            CustomAspxDevGridViewObs.Columns["RemainCapacity"].Caption = "ظرفیت سوخت شده";
+
+            //for (int i = 0; i < CustomAspxDevGridViewCapacityAssignment.VisibleRowCount; i++)
+            //{
+            //    TSP.WebControls.CustomAspxDevGridView GridCAObs = (TSP.WebControls.CustomAspxDevGridView)CustomAspxDevGridViewCapacityAssignment.FindDetailRowTemplateControl(i, "CustomAspxDevGridViewCAObs");
+            //    if (GridCAObs != null)
+            //        GridCAObs.Columns["RemainCapacity"].Caption = "ظرفیت سوخت شده";
+            //}
+        }
+    }
+
+    private void SetComponents(ASPxGridViewTableDataCellEventArgs e)
+    {
+        TSP.DataManager.TechnicalServices.CapacityAssignmentManager CapacityAssignmentManager = new TSP.DataManager.TechnicalServices.CapacityAssignmentManager();
+        CapacityAssignmentManager.FindLastStageInYear("");
+
+        if (ASPxComboBoxYear.Value.ToString() == Utility.GetYearOfToday() || CapacityAssignmentManager.Count == 0 || ASPxComboBoxYear.Value.ToString() == CapacityAssignmentManager[0]["Year"].ToString())
+        {
+            if (e.DataColumn.FieldName == "RemainCapacity")
+                e.DataColumn.Caption = "ظرفیت باقیمانده";
+        }
+        else
+        {
+            if (e.DataColumn.FieldName == "RemainCapacity")
+                e.DataColumn.Caption = "ظرفیت سوخت شده";
+        }
+    }
+        
+    /*********************************************************************************************************************************/
+    protected void CustomAspxDevGridViewCapacityAssignment_FocusedRowChanged(object sender, EventArgs e)
+    {
+        if (CustomAspxDevGridViewCapacityAssignment.FocusedRowIndex != -1 && CustomAspxDevGridViewCapacityAssignment.SettingsDetail.ShowDetailRow)
+            CustomAspxDevGridViewCapacityAssignment.DetailRows.ExpandRow(CustomAspxDevGridViewCapacityAssignment.FocusedRowIndex);
+    }
+    protected void CustomAspxDevGridViewCapacityAssignment_DetailRowExpandedChanged(object sender, DevExpress.Web.ASPxGridViewDetailRowEventArgs e)
+    {
+        CustomAspxDevGridViewCapacityAssignment.FocusedRowIndex = e.VisibleIndex;
+    }
+
+    protected void CustomAspxDevGridViewCAObs_BeforePerformDataSelect(object sender, EventArgs e)
+    {
+        int CapacityAssignmentId = Convert.ToInt32((sender as ASPxGridView).GetMasterRowKeyValue());
+        SetCapacityAssignmentObservationCapacity(CapacityAssignmentId);
+    }
+
+    protected void CustomAspxDevGridViewObs_HtmlDataCellPrepared(object sender, ASPxGridViewTableDataCellEventArgs e)
+    {
+        if (e.DataColumn.FieldName == "FNO")
+            e.Cell.Style["direction"] = "ltr";
+
+        if (e.DataColumn.FieldName == "ConfirmDate")
+            e.Cell.Style["direction"] = "ltr";
+
+        if (e.DataColumn.FieldName == "ExpireDate")
+            e.Cell.Style["direction"] = "ltr";
+    }
+
+    protected void CustomAspxDevGridViewObs_AutoFilterCellEditorInitialize(object sender, ASPxGridViewEditorEventArgs e)
+    {
+        if (e.Column.FieldName == "FNO")
+            e.Editor.Style["direction"] = "ltr";
+
+        if (e.Column.FieldName == "ConfirmDate")
+            e.Editor.Style["direction"] = "ltr";
+
+        if (e.Column.FieldName == "ExpireDate")
+            e.Editor.Style["direction"] = "ltr";
+    }
+
+    protected void CustomAspxDevGridViewCapacityAssignment_HtmlDataCellPrepared(object sender, ASPxGridViewTableDataCellEventArgs e)
+    {
+        if (e.DataColumn.FieldName == "AssignmentDate")
+            e.Cell.Style["direction"] = "ltr";
+    }
+
+    protected void CustomAspxDevGridViewCapacityAssignment_AutoFilterCellEditorInitialize(object sender, ASPxGridViewEditorEventArgs e)
+    {
+        if (e.Column.FieldName == "AssignmentDate")
+            e.Editor.Style["direction"] = "ltr";
+    }
+
+    protected void CustomAspxDevGridViewCAObs_HtmlDataCellPrepared(object sender, ASPxGridViewTableDataCellEventArgs e)
+    {
+        if (e.DataColumn.FieldName == "FNO")
+            e.Cell.Style["direction"] = "ltr";
+
+        if (e.DataColumn.FieldName == "ConfirmDate")
+            e.Cell.Style["direction"] = "ltr";
+
+        if (e.DataColumn.FieldName == "ExpireDate")
+            e.Cell.Style["direction"] = "ltr";
+
+        SetComponents(e);
+    }
+
+    protected void CustomAspxDevGridViewCAObs_AutoFilterCellEditorInitialize(object sender, ASPxGridViewEditorEventArgs e)
+    {
+        if (e.Column.FieldName == "FNO")
+            e.Editor.Style["direction"] = "ltr";
+
+        if (e.Column.FieldName == "ConfirmDate")
+            e.Editor.Style["direction"] = "ltr";
+
+        if (e.Column.FieldName == "ExpireDate")
+            e.Editor.Style["direction"] = "ltr";
+    }
+
+    protected void ASPxComboBoxYear_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        Search();
+    }
+}

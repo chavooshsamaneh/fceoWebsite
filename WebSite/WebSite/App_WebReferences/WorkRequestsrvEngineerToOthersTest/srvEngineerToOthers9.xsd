@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/WCF.EngineerToOthers" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/WCF.EngineerToOthers" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://saraweb.shiraz.ir/EngineerToOthers/srvEngineerToOthers.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Biz.Error" />
+  <xs:import schemaLocation="http://saraweb.shiraz.ir/EngineerToOthers/srvEngineerToOthers.svc?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/BIZ.SC" />
+  <xs:import schemaLocation="http://saraweb.shiraz.ir/EngineerToOthers/srvEngineerToOthers.svc?xsd=xsd8" namespace="http://schemas.datacontract.org/2004/07/DataAccess.Engineers" />
+  <xs:complexType name="ClsCodeInformation">
+    <xs:sequence>
+      <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Biz.Error" minOccurs="0" name="ErrorResult" nillable="true" type="q1:ClsErrorResult" />
+      <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/BIZ.SC" minOccurs="0" name="Info" nillable="true" type="q2:ClsEngineer" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ClsCodeInformation" nillable="true" type="tns:ClsCodeInformation" />
+  <xs:complexType name="ClsReferFile">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CI_Ability" nillable="true" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="CI_CancelType" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="CI_StudyField" nillable="true" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="CI_Years" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="CommitmentSupervisionDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CommitmentSupervisionNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IsCoordinator" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsEngOwner" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsFree" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsSwitchEngineer" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="RefComments" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ReferedMeter" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="ReferedPercent" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="SwitchEngineerDate" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ClsReferFile" nillable="true" type="tns:ClsReferFile" />
+  <xs:complexType name="ClsAllReferToEngineer">
+    <xs:sequence>
+      <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/DataAccess.Engineers" minOccurs="0" name="AllReferToEngineer" nillable="true" type="q3:ArrayOfSrvGetReferToEngineer_Result" />
+      <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/Biz.Error" minOccurs="0" name="ErrorResult" nillable="true" type="q4:ClsErrorResult" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ClsAllReferToEngineer" nillable="true" type="tns:ClsAllReferToEngineer" />
+</xs:schema>

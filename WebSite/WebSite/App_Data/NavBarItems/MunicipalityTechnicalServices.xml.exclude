@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Groups>
+
+  <NavBarGroup Text="اطلاعات پایه" Expanded="False" Name="grpBaseInfo">
+    <NavBarItem NavigateUrl="~/Municipality/TechnicalService/BaseInfo/DiscountPercent.aspx" Text="درصد تخفیف برای پروژه های خاص"/>
+    <NavBarItem NavigateUrl="~/Municipality/TechnicalService/BaseInfo/ProjectIngridientMajors.aspx" Text="رشته های مجاز عوامل پروِژه"/>
+    <NavBarItem NavigateUrl="~/Municipality/TechnicalService/Plan/PlanControler.aspx"  Text="مدیریت کنترل کنندگان نقشه"/>
+  </NavBarGroup>
+
+  <NavBarGroup Text="ظرفیت" Expanded="False" Name="grpCapacity">
+    <NavBarItem NavigateUrl="~/Municipality/TechnicalService/Capacity/CapacityAssignment.aspx" Text="اختصاص ظرفیت"/>
+    <NavBarItem NavigateUrl="~/Municipality/TechnicalService/Capacity/OffDsgnCapacityInfo.aspx" Text="اطلاعات ظرفیت طراحی"/>
+    <NavBarItem NavigateUrl="~/Municipality/TechnicalService/Capacity/MemberObsCapacityInfo.aspx" Text="اطلاعات ظرفیت نظارت"/>
+    <NavBarItem NavigateUrl="~/Municipality/TechnicalService/Capacity/MemberImpCapacityInfo.aspx" Text="اطلاعات ظرفیت اجرا"/>
+  </NavBarGroup>
+
+  <NavBarGroup Text="اطلاعات پروژه" Expanded="False" Name="grpProject">
+    <NavBarItem NavigateUrl="~/Municipality/TechnicalService/Project/Project.aspx" Text="مدیریت پروژه ها"/>
+    <!--<NavBarItem NavigateUrl="~/Municipality/TechnicalService/Project/DevelopmentPercent.aspx" Text="مدیریت اعلام های پیشرفت کار"/>-->
+  </NavBarGroup>
+
+  <NavBarGroup Text="گزارشات" Expanded="False" Name="grpReport">
+    <NavBarItem NavigateUrl="~/Municipality/TechnicalService/Report/Summary.aspx" Text="خلاصه پرونده"/>
+    <NavBarItem NavigateUrl="~/Municipality/TechnicalService/Report/DesignerCurrentProjects.aspx" Text="پروژه های در دست اجرا طراح"/>
+    <NavBarItem NavigateUrl="~/Municipality/TechnicalService/Report/ObserversCurrentProjects.aspx" Text="پروژه های در دست اجرا ناظر"/>
+    <NavBarItem NavigateUrl="~/Municipality/TechnicalService/Report/ImplementersCurrentProjects.aspx" Text="پروژه های در دست اجرا مجری"/>
+    <NavBarItem NavigateUrl="~/Municipality/TechnicalService/Report/OffDsgnCapacity.aspx" Text="گزارش ظرفیت طراحی"/>
+    <NavBarItem NavigateUrl="~/Municipality/TechnicalService/Report/MemberObsCapacity.aspx" Text="گزارش ظرفیت نظارت"/>
+    <NavBarItem NavigateUrl="~/Municipality/TechnicalService/Report/MemberImpCapacity.aspx" Text="گزارش ظرفیت اجرا"/>
+  </NavBarGroup>
+
+</Groups>
+

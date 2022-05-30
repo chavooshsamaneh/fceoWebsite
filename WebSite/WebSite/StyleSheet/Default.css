@@ -1,0 +1,49 @@
+
+html, body   { margin: 0; padding: 0; list-style: none; }
+
+body	
+{ /*font: normal 9pt Tahoma,Arial, Helvetica, sans-serif; background: #006699 url('../images/HomePage/Theme/bg-body.jpg') repeat-x;background-attachment: fixed; color: #585c5e; padding: 2px 0;*/ 
+                     font: normal 9pt Tahoma,Arial, Helvetica, sans-serif;background-attachment: fixed; color: #585c5e; padding: 2px 0; 
+}
+
+/* -- Basics layout -- */
+#view    { width: 100%; margin: 0 auto; }   /*{ width: 980px; margin: 0 auto; }*/
+#head     { font-size: 1.2em; }
+#foot     { font-size: 1.2em; clear: both; }
+
+/* -- Logo constructs -- */
+
+
+#head a:hover { text-decoration: none !important; }
+
+#logo { width: 100%; height: 162px; background: #63b7dd url('../images/HomePage/Theme/bg-logo.jpg') no-repeat;  }
+#logo *     { color: #eaafa3; text-decoration: none !important; }
+#logo h2    { font-weight: normal; font-size: 1.5em; color: #d6ecf9; margin: 100px 0 0 70px; }
+#logo .block{ position: absolute; top: 0; left: 0; display: block; width: 100%; height: 100%; text-decoration: none; }
+
+/* -- Layout constructs -- */
+#logo       { position: relative; width: 100%; height: 162px; overflow: hidden; background: #398db9 url('../images/HomePage/Theme/bg-logo.jpg') 0 0 no-repeat; }
+#mainMenu   { height: 35px; padding: 5px 12px 5px 5px; background-color: #000; /*background: url('../images/HomePage/Theme/bg-menu.png') no-repeat;*/ }
+#SiteMap { width: 100%;background-image: none; height: 20px; /*65px;*/ /*background-color: #e7f2f8;*/ font-family: Tahoma; vertical-align:central;border-bottom:outset;border-bottom-width:1px}
+#PanelMasterSearch {width: 100%; background-image: none;  background-color: #e7f2f8; font-family: Tahoma; vertical-align:central}
+#PageContent    { width: 100%; height: 100%;  }/*; background-color: #006699*/
+#PageContentInformation    { float: left; width: 84.5%;height: 100%; background-image: none; padding-right: 3px; padding-left: 3px; padding-bottom: 3px; padding-top: 3px;}
+#PageContentPortalMenu    {float: right;  width: 15%; /*width: 220px; height: 100%;*/ }
+#foot       { height: 54px; padding: 0 10px 0 10px;background-color: #e7f2f8/* background: #0f2132 url('../images/HomePage/Theme/bg-foot.gif') no-repeat; */}
+
+
+
+/* -- Footer part -- */
+#foot p       { padding: 10px 10px 0px 10px; }
+#foot *       { color:#000 /* #5a8da6;*/ }
+/* #foot a:hover { color: #fff; }*/
+
+/*--Image Map--*/
+#map {width:300px; height:250px; background: #fff url(images/map.gif); position:relative; vertical-align:middle;  }
+
+#map a {color:#00f; font: bold 15px Verdana; text-decoration:none;background:transparent; 
+display:block; width: 60px; height:0; padding-top:10px; position:absolute; overflow:hidden; }
+
+#map a:hover {overflow:visible; }
+
+a#oderSiteAdd {left:832px; top:161px; } 

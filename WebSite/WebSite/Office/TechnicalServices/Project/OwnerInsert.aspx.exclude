@@ -1,0 +1,741 @@
+﻿<%@ Page Language="C#" MasterPageFile="~/Office/TechnicalServices/Project/TSMasterPage.master"
+    AutoEventWireup="true" CodeFile="OwnerInsert.aspx.cs" Inherits="Office_TechnicalServices_Project_OwnerInsert"
+    Title="مشخصات مالک" %>
+
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxp" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxuc" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxrp" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxm" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxpc" %>
+<%@ Register Assembly="TSP.WebControls" Namespace="TSP.WebControls" TagPrefix="TSPControls" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxe" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxwgv" %>
+<%@ Register Assembly="AjaxControls" Namespace="AjaxControls" TagPrefix="asp" %>
+<%@ Register Assembly="PersianDateControls 2.0" Namespace="PersianDateControls" TagPrefix="pdc" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
+
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxcp" %>
+
+<%@ Register Src="~/UserControl/ProjectInfoUserControl.ascx" TagPrefix="TSP" TagName="ProjectInfo" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+    <div id="Content" runat="server" style="width: 100%; display: block;" align="center">
+        <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+            <ContentTemplate>
+                <div style="text-align: right" id="DivReport" class="DivErrors" runat="server" visible="true">
+                    <asp:Label ID="LabelWarning" runat="server" Text="Label"></asp:Label>[<a class="closeLink"
+                        href="#">بستن</a>]</div>
+                <div style="width: 100%" dir="ltr" align="right">
+                    <dxrp:ASPxRoundPanel ID="ASPxRoundPanel1" runat="server" Width="100%" 
+                        ShowHeader="False" BackColor="#EBF2F4" >
+                        <LeftEdge>
+                            <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif">
+                            </BackgroundImage>
+                        </LeftEdge>
+                        <BottomRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpBottomRightCorner.png">
+                        </BottomRightCorner>
+                        <HeaderContent>
+                            <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderBack.gif">
+                            </BackgroundImage>
+                        </HeaderContent>
+                        <ContentPaddings Padding="0px"></ContentPaddings>
+                        <NoHeaderTopRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopRightCorner.png">
+                        </NoHeaderTopRightCorner>
+                        <RightEdge>
+                            <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif">
+                            </BackgroundImage>
+                        </RightEdge>
+                        <HeaderRightEdge>
+                            <BackgroundImage VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderRightEdge.gif">
+                            </BackgroundImage>
+                        </HeaderRightEdge>
+                        <Border BorderWidth="1px" BorderStyle="Solid" BorderColor="#7EACB1"></Border>
+                        <HeaderStyle BackColor="White" Height="23px">
+                            <Paddings PaddingTop="0px" PaddingBottom="0px" PaddingLeft="2px"></Paddings>
+                            <BorderBottom BorderStyle="None"></BorderBottom>
+                        </HeaderStyle>
+                        <Content>
+                            <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpContentBack.gif">
+                            </BackgroundImage>
+                        </Content>
+                        <HeaderLeftEdge>
+                            <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderLeftEdge.gif">
+                            </BackgroundImage>
+                        </HeaderLeftEdge>
+                        <BottomEdge BackColor="#D7E9F1">
+                        </BottomEdge>
+                        <TopRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpTopRightCorner.png">
+                        </TopRightCorner>
+                        <NoHeaderTopLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopLeftCorner.png">
+                        </NoHeaderTopLeftCorner>
+                        <PanelCollection>
+                            <dxp:PanelContent runat="server">
+                                <div dir="rtl">
+                                    <table style="display: block; overflow: hidden; border-collapse: collapse" cellpadding="0"
+                                        width="100%">
+                                        <tbody>
+                                            <tr>
+                                                <td style="vertical-align: top" align="right">
+                                                    <table style="border-collapse: collapse; background-color: transparent" dir="rtl"
+                                                        cellpadding="0">
+                                                        <tbody>
+                                                            <tr>
+                                                                <td >
+                                                                    <TSPControls:CustomTextBox runat="server" Text=" "  ToolTip="بازگشت"
+                                                                        CausesValidation="False" ID="btnBack" UseSubmitBehavior="False" EnableViewState="False"
+                                                                        EnableTheming="False" OnClick="btnBack_Click">
+                                                                        <HoverStyle BackColor="#FFE0C0">
+                                                                            <Border BorderWidth="1px" BorderStyle="Outset" BorderColor="Gray"></Border>
+                                                                        </HoverStyle>
+                                                                        <Image  Url="~/Images/icons/Back.png">
+                                                                        </Image>
+                                                                    </TSPControls:CustomTextBox>
+                                                                </td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </dxp:PanelContent>
+                        </PanelCollection>
+                        <TopLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpTopLeftCorner.png">
+                        </TopLeftCorner>
+                        <NoHeaderTopEdge BackColor="#EBF2F4">
+                        </NoHeaderTopEdge>
+                        <BottomLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpBottomLeftCorner.png">
+                        </BottomLeftCorner>
+                    </dxrp:ASPxRoundPanel>
+                </div>
+                <br />
+                <div dir="ltr">
+                    <TSP:ProjectInfo ID="prjInfo" runat="server"></TSP:ProjectInfo>
+                </div>
+                <br />
+                <div dir="ltr">
+                    <dxrp:ASPxRoundPanel ID="ASPxRoundPanel2" runat="server" Width="100%" 
+                        BackColor="#EBF2F4"  HeaderText="مشاهده">
+                        <LeftEdge>
+                            <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif">
+                            </BackgroundImage>
+                        </LeftEdge>
+                        <BottomRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpBottomRightCorner.png">
+                        </BottomRightCorner>
+                        <HeaderContent>
+                            <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderBack.gif">
+                            </BackgroundImage>
+                        </HeaderContent>
+                        <ContentPaddings PaddingTop="10px" PaddingBottom="10px" PaddingLeft="4px"></ContentPaddings>
+                        <NoHeaderTopRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopRightCorner.png">
+                        </NoHeaderTopRightCorner>
+                        <RightEdge>
+                            <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif">
+                            </BackgroundImage>
+                        </RightEdge>
+                        <HeaderRightEdge>
+                            <BackgroundImage VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderRightEdge.gif">
+                            </BackgroundImage>
+                        </HeaderRightEdge>
+                        <Border BorderWidth="1px" BorderStyle="Solid" BorderColor="#7EACB1"></Border>
+                        <HeaderStyle HorizontalAlign="Right" BackColor="White">
+                            <Paddings PaddingTop="0px" PaddingBottom="0px" PaddingLeft="2px"></Paddings>
+                            <BorderBottom BorderStyle="None"></BorderBottom>
+                        </HeaderStyle>
+                        <Content>
+                            <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpContentBack.gif">
+                            </BackgroundImage>
+                        </Content>
+                        <HeaderLeftEdge>
+                            <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderLeftEdge.gif">
+                            </BackgroundImage>
+                        </HeaderLeftEdge>
+                        <BottomEdge BackColor="#D7E9F1">
+                        </BottomEdge>
+                        <TopRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpTopRightCorner.png">
+                        </TopRightCorner>
+                        <NoHeaderTopLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopLeftCorner.png">
+                        </NoHeaderTopLeftCorner>
+                        <PanelCollection>
+                            <dxp:PanelContent runat="server">
+                                <table dir="rtl" width="100%">
+                                    <tbody>
+                                        <tr>
+                                            <td valign="top" align="right" width="15%">
+                                                <dxe:ASPxLabel runat="server" Text="نوع مالک" ID="ASPxLabel1">
+                                                </dxe:ASPxLabel>
+                                            </td>
+                                            <td valign="top" align="right" width="35%">
+                                                <TSPControls:CustomAspxComboBox runat="server"  Width="100%" 
+                                                    ID="CmbType" ValueType="System.String" SelectedIndex="0" ClientInstanceName="cmb"
+                                                     ReadOnly="True">
+                                                    <ItemStyle HorizontalAlign="Right" />
+                                                    <ValidationSettings Display="Dynamic" ErrorTextPosition="Bottom">
+                                                        <ErrorImage Height="14px" Width="14px" Url="~/App_Themes/Glass/Editors/edtError.png">
+                                                        </ErrorImage>
+                                                        <RequiredField IsRequired="True" ErrorText="مالک را انتخاب نمایید"></RequiredField>
+                                                        <ErrorFrameStyle ImageSpacing="4px">
+                                                            <ErrorTextPaddings PaddingLeft="4px"></ErrorTextPaddings>
+                                                        </ErrorFrameStyle>
+                                                    </ValidationSettings>
+                                                    <Items>
+                                                        <dxe:ListEditItem Value="1" Text="دیگر اشخاص" Selected="True"></dxe:ListEditItem>
+                                                        <dxe:ListEditItem Value="2" Text="سازمان"></dxe:ListEditItem>
+                                                    </Items>
+                                                    <ButtonStyle Width="13px">
+                                                    </ButtonStyle>
+                                                </TSPControls:CustomAspxComboBox>
+                                            </td>
+                                            <td valign="top" align="right" width="15%">
+                                            </td>
+                                            <td width="35%">
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td valign="top" align="right" colspan="4">
+                                                <TSPControls:CustomASPxCheckBox runat="server" Text="نماینده مالکین می باشد" Checked="True" ID="ChbAgent"
+                                                    ReadOnly="True">
+                                                    <ClientSideEvents CheckedChanged="function(s, e) {
+if(chb.GetChecked()==true)
+{
+	SetLawyerTrue();
+}
+else
+{
+ SetLawyerFalse();
+}
+}"></ClientSideEvents>
+                                                </TSPControls:CustomASPxCheckBox>
+                                                <br />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td valign="top" align="right">
+                                                <dxe:ASPxLabel runat="server" Text="نام" ID="ASPxlbloFirstName" ClientInstanceName="lbloFirstName">
+                                                </dxe:ASPxLabel>
+                                            </td>
+                                            <td valign="top" align="right">
+                                                <TSPControls:CustomTextBox runat="server" ID="txtoFirstName"  Width="100%"
+                                                    ClientInstanceName="oFirstName" 
+                                                    ReadOnly="True">
+                                                    <ValidationSettings Display="Dynamic" ErrorTextPosition="Bottom">
+                                                        <ErrorImage Height="14px" Url="~/App_Themes/Glass/Editors/edtError.png">
+                                                        </ErrorImage>
+                                                        <RequiredField IsRequired="True" ErrorText="نام را وارد نمایید"></RequiredField>
+                                                        <ErrorFrameStyle ImageSpacing="4px">
+                                                            <ErrorTextPaddings PaddingLeft="4px"></ErrorTextPaddings>
+                                                        </ErrorFrameStyle>
+                                                    </ValidationSettings>
+                                                </TSPControls:CustomTextBox>
+                                            </td>
+                                            <td valign="top" align="right">
+                                                <dxe:ASPxLabel runat="server" Text="نام خانوادگی" ID="ASPxlbloLastName" ClientInstanceName="lbloLastName">
+                                                </dxe:ASPxLabel>
+                                            </td>
+                                            <td valign="top" align="right">
+                                                <TSPControls:CustomTextBox runat="server" ID="txtoLastName"  Width="100%"
+                                                    ClientInstanceName="oLastName" 
+                                                    ReadOnly="True">
+                                                    <ValidationSettings Display="Dynamic" ErrorTextPosition="Bottom">
+                                                        <ErrorImage Height="14px" Url="~/App_Themes/Glass/Editors/edtError.png">
+                                                        </ErrorImage>
+                                                        <RequiredField IsRequired="True" ErrorText="نام خانوادگی را وارد نمایید"></RequiredField>
+                                                        <ErrorFrameStyle ImageSpacing="4px">
+                                                            <ErrorTextPaddings PaddingLeft="4px"></ErrorTextPaddings>
+                                                        </ErrorFrameStyle>
+                                                    </ValidationSettings>
+                                                </TSPControls:CustomTextBox>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td valign="top" align="right">
+                                                <dxe:ASPxLabel runat="server" Text="نام سازمان" ClientVisible="False" ID="ASPxlbloOrgName"
+                                                    ClientInstanceName="lbloOrgName" Width="93px">
+                                                </dxe:ASPxLabel>
+                                            </td>
+                                            <td valign="top" align="right">
+                                                <TSPControls:CustomTextBox runat="server" ID="txtoOrgName"  ClientVisible="False"
+                                                    Width="100%" ClientInstanceName="oOrgName" 
+                                                    ReadOnly="True">
+                                                    <ValidationSettings>
+                                                        <ErrorImage Height="14px" Url="~/App_Themes/Glass/Editors/edtError.png">
+                                                        </ErrorImage>
+                                                        <ErrorFrameStyle ImageSpacing="4px">
+                                                            <ErrorTextPaddings PaddingLeft="4px"></ErrorTextPaddings>
+                                                        </ErrorFrameStyle>
+                                                    </ValidationSettings>
+                                                </TSPControls:CustomTextBox>
+                                            </td>
+                                            <td valign="top" align="right">
+                                                <dxe:ASPxLabel runat="server" Text="مدیر مسئول" ClientVisible="False" ID="ASPxlbloManager"
+                                                    ClientInstanceName="lbloManager">
+                                                </dxe:ASPxLabel>
+                                            </td>
+                                            <td valign="top" align="right">
+                                                <TSPControls:CustomTextBox runat="server" ID="txtoManager"  ClientVisible="False"
+                                                    Width="100%" ClientInstanceName="oManager" 
+                                                    ReadOnly="True">
+                                                    <ValidationSettings>
+                                                        <ErrorImage Height="14px" Url="~/App_Themes/Glass/Editors/edtError.png">
+                                                        </ErrorImage>
+                                                        <ErrorFrameStyle ImageSpacing="4px">
+                                                            <ErrorTextPaddings PaddingLeft="4px"></ErrorTextPaddings>
+                                                        </ErrorFrameStyle>
+                                                    </ValidationSettings>
+                                                </TSPControls:CustomTextBox>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td valign="top" align="right">
+                                                <dxe:ASPxLabel runat="server" Text="نام پدر" ID="ASPxlbloFatherName" ClientInstanceName="lbloFatherName">
+                                                </dxe:ASPxLabel>
+                                            </td>
+                                            <td valign="top" align="right">
+                                                <TSPControls:CustomTextBox runat="server" ID="txtoFatherName"  Width="100%"
+                                                    ClientInstanceName="oFatherName" 
+                                                    ReadOnly="True">
+                                                    <ValidationSettings>
+                                                        <ErrorImage Height="14px" Url="~/App_Themes/Glass/Editors/edtError.png">
+                                                        </ErrorImage>
+                                                        <ErrorFrameStyle ImageSpacing="4px">
+                                                            <ErrorTextPaddings PaddingLeft="4px"></ErrorTextPaddings>
+                                                        </ErrorFrameStyle>
+                                                    </ValidationSettings>
+                                                </TSPControls:CustomTextBox>
+                                            </td>
+                                            <td valign="top" align="right">
+                                                <dxe:ASPxLabel runat="server" Text="کد ملی" ID="ASPxlbloSSN" ClientInstanceName="lbloSSN">
+                                                </dxe:ASPxLabel>
+                                            </td>
+                                            <td valign="top" align="right">
+                                                <TSPControls:CustomTextBox runat="server" ID="txtoSSN"  Width="100%" MaxLength="10"
+                                                    ClientInstanceName="oSSN"  ReadOnly="True">
+                                                    <ValidationSettings Display="Dynamic" ErrorTextPosition="Bottom">
+                                                        <ErrorImage Height="14px" Url="~/App_Themes/Glass/Editors/edtError.png">
+                                                        </ErrorImage>
+                                                        <RegularExpression ErrorText="این کد صحیح نیست" ValidationExpression="\d{10}"></RegularExpression>
+                                                        <ErrorFrameStyle ImageSpacing="4px">
+                                                            <ErrorTextPaddings PaddingLeft="4px"></ErrorTextPaddings>
+                                                        </ErrorFrameStyle>
+                                                    </ValidationSettings>
+                                                </TSPControls:CustomTextBox>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td valign="top" align="right">
+                                                <dxe:ASPxLabel runat="server" Text="شماره شناسنامه" ID="ASPxlbloIdNo" ClientInstanceName="lbloIdNo">
+                                                </dxe:ASPxLabel>
+                                            </td>
+                                            <td valign="top" align="right">
+                                                <TSPControls:CustomTextBox runat="server" ID="txtoIdNo"  Width="100%" MaxLength="10"
+                                                    ClientInstanceName="oIdNo"  ReadOnly="True">
+                                                    <ValidationSettings Display="Dynamic" EnableCustomValidation="True" ErrorText="شماره شناسنامه را وارد نمایید"
+                                                        ErrorTextPosition="Bottom">
+                                                        <ErrorImage Height="14px" Url="~/App_Themes/Glass/Editors/edtError.png">
+                                                        </ErrorImage>
+                                                        <RequiredField ErrorText=""></RequiredField>
+                                                        <RegularExpression ErrorText="این شماره صحیح نیست" ValidationExpression="\d{1,10}">
+                                                        </RegularExpression>
+                                                        <ErrorFrameStyle ImageSpacing="4px">
+                                                            <ErrorTextPaddings PaddingLeft="4px"></ErrorTextPaddings>
+                                                        </ErrorFrameStyle>
+                                                    </ValidationSettings>
+                                                    <ClientSideEvents Validation="function(s, e) {
+	if(s.GetEnabled()==true)
+	{
+		if(s.GetText()==null || s.GetText()=='')
+			e.isValid=false;
+	}
+	else 
+		e.isValid=true;
+}"></ClientSideEvents>
+                                                </TSPControls:CustomTextBox>
+                                            </td>
+                                            <td valign="top" align="right">
+                                                <dxe:ASPxLabel runat="server" Text="محل صدور" ID="ASPxlbloBirthPlace" ClientInstanceName="lbloBirthPlace">
+                                                </dxe:ASPxLabel>
+                                            </td>
+                                            <td valign="top" align="right">
+                                                <TSPControls:CustomTextBox runat="server" ID="txtoBirthPlace"  Width="100%"
+                                                    ClientInstanceName="oBirthPlace" 
+                                                    ReadOnly="True">
+                                                </TSPControls:CustomTextBox>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td valign="top" align="right">
+                                                <dxe:ASPxLabel runat="server" Text="تلفن" ID="ASPxLabel6">
+                                                </dxe:ASPxLabel>
+                                            </td>
+                                            <td valign="top" align="right">
+                                                <TSPControls:CustomTextBox runat="server" ID="txtoTel"  Width="100%" ClientInstanceName="oTel"
+                                                     ReadOnly="True">
+                                                    <ValidationSettings Display="Dynamic" ErrorTextPosition="Bottom">
+                                                        <ErrorImage Height="14px" Url="~/App_Themes/Glass/Editors/edtError.png">
+                                                        </ErrorImage>
+                                                        <RequiredField IsRequired="True" ErrorText="تلفن را وارد نمایید"></RequiredField>
+                                                        <RegularExpression ErrorText="این شماره صحیح نیست" ValidationExpression="\d*"></RegularExpression>
+                                                        <ErrorFrameStyle ImageSpacing="4px">
+                                                            <ErrorTextPaddings PaddingLeft="4px"></ErrorTextPaddings>
+                                                        </ErrorFrameStyle>
+                                                    </ValidationSettings>
+                                                </TSPControls:CustomTextBox>
+                                            </td>
+                                            <td valign="top" align="right">
+                                                <dxe:ASPxLabel runat="server" Text="شماره همراه" ID="ASPxLabel7">
+                                                </dxe:ASPxLabel>
+                                            </td>
+                                            <td valign="top" align="right">
+                                                <TSPControls:CustomTextBox runat="server" ID="txtoMobileNo"  Width="100%"
+                                                    MaxLength="11" ClientInstanceName="oMobileNo" 
+                                                    ReadOnly="True">
+                                                    <ValidationSettings Display="Dynamic" EnableCustomValidation="True" ErrorText="شماره همراه را وارد نمایید"
+                                                        ErrorTextPosition="Bottom">
+                                                        <ErrorImage Height="14px" Url="~/App_Themes/Glass/Editors/edtError.png">
+                                                        </ErrorImage>
+                                                        <RequiredField IsRequired="True" ErrorText="شماره همراه را وارد نمایید"></RequiredField>
+                                                        <RegularExpression ErrorText="این شماره صحیح نیست" ValidationExpression="(0)\d{10}">
+                                                        </RegularExpression>
+                                                        <ErrorFrameStyle ImageSpacing="4px">
+                                                            <ErrorTextPaddings PaddingLeft="4px"></ErrorTextPaddings>
+                                                        </ErrorFrameStyle>
+                                                    </ValidationSettings>
+                                                    <ClientSideEvents Validation="function(s, e) {
+	if(s.GetEnabled()==true)
+	{
+		if(s.GetText()==null || s.GetText()=='')
+			e.isValid=false;
+	}
+	else 
+		e.isValid=true;
+}"></ClientSideEvents>
+                                                </TSPControls:CustomTextBox>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td valign="top" align="right">
+                                                <dxe:ASPxLabel runat="server" Text="آدرس" ID="ASPxLabel8">
+                                                </dxe:ASPxLabel>
+                                            </td>
+                                            <td valign="top" align="right" colspan="3">
+                                                <TSPControls:CustomASPXMemo runat="server" Height="37px" ID="txtoAddress"  Width="100%"
+                                                    ClientInstanceName="oAddress" 
+                                                    ReadOnly="True">
+                                                    <ValidationSettings Display="Dynamic" ErrorTextPosition="Bottom">
+                                                        <RequiredField IsRequired="True" ErrorText="آدرس را وارد نمایید"></RequiredField>
+                                                    </ValidationSettings>
+                                                </TSPControls:CustomASPXMemo>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td valign="top" align="right" colspan="4">
+                                                <br />
+                                                <TSPControls:CustomASPxCheckBox runat="server" Text="وکیل قانونی دارد" ID="ChbHaveLawyer" ClientInstanceName="chb"
+                                                    ReadOnly="True">
+                                                    <ClientSideEvents CheckedChanged="function(s, e) {
+if(chb.GetChecked()==true)
+{
+	SetLawyerTrue();
+}
+else
+{
+ SetLawyerFalse();
+}
+}"></ClientSideEvents>
+                                                </TSPControls:CustomASPxCheckBox>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td valign="top" align="right">
+                                                <dxe:ASPxLabel runat="server" Text="نام" ClientVisible="False" ID="ASPxlblFirstName"
+                                                    ClientInstanceName="lblFirstName">
+                                                </dxe:ASPxLabel>
+                                            </td>
+                                            <td valign="top" align="right">
+                                                <TSPControls:CustomTextBox runat="server" ID="txtlFirstName"  ClientVisible="False"
+                                                    Width="100%" ClientInstanceName="lFirstName" 
+                                                    ReadOnly="True">
+                                                    <ValidationSettings Display="Dynamic" ErrorTextPosition="Bottom">
+                                                        <ErrorImage Height="14px" Url="~/App_Themes/Glass/Editors/edtError.png">
+                                                        </ErrorImage>
+                                                        <RequiredField IsRequired="True" ErrorText="نام را وارد نمایید"></RequiredField>
+                                                        <ErrorFrameStyle ImageSpacing="4px">
+                                                            <ErrorTextPaddings PaddingLeft="4px"></ErrorTextPaddings>
+                                                        </ErrorFrameStyle>
+                                                    </ValidationSettings>
+                                                </TSPControls:CustomTextBox>
+                                            </td>
+                                            <td valign="top" align="right">
+                                                <dxe:ASPxLabel runat="server" Text="نام خانوادگی" ClientVisible="False" ID="ASPxlblLastName"
+                                                    ClientInstanceName="lblLastName">
+                                                </dxe:ASPxLabel>
+                                            </td>
+                                            <td valign="top" align="right">
+                                                <TSPControls:CustomTextBox runat="server" ID="txtlLastName"  ClientVisible="False"
+                                                    Width="100%" ClientInstanceName="lLastName" 
+                                                    ReadOnly="True">
+                                                    <ValidationSettings Display="Dynamic" ErrorTextPosition="Bottom">
+                                                        <ErrorImage Height="14px" Url="~/App_Themes/Glass/Editors/edtError.png">
+                                                        </ErrorImage>
+                                                        <RequiredField IsRequired="True" ErrorText="نام خانوادگی را وارد نمایید"></RequiredField>
+                                                        <ErrorFrameStyle ImageSpacing="4px">
+                                                            <ErrorTextPaddings PaddingLeft="4px"></ErrorTextPaddings>
+                                                        </ErrorFrameStyle>
+                                                    </ValidationSettings>
+                                                </TSPControls:CustomTextBox>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td valign="top" align="right">
+                                                <dxe:ASPxLabel runat="server" Text="نام پدر" ClientVisible="False" ID="ASPxlblFatherName"
+                                                    ClientInstanceName="lblFatherName">
+                                                </dxe:ASPxLabel>
+                                            </td>
+                                            <td valign="top" align="right">
+                                                <TSPControls:CustomTextBox runat="server" ID="txtlFatherName"  ClientVisible="False"
+                                                    Width="100%" ClientInstanceName="lFatherName" 
+                                                    ReadOnly="True">
+                                                </TSPControls:CustomTextBox>
+                                            </td>
+                                            <td valign="top" align="right">
+                                                <dxe:ASPxLabel runat="server" Text="کد ملی" ClientVisible="False" ID="ASPxlblSSN"
+                                                    ClientInstanceName="lblSSN">
+                                                </dxe:ASPxLabel>
+                                            </td>
+                                            <td valign="top" align="right">
+                                                <TSPControls:CustomTextBox runat="server" ID="txtlSSN"  ClientVisible="False"
+                                                    Width="100%" MaxLength="10" ClientInstanceName="lSSN" 
+                                                    ReadOnly="True">
+                                                    <ValidationSettings Display="Dynamic" ErrorTextPosition="Bottom">
+                                                        <ErrorImage Height="14px" Url="~/App_Themes/Glass/Editors/edtError.png">
+                                                        </ErrorImage>
+                                                        <RegularExpression ErrorText="این کد صحیح نیست" ValidationExpression="\d{10}"></RegularExpression>
+                                                        <ErrorFrameStyle ImageSpacing="4px">
+                                                            <ErrorTextPaddings PaddingLeft="4px"></ErrorTextPaddings>
+                                                        </ErrorFrameStyle>
+                                                    </ValidationSettings>
+                                                </TSPControls:CustomTextBox>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td valign="top" align="right">
+                                                <dxe:ASPxLabel runat="server" Text="شماره شناسنامه" ClientVisible="False" ID="ASPxlblIdNo"
+                                                    ClientInstanceName="lblIdNo">
+                                                </dxe:ASPxLabel>
+                                            </td>
+                                            <td valign="top" align="right">
+                                                <TSPControls:CustomTextBox runat="server" ID="txtlIdNo"  ClientVisible="False"
+                                                    Width="100%" MaxLength="10" ClientInstanceName="lIdNo" 
+                                                    ReadOnly="True">
+                                                    <ValidationSettings Display="Dynamic" EnableCustomValidation="True" ErrorText="شماره شناسنامه را وارد نمایید"
+                                                        ErrorTextPosition="Bottom">
+                                                        <ErrorImage Height="14px" Url="~/App_Themes/Glass/Editors/edtError.png">
+                                                        </ErrorImage>
+                                                        <RequiredField ErrorText=""></RequiredField>
+                                                        <RegularExpression ErrorText="این شماره صحیح نیست" ValidationExpression="\d{1,10}">
+                                                        </RegularExpression>
+                                                        <ErrorFrameStyle ImageSpacing="4px">
+                                                            <ErrorTextPaddings PaddingLeft="4px"></ErrorTextPaddings>
+                                                        </ErrorFrameStyle>
+                                                    </ValidationSettings>
+                                                    <ClientSideEvents Validation="function(s, e) {
+	if(s.GetEnabled()==true)
+	{
+		if(s.GetText()==null || s.GetText()=='')
+			e.isValid=false;
+	}
+	else 
+		e.isValid=true;
+}"></ClientSideEvents>
+                                                </TSPControls:CustomTextBox>
+                                            </td>
+                                            <td valign="top" align="right">
+                                                <dxe:ASPxLabel runat="server" Text="محل صدور" ClientVisible="False" ID="ASPxlblBirthPlace"
+                                                    ClientInstanceName="lblBirthPlace">
+                                                </dxe:ASPxLabel>
+                                            </td>
+                                            <td valign="top" align="right">
+                                                <TSPControls:CustomTextBox runat="server" ID="txtlBirthPlace"  ClientVisible="False"
+                                                    Width="100%" ClientInstanceName="lBirthPlace" 
+                                                    ReadOnly="True">
+                                                </TSPControls:CustomTextBox>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td valign="top" align="right">
+                                                <dxe:ASPxLabel runat="server" Text="تلفن" ClientVisible="False" ID="ASPxlblTel" ClientInstanceName="lblTel">
+                                                </dxe:ASPxLabel>
+                                            </td>
+                                            <td valign="top" align="right">
+                                                <TSPControls:CustomTextBox runat="server" ID="txtlTel"  ClientVisible="False"
+                                                    Width="100%" ClientInstanceName="lTel" 
+                                                    ReadOnly="True">
+                                                    <ValidationSettings Display="Dynamic" ErrorTextPosition="Bottom">
+                                                        <ErrorImage Height="14px" Url="~/App_Themes/Glass/Editors/edtError.png">
+                                                        </ErrorImage>
+                                                        <RequiredField IsRequired="True" ErrorText="تلفن را وارد نمایید"></RequiredField>
+                                                        <RegularExpression ErrorText="این شماره صحیح نیست" ValidationExpression="\d*"></RegularExpression>
+                                                        <ErrorFrameStyle ImageSpacing="4px">
+                                                            <ErrorTextPaddings PaddingLeft="4px"></ErrorTextPaddings>
+                                                        </ErrorFrameStyle>
+                                                    </ValidationSettings>
+                                                </TSPControls:CustomTextBox>
+                                            </td>
+                                            <td valign="top" align="right">
+                                                <dxe:ASPxLabel runat="server" Text="شماره همراه" ClientVisible="False" ID="ASPxlblMobileNo"
+                                                    ClientInstanceName="lblMobileNo">
+                                                </dxe:ASPxLabel>
+                                            </td>
+                                            <td valign="top" align="right">
+                                                <TSPControls:CustomTextBox runat="server" ID="txtlMobileNo"  ClientVisible="False"
+                                                    Width="100%" MaxLength="11" ClientInstanceName="lMobileNo" 
+                                                    ReadOnly="True">
+                                                    <ValidationSettings Display="Dynamic" EnableCustomValidation="True" ErrorText="شماره همراه را وارد نمایید"
+                                                        ErrorTextPosition="Bottom">
+                                                        <ErrorImage Height="14px" Url="~/App_Themes/Glass/Editors/edtError.png">
+                                                        </ErrorImage>
+                                                        <RequiredField IsRequired="True" ErrorText="شماره همراه را وارد نمایید"></RequiredField>
+                                                        <RegularExpression ErrorText="این شماره صحیح نیست" ValidationExpression="(0)\d{10}">
+                                                        </RegularExpression>
+                                                        <ErrorFrameStyle ImageSpacing="4px">
+                                                            <ErrorTextPaddings PaddingLeft="4px"></ErrorTextPaddings>
+                                                        </ErrorFrameStyle>
+                                                    </ValidationSettings>
+                                                    <ClientSideEvents Validation="function(s, e) {
+	if(s.GetEnabled()==true)
+	{
+		if(s.GetText()==null || s.GetText()=='')
+			e.isValid=false;
+	}
+	else 
+		e.isValid=true;
+}"></ClientSideEvents>
+                                                </TSPControls:CustomTextBox>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td valign="top" align="right">
+                                                <dxe:ASPxLabel runat="server" Text="آدرس" ClientVisible="False" ID="ASPxlblAddess"
+                                                    ClientInstanceName="lblAddress">
+                                                </dxe:ASPxLabel>
+                                            </td>
+                                            <td valign="top" align="right" colspan="3">
+                                                <TSPControls:CustomASPXMemo runat="server" Height="37px" ID="txtlAddess"  ClientVisible="False"
+                                                    Width="100%" ClientInstanceName="lAddress" 
+                                                    ReadOnly="True">
+                                                </TSPControls:CustomASPXMemo>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </dxp:PanelContent>
+                        </PanelCollection>
+                        <TopLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpTopLeftCorner.png">
+                        </TopLeftCorner>
+                        <NoHeaderTopEdge BackColor="#EBF2F4">
+                        </NoHeaderTopEdge>
+                        <BottomLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpBottomLeftCorner.png">
+                        </BottomLeftCorner>
+                    </dxrp:ASPxRoundPanel>
+                    <br />
+                    <div style="width: 100%" dir="ltr" align="right">
+                        <dxrp:ASPxRoundPanel ID="ASPxRoundPanel3" runat="server" Width="100%" 
+                            ShowHeader="False" BackColor="#EBF2F4" >
+                            <LeftEdge>
+                                <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif">
+                                </BackgroundImage>
+                            </LeftEdge>
+                            <BottomRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpBottomRightCorner.png">
+                            </BottomRightCorner>
+                            <HeaderContent>
+                                <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderBack.gif">
+                                </BackgroundImage>
+                            </HeaderContent>
+                            <ContentPaddings Padding="0px"></ContentPaddings>
+                            <NoHeaderTopRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopRightCorner.png">
+                            </NoHeaderTopRightCorner>
+                            <RightEdge>
+                                <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif">
+                                </BackgroundImage>
+                            </RightEdge>
+                            <HeaderRightEdge>
+                                <BackgroundImage VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderRightEdge.gif">
+                                </BackgroundImage>
+                            </HeaderRightEdge>
+                            <Border BorderWidth="1px" BorderStyle="Solid" BorderColor="#7EACB1"></Border>
+                            <HeaderStyle BackColor="White" Height="23px">
+                                <Paddings PaddingTop="0px" PaddingBottom="0px" PaddingLeft="2px"></Paddings>
+                                <BorderBottom BorderStyle="None"></BorderBottom>
+                            </HeaderStyle>
+                            <Content>
+                                <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpContentBack.gif">
+                                </BackgroundImage>
+                            </Content>
+                            <HeaderLeftEdge>
+                                <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderLeftEdge.gif">
+                                </BackgroundImage>
+                            </HeaderLeftEdge>
+                            <BottomEdge BackColor="#D7E9F1">
+                            </BottomEdge>
+                            <TopRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpTopRightCorner.png">
+                            </TopRightCorner>
+                            <NoHeaderTopLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopLeftCorner.png">
+                            </NoHeaderTopLeftCorner>
+                            <PanelCollection>
+                                <dxp:PanelContent runat="server">
+                                    <div dir="rtl">
+                                        <table style="display: block; overflow: hidden; border-collapse: collapse" cellpadding="0"
+                                            width="100%">
+                                            <tbody>
+                                                <tr>
+                                                    <td style="vertical-align: top" align="right">
+                                                        <table style="border-collapse: collapse; background-color: transparent" dir="rtl"
+                                                            cellpadding="0">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td >
+                                                                        <TSPControls:CustomTextBox runat="server" Text=" "  ToolTip="بازگشت"
+                                                                            CausesValidation="False" ID="ASPxButton6" UseSubmitBehavior="False" EnableViewState="False"
+                                                                            EnableTheming="False" OnClick="btnBack_Click">
+                                                                            <HoverStyle BackColor="#FFE0C0">
+                                                                                <Border BorderWidth="1px" BorderStyle="Outset" BorderColor="Gray"></Border>
+                                                                            </HoverStyle>
+                                                                            <Image  Url="~/Images/icons/Back.png">
+                                                                            </Image>
+                                                                        </TSPControls:CustomTextBox>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </dxp:PanelContent>
+                            </PanelCollection>
+                            <TopLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpTopLeftCorner.png">
+                            </TopLeftCorner>
+                            <NoHeaderTopEdge BackColor="#EBF2F4">
+                            </NoHeaderTopEdge>
+                            <BottomLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpBottomLeftCorner.png">
+                            </BottomLeftCorner>
+                        </dxrp:ASPxRoundPanel>
+                    </div>
+                </div>
+                <asp:HiddenField ID="HDProjectId" runat="server" Visible="False"></asp:HiddenField>
+                <asp:HiddenField ID="HDOwnerId" runat="server" Visible="False"></asp:HiddenField>
+                <asp:HiddenField ID="PgMode" runat="server" Visible="False"></asp:HiddenField>
+                <asp:HiddenField ID="RequestId" runat="server" Visible="False"></asp:HiddenField>
+            </ContentTemplate>
+        </asp:UpdatePanel>
+    </div>
+</asp:Content>

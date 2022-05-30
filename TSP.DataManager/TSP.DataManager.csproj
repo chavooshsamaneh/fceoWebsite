@@ -1,0 +1,2211 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.50727</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{15AE1308-B7FD-4F39-8C99-B1DE53E41763}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TSP.DataManager</RootNamespace>
+    <AssemblyName>TSP.DataManager</AssemblyName>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <TargetFrameworkProfile />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <DebugSymbols>true</DebugSymbols>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AcceptTypeManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AccountingAccDefultDescriptionsManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AccountingAccGroupManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AccountingAccHistoryManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AccountingAccount.cs" />
+    <Compile Include="AccountingAccountAgentsManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AccountingAccountManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AccountingAccountRelationsManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AccountingAccTypeManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AccountingActionManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AccountingAgentManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AccountingBankContradictionDetailManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AccountingBankContradictionManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AccountingBankManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AccountingBillNatureManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AccountingBillNatureTypeManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AccountingBillStatusManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AccountingBillStautsTypeManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AccountingBillTypeManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AccountingCashManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AccountingChequeBookManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AccountingChequeBookPagesManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AccountingChequeHeaderManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AccountingChequeManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AccountingChequeStatusChangeDetailManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AccountingChequeStatusChangeManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AccountingChequeStatusManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AccountingCofferManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AccountingContradictionTypeManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AccountingCostCenterManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AccountingCostSettingsManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AccountingDataSet.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AccountingDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="AccountingDebtManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AccountingDocBalanceDetailManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AccountingDocBalanceDetailRelationsManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AccountingDocBalanceManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AccountingDocOperationManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AccountingDocStatusManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AccountingDocument.cs" />
+    <Compile Include="AccountingDocumentBillHistoryManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AccountingDocumentBillManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AccountingEPaymentResultCodeManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AccountingForbiddenLoanManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AccountingGoodsColorManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AccountingGoodsGroupManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AccountingGoodsManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AccountingGoodsTypeManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AccountingGroupNatureManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AccountingGroupStatusManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AccountingGroupTypeManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AccountingGuarantyChequeManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AccountingHistoryDetailManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AccountingHistoryManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AccountingLoanConditionsManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AccountingLoanManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AccountingLoanPaymentManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AccountingMemberInfoManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AccountingOprationDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AccountingOprationDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="AccountingPaymentDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>AccountingPaymentDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="AccountingPeriodTypeManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AccountingPrintedBankFishManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AccountingPriodManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AccountingProjectManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AccountingPurchaseDetailManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AccountingPurchaseManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AccountingSaleServiceDetailManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AccountingSaleServiceManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AccountingServiceManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AccountingSettingsManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AccountingStorageDetailManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AccountingStorageInventoryManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AccountingStorageManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AccountingTTManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AccountingUnitManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AccountingUnitNamesManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ActivitySubjectManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ActivityTypeManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AddressManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AnswerTypeManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AttachmentsManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="AttachTypeManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Automation\ArchiveManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Automation\AttachmentsManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Automation\AttachPageToLetter.cs" />
+    <Compile Include="Automation\AutomationDataSet.cs">
+      <DependentUpon>AutomationDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Automation\AutomationDataSet.Designer.cs">
+      <DependentUpon>AutomationDataSet.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Automation\CartableGroupsManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Automation\CartableLetterTypesManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Automation\CartableSettingsManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Automation\CartablesManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Automation\ExeTimeManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Automation\FormCreator\ElementItemsManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Automation\FormCreator\ElementsManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Automation\FormCreator\ElementTypesManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Automation\FormCreator\FormCreatorDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FormCreatorDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Automation\InsertInLetter.cs" />
+    <Compile Include="Automation\LetterAttachPagesManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Automation\LetterCreationTypesManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Automation\LetterDivisionsManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Automation\LetterFoldersManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Automation\LetterInFolderManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Automation\LetterInputFormManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Automation\LetterInReferenceManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Automation\LetterLockManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Automation\LetterRecieversManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Automation\LetterRecieverTypesManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Automation\LetterReferenceActionsManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Automation\LetterReferenceAimsManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Automation\LetterReferenceRecieversManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Automation\LetterReferenceResultsManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Automation\LetterReferenceResultTypesManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Automation\LetterReferencesManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Automation\LetterReferenceTypesManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Automation\LetterRelatedTablesManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Automation\LetterRelationsManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Automation\LetterSenderTypesManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Automation\LetterSendRecieveTypeManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Automation\LettersManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Automation\LetterStatusManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Automation\LetterTittleTypeManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Automation\LetterTypeManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Automation\PriorityManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Automation\ReferenceSettingManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Automation\ReferenceSettingConditionManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Automation\ReferenceSettingReceiverManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Automation\SecretariatLetterCreationTypeCodesManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Automation\SecretariatLetterNumberStyleManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Automation\SecretariatManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Automation\SecretariatNezamChartManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Automation\UserRightManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="BaseObject.cs" />
+    <Compile Include="CandidateManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CondolenceManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ConflictManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ConflictTypeManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ControlAndEvaluation\ControlAndEvaluationDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ControlAndEvaluationDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="ControlAndEvaluation\ControlAndEvaluationDataSet1.Designer.cs" />
+    <Compile Include="DataClasses\DataClasses1.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataClasses.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="DefaultThemesManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DefaultThemeTypesManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DocDeliveryManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DocGasOfficeMembersManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DocMemberFileAcceptTypeManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DocMemberFileJobConfirmationManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DocMemberRequestVisibilityExceptionManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DocMemberRequestVisibilityManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DocResponsibilityRangeManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DocTestConditionResponsibilityManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DocumentDataSet.cs">
+      <DependentUpon>DocumentDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="DocumentDataSet1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DocumentDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="EngOffFileManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ExGroupManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ExGroupPeriodManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ExpertCostsManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ExpertDataSet1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ExpertDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="ExpertFileRequestManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ExpertGroupDataSet.cs">
+      <DependentUpon>ExpertGroupDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="ExpertGroupDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ExpertGroupDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="FormBuilder\DisplayLocationsManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="FormBuilder\DisplayLocationTypesManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="FormBuilder\ElementItemsManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="FormBuilder\ElementsManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="FormBuilder\ElementTypesManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="FormBuilder\FormBuilderDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FormBuilderDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="FormBuilder\FormsManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="FormBuilder\GroupsManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="FormBuilder\InputElementsManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="FormBuilder\InputFormsManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="FormBuilder\RelatedPartsManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="FormsTypeManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GalleryAlbumsManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GalleryImagesManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="HomePageAttachmentManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="IntroductionManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="MajorParentsManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="MemberDataSet1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MemberDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="MemberMarkaziLogManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="MemberRequestManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="NezamFarsDataSet3.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NezamFarsDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OfficeDataSet.cs" />
+    <Compile Include="OfficeDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OfficeDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OfficeMemberManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PeriodPresentRequestManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="pollAgentPoll.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PollAnswerManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PollChoiseManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PollDataSet.cs">
+      <DependentUpon>PollDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="PollDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PollDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="PollDisplayLocationsManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PollPollManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PollQuestionManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PrintAssignerSettingManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PrintingHistoryManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PrintSettingManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PrintTypeManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ReportBuilderManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="RulesTypeManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SeminarRequestManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Service References\CheckOfflineDebt\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\LoanWebService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Session\AgendaManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Session\AgendaRelationsManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Session\AgendaResultsManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Session\AgendaResultTypesManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Session\AgendaTypesManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Session\ConditionsManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Session\EventHoldingLocationsManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Session\EventHoldingLocationTypesManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Session\EventHoldingManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Session\EventsManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Session\EventTypesManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Session\MeetingMinuteAttachmentsManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Session\MeetingMinutesManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Session\MembersManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Session\MemberTypesManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Session\RequestTypesManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Session\SessionAttachmentsManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Session\SessionDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SessionDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Session\SessionDeclareTypesManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Session\SessionLocationsManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Session\SessionRelationsManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Session\SessionsManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Session\SessionRequestsManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Session\SessionStatusManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Session\SessionTypePermissionsManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Session\SessionTypesManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Session\SpecificMembersManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SiteImageManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SMSDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SMSDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="SMSDeliveryReportTypeManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SubSystemManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\AccountingDetailManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\AccountingDocumentDetailManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\AccountingDocumentManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\AccTypeManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\Capacity.cs" />
+    <Compile Include="TechnicalServices\CapacityCalculations.cs" />
+    <Compile Include="TechnicalServices\CapacityInMunicipalityManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\CapacityManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DocOffImpAgentStageLimitationManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="EmployeeRequestManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="MemberCardsManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="RequestInActivesManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ResignationTaskManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\CapacityAssignmentManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\CapacityReleaseManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\ConditionalCapacityManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ConfirmedPersonManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ConfirmManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ConfirmPersonManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ControlerPersonManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CorporationTypeManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CourseGroupsManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CourseHoursManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CoursePrerequisiteManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CourseRefrenceManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DocAcceptedUpGradeManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DocImpDocCityManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DocMajorTestTypeManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DocMemberExamDetailManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DocMemberExamManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DocMemberFileMajorManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DocOffEngOfficeImpQualificationManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DocOffGradeValuesManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DocOffIncreaseJobCapacityManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DocOffJobHistoryQualityManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DocOffMajorNum.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DocOffMemberAcceptedGradeManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DocOffMemberCapacityManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DocOffOfficeFactorDocumentsManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DocOffOfficeFinancialStatusManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DocOffOfficeGradeGroupsManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DocOffOfficeMembersQualificationManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DocOffQualificationOfStructureGroupManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DocTestConditionDetailManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DocTestConditionManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DocTestTypeManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DocAcceptedGradeManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DocUpGradePointManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PeriodRegisterManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\BlockManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ControlAndEvaluation\ExecutivePerformanceItemsStatusManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ControlAndEvaluation\ExecutivePerformanceTitlesManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="LockHistoryManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="NezamChartManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="OtherOrganizationManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ProjectJobPositionManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="RegionOfCityManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SmsDocManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ControlAndEvaluation\ArchitectureCriteriaItemsManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ControlAndEvaluation\ArchitectureCriteriaStatusManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\AttachmentsManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\AttachTypeManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\BalconyManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\BalconyTypeManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\BuildingItemsStatusManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\BuildingsLicenseManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\BuildingStatusManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ControlAndEvaluation\CommonVisitScheduleManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\ConnectorManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\ConsultantCompanyManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\ContractManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\ControlerManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\Designer-PlansManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\DesignerManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ControlAndEvaluation\DesignerPerformanceEvaluationManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\DesignerTypeManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ControlAndEvaluation\DesignStatusManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\DevelopmentItemsStatusManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\DevelopmentObserversManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\DevelopmentPercentManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\DirectionsManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\DirectionTypeManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\DiscountPercentManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ControlAndEvaluation\DocumentStatusManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ControlAndEvaluation\ExecutivePerformanceEvaluationManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ControlAndEvaluation\ExecutivePerformanceItemsManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ControlAndEvaluation\ExecutiveStatusManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\EntranceManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\EntranceTypeManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\ExpiredLicenseReportManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\FoundationInfractionsManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\FoundationManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\HighStructureReportManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ControlAndEvaluation\HumanForceStatusManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\ImplementerAgentManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\ImplementerManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ControlAndEvaluation\ImplementerPerformanceStatusManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ControlAndEvaluation\InfractionDescriptionManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ControlAndEvaluation\IngridientPerformanceTypeManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ControlAndEvaluation\InspectorManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\ImplementerOfficeMemberManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\ImplementerOfficeRequest.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\InsuranceManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\JudgmentGroupManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\LicenseRevivalManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\LowStructureReportManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\MainDirectionsManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\MasonryStuffReportManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\MemberRestrictionForObserverWorkRequestManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\MemberTypeManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\MunicipalityManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\ObserverInsuranceManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\ObserversAnswerManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\ObserversManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ControlAndEvaluation\ObserversPerformanceEvaluationManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\ObserversTypeManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\ObserverTaxManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\OwnerManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ControlAndEvaluation\PeriodicVisitScheduleManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\OwnershipTypeManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\Plans-ControlerManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\PlansControlerViewPointManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\PlansManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\PlansMethodManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\PlansTypeManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\Project-DesignerManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\Project-ImplementerManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\Project-ObserversManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\ProjectCapacityDecrementManager.cs" />
+    <Compile Include="ControlAndEvaluation\ProjectIngridientPerformanceManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\ProjectIngridientMajorsManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\ProjectIngridientTypeManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\ProjectManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\ProjectObserverSelectedManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\ProjectOfficeMembersManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\ProjectRequestTypeManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\ProjectStatusManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ControlAndEvaluation\RandomVisitScheduleManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ControlAndEvaluation\ReactionStatusManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\ProjectUserRightManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\ReasonManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\RegisteredNoManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\RepeatFactorsManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\RoofTypeManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ControlAndEvaluation\SafetyStatusManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ControlAndEvaluation\SazehMemariTasisatStatusManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\SazehObservationItemsManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\SazehReportTypeManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ControlAndEvaluation\SObserversTypeManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ControlAndEvaluation\SpeedStatusManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\SecondaryUsageManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\SettingManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\StructureBuiltPlaceManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\StructureSkeletonManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\StructureSystemManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\SubmissionTypeManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ControlAndEvaluation\SuccessorSupremeObserversManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ControlAndEvaluation\SupremeObserversGroupManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ControlAndEvaluation\SupremeObserversManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\TasisatItemsStatusManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\TasisatObservation1ItemsManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\TasisatObservation2ItemsManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\TasisatObservation3ItemsManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\TasisatReportManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\TechnicalServicesDataSet.cs">
+      <DependentUpon>TechnicalServicesDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="TechnicalServices\TechnicalServicesDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TechnicalServicesDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="TechnicalServices\TimingDevelopmentItemsManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\TimingItemsStatusManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\TimingManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\ProjectRequestManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\AccountingManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\ObserverWorkRequestChangesManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\ObserverWorkRequestManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\TSEsupWebserviceCallingLogManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\TSFunctionALogsManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\ImplementerOfficeManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\TSQueueListMunicipalityManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\UrbanistQualificationManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\UsageManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ControlAndEvaluation\VisitGroupManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ControlAndEvaluation\VisitReplyManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\TimingPredecessorsManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\WorkFlowStateObserverWorkManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicianRequestManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechniciansActivityAreasManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TempMemberActivitySubjectManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TempMemberJobHistoryManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TempMemberLanguageManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TempMemberLicenceManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TempMemberManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TicketingManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TrainingAcceptedGradeManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TrainingDataSet.cs">
+      <DependentUpon>TrainingDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="EmployerManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="EngOffFileMajorManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="EngOfficeManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="EngOfficeTypeManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ExpertDataSet.cs">
+      <DependentUpon>ExpertDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="InstitueCertificateManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="InstitueJudgmentManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="InstitueObserveManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="InstitueObserverManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="InstitueTeachersManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="OpinionsDataSet.cs">
+      <DependentUpon>OpinionsDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OpinionsDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>OpinionsDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="OpinionsManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PeriodOpinionManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PeriodTestMarksManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PublicMessageGroupsManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PublicMessagesManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PublicMessageTypesManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="QuestionSetManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="QuestionsManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="RegionManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ScheduleManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SeminarManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SettlementAgentManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TaskDoerManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TeacherCertificateManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TeacherCourseJudgmentManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TeacherJudgmentManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TeachersCourseManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\PriceArchiveManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\StructureGroupsManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\PriceArchiveStructureItemDetailManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\PriceArchiveStructureItemDetailTypeManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\PriceArchiveStructureItemsManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TestSessionManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TestSessionMembersManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TrainingDataSet1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TrainingDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="TrainingGroupsManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TrainingJudgmentManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TrainingQuAnswersManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TrainingQuestionsManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TrainingRulesManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TrainingStatusChangeManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TrainingTeachersManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalServices\WallsManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Utility.cs" />
+    <Compile Include="WebsiteErrorsManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="WebSiteHomePageDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WebSiteHomePageDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="WebsiteStatisticsManager.cs" />
+    <Compile Include="WorkFlowDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WorkFlowDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="WorkFlowPermission.cs" />
+    <Compile Include="WorkFlowTaskLoginTypeManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="WorkFlowTaskManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="FormsManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GovManagerNameManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GovManagerTitleManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="InstitueActivityManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="InstitueFacilityManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="InstitueManagerManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="LinksManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="LinkTypeManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="MemberStatusChangeManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ObligateDocumentsManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ObligateDocumentsNameManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="OfficeRequestManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="OrganizationManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CityManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CommissionManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CourseDetailManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CourseManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CountryManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DbManager.cs" />
+    <Compile Include="EmployeeManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ExpertFileManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="FieldManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GradeManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GroupDetailManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GroupManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ImageReportManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="InstitueManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="JobHistoryManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="JobSubjectManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="LanguageManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="LanguageQualityManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="LicenceManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="LoginManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="MadrakManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="MajorManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="MaritalStatusManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="MemberActivitySubjectManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DocMemberFileDetailManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DocMemberFileManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="MemberLanguageManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="MemberLicenceManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="MemberManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="MemberNezamCardManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="MemberResearchActivityManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="MembershipRegistrationStatusManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="MemberStatusManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="MessageManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="MessageReceiverManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="MessageTypeManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="NeededDocumentsManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="NewsIdeaManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="NewsImgManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="NewsManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="NewsSubjectManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="NezamCardReasonManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="NezamFarsDataSet.cs">
+      <DependentUpon>NezamFarsDataSet.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="NezamManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="NezamMemberChartManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="NezamMemberPositionManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="NezamPeriodManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ObserverManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="OfficeActivityTypeManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="OfficeAgentManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="OfficeManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="OfficePositionManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="OfficeTypeManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="OfficialLetterManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="OrganizationTypeManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="OtherPersonManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PartitionManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PeriodAttenderManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PeriodPresentManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PeriodTimeTableManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="PreRegisterManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ProcessTypeManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ProjectJobHistoryManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ProjectTypeManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="ProvinceManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ReasonOfExpressManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ReligionManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ResearchActivityManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ResetPasswordManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ResignationManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ResponcibilityTypeManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="RulesManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SazeTypeManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SexManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SmsConfirmManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SMSConfirmPersonManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SmsCostManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SmsManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SmsRecieverManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SmsTypeManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SmsTypeModifiedManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="SoldierManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="StatusReasonManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TableTypeManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TeacherJobHistoryManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TeacherLicenceManger.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TeacherManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TeacherResearchActivityManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TeachersSalaryManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TeachingGradeManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TelManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TenderManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TestAttenderManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TestManger.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TestObserverManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TitleManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TraceManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TransactionManager.cs" />
+    <Compile Include="TransferMemberManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UniversityManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UserLoginTypeManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UserRightManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="WorkFlowManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="WorkFlowStateManager.cs">
+      <SubType>Component</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="AccountingDataSet.xsc">
+      <DependentUpon>AccountingDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="AccountingDataSet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AccountingDataSet.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="AccountingDataSet.xss">
+      <DependentUpon>AccountingDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="AccountingDataSet.xsx">
+      <DependentUpon>AccountingDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="AccountingOprationDataSet.xsc">
+      <DependentUpon>AccountingOprationDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="AccountingOprationDataSet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AccountingOprationDataSet.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="AccountingOprationDataSet.xss">
+      <DependentUpon>AccountingOprationDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="AccountingPaymentDataSet.xsc">
+      <DependentUpon>AccountingPaymentDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="AccountingPaymentDataSet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AccountingPaymentDataSet.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="AccountingPaymentDataSet.xss">
+      <DependentUpon>AccountingPaymentDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Automation\AutomationDataSet.xsc">
+      <DependentUpon>AutomationDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="Automation\AutomationDataSet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>AutomationDataSet1.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Automation\AutomationDataSet.xss">
+      <DependentUpon>AutomationDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="Automation\AutomationDataSet.xsx">
+      <DependentUpon>AutomationDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="Automation\FormCreator\FormCreatorDataSet.xsc">
+      <DependentUpon>FormCreatorDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="Automation\FormCreator\FormCreatorDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>FormCreatorDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Automation\FormCreator\FormCreatorDataSet.xss">
+      <DependentUpon>FormCreatorDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="ClassDiagram1.cd" />
+    <None Include="ControlAndEvaluation\ControlAndEvaluationDataSet.xsc">
+      <DependentUpon>ControlAndEvaluationDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="ControlAndEvaluation\ControlAndEvaluationDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>ControlAndEvaluationDataSet.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="ControlAndEvaluation\ControlAndEvaluationDataSet.xss">
+      <DependentUpon>ControlAndEvaluationDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="DataClasses\DataClasses.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>DataClasses1.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DocumentDataSet.xsc">
+      <DependentUpon>DocumentDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="DocumentDataSet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DocumentDataSet1.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="DocumentDataSet.xss">
+      <DependentUpon>DocumentDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="ExpertGroupDataSet.xsc">
+      <DependentUpon>ExpertGroupDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="ExpertGroupDataSet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ExpertGroupDataSet.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="ExpertGroupDataSet.xss">
+      <DependentUpon>ExpertGroupDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="FormBuilder\FormBuilderDataSet.xsc">
+      <DependentUpon>FormBuilderDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="FormBuilder\FormBuilderDataSet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>FormBuilderDataSet.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="FormBuilder\FormBuilderDataSet.xss">
+      <DependentUpon>FormBuilderDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="MemberDataSet.xsc">
+      <DependentUpon>MemberDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="MemberDataSet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>MemberDataSet1.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="MemberDataSet.xss">
+      <DependentUpon>MemberDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="OfficeDataSet.xsc">
+      <DependentUpon>OfficeDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="OfficeDataSet.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>OfficeDataSet.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="OfficeDataSet.xss">
+      <DependentUpon>OfficeDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="PollDataSet.xsc">
+      <DependentUpon>PollDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="PollDataSet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>PollDataSet.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="PollDataSet.xss">
+      <DependentUpon>PollDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="Service References\CheckOfflineDebt\CheckOfflineDebt.wsdl" />
+    <None Include="Service References\LoanWebService\LoanWebService.wsdl" />
+    <None Include="Session\SessionDataSet.xsc">
+      <DependentUpon>SessionDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="Session\SessionDataSet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>SessionDataSet.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Session\SessionDataSet.xss">
+      <DependentUpon>SessionDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="SMSDataSet.xsc">
+      <DependentUpon>SMSDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="SMSDataSet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>SMSDataSet.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="SMSDataSet.xss">
+      <DependentUpon>SMSDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="TechnicalServices\TechnicalServicesDataSet.xss">
+      <DependentUpon>TechnicalServicesDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="TrainingDataSet.xsc">
+      <DependentUpon>TrainingDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="TrainingDataSet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>TrainingDataSet1.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="TrainingDataSet.xss">
+      <DependentUpon>TrainingDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="ExpertDataSet.xsc">
+      <DependentUpon>ExpertDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="ExpertDataSet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ExpertDataSet1.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="ExpertDataSet.xss">
+      <DependentUpon>ExpertDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="NezamFarsDataSet.xsc">
+      <DependentUpon>NezamFarsDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="NezamFarsDataSet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>NezamFarsDataSet3.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="NezamFarsDataSet.xss">
+      <DependentUpon>NezamFarsDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="OpinionsDataSet.xsc">
+      <DependentUpon>OpinionsDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="OpinionsDataSet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>OpinionsDataSet.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="OpinionsDataSet.xss">
+      <DependentUpon>OpinionsDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="TechnicalServices\TechnicalServicesDataSet.xsc">
+      <DependentUpon>TechnicalServicesDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="TechnicalServices\TechnicalServicesDataSet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>TechnicalServicesDataSet.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="WebSiteHomePageDataSet.xsc">
+      <DependentUpon>WebSiteHomePageDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="WebSiteHomePageDataSet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>WebSiteHomePageDataSet.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="WebSiteHomePageDataSet.xss">
+      <DependentUpon>WebSiteHomePageDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="WorkFlowDataSet.xsc">
+      <DependentUpon>WorkFlowDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="WorkFlowDataSet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>WorkFlowDataSet.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="WorkFlowDataSet.xss">
+      <DependentUpon>WorkFlowDataSet.xsd</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="DataClasses\DataClasses.dbml.layout">
+      <DependentUpon>DataClasses.dbml</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\CheckOfflineDebt\" />
+    <WCFMetadataStorage Include="Service References\LoanWebService\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\LoanWebService\LoanWebService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\LoanWebService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\LoanWebService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\LoanWebService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\CheckOfflineDebt\CheckOfflineDebt.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\CheckOfflineDebt\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\CheckOfflineDebt\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\CheckOfflineDebt\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

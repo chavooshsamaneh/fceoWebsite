@@ -1,0 +1,92 @@
+﻿using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+using System.IO;
+
+public partial class Settlement_Amoozesh_TeacherAttachment : System.Web.UI.Page
+{
+    #region Events
+    protected void Page_Load(object sender, EventArgs e)
+    {
+
+        this.DivReport.Visible = false;
+        this.DivReport.Attributes.Add("onclick", "ChangeVisible(this)");
+        this.DivReport.Attributes.Add("onmouseover", "ChangeIcon(this)");
+        if (!IsPostBack)
+        {
+
+
+            if (string.IsNullOrEmpty(Request.QueryString["PgMd"]) || string.IsNullOrEmpty(Request.QueryString["TeId"]))
+            {
+                Response.Redirect("Teachers.aspx");
+                return;
+            }
+            else
+            {
+                HiddenFieldTeacherAttach["PgMdTeBase"] = Request.QueryString["PgMdTeBase"];
+                HiddenFieldTeacherAttach["PgMode"] = Request.QueryString["PgMd"];
+                HiddenFieldTeacherAttach["TeacherId"] = Request.QueryString["TeId"];
+                HiddenFieldTeacherAttach["TeacherCertId"] = Request.QueryString["TcId"];
+            }
+            string TeacherId = Utility.DecryptQS(HiddenFieldTeacherAttach["TeacherId"].ToString());
+            TSP.DataManager.TeacherManager TeacherManager = new TSP.DataManager.TeacherManager();
+            TeacherManager.FindByCode(int.Parse(TeacherId));
+            if (TeacherManager.Count > 0)
+            {
+                RoundPanelAttachment.HeaderText = TeacherManager[0]["Name"].ToString() + " " + TeacherManager[0]["Family"].ToString();
+            }
+            else
+            {
+                Response.Redirect("Teachers.aspx");
+                return;
+            }
+        }
+
+    }
+    protected void MenuTeacherInfo_ItemClick(object source, DevExpress.Web.MenuItemEventArgs e)
+    {
+        switch (e.Item.Name)
+        {
+            case "BasicInfo":                
+                Response.Redirect("SettlmentConfirmingTeacher.aspx?TcId=" + HiddenFieldTeacherAttach["TeacherCertId"].ToString() + "&PgMd=" + HiddenFieldTeacherAttach["PgMdTeBase"].ToString());
+                break;
+            case "ResearchAct":
+                Response.Redirect("TeacherResearchAct.aspx?=TeId=" + HiddenFieldTeacherAttach["TeacherId"].ToString() + "&PgMd" + Utility.EncryptQS("View") + "&TcId=" + HiddenFieldTeacherAttach["TeacherCertId"].ToString() + "&PgMdTeBase=" + HiddenFieldTeacherAttach["PgMdTeBase"].ToString());
+                break;
+            case "licence":
+                Response.Redirect("TeachersLicence.aspx?=TeId=" + HiddenFieldTeacherAttach["TeacherId"].ToString() + "&PgMd" + Utility.EncryptQS("View") + "&TcId=" + HiddenFieldTeacherAttach["TeacherCertId"].ToString() + "&PgMdTeBase=" + HiddenFieldTeacherAttach["PgMdTeBase"].ToString());
+                break;
+            case "Job":
+                Response.Redirect("TeacherJobHistory.aspx?TeId=" + HiddenFieldTeacherAttach["TeacherId"].ToString() + "&PgMd=" + Utility.EncryptQS("View") + "&TcId=" + HiddenFieldTeacherAttach["TeacherCertId"].ToString() + "&PgMdTeBase=" + HiddenFieldTeacherAttach["PgMdTeBase"].ToString());
+                break;
+            //case "Madrak":
+            //    Response.Redirect("TeachersLicence.aspx?TeId=" + HiddenFieldTeacherAttach["TeacherId"].ToString() + "&PgMd=" + Utility.EncryptQS("View") + "&TcId=" + HiddenFieldTeacherAttach["TeacherCertId"].ToString() + "&PgMdTeBase=" + HiddenFieldTeacherAttach["PgMdTeBase"].ToString());
+            //    break;
+            case "Research":
+                Response.Redirect("TeacherResearchAct.aspx?TeId=" + HiddenFieldTeacherAttach["TeacherId"].ToString() + "&PgMd=" + Utility.EncryptQS("View") + "&TcId=" + HiddenFieldTeacherAttach["TeacherCertId"].ToString() + "&PgMdTeBase=" + HiddenFieldTeacherAttach["PgMdTeBase"].ToString());
+                break;
+           
+          
+        }
+    }
+
+    protected void btnBack_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("Teachers.aspx");
+    }
+
+    protected void ASPxHyperLink1_DataBinding(object sender, EventArgs e)
+    {
+        DevExpress.Web.ASPxHyperLink hp = (DevExpress.Web.ASPxHyperLink)sender;
+        hp.Text = Path.GetFileName(hp.Value.ToString());
+    }
+    #endregion
+   
+}

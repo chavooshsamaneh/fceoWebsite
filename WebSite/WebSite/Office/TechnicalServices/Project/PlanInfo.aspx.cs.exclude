@@ -1,0 +1,622 @@
+﻿using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+using System.IO;
+using DevExpress.Web;
+
+
+public partial class Office_TechnicalServices_Project_PlanInfo : System.Web.UI.Page
+{
+    Boolean IsPageRefresh = false;
+    string ProjectId;
+    string PrjReId;
+    string PlansId;
+    string PageMode;
+
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        this.DivReport.Visible = false;
+        this.DivReport.Attributes.Add("onclick", "ChangeVisible(this)");
+        this.DivReport.Attributes.Add("onmouseover", "ChangeIcon(this)");
+
+        if (!IsPostBack)
+        {
+            ViewState["postids"] = System.Guid.NewGuid().ToString();
+            Session["postid"] = ViewState["postids"].ToString();
+        }
+        else
+        {
+            if (!IsCallback && Session["postid"] != null)
+            {
+                if (ViewState["postids"].ToString() != Session["postid"].ToString()) { IsPageRefresh = true; }
+                Session["postid"] = System.Guid.NewGuid().ToString(); ViewState["postids"] = Session["postid"];
+            }
+        }
+
+        if (!IsPostBack)
+        {
+            if (Request.QueryString["ProjectId"] == null || Request.QueryString["PlnId"] == null || Request.QueryString["PageMode"] == null || Request.QueryString["PrjReId"] == null)
+            {
+                Response.Redirect("ControlPlans.aspx");
+            }
+
+            Session["PlansControlerViewPointManager"] = null;
+            Session["PlansControlerViewPointManager"] = CreatePlansControlerViewPointManager();
+
+            SetKeys();
+
+            this.ViewState["BtnSave"] = btnSave.Enabled;
+            this.ViewState["BtnEdit"] = btnEdit.Enabled;
+        }
+
+        if (this.ViewState["BtnSave"] != null)
+            this.btnSave.Enabled = this.btnSave2.Enabled = (bool)this.ViewState["BtnSave"];
+        if (this.ViewState["BtnEdit"] != null)
+            this.btnEdit.Enabled = this.btnEdit2.Enabled = (bool)this.ViewState["BtnEdit"];
+
+    }
+
+    protected void btnEdit_Click(object sender, EventArgs e)
+    {
+        HiddenFieldPrjDes["PageMode"] = Utility.EncryptQS("Edit");
+        SetControlsEditMode();
+    }
+
+    protected void btnSave_Click(object sender, EventArgs e)
+    {
+        PageMode = Utility.DecryptQS(HiddenFieldPrjDes["PageMode"].ToString());
+
+        if (string.IsNullOrEmpty(PageMode))
+        {
+            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+            return;
+        }
+
+        switch (PageMode)
+        {
+            case "New":
+                break;
+
+            case "Edit":
+                Update();
+                break;
+        }
+    }
+
+    protected void btnBack_Click(object sender, EventArgs e)
+    {
+        if (Request.QueryString["UrlReferrer"] == null)
+            Response.Redirect("Project.aspx");
+
+        string UrlReferrer = Utility.DecryptQS(Request.QueryString["UrlReferrer"].ToString());
+        string Url = "Project.aspx";
+        switch (UrlReferrer)
+        {
+            case "Plans":
+                Url = "Plans.aspx?ProjectId=" + HiddenFieldPrjDes["ProjectId"].ToString()
+                + "&PrjReId=" + HiddenFieldPrjDes["PrjReId"].ToString()
+                + "&PageMode=" + HiddenFieldPrjDes["PageMode"].ToString();
+                break;
+            case "ControlPlans":
+                Url = "ControlPlans.aspx";
+                break;
+        }
+        Response.Redirect(Url);
+    }
+
+    /****************************************************************************************************************************************/
+    private void SetKeys()
+    {
+        HiddenFieldPrjDes["PlansId"] = Request.QueryString["PlnId"].ToString();
+        HiddenFieldPrjDes["PageMode"] = Request.QueryString["PageMode"];
+        HiddenFieldPrjDes["ProjectId"] = Request.QueryString["ProjectId"];
+        HiddenFieldPrjDes["PrjReId"] = Request.QueryString["PrjReId"];
+        HiddenFieldPrjDes["PlansControlerId"] = null;
+
+        PrjReId = Utility.DecryptQS(HiddenFieldPrjDes["PrjReId"].ToString());
+        PlansId = Utility.DecryptQS(HiddenFieldPrjDes["PlansId"].ToString());
+        ProjectId = Utility.DecryptQS(HiddenFieldPrjDes["ProjectId"].ToString());
+        PageMode = Utility.DecryptQS(HiddenFieldPrjDes["PageMode"].ToString());
+
+        if (string.IsNullOrEmpty(PageMode) || string.IsNullOrEmpty(ProjectId) || string.IsNullOrEmpty(PrjReId) || string.IsNullOrEmpty(PlansId))
+        {
+            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+            return;
+        }
+
+        FillProjectInfo(Convert.ToInt32(PrjReId));
+        SetMode(PageMode);
+        CheckWorkFlowPermission();
+    }
+
+    private void SetMode(string PageMode)
+    {
+        switch (PageMode)
+        {
+            case "View":
+                SetViewModeKeys();
+                break;
+
+            case "Edit":
+                SetEditModeKeys();
+                break;
+        }
+    }
+
+    private void SetEditModeKeys()
+    {
+        SetControlsEditMode();
+        FillForm();
+    }
+
+    private void SetViewModeKeys()
+    {
+        SetControlsViewMode();
+        FillForm();
+    }
+
+    private void SetControlsEditMode()
+    {
+        btnSave.Enabled = true;
+        btnSave2.Enabled = true;
+        btnEdit.Enabled = false;
+        btnEdit2.Enabled = false;
+        CheckAccess();
+
+        SetVisible(true);
+
+        RoundPanelPlans.HeaderText = "ویرایش";
+    }
+
+    private void SetControlsViewMode()
+    {
+        btnSave.Enabled = false;
+        btnSave2.Enabled = false;
+        btnEdit.Enabled = true;
+        btnEdit2.Enabled = true;
+        CheckAccess();
+
+        SetVisible(false);
+
+        RoundPanelPlans.HeaderText = "مشاهده";
+    }
+
+    private void SetVisible(bool Visible)
+    {
+        GridViewViewPoint.Columns[GridViewViewPoint.Columns.Count - 1].Visible = Visible;
+
+        tblTdAddViewPoint.Visible = Visible;
+        tblTRControlerDes.Visible = Visible;
+        tblTrViewPoint.Visible = Visible;
+    }
+
+    private void CheckAccess()
+    {
+        this.ViewState["BtnSave"] = btnSave.Enabled;
+        this.ViewState["BtnEdit"] = btnEdit.Enabled;
+    }
+
+    /****************************************************************************************************************************************/
+    private void FillForm()
+    {
+        PlansId = Utility.DecryptQS(HiddenFieldPrjDes["PlansId"].ToString());
+        FillPlan(Convert.ToInt32(PlansId));
+        FillPlanAttachment(PlansId);
+        FillDesignerPlans(PlansId);
+        FillPlansControlerViewPoint(Convert.ToInt32(PlansId));
+    }
+
+    protected void FillProjectInfo(int id)
+    {
+        prjInfo.Fill(id);
+    }
+
+    private void FillPlan(int PlansId)
+    {
+        TSP.DataManager.TechnicalServices.PlansManager PlansManager = new TSP.DataManager.TechnicalServices.PlansManager();
+        PlansManager.FindByPlansId(PlansId);
+        if (PlansManager.Count == 1)
+        {
+            txtPlanDes.Text = PlansManager[0]["Description"].ToString();
+            txtPlanNo.Text = PlansManager[0]["No"].ToString();
+            txtPlanType.Text = PlansManager[0]["Title"].ToString();
+        }
+    }
+
+    private void FillPlanAttachment(string PlansId)
+    {
+        ObjectDataSourceAttachments.SelectParameters["TableTypeId"].DefaultValue = PlansId;
+        ObjectDataSourceAttachments.SelectParameters["TableType"].DefaultValue = ((int)TSP.DataManager.TableCodes.TSPlans).ToString();
+        ObjectDataSourceAttachments.SelectParameters["AttachTypeId"].DefaultValue = "-1";
+    }
+
+    private void FillDesignerPlans(string PlansId)
+    {
+        ObjectDataSourceDesignerPlans.SelectParameters["PlansId"].DefaultValue = PlansId;
+    }
+
+    private void FillPlansControlerViewPoint(int PlansId)
+    {
+        TSP.DataManager.TechnicalServices.Plans_ControlerManager PlansControlerManager = new TSP.DataManager.TechnicalServices.Plans_ControlerManager();
+        TSP.DataManager.TechnicalServices.PlansControlerViewPointManager PlansControlerViewPointManager = (TSP.DataManager.TechnicalServices.PlansControlerViewPointManager)Session["PlansControlerViewPointManager"];
+
+        PlansControlerManager.FindPlanOfControler(Utility.GetCurrentUser_MeId(), PlansId);
+        if (PlansControlerManager.Count == 1)
+        {
+            int PlansControlerId = Convert.ToInt32(PlansControlerManager[0]["PlansControlerId"].ToString());
+            HiddenFieldPrjDes["PlansControlerId"] = PlansControlerId;
+            PlansControlerViewPointManager.FindByPlansControlerId(PlansControlerId);
+        }
+
+        GridViewViewPoint.DataSource = PlansControlerViewPointManager.DataTable;
+        GridViewViewPoint.KeyFieldName = "ViewPointId";
+        GridViewViewPoint.DataBind();
+    }
+
+    /****************************************************************** ViewPoint Grid ********************************************************/
+    private TSP.DataManager.TechnicalServices.PlansControlerViewPointManager CreatePlansControlerViewPointManager()
+    {
+        TSP.DataManager.TechnicalServices.PlansControlerViewPointManager manager = new TSP.DataManager.TechnicalServices.PlansControlerViewPointManager();
+        return manager;
+    }
+
+    private void FillViewPointGrid(int PlansId)
+    {
+        TSP.DataManager.TechnicalServices.PlansControlerViewPointManager PlansControlerViewPointManager = (TSP.DataManager.TechnicalServices.PlansControlerViewPointManager)Session["PlansControlerViewPointManager"];
+
+        int PlansControlerId = Convert.ToInt32(HiddenFieldPrjDes["PlansControlerId"]);
+        PlansControlerViewPointManager.FindByPlansControlerId(PlansControlerId);
+
+        GridViewViewPoint.DataSource = PlansControlerViewPointManager.DataTable;
+        GridViewViewPoint.KeyFieldName = "ViewPointId";
+        GridViewViewPoint.DataBind();
+    }
+
+    private void FillViewPointGrid()
+    {
+        PageMode = Utility.DecryptQS(HiddenFieldPrjDes["PageMode"].ToString());
+        if (string.IsNullOrEmpty(PageMode))
+        {
+            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+            return;
+        }
+
+        TSP.DataManager.TechnicalServices.PlansControlerViewPointManager PlansControlerViewPointManager = (TSP.DataManager.TechnicalServices.PlansControlerViewPointManager)Session["PlansControlerViewPointManager"];
+
+        if (PageMode != "New")
+        {
+            PlansId = Utility.DecryptQS(HiddenFieldPrjDes["PlansId"].ToString());
+            if (string.IsNullOrEmpty(PlansId))
+            {
+                this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+                return;
+            }
+            int PlansControlerId = Convert.ToInt32(HiddenFieldPrjDes["PlansControlerId"]);
+            PlansControlerViewPointManager.FindByPlansControlerId(PlansControlerId);
+        }
+
+        GridViewViewPoint.DataSource = PlansControlerViewPointManager.DataTable;
+        GridViewViewPoint.KeyFieldName = "ViewPointId";
+        GridViewViewPoint.DataBind();
+    }
+
+    private void ViewPointRowInserting()
+    {
+        TSP.DataManager.TechnicalServices.PlansControlerViewPointManager PlansControlerViewPointManager = (TSP.DataManager.TechnicalServices.PlansControlerViewPointManager)Session["PlansControlerViewPointManager"];
+
+        int RowNo = PlansControlerViewPointManager.Count + 1;
+
+        DataRow ViewPointRow = PlansControlerViewPointManager.NewRow();
+
+        ViewPointRow.BeginEdit();
+
+        ViewPointRow["RowNo"] = RowNo;
+        ViewPointRow["PlansControlerId"] = Convert.ToInt32(HiddenFieldPrjDes["PlansControlerId"]);
+        ViewPointRow["Date"] = Utility.GetDateOfToday();
+        ViewPointRow["SheetNo"] = txtSheetNo.Text.Trim();
+        ViewPointRow["ViewPoint"] = txtViewPoint.Text.Trim();
+        ViewPointRow["Subject"] = txtSubject.Text.Trim();
+        ViewPointRow["Date"] = Utility.GetDateOfToday();
+        ViewPointRow["UserId"] = Utility.GetCurrentUser_UserId();
+        ViewPointRow["ModifiedDate"] = DateTime.Now;
+
+        ViewPointRow.EndEdit();
+
+        PlansControlerViewPointManager.AddRow(ViewPointRow);
+
+        GridViewViewPoint.CancelEdit();
+
+        GridViewViewPoint.DataSource = PlansControlerViewPointManager.DataTable;
+        GridViewViewPoint.KeyFieldName = "ViewPointId";
+        GridViewViewPoint.DataBind();
+        ClearViewPoint();
+    }
+
+    private void ClearViewPoint()
+    {
+        txtViewPoint.Text = "";
+        txtSubject.Text = "";
+        txtSheetNo.Text = "";
+    }
+
+    private void SetRowNo()
+    {
+        TSP.DataManager.TechnicalServices.PlansControlerViewPointManager PlansControlerViewPointManager = (TSP.DataManager.TechnicalServices.PlansControlerViewPointManager)Session["PlansControlerViewPointManager"];
+        for (int i = 0; i < PlansControlerViewPointManager.Count; i++)
+        {
+            PlansControlerViewPointManager[i]["RowNo"] = i + 1;
+        }
+    }
+
+    protected void btnAddViewPoint_Click(object sender, EventArgs e)
+    {
+        ViewPointRowInserting();
+        txtSubject.Focus();
+    }
+
+    protected void GridViewViewPoint_RowDeleting(object sender, DevExpress.Web.Data.ASPxDataDeletingEventArgs e)
+    {
+        TSP.DataManager.TechnicalServices.PlansControlerViewPointManager PlansControlerViewPointManager = (TSP.DataManager.TechnicalServices.PlansControlerViewPointManager)Session["PlansControlerViewPointManager"];
+        DataRow PlansControlerViewPointRow = PlansControlerViewPointManager.DataTable.Rows.Find(e.Keys["ViewPointId"]);
+        PlansControlerViewPointRow.Delete();
+
+        e.Cancel = true;
+
+        GridViewViewPoint.CancelEdit();
+
+        GridViewViewPoint.DataSource = PlansControlerViewPointManager.DataTable;
+        GridViewViewPoint.KeyFieldName = "ViewPointId";
+        GridViewViewPoint.DataBind();
+
+        SetRowNo();
+    }
+
+    /****************************************************************************************************************************************/
+    private void SetLabelWarning(string Warning)
+    {
+        this.DivReport.Visible = true;
+        this.LabelWarning.Text = Warning;
+    }
+
+    private void SetError(Exception err)
+    {
+        if (err.GetType() == typeof(System.Data.SqlClient.SqlException))
+        {
+            System.Data.SqlClient.SqlException se = (System.Data.SqlClient.SqlException)err;
+            if (se.Number == 2601)
+            {
+                SetLabelWarning("اطلاعات تکراری می باشد");
+            }
+            else if (se.Number == 2627)
+            {
+                SetLabelWarning("کد تکراری می باشد");
+            }
+            else if (se.Number == 547)
+            {
+                SetLabelWarning("اطلاعات وابسته معتبر نمی باشد");
+            }
+            else
+            {
+                SetLabelWarning("خطایی در ذخیره انجام گرفته است");
+            }
+        }
+        else
+        {
+            SetLabelWarning("خطایی در ذخیره انجام گرفته است");
+        }
+    }
+
+    /****************************************************************** Insert ****************************************************************/
+    private void Insert()
+    {
+        if (IsPageRefresh)
+        {
+            return;
+        }
+
+        TSP.DataManager.TechnicalServices.PlansControlerViewPointManager PlansControlerViewPointManager = (TSP.DataManager.TechnicalServices.PlansControlerViewPointManager)Session["PlansControlerViewPointManager"];
+
+        if (PlansControlerViewPointManager.Count == 0)
+        {
+            SetLabelWarning("نواقص نقشه را وارد نمایید.");
+            return;
+        }
+
+        try
+        {
+            InsertPlansControlerViewPoint(PlansControlerViewPointManager);
+
+            HiddenFieldPrjDes["PageMode"] = Utility.EncryptQS("Edit");
+            SetControlsEditMode();
+
+            SetLabelWarning("ذخیره انجام شد.");
+
+        }
+        catch (Exception err)
+        {
+            SetError(err);
+        }
+    }
+
+    private void InsertPlansControlerViewPoint(TSP.DataManager.TechnicalServices.PlansControlerViewPointManager PlansControlerViewPointManager)
+    {
+        PlansControlerViewPointManager.Save();
+    }
+
+    /****************************************************************** Update *****************************************************************/
+    private void Update()
+    {
+        if (IsPageRefresh)
+        {
+            return;
+        }
+
+        TSP.DataManager.TechnicalServices.PlansControlerViewPointManager PlansControlerViewPointManager = (TSP.DataManager.TechnicalServices.PlansControlerViewPointManager)Session["PlansControlerViewPointManager"];
+
+        if (PlansControlerViewPointManager.Count == 0)
+        {
+            SetLabelWarning("نواقص نقشه را وارد نمایید.");
+            return;
+        }
+
+        try
+        {
+            InsertPlansControlerViewPoint(PlansControlerViewPointManager);
+
+            HiddenFieldPrjDes["PageMode"] = Utility.EncryptQS("Edit");
+            SetControlsEditMode();
+
+            SetLabelWarning("ذخیره انجام شد.");
+
+        }
+        catch (Exception err)
+        {
+            SetError(err);
+        }
+    }
+
+    /****************************************************************************************************************************************/
+    protected void ASPxHyperLink1_DataBinding(object sender, EventArgs e)
+    {
+        DevExpress.Web.ASPxHyperLink hp = (DevExpress.Web.ASPxHyperLink)sender;
+        hp.Text = "مشاهده";
+        hp.NavigateUrl = "~/Image/TechnicalServices/Plans/" + Path.GetFileName(hp.Value.ToString());
+    }
+
+    protected void GridViewDesigner_HtmlDataCellPrepared(object sender, ASPxGridViewTableDataCellEventArgs e)
+    {
+        switch (e.DataColumn.FieldName)
+        {
+            case "Date":
+                e.Cell.Style["direction"] = "ltr";
+                break;
+        }
+    }
+
+    protected void GridViewDesigner_AutoFilterCellEditorInitialize(object sender, ASPxGridViewEditorEventArgs e)
+    {
+
+        if (e.Column.FieldName == "Date")
+            e.Editor.Style["direction"] = "ltr";
+    }
+
+    /**************************************************************** WorkFlow ****************************************************************/
+    #region Permission Methods
+
+    private void CheckWorkFlowPermission()
+    {
+        PageMode = Utility.DecryptQS(HiddenFieldPrjDes["PageMode"].ToString());
+        if (PageMode != "New")
+            CheckWorkFlowPermissionForEdit();
+    }
+
+    private void CheckWorkFlowPermissionForEdit()
+    {
+        int TableId = Convert.ToInt32(Utility.DecryptQS(HiddenFieldPrjDes["PlansId"].ToString()));
+        TSP.DataManager.TaskDoerManager TaskDoerManager = new TSP.DataManager.TaskDoerManager();
+        TSP.DataManager.WorkFlowTaskManager WorkFlowTaskManager = new TSP.DataManager.WorkFlowTaskManager();
+        TSP.DataManager.WorkFlowStateManager WorkFlowStateManager = new TSP.DataManager.WorkFlowStateManager();
+        WorkFlowStateManager.ClearBeforeFill = true;
+        int TaskOrder = -1;
+        int TaskCode = (int)TSP.DataManager.WorkFlowTask.ControlerConfirmingPlan;
+        WorkFlowTaskManager.FindByTaskCode(TaskCode);
+        if (WorkFlowTaskManager.Count > 0)
+        {
+            TaskOrder = int.Parse(WorkFlowTaskManager[0]["TaskOrder"].ToString());
+            if (TaskOrder != 0)
+            {
+                int TableType = TSP.DataManager.TableTypeManager.FindTtId(TSP.DataManager.TableType.TSPlans);
+                DataTable dtWorkFlowLastState = WorkFlowStateManager.SelectLastState(TableType, TableId);
+                if (dtWorkFlowLastState.Rows.Count > 0)
+                {
+                    int CurrentTaskCode = int.Parse(dtWorkFlowLastState.Rows[0]["TaskCode"].ToString());
+                    int ControlerConfirmingPlanTask = (int)TSP.DataManager.WorkFlowTask.ControlerConfirmingPlan;
+
+                    if (CurrentTaskCode == ControlerConfirmingPlanTask)
+                    {
+                        this.ViewState["BtnSave"] = true;
+                        this.ViewState["BtnEdit"] = true;
+                        return;
+                    }
+                }
+            }
+        }
+        this.ViewState["BtnSave"] = false;
+        this.ViewState["BtnEdit"] = false;
+        //TSP.DataManager.WFPermission PerProject = CheckProjectWorkFlowPermissionForEdit(PageMode);
+        //TSP.DataManager.WFPermission PerPlan = CheckPlanWorkFlowPermissionForEdit(PageMode);
+
+        //btnEdit.Enabled = PerProject.BtnEdit || PerPlan.BtnEdit;
+        //btnEdit2.Enabled = PerProject.BtnEdit || PerPlan.BtnEdit;
+        //btnSave.Enabled = PerProject.BtnSave || PerPlan.BtnSave;
+        //btnSave2.Enabled = PerProject.BtnSave || PerPlan.BtnSave;
+
+        //this.ViewState["BtnSave"] = btnSave.Enabled;
+        //this.ViewState["BtnEdit"] = btnEdit.Enabled;
+    }
+
+    //private TSP.DataManager.WFPermission CheckProjectWorkFlowPermissionForEdit(string PageMode)
+    //{
+    //    *****TableId
+    //    PrjReId = Utility.DecryptQS(HiddenFieldPrjDes["PrjReId"].ToString());
+
+    //    int WFCode = (int)TSP.DataManager.WorkFlows.TSProjectConfirming;
+
+    //    *******Editing Task Code
+    //    int ArchitecturalPlanTaskCode = (int)TSP.DataManager.WorkFlowTask.SaveArchitecturalPlanOfProject;
+    //    int StructurePlanTaskCode = (int)TSP.DataManager.WorkFlowTask.SaveStructurePlanOfProject;
+    //    int ElectricalInsPlanTaskCode = (int)TSP.DataManager.WorkFlowTask.SaveElectricalInstalationPlanOfProject;
+    //    int MechanicInsPlanTaskCode = (int)TSP.DataManager.WorkFlowTask.SaveMechanicInstallationPlanOfProject;
+
+    //    TSP.DataManager.WFPermission PerAtchitecturalPlan = TSP.DataManager.WorkFlowPermission.CheckPermissionForEdit(ArchitecturalPlanTaskCode, WFCode, int.Parse(PrjReId), Utility.GetCurrentUser_UserId(), PageMode);
+    //    TSP.DataManager.WFPermission PerStructurePlan = TSP.DataManager.WorkFlowPermission.CheckPermissionForEdit(StructurePlanTaskCode, WFCode, int.Parse(PrjReId), Utility.GetCurrentUser_UserId(), PageMode);
+    //    TSP.DataManager.WFPermission PerElectricalInsPlan = TSP.DataManager.WorkFlowPermission.CheckPermissionForEdit(ElectricalInsPlanTaskCode, WFCode, int.Parse(PrjReId), Utility.GetCurrentUser_UserId(), PageMode);
+    //    TSP.DataManager.WFPermission PerMechanicInsPlan = TSP.DataManager.WorkFlowPermission.CheckPermissionForEdit(MechanicInsPlanTaskCode, WFCode, int.Parse(PrjReId), Utility.GetCurrentUser_UserId(), PageMode);
+
+
+    //    *****TableId
+    //    PlansId = Utility.DecryptQS(HiddenFieldPrjDes["PlansId"].ToString());
+
+    //    WFCode = (int)TSP.DataManager.WorkFlows.TSPlansConfirming;
+
+    //    *******Editing Task Code
+    //    int PlanTaskCode = (int)TSP.DataManager.WorkFlowTask.ControlerConfirmingPlan;
+
+    //    TSP.DataManager.WFPermission PerPlan = TSP.DataManager.WorkFlowPermission.CheckPermissionForEdit(PlanTaskCode, WFCode, int.Parse(PlansId), Utility.GetCurrentUser_UserId(), PageMode);
+
+    //    TSP.DataManager.WFPermission WFPer = new TSP.DataManager.WFPermission();
+    //    WFPer.BtnEdit = (PerAtchitecturalPlan.BtnEdit || PerStructurePlan.BtnEdit || PerElectricalInsPlan.BtnEdit || PerMechanicInsPlan.BtnEdit) && (PerPlan.BtnEdit);
+    //    WFPer.BtnSave = (PerAtchitecturalPlan.BtnSave || PerStructurePlan.BtnSave || PerElectricalInsPlan.BtnSave || PerMechanicInsPlan.BtnSave) && (PerPlan.BtnSave);
+    //    WFPer.BtnNew = (PerAtchitecturalPlan.BtnNew || PerStructurePlan.BtnNew || PerElectricalInsPlan.BtnNew || PerMechanicInsPlan.BtnNew) && (PerPlan.BtnNew);
+
+    //    return WFPer;
+    //}
+
+    //private TSP.DataManager.WFPermission CheckPlanWorkFlowPermissionForEdit(string PageMode)
+    //{
+    //    *****TableId
+    //    PlansId = Utility.DecryptQS(HiddenFieldPrjDes["PlansId"].ToString());
+
+    //    int WFCode = (int)TSP.DataManager.WorkFlows.TSChangePlansAndDesigner;
+
+    //    *******Editing Task Code
+    //    int PlanTaskCode = (int)TSP.DataManager.WorkFlowTask.ControlerConfirmingNewPlan;
+
+    //    TSP.DataManager.WFPermission PerPlan = TSP.DataManager.WorkFlowPermission.CheckPermissionForEdit(PlanTaskCode, WFCode, Convert.ToInt32(PlansId), Utility.GetCurrentUser_UserId(), PageMode);
+
+    //    return PerPlan;
+    //}
+
+    #endregion
+
+}

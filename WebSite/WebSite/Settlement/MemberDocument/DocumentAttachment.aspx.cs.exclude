@@ -1,0 +1,94 @@
+using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+using System.IO;
+
+public partial class Settlement_MemberDocument_DocumentAttachment : System.Web.UI.Page
+{
+    #region Events
+
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        this.DivReport.Visible = false;
+        this.DivReport.Attributes.Add("onclick", "ChangeVisible(this)");
+        this.DivReport.Attributes.Add("onmouseover", "ChangeIcon(this)");
+
+        if (!IsPostBack)
+        {
+            if (Request.QueryString["MFId"] == null || Request.QueryString["MFId"] == null)
+            {
+                Response.Redirect("MemberFile.aspx");
+            }
+
+            HiddenFieldDocumentAttach["MFId"] = Request.QueryString["MFId"].ToString();
+            HiddenFieldDocumentAttach["PrePageMode"] = Request.QueryString["PgMd"].ToString();
+            string MFId = Utility.DecryptQS(HiddenFieldDocumentAttach["MFId"].ToString());
+            TSP.DataManager.DocMemberFileManager DocMemberFileManager = new TSP.DataManager.DocMemberFileManager();
+            DocMemberFileManager.FindByCode(int.Parse(MFId), 0);
+            if (DocMemberFileManager.Count > 0)
+            {
+                if (!Utility.IsDBNullOrNullValue(DocMemberFileManager[0]["MeId"]))
+                    HiddenFieldDocumentAttach["MeId"] = Utility.EncryptQS(DocMemberFileManager[0]["MeId"].ToString());
+                else
+                {
+                    Response.Redirect("MemberFile.aspx");
+                }
+            }
+
+            TSP.DataManager.AttachmentsManager attachManager = new TSP.DataManager.AttachmentsManager();
+            GridViewAttachment.DataSource = attachManager.FindByTablePrimaryKey((int)TSP.DataManager.TableCodes.DocMemberFile, int.Parse(MFId));
+            GridViewAttachment.DataBind();
+
+
+
+        }
+
+
+    }
+
+    protected void MenuMemberFile_ItemClick(object source, DevExpress.Web.MenuItemEventArgs e)
+    {
+        switch (e.Item.Name)
+        {
+            case "JobHistory":
+                Response.Redirect("MemberJobHistory.aspx?MFId=" + HiddenFieldDocumentAttach["MFId"].ToString() + "&PgMd=" + HiddenFieldDocumentAttach["PrePageMode"].ToString() + "&DocType=" + Utility.EncryptQS(((int)TSP.DataManager.DocumentTypesOfMember.DocMemberFile).ToString()));
+                break;
+            case "Exam":
+                Response.Redirect("MemberExam.aspx?MFId=" + HiddenFieldDocumentAttach["MFId"].ToString() + "&PgMd=" + HiddenFieldDocumentAttach["PrePageMode"].ToString() + "&DocType=" + Utility.EncryptQS(((int)TSP.DataManager.DocumentTypesOfMember.DocMemberFile).ToString()));
+                break;
+            case "Major":
+                Response.Redirect("MemberFileBasicInfo.aspx?MFId=" + HiddenFieldDocumentAttach["MFId"].ToString() + "&PgMd=" + HiddenFieldDocumentAttach["PrePageMode"].ToString() + "&MeId=" + HiddenFieldDocumentAttach["MeId"].ToString() + "&DocType=" + Utility.EncryptQS(((int)TSP.DataManager.DocumentTypesOfMember.DocMemberFile).ToString()));
+                break;
+            case "MeDetail":
+                Response.Redirect("DocResponsibility.aspx?MFId=" + HiddenFieldDocumentAttach["MFId"].ToString() + "&PgMd=" + HiddenFieldDocumentAttach["PrePageMode"].ToString() + "&DocType=" + Utility.EncryptQS(((int)TSP.DataManager.DocumentTypesOfMember.DocMemberFile).ToString()));
+                break;
+            case "Periods":
+                Response.Redirect("MemberPeriods.aspx?MFId=" + HiddenFieldDocumentAttach["MFId"].ToString() + "&MeId=" + HiddenFieldDocumentAttach["MeId"].ToString() + "&PgMd=" + HiddenFieldDocumentAttach["PrePageMode"].ToString() + "&DocType=" + Utility.EncryptQS(((int)TSP.DataManager.DocumentTypesOfMember.DocMemberFile).ToString()));
+                break;
+        }
+    }
+
+    protected void btnBack_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("MemberFile.aspx");
+    }
+
+    protected void ASPxHyperLink1_DataBinding(object sender, EventArgs e)
+    {
+        DevExpress.Web.ASPxHyperLink hp = (DevExpress.Web.ASPxHyperLink)sender;
+        hp.Text = Path.GetFileName(hp.Value.ToString());
+    }
+
+    #endregion
+
+    #region Methods
+
+    #endregion
+}

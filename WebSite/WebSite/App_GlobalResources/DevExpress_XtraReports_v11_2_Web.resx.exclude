@@ -1,0 +1,128 @@
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="ASPxReportsStringId.SearchDialog_Header">
+    <value>Search</value>
+  </data>
+  <data name="ASPxReportsStringId.SearchDialog_FindWhat">
+    <value>Find&amp;nbsp;what</value>
+  </data>
+  <data name="ASPxReportsStringId.SearchDialog_FindWhat_AccessKey">
+    <value></value>
+  </data>
+  <data name="ASPxReportsStringId.SearchDialog_FindNext">
+    <value>Find Next</value>
+  </data>
+  <data name="ASPxReportsStringId.SearchDialog_Cancel">
+    <value>Cancel</value>
+  </data>
+  <data name="ASPxReportsStringId.SearchDialog_WholeWord">
+    <value>Match whole word only</value>
+  </data>
+  <data name="ASPxReportsStringId.SearchDialog_WholeWord_AccessKey">
+    <value></value>
+  </data>
+  <data name="ASPxReportsStringId.SearchDialog_Case">
+    <value>Match case</value>
+  </data>
+  <data name="ASPxReportsStringId.SearchDialog_Case_AccessKey">
+    <value></value>
+  </data>
+  <data name="ASPxReportsStringId.SearchDialog_Up">
+    <value>Up</value>
+  </data>
+  <data name="ASPxReportsStringId.SearchDialog_Up_AccessKey">
+    <value></value>
+  </data>
+  <data name="ASPxReportsStringId.SearchDialog_Down">
+    <value>Down</value>
+  </data>
+  <data name="ASPxReportsStringId.SearchDialog_Down_AccessKey">
+    <value></value>
+  </data>
+  <data name="ASPxReportsStringId.SearchDialog_Finished">
+    <value>Finished searching the document.</value>
+  </data>
+  <data name="ASPxReportsStringId.ToolBarItemText_Search">
+    <value>Display the search window</value>
+  </data>
+  <data name="ASPxReportsStringId.ToolBarItemText_PrintReport">
+    <value>Print the report</value>
+  </data>
+  <data name="ASPxReportsStringId.ToolBarItemText_PrintPage">
+    <value>Print the current page</value>
+  </data>
+  <data name="ASPxReportsStringId.ToolBarItemText_FirstPage">
+    <value>First Page</value>
+  </data>
+  <data name="ASPxReportsStringId.ToolBarItemText_PreviousPage">
+    <value>Previous Page</value>
+  </data>
+  <data name="ASPxReportsStringId.ToolBarItemText_NextPage">
+    <value>Next Page</value>
+  </data>
+  <data name="ASPxReportsStringId.ToolBarItemText_LastPage">
+    <value>Last Page</value>
+  </data>
+  <data name="ASPxReportsStringId.ToolBarItemText_SaveToWindow">
+    <value>Export a report and show it in a new window</value>
+  </data>
+  <data name="ASPxReportsStringId.ToolBarItemText_SaveToDisk">
+    <value>Export a report and save it to the disk</value>
+  </data>
+  <data name="ASPxReportsStringId.ToolBarItemText_PageLabel">
+    <value>Page</value>
+  </data>
+  <data name="ASPxReportsStringId.ToolBarItemText_OfLabel">
+    <value>of</value>
+  </data>
+  <data name="ASPxReportsStringId.ParametersPanel_Reset">
+    <value>Reset</value>
+  </data>
+  <data name="ASPxReportsStringId.ParametersPanel_Submit">
+    <value>Submit</value>
+  </data>
+  <data name="ASPxReportsStringId.ParametersPanel_True">
+    <value>Yes</value>
+  </data>
+  <data name="ASPxReportsStringId.ParametersPanel_False">
+    <value>No</value>
+  </data>
+  <data name="ASPxReportsStringId.ExportName_pdf">
+    <value>Pdf</value>
+  </data>
+  <data name="ASPxReportsStringId.ExportName_xls">
+    <value>Xls</value>
+  </data>
+  <data name="ASPxReportsStringId.ExportName_xlsx">
+    <value>Xlsx</value>
+  </data>
+  <data name="ASPxReportsStringId.ExportName_rtf">
+    <value>Rtf</value>
+  </data>
+  <data name="ASPxReportsStringId.ExportName_mht">
+    <value>Mht</value>
+  </data>
+  <data name="ASPxReportsStringId.ExportName_html">
+    <value>Html</value>
+  </data>
+  <data name="ASPxReportsStringId.ExportName_txt">
+    <value>Text</value>
+  </data>
+  <data name="ASPxReportsStringId.ExportName_csv">
+    <value>Csv</value>
+  </data>
+  <data name="ASPxReportsStringId.ExportName_png">
+    <value>Image</value>
+  </data>
+</root>

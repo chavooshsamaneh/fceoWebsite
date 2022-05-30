@@ -1,0 +1,371 @@
+﻿using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+
+public partial class Employee_TechnicalServices_Project_DevelopmentObserverInsert : System.Web.UI.Page
+{
+    Boolean IsPageRefresh = false;
+
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        this.DivReport.Visible = false;
+        this.DivReport.Attributes.Add("onclick", "ChangeVisible(this)");
+        this.DivReport.Attributes.Add("onmouseover", "ChangeIcon(this)");
+
+        if (!IsPostBack)
+        {
+            ViewState["postids"] = System.Guid.NewGuid().ToString();
+            Session["postid"] = ViewState["postids"].ToString();
+        }
+        else
+        {
+            if (!IsCallback && Session["postid"] != null)
+            {
+                if (ViewState["postids"].ToString() != Session["postid"].ToString()) { IsPageRefresh = true; }
+                Session["postid"] = System.Guid.NewGuid().ToString(); ViewState["postids"] = Session["postid"];
+            }
+        }
+
+
+        if (!IsPostBack)
+        {
+
+            if (string.IsNullOrEmpty(Request.QueryString["PageMode"]) || string.IsNullOrEmpty(Request.QueryString["DevObsId"]))
+            {
+                Response.Redirect("DevelopmentObservers.aspx");
+            }
+
+
+            TSP.DataManager.Permission per = TSP.DataManager.TechnicalServices.DevelopmentObserversManager.GetUserPermission(Utility.GetCurrentUser_UserId(), (TSP.DataManager.UserType)Utility.GetCurrentUser_LoginType());
+            BtnNew.Enabled = per.CanNew;
+            BtnNew2.Enabled = per.CanNew;
+            btnSave.Enabled = per.CanNew;
+            btnSave2.Enabled = per.CanNew;
+
+            if (Request.QueryString[TSP.DataManager.Automation.AttachPageToLetter.QueryName] != null)
+            {
+                //String QueryValue = Utility.DecryptQS(Request.QueryString[TSP.DataManager.Automation.AttachPageToLetter.QueryName]);
+                String QueryValue = Request.QueryString[TSP.DataManager.Automation.AttachPageToLetter.QueryName];
+                if (TSP.DataManager.Automation.AttachPageToLetter.CheckPageParameterValue(QueryValue) == false)
+                    this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+            }
+            else if (per.CanView == false)
+                this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.ViewNotAllowed).ToString());
+
+
+            try
+            {
+                PgMode.Value = Server.HtmlDecode(Request.QueryString["PageMode"].ToString());
+                HDdevelopmentPercentId.Value = Server.HtmlDecode(Request.QueryString["DevelopmentPercentId"]).ToString();
+                HDDevObsId.Value = Server.HtmlDecode(Request.QueryString["DevObsId"]).ToString();
+            }
+            catch
+            {
+                this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+                return;
+            }
+
+            string PageMode = Utility.DecryptQS(PgMode.Value);
+            string DevelopmentPercentId = Utility.DecryptQS(HDdevelopmentPercentId.Value);
+            string DevObsId = Utility.DecryptQS(HDDevObsId.Value);
+
+
+            if (string.IsNullOrEmpty(PageMode))
+            {
+                this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+                return;
+            }
+
+            switch (PageMode)
+            {
+                case "View":
+
+                    ASPxRoundPanel2.Enabled = false;
+                    if (string.IsNullOrEmpty(DevObsId))
+                    {
+                        this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+                        return;
+                    }
+                    btnSave.Enabled = false;
+                    btnSave2.Enabled = false;
+                    FillForm(int.Parse(DevObsId));
+                    ASPxRoundPanel2.HeaderText = "مشاهده";
+                    break;
+
+                case "New":
+
+                    ASPxRoundPanel2.HeaderText = "جدید";
+                    btnShowPpcAttachPageToAutomationLetter.Enabled = false;
+                    btnShowPpcAttachPageToAutomationLetter2.Enabled = false;
+
+                    break;
+
+            }
+
+            this.ViewState["BtnSave"] = btnSave.Enabled;
+            this.ViewState["BtnNew"] = BtnNew.Enabled;
+            this.ViewState["BtnLetter"] = btnShowPpcAttachPageToAutomationLetter.Enabled;
+
+
+        }
+        if (this.ViewState["BtnSave"] != null)
+            this.btnSave.Enabled = this.btnSave2.Enabled = (bool)this.ViewState["BtnSave"];
+        if (this.ViewState["BtnNew"] != null)
+            this.BtnNew.Enabled = this.BtnNew2.Enabled = (bool)this.ViewState["BtnNew"];
+        if (this.ViewState["BtnLetter"] != null)
+            this.btnShowPpcAttachPageToAutomationLetter.Enabled = this.btnShowPpcAttachPageToAutomationLetter2.Enabled = (bool)this.ViewState["BtnLetter"];
+
+    }
+
+    protected void txtMeId_TextChanged(object sender, EventArgs e)
+    {
+        TSP.DataManager.MemberManager MeManager = new TSP.DataManager.MemberManager();
+        string MeId = txtMeId.Text;
+        if (!string.IsNullOrEmpty(MeId))
+        {
+            MeManager.FindByCode(int.Parse(MeId));
+            if (MeManager.Count == 1)
+            {
+                txtFirstName.Text = MeManager[0]["FirstName"].ToString();
+                txtDesId.Text = MeManager[0]["DesGrdName"].ToString();
+                txtFileNo.Text = MeManager[0]["FileNo"].ToString();
+                txtImpId.Text = MeManager[0]["ImpGrdName"].ToString();
+                txtLastName.Text = MeManager[0]["LastName"].ToString();
+                txtLicence.Text = MeManager[0]["LastLiName"].ToString();
+                txtMajor.Text = MeManager[0]["LastMjName"].ToString();
+                txtObsId.Text = MeManager[0]["ObsGrdName"].ToString();
+
+                //#region CheckLock
+                //    if (Convert.ToBoolean(MeManager[0]["IsLock"]))
+                //    {
+                //        string LockName = FindLockers(Id, 0, 1);
+
+                //        this.DivReport.Visible = true;
+                //        this.LabelWarning.Text = "امکان ثبت عضو مورد نظر وجود ندارد.عضو مورد نظر توسط " + LockName + " قفل می باشد ";
+                //        return;
+                //    }
+                //    #endregion
+            }
+            else
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "کد عضویت وارد شده معتبر نمی باشد.مجدداً وارد نمایید";
+            }
+        }
+        else
+        {
+            this.DivReport.Visible = true;
+            this.LabelWarning.Text = "کد عضویت را مجدداً وارد نمایید";
+        }
+    }
+    protected string FindLockers(int Id, int MemberTypeId, int IsLock)
+    {
+        TSP.DataManager.LockHistoryManager LockHistoryManager = new TSP.DataManager.LockHistoryManager();
+        return LockHistoryManager.FindLockers(Id, MemberTypeId, IsLock);
+
+    }
+    protected void FillForm(int DevObsId)
+    {
+        TSP.DataManager.TechnicalServices.DevelopmentObserversManager ObserversManager = new TSP.DataManager.TechnicalServices.DevelopmentObserversManager();
+        TSP.DataManager.MemberManager MeManager = new TSP.DataManager.MemberManager();
+
+        ObserversManager.FindByDevObsId(DevObsId);
+        if (ObserversManager.Count > 0)
+        {
+            ChbAgent.Checked = Convert.ToBoolean(ObserversManager[0]["IsAgent"]);
+            txtMeId.Text = ObserversManager[0]["PrjObsMeId"].ToString();
+            MeManager.FindByCode(int.Parse(ObserversManager[0]["PrjObsMeId"].ToString()));
+            if (MeManager.Count == 1)
+            {
+                txtFirstName.Text = MeManager[0]["FirstName"].ToString();
+                txtDesId.Text = MeManager[0]["DesGrdName"].ToString();
+                txtFileNo.Text = MeManager[0]["FileNo"].ToString();
+                txtImpId.Text = MeManager[0]["ImpGrdName"].ToString();
+                txtLastName.Text = MeManager[0]["LastName"].ToString();
+                txtLicence.Text = MeManager[0]["LastLiName"].ToString();
+                txtMajor.Text = MeManager[0]["LastMjName"].ToString();
+                txtObsId.Text = MeManager[0]["ObsGrdName"].ToString();
+            }
+
+        }
+        else
+        {
+            this.DivReport.Visible = true;
+            this.LabelWarning.Text = "اطلاعات توسط کاربر دیگری تغییر یافته است";
+        }
+    }
+    protected void CallbackAttachPageToAutomationLetter_Callback(object source, DevExpress.Web.CallbackEventArgsBase e)
+    {
+        if (String.IsNullOrEmpty(txtLetterNumber_AttachPageToAutomationLetter.Text.Trim()))
+        {
+            lblErrorInputAttachPageToAutomationLetter.ClientVisible = true;
+            lblErrorInputAttachPageToAutomationLetter.Text = "شماره سند وارد نشده است";
+            return;
+        }
+
+        String PageAddress = "~/Employee/TechnicalServices/Project/DevelopmentObserverInsert.aspx";
+        String QuerySting = "?DevelopmentPercentId=" + HDdevelopmentPercentId.Value + "&DevObsId=" + HDDevObsId.Value + "&PageMode=" + Utility.EncryptQS("View");
+
+        TSP.DataManager.Automation.AttachPageToLetter objAttachPageToLetter = new TSP.DataManager.Automation.AttachPageToLetter();
+        objAttachPageToLetter.AttachPage(txtLetterNumber_AttachPageToAutomationLetter.Text, PageAddress, QuerySting, txtLinkName_AttachPageToAutomationLetter.Text,
+            int.Parse(txtTimeOut_AttachPageToAutomationLetter.Text), Utility.GetCurrentUser_UserId());
+        if (objAttachPageToLetter.SaveState == true)
+        {
+            PanelAttachPageToAutomationLetterInputData.ClientVisible = false;
+            PanelAttachPageToAutomationLetterFinish.ClientVisible = true;
+            lblMessageAttachPageToAutomationLetter.Text = objAttachPageToLetter.Message;
+        }
+        else
+        {
+            lblErrorInputAttachPageToAutomationLetter.ClientVisible = true;
+            lblErrorInputAttachPageToAutomationLetter.Text = objAttachPageToLetter.Message;
+        }
+    }
+    protected void BtnNew_Click(object sender, EventArgs e)
+    {
+        TSP.DataManager.Permission per = TSP.DataManager.TechnicalServices.DevelopmentObserversManager.GetUserPermission(Utility.GetCurrentUser_UserId(), (TSP.DataManager.UserType)Utility.GetCurrentUser_LoginType());
+
+        btnSave.Enabled = per.CanNew;
+        btnSave2.Enabled = per.CanNew;
+        this.ViewState["BtnSave"] = btnSave.Enabled;
+
+        HDDevObsId.Value = Utility.EncryptQS("");
+        PgMode.Value = Utility.EncryptQS("New");
+        ASPxRoundPanel2.HeaderText = "جدید";
+        ASPxRoundPanel2.Enabled = true;
+
+        ClearForm();
+        btnShowPpcAttachPageToAutomationLetter.Enabled = false;
+        btnShowPpcAttachPageToAutomationLetter2.Enabled = false;
+        this.ViewState["BtnLetter"] = btnShowPpcAttachPageToAutomationLetter.Enabled;
+
+    }
+    protected void ClearForm()
+    {
+        txtDesId.Text = "";
+        txtFileNo.Text = "";
+        txtFirstName.Text = "";
+        txtImpId.Text = "";
+        txtLastName.Text = "";
+        txtLicence.Text = "";
+        txtMajor.Text = "";
+        txtMeId.Text = "";
+        txtObsId.Text = "";
+        ChbAgent.Checked = false;
+    }
+    protected void btnSave_Click(object sender, EventArgs e)
+    {
+        string DevelopmentPercentId = Utility.DecryptQS(HDdevelopmentPercentId.Value);
+        if (string.IsNullOrEmpty(DevelopmentPercentId))
+        {
+            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.ViewNotAllowed).ToString());
+            return;
+        }
+        Insert(int.Parse(DevelopmentPercentId));
+    }
+    protected void Insert(int DevelopmentPercentId)
+    {
+        if (IsPageRefresh)
+            return;
+
+
+        TSP.DataManager.TransactionManager trans = new TSP.DataManager.TransactionManager();
+        TSP.DataManager.TechnicalServices.DevelopmentObserversManager ObserversManager = new TSP.DataManager.TechnicalServices.DevelopmentObserversManager();
+        trans.Add(ObserversManager);
+
+        try
+        {
+            trans.BeginSave();
+
+            #region CheckIsAgent
+            if (ChbAgent.Checked)
+            {
+                ObserversManager.FindByDevelopmentPercentId(DevelopmentPercentId);
+                for (int i = 0; i < ObserversManager.Count; i++)
+                {
+                    if (Convert.ToBoolean(ObserversManager[i]["IsAgent"]))
+                    {
+                        if (Convert.ToBoolean(ObserversManager[i]["InActive"]))
+                        {
+                            ObserversManager[i].BeginEdit();
+                            ObserversManager[i]["IsAgent"] = 0;
+                            ObserversManager[i]["UserId"] = Utility.GetCurrentUser_UserId();
+                            ObserversManager[i].EndEdit();
+                            ObserversManager.Save();
+                        }
+                    }
+                }
+            }
+            #endregion
+            DataRow dr = ObserversManager.NewRow();
+            dr["DevelopmentPercentId"] = Utility.DecryptQS(HDdevelopmentPercentId.Value);
+            dr["PrjObsMeId"] = txtMeId.Text;
+            dr["Type"] = 2;
+            dr["IsAgent"] = ChbAgent.Checked;
+            dr["CreateDate"] = Utility.GetDateOfToday();
+            dr["ModifiedDate"] = DateTime.Now;
+            dr["UserId"] = Utility.GetCurrentUser_UserId();
+            ObserversManager.AddRow(dr);
+            int cnt = ObserversManager.Save();
+            if (cnt > 0)
+            {
+                trans.EndSave();
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "ذخیره انجام شد";
+                HDDevObsId.Value = Utility.EncryptQS(ObserversManager[0]["DevObsId"].ToString());
+                PgMode.Value = Utility.EncryptQS("View");
+                txtMeId.Enabled = false;
+                btnShowPpcAttachPageToAutomationLetter.Enabled = true;
+                btnShowPpcAttachPageToAutomationLetter2.Enabled = true;
+                this.ViewState["BtnLetter"] = btnShowPpcAttachPageToAutomationLetter.Enabled;
+
+            }
+            else
+            {
+                trans.CancelSave();
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+            }
+        }
+        catch (Exception err)
+        {
+            trans.CancelSave();
+            if (err.GetType() == typeof(System.Data.SqlClient.SqlException))
+            {
+                System.Data.SqlClient.SqlException se = (System.Data.SqlClient.SqlException)err;
+                if (se.Number == 2601)
+                {
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "اطلاعات تکراری می باشد";
+                }
+                else
+                {
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+                }
+            }
+            else
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+            }
+        }
+
+
+    }
+    protected void btnBack_Click(object sender, EventArgs e)
+    {
+        string GrdFlt = Request.QueryString["GrdFlt"].ToString();
+        string SrchFlt = Request.QueryString["SrchFlt"].ToString();
+        Response.Redirect("DevelopmentObservers.aspx?DevelopmentPercentId=" + HDdevelopmentPercentId.Value + "&GrdFlt=" + GrdFlt + "&SrchFlt=" + SrchFlt);
+    }
+}

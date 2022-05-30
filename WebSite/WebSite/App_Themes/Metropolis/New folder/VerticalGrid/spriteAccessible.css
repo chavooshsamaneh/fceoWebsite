@@ -1,0 +1,197 @@
+.dx-acc-r .dxVerticalGrid_CategoryCollapsed_Metropolis:before,
+.dx-acc-r .dxVerticalGrid_CategoryExpanded_Metropolis:before,
+.dx-acc-r .dxVerticalGrid_CollapsedButton_Metropolis:before,
+.dx-acc-r .dxVerticalGrid_CTClearFilter_Metropolis:before,
+.dx-acc-r .dxVerticalGrid_CTClearFilterDisabled_Metropolis:before,
+.dx-acc-r .dxVerticalGrid_CTDeleteRow_Metropolis:before,
+.dx-acc-r .dxVerticalGrid_CTDeleteRowDisabled_Metropolis:before,
+.dx-acc-r .dxVerticalGrid_CTEditRow_Metropolis:before,
+.dx-acc-r .dxVerticalGrid_CTEditRowDisabled_Metropolis:before,
+.dx-acc-r .dxVerticalGrid_CTNewRow_Metropolis:before,
+.dx-acc-r .dxVerticalGrid_CTNewRowDisabled_Metropolis:before,
+.dx-acc-r .dxVerticalGrid_CTRefresh_Metropolis:before,
+.dx-acc-r .dxVerticalGrid_CTRefreshDisabled_Metropolis:before,
+.dx-acc-r .dxVerticalGrid_CTShowFilterEditor_Metropolis:before,
+.dx-acc-r .dxVerticalGrid_CTShowFilterEditorDisabled_Metropolis:before,
+.dx-acc-r .dxVerticalGrid_CTShowSearchPanel_Metropolis:before,
+.dx-acc-r .dxVerticalGrid_CTShowSearchPanelDisabled_Metropolis:before,
+.dx-acc-r .dxVerticalGrid_ExpandedButton_Metropolis:before,
+.dx-acc-r .dxVerticalGrid_gvCellError_Metropolis:before,
+.dx-acc-r .dxVerticalGrid_gvFilterRowButton_Metropolis:before,
+.dx-acc-r .dxVerticalGrid_gvHeaderFilter_Metropolis:before,
+.dx-acc-r .dxVerticalGrid_gvHeaderFilterActive_Metropolis:before,
+.dx-acc-r .dxVerticalGrid_gvHeaderSortDown_Metropolis:before,
+.dx-acc-r .dxVerticalGrid_gvHeaderSortUp_Metropolis:before
+
+{
+    content: url('spriteAccessible.png');
+
+}
+.dx-acc-r .dxVerticalGrid_CategoryCollapsed_Metropolis:before
+
+{
+    left: 0px;
+    top: 0px;
+
+}
+.dx-acc-r .dxVerticalGrid_CategoryExpanded_Metropolis:before
+
+{
+    left: 0px;
+    top: -25px;
+
+}
+.dx-acc-r .dxVerticalGrid_CollapsedButton_Metropolis:before
+
+{
+    left: -34px;
+    top: -135px;
+
+}
+.dx-acc-r .dxVerticalGrid_CTClearFilter_Metropolis:before
+
+{
+    left: 0px;
+    top: -101px;
+
+}
+.dx-acc-r .dxVerticalGrid_CTClearFilterDisabled_Metropolis:before
+
+{
+    left: -17px;
+    top: -101px;
+
+}
+.dx-acc-r .dxVerticalGrid_CTDeleteRow_Metropolis:before
+
+{
+    left: 0px;
+    top: -135px;
+
+}
+.dx-acc-r .dxVerticalGrid_CTDeleteRowDisabled_Metropolis:before
+
+{
+    left: -25px;
+    top: 0px;
+
+}
+.dx-acc-r .dxVerticalGrid_CTEditRow_Metropolis:before
+
+{
+    left: -17px;
+    top: -135px;
+
+}
+.dx-acc-r .dxVerticalGrid_CTEditRowDisabled_Metropolis:before
+
+{
+    left: -25px;
+    top: -25px;
+
+}
+.dx-acc-r .dxVerticalGrid_CTNewRow_Metropolis:before
+
+{
+    left: 0px;
+    top: -50px;
+
+}
+.dx-acc-r .dxVerticalGrid_CTNewRowDisabled_Metropolis:before
+
+{
+    left: -17px;
+    top: -84px;
+
+}
+.dx-acc-r .dxVerticalGrid_CTRefresh_Metropolis:before
+
+{
+    left: -17px;
+    top: -118px;
+
+}
+.dx-acc-r .dxVerticalGrid_CTRefreshDisabled_Metropolis:before
+
+{
+    left: 0px;
+    top: -118px;
+
+}
+.dx-acc-r .dxVerticalGrid_CTShowFilterEditor_Metropolis:before
+
+{
+    left: -17px;
+    top: -50px;
+
+}
+.dx-acc-r .dxVerticalGrid_CTShowFilterEditorDisabled_Metropolis:before
+
+{
+    left: 0px;
+    top: -84px;
+
+}
+.dx-acc-r .dxVerticalGrid_CTShowSearchPanel_Metropolis:before
+
+{
+    left: 0px;
+    top: -67px;
+
+}
+.dx-acc-r .dxVerticalGrid_CTShowSearchPanelDisabled_Metropolis:before
+
+{
+    left: -17px;
+    top: -67px;
+
+}
+.dx-acc-r .dxVerticalGrid_ExpandedButton_Metropolis:before
+
+{
+    left: -34px;
+    top: -118px;
+
+}
+.dx-acc-r .dxVerticalGrid_gvCellError_Metropolis:before
+
+{
+    left: -34px;
+    top: -101px;
+
+}
+.dx-acc-r .dxVerticalGrid_gvFilterRowButton_Metropolis:before
+
+{
+    left: -34px;
+    top: -84px;
+
+}
+.dx-acc-r .dxVerticalGrid_gvHeaderFilter_Metropolis:before
+
+{
+    left: -34px;
+    top: -50px;
+
+}
+.dx-acc-r .dxVerticalGrid_gvHeaderFilterActive_Metropolis:before
+
+{
+    left: -34px;
+    top: -67px;
+
+}
+.dx-acc-r .dxVerticalGrid_gvHeaderSortDown_Metropolis:before
+
+{
+    left: -33px;
+    top: -19px;
+
+}
+.dx-acc-r .dxVerticalGrid_gvHeaderSortUp_Metropolis:before
+
+{
+    left: -41px;
+    top: -19px;
+
+}

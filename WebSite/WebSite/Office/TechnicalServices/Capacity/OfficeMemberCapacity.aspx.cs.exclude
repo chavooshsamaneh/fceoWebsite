@@ -1,0 +1,550 @@
+﻿using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+
+public partial class Office_TechnicalServices_Capacity_OfficeMemberCapacity : System.Web.UI.Page
+{
+    int OfficeId;
+    string MFType;
+
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        this.DivReport.Attributes.Add("onclick", "ChangeVisible(this)");
+        this.DivReport.Attributes.Add("onmouseover", "ChangeIcon(this)");
+        this.DivReport.Visible = false;
+
+
+        if (!IsPostBack)
+        {
+            if ((string.IsNullOrEmpty(Request.QueryString["MFType"])))
+            {
+                Response.Redirect("CapacityInfo.aspx");
+                return;
+            }
+
+            SetKeys();
+        }
+        ASPxComboBoxYear_SelectedIndexChanged(sender, e);
+    }
+
+    protected void btnBack_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("CapacityInfo.aspx");
+    }
+
+
+    /*******************************************************************************************************************************************/
+    private void SetKeys()
+    {
+        try
+        {
+            HFMFType.Value = Server.HtmlDecode(Request.QueryString["MFType"]).ToString();
+        }
+        catch
+        {
+            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+            return;
+        }
+
+        MFType = Utility.DecryptQS(HFMFType.Value);        
+
+        if (string.IsNullOrEmpty(MFType))
+        {
+            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+            return;
+        }
+
+        ASPxComboBoxYear.Value = Utility.GetYearOfToday();
+        //SetValues(Utility.GetYearOfToday());        
+    }
+
+    private void SetValues(string Year)
+    {
+        Capacity Cpcty = new Capacity();
+        ArrayList CapacityInfoArr = new ArrayList();
+        ArrayList MemberArr = new ArrayList();
+
+        MFType = Utility.DecryptQS(HFMFType.Value);
+
+        if (string.IsNullOrEmpty(MFType))
+        {
+            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+            return;
+        }
+
+        switch (Convert.ToInt32(MFType))
+        {
+            case (int)TSP.DataManager.DocumentOfficeResponsibilityType.ObservationAndDesign:
+                SetDesignCapacity(CapacityInfoArr, Cpcty, Year);
+                FillMemberGrid(MemberArr, Cpcty, Year);
+                FillDsgnGrid(Cpcty, Year);
+                FillMemberStepsGrid(Cpcty, Year);
+
+                SetObservationCapacity(CapacityInfoArr, Cpcty, Year);
+                FillMemberObsGrid(MemberArr, Cpcty, Year);
+                FillObsGrid(Cpcty, Year);
+                FillMemberStepsObsGrid(Cpcty, Year);
+
+                ASPxRoundPanelImp.Visible = false;
+                break;
+
+            case (int)TSP.DataManager.DocumentOfficeResponsibilityType.Implement:
+                SetImplementaionCapacity(CapacityInfoArr, Cpcty, Year);
+                FillMemberImpGrid(Cpcty, Year);
+                FillImpGrid(Cpcty, Year);
+
+                ASPxRoundPanelDsgn.Visible = false;
+                ASPxRoundPanelObs.Visible = false;
+                break;
+
+            case (int)TSP.DataManager.DocumentOfficeResponsibilityType.ObservationAndDesignAndImplement:
+                SetDesignCapacity(CapacityInfoArr, Cpcty, Year);
+                FillMemberGrid(MemberArr, Cpcty, Year);
+                FillDsgnGrid(Cpcty, Year);
+                FillMemberStepsGrid(Cpcty, Year);
+
+                SetObservationCapacity(CapacityInfoArr, Cpcty, Year);
+                FillMemberObsGrid(MemberArr, Cpcty, Year);
+                FillObsGrid(Cpcty, Year);
+                FillMemberStepsObsGrid(Cpcty, Year);
+
+                SetImplementaionCapacity(CapacityInfoArr, Cpcty, Year);
+                FillMemberImpGrid(Cpcty, Year);
+                FillImpGrid(Cpcty, Year);
+                break;
+
+            default:
+                ASPxRoundPanelDsgn.Visible = false;
+                ASPxRoundPanelObs.Visible = false;
+                ASPxRoundPanelImp.Visible = false;
+                break;
+        }        
+    }
+
+    /******************************************************************* Design ***********************************************************************/
+    private void SetDesignCapacity(ArrayList CapacityInfoArr, Capacity Cpcty, string Year)
+    {
+        OfficeId = Utility.GetCurrentUser_MeId();
+        if (Convert.ToInt32(OfficeId) > 0)
+        {
+            // CapacityInfoArr -----> ArrayList[0]: TotalCapacity(int), ArrayList[1]:UsedCapacity(int) , ArrayList[2]: RemainCapacity(int), 
+            //                        ArrayList[3]:ReservedCapacity(int) , ArrayList[4]: ProjectNum(int), ArrayList[5]: MaxJoubCount(int),
+            //                        ArrayList[6]:MaxFloor(string), ArrayList[7]:ConditionalCapacity(int)
+
+            //???????????????????????????
+            //???????????????????????????
+            //???????????????????????????
+            //???????????????????????????
+           // CapacityInfoArr = Cpcty.GetCapacityInformationInYear((int)TSP.DataManager.TSProjectIngridientType.Designer, (int)TSP.DataManager.TSMemberType.Office, Convert.ToInt32(OfficeId), Year);
+            //???????????????????????????
+            //???????????????????????????
+            //???????????????????????????
+            //???????????????????????????
+            if (CapacityInfoArr.Count > 0)
+            {
+                SetDsgTexts(CapacityInfoArr[0].ToString(), CapacityInfoArr[5].ToString(), CapacityInfoArr[1].ToString(), CapacityInfoArr[2].ToString(), CapacityInfoArr[3].ToString(), CapacityInfoArr[4].ToString(), CapacityInfoArr[7].ToString());
+            }
+        }
+    }
+
+    private void SetDsgTexts(string TotalCapacity, string MaxJobCount, string TotalUsed, string RemainCapacity, string Reserve, string ProjectCount, string ConditionalCapacity)
+    {
+        ASPxTextBoxDsgTotalCapacity.Text = TotalCapacity;
+        ASPxTextBoxDsgMaxJobCount.Text = MaxJobCount;
+        ASPxTextBoxDsgTotalUsed.Text = TotalUsed;
+        ASPxTextBoxDsgRemainCapacity.Text = RemainCapacity;
+        ASPxTextBoxDsgReserve.Text = Reserve;
+        ASPxTextBoxDsgProjectCount.Text = ProjectCount;
+        ASPxTextBoxConditionalCapacity.Text = ConditionalCapacity;
+    }
+
+    private void FillMemberGrid(ArrayList MemberArr, Capacity Cpcty, string Year)
+    {
+        DataTable MemberDt = new DataTable();
+        MemberDt.Columns.Add("MaxJobCount");
+        MemberDt.Columns.Add("MaxJobCapacity");
+        MemberDt.Columns.Add("TotalDsgCapacity");
+        MemberDt.Columns.Add("Factor");
+        MemberDt.Columns.Add("MjId");
+        MemberDt.Columns.Add("GrdId");
+        MemberDt.Columns.Add("MeId");
+        MemberDt.Columns.Add("MeName");
+        MemberDt.Columns.Add("ObservationPercent");
+
+        OfficeId = Utility.GetCurrentUser_MeId();
+        if (Convert.ToInt32(OfficeId) > 0)
+        {
+            //???????????????????????????
+            //???????????????????????????
+            //???????????????????????????
+            //???????????????????????????
+            //MemberArr = Cpcty.GetOfficeMembersDsgObsCapacityInYear(Convert.ToInt32(OfficeId), (int)TSP.DataManager.TSProjectIngridientType.Designer, (int)TSP.DataManager.DocOffIncreaseJobCapacityType.Office, Year);
+            //???????????????????????????
+            //???????????????????????????
+            //???????????????????????????
+            //???????????????????????????
+            for (int i = 0; i < MemberArr.Count; i++)
+            {
+                MemberDt.Rows.Add(InsertMemberRow(MemberDt.NewRow(), (ArrayList)MemberArr[i]));
+            }
+        }
+
+        //MemberDt.DefaultView.Sort        
+        CustomAspxDevGridViewMembers.DataSource = MemberDt;
+        CustomAspxDevGridViewMembers.DataBind();
+    }
+
+    private void FillDsgnGrid(Capacity Cpcty, string Year)
+    {
+        OfficeId = Utility.GetCurrentUser_MeId();
+        //???????????????
+        //DataTable DsgnDt = Cpcty.GetYearStagesInformation((int)TSP.DataManager.TSProjectIngridientType.Designer, (int)TSP.DataManager.TSMemberType.Office, Convert.ToInt32(OfficeId), Year);
+
+        //CustomAspxDevGridViewDsgn.DataSource = DsgnDt;
+        //CustomAspxDevGridViewDsgn.DataBind(); 
+        //???????????????
+    }
+
+    private void FillMemberStepsGrid(Capacity Cpcty, string Year)
+    {
+        OfficeId = Utility.GetCurrentUser_MeId();
+        //???????????????????????????
+        //???????????????????????????
+        //???????????????????????????
+        //???????????????????????????
+        //DataTable MembersStepsDt = Cpcty.GetGetOfficeMembersYearStagesInformation((int)TSP.DataManager.TSProjectIngridientType.Designer, (int)TSP.DataManager.TSMemberType.Office, Convert.ToInt32(OfficeId), Year);
+        //???????????????????????????
+        //???????????????????????????
+        //???????????????????????????
+        //???????????????????????????
+        //CustomAspxDevGridViewMembersSteps.DataSource = MembersStepsDt;
+       // CustomAspxDevGridViewMembersSteps.DataBind();
+        //???????????????????????????
+        //???????????????????????????
+        //???????????????????????????
+        //???????????????????????????
+        //((TSP.WebControls.CustomAspxDevGridView)CustomAspxDevGridViewDsgn.FindDetailRowTemplateControl(CustomAspxDevGridViewDsgn.FocusedRowIndex, "CustomAspxDevGridViewMembersSteps")).DataSource = MembersStepsDt;
+        //((TSP.WebControls.CustomAspxDevGridView)CustomAspxDevGridViewDsgn.FindDetailRowTemplateControl(CustomAspxDevGridViewDsgn.FocusedRowIndex, "CustomAspxDevGridViewMembersSteps")).DataBind();
+    }
+
+    
+
+    /****************************************************************** Observation ********************************************************************/
+    private void SetObservationCapacity(ArrayList CapacityInfoArr, Capacity Cpcty, string Year)
+    {
+        OfficeId = Utility.GetCurrentUser_MeId();
+        if (Convert.ToInt32(OfficeId) > 0)
+        {
+            // CapacityInfoArr -----> ArrayList[0]: TotalCapacity(int), ArrayList[1]:UsedCapacity(int) , ArrayList[2]: RemainCapacity(int), 
+            //                        ArrayList[3]:ReservedCapacity(int) , ArrayList[4]: ProjectNum(int), ArrayList[5]: MaxJoubCount(int),
+            //                        ArrayList[6]:MaxFloor(string), ArrayList[7]:ConditionalCapacity(int)
+            //???????????????????????????
+            //???????????????????????????
+            //???????????????????????????
+            //???????????????????????????
+           // CapacityInfoArr = Cpcty.GetCapacityInformationInYear((int)TSP.DataManager.TSProjectIngridientType.Observer, (int)TSP.DataManager.TSMemberType.Office, Convert.ToInt32(OfficeId), Year);
+            //???????????????????????????
+            //???????????????????????????
+            //???????????????????????????
+            //???????????????????????????
+            if (CapacityInfoArr.Count > 0)
+            {
+                SetObsTexts(CapacityInfoArr[0].ToString(), CapacityInfoArr[5].ToString(), CapacityInfoArr[1].ToString(), CapacityInfoArr[2].ToString(), CapacityInfoArr[3].ToString(), CapacityInfoArr[4].ToString(), CapacityInfoArr[7].ToString());
+            }
+        }
+    }
+
+    private void SetObsTexts(string TotalCapacity, string MaxJobCount, string TotalUsed, string RemainCapacity, string Reserve, string ProjectCount, string ConditionalCapacity)
+    {
+        ASPxTextBoxObsTotalCapacity.Text = TotalCapacity;
+        ASPxTextBoxObsMaxJobCount.Text = MaxJobCount;
+        ASPxTextBoxObsTotalUsed.Text = TotalUsed;
+        ASPxTextBoxObsRemainCapacity.Text = RemainCapacity;
+        ASPxTextBoxObsReserve.Text = Reserve;
+        ASPxTextBoxObsProjectCount.Text = ProjectCount;
+        ASPxTextBoxObsConditionalCapacity.Text = ConditionalCapacity;
+    }
+
+    private void FillMemberObsGrid(ArrayList MemberArr, Capacity Cpcty, string Year)
+    {
+        DataTable MemberDt = new DataTable();
+        MemberDt.Columns.Add("MaxJobCount");
+        MemberDt.Columns.Add("MaxJobCapacity");
+        MemberDt.Columns.Add("TotalDsgCapacity");
+        MemberDt.Columns.Add("Factor");
+        MemberDt.Columns.Add("MjId");
+        MemberDt.Columns.Add("GrdId");
+        MemberDt.Columns.Add("MeId");
+        MemberDt.Columns.Add("MeName");
+        MemberDt.Columns.Add("ObservationPercent");
+
+        OfficeId = Utility.GetCurrentUser_MeId();
+        if (Convert.ToInt32(OfficeId) > 0)
+        {
+            //???????????????????????????
+            //???????????????????????????
+            //???????????????????????????
+            //???????????????????????????
+            //MemberArr = Cpcty.GetOfficeMembersDsgObsCapacityInYear(Convert.ToInt32(OfficeId), (int)TSP.DataManager.TSProjectIngridientType.Observer, (int)TSP.DataManager.DocOffIncreaseJobCapacityType.Office, Year);
+            //???????????????????????????
+            //???????????????????????????
+            //???????????????????????????
+            //???????????????????????????
+            for (int i = 0; i < MemberArr.Count; i++)
+            {
+                MemberDt.Rows.Add(InsertMemberRow(MemberDt.NewRow(), (ArrayList)MemberArr[i]));
+            }
+        }
+
+        //MemberDt.DefaultView.Sort        
+        CustomAspxDevGridViewMembersObs.DataSource = MemberDt;
+        CustomAspxDevGridViewMembersObs.DataBind();
+    }
+
+    private void FillObsGrid(Capacity Cpcty, string Year)
+    {
+        OfficeId = Utility.GetCurrentUser_MeId();
+
+        //???????????????
+        //DataTable ObsDt = Cpcty.GetYearStagesInformation((int)TSP.DataManager.TSProjectIngridientType.Observer, (int)TSP.DataManager.TSMemberType.Office, Convert.ToInt32(OfficeId), Year);
+
+        //CustomAspxDevGridViewObs.DataSource = ObsDt;
+        //CustomAspxDevGridViewObs.DataBind(); 
+        //???????????????
+    }
+
+    private void FillMemberStepsObsGrid(Capacity Cpcty, string Year)
+    {
+        OfficeId = Utility.GetCurrentUser_MeId();
+        //???????????????????????????
+        //???????????????????????????
+        //???????????????????????????
+        //???????????????????????????
+       // DataTable MembersStepsDt = Cpcty.GetGetOfficeMembersYearStagesInformation((int)TSP.DataManager.TSProjectIngridientType.Observer, (int)TSP.DataManager.TSMemberType.Office, Convert.ToInt32(OfficeId), Year);    
+        //CustomAspxDevGridViewMembersStepsObs.DataSource = MembersStepsDt;
+        //CustomAspxDevGridViewMembersStepsObs.DataBind();
+        //???????????????????????????
+        //???????????????????????????
+        //???????????????????????????
+        //???????????????????????????
+    }
+
+    /******************************************************************* Implementaion *****************************************************************/
+    private void SetImplementaionCapacity(ArrayList CapacityInfoArr, Capacity Cpcty, string Year)
+    {
+        OfficeId = Utility.GetCurrentUser_MeId();
+        if (Convert.ToInt32(OfficeId) > 0)
+        {
+            // CapacityInfoArr -----> ArrayList[0]: TotalCapacity(int), ArrayList[1]:UsedCapacity(int) , ArrayList[2]: RemainCapacity(int), 
+            //                        ArrayList[3]:ReservedCapacity(int) , ArrayList[4]: ProjectNum(int), ArrayList[5]: MaxJoubCount(int),
+            //                        ArrayList[6]:MaxFloor(string), ArrayList[7]:ConditionalCapacity(int)
+
+            // MemberArr -----> ArrayList[0]: MaxFloor, ArrayList[1]:MaxCapacity , ArrayList[2]: MaxJobCount, ArrayList[3]: ConditionalCapacity, ArrayList[4]: GradeId
+
+            //???????????????????????????
+            //???????????????????????????
+            //???????????????????????????
+            //???????????????????????????
+            //ArrayList MemberArr = Cpcty.GetOfficesImpCapacityInYear(OfficeId, Year);
+            //???????????????????????????
+            //???????????????????????????
+            //???????????????????????????
+            //???????????????????????????
+            //CapacityInfoArr = Cpcty.GetCapacityInformationInYear((int)TSP.DataManager.TSProjectIngridientType.Implementer, (int)TSP.DataManager.TSMemberType.Office, Convert.ToInt32(OfficeId), Year);
+            //if (CapacityInfoArr.Count > 0)
+            //{
+            //    SetImpTexts(CapacityInfoArr[0].ToString(), CapacityInfoArr[5].ToString(), CapacityInfoArr[1].ToString(), CapacityInfoArr[2].ToString(), CapacityInfoArr[3].ToString(), CapacityInfoArr[4].ToString(), CapacityInfoArr[7].ToString(), CapacityInfoArr[6].ToString(), MemberArr[4].ToString());
+            //}
+            //???????????????????????????
+            //???????????????????????????
+            //???????????????????????????
+            //???????????????????????????
+        }
+    }
+
+    private void SetImpTexts(string TotalCapacity, string MaxJobCount, string TotalUsed, string RemainCapacity, string Reserve, string ProjectCount, string ConditionalCapacity, string MaxFloor,string Grade)
+    {
+        ASPxTextBoxImpTotalCapacity.Text = TotalCapacity;
+        ASPxTextBoxImpMaxJobCount.Text = MaxJobCount;
+        ASPxTextBoxImpTotalUsed.Text = TotalUsed;
+        ASPxTextBoxImpRemainCapacity.Text = RemainCapacity;
+        ASPxTextBoxImpReserve.Text = Reserve;
+        ASPxTextBoxImpProjectCount.Text = ProjectCount;
+        ASPxTextBoxImpConditionalCapacity.Text = ConditionalCapacity;
+        ASPxTextBoxImpMaxFloor.Text = MaxFloor;
+        if (Grade != "" && Grade != "---")
+            ASPxTextBoxImpGrade.Text = GetGrdName(Convert.ToInt32(Grade));
+        else
+            ASPxTextBoxImpGrade.Text = "---";
+    }
+
+    private void FillMemberImpGrid(Capacity Cpcty, string Year)
+    {
+        OfficeId = Utility.GetCurrentUser_MeId();
+        //???????????????????????????
+        //???????????????????????????
+        //???????????????????????????
+        //???????????????????????????
+      //  DataTable MemberDt = Cpcty.GetImpOffMembersInYear(OfficeId,Year);
+        //CustomAspxDevGridViewMemberImp.DataSource = MemberDt;
+        //???????????????????????????
+        //???????????????????????????
+        //???????????????????????????
+        //???????????????????????????
+        CustomAspxDevGridViewMemberImp.DataBind();
+    }
+
+    private void FillImpGrid(Capacity Cpcty, string Year)
+    {
+        OfficeId = Utility.GetCurrentUser_MeId();
+
+        //???????????????
+        //DataTable ImpDt = Cpcty.GetYearStagesInformation((int)TSP.DataManager.TSProjectIngridientType.Implementer, (int)TSP.DataManager.TSMemberType.Office, Convert.ToInt32(OfficeId), Year);
+
+        //CustomAspxDevGridViewImp.DataSource = ImpDt;
+        //CustomAspxDevGridViewImp.DataBind(); 
+        //???????????????
+    }
+
+    /*****************************************************************************************************************************/
+    private DataRow InsertMemberRow(DataRow dr, ArrayList MembersArr)
+    {
+        // MembersArr -------> ArrayList[0]: MaxJobCount, ArrayList[1]: MaxJobCapacity, ArrayList[2]: ObservationPercent, ArrayList[3]: ObservationCapacity,
+        //                     ArrayList[4]: Grade, ArrayList[5]: MjId, ArrayList[6]: GradeInOfficeLicense, ArrayList[7]: DesignInc, ArrayList[8]: SameGradeInc, 
+        //                     ArrayList[9]: MajorInc, ArrayList[10]: TotalDsgCapacity, ArrayList[11]: TotalObsCapacity, ArrayList[12]: MeId, ArrayList[13]: MeName
+
+        dr["MaxJobCount"] = MembersArr[0];
+        dr["MaxJobCapacity"] = MembersArr[1];
+        dr["MjId"] = MembersArr[5];
+        dr["GrdId"] = MembersArr[6];
+        dr["MeId"] = MembersArr[12];
+        dr["MeName"] = MembersArr[13];
+        dr["TotalDsgCapacity"] = MembersArr[10];
+        dr["Factor"] = Convert.ToDouble(MembersArr[10]) / Convert.ToDouble(MembersArr[1]);
+        dr["ObservationPercent"] = MembersArr[2];
+
+        return dr;
+    }
+
+    private string GetGrdName(int GrdId)
+    {
+        TSP.DataManager.GradeManager GradeManager = new TSP.DataManager.GradeManager();
+        GradeManager.FindByCode(GrdId);
+        if (GradeManager.Count > 0)
+            return GradeManager[0]["GrdName"].ToString();
+        else
+            return "";
+    }
+
+    private DataTable SetDatasource(string Year)
+    {
+        Capacity Cpcty = new Capacity();
+        OfficeId = Utility.GetCurrentUser_MeId();
+        //???????????????????????????
+        //???????????????????????????
+        //???????????????????????????
+        //???????????????????????????
+        DataTable MembersStepsDt= new DataTable() ;//= Cpcty.GetGetOfficeMembersYearStagesInformation((int)TSP.DataManager.TSProjectIngridientType.Designer, (int)TSP.DataManager.TSMemberType.Office, Convert.ToInt32(OfficeId), Year);
+        //???????????????????????????
+        //???????????????????????????
+        //???????????????????????????
+        //???????????????????????????
+        //MembersStepsDt.DefaultView.RowFilter = "CapacityAssignmentId=" + Session["CapacityAssignmentId"];
+       return MembersStepsDt;
+    }
+
+    private void SetComponents()
+    {
+        TSP.DataManager.TechnicalServices.CapacityAssignmentManager CapacityAssignmentManager = new TSP.DataManager.TechnicalServices.CapacityAssignmentManager();
+        CapacityAssignmentManager.FindLastStageInYear("");
+
+        if (ASPxComboBoxYear.Value.ToString() == Utility.GetYearOfToday() || CapacityAssignmentManager.Count == 0 || ASPxComboBoxYear.Value.ToString() == CapacityAssignmentManager[0]["Year"].ToString())
+        {
+            LabelDsgnRemain.Visible = true;
+            LableDsgnWaste.Visible = false;
+
+            LableDsgnReserved.Visible = true;
+            ASPxTextBoxDsgReserve.Visible = true;
+
+            CustomAspxDevGridViewDsgn.Columns["RemainCapacity"].Caption = "ظرفیت باقیمانده";
+            CustomAspxDevGridViewMembersSteps.Columns["RemainCapacity"].Caption = "ظرفیت باقیمانده";
+
+            LabelObsRemain.Visible = true;
+            LableObsWaste.Visible = false;
+
+            LableObsReserved.Visible = true;
+            ASPxTextBoxObsReserve.Visible = true;
+
+            CustomAspxDevGridViewObs.Columns["RemainCapacity"].Caption = "ظرفیت باقیمانده";
+            CustomAspxDevGridViewMembersStepsObs.Columns["RemainCapacity"].Caption = "ظرفیت باقیمانده";
+
+            LabelImpRemain.Visible = true;
+            LableImpWaste.Visible = false;
+
+            LableImpReserved.Visible = true;
+            ASPxTextBoxImpReserve.Visible = true;
+
+            CustomAspxDevGridViewImp.Columns["RemainCapacity"].Caption = "ظرفیت باقیمانده";
+        }
+        else
+        {
+            LabelDsgnRemain.Visible = false;
+            LableDsgnWaste.Visible = true;
+
+            LableDsgnReserved.Visible = false;
+            ASPxTextBoxDsgReserve.Visible = false;
+
+            CustomAspxDevGridViewDsgn.Columns["RemainCapacity"].Caption = "ظرفیت سوخت شده";
+            CustomAspxDevGridViewMembersSteps.Columns["RemainCapacity"].Caption = "ظرفیت سوخت شده";
+
+            LabelObsRemain.Visible = false;
+            LableObsWaste.Visible = true;
+
+            LableObsReserved.Visible = false;
+            ASPxTextBoxObsReserve.Visible = false;
+
+            CustomAspxDevGridViewObs.Columns["RemainCapacity"].Caption = "ظرفیت سوخت شده";
+            CustomAspxDevGridViewMembersStepsObs.Columns["RemainCapacity"].Caption = "ظرفیت سوخت شده";
+
+            LabelImpRemain.Visible = false;
+            LableImpWaste.Visible = true;
+
+            LableImpReserved.Visible = false;
+            ASPxTextBoxImpReserve.Visible = false;
+
+            CustomAspxDevGridViewImp.Columns["RemainCapacity"].Caption = "ظرفیت سوخت شده";
+        }
+    }
+
+    /*****************************************************************************************************************************/
+    protected void CustomAspxDevGridViewDsgn_FocusedRowChanged(object sender, EventArgs e)
+    {
+        if (CustomAspxDevGridViewDsgn.FocusedRowIndex != -1 && CustomAspxDevGridViewDsgn.SettingsDetail.ShowDetailRow)
+            CustomAspxDevGridViewDsgn.DetailRows.ExpandRow(CustomAspxDevGridViewDsgn.FocusedRowIndex);
+    }
+
+    protected void CustomAspxDevGridViewDsgn_DetailRowExpandedChanged(object sender, DevExpress.Web.ASPxGridViewDetailRowEventArgs e)
+    {
+        CustomAspxDevGridViewDsgn.FocusedRowIndex = e.VisibleIndex;
+    }
+
+    protected void CustomAspxDevGridViewMembersSteps_BeforePerformDataSelect(object sender, EventArgs e)
+    {
+        // Session["CapacityAssignmentId"] = (sender as ASPxGridView).GetMasterRowKeyValue();
+    }
+
+    protected void ASPxComboBoxYear_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        SetComponents();
+        SetValues(ASPxComboBoxYear.Value.ToString());
+    }
+}

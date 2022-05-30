@@ -1,0 +1,139 @@
+﻿using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+
+public partial class Members_ImplementDoc_DocumentsRules : System.Web.UI.Page
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+       
+        this.DivReport.Visible = false;
+        this.DivReport.Attributes.Add("onclick", "ChangeVisible(this)");
+        this.DivReport.Attributes.Add("onmouseover", "ChangeIcon(this)");
+
+        txtRules.Text = "";
+    }
+    protected void ASPxButton1_Click(object sender, EventArgs e)
+    {
+        //int MfId = -1;
+        //Response.Redirect("AddImplementDoc.aspx?MFId=" + Utility.EncryptQS(MfId.ToString()) + "&PgMd=" + Utility.EncryptQS("New"));
+        InsertDocMemberFileImp();
+
+    }
+
+    private void InsertDocMemberFileImp()
+    {
+        TSP.DataManager.MemberManager MemberManager = new TSP.DataManager.MemberManager();
+        TSP.DataManager.TransactionManager TransactionManager = new TSP.DataManager.TransactionManager();
+        TSP.DataManager.DocMemberFileManager DocMemberFileManager = new TSP.DataManager.DocMemberFileManager();
+        TSP.DataManager.WorkFlowStateManager WorkFlowStateManager = new TSP.DataManager.WorkFlowStateManager();
+        TransactionManager.Add(DocMemberFileManager);
+        TransactionManager.Add(WorkFlowStateManager);
+
+        try
+        {
+            TransactionManager.BeginSave();
+
+            DataTable dtLastMeFileVersion = DocMemberFileManager.SelectLastVersion(Utility.GetCurrentUser_MeId(), 0);
+            if (dtLastMeFileVersion.Rows.Count > 0)
+            {
+              
+                MemberManager.FindByCode(Utility.GetCurrentUser_MeId());
+                if (MemberManager.Count == 1)
+                {
+                    DataRow MemberFileRow = DocMemberFileManager.NewRow();
+
+                    MemberFileRow["MeId"] =dtLastMeFileVersion.Rows[0]["MfId"].ToString();
+                    MemberFileRow["DocType"] = 1;//****مجوز مجری حقیقی
+                    // MemberFileRow["SerialNo"] = "";
+                    //MemberFileRow["RegDate"] = "";
+                    // MemberFileRow["ExpireDate"] = "";              
+                    MemberFileRow["PrId"] = Utility.GetCurrentProvinceId();
+                    MemberFileRow["Type"] = 0; //*****صدور
+                    MemberFileRow["IsConfirm"] = 0;
+                    MemberFileRow["IsTemporary"] = 0;
+                    MemberFileRow["InActive"] = 0;
+                    MemberFileRow["Description"] = "";
+                    MemberFileRow["UserId"] = Utility.GetCurrentUser_UserId();
+                    MemberFileRow["ModifiedDate"] = DateTime.Now;
+
+                    DocMemberFileManager.AddRow(MemberFileRow);
+                    int cn = DocMemberFileManager.Save();
+                    DocMemberFileManager.DataTable.AcceptChanges();
+                    if (cn > 0)
+                    {
+
+                        int TableId = int.Parse(DocMemberFileManager[0]["MfId"].ToString());
+                        int TaskCode = (int)TSP.DataManager.WorkFlowTask.SaveImplementDocInfo;
+                        int MeId = Utility.GetCurrentUser_MeId();
+                        int WfStart = WorkFlowStateManager.StartWorkFlow(TableId, TaskCode, MeId, Utility.GetCurrentUser_UserId(), 1);
+                        if (WfStart > 0)
+                        {
+                            TransactionManager.EndSave();
+                            Response.Redirect("AddImplementDoc.aspx?MfId=" + Utility.EncryptQS(DocMemberFileManager[0]["MfId"].ToString()) + "&PgMd=" + Utility.EncryptQS("Edit"));
+                        }
+                        else
+                        {
+                            TransactionManager.CancelSave();
+                            this.DivReport.Visible = true;
+                            this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است.";
+                        }
+                    }
+                    else
+                    {
+                        TransactionManager.CancelSave();
+                        this.DivReport.Visible = true;
+                        this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+                    }
+                }
+                else
+                {
+                    TransactionManager.CancelSave();
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+                }
+            }
+            else
+            {
+                TransactionManager.CancelSave();
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "جهت دریافت مجوز مجری حقیقی دارا بودن پروانه اشتغال به کار الزامی است.";
+            }           
+        }
+        catch (Exception err)
+        {
+            TransactionManager.CancelSave();
+            SetError(err);
+        }
+    }
+
+    private void SetError(Exception err)
+    {
+        if (err.GetType() == typeof(System.Data.SqlClient.SqlException))
+        {
+            System.Data.SqlClient.SqlException se = (System.Data.SqlClient.SqlException)err;
+            if (se.Number == 2601)
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "اطلاعات تکراری می باشد";
+            }
+            else
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+            }
+        }
+        else
+        {
+            this.DivReport.Visible = true;
+            this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+        }
+    }
+}

@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://esup.shiraz.ir/EngineerToOther/srvEngineerToOthers.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/Biz.Engineering" />
+  <xs:import schemaLocation="http://esup.shiraz.ir/EngineerToOther/srvEngineerToOthers.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/WCF.EngineerToOthers" />
+  <xs:import schemaLocation="http://esup.shiraz.ir/EngineerToOther/srvEngineerToOthers.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/Biz.Error" />
+  <xs:import schemaLocation="http://esup.shiraz.ir/EngineerToOther/srvEngineerToOthers.svc?xsd=xsd9" namespace="http://schemas.datacontract.org/2004/07/Biz.Engineering.EngineerClass" />
+  <xs:import schemaLocation="http://esup.shiraz.ir/EngineerToOther/srvEngineerToOthers.svc?xsd=xsd6" namespace="http://schemas.datacontract.org/2004/07/DtoSC" />
+  <xs:import schemaLocation="http://esup.shiraz.ir/EngineerToOther/srvEngineerToOthers.svc?xsd=xsd7" namespace="http://schemas.datacontract.org/2004/07/BIZ.SA" />
+  <xs:import schemaLocation="http://esup.shiraz.ir/EngineerToOther/srvEngineerToOthers.svc?xsd=xsd8" namespace="http://schemas.datacontract.org/2004/07/DataAccess.Engineers" />
+  <xs:import schemaLocation="http://esup.shiraz.ir/EngineerToOther/srvEngineerToOthers.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:element name="GetEngInfoForRxportFiche">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="pNidWorkItem" type="xs:long" />
+        <xs:element minOccurs="0" name="pCode" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetEngInfoForRxportFicheResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/Biz.Engineering" minOccurs="0" name="GetEngInfoForRxportFicheResult" nillable="true" type="q1:ClsExportFicheInOtherServices" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCodeInformation">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="pCodeString" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pNidWorkItem" type="xs:long" />
+        <xs:element minOccurs="0" name="pCode" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetCodeInformationResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/WCF.EngineerToOthers" minOccurs="0" name="GetCodeInformationResult" nillable="true" type="q2:ClsCodeInformation" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SaveRefToEngineer">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="pCodeString" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pNidWorkItem" type="xs:long" />
+        <xs:element minOccurs="0" name="EngineerCode" nillable="true" type="xs:string" />
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/WCF.EngineerToOthers" minOccurs="0" name="pReferFile" nillable="true" type="q3:ClsReferFile" />
+        <xs:element minOccurs="0" name="pCode" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SaveRefToEngineerResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/Biz.Error" minOccurs="0" name="SaveRefToEngineerResult" nillable="true" type="q4:ClsErrorResult" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllReferToEngineer">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="pCodeString" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pNidWorkItem" type="xs:long" />
+        <xs:element minOccurs="0" name="pCode" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllReferToEngineerResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/WCF.EngineerToOthers" minOccurs="0" name="GetAllReferToEngineerResult" nillable="true" type="q5:ClsAllReferToEngineer" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetEngInfo_InEngineerCode">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="pEngineerCode" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pCode" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetEngInfo_InEngineerCodeResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/Biz.Engineering.EngineerClass" minOccurs="0" name="GetEngInfo_InEngineerCodeResult" nillable="true" type="q6:ClsEngineer" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsertEngineerList">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="pDistrict" type="xs:int" />
+        <xs:element minOccurs="0" name="pNidWorkItem" type="xs:long" />
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/DtoSC" minOccurs="0" name="pEngList" nillable="true" type="q7:ArrayOfBase_ControllerInfo" />
+        <xs:element minOccurs="0" name="pCode" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsertEngineerListResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/BIZ.SA" minOccurs="0" name="InsertEngineerListResult" nillable="true" type="q8:ClsErrorResult" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsertEngineerList2">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="pNidWorkItem" type="xs:long" />
+        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/DataAccess.Engineers" minOccurs="0" name="pEngList" nillable="true" type="q9:ArrayOfRef_Info" />
+        <xs:element minOccurs="0" name="pCode" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="InsertEngineerList2Response">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/Biz.Error" minOccurs="0" name="InsertEngineerList2Result" nillable="true" type="q10:ClsErrorResult" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SaveFill_Info">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="pCode" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pNidWorkItem" type="xs:long" />
+        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/DataAccess.Engineers" minOccurs="0" name="pFilInfo" nillable="true" type="q11:Fil_Info" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SaveFill_InfoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/DataAccess.Engineers" minOccurs="0" name="SaveFill_InfoResult" nillable="true" type="q12:Fil_Info" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SaveRef_Info">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="pCode" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pNidWorkItem" type="xs:long" />
+        <xs:element minOccurs="0" name="pIdentityCode" nillable="true" type="xs:string" />
+        <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/DataAccess.Engineers" minOccurs="0" name="pRefInfo" nillable="true" type="q13:Ref_Info" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SaveRef_InfoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q14="http://schemas.datacontract.org/2004/07/DataAccess.Engineers" minOccurs="0" name="SaveRef_InfoResult" nillable="true" type="q14:Ref_Info" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SaveEng_Info">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="pCode" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pIdentityCode" nillable="true" type="xs:string" />
+        <xs:element xmlns:q15="http://schemas.datacontract.org/2004/07/Biz.Engineering.EngineerClass" minOccurs="0" name="pEngineerInfo" nillable="true" type="q15:ClsEngineer" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SaveEng_InfoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q16="http://schemas.datacontract.org/2004/07/Biz.Engineering.EngineerClass" minOccurs="0" name="SaveEng_InfoResult" nillable="true" type="q16:ClsEngineer" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SaveEng_Competence">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="pCode" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pIdentityCode" nillable="true" type="xs:string" />
+        <xs:element xmlns:q17="http://schemas.datacontract.org/2004/07/DataAccess.Engineers" minOccurs="0" name="pListEng_Competence" nillable="true" type="q17:ArrayOfEng_Competence" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SaveEng_CompetenceResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q18="http://schemas.datacontract.org/2004/07/DataAccess.Engineers" minOccurs="0" name="SaveEng_CompetenceResult" nillable="true" type="q18:ArrayOfEng_Competence" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SaveEng_JobAgreement">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="pCode" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pIdentityCode" nillable="true" type="xs:string" />
+        <xs:element xmlns:q19="http://schemas.datacontract.org/2004/07/DataAccess.Engineers" minOccurs="0" name="pEng_JobAgreement" nillable="true" type="q19:Eng_JobAgreement" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SaveEng_JobAgreementResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q20="http://schemas.datacontract.org/2004/07/DataAccess.Engineers" minOccurs="0" name="SaveEng_JobAgreementResult" nillable="true" type="q20:Eng_JobAgreement" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SaveEng_Picture">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="pCode" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pIdentityCode" nillable="true" type="xs:string" />
+        <xs:element xmlns:q21="http://schemas.datacontract.org/2004/07/DataAccess.Engineers" minOccurs="0" name="pEng_Picture" nillable="true" type="q21:Eng_Picture" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SaveEng_PictureResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q22="http://schemas.datacontract.org/2004/07/DataAccess.Engineers" minOccurs="0" name="SaveEng_PictureResult" nillable="true" type="q22:Eng_Picture" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RemoveRefToEngineer">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="pCodeString" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pNidWorkItem" type="xs:long" />
+        <xs:element minOccurs="0" name="pEngineerCode" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pCode" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pCI_Ability" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="RemoveRefToEngineerResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q23="http://schemas.datacontract.org/2004/07/Biz.Error" minOccurs="0" name="RemoveRefToEngineerResult" nillable="true" type="q23:ClsErrorResult" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetBuildingExecRep_Info_Main">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="pEngineerCode" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pNidWorkItem" type="xs:long" />
+        <xs:element minOccurs="0" name="pCode" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetBuildingExecRep_Info_MainResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q24="http://schemas.datacontract.org/2004/07/DataAccess.Engineers" minOccurs="0" name="GetBuildingExecRep_Info_MainResult" nillable="true" type="q24:BuildingExecRep_Info_Main" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetBuildingExecRep_Detail_Main">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q25="http://schemas.microsoft.com/2003/10/Serialization/" minOccurs="0" name="pNIdBuildingExecRep" type="q25:guid" />
+        <xs:element minOccurs="0" name="pCode" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetBuildingExecRep_Detail_MainResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q26="http://schemas.datacontract.org/2004/07/DataAccess.Engineers" minOccurs="0" name="GetBuildingExecRep_Detail_MainResult" nillable="true" type="q26:BuildingExecRep_Detail_Main" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SaveQtaInfo">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="pCode" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pIdentityCode" nillable="true" type="xs:string" />
+        <xs:element xmlns:q27="http://schemas.datacontract.org/2004/07/Biz.Engineering" minOccurs="0" name="pQtaInputs" nillable="true" type="q27:ArrayOfClsQtaInputs" />
+        <xs:element minOccurs="0" name="pCI_City" type="xs:short" />
+        <xs:element minOccurs="0" name="pYear" type="xs:short" />
+        <xs:element minOccurs="0" name="pType" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SaveQtaInfoResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q28="http://schemas.datacontract.org/2004/07/Biz.Error" minOccurs="0" name="SaveQtaInfoResult" nillable="true" type="q28:ClsErrorResult" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

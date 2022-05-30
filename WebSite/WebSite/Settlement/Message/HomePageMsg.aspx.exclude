@@ -1,0 +1,4 @@
+﻿<%@ Page Language="C#" MasterPageFile="~/Settlement/Message/SettlmentMaster.master" AutoEventWireup="true" CodeFile="HomePageMsg.aspx.cs" Inherits="Settlement_Message_HomePageMsg" Title="مدیریت پیام ها" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+</asp:Content>
+

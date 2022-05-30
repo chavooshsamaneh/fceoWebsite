@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="NezamFars" Class="DataClassesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=TSP-SERVER;Initial Catalog=NezamFars;Persist Security Info=True;User ID=tspadmin" SettingsObjectName="TSP.DataManager.Properties.Settings" SettingsPropertyName="NezamFarsConnectionString2" Provider="System.Data.SqlClient" />
+  <Function Name="dbo.ReportMemberWithoutDocByMajor" Method="ReportMemberWithoutDocByMajor">
+    <Parameter Name="SexIdFemale" Parameter="sexIdFemale" Type="System.Int32" DbType="Int" />
+    <Parameter Name="SexIdmale" Parameter="sexIdmale" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Memari" Parameter="memari" Type="System.Int32" DbType="Int" />
+    <Parameter Name="shahrsazi" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Omran" Parameter="omran" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Mechanic" Parameter="mechanic" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Bargh" Parameter="bargh" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Naghshebardari" Parameter="naghshebardari" Type="System.Int32" DbType="Int" />
+    <Parameter Name="traffic" Type="System.Int32" DbType="Int" />
+    <ElementType Name="ReportMemberWithoutDocByMajorResult">
+      <Column Name="MemariFemale" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MemariMale" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ShahrsaziFemale" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="ShahrsaziMale" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="OmranFemal" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="OmranMale" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MechanicFemale" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MechanicMale" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BarchFemale" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BarghMale" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="NaghshebardariFemale" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="NaghshebardariMale" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TerafficeFemale" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="TerafficMale" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.ReportMemberWithDocByMajor" Method="ReportMemberWithDocByMajor">
+    <Parameter Name="TableTypeMajor" Parameter="tableTypeMajor" Type="System.Int32" DbType="Int" />
+    <Parameter Name="TableType" Parameter="tableType" Type="System.Int32" DbType="Int" />
+    <Parameter Name="SexId" Parameter="sexId" Type="System.Int32" DbType="Int" />
+    <Parameter Name="GrdId3" Parameter="grdId3" Type="System.Int32" DbType="Int" />
+    <Parameter Name="GrdId2" Parameter="grdId2" Type="System.Int32" DbType="Int" />
+    <Parameter Name="GrdId1" Parameter="grdId1" Type="System.Int32" DbType="Int" />
+    <Parameter Name="GrdIdArshad" Parameter="grdIdArshad" Type="System.Int32" DbType="Int" />
+    <Parameter Name="MjParentId" Parameter="mjParentId" Type="System.Int32" DbType="Int" />
+    <ElementType Name="ReportMemberWithDocByMajorResult">
+      <Column Name="LinkedMajor3" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MaindMajor3" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="LinkedMajor2" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MaindMajor2" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="LinkedMajor1" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="MaindMajor1" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+</Database>

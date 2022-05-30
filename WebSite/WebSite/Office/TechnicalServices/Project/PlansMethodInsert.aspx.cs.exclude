@@ -1,0 +1,180 @@
+﻿using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+using DevExpress.Web;
+using System.IO;
+
+public partial class Office_TechnicalServices_Project_PlansMethodInsert : System.Web.UI.Page
+{
+    string PageMode;
+    string ProjectId;
+    string PrjReId;
+    string PlansMethodId;
+
+    bool IsPageRefresh = false;
+
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        this.DivReport.Attributes.Add("onclick", "ChangeVisible(this)");
+        this.DivReport.Attributes.Add("onmouseover", "ChangeIcon(this)");
+        this.DivReport.Visible = false;
+
+        if (!IsPostBack)
+        {
+            ViewState["postids"] = System.Guid.NewGuid().ToString();
+            Session["postid"] = ViewState["postids"].ToString();
+        }
+        else
+        {
+            if (!IsCallback && Session["postid"] != null)
+            {
+                if (ViewState["postids"].ToString() != Session["postid"].ToString()) { IsPageRefresh = true; }
+                Session["postid"] = System.Guid.NewGuid().ToString(); ViewState["postids"] = Session["postid"];
+            }
+        }
+
+        if (!IsPostBack)
+        {
+            if ((string.IsNullOrEmpty(Request.QueryString["ProjectId"])) || (string.IsNullOrEmpty(Request.QueryString["PrjReId"])))
+            {
+                Response.Redirect("Project.aspx");
+                return;
+            }
+
+            if ((string.IsNullOrEmpty(Request.QueryString["PageMode"])) || (string.IsNullOrEmpty(Request.QueryString["PlansMethodId"])))
+            {
+                Response.Redirect("PlansMethod.aspx?ProjectId=" + Server.HtmlDecode(Request.QueryString["ProjectId"]) + "&PrjReId=" + Server.HtmlDecode(Request.QueryString["PrjReId"]));
+                return;
+            }
+
+            SetKeys();
+
+        }
+    }
+
+    protected void btnBack_Click(object sender, EventArgs e)
+    {
+        string Qs = "ProjectId=" + PkProjectId.Value + "&PrjReId=" + PkPrjReId.Value + "&PageMode=" + MPgMode.Value;
+        Response.Redirect("PlansMethod.aspx?" + Qs);
+    }
+
+    /*************************************************************************************************************/
+    private void SetKeys()
+    {
+        try
+        {
+            MPgMode.Value = Server.HtmlDecode(Request.QueryString["MPgMode"].ToString());
+            PgMode.Value = Server.HtmlDecode(Request.QueryString["PageMode"].ToString());
+            PkProjectId.Value = Server.HtmlDecode(Request.QueryString["ProjectId"]).ToString();
+            PkPlansMethodId.Value = Server.HtmlDecode(Request.QueryString["PlansMethodId"]).ToString();
+            PkPrjReId.Value = Server.HtmlDecode(Request.QueryString["PrjReId"]).ToString();
+        }
+        catch
+        {
+            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+            return;
+        }
+
+        PageMode = Utility.DecryptQS(PgMode.Value);
+        PrjReId = Utility.DecryptQS(PkPrjReId.Value);
+
+        if (string.IsNullOrEmpty(PageMode))
+        {
+            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+            return;
+        }
+
+        SetMode();
+    }
+
+    private void SetMode()
+    {
+        PageMode = Utility.DecryptQS(PgMode.Value);
+
+        if (string.IsNullOrEmpty(PageMode))
+        {
+            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+            return;
+        }
+
+        switch (PageMode)
+        {
+            case "View":
+                SetViewModeKeys();
+                break;
+        }
+    }
+
+    private void SetViewModeKeys()
+    {
+        ASPxTextBoxPlansMethodNo.ReadOnly = true;
+        PlansMethodDate.ReadOnly = true;
+        ASPxTextBoxTarakom.ReadOnly = true;
+        ASPxTextBoxEshghalSurface.ReadOnly = true;
+        ASPxComboBoxStructureBuiltPlace.ReadOnly = true;
+        ASPxTextBoxAllowableHeight.ReadOnly = true;
+        ASPxTextBoxCommercialLimitation.ReadOnly = true;
+        ASPxTextBoxBlockNum.ReadOnly = true;
+        ASPxTextBoxLocationCriterion.ReadOnly = true;
+        ASPxTextBoxMantelet.ReadOnly = true;
+
+        SetValues();
+
+        ASPxRoundPanel2.HeaderText = "مشاهده";
+    }
+
+    private void SetValues()
+    {
+        PlansMethodId = Utility.DecryptQS(PkPlansMethodId.Value);
+
+        if ((string.IsNullOrEmpty(PlansMethodId)))
+        {
+            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+            return;
+        }
+
+        TSP.DataManager.TechnicalServices.PlansMethodManager Manager = new TSP.DataManager.TechnicalServices.PlansMethodManager();
+        TSP.DataManager.TechnicalServices.AttachmentsManager AttachmentsManager = new TSP.DataManager.TechnicalServices.AttachmentsManager();
+
+        Manager.FindByPlansMethodId(int.Parse(PlansMethodId));
+        if (Manager.Count == 1)
+        {
+            ASPxTextBoxPlansMethodNo.Text = Manager[0]["PlansMethodNo"].ToString();
+            PlansMethodDate.Text = Manager[0]["RegisteredDate"].ToString();
+            ASPxTextBoxTarakom.Text = Manager[0]["Tarakom"].ToString();
+            ASPxTextBoxEshghalSurface.Text = Manager[0]["EshghalSurface"].ToString();
+            ASPxComboBoxStructureBuiltPlace.DataBind();
+            ASPxComboBoxStructureBuiltPlace.SelectedIndex = ASPxComboBoxStructureBuiltPlace.Items.IndexOfValue(Manager[0]["StructureBuiltPlaceId"]);
+            ASPxTextBoxAllowableHeight.Text = Manager[0]["AllowableHeight"].ToString();
+            ASPxTextBoxCommercialLimitation.Text = Manager[0]["CommercialLimitation"].ToString();
+            ASPxTextBoxBlockNum.Text = Manager[0]["BlockNum"].ToString();
+            ASPxTextBoxLocationCriterion.Text = Manager[0]["LocationCriterion"].ToString();
+            ASPxTextBoxMantelet.Text = Manager[0]["Mantelet"].ToString();
+
+            AttachmentsManager.FindByTableTypeId(Convert.ToInt32(PlansMethodId), (int)TSP.DataManager.TableCodes.TSPlansMethod, (int)TSP.DataManager.TSAttachType.PlansMethod);
+            if (AttachmentsManager.Count > 0)
+            {
+                ASPxHyperLinkPlansMethod.ClientVisible = true;
+                ASPxHyperLinkPlansMethod.NavigateUrl = AttachmentsManager[0]["FilePath"].ToString();
+                ASPxHyperLinkPlansMethod.Text = AttachmentsManager[0]["FileName"].ToString();
+                ASPxHiddenFieldPlansMethod["name"] = 1;
+            }
+        }
+        else
+        {
+            this.DivReport.Visible = true;
+            this.LabelWarning.Text = "چنین رکوردی وجود ندارد";
+        }
+    }
+    
+}

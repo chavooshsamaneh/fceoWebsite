@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="GetSumDebt">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="memCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSumDebtResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetSumDebtResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AuthSoapHd" type="tns:AuthSoapHd" />
+      <s:complexType name="AuthSoapHd">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="strUserName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strPassword" type="s:string" />
+        </s:sequence>
+        <s:anyAttribute />
+      </s:complexType>
+      <s:element name="AddPayment">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="memCode" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="firstName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="lastName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="amount" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="paymentId" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="PaymentDate" type="s:dateTime" />
+            <s:element minOccurs="0" maxOccurs="1" name="refId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AddPaymentResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AddPaymentResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdatePayment">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="id" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdatePaymentResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UpdatePaymentResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetSumDebtSoapIn">
+    <wsdl:part name="parameters" element="tns:GetSumDebt" />
+  </wsdl:message>
+  <wsdl:message name="GetSumDebtSoapOut">
+    <wsdl:part name="parameters" element="tns:GetSumDebtResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetSumDebtAuthSoapHd">
+    <wsdl:part name="AuthSoapHd" element="tns:AuthSoapHd" />
+  </wsdl:message>
+  <wsdl:message name="AddPaymentSoapIn">
+    <wsdl:part name="parameters" element="tns:AddPayment" />
+  </wsdl:message>
+  <wsdl:message name="AddPaymentSoapOut">
+    <wsdl:part name="parameters" element="tns:AddPaymentResponse" />
+  </wsdl:message>
+  <wsdl:message name="AddPaymentAuthSoapHd">
+    <wsdl:part name="AuthSoapHd" element="tns:AuthSoapHd" />
+  </wsdl:message>
+  <wsdl:message name="UpdatePaymentSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdatePayment" />
+  </wsdl:message>
+  <wsdl:message name="UpdatePaymentSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdatePaymentResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdatePaymentAuthSoapHd">
+    <wsdl:part name="AuthSoapHd" element="tns:AuthSoapHd" />
+  </wsdl:message>
+  <wsdl:portType name="CheckOfflineDebtSoap">
+    <wsdl:operation name="GetSumDebt">
+      <wsdl:input message="tns:GetSumDebtSoapIn" />
+      <wsdl:output message="tns:GetSumDebtSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AddPayment">
+      <wsdl:input message="tns:AddPaymentSoapIn" />
+      <wsdl:output message="tns:AddPaymentSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePayment">
+      <wsdl:input message="tns:UpdatePaymentSoapIn" />
+      <wsdl:output message="tns:UpdatePaymentSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="CheckOfflineDebtSoap" type="tns:CheckOfflineDebtSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetSumDebt">
+      <soap:operation soapAction="http://tempuri.org/GetSumDebt" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetSumDebtAuthSoapHd" part="AuthSoapHd" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddPayment">
+      <soap:operation soapAction="http://tempuri.org/AddPayment" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:AddPaymentAuthSoapHd" part="AuthSoapHd" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePayment">
+      <soap:operation soapAction="http://tempuri.org/UpdatePayment" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:UpdatePaymentAuthSoapHd" part="AuthSoapHd" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="CheckOfflineDebtSoap12" type="tns:CheckOfflineDebtSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetSumDebt">
+      <soap12:operation soapAction="http://tempuri.org/GetSumDebt" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetSumDebtAuthSoapHd" part="AuthSoapHd" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddPayment">
+      <soap12:operation soapAction="http://tempuri.org/AddPayment" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:AddPaymentAuthSoapHd" part="AuthSoapHd" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdatePayment">
+      <soap12:operation soapAction="http://tempuri.org/UpdatePayment" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:UpdatePaymentAuthSoapHd" part="AuthSoapHd" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="CheckOfflineDebt">
+    <wsdl:port name="CheckOfflineDebtSoap" binding="tns:CheckOfflineDebtSoap">
+      <soap:address location="http://193.19.144.250:8092/CheckOfflineDebt.asmx" />
+    </wsdl:port>
+    <wsdl:port name="CheckOfflineDebtSoap12" binding="tns:CheckOfflineDebtSoap12">
+      <soap12:address location="http://193.19.144.250:8092/CheckOfflineDebt.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

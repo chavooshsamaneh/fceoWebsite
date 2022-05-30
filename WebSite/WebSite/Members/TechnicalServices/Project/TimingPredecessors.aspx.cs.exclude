@@ -1,0 +1,252 @@
+﻿using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+
+public partial class Members_TechnicalServices_Project_TimingPredecessors : System.Web.UI.Page
+{
+    Boolean IsPageRefresh = false;
+
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        this.DivReport.Visible = false;
+        this.DivReport.Attributes.Add("onclick", "ChangeVisible(this)");
+        this.DivReport.Attributes.Add("onmouseover", "ChangeIcon(this)");
+
+        if (!IsPostBack)
+        {
+            ViewState["postids"] = System.Guid.NewGuid().ToString();
+            Session["postid"] = ViewState["postids"].ToString();
+        }
+        else
+        {
+            if (!IsCallback && Session["postid"] != null)
+            {
+                if (ViewState["postids"].ToString() != Session["postid"].ToString()) { IsPageRefresh = true; }
+                Session["postid"] = System.Guid.NewGuid().ToString(); ViewState["postids"] = Session["postid"];
+            }
+        }
+        if (!IsPostBack)
+        {
+
+            try
+            {
+                PgMode.Value = Server.HtmlDecode(Request.QueryString["PageMode2"].ToString());
+                HDProjectId.Value = Server.HtmlDecode(Request.QueryString["ProjectId"]).ToString();
+                HDTimingId.Value = Server.HtmlDecode(Request.QueryString["TimingId"]).ToString();
+                RequestId.Value = Server.HtmlDecode(Request.QueryString["PrjReId"]).ToString();
+                HDTimingItemStatusId.Value = Server.HtmlDecode(Request.QueryString["ItemStatusId"]).ToString();
+
+
+            }
+            catch
+            {
+                this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+                return;
+            }
+
+            string ProjectId = Utility.DecryptQS(HDProjectId.Value);
+            string TimingId = Utility.DecryptQS(HDTimingId.Value);
+            string TimingItemStatusId = Utility.DecryptQS(HDTimingItemStatusId.Value);
+
+
+            if (string.IsNullOrEmpty(TimingItemStatusId) || string.IsNullOrEmpty(ProjectId))
+            {
+                this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+                return;
+            }
+
+            //ObjectDataSource1.SelectParameters[0].DefaultValue = TimingItemStatusId;
+            ObjectDataSourceItems.FilterParameters[0].DefaultValue = TimingItemStatusId;
+
+            Session["TimingPredecessorsManager"] = null;
+            Session["TimingPredecessorsManager"] = CreateTimingPredecessorsManager();
+
+            FillGrid();
+            CustomAspxDevGridView1.Columns[4].Visible = false;
+
+            if (Session["ImpManager"] == null)
+            {
+                TSP.DataManager.TechnicalServices.Project_ImplementerManager ImpManager = new TSP.DataManager.TechnicalServices.Project_ImplementerManager();
+                ImpManager.FindImpMother(int.Parse(ProjectId));
+                Session["ImpManager"] = ImpManager;
+            }
+        }
+        TSP.DataManager.TechnicalServices.Project_ImplementerManager ImpManager2 = Session["ImpManager"] as TSP.DataManager.TechnicalServices.Project_ImplementerManager;
+        if (ImpManager2 == null && !IsCallback)
+        {
+
+            Response.Redirect("Project.aspx");
+        }
+        if (ImpManager2.Count > 0)
+        {
+            int MeId = int.Parse(ImpManager2[0]["MeOfficeId"].ToString());
+            int MemberTypeId = int.Parse(ImpManager2[0]["MemberTypeId"].ToString());
+            if (MeId == Utility.GetCurrentUser_MeId() && MemberTypeId == Utility.GetCurrentUser_LoginType())
+            {
+                ASPxRoundPanelPre.Visible = true;
+                CustomAspxDevGridView1.Columns[4].Visible = true;
+                btnSave.Visible = true;
+                btnSave2.Visible = true;
+
+            }
+        }
+
+
+    }
+    protected void btnBack_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("TimingInsert.aspx?ProjectId=" + HDProjectId.Value + "&TimingId=" + HDTimingId.Value + "&PageMode2=" + PgMode.Value + "&PageMode=" + Request.QueryString["PageMode"] + "&PrjReId=" + RequestId.Value + "&ContractId=" + Request.QueryString["ContractId"]);
+
+    }
+  
+    protected void btnSave_Click(object sender, EventArgs e)
+    {
+        Insert();
+    }
+    protected void btnAdd_Click(object sender, EventArgs e)
+    {
+        for (int i = 0; i < CustomAspxDevGridView1.VisibleRowCount; i++)
+        {
+            if (CmbTitle.Value != null)
+            {
+                FillGrid();
+                DataRowView dr = (DataRowView)CustomAspxDevGridView1.GetRow(i);
+                if (CmbTitle.SelectedItem.Text == dr["Title"].ToString())
+                {
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "عنوان مورد نظر تکراری می باشد";
+                    return;
+ 
+                }
+            }
+            else
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "عنوان را انتخاب نمایید";
+                return;
+            }
+        }
+        RowInserting();
+       
+    }
+    private TSP.DataManager.TechnicalServices.TimingPredecessorsManager CreateTimingPredecessorsManager()
+    {
+        TSP.DataManager.TechnicalServices.TimingPredecessorsManager manager = new TSP.DataManager.TechnicalServices.TimingPredecessorsManager();
+        return manager;
+    }   
+    private void FillGrid()
+    {
+        TSP.DataManager.TechnicalServices.TimingPredecessorsManager manager = (TSP.DataManager.TechnicalServices.TimingPredecessorsManager)Session["TimingPredecessorsManager"];
+        int TimingItemStatusId = int.Parse(Utility.DecryptQS(HDTimingItemStatusId.Value));
+        CustomAspxDevGridView1.DataSource = manager.FindByTimingItemsStatusId(TimingItemStatusId);
+        CustomAspxDevGridView1.DataBind();
+    }
+    private void RowInserting()
+    {
+        TSP.DataManager.TechnicalServices.TimingPredecessorsManager manager = (TSP.DataManager.TechnicalServices.TimingPredecessorsManager)Session["TimingPredecessorsManager"];
+
+        DataRow dr = manager.NewRow();
+
+        dr.BeginEdit();
+        dr["TimingItemsStatusId"] = Utility.DecryptQS(HDTimingItemStatusId.Value);
+        dr["PreTimingItemsStatusId"] = CmbTitle.Value;
+        dr["Title"] = CmbTitle.SelectedItem.Text;
+
+        if (CmbType.Value != null)
+        {
+            dr["Type"] = CmbType.Value;
+            dr["TypeName"] = CmbType.SelectedItem.Text;
+        }
+        else
+            dr["Type"] = DBNull.Value;
+        if (!string.IsNullOrEmpty(txtDay.Text))
+            dr["LagDuration"] = txtDay.Value;
+        else
+            dr["LagDuration"] = DBNull.Value;
+        dr["CreateDate"] = Utility.GetDateOfToday();
+        dr["UserId"] = Utility.GetCurrentUser_UserId();
+        dr["ModifiedDate"] = DateTime.Now;
+
+        dr.EndEdit();
+        manager.AddRow(dr);
+
+        CustomAspxDevGridView1.DataSource = manager.DataTable;
+        CustomAspxDevGridView1.DataBind();
+        Clear();
+    }
+    private void Clear()
+    {
+        CmbType.DataBind();
+        CmbType.SelectedIndex = -1;
+        CmbTitle.DataBind();
+        CmbTitle.SelectedIndex = -1;
+        txtDay.Text = "";
+      
+    }
+    protected void Insert()
+    {
+        if (IsPageRefresh)
+            return;
+
+        TSP.DataManager.TechnicalServices.TimingPredecessorsManager manager = (TSP.DataManager.TechnicalServices.TimingPredecessorsManager)Session["TimingPredecessorsManager"];
+        try
+        {
+            if (manager.Save() > 0)
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "ذخیره انجام شد";
+                FillGrid();
+            }
+            else
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+            }
+        }
+        catch (Exception err)
+        {
+           
+            if (err.GetType() == typeof(System.Data.SqlClient.SqlException))
+            {
+                System.Data.SqlClient.SqlException se = (System.Data.SqlClient.SqlException)err;
+                if (se.Number == 2601)
+                {
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "اطلاعات تکراری می باشد";
+                }
+                else
+                {
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+                }
+            }
+            else
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+            }
+        }
+    }
+    protected void CustomAspxDevGridView1_RowDeleting(object sender, DevExpress.Web.Data.ASPxDataDeletingEventArgs e)
+    {
+        TSP.DataManager.TechnicalServices.TimingPredecessorsManager TimingPredecessorsManager = (TSP.DataManager.TechnicalServices.TimingPredecessorsManager)Session["TimingPredecessorsManager"];
+
+        DataRow dr = TimingPredecessorsManager.DataTable.Rows.Find(e.Keys["PredecessorId"]);
+        dr.Delete();
+
+        e.Cancel = true;
+
+        CustomAspxDevGridView1.CancelEdit();
+
+        CustomAspxDevGridView1.DataSource = TimingPredecessorsManager.DataTable;
+        CustomAspxDevGridView1.DataBind();
+    }
+}

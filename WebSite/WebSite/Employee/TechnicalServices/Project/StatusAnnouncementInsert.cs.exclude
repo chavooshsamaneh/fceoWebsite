@@ -1,0 +1,874 @@
+﻿using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+
+public partial class Employee_TechnicalServices_Project_StatusAnnouncementInsert : System.Web.UI.Page
+{
+    string PageMode;
+    string ProjectId;
+    string PrjReId;
+
+    bool IsPageRefresh = false;
+
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        this.DivReport.Attributes.Add("onclick", "ChangeVisible(this)");
+        this.DivReport.Attributes.Add("onmouseover", "ChangeIcon(this)");
+        this.DivReport.Visible = false;
+
+        if (!IsPostBack)
+        {
+            ViewState["postids"] = System.Guid.NewGuid().ToString();
+            Session["postid"] = ViewState["postids"].ToString();
+        }
+        else
+        {
+            if (!IsCallback && Session["postid"] != null)
+            {
+                if (ViewState["postids"].ToString() != Session["postid"].ToString()) { IsPageRefresh = true; }
+                Session["postid"] = System.Guid.NewGuid().ToString(); ViewState["postids"] = Session["postid"];
+            }
+        }
+
+        if (!IsPostBack)
+        {
+            TSP.DataManager.Permission per = TSP.DataManager.TechnicalServices.ProjectRequestManager.GetUserPermission(Utility.GetCurrentUser_UserId(), (TSP.DataManager.UserType)Utility.GetCurrentUser_LoginType());
+            btnEdit.Enabled = per.CanEdit;
+            btnEdit2.Enabled = per.CanEdit;
+            btnNew.Enabled = per.CanNew;
+            btnNew2.Enabled = per.CanNew;
+            btnSave.Enabled = per.CanEdit || per.CanNew;
+            btnSave2.Enabled = per.CanEdit || per.CanNew;
+
+            if ((string.IsNullOrEmpty(Request.QueryString["MPageMode"])) || (string.IsNullOrEmpty(Request.QueryString["ProjectId"])) || (string.IsNullOrEmpty(Request.QueryString["MPrjReId"])))
+            {
+                Response.Redirect("Project.aspx");
+                return;
+            }
+
+            if ((string.IsNullOrEmpty(Request.QueryString["PageMode"])) || (string.IsNullOrEmpty(Request.QueryString["PrjReId"])) || (!per.CanView && Utility.DecryptQS(Server.HtmlDecode(Request.QueryString["PageMode"].ToString())) != "New"))
+            {
+                Response.Redirect("StatusAnnouncement.aspx?ProjectId=" + Server.HtmlDecode(Request.QueryString["ProjectId"]) + "&PrjReId=" + Server.HtmlDecode(Request.QueryString["MPrjReId"]) + "&PageMode=" + Server.HtmlDecode(Request.QueryString["MPageMode"]));
+                return;
+            }
+
+            SetKeys();
+
+            this.ViewState["BtnSave"] = btnSave.Enabled;
+            this.ViewState["BtnEdit"] = btnEdit.Enabled;
+            this.ViewState["BtnNew"] = btnNew.Enabled;
+
+        }
+        if (this.ViewState["BtnSave"] != null)
+            this.btnSave.Enabled = this.btnSave2.Enabled = (bool)this.ViewState["BtnSave"];
+        if (this.ViewState["BtnEdit"] != null)
+            this.btnEdit.Enabled = this.btnEdit2.Enabled = (bool)this.ViewState["BtnEdit"];
+        if (this.ViewState["BtnNew"] != null)
+            this.btnNew.Enabled = this.btnNew2.Enabled = (bool)this.ViewState["BtnNew"];
+    }
+
+    protected void btnNew_Click(object sender, EventArgs e)
+    {
+        PgMode.Value = Utility.EncryptQS("New");
+        SetNewModeKeys();
+    }
+
+    protected void btnEdit_Click(object sender, EventArgs e)
+    {
+        PgMode.Value = Utility.EncryptQS("Edit");
+        SetControlsEditMode();
+    }
+
+    protected void btnSave_Click(object sender, EventArgs e)
+    {
+        PageMode = Utility.DecryptQS(PgMode.Value);
+        switch (PageMode)
+        {
+            case "New":
+                Insert();
+                break;
+            case "Edit":
+                Update();
+                break;
+        }
+    }
+
+    protected void btnBack_Click(object sender, EventArgs e)
+    {
+        string GrdFlt = Request.QueryString["GrdFlt"].ToString();
+        string SrchFlt = Request.QueryString["SrchFlt"].ToString();
+        string Qs = "ProjectId=" + PkProjectId.Value
+            + "&PrjReId=" + PkMPrjReId.Value + "&PageMode=" + MPgMode.Value
+              + "&GrdFlt=" + GrdFlt + "&SrchFlt=" + SrchFlt;
+        Response.Redirect("StatusAnnouncement.aspx?" + Qs);
+    }
+
+    /**********************************************************************************************************************************/
+    private void SetKeys()
+    {
+        try
+        {
+            MPgMode.Value = Server.HtmlDecode(Request.QueryString["MPageMode"].ToString());
+            PgMode.Value = Server.HtmlDecode(Request.QueryString["PageMode"].ToString());
+            PkProjectId.Value = Server.HtmlDecode(Request.QueryString["ProjectId"]).ToString();
+            PkMPrjReId.Value = Server.HtmlDecode(Request.QueryString["MPrjReId"]).ToString();
+            PkPrjReId.Value = Server.HtmlDecode(Request.QueryString["PrjReId"]).ToString();
+
+            PageMode = Utility.DecryptQS(PgMode.Value);
+            PrjReId = Utility.DecryptQS(PkPrjReId.Value);
+            ProjectId = Utility.DecryptQS(PkProjectId.Value);
+            string MPrjReId = Utility.DecryptQS(PkMPrjReId.Value);
+            string MPageMode = Utility.DecryptQS(MPgMode.Value);
+
+            if (string.IsNullOrEmpty(PageMode) || string.IsNullOrEmpty(PrjReId) || string.IsNullOrEmpty(ProjectId) || string.IsNullOrEmpty(MPrjReId) || string.IsNullOrEmpty(MPageMode))
+            {
+                this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+                return;
+            }
+
+            SetMode();
+            FillProjectInfo(int.Parse(PrjReId));
+            CheckWorkFlowPermission();
+        }
+        catch
+        {
+            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+            return;
+        }
+    }
+
+    private void SetMode()
+    {
+        PageMode = Utility.DecryptQS(PgMode.Value);
+
+        if (string.IsNullOrEmpty(PageMode))
+        {
+            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+            return;
+        }
+
+        switch (PageMode)
+        {
+            case "View":
+                SetViewModeKeys();
+                break;
+
+            case "New":
+                SetNewModeKeys();
+                break;
+
+            case "Edit":
+                SetEditModeKeys();
+                break;
+        }
+    }
+
+    private void SetNewModeKeys()
+    {
+        SetControlsNewMode();
+    }
+
+    private void SetEditModeKeys()
+    {
+        FillForm();
+        SetControlsEditMode();
+    }
+
+    private void SetViewModeKeys()
+    {
+        FillForm();
+        SetControlsViewMode();
+    }
+
+    private void SetControlsNewMode()
+    {
+        btnNew.Enabled = true;
+        btnNew2.Enabled = true;
+        btnSave.Enabled = true;
+        btnSave2.Enabled = true;
+        btnEdit.Enabled = false;
+        btnEdit2.Enabled = false;
+        CheckAccess();
+
+        SetEnable(true);
+        ClearForm();
+        SetNewModeControlsValue();
+
+        ASPxRoundPanel2.HeaderText = "جدید";
+    }
+
+    private void SetControlsEditMode()
+    {
+        btnNew.Enabled = true;
+        btnNew2.Enabled = true;
+        btnSave.Enabled = true;
+        btnSave2.Enabled = true;
+        btnEdit.Enabled = true;
+        btnEdit2.Enabled = true;
+        CheckAccess();
+
+        SetEnable(true);
+
+        ASPxRoundPanel2.HeaderText = "ویرایش";
+    }
+
+    private void SetControlsViewMode()
+    {
+        btnNew.Enabled = true;
+        btnNew2.Enabled = true;
+        btnSave.Enabled = false;
+        btnSave2.Enabled = false;
+        btnEdit.Enabled = true;
+        btnEdit2.Enabled = true;
+        CheckAccess();
+
+        SetEnable(false);
+
+        ASPxRoundPanel2.HeaderText = "مشاهده";
+    }
+
+    private void SetEnable(bool Enable)
+    {
+        ASPxComboBoxProjectStatus.Enabled = Enable;
+        ASPxMemoDescription.Enabled = Enable;
+        txtMailNo.Enabled = Enable;
+        txtMailDate.Enabled = Enable;
+        ASPxMemoDescription.Enabled = Enable;
+    }
+
+    private void ClearForm()
+    {
+        ASPxComboBoxPrjReType.DataBind();
+        ASPxComboBoxPrjReType.SelectedIndex = -1;
+
+        ASPxComboBoxProjectStatus.DataBind();
+        ASPxComboBoxProjectStatus.SelectedIndex = -1;
+
+        ASPxComboBoxTask.DataBind();
+        ASPxComboBoxTask.SelectedIndex = -1;
+
+        RequestDate.Text = "";
+        ASPxTextBoxConfirmState.Text = "";
+        ASPxMemoDescription.Text = "";
+        txtMailNo.Text = "";
+        txtMailDate.Text = "";
+        txtLetterTitle.Text = "";
+    }
+
+    private void SetNewModeControlsValue()
+    {
+        ASPxComboBoxPrjReType.DataBind();
+        ASPxComboBoxPrjReType.Value = (int)TSP.DataManager.TSProjectRequestType.StatusAnnouncement;
+
+        ASPxComboBoxTask.DataBind();
+        ASPxComboBoxTask.Value = GetTaskId((int)TSP.DataManager.WorkFlowTask.SaveStatusAnnouncementInfo);
+
+        RequestDate.DateValue = DateTime.Now;
+        ASPxTextBoxConfirmState.Text = "معلق";
+    }
+
+    private void FillForm()
+    {
+        PageMode = Utility.DecryptQS(PgMode.Value);
+        PrjReId = Utility.DecryptQS(PkPrjReId.Value);
+
+        if ((string.IsNullOrEmpty(PrjReId)) || (string.IsNullOrEmpty(PageMode)))
+        {
+            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+            return;
+        }
+
+        TSP.DataManager.TechnicalServices.ProjectRequestManager ProjectRequestManager = new TSP.DataManager.TechnicalServices.ProjectRequestManager();
+        TSP.DataManager.Automation.LettersManager LetterManager = new TSP.DataManager.Automation.LettersManager();
+
+        ProjectRequestManager.FindByCode(Convert.ToInt32(PrjReId));
+        if (ProjectRequestManager.Count == 1)
+        {
+            ASPxComboBoxPrjReType.DataBind();
+            ASPxComboBoxPrjReType.Value = ProjectRequestManager[0]["PrjReTypeId"];
+
+            ASPxComboBoxProjectStatus.DataBind();
+            ASPxComboBoxProjectStatus.Value = ProjectRequestManager[0]["ProjectStatusId"];
+
+            ASPxComboBoxTask.DataBind();
+            ASPxComboBoxTask.Value = ProjectRequestManager[0]["TaskId"];
+
+            RequestDate.Text = ProjectRequestManager[0]["RequestDate"].ToString();
+            ASPxTextBoxConfirmState.Text = ProjectRequestManager[0]["ConfirmState"].ToString();
+            ASPxMemoDescription.Text = ProjectRequestManager[0]["Description"].ToString();
+            txtMailNo.Text = ProjectRequestManager[0]["MailNo"].ToString();
+            txtMailDate.Text = ProjectRequestManager[0]["MailDate"].ToString();
+
+            LetterManager.FindByLetterNumber(txtMailNo.Text);
+            if (LetterManager.Count == 1)
+                txtLetterTitle.Text = LetterManager[0]["Title"].ToString();
+        }
+    }
+
+    private void FillProjectInfo(int Id)
+    {
+        prjInfo.Fill(Id);
+    }
+
+    private void CheckAccess()
+    {
+        TSP.DataManager.Permission per = TSP.DataManager.TechnicalServices.ProjectRequestManager.GetUserPermission(Utility.GetCurrentUser_UserId(), (TSP.DataManager.UserType)Utility.GetCurrentUser_LoginType());
+        if (btnNew.Enabled == true)
+        {
+            btnNew.Enabled = per.CanNew;
+            btnNew2.Enabled = per.CanNew;
+        }
+
+        if (btnEdit.Enabled == true)
+        {
+            btnEdit.Enabled = per.CanEdit;
+            btnEdit2.Enabled = per.CanEdit;
+        }
+
+        if (btnSave.Enabled == true && Utility.DecryptQS(PgMode.Value) == "New")
+        {
+            btnSave.Enabled = per.CanNew;
+            btnSave2.Enabled = per.CanNew;
+        }
+        if (btnSave.Enabled == true && Utility.DecryptQS(PgMode.Value) == "Edit")
+        {
+            btnSave.Enabled = per.CanEdit;
+            btnSave2.Enabled = per.CanEdit;
+        }
+
+        this.ViewState["BtnSave"] = btnSave.Enabled;
+        this.ViewState["BtnEdit"] = btnEdit.Enabled;
+        this.ViewState["BtnNew"] = btnNew.Enabled;
+    }
+
+    /**********************************************************************************************************************************/
+    private int GetTaskId(int TaskCode)
+    {
+        TSP.DataManager.WorkFlowTaskManager WorkFlowTaskManager = new TSP.DataManager.WorkFlowTaskManager();
+        WorkFlowTaskManager.FindByTaskCode(TaskCode);
+        if (WorkFlowTaskManager.Count == 1)
+            return Convert.ToInt32(WorkFlowTaskManager[0]["TaskId"]);
+        else
+            return -1;
+    }
+
+    private int FindNmcId(int TaskId)
+    {
+        int UserId = Utility.GetCurrentUser_UserId();
+        TSP.DataManager.NezamChartManager NezamChartManager = new TSP.DataManager.NezamChartManager();
+        TSP.DataManager.LoginManager LoginManager = new TSP.DataManager.LoginManager();
+
+        int NmcId = -1;
+        NmcId = NezamChartManager.FindNmcId(UserId, TaskId, LoginManager);
+        if (NmcId > 0)
+        {
+            return NmcId;
+        }
+        else
+        {
+            SetLabelWarning("اطلاعات شما به عنوان انجام دهنده عملیات انتخاب شده در جریان کار ثبت نشده است.");
+            return (-1);
+        }
+    }
+
+    private void SetError(Exception err, char Flag)
+    {
+        if (err.GetType() == typeof(System.Data.SqlClient.SqlException))
+        {
+            System.Data.SqlClient.SqlException se = (System.Data.SqlClient.SqlException)err;
+
+            if (se.Number == 2601)
+            {
+                SetLabelWarning("اطلاعات تکراری می باشد");
+            }
+            else if (se.Number == 2627)
+            {
+                SetLabelWarning("اطلاعات تکراری می باشد");
+            }
+            else if (se.Number == 547)
+            {
+                if (Flag == 'D')
+                {
+                    SetLabelWarning("به علت وجود اطلاعات وابسته امکان حذف نمی باشد");
+                }
+                else
+                {
+                    SetLabelWarning("اطلاعات وابسته معتبر نمی باشد");
+                }
+            }
+            else
+            {
+                SetLabelWarning("خطایی در ذخیره انجام گرفته است");
+            }
+        }
+        else
+        {
+            SetLabelWarning("خطایی در ذخیره انجام گرفته است");
+        }
+    }
+
+    private void SetLabelWarning(string Warning)
+    {
+        this.DivReport.Visible = true;
+        this.LabelWarning.Text = Warning;
+    }
+
+    /**********************************************************************************************************************************/
+    private bool CheckConditions()
+    {
+        int ProjectStatus = Convert.ToInt32(ASPxComboBoxProjectStatus.Value);
+
+        if (CheckIfPendingStatusExist(ProjectStatus))
+        {
+            SetLabelWarning("با توجه به در جریان بودن درخواست مشابه، امکان ثبت مجدد در خواست وجود ندارد.");
+            return false;
+        }
+
+        if (!CheckProjectStatus(ProjectStatus))
+            return false;
+
+        if (!CheckCurrentProjectStatus(ProjectStatus))
+            return false;
+
+        return true;
+    }
+
+    private bool CheckProjectStatus(int ProjectStatus)
+    {
+        switch (ProjectStatus)
+        {
+            case (int)TSP.DataManager.TSProjectStatus.SaveProjectInfo:
+                SetLabelWarning("وضعیت پروژه را نمی توان به وضعت ثبت اطلاعات برگرداند.");
+                return false;
+
+            case (int)TSP.DataManager.TSProjectStatus.LicenseRequest:
+                SetLabelWarning("برای ثبت درخواست صدور پروانه ساخت، از طریق فرآیند مربوطه اقدام کنید.");
+                return false;
+
+            case (int)TSP.DataManager.TSProjectStatus.Start:
+            case (int)TSP.DataManager.TSProjectStatus.End:
+                if (CheckIfProjectStatusExist(Convert.ToInt32(ASPxComboBoxProjectStatus.Value)))
+                {
+                    SetLabelWarning("وضعیت انتخاب شده قبلا ثبت شده است و بیش از یک بار نمی توان آن را ثبت نمود.");
+                    return false;
+                }
+                break;
+
+            case (int)TSP.DataManager.TSProjectStatus.ReStart:
+            case (int)TSP.DataManager.TSProjectStatus.Stoped:
+                break;
+        }
+
+        return true;
+    }
+
+    private bool CheckIfProjectStatusExist(int ProjectStatus)
+    {
+        ProjectId = Utility.DecryptQS(PkProjectId.Value);
+        TSP.DataManager.TechnicalServices.ProjectRequestManager ProjectRequestManager = new TSP.DataManager.TechnicalServices.ProjectRequestManager();
+        ProjectRequestManager.FindByProjectStatusId(Convert.ToInt32(ProjectId), ProjectStatus, (int)TSP.DataManager.TSProjectRequestConfirming.Confirmed);
+        if (ProjectRequestManager.Count > 0)
+            return true;
+        else
+            return false;
+    }
+
+    private bool CheckIfPendingStatusExist(int ProjectStatus)
+    {
+        ProjectId = Utility.DecryptQS(PkProjectId.Value);
+        TSP.DataManager.TechnicalServices.ProjectRequestManager ProjectRequestManager = new TSP.DataManager.TechnicalServices.ProjectRequestManager();
+        ProjectRequestManager.FindByProjectStatusId(Convert.ToInt32(ProjectId), ProjectStatus, (int)TSP.DataManager.TSProjectRequestConfirming.Pending);
+        if (ProjectRequestManager.Count > 0)
+            return true;
+        else
+            return false;
+    }
+
+    private bool CheckCurrentProjectStatus(int ProjectStatus)
+    {
+        ProjectId = Utility.DecryptQS(PkProjectId.Value);
+        TSP.DataManager.TechnicalServices.ProjectManager ProjectManager = new TSP.DataManager.TechnicalServices.ProjectManager();
+
+        ProjectManager.FindByProjectId(Convert.ToInt32(ProjectId));
+        if (ProjectManager.Count == 1)
+        {
+            int CurrentProjectStatus = Convert.ToInt32(ProjectManager[0]["ProjectStatusId"]);
+
+            switch (ProjectStatus)
+            {
+                case (int)TSP.DataManager.TSProjectStatus.Start:
+                    if (CurrentProjectStatus == (int)TSP.DataManager.TSProjectStatus.LicenseRequest)
+                        return true;
+                    break;
+
+                case (int)TSP.DataManager.TSProjectStatus.End:
+                    if (CheckIfProjectStatusExist((int)TSP.DataManager.TSProjectStatus.Start))
+                        return true;
+                    break;
+
+                case (int)TSP.DataManager.TSProjectStatus.ReStart:
+                    if (CurrentProjectStatus == (int)TSP.DataManager.TSProjectStatus.Stoped)
+                        return true;
+                    break;
+
+                case (int)TSP.DataManager.TSProjectStatus.Stoped:
+                    if (CurrentProjectStatus == (int)TSP.DataManager.TSProjectStatus.Start || CurrentProjectStatus == (int)TSP.DataManager.TSProjectStatus.ReStart)
+                        return true;
+                    break;
+            }
+
+            SetLabelWarning("با توجه به وضعیت فعلی پروژه، وضعیت انتخاب شده معتبر نمی باشد.");
+            return false;
+        }
+
+        SetLabelWarning("خطایی در بازخوانی اطلاعات رخ داده است.");
+        return false;
+    }
+
+    /************************************************************ Insert *************************************************************/
+    private void Insert()
+    {
+        if (IsPageRefresh)
+        {
+            return;
+        }
+
+        if (!CheckConditions())
+            return;
+
+        TSP.DataManager.TechnicalServices.ProjectRequestManager ProjectRequestManager = new TSP.DataManager.TechnicalServices.ProjectRequestManager();
+        TSP.DataManager.TechnicalServices.ProjectManager ProjectManager = new TSP.DataManager.TechnicalServices.ProjectManager();
+        TSP.DataManager.WorkFlowStateManager WorkFlowStateManager = new TSP.DataManager.WorkFlowStateManager();
+        TSP.DataManager.Automation.LetterRelatedTablesManager LetterRelatedTablesManager = new TSP.DataManager.Automation.LetterRelatedTablesManager();
+        TSP.DataManager.Automation.LettersManager LettersManager = new TSP.DataManager.Automation.LettersManager();
+
+        TSP.DataManager.TransactionManager transact = new TSP.DataManager.TransactionManager();
+
+        transact.Add(ProjectRequestManager);
+        transact.Add(ProjectManager);
+        transact.Add(WorkFlowStateManager);
+
+        try
+        {
+            transact.BeginSave();
+
+            if (!InsertProjectRequest(ProjectRequestManager, ProjectManager))
+                return;
+
+            if (!InsertWorkFlowState(WorkFlowStateManager))
+                return;
+
+            if (!InsertLetterRelatedTables(LetterRelatedTablesManager, LettersManager))
+                return;
+
+            transact.EndSave();
+
+            PgMode.Value = Utility.EncryptQS("Edit");
+            SetControlsEditMode();
+
+            SetLabelWarning("ذخیره انجام شد");
+        }
+        catch (Exception err)
+        {
+            transact.CancelSave();
+            SetError(err, 'I');
+        }
+    }
+
+    private bool InsertProjectRequest(TSP.DataManager.TechnicalServices.ProjectRequestManager ProjectRequestManager, TSP.DataManager.TechnicalServices.ProjectManager ProjectManager)
+    {
+        ProjectId = Utility.DecryptQS(PkProjectId.Value);
+        ProjectManager.FindByProjectId(Convert.ToInt32(ProjectId));
+        if (ProjectManager.Count == 1)
+        {
+            DataRow rowProjectRequest = ProjectRequestManager.NewRow();
+
+            rowProjectRequest.BeginEdit();
+            rowProjectRequest["ProjectId"] = ProjectId;
+            rowProjectRequest["PrjReTypeId"] = (int)TSP.DataManager.TSProjectRequestType.StatusAnnouncement;
+            rowProjectRequest["MailNo"] = txtMailNo.Text;
+            rowProjectRequest["MailDate"] = txtMailDate.Text;
+            rowProjectRequest["RequestDate"] = RequestDate.Text;
+            rowProjectRequest["GroupId"] = ProjectManager[0]["GroupId"];
+            rowProjectRequest["Foundation"] = ProjectManager[0]["Foundation"];
+            rowProjectRequest["Area"] = ProjectManager[0]["Area"];
+            rowProjectRequest["RecessArea"] = ProjectManager[0]["RecessArea"];
+            rowProjectRequest["RemainArea"] = ProjectManager[0]["RemainArea"];
+            rowProjectRequest["DocumentArea"] = ProjectManager[0]["DocumentArea"];
+            rowProjectRequest["DiscountPercentId"] = ProjectManager[0]["DiscountPercentId"];
+            rowProjectRequest["AgentId"] = ProjectManager[0]["AgentId"];
+            rowProjectRequest["ProjectStatusId"] = ASPxComboBoxProjectStatus.Value;
+            rowProjectRequest["Description"] = ASPxMemoDescription.Text;
+            rowProjectRequest["IsConfirmed"] = 0;
+            rowProjectRequest["InActive"] = 0;
+            rowProjectRequest["UserId"] = Utility.GetCurrentUser_UserId();
+            rowProjectRequest["ModifiedDate"] = DateTime.Now;
+            rowProjectRequest.EndEdit();
+
+            ProjectRequestManager.AddRow(rowProjectRequest);
+
+            ProjectRequestManager.Save();
+
+            ProjectRequestManager.DataTable.AcceptChanges();
+            PrjReId = ProjectRequestManager[0]["PrjReId"].ToString();
+            PkPrjReId.Value = Utility.EncryptQS(PrjReId.ToString());
+
+            return true;
+        }
+
+        SetLabelWarning("خطایی در بازخوانی اطلاعات رخ داده است.");
+        return false;
+    }
+
+    private bool InsertWorkFlowState(TSP.DataManager.WorkFlowStateManager WorkFlowStateManager)
+    {
+        int TaskId = Convert.ToInt32(ASPxComboBoxTask.Value);
+        int TaskCode = (int)TSP.DataManager.WorkFlowTask.SaveStatusAnnouncementInfo;
+        int TableId = Convert.ToInt32(Utility.DecryptQS(PkPrjReId.Value));
+
+        if (TaskId == -1)
+        {
+            SetLabelWarning("خطایی در بازخوانی اطلاعات رخ داده است.");
+            return false;
+        }
+
+        int CurrentNmcId = FindNmcId(TaskId);
+        if (CurrentNmcId == -1)
+            return false;
+
+        int WfStart = WorkFlowStateManager.StartWorkFlow(TableId, TaskCode, CurrentNmcId, Utility.GetCurrentUser_UserId(), 0);
+        if (WfStart > 0)
+            return true;
+
+        SetLabelWarning("خطایی در ذخیره انجام گرفته است.");
+        return false;
+    }
+
+    private bool InsertLetterRelatedTables(TSP.DataManager.Automation.LetterRelatedTablesManager LetterRelatedTablesManager, TSP.DataManager.Automation.LettersManager LettersManager)
+    {
+        int TableId = Convert.ToInt32(Utility.DecryptQS(PkPrjReId.Value));
+        int LetterId = CheckLetterValidationAndFill(txtMailNo.Text, LettersManager);
+        if (LetterId < -1)
+        {
+            SetLabelWarning("شماره نامه معتبر نمی باشد.");
+            return false;
+        }
+
+        InsertLetterRelatedTables(LetterRelatedTablesManager, LetterId, TableId, (int)TSP.DataManager.TableCodes.TSProjectRequest);
+        return true;
+    }
+
+    /************************************************************* Update ************************************************************/
+    private void Update()
+    {
+        if (IsPageRefresh)
+        {
+            return;
+        }
+
+        if (!CheckConditions())
+            return;
+
+        int LetterId = GetLetterId();
+        if (LetterId == -1)
+        {
+            SetLabelWarning("شماره نامه مورد نظر موجود نمی باشد.");
+            return;
+        }
+
+        TSP.DataManager.TechnicalServices.ProjectRequestManager ProjectRequestManager = new TSP.DataManager.TechnicalServices.ProjectRequestManager();
+        TSP.DataManager.Automation.LetterRelatedTablesManager LetterRelatedTablesManager = new TSP.DataManager.Automation.LetterRelatedTablesManager();
+
+        TSP.DataManager.TransactionManager transact = new TSP.DataManager.TransactionManager();
+
+        transact.Add(ProjectRequestManager);
+        transact.Add(LetterRelatedTablesManager);
+
+        try
+        {
+            transact.BeginSave();
+
+            UpdateProjectRequest(ProjectRequestManager);
+            UpdateLetterRelatedTables(LetterRelatedTablesManager, LetterId);
+
+            transact.EndSave();
+
+            PgMode.Value = Utility.EncryptQS("Edit");
+            SetEditModeKeys();
+
+            SetLabelWarning("ذخیره انجام شد");
+        }
+        catch (Exception err)
+        {
+            transact.CancelSave();
+            SetError(err, 'U');
+        }
+    }
+
+    private void UpdateProjectRequest(TSP.DataManager.TechnicalServices.ProjectRequestManager ProjectRequestManager)
+    {
+        PrjReId = Utility.DecryptQS(PkPrjReId.Value);
+
+        if (string.IsNullOrEmpty(PrjReId))
+        {
+            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+            return;
+        }
+
+        ProjectRequestManager.FindByCode(Convert.ToInt32(PrjReId));
+        if (ProjectRequestManager.Count == 1)
+        {
+            ProjectRequestManager[0].BeginEdit();
+            ProjectRequestManager[0]["MailNo"] = txtMailNo.Text;
+            ProjectRequestManager[0]["MailDate"] = txtMailDate.Text;
+            ProjectRequestManager[0]["ProjectStatusId"] = ASPxComboBoxProjectStatus.Value;
+            ProjectRequestManager[0]["Description"] = ASPxMemoDescription.Text;
+            ProjectRequestManager[0]["IsConfirmed"] = 0;
+            ProjectRequestManager[0]["InActive"] = 0;
+            ProjectRequestManager[0]["UserId"] = Utility.GetCurrentUser_UserId();
+            ProjectRequestManager[0]["ModifiedDate"] = DateTime.Now;
+            ProjectRequestManager[0].EndEdit();
+        }
+    }
+
+    private void UpdateLetterRelatedTables(TSP.DataManager.Automation.LetterRelatedTablesManager LetterRelatedTablesManager, int LetterId)
+    {
+        PrjReId = Utility.DecryptQS(PkPrjReId.Value);
+
+        LetterRelatedTablesManager.FindByTableIdTableType(Convert.ToInt32(PrjReId), (int)TSP.DataManager.TableCodes.TSProjectRequest);
+        if (LetterRelatedTablesManager.Count == 1)
+        {
+            LetterRelatedTablesManager[0].BeginEdit();
+            LetterRelatedTablesManager[0]["LetterId"] = LetterId;
+            LetterRelatedTablesManager[0]["TableId"] = PrjReId;
+            LetterRelatedTablesManager[0]["TableType"] = (int)TSP.DataManager.TableCodes.TSConditionalCapacity;
+            LetterRelatedTablesManager[0]["UserId"] = Utility.GetCurrentUser_UserId();
+            LetterRelatedTablesManager[0]["ModifiedDate"] = DateTime.Now;
+            LetterRelatedTablesManager[0].EndEdit();
+
+            LetterRelatedTablesManager.Save();
+        }
+    }
+
+    /********************************************************* WorkFlow ***************************************************************/
+    private void CheckWorkFlowPermission()
+    {
+        PageMode = Utility.DecryptQS(PgMode.Value);
+
+        CheckWorkFlowPermissionForNew();
+        if (PageMode != "New")
+            CheckWorkFlowPermissionForEdit(PageMode);
+    }
+
+    private void CheckWorkFlowPermissionForEdit(string PageMode)
+    {
+        //*****TableId
+        string PrjReId = Utility.DecryptQS(PkPrjReId.Value);
+        //*******Editing Task Code
+        int TaskCode = (int)TSP.DataManager.WorkFlowTask.SaveStatusAnnouncementInfo;
+        int WFCode = (int)TSP.DataManager.WorkFlows.TSStatusAnnouncementConfirming;
+
+        TSP.DataManager.WFPermission WFPer = TSP.DataManager.WorkFlowPermission.CheckPermissionForEdit(TaskCode, WFCode, int.Parse(PrjReId), Utility.GetCurrentUser_UserId(), PageMode);
+        //btnNew.Enabled = WFPer.BtnNew;
+        //btnNew2.Enabled = WFPer.BtnNew;
+        btnEdit.Enabled = WFPer.BtnEdit;
+        btnEdit2.Enabled = WFPer.BtnEdit;
+        btnSave.Enabled = WFPer.BtnSave;
+        btnSave2.Enabled = WFPer.BtnSave;
+
+        this.ViewState["BtnSave"] = btnSave.Enabled;
+        this.ViewState["BtnEdit"] = btnEdit.Enabled;
+        this.ViewState["BtnNew"] = btnNew.Enabled;
+    }
+
+    private void CheckWorkFlowPermissionForNew()
+    {
+        //******* SaveTaskCode
+        int TaskCode = (int)TSP.DataManager.WorkFlowTask.SaveStatusAnnouncementInfo;
+
+        int TableType = (int)TSP.DataManager.TableCodes.TSProjectRequest;
+
+        TSP.DataManager.WFPermission WFPer = TSP.DataManager.WorkFlowPermission.CheckWFPermissionForSaveNew(TaskCode, TableType, Utility.GetCurrentUser_UserId(), PageMode);
+        btnEdit.Enabled = WFPer.BtnEdit;
+        btnEdit2.Enabled = WFPer.BtnEdit;
+        btnSave.Enabled = WFPer.BtnSave;
+        btnSave2.Enabled = WFPer.BtnSave;
+        btnNew.Enabled = WFPer.BtnNew;
+        btnNew2.Enabled = WFPer.BtnNew;
+
+        this.ViewState["BtnSave"] = btnSave.Enabled;
+        this.ViewState["BtnEdit"] = btnEdit.Enabled;
+        this.ViewState["BtnNew"] = btnNew.Enabled;
+    }
+
+    /*********************************************************************************************************************************/
+    protected void ASPxCallbackPanelLetter_Callback(object sender, DevExpress.Web.CallbackEventArgsBase e)
+    {
+        if (e.Parameter != null)
+        {
+            TSP.DataManager.Automation.LettersManager LetterManager = new TSP.DataManager.Automation.LettersManager();
+            LetterManager.FindByLetterNumber(e.Parameter);
+            if (LetterManager.Count == 1)
+            {
+                txtMailDate.Text = LetterManager[0]["LetterDate"].ToString();
+                txtLetterTitle.Text = LetterManager[0]["Title"].ToString();
+            }
+            else
+            {
+                txtMailNo.Text = "";
+                txtMailDate.Text = "";
+                txtLetterTitle.Text = "";
+                lblErrorLetterNumber.ClientVisible = true;
+            }
+        }
+    }
+
+    private int GetLetterId()
+    {
+        TSP.DataManager.Automation.LettersManager LettersManager = new TSP.DataManager.Automation.LettersManager();
+
+        if (txtMailNo.Text != "")
+        {
+            LettersManager.FindByLetterNumber(txtMailNo.Text);
+            if (LettersManager.Count == 1)
+                return Convert.ToInt32(LettersManager[0]["LetterId"].ToString());
+        }
+        return -1;
+    }
+
+    private int CheckLetterValidationAndFill(string LetterNo, TSP.DataManager.Automation.LettersManager LettersManager)
+    {
+        int LetterId = -1;
+        LettersManager.FindByLetterNumber(LetterNo);
+        if (LettersManager.Count > 0)
+        {
+            LetterId = int.Parse(LettersManager[0]["LetterId"].ToString());
+            txtMailDate.Text = LettersManager[0]["LetterDate"].ToString();
+            txtLetterTitle.Text = LettersManager[0]["Title"].ToString();
+        }
+        return LetterId;
+    }
+
+    protected void InsertLetterRelatedTables(TSP.DataManager.Automation.LetterRelatedTablesManager LetterRelatedTablesManager, int LetterId, int TableId, int TableType)
+    {
+        DataRow dr = LetterRelatedTablesManager.NewRow();
+        dr["LetterId"] = LetterId;
+        dr["TableId"] = TableId;
+        dr["TableType"] = TableType;
+        dr["UserId"] = Utility.GetCurrentUser_UserId();
+        dr["ModifiedDate"] = DateTime.Now;
+        LetterRelatedTablesManager.AddRow(dr);
+        LetterRelatedTablesManager.Save();
+    }
+}

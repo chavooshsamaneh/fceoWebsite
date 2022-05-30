@@ -1,0 +1,971 @@
+﻿using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+using System.IO;
+public partial class Employee_Amoozesh_AddObservers : System.Web.UI.Page
+{
+    #region Events
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (!IsCallback)
+        {
+            CmbName .SelectedIndex = 0;
+        }
+        if (!IsCallback)
+        {
+            CmpEmp.SelectedIndex = 0;
+        }
+        if (Session["Login"] == null || Session["Login"].ToString() == "0")
+        {
+            Response.Redirect("../../Login.aspx?ReferPage=" + Request.Url.AbsoluteUri);
+            return;
+        }
+        btnEdit.Enabled = false;
+        btnEdit2.Enabled = false;
+        this.DivReport.Visible = false;
+        this.DivReport.Attributes.Add("onclick", "ChangeVisible(this)");
+        this.DivReport.Attributes.Add("onmouseover", "ChangeIcon(this)");
+        if (!IsPostBack)
+        {
+            if (string.IsNullOrEmpty(Request.QueryString["PageMode"]) || string.IsNullOrEmpty(Request.QueryString["ObId"]))
+            {
+                Response.Redirect("Observer.aspx");
+                return;
+            }
+
+            TSP.DataManager.Permission per = TSP.DataManager.ObserverManager.GetUserPermission(int.Parse(Session["Login"].ToString()), (TSP.DataManager.UserType)int.Parse(Session["LoginType"].ToString()));
+            BtnNew.Enabled = per.CanNew;
+            BtnNew2.Enabled = per.CanNew;
+            btnEdit.Enabled = per.CanEdit;
+            btnEdit2.Enabled = per.CanEdit;
+            btnDisActive.Enabled = per.CanEdit;
+            btnDisActive2.Enabled = per.CanEdit;
+            btnSave.Enabled = per.CanEdit || per.CanNew;
+            btnSave2.Enabled = per.CanNew || per.CanEdit;
+
+            try
+            {
+                PgMode.Value = Server.HtmlDecode(Request.QueryString["PageMode"].ToString());
+                ObserverId.Value = Server.HtmlDecode(Request.QueryString["ObId"]).ToString();
+            }
+            catch
+            {
+                this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+                return;
+            }
+
+            string PageMode = Utility.DecryptQS(PgMode.Value);
+            string ObId = Utility.DecryptQS(ObserverId.Value);
+            //if ((!string.IsNullOrEmpty(Utility.DecryptQS(Server.HtmlDecode(Request.QueryString["ObId"]).ToString()))) && (CrId == -1))
+            //    //CrId = int.Parse(Utility.DecryptQS(Server.HtmlDecode(Request.QueryString["ObId"]).ToString()));
+            if (string.IsNullOrEmpty(PageMode))
+            {
+                this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+                return;
+            }
+            switch (PageMode)
+            {
+                case "View":
+
+
+                    if (string.IsNullOrEmpty(ObId))
+                    {
+                        this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+                        return;
+                    }
+                    btnEdit.Enabled = per.CanEdit;
+                    btnEdit2.Enabled = per.CanEdit;
+                    btnSave.Enabled = false;
+                    btnSave2.Enabled = false;
+                    FillForm(int.Parse(ObId));
+                    Disable();
+                    ASPxRoundPanel2.HeaderText = "مشاهده";
+                    break;
+
+                case "New":
+                    Enable();
+                    ASPxRoundPanel2.HeaderText = "جدید";
+                    btnDisActive2.Enabled = false;
+                    btnDisActive.Enabled = false;
+                    btnEdit2.Enabled = false;
+                    btnEdit.Enabled = false;
+                    ClearForm();
+                    break;
+                case "Edit":
+                    Enable();
+
+                    if (string.IsNullOrEmpty(ObId))
+                    {
+                        this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+                        return;
+                    }
+                    btnDisActive.Enabled = true;
+                    btnDisActive2.Enabled = true;
+                    btnEdit2.Enabled = false;
+                    btnEdit.Enabled = false;
+                    FillForm(int.Parse(ObId));
+                    ASPxRoundPanel2.Enabled = true;
+                    ASPxRoundPanel2.HeaderText = "ویرایش";
+
+
+                    break;
+
+
+            }
+
+            this.ViewState["BtnSave"] = btnSave.Enabled;
+            this.ViewState["BtnEdit"] = btnEdit.Enabled;
+            this.ViewState["BtnDisActive"] = btnDisActive.Enabled;
+            this.ViewState["BtnNew"] = BtnNew.Enabled;
+
+
+        }
+        if (this.ViewState["BtnSave"] != null)
+            this.btnSave.Enabled = this.btnSave2.Enabled = (bool)this.ViewState["BtnSave"];
+        if (this.ViewState["BtnEdit"] != null)
+            this.btnEdit.Enabled = this.btnEdit2.Enabled = (bool)this.ViewState["BtnEdit"];
+        if (this.ViewState["BtnDisActive"] != null)
+            this.btnDisActive.Enabled = this.btnDisActive2.Enabled = (bool)this.ViewState["BtnDisActive"];
+        if (this.ViewState["BtnNew"] != null)
+            this.BtnNew.Enabled = this.BtnNew2.Enabled = (bool)this.ViewState["BtnNew"];
+        if (this.ViewState["btnDisActiveImg"] != null)
+            this.btnDisActive.Image.Url = this.btnDisActive2.Image.Url = (string)this.ViewState["btnDisActiveImg"];
+
+    }
+
+    protected void BtnNew_Click(object sender, EventArgs e)
+    {
+        //Response.Redirect("AddCourse.aspx?PageMode" + Utility.EncryptQS("New"));
+        ObserverId.Value = Utility.EncryptQS("");
+        PgMode.Value = Utility.EncryptQS("New");
+        ASPxRoundPanel2.HeaderText = "جدید";
+        ClearForm();
+
+        TSP.DataManager.Permission per = TSP.DataManager.ObserverManager.GetUserPermission(int.Parse(Session["Login"].ToString()), (TSP.DataManager.UserType)int.Parse(Session["LoginType"].ToString()));
+        btnDisActive.Enabled = false;
+        btnDisActive2.Enabled = false;
+        btnEdit2.Enabled = false;
+        btnEdit.Enabled = false;
+        btnSave.Enabled = per.CanNew;
+        btnSave2.Enabled = per.CanNew;
+        this.ViewState["BtnEdit"] = btnEdit.Enabled;
+        this.ViewState["BtnDisActive"] = btnDisActive.Enabled;
+        this.ViewState["BtnSave"] = btnSave.Enabled;
+
+    }
+
+    protected void btnSave_Click(object sender, EventArgs e)
+    {
+        string PageMode = Utility.DecryptQS(PgMode.Value);
+
+        string ObId = Utility.DecryptQS(ObserverId.Value);
+
+        if (string.IsNullOrEmpty(PageMode))
+        {
+            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+            return;
+        }
+        else
+        {
+            if (PageMode == "New")
+            {
+                Insert();
+
+                //Response.Redirect("AddCourse.aspx?ObId=" + Utility.EncryptQS(CrId.ToString()) + "&PageMode=" + Utility.EncryptQS("Edit"));
+
+            }
+            else if (PageMode == "Edit")
+            {
+
+                if (string.IsNullOrEmpty(ObId))
+                {
+                    this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+                    return;
+                }
+                else
+                {
+                    Edit(int.Parse(ObId));
+                }
+
+            }
+
+        }
+
+
+
+    }
+
+    protected void btnDelete_Click(object sender, EventArgs e)
+    {
+
+        string PageMode = Utility.DecryptQS(PgMode.Value);
+        string ObId = Utility.DecryptQS(ObserverId.Value);
+
+        if (string.IsNullOrEmpty(ObId))
+        {
+            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+            return;
+        }
+        if (string.IsNullOrEmpty(PageMode))
+        {
+            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+            return;
+        }
+        else
+        {
+
+            if (PageMode == "Edit" && (!string.IsNullOrEmpty(ObId)))
+            {
+                Delete(int.Parse(ObId));
+            }
+        }
+        //Response.Redirect("AddCourse.aspx?" + PageMode + Utility.EncryptQS("New"));
+    }
+
+    protected void btnBack_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("Observer.aspx?");
+
+    }
+
+    protected void btnEdit_Click(object sender, EventArgs e)
+    {
+        string pageMode = Utility.DecryptQS(PgMode.Value);
+        string ObId = Utility.DecryptQS(ObserverId.Value);
+
+        if (string.IsNullOrEmpty(ObId))
+        {
+            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+            return;
+        }
+        else
+        {
+            if (string.IsNullOrEmpty(pageMode) && pageMode != "View")
+            {
+                this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+                return;
+            }
+            else
+            {
+                Enable();
+
+                TSP.DataManager.Permission per = TSP.DataManager.ObserverManager.GetUserPermission(int.Parse(Session["Login"].ToString()), (TSP.DataManager.UserType)int.Parse(Session["LoginType"].ToString()));
+                btnSave.Enabled = per.CanEdit;
+                btnSave2.Enabled = per.CanEdit;
+                this.ViewState["BtnSave"] = btnSave.Enabled;
+
+                PgMode.Value = Utility.EncryptQS("Edit");
+                ASPxRoundPanel2.HeaderText = "ویرایش";
+            }
+
+            //Response.Redirect("AddCourse.aspx?ObId=" + Utility.EncryptQS(ObId.ToString()) + "&PageMode=" + Server.HtmlDecode(Request.QueryString["Edit"]));
+
+        }
+
+    }
+
+    protected void chbIsMember_CheckedChanged(object sender, EventArgs e)
+    {
+
+    }
+
+    protected void txtMeID_TextChanged(object sender, EventArgs e)
+    {
+        if (!string.IsNullOrEmpty(txtMeID.Text))
+        {
+
+
+            if (cmbMemberType.Value.ToString() == "1")
+            {
+                CmbName.SelectedIndex = cmbMemberType.Items.IndexOfValue(txtMeID.Text);
+                if (CmbName.SelectedIndex != -1)
+                    FillFormByMeId(int.Parse(txtMeID.Text));
+            }
+            else if (cmbMemberType.Value.ToString() == "2")
+            {
+                CmpEmp.SelectedIndex = cmbMemberType.Items.IndexOfValue(txtMeID.Text);
+                if (CmpEmp.SelectedIndex != -1)
+                    FillFormByEmpId(int.Parse(txtMeID.Text));
+            }
+
+        }
+
+    }
+
+    protected void FillFormByMeId(int MeId)
+    {
+        TSP.DataManager.MemberManager MemManager = new TSP.DataManager.MemberManager();
+        MemManager.FindByCode(MeId);
+        if (MemManager.Count > 0)
+        {
+            txtName.Text = MemManager[0]["FirstName"].ToString();
+            txtFamily.Text = MemManager[0]["LastName"].ToString();
+            txtFatherName.Text = MemManager[0]["FatherName"].ToString();
+            txtBrithDate.Text = MemManager[0]["BirhtDate"].ToString();
+            txtIdNo.Text = MemManager[0]["IdNo"].ToString();
+            txtSSN.Text = MemManager[0]["SSN"].ToString();
+            txtTel.Text = MemManager[0]["HomeTel"].ToString();
+            txtMobileNo.Text = MemManager[0]["MobileNo"].ToString();
+            txtAddress.Text = MemManager[0]["HomeAdr"].ToString();
+            txtEmail.Text = MemManager[0]["Email"].ToString();
+            //txtFileNo.Text = MemManager[0]["FileNo"].ToString();
+        }
+        else
+        {
+            this.DivReport.Visible = true;
+            this.LabelWarning.Text = "عضوی با کد عضویت داده شده وجود ندارد.";
+        }
+    }
+
+    protected void FillFormByEmpId(int MeId)
+    {
+        TSP.DataManager.EmployeeManager MemManager = new TSP.DataManager.EmployeeManager();
+        MemManager.FindByCode(MeId);
+        if (MemManager.Count > 0)
+        {
+            txtName.Text = MemManager[0]["FirstName"].ToString();
+            txtFamily.Text = MemManager[0]["LastName"].ToString();
+            txtFatherName.Text = MemManager[0]["FatherName"].ToString();
+            txtBrithDate.Text = MemManager[0]["BirthDate"].ToString();
+            txtIdNo.Text = MemManager[0]["IdNo"].ToString();
+            txtSSN.Text = MemManager[0]["SSN"].ToString();
+            txtTel.Text = MemManager[0]["Tel"].ToString();
+            txtMobileNo.Text = MemManager[0]["MobileNo"].ToString();
+            txtAddress.Text = MemManager[0]["Address"].ToString();
+            txtEmail.Text = MemManager[0]["Email"].ToString();
+            //txtFileNo.Text = MemManager[0]["FileNo"].ToString();
+        }
+        else
+        {
+            this.DivReport.Visible = true;
+            this.LabelWarning.Text = "کارمندی با کد عضویت داده شده وجود ندارد.";
+        }
+    }
+
+    protected void chbInActive_CheckedChanged(object sender, EventArgs e)
+    {
+
+    }
+
+    protected void cmbMemberType_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        if (cmbMemberType.SelectedIndex == 1)
+        {
+
+            lbIsMember.Visible = false;
+            txtMeID.Visible = false;
+            CmpEmp.Visible = false;
+            lbNameFamily.Visible = false;
+            CmbName.Visible = false;
+            txtName.Enabled = true;
+            txtFamily.Enabled = true;
+            txtFatherName.Enabled = true;
+            txtIdNo.Enabled = true;
+            txtSSN.Enabled = true;
+            txtTel.Enabled = true;
+            txtMobileNo.Enabled = true;
+            txtBrithDate.Enabled = true;
+            txtAddress.Enabled = true;
+            txtEmail.Enabled = true;
+
+
+        }
+        else if (cmbMemberType.SelectedIndex == 2)
+        {
+            lbIsMember.Visible = true;
+            txtMeID.Visible = true;
+            CmpEmp.Visible = false;
+            lbNameFamily.Visible = true;
+            CmbName.Visible = true;
+            txtName.Enabled = false;
+            txtFamily.Enabled = false;
+            txtFatherName.Enabled = false;
+            txtIdNo.Enabled = false;
+            txtSSN.Enabled = false;
+            txtTel.Enabled = false;
+            txtMobileNo.Enabled = false;
+            txtBrithDate.Enabled = false;
+            txtAddress.Enabled = false;
+            txtEmail.EnableClientSideAPI = false;
+
+        }
+        else if (cmbMemberType.SelectedIndex == 3)
+        {
+            lbIsMember.Visible = true;
+            txtMeID.Visible = true;
+            CmpEmp.Visible = true;
+            lbNameFamily.Visible=true;
+            CmbName.Visible = false;
+            txtName.Enabled = false;
+            txtFamily.Enabled = false;
+            txtFatherName.Enabled = false;
+            txtIdNo.Enabled = false;
+            txtSSN.Enabled = false;
+            txtTel.Enabled = false;
+            txtMobileNo.Enabled = false;
+            txtBrithDate.Enabled = false;
+            txtAddress.Enabled = false;
+            txtEmail.EnableClientSideAPI = false;
+
+        }
+        else
+        {
+            lbIsMember.Visible = false;
+            txtMeID.Visible = false;
+            txtName.Enabled = true;
+            txtFamily.Enabled = true;
+            txtFatherName.Enabled = true;
+            txtIdNo.Enabled = true;
+            txtSSN.Enabled = true;
+            txtTel.Enabled = true;
+            txtMobileNo.Enabled = true;
+            txtBrithDate.Enabled = true;
+            txtAddress.Enabled = true;
+            txtEmail.Enabled = true;
+        }
+    }
+
+    protected void CmbName_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        if (CmbName.Value != null)
+            if (!string.IsNullOrEmpty(CmbName.Value.ToString()))
+            {
+                txtMeID.Text = CmbName.Value.ToString();
+                FillFormByMeId(int.Parse(txtMeID.Text));
+
+
+            }
+    }
+
+    protected void CmpEmp_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        if (CmpEmp.Value != null)
+            if (!string.IsNullOrEmpty(CmpEmp.Value.ToString()))
+            {
+                txtMeID.Text = CmbName.Value.ToString();
+                FillFormByEmpId(int.Parse(txtMeID.Text));
+
+            }
+
+    }
+
+    protected void txtIdNo_TextChanged(object sender, EventArgs e)
+    {
+
+    }
+
+    protected void btnDisActive_Click(object sender, EventArgs e)
+    {
+        TSP.DataManager.ObserverManager ObserverManager = new TSP.DataManager.ObserverManager();
+        string ObsId = Utility.DecryptQS(ObserverId.Value.ToString());
+        ObserverManager.FindByCode(int.Parse(ObsId));
+        if (Convert.ToBoolean(ObserverManager[0]["InActive"].ToString()))
+        {
+            Active(int.Parse(ObsId));
+        }
+        else
+        {
+            InActive(int.Parse(ObsId));
+        }
+    }
+    #endregion
+
+    #region Methods
+
+    protected void FillForm(int ObId)
+    {
+        string PageMode = Utility.DecryptQS(PgMode.Value);
+
+        TSP.DataManager.ObserverManager manager = new TSP.DataManager.ObserverManager();
+        manager.FindByCode(ObId);
+        if (manager.Count == 1)
+        {
+            txtName.Text = manager[0]["Name"].ToString();
+            txtFamily.Text = manager[0]["Family"].ToString();
+            txtFatherName.Text = manager[0]["Father"].ToString();
+            txtBrithDate.Text = manager[0]["BirthDate"].ToString();
+            txtIdNo.Text = manager[0]["IdNo"].ToString();
+            txtSSN.Text = manager[0]["SSN"].ToString();
+            txtTel.Text = manager[0]["Tel"].ToString();
+            txtMobileNo.Text = manager[0]["MobileNo"].ToString();
+            txtAddress.Text = manager[0]["Address"].ToString();
+            txtEmail.Text = manager[0]["Email"].ToString();
+            txtDesc.Text = manager[0]["Description"].ToString();
+            ChangeDisableButtonIcon(Convert.ToBoolean(manager[0]["InActive"].ToString()));
+            if (!string.IsNullOrEmpty(manager[0]["MeId"].ToString()))
+            {
+                txtMeID.Text = manager[0]["MeID"].ToString();
+
+            }
+            cmbMemberType.SelectedIndex = cmbMemberType.Items.IndexOfValue(manager[0]["MeType"].ToString());
+            cmbMemberType_SelectedIndexChanged(this, new EventArgs());
+
+
+        }
+    }
+
+    protected void ClearForm()
+    {
+        txtAddress.Text = "";
+        txtBrithDate.Text = "";
+        txtDesc.Text = "";
+        txtEmail.Text = "";
+        txtFamily.Text = "";
+        txtFatherName.Text = "";
+        txtIdNo.Text = "";
+        txtMeID.Text = "";
+        txtMobileNo.Text = "";
+        txtName.Text = "";
+        txtSSN.Text = "";
+        txtTel.Text = "";
+        cmbMemberType.SelectedIndex = 0;
+        CmbName.SelectedIndex = 0;
+        CmpEmp.SelectedIndex = 0;     
+    }
+
+    protected void Disable()
+    {
+        txtName.Enabled = false;
+        txtFamily.Enabled = false;
+        txtFatherName.Enabled = false;
+        txtIdNo.Enabled = false;
+        txtSSN.Enabled = false;
+        txtTel.Enabled = false;
+        txtMobileNo.Enabled = false;
+        txtBrithDate.Enabled = false;
+        txtAddress.Enabled = false;
+        txtEmail.Enabled = false;        
+        txtDesc.Enabled = false;
+        cmbMemberType.Enabled = false;
+    }
+
+    protected void Enable()
+    {
+        txtName.Enabled = true;
+        txtFamily.Enabled = true;
+        txtFatherName.Enabled = true;
+        txtIdNo.Enabled = true;
+        txtSSN.Enabled = true;
+        txtTel.Enabled = true;
+        txtMobileNo.Enabled = true;
+        txtBrithDate.Enabled = true;
+        txtAddress.Enabled = true;
+        txtEmail.Enabled = true;
+        txtDesc.Enabled = true;
+
+        cmbMemberType.Enabled = true;
+    }
+
+    protected void Edit(int ObId)
+    {
+
+        TSP.DataManager.ObserverManager manager = new TSP.DataManager.ObserverManager();
+        manager.FindByCode(ObId);
+        if (manager.Count == 1)
+        {
+
+            try
+            {
+
+                manager[0].BeginEdit();
+                manager[0]["Name"] = txtName.Text;
+                manager[0]["Family"] = txtFamily.Text;
+                manager[0]["Father"] = txtFatherName.Text;
+                manager[0]["BirthDate"] = txtBrithDate.Text;
+                manager[0]["IdNo"] = txtIdNo.Text;
+                manager[0]["SSN"] = txtSSN.Text;
+                manager[0]["Tel"] = txtTel.Text;
+                manager[0]["MobileNo"] = txtMobileNo.Text;
+                manager[0]["Address"] = txtAddress.Text;
+                manager[0]["Email"] = txtEmail.Text;
+                manager[0]["MeType"] = cmbMemberType.Value;
+                manager[0]["Description"] = txtDesc.Text;
+                if (!string.IsNullOrEmpty(txtMeID.Text))
+                {
+                    manager[0]["MeID"] = txtMeID.Text;
+                    //chbIsMember.Checked = true;
+                    //chbIsMember_CheckedChanged(this, new EventArgs());
+                }
+                manager[0]["UserId"] = (int)Session["Login"];
+                manager[0]["ModifiedDate"] = DateTime.Now;
+                manager[0].EndEdit();
+
+                int cn = manager.Save();
+                if (cn == 1)
+                {
+                    //CrId = int.Parse(manager[0]["ObId"].ToString());
+                    ObserverId.Value = Utility.EncryptQS(manager[0]["ObId"].ToString());
+                    PgMode.Value = Utility.EncryptQS("Edit");
+                    ASPxRoundPanel2.HeaderText = "ویرایش";
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "ذخیره انجام شد";
+                }
+                else
+                {
+
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "ذخیره انجام نشد";
+                }
+            }
+
+            catch (Exception err)
+            {
+
+
+                if (err.GetType() == typeof(System.Data.SqlClient.SqlException))
+                {
+                    System.Data.SqlClient.SqlException se = (System.Data.SqlClient.SqlException)err;
+                    if (se.Number == 2601)
+                    {
+                        this.DivReport.Visible = true;
+                        this.LabelWarning.Text = "اطلاعات تکراری می باشد";
+                    }
+
+                    else
+                    {
+                        this.DivReport.Visible = true;
+                        this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+                    }
+                }
+                else
+                {
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+                }
+
+            }
+        }
+        else
+        {
+            this.DivReport.Visible = true;
+            this.LabelWarning.Text = "اطلاعات مورد نظر توسط کاربر دیگری تغییر یافته است.";
+        }
+
+
+    }
+
+    protected void Insert()
+    {
+
+        TSP.DataManager.ObserverManager manager = new TSP.DataManager.ObserverManager();
+
+        try
+        {
+
+            //TSP.DataManager.MemberFileManager manager = new TSP.DataManager.MemberFileManager();
+            DataRow row = manager.NewRow();
+            row["Name"] = txtName.Text;
+            row["Family"] = txtFamily.Text;
+            row["Father"] = txtFatherName.Text;
+            row["BirthDate"] = txtBrithDate.Text;
+            row["IdNo"] = txtIdNo.Text;
+            row["SSN"] = txtSSN.Text;
+            row["Tel"] = txtTel.Text;
+            row["MobileNo"] = txtMobileNo.Text;
+            row["Address"] = txtAddress.Text;
+            row["Email"] = txtEmail.Text;
+            row["MeType"] = cmbMemberType.Value;
+            row["Description"] = txtDesc.Text;
+            if (!string.IsNullOrEmpty(txtMeID.Text))
+            {
+                row["MeID"] = txtMeID.Text;
+                //chbIsMember.Checked = true;
+                //chbIsMember_CheckedChanged(this, new EventArgs());
+            }
+            row["InActive"] = 0;
+            row["UserId"] = (int)Session["Login"];
+            row["ModifiedDate"] = DateTime.Now;
+            manager.AddRow(row);
+
+            int cn = manager.Save();
+            if (cn == 1)
+            {
+                //CrId = int.Parse(manager[0]["ObId"].ToString());
+
+                ObserverId.Value = Utility.EncryptQS(manager[0]["ObId"].ToString());
+                PgMode.Value = Utility.EncryptQS("Edit");
+                ASPxRoundPanel2.HeaderText = "ویرایش";
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "ذخیره انجام شد";
+
+                TSP.DataManager.Permission per = TSP.DataManager.ObserverManager.GetUserPermission(int.Parse(Session["Login"].ToString()), (TSP.DataManager.UserType)int.Parse(Session["LoginType"].ToString()));
+
+                btnDisActive.Enabled =true;
+                btnDisActive2.Enabled = true;
+                btnEdit2.Enabled = false;
+                btnEdit.Enabled = false;
+                this.ViewState["BtnEdit"] = btnEdit.Enabled;
+                this.ViewState["BtnDisActive"] = btnDisActive.Enabled;
+            }
+
+
+            else
+            {
+
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "ذخیره انجام نشد";
+            }
+        }
+        catch (Exception err)
+        {
+            if (err.GetType() == typeof(System.Data.SqlClient.SqlException))
+            {
+                System.Data.SqlClient.SqlException se = (System.Data.SqlClient.SqlException)err;
+                if (se.Number == 2601)
+                {
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "اطلاعات تکراری می باشد";
+                }
+                else if (se.Number == 547)
+                {
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "اطلاعات تکراری می باشد";
+                }
+                else
+                {
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+                }
+            }
+            else
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+            }
+        }
+
+
+    }
+
+    protected void Active(int ObId)
+    {
+
+        TSP.DataManager.ObserverManager managerEdit = new TSP.DataManager.ObserverManager();
+        managerEdit.FindByCode(ObId);
+        if (managerEdit.Count == 1)
+        {
+
+            try
+            {
+
+                managerEdit[0].BeginEdit();
+                managerEdit[0]["InActive"] = 0;
+                managerEdit[0]["UserId"] = (int)Session["Login"];
+                managerEdit[0]["ModifiedDate"] = DateTime.Now;
+                managerEdit[0].EndEdit();
+                int cn = managerEdit.Save();
+                if (cn == 1)
+                {
+                    ChangeDisableButtonIcon(false);
+                    ObserverId.Value = Utility.EncryptQS(managerEdit[0]["ObId"].ToString());
+                    PgMode.Value = Utility.EncryptQS("Edit");
+                    ASPxRoundPanel2.HeaderText = "ویرایش";
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "تغییرات انجام شد";
+
+                }
+                else
+                {
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "تغییرات انجام نشد";
+                }
+            }
+            catch (Exception err)
+            {
+
+
+                if (err.GetType() == typeof(System.Data.SqlClient.SqlException))
+                {
+                    System.Data.SqlClient.SqlException se = (System.Data.SqlClient.SqlException)err;
+                    if (se.Number == 2601)
+                    {
+                        this.DivReport.Visible = true;
+                        this.LabelWarning.Text = "اطلاعات تکراری می باشد";
+                    }
+                    else
+                    {
+                        this.DivReport.Visible = true;
+                        this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+                    }
+                }
+                else
+                {
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+                }
+            }
+        }
+        else
+        {
+            this.DivReport.Visible = true;
+            this.LabelWarning.Text = "اطلاعات مورد نظر توسط کاربر دیگری تغییر یافته است.";
+        }
+    }
+
+    protected void InActive(int ObId)
+    {
+
+        TSP.DataManager.ObserverManager managerEdit = new TSP.DataManager.ObserverManager();
+        managerEdit.FindByCode(ObId);
+        if (managerEdit.Count == 1)
+        {
+
+            try
+            {
+
+                managerEdit[0].BeginEdit();
+                managerEdit[0]["InActive"] = 1;
+                managerEdit[0]["UserId"] = (int)Session["Login"];
+                managerEdit[0]["ModifiedDate"] = DateTime.Now;
+                managerEdit[0].EndEdit();
+                int cn = managerEdit.Save();
+                if (cn == 1)
+                {
+                    ChangeDisableButtonIcon(true);
+                    ObserverId.Value = Utility.EncryptQS(managerEdit[0]["ObId"].ToString());
+                    PgMode.Value = Utility.EncryptQS("Edit");
+                    ASPxRoundPanel2.HeaderText = "ویرایش";
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "تغییرات انجام شد";
+
+                }
+                else
+                {
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "تغییرات انجام نشد";
+                }
+            }
+            catch (Exception err)
+            {
+
+
+                if (err.GetType() == typeof(System.Data.SqlClient.SqlException))
+                {
+                    System.Data.SqlClient.SqlException se = (System.Data.SqlClient.SqlException)err;
+                    if (se.Number == 2601)
+                    {
+                        this.DivReport.Visible = true;
+                        this.LabelWarning.Text = "اطلاعات تکراری می باشد";
+                    }
+                    else
+                    {
+                        this.DivReport.Visible = true;
+                        this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+                    }
+                }
+                else
+                {
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+                }
+            }
+        }
+        else
+        {
+            this.DivReport.Visible = true;
+            this.LabelWarning.Text = "اطلاعات مورد نظر توسط کاربر دیگری تغییر یافته است.";
+        }
+
+
+
+
+    }
+
+    protected void Delete(int ObId)
+    {
+
+        TSP.DataManager.ObserverManager managerEdit = new TSP.DataManager.ObserverManager();
+        managerEdit.FindByCode(ObId);
+        if (managerEdit.Count == 1)
+        {
+            try
+            {
+                managerEdit[0].Delete();
+
+
+                int cn = managerEdit.Save();
+                if (cn == 1)
+                {
+                    //TeacherId.Value = managerEdit[0]["ObId"].ToString();
+                    ObserverId.Value = Utility.EncryptQS("");
+                    PgMode.Value = Utility.EncryptQS("New");
+                    ASPxRoundPanel2.HeaderText = "جدید";
+                    ClearForm();
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "حذف انجام شد";
+
+                }
+                else
+                {
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "حذف انجام نشد";
+                }
+            }
+            catch (Exception err)
+            {
+
+                if (err.GetType() == typeof(System.Data.SqlClient.SqlException))
+                {
+                    System.Data.SqlClient.SqlException se = (System.Data.SqlClient.SqlException)err;
+                    if (se.Number == 547)
+                    {
+                        this.DivReport.Visible = true;
+                        this.LabelWarning.Text = "به علت وجود اطلاعات وابسته امکان حذف نمی باشد.";
+                    }
+                    else
+                    {
+                        this.DivReport.Visible = true;
+                        this.LabelWarning.Text = "خطایی در حذف انجام گرفته است";
+                    }
+                }
+                else
+                {
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "خطایی در حذف انجام گرفته است";
+                }
+
+            }
+
+        }
+        else
+        {
+        }
+
+    }
+
+    private void ChangeDisableButtonIcon(Boolean InActive)
+    {
+        if (InActive)
+        {
+            btnDisActive.Image.Url = "~/Images/icons/button_ok.png";
+            btnDisActive.ToolTip = "فعال کردن";
+            btnDisActive2.Image.Url = "~/Images/icons/button_ok.png";
+            btnDisActive2.ToolTip = "فعال کردن";
+        }
+        else
+        {
+            btnDisActive.Image.Url = "~/Images/icons/disactive.png";
+            btnDisActive.ToolTip = "غیرفعال کردن";
+            btnDisActive2.Image.Url = "~/Images/icons/disactive.png";
+            btnDisActive2.ToolTip = "غیرفعال کردن";
+        }
+        this.ViewState["btnDisActiveImg"] = this.btnDisActive.Image.Url;
+    }
+    #endregion
+}

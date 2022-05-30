@@ -1,0 +1,621 @@
+﻿using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+using DevExpress.Web;
+
+public partial class Settlement_MemberDocument_DocResponsibility : System.Web.UI.Page
+{
+    #region Events
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (Request.QueryString["MFId"] == null || Request.QueryString["PgMd"] == null)
+        {
+            Response.Redirect("MemberFile.aspx");
+        }
+
+        this.DivReport.Visible = false;
+        this.DivReport.Attributes.Add("onclick", "ChangeVisible(this)");
+        this.DivReport.Attributes.Add("onmouseover", "ChangeIcon(this)");
+
+        if (!IsPostBack)
+        {
+            HiddenFieldMeFileDetail["PrePageMode"] = Request.QueryString["PgMd"];
+            HiddenFieldMeFileDetail["MFId"] = Request.QueryString["MFId"];
+            string MFId = Utility.DecryptQS(HiddenFieldMeFileDetail["MFId"].ToString());
+            TSP.DataManager.DocMemberFileManager DocMemberFileManager = new TSP.DataManager.DocMemberFileManager();
+            DocMemberFileManager.FindByCode(int.Parse(MFId), 0);
+            if (DocMemberFileManager.Count == 1)
+            {
+                ObjdsMemberFileDetail.SelectParameters["MfId"].DefaultValue = MFId;
+                ObjdsMemberFileDetail.SelectParameters["MeId"].DefaultValue = DocMemberFileManager[0]["MeId"].ToString();
+                HiddenFieldMeFileDetail["MeId"] = Utility.EncryptQS(DocMemberFileManager[0]["MeId"].ToString());
+            }
+            CheckWorkFlowPermission();
+
+            this.ViewState["BtnEdit"] = btnEdit.Enabled;
+            this.ViewState["BtnNew"] = BtnNew.Enabled;
+            this.ViewState["btnActive"] = btnInActive.Enabled;
+        }
+        if (this.ViewState["BtnEdit"] != null)
+            this.btnEdit.Enabled = this.btnEdit2.Enabled = (bool)this.ViewState["BtnEdit"];
+        if (this.ViewState["BtnNew"] != null)
+            this.BtnNew.Enabled = this.btnNew2.Enabled = (bool)this.ViewState["BtnNew"];
+        if (this.ViewState["btnActive"] != null)
+            this.btnInActive.Enabled = this.btnInActive2.Enabled = (bool)this.ViewState["btnActive"];
+    }
+
+    protected void BtnNew_Click(object sender, EventArgs e)
+    {
+
+    }
+
+    protected void btnEdit_Click(object sender, EventArgs e)
+    {
+
+    }
+
+    protected void btnView_Click(object sender, EventArgs e)
+    {
+
+    }
+
+    protected void btnBack_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("MemberFile.aspx");
+    }
+
+    protected void MenuMemberFile_ItemClick(object source, DevExpress.Web.MenuItemEventArgs e)
+    {
+        switch (e.Item.Name)
+        {
+            case "JobHistory":
+                Response.Redirect("MemberJobHistory.aspx?MFId=" + HiddenFieldMeFileDetail["MFId"].ToString() + "&PgMd=" + HiddenFieldMeFileDetail["PrePageMode"].ToString() + "&DocType=" + Utility.EncryptQS(((int)TSP.DataManager.DocumentTypesOfMember.DocMemberFile).ToString()));
+                break;
+            case "Attachment":
+                Response.Redirect("DocumentAttachment.aspx?MFId=" + HiddenFieldMeFileDetail["MFId"].ToString() + "&PgMd=" + HiddenFieldMeFileDetail["PrePageMode"].ToString() + "&DocType=" + Utility.EncryptQS(((int)TSP.DataManager.DocumentTypesOfMember.DocMemberFile).ToString()));
+                break;
+            case "Major":
+                Response.Redirect("MemberFileBasicInfo.aspx?MFId=" + HiddenFieldMeFileDetail["MFId"].ToString() + "&MeId=" + HiddenFieldMeFileDetail["MeId"].ToString() + "&PgMd=" + HiddenFieldMeFileDetail["PrePageMode"].ToString() + "&DocType=" + Utility.EncryptQS(((int)TSP.DataManager.DocumentTypesOfMember.DocMemberFile).ToString()));
+                break;
+            case "Exam":
+                Response.Redirect("MemberExam.aspx?MFId=" + HiddenFieldMeFileDetail["MFId"].ToString() + "&PgMd=" + HiddenFieldMeFileDetail["PrePageMode"].ToString() + "&DocType=" + Utility.EncryptQS(((int)TSP.DataManager.DocumentTypesOfMember.DocMemberFile).ToString()));
+                break;
+            case "Period":
+                Response.Redirect("MemberPeriods.aspx?MeId=" + HiddenFieldMeFileDetail["MeId"].ToString() + "&MFId=" + HiddenFieldMeFileDetail["MFId"].ToString() + "&PgMd=" + HiddenFieldMeFileDetail["PrePageMode"].ToString() + "&DocType=" + Utility.EncryptQS(((int)TSP.DataManager.DocumentTypesOfMember.DocMemberFile).ToString()));
+                break;
+        }
+    }
+
+    protected void GridViewMeFiledetail_RowInserting(object sender, DevExpress.Web.Data.ASPxDataInsertingEventArgs e)
+    {
+        e.Cancel = true;
+        Insert(e);
+    }
+
+    protected void cmbMajor_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        TSP.DataManager.DocMemberFileManager DocMemberFileManager = new TSP.DataManager.DocMemberFileManager();
+        string MfId = Utility.DecryptQS(HiddenFieldMeFileDetail["MFId"].ToString());
+        string MeId = Utility.DecryptQS(HiddenFieldMeFileDetail["MeId"].ToString());
+        DocMemberFileManager.FindByCode(int.Parse(MfId), 0);
+        if (DocMemberFileManager.Count > 0)
+        {
+            int DocType = int.Parse(DocMemberFileManager[0]["Type"].ToString());
+            ASPxComboBox CmbMajor = (DevExpress.Web.ASPxComboBox)GridViewMeFiledetail.FindEditRowCellTemplateControl((DevExpress.Web.GridViewDataColumn)GridViewMeFiledetail.Columns["Major"], "cmbMajor");
+            ASPxComboBox CmbAcceptedGrd = (DevExpress.Web.ASPxComboBox)GridViewMeFiledetail.FindEditRowCellTemplateControl((DevExpress.Web.GridViewDataColumn)GridViewMeFiledetail.Columns["GrdRes"], "cmbAcceptedGrd");
+            string MjId = "";
+
+            switch (DocType)
+            {
+                case 0://********صدور
+                    CmbMajor.DataBind();
+                    int Grade3Id = (int)TSP.DataManager.DocumentGrads.Grade3;
+
+                    if (CmbMajor.SelectedItem != null)
+                    {
+                        MjId = CmbMajor.SelectedItem.Value.ToString();
+                    }
+                    ObjdsAcceptGrad.SelectParameters[0].DefaultValue = MjId;
+                    ObjdsAcceptGrad.SelectParameters[1].DefaultValue = Grade3Id.ToString();
+
+
+                    CmbAcceptedGrd.DataBind();
+                    break;
+                case 5://********انتقالی
+                    CmbMajor.DataBind();
+                    if (CmbMajor.SelectedItem != null)
+                    {
+                        MjId = CmbMajor.SelectedItem.Value.ToString();
+                    }
+                    ObjdsAcceptGrad.SelectParameters[0].DefaultValue = MjId;
+                    ObjdsAcceptGrad.SelectParameters[1].DefaultValue = "-1";
+                    CmbAcceptedGrd.DataBind();
+                    break;
+                default:
+                    TSP.DataManager.DocMemberFileDetailManager DocMemberFileDetailManager = new TSP.DataManager.DocMemberFileDetailManager();
+                    DataTable dtMeFileDetail = DocMemberFileDetailManager.SelectMeFileDetailMaxGrad(int.Parse(MfId), int.Parse(MeId), 0);
+                    if (dtMeFileDetail.Rows.Count > 0)
+                    {
+                        int MaxGradeId = int.Parse(dtMeFileDetail.Rows[0]["MaxGradeId"].ToString());
+                        CmbMajor.DataBind();
+                        if (CmbMajor.SelectedItem != null)
+                        {
+                            MjId = CmbMajor.SelectedItem.Value.ToString();
+                        }
+
+                        int NextGradeId = MaxGradeId - 1;
+                        ObjdsAcceptGrad.SelectParameters[0].DefaultValue = MjId;
+                        ObjdsAcceptGrad.SelectParameters[1].DefaultValue = NextGradeId.ToString();
+                        CmbAcceptedGrd.DataBind();
+                    }
+                    else
+                    {
+                        this.DivReport.Visible = true;
+                        this.LabelWarning.Text = "اطلاعات مربوط به صلاحیت های پروانه توسط کاربر دیگری تغییر یافته است.";
+                    }
+                    break;
+            }
+
+        }
+        else
+        {
+            Response.Redirect("MemberFile.aspx");
+        }
+    }
+
+
+    protected void GridViewMeFiledetail_InitNewRow(object sender, DevExpress.Web.Data.ASPxDataInitNewRowEventArgs e)
+    {
+        string MFId = Utility.DecryptQS(HiddenFieldMeFileDetail["MFId"].ToString());
+        ObjdsMemberFileMajor.SelectParameters[0].DefaultValue = MFId;
+        ASPxComboBox CmbMajor = (DevExpress.Web.ASPxComboBox)GridViewMeFiledetail.FindEditRowCellTemplateControl((DevExpress.Web.GridViewDataColumn)GridViewMeFiledetail.Columns["Major"], "cmbMajor");
+        CmbMajor.DataBind();
+        CmbMajor.SelectedIndex = 0;
+        //  cmbMajor_SelectedIndexChanged(this, new EventArgs());
+
+        int Grade3Id = (int)TSP.DataManager.DocumentGrads.Grade3;
+        string MjId = "";
+        if (CmbMajor.SelectedItem != null)
+        {
+            MjId = CmbMajor.SelectedItem.Value.ToString();
+        }
+        ObjdsAcceptGrad.SelectParameters[0].DefaultValue = MjId;
+        ObjdsAcceptGrad.SelectParameters[1].DefaultValue = Grade3Id.ToString();
+
+        ASPxComboBox CmbAcceptedGrd = (DevExpress.Web.ASPxComboBox)GridViewMeFiledetail.FindEditRowCellTemplateControl((DevExpress.Web.GridViewDataColumn)GridViewMeFiledetail.Columns["GrdRes"], "cmbAcceptedGrd");
+        CmbAcceptedGrd.DataBind();
+        CmbAcceptedGrd.SelectedIndex = 0;
+    }
+
+    protected void GridViewMeFiledetail_RowValidating(object sender, DevExpress.Web.Data.ASPxDataValidationEventArgs e)
+    {
+        ASPxComboBox cmbMajor = (DevExpress.Web.ASPxComboBox)GridViewMeFiledetail.FindEditRowCellTemplateControl((DevExpress.Web.GridViewDataColumn)GridViewMeFiledetail.Columns["Major"], "cmbMajor");
+        if (cmbMajor.SelectedIndex < 0)
+        {
+            e.RowError = "رشته مورد نظر را انتخاب نمایید.";
+        }
+
+        ASPxComboBox CmbAcceptedGrd = (DevExpress.Web.ASPxComboBox)GridViewMeFiledetail.FindEditRowCellTemplateControl((DevExpress.Web.GridViewDataColumn)GridViewMeFiledetail.Columns["GrdRes"], "cmbAcceptedGrd");
+        if (CmbAcceptedGrd.SelectedIndex < 0)
+        {
+            e.RowError = "پایه و صلاحیت مورد نظر را انتخاب نمایید.";
+        }
+    }
+
+    protected void GridViewMeFiledetail_StartRowEditing(object sender, DevExpress.Web.Data.ASPxStartRowEditingEventArgs e)
+    {
+        TSP.DataManager.DocMemberFileDetailManager DocMemberFileDetailManager = new TSP.DataManager.DocMemberFileDetailManager();
+        DocMemberFileDetailManager.FindByCode(int.Parse(e.EditingKeyValue.ToString()));
+        if (DocMemberFileDetailManager.Count == 1)
+        {
+            ASPxComboBox CmbMajor = (DevExpress.Web.ASPxComboBox)GridViewMeFiledetail.FindEditRowCellTemplateControl((DevExpress.Web.GridViewDataColumn)GridViewMeFiledetail.Columns["Major"], "cmbMajor");
+            ASPxComboBox CmbAcceptedGrd = (DevExpress.Web.ASPxComboBox)GridViewMeFiledetail.FindEditRowCellTemplateControl((DevExpress.Web.GridViewDataColumn)GridViewMeFiledetail.Columns["GrdRes"], "cmbAcceptedGrd");
+            CmbAcceptedGrd.DataBind();
+            CmbMajor.DataBind();
+            CmbMajor.SelectedIndex = CmbMajor.Items.FindByValue(DocMemberFileDetailManager[0]["FMjId"].ToString()).Index;
+            cmbMajor_SelectedIndexChanged(this, new EventArgs());
+            CmbAcceptedGrd.SelectedIndex = CmbAcceptedGrd.Items.FindByValue(DocMemberFileDetailManager[0]["GMRId"].ToString()).Index;
+        }
+        else
+        {
+            GridViewMeFiledetail.CancelEdit();
+        }
+
+    }
+
+    protected void GridViewMeFiledetail_RowUpdating(object sender, DevExpress.Web.Data.ASPxDataUpdatingEventArgs e)
+    {
+        e.Cancel = true;
+        Edit(e);
+    }
+
+    protected void btnInActive_Click(object sender, EventArgs e)
+    {
+        if (GridViewMeFiledetail.FocusedRowIndex > -1)
+        {
+            DataRow dr = GridViewMeFiledetail.GetDataRow(GridViewMeFiledetail.FocusedRowIndex);
+            if (dr != null)
+            {
+                int MFId = int.Parse(Utility.DecryptQS(HiddenFieldMeFileDetail["MFId"].ToString()));
+                int SelectedMfId = int.Parse(dr["MfId"].ToString());
+                int MfdId = int.Parse(dr["MfdId"].ToString());
+                if (MFId == SelectedMfId)
+                    Delete(MfdId);
+                else
+                    InActive(MfdId);
+            }
+        }
+    }
+
+    protected void cmbAcceptedGrd_Callback(object source, DevExpress.Web.CallbackEventArgsBase e)
+    {
+        //ASPxComboBox CmbMajor = (DevExpress.Web.ASPxComboBox)GridViewMeFiledetail.FindEditRowCellTemplateControl((DevExpress.Web.GridViewDataColumn)GridViewMeFiledetail.Columns["Major"], "cmbMajor");
+        //CmbMajor.DataBind();
+        //int Grade3Id = (int)TSP.DataManager.DocumentGrads.Grade3;
+        //string MjId = "";
+        //if (CmbMajor.SelectedItem != null)
+        //{
+        //    MjId = CmbMajor.SelectedItem.Value.ToString();
+        //}
+        //ObjdsAcceptGrad.SelectParameters[0].DefaultValue = MjId;
+        //ObjdsAcceptGrad.SelectParameters[1].DefaultValue = Grade3Id.ToString();
+
+        //ASPxComboBox CmbAcceptedGrd = (DevExpress.Web.ASPxComboBox)GridViewMeFiledetail.FindEditRowCellTemplateControl((DevExpress.Web.GridViewDataColumn)GridViewMeFiledetail.Columns["GrdRes"], "cmbAcceptedGrd");
+        //CmbAcceptedGrd.DataBind();
+    }
+
+    protected void GridViewMeFiledetail_HtmlRowPrepared(object sender, DevExpress.Web.ASPxGridViewTableRowEventArgs e)
+    {
+        if (e.RowType != GridViewRowType.Data)
+            return;
+        if (HiddenFieldMeFileDetail["MFId"] != null)
+        {
+            string MFId = Utility.DecryptQS(HiddenFieldMeFileDetail["MFId"].ToString());
+            if (e.GetValue("MfId") != null)
+            {
+                string CurretnMfId = e.GetValue("MfId").ToString();
+                if (MFId == CurretnMfId)
+                {
+                    e.Row.BackColor = System.Drawing.Color.LightGray;
+                }
+            }
+        }
+    }
+    #endregion
+
+    #region Methods
+    private void Insert(DevExpress.Web.Data.ASPxDataInsertingEventArgs e)
+    {
+        TSP.DataManager.DocMemberFileDetailManager DocMemberFileDetailManager = new TSP.DataManager.DocMemberFileDetailManager();
+        TSP.DataManager.DocAcceptedUpGradeManager DocAcceptedUpGradeManager = new TSP.DataManager.DocAcceptedUpGradeManager();
+        try
+        {
+            ASPxComboBox CmbAcceptedGrd = (DevExpress.Web.ASPxComboBox)GridViewMeFiledetail.FindEditRowCellTemplateControl((DevExpress.Web.GridViewDataColumn)GridViewMeFiledetail.Columns["GrdRes"], "cmbAcceptedGrd");
+            if (CmbAcceptedGrd != null)
+            {
+                string MFId = Utility.DecryptQS(HiddenFieldMeFileDetail["MFId"].ToString());
+
+                DataRow MeFileDetailRow = DocMemberFileDetailManager.NewRow();
+                MeFileDetailRow["MfId"] = MFId;
+                MeFileDetailRow["GMRId"] = CmbAcceptedGrd.SelectedItem.Value.ToString();
+                MeFileDetailRow["InActive"] = 0;
+                MeFileDetailRow["UserId"] = Utility.GetCurrentUser_UserId();
+                MeFileDetailRow["ModifiedDate"] = DateTime.Now;
+
+
+                DocMemberFileDetailManager.AddRow(MeFileDetailRow);
+
+                int cn = DocMemberFileDetailManager.Save();
+                if (cn > 0)
+                {
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "ذخیره انجام شد.";
+                }
+                else
+                {
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+                }
+            }
+            else
+            {
+
+            }
+            GridViewMeFiledetail.CancelEdit();
+            GridViewMeFiledetail.DataBind();
+        }
+        catch (Exception err)
+        {
+            GridViewMeFiledetail.CancelEdit();
+            SetError(err);
+        }
+    }
+
+    private void Edit(DevExpress.Web.Data.ASPxDataUpdatingEventArgs e)
+    {
+        TSP.DataManager.DocMemberFileDetailManager DocMemberFileDetailManager = new TSP.DataManager.DocMemberFileDetailManager();
+        try
+        {
+            ASPxComboBox CmbAcceptedGrd = (DevExpress.Web.ASPxComboBox)GridViewMeFiledetail.FindEditRowCellTemplateControl((DevExpress.Web.GridViewDataColumn)GridViewMeFiledetail.Columns["GrdRes"], "cmbAcceptedGrd");
+            if (CmbAcceptedGrd != null)
+            {
+                DocMemberFileDetailManager.FindByCode(int.Parse(e.Keys["MfdId"].ToString()));
+                if (DocMemberFileDetailManager.Count == 1)
+                {
+                    string MFId = Utility.DecryptQS(HiddenFieldMeFileDetail["MFId"].ToString());
+
+                    DocMemberFileDetailManager[0].BeginEdit();
+
+                    DocMemberFileDetailManager[0]["MfId"] = MFId;
+                    DocMemberFileDetailManager[0]["GMRId"] = CmbAcceptedGrd.SelectedItem.Value.ToString();
+                    DocMemberFileDetailManager[0]["UserId"] = Utility.GetCurrentUser_UserId();
+                    DocMemberFileDetailManager[0]["ModifiedDate"] = DateTime.Now;
+
+
+                    DocMemberFileDetailManager[0].EndEdit();
+                    int cn = DocMemberFileDetailManager.Save();
+                    if (cn > 0)
+                    {
+                        this.DivReport.Visible = true;
+                        this.LabelWarning.Text = "ذخیره انجام شد.";
+                    }
+                    else
+                    {
+                        this.DivReport.Visible = true;
+                        this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+                    }
+
+
+                }
+                else
+                {
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+                }
+            }
+            GridViewMeFiledetail.DataBind();
+            GridViewMeFiledetail.CancelEdit();
+        }
+        catch (Exception err)
+        {
+            GridViewMeFiledetail.CancelEdit();
+            SetError(err);
+        }
+    }
+
+    private void InActive(int MfdId)
+    {
+        TSP.DataManager.DocMemberFileDetailManager DocMemberFileDetailManager = new TSP.DataManager.DocMemberFileDetailManager();
+        try
+        {
+            DocMemberFileDetailManager.FindByCode(MfdId);
+            if (DocMemberFileDetailManager.Count == 1)
+            {
+                DocMemberFileDetailManager[0].BeginEdit();
+
+                DocMemberFileDetailManager[0]["InActive"] = 1;
+                DocMemberFileDetailManager[0]["UserId"] = Utility.GetCurrentUser_UserId();
+                DocMemberFileDetailManager[0]["ModifiedDate"] = DateTime.Now;
+
+                DocMemberFileDetailManager[0].EndEdit();
+                int cn = DocMemberFileDetailManager.Save();
+                if (cn > 0)
+                {
+                    GridViewMeFiledetail.DataBind();
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "ذخیره انجام شد.";
+                }
+                else
+                {
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+                }
+            }
+            else
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "اطلاعات مورد نظر توسط کارر دیگری تغییر یافته است.";
+            }
+        }
+        catch (Exception err)
+        {
+            SetError(err);
+        }
+    }
+
+    private void Delete(int MfdId)
+    {
+        try
+        {
+            TSP.DataManager.DocMemberFileDetailManager DocMemberFileDetailManager = new TSP.DataManager.DocMemberFileDetailManager();
+            DocMemberFileDetailManager.FindByCode(MfdId);
+            if (DocMemberFileDetailManager.Count == 1)
+            {
+                DocMemberFileDetailManager[0].Delete();
+
+                int cn = DocMemberFileDetailManager.Save();
+                if (cn > 0)
+                {
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "ذخیره انجام شد.";
+                }
+                else
+                {
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "خطایی در حذف انجام گرفته است.";
+                }
+            }
+            else
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "اطلاعات مورد نظر توسط کاربر دیگری تغییر یافته است.";
+            }
+            GridViewMeFiledetail.DataBind();
+        }
+        catch (Exception err)
+        {
+            SetDeleteError(err);
+        }
+    }
+
+    private void SetError(Exception err)
+    {
+        if (err.GetType() == typeof(System.Data.SqlClient.SqlException))
+        {
+            System.Data.SqlClient.SqlException se = (System.Data.SqlClient.SqlException)err;
+            if (se.Number == 2601)
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "اطلاعات تکراری می باشد";
+            }
+            else
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+            }
+        }
+        else
+        {
+            this.DivReport.Visible = true;
+            this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+        }
+    }
+
+    private void SetDeleteError(Exception err)
+    {
+        if (err.GetType() == typeof(System.Data.SqlClient.SqlException))
+        {
+            System.Data.SqlClient.SqlException se = (System.Data.SqlClient.SqlException)err;
+            if (se.Number == 547)
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "به علت وجود اطلاعات وابسته امکان حذف نمی باشد.";
+            }
+            else
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "خطایی در حذف انجام گرفته است.";
+            }
+        }
+        else
+        {
+            this.DivReport.Visible = true;
+            this.LabelWarning.Text = "خطایی در حذف انجام گرفته است.";
+        }
+    }
+
+    private void CheckWorkFlowPermission()
+    {
+        CheckWorkFlowPermissionForSave();
+    }
+
+    private void CheckWorkFlowPermissionForSave()
+    {
+        TSP.DataManager.TaskDoerManager TaskDoerManager = new TSP.DataManager.TaskDoerManager();
+        TSP.DataManager.WorkFlowTaskManager WorkFlowTaskManager = new TSP.DataManager.WorkFlowTaskManager();
+        TSP.DataManager.NezamMemberChartManager NezamMemberChartManager = new TSP.DataManager.NezamMemberChartManager();
+        TSP.DataManager.LoginManager LoginManager = new TSP.DataManager.LoginManager();
+
+        int CurrentTaskOrder = -1;
+        int TaskOrder = -1;
+        //****TableId
+        string MFId = Utility.DecryptQS(HiddenFieldMeFileDetail["MFId"].ToString());
+        //****TableType
+        int TableType = (int)TSP.DataManager.TableCodes.DocMemberFile;
+
+        TSP.DataManager.WorkFlowStateManager WorkFlowStateManager = new TSP.DataManager.WorkFlowStateManager();
+
+        DataTable dtWorkFlowState = WorkFlowStateManager.SelectLastState(TableType, int.Parse(MFId));
+        if (dtWorkFlowState.Rows.Count > 0)
+        {
+            CurrentTaskOrder = int.Parse(dtWorkFlowState.Rows[0]["TaskOrder"].ToString());
+        }
+        int TaskCode = (int)TSP.DataManager.WorkFlowTask.settlementAgentConfirmingDocument;
+        WorkFlowTaskManager.FindByTaskCode(TaskCode);
+        if (WorkFlowTaskManager.Count > 0)
+        {
+            TaskOrder = int.Parse(WorkFlowTaskManager[0]["TaskOrder"].ToString());
+        }
+
+        if (TaskOrder != 0 && CurrentTaskOrder == TaskOrder)
+        {
+            WorkFlowTaskManager.FindByTaskCode(TaskCode);
+            int TaskId = int.Parse(WorkFlowTaskManager[0]["TaskId"].ToString());
+            TaskDoerManager.FindByTaskId(TaskId);
+
+            if (TaskDoerManager.Count > 0)
+            {
+                int NcId = int.Parse(TaskDoerManager[0]["NcId"].ToString());
+                NezamMemberChartManager.FindByNcId(NcId);
+
+                int EmpId = int.Parse(NezamMemberChartManager[0]["EmpId"].ToString());
+
+                LoginManager.FindByMeIdUltId(EmpId, 7);
+                if (LoginManager.Count > 0)
+                {
+                    int userId = Utility.GetCurrentUser_UserId();
+                    int CurrentUserId = Utility.GetCurrentUser_UserId();
+                    if (CurrentUserId == userId)
+                    {
+                        //TSP.DataManager.Permission per = TSP.DataManager.DocMemberFileDetailManager.GetUserPermission(Utility.GetCurrentUser_UserId(), (TSP.DataManager.UserType)Utility.GetCurrentUser_UserId());
+                        //BtnNew.Enabled = per.CanNew;
+                        //btnNew2.Enabled = per.CanNew;
+                        //btnEdit.Enabled = per.CanEdit;
+                        //btnEdit2.Enabled = per.CanEdit;
+                        //btnInActive.Enabled = per.CanEdit;
+                        //btnInActive2.Enabled = per.CanEdit;
+                    }
+                    else
+                    {
+
+                        BtnNew.Enabled = false;
+                        btnNew2.Enabled = false;
+                        btnEdit.Enabled = false;
+                        btnEdit2.Enabled = false;
+                        btnInActive.Enabled = false;
+                        btnInActive2.Enabled = false;
+
+                    }
+                }
+                else
+                {
+                    BtnNew.Enabled = false;
+                    btnNew2.Enabled = false;
+                    btnEdit.Enabled = false;
+                    btnEdit2.Enabled = false;
+                    btnInActive.Enabled = false;
+                    btnInActive2.Enabled = false;
+                }
+            }
+            else
+            {
+                BtnNew.Enabled = false;
+                btnNew2.Enabled = false;
+                btnEdit.Enabled = false;
+                btnEdit2.Enabled = false;
+                btnInActive.Enabled = false;
+                btnInActive2.Enabled = false;
+            }
+        }
+        else
+        {
+            BtnNew.Enabled = false;
+            btnNew2.Enabled = false;
+            btnEdit.Enabled = false;
+            btnEdit2.Enabled = false;
+            btnInActive.Enabled = false;
+            btnInActive2.Enabled = false;
+        }
+        this.ViewState["BtnEdit"] = btnEdit.Enabled;
+        this.ViewState["btnActive"] = btnInActive.Enabled;
+        this.ViewState["BtnNew"] = BtnNew.Enabled;
+    }
+    #endregion
+}

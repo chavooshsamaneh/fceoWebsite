@@ -1,0 +1,11 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+<HTML><HEAD>
+<TITLE>501 Method
+Not Implemented</TITLE>
+</HEAD><BODY>
+<H1>Method Not Implemented</H1>
+get to /index
+.html not supported.<P>
+Invalid method in request get<P>
+</BODY></HTML>
+

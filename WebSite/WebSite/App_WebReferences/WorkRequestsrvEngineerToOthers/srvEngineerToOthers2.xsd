@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://schemas.datacontract.org/2004/07/DtoSC" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/DtoSC" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://esup.shiraz.ir/EngineerToOther/srvEngineerToOthers.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:complexType name="Base_NosaziCode">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Apartment" type="xs:int" />
+      <xs:element minOccurs="0" name="Block" type="xs:int" />
+      <xs:element minOccurs="0" name="Building" type="xs:int" />
+      <xs:element minOccurs="0" name="CI_City" type="xs:int" />
+      <xs:element minOccurs="0" name="CreateDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CreateTime" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DeleteDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DeleteTime" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DeletedID" type="xs:int" />
+      <xs:element minOccurs="0" name="DeletedNidUser" nillable="true" type="ser:guid" />
+      <xs:element minOccurs="0" name="DeletedUserName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="District" type="xs:int" />
+      <xs:element minOccurs="0" name="EumNosaziCodeGroup" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="EumNosaziCodeObjType" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="House" type="xs:int" />
+      <xs:element minOccurs="0" name="NidNosaziCode" type="ser:guid" />
+      <xs:element minOccurs="0" name="NidNosaziCode_Parent" type="ser:guid" />
+      <xs:element minOccurs="0" name="NidUser" type="ser:guid" />
+      <xs:element minOccurs="0" name="Region" type="xs:int" />
+      <xs:element minOccurs="0" name="Shop" type="xs:int" />
+      <xs:element minOccurs="0" name="UserName" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Base_NosaziCode" nillable="true" type="tns:Base_NosaziCode" />
+  <xs:complexType name="ArrayOfBase_Owner">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Base_Owner" nillable="true" type="tns:Base_Owner" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBase_Owner" nillable="true" type="tns:ArrayOfBase_Owner" />
+  <xs:complexType name="Base_Owner">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ActDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Address" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AyanDang" type="xs:double" />
+      <xs:element minOccurs="0" name="AyanHabeh" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="AyanImpart" type="xs:double" />
+      <xs:element minOccurs="0" name="AyanSir" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="AyanTotalImpart" type="xs:double" />
+      <xs:element minOccurs="0" name="BirthDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BuildingNo" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="CellPhone" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Comments" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DocNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EconomicID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EmissionPlace" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EumOwnerCharacter" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="IDCardNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NationalCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NidBase" type="ser:guid" />
+      <xs:element minOccurs="0" name="NidOwner" type="ser:guid" />
+      <xs:element minOccurs="0" name="NidOwnerBank" nillable="true" type="ser:guid" />
+      <xs:element minOccurs="0" name="OwnerFatherName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OwnerLastName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OwnerName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Telephone" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ToftDang" type="xs:double" />
+      <xs:element minOccurs="0" name="ToftHabeh" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="ToftImpart" type="xs:double" />
+      <xs:element minOccurs="0" name="ToftSir" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="ToftTotalImpart" type="xs:double" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Base_Owner" nillable="true" type="tns:Base_Owner" />
+  <xs:complexType name="ArrayOfBase_RegisterPlack">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Base_RegisterPlack" nillable="true" type="tns:Base_RegisterPlack" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBase_RegisterPlack" nillable="true" type="tns:ArrayOfBase_RegisterPlack" />
+  <xs:complexType name="Base_RegisterPlack">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CI_RegisterPlackType" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="CI_RegisterPlackTypeGroup" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="NidBase" type="ser:guid" />
+      <xs:element minOccurs="0" name="NidRegisterPlack" type="ser:guid" />
+      <xs:element minOccurs="0" name="Priority" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="RegisterPlackTypeValue" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Base_RegisterPlack" nillable="true" type="tns:Base_RegisterPlack" />
+  <xs:complexType name="Sh_RequestInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AbsoluteUnit" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="ActiveNidAnalysisBuilding_Khalaf" nillable="true" type="ser:guid" />
+      <xs:element minOccurs="0" name="ActiveNidAnalysisBuilding_MovafeghatOsooli" nillable="true" type="ser:guid" />
+      <xs:element minOccurs="0" name="ActiveNidAnalysisBuilding_Parvaneh" nillable="true" type="ser:guid" />
+      <xs:element minOccurs="0" name="ActiveNidIncome" nillable="true" type="ser:guid" />
+      <xs:element minOccurs="0" name="ActiveNidZabeteh" nillable="true" type="ser:guid" />
+      <xs:element minOccurs="0" name="AutomationNid" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AutomationNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BuyerCellphone" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BuyerName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BuyerNationalCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CI_GarbageArchiveCause" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="CI_Requester" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="CI_RequesterOwnerType" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="Cellphone" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Comment" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CommentsGarbageKartabl" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CommentsPermanentKartabl" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EMail" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EumRequestStatus" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="GarbageKartablDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="GarbageKartablTime" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IsOthersReqAttached" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="LastRequestState" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MainRequesterDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MainRequesterName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MainRequesterNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MandateDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MandateNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NidNosaziCode" type="ser:guid" />
+      <xs:element minOccurs="0" name="NidProc" type="ser:guid" />
+      <xs:element minOccurs="0" name="NidProc_Attached" nillable="true" type="ser:guid" />
+      <xs:element minOccurs="0" name="NidRevisit" nillable="true" type="ser:guid" />
+      <xs:element minOccurs="0" name="NidTemporaryKartabl_Last" nillable="true" type="ser:guid" />
+      <xs:element minOccurs="0" name="NidUserGarbageKartabl" nillable="true" type="ser:guid" />
+      <xs:element minOccurs="0" name="NidUserPermanentKartabl" nillable="true" type="ser:guid" />
+      <xs:element minOccurs="0" name="NidWorkItem" type="xs:long" />
+      <xs:element minOccurs="0" name="NidWorkItemOld" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NidWorkflowDeff" type="ser:guid" />
+      <xs:element minOccurs="0" name="PermanentKartablDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PermanentKartablTime" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PostCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RequestDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RequestTime" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RequesterAddress" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RequesterName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RequesterNationalCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SecretariatComments" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SecretariatDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SecretariatNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TelephoneNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TransferDang" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UserNameGarbageKartabl" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UserNamePermanentKartabl" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="WorkflowTitel" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Sh_RequestInfo" nillable="true" type="tns:Sh_RequestInfo" />
+  <xs:complexType name="ArrayOfBase_ControllerInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Base_ControllerInfo" nillable="true" type="tns:Base_ControllerInfo" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfBase_ControllerInfo" nillable="true" type="tns:ArrayOfBase_ControllerInfo" />
+  <xs:complexType name="Base_ControllerInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CI_Ability" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="CI_Base" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CI_EngStudyField" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="CI_EngineerType" nillable="true" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="CommitmentNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CommitmentSupervisionDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CommitmentSupervisionNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ConfirmDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ControllerCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ControllerFamily" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ControllerName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EngBase" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="JobAgreement" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MembershipNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MobileNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NidBase" type="ser:guid" />
+      <xs:element minOccurs="0" name="NidControllerInfo" type="ser:guid" />
+      <xs:element minOccurs="0" name="UrbanityCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Years" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Base_ControllerInfo" nillable="true" type="tns:Base_ControllerInfo" />
+</xs:schema>

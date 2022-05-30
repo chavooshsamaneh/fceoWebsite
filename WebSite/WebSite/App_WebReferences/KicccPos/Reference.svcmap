@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="3b9d0db3-addf-4934-a9a6-4ecddd3e8277" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:50000/KicccPosDriver" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="Intracter.wsdl" MetadataType="Wsdl" ID="81b231d1-56cc-4ec0-9d61-10e12308104d" SourceId="1" SourceUrl="http://localhost:50000/KicccPosDriver?wsdl" />
+    <MetadataFile FileName="KicccPosDriver.xsd" MetadataType="Schema" ID="b9be2361-d22c-4a32-8b6e-7b2af3753bbb" SourceId="1" SourceUrl="http://localhost:50000/KicccPosDriver?xsd=xsd1" />
+    <MetadataFile FileName="KicccPosDriver.disco" MetadataType="Disco" ID="f9557917-1802-42b2-9cf6-0e47558e3b1c" SourceId="1" SourceUrl="http://localhost:50000/KicccPosDriver?disco" />
+    <MetadataFile FileName="KicccPosDriver1.xsd" MetadataType="Schema" ID="62bf6af7-e96f-43aa-8cb0-825ddb1b3eb6" SourceId="1" SourceUrl="http://localhost:50000/KicccPosDriver?xsd=xsd0" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

@@ -1,0 +1,246 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="lblPaymentIdDown.Font" type="System.Drawing.Font, System.Drawing">
+    <value>B Nazanin, 9pt, style=Bold</value>
+  </data>
+  <assembly alias="DevExpress.Utils.v17.1" name="DevExpress.Utils.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+  <data name="lblPaymentIdDown.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Utils.v17.1">
+    <value>957.9373, 1810</value>
+  </data>
+  <data name="lblPaymentIdTop.Font" type="System.Drawing.Font, System.Drawing">
+    <value>B Nazanin, 9pt, style=Bold</value>
+  </data>
+  <data name="lblPaymentIdTop.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Utils.v17.1">
+    <value>957.9373, 700</value>
+  </data>
+  <data name="lblSSN2.Font" type="System.Drawing.Font, System.Drawing">
+    <value>B Nazanin, 9pt, style=Bold</value>
+  </data>
+  <data name="lblSSN.Font" type="System.Drawing.Font, System.Drawing">
+    <value>B Nazanin, 9pt, style=Bold</value>
+  </data>
+  <data name="lblAccountNumber2.Font" type="System.Drawing.Font, System.Drawing">
+    <value>B Nazanin, 12pt, style=Bold</value>
+  </data>
+  <data name="lblAccountNumber2.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Utils.v17.1">
+    <value>148.520813, 1290</value>
+  </data>
+  <data name="lblAmountAlph2.Font" type="System.Drawing.Font, System.Drawing">
+    <value>B Nazanin, 9pt, style=Bold</value>
+  </data>
+  <data name="lblAmountAlph2.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Utils.v17.1">
+    <value>148.520813, 1380</value>
+  </data>
+  <data name="lblPayerAddress2.Font" type="System.Drawing.Font, System.Drawing">
+    <value>B Nazanin, 9pt, style=Bold</value>
+  </data>
+  <data name="lblPayerAddress2.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Utils.v17.1">
+    <value>902.666, 1699.99988</value>
+  </data>
+  <data name="lblOwnerName2.Font" type="System.Drawing.Font, System.Drawing">
+    <value>B Nazanin, 9pt, style=Bold</value>
+  </data>
+  <data name="lblOwnerName2.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Utils.v17.1">
+    <value>559.520935, 1550</value>
+  </data>
+  <data name="lblBranch2.Font" type="System.Drawing.Font, System.Drawing">
+    <value>B Nazanin, 9pt, style=Bold</value>
+  </data>
+  <data name="lblBranch2.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Utils.v17.1">
+    <value>498, 1220</value>
+  </data>
+  <data name="lblBranch2.SizeF" type="System.Drawing.SizeF, System.Drawing">
+    <value>450.791534, 53</value>
+  </data>
+  <data name="lblDate2.Font" type="System.Drawing.Font, System.Drawing">
+    <value>B Nazanin, 12pt, style=Bold</value>
+  </data>
+  <data name="lblDate2.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Utils.v17.1">
+    <value>1300, 1280</value>
+  </data>
+  <data name="lblAmount2.Font" type="System.Drawing.Font, System.Drawing">
+    <value>B Nazanin, 12pt, style=Bold</value>
+  </data>
+  <data name="lblAmount2.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Utils.v17.1">
+    <value>1088.959, 1450</value>
+  </data>
+  <data name="lblAccountName2.Font" type="System.Drawing.Font, System.Drawing">
+    <value>B Nazanin, 9pt, style=Bold</value>
+  </data>
+  <data name="lblAccountName2.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Utils.v17.1">
+    <value>1000, 1350</value>
+  </data>
+  <data name="lblPayerAddress.Font" type="System.Drawing.Font, System.Drawing">
+    <value>B Nazanin, 9pt, style=Bold</value>
+  </data>
+  <data name="lblOwnerName.Font" type="System.Drawing.Font, System.Drawing">
+    <value>B Nazanin, 9pt, style=Bold</value>
+  </data>
+  <data name="lblOwnerName.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Utils.v17.1">
+    <value>559.5208, 450</value>
+  </data>
+  <data name="lblAccountNumber.Font" type="System.Drawing.Font, System.Drawing">
+    <value>B Nazanin, 12pt, style=Bold</value>
+  </data>
+  <data name="lblAccountNumber.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Utils.v17.1">
+    <value>148.520813, 250</value>
+  </data>
+  <data name="lblAmountAlph.Font" type="System.Drawing.Font, System.Drawing">
+    <value>B Nazanin, 9pt, style=Bold</value>
+  </data>
+  <data name="lblAmountAlph.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Utils.v17.1">
+    <value>148.520813, 350</value>
+  </data>
+  <data name="lblAmount.Font" type="System.Drawing.Font, System.Drawing">
+    <value>B Nazanin, 12pt, style=Bold</value>
+  </data>
+  <data name="lblAmount.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Utils.v17.1">
+    <value>1088.959, 350</value>
+  </data>
+  <data name="lblAccountName.Font" type="System.Drawing.Font, System.Drawing">
+    <value>B Nazanin, 9pt, style=Bold</value>
+  </data>
+  <data name="lblAccountName.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Utils.v17.1">
+    <value>1000, 250</value>
+  </data>
+  <data name="lblBranch.Font" type="System.Drawing.Font, System.Drawing">
+    <value>B Nazanin, 9pt, style=Bold</value>
+  </data>
+  <data name="lblBranch.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Utils.v17.1">
+    <value>498, 180</value>
+  </data>
+  <data name="lblBranch.SizeF" type="System.Drawing.SizeF, System.Drawing">
+    <value>450.7915, 53.0000153</value>
+  </data>
+  <data name="lblDate.Font" type="System.Drawing.Font, System.Drawing">
+    <value>B Nazanin, 12pt, style=Bold</value>
+  </data>
+  <data name="lblDate.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Utils.v17.1">
+    <value>1300, 150</value>
+  </data>
+  <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
+    <value>B Nazanin, 9.75pt</value>
+  </data>
+  <assembly alias="DevExpress.Data.v17.1" name="DevExpress.Data.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+  <data name="$this.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v17.1">
+    <value>TopCenter</value>
+  </data>
+</root>

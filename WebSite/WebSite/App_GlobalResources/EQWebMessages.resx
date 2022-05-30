@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="StrAddColumns" xml:space="preserve">
+    <value>Add columns</value>
+  </data>
+  <data name="StrAddConditions" xml:space="preserve">
+    <value>Add conditions</value>
+  </data>
+  <data name="StrSelectAll" xml:space="preserve">
+    <value>Select All</value>
+  </data>
+  <data name="StrSelectNone" xml:space="preserve">
+    <value>Select None</value>
+  </data>
+  <data name="MsgAs" xml:space="preserve">
+    <value>as</value>
+  </data>
+  <data name="MsgOf" xml:space="preserve">
+    <value>of</value>
+  </data>
+  <data name="CmdClickToAddColumn" xml:space="preserve">
+    <value>Click here to add a new column</value>
+  </data>
+  <data name="CmdGroupSort" xml:space="preserve">
+    <value>Sorting</value>
+  </data>
+  <data name="CmdNotSorted" xml:space="preserve">
+    <value>Not sorted</value>
+  </data>
+  <data name="CmdAscending" xml:space="preserve">
+    <value>Ascending</value>
+  </data>
+  <data name="CmdDescending" xml:space="preserve">
+    <value>Descending</value>
+  </data>
+  <data name="CmdMoveUp" xml:space="preserve">
+    <value>Move up</value>
+  </data>
+  <data name="CmdMoveDown" xml:space="preserve">
+    <value>Move down</value>
+  </data>
+  <data name="CmdDeleteColumn" xml:space="preserve">
+    <value>Delete column</value>
+  </data>
+  <data name="CmdDeleteSorting" xml:space="preserve">
+    <value>Delete sorting</value>
+  </data>
+  <data name="ColTypeGroup" xml:space="preserve">
+    <value>Column type</value>
+  </data>
+  <data name="ColTypeSimple" xml:space="preserve">
+    <value>Simple column</value>
+  </data>
+  <data name="ColTypeAggrFunc" xml:space="preserve">
+    <value>Aggregate function</value>
+  </data>
+  <data name="ColTypeCompound" xml:space="preserve">
+    <value>Calculated</value>
+  </data>
+  <data name="HeaderExpression" xml:space="preserve">
+    <value>Expression</value>
+  </data>
+  <data name="HeaderSorting" xml:space="preserve">
+    <value>Sorting</value>
+  </data>
+  <data name="HeaderTitle" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="SortHeaderColumn" xml:space="preserve">
+    <value>Column</value>
+  </data>
+  <data name="SortHeaderSorting" xml:space="preserve">
+    <value>Sorting</value>
+  </data>
+  <data name="RowButtonTitle" xml:space="preserve">
+    <value>Click here to see all available operations</value>
+  </data>
+  <data name="StrMoveRowDown" xml:space="preserve">
+    <value>Press to move row down</value>
+  </data>
+  <data name="StrMoveRowUp" xml:space="preserve">
+    <value>Press to move row up</value>
+  </data>
+   <data name="CmdClickToAddCondition" xml:space="preserve">
+    <value>Click here to add a new condition</value>
+  </data>
+  <data name="CmdAddConditionInto" xml:space="preserve">
+    <value>Add a new condition</value>
+  </data>
+  <data name="CmdAddPredicateInto" xml:space="preserve">
+    <value>Open a bracket</value>
+  </data>
+  <data name="CmdAddConditionAfter" xml:space="preserve">
+    <value>Add a new condition after the current row</value>
+  </data>
+  <data name="CmdAddPredicateAfter" xml:space="preserve">
+    <value>Open a bracket after the current row</value>
+  </data>
+  <data name="CmdDeleteRow" xml:space="preserve">
+    <value>Delete this row</value>
+  </data>
+  <data name="RootPredicateTitle" xml:space="preserve">
+    <value>Select records where &lt;lt&gt;of the following apply</value>
+  </data>
+  <data name="PredicateTitle" xml:space="preserve">
+    <value>&lt;lt&gt;of the following apply</value>
+  </data>
+  <data name="LinkTypeAll" xml:space="preserve">
+    <value>all</value>
+  </data>
+  <data name="LinkTypeAny" xml:space="preserve">
+    <value>any</value>
+  </data>
+  <data name="LinkTypeNotAll" xml:space="preserve">
+    <value>not all</value>
+  </data>
+  <data name="LinkTypeNone" xml:space="preserve">
+    <value>none</value>
+  </data>
+  <data name="MsgApplySelection" xml:space="preserve">
+    <value>[Apply selection]</value>
+  </data>
+  <data name="MsgEmptyList" xml:space="preserve">
+    <value>(empty list)</value>
+  </data>
+  <data name="MsgEmptyScalarValue" xml:space="preserve">
+    <value>[enter value]</value>
+  </data>
+  <data name="MsgEmptyListValue" xml:space="preserve">
+    <value>[select value]</value>
+  </data>
+  <data name="False" xml:space="preserve">
+    <value>False</value>
+  </data>
+  <data name="True" xml:space="preserve">
+    <value>True</value>
+  </data>
+  <data name="Today" xml:space="preserve">
+    <value>Today</value>
+  </data>
+  <data name="Yesterday" xml:space="preserve">
+    <value>Yesterday</value>
+  </data>
+  <data name="Tomorrow" xml:space="preserve">
+    <value>Tomorrow</value>
+  </data>
+  <data name="FirstDayOfMonth" xml:space="preserve">
+    <value>First day of the month</value>
+  </data>
+  <data name="FirstDayOfYear" xml:space="preserve">
+    <value>First day of the year</value>
+  </data>
+  <data name="Now" xml:space="preserve">
+    <value>Now</value>
+  </data>
+  <data name="HourStart" xml:space="preserve">
+    <value>This hour start</value>
+  </data>
+  <data name="Midnight" xml:space="preserve">
+    <value>Midnight</value>
+  </data>
+  <data name="Noon" xml:space="preserve">
+    <value>Noon</value>
+  </data>
+  <data name="AltMenuAttribute" xml:space="preserve">
+    <value>Attribute</value>
+  </data>
+  <data name="AltMenuConstantExpression" xml:space="preserve">
+    <value>Constant expression</value>
+  </data>
+</root>

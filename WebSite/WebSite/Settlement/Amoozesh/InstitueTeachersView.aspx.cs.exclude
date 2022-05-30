@@ -1,0 +1,143 @@
+﻿using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+
+public partial class Settlement_Amoozesh_InstitueTeachersView : System.Web.UI.Page
+{
+    #region Events
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (Session["Login"] == null || Session["Login"].ToString() == "0")
+        {
+            Response.Redirect("../../Login.aspx?ReferPage=" + Request.Url.AbsoluteUri);
+            return;
+        }
+        this.DivReport.Visible = false;
+        this.DivReport.Attributes.Add("onclick", "ChangeVisible(this)");
+        this.DivReport.Attributes.Add("onmouseover", "ChangeIcon(this)");
+
+        if (!IsPostBack)
+        {
+            if (string.IsNullOrEmpty(Request.QueryString["InsTeId"]) || string.IsNullOrEmpty(Request.QueryString["PgMd"]) || string.IsNullOrEmpty(Request.QueryString["InsId"]))
+            {
+                Response.Redirect("Institue.aspx");
+                return;
+            }
+            TSP.DataManager.Permission per = TSP.DataManager.InstitueTeachersManager.GetUserPermission(int.Parse(Session["Login"].ToString()), (TSP.DataManager.UserType)int.Parse(Session["LoginType"].ToString()));           
+            SetKey();
+        }       
+    }
+
+    protected void btnBack_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("InstitueTeachers.aspx?InsId=" + HiddenFieldInsTeacher["InsId"]);
+    }
+    #endregion
+
+    #region Methods
+    private void SetKey()
+    {
+        try
+        {
+            HiddenFieldInsTeacher["PageMode"] = Server.HtmlDecode(Request.QueryString["PgMd"].ToString());
+            HiddenFieldInsTeacher["InsId"] = Server.HtmlDecode(Request.QueryString["InsId"]).ToString();
+            HiddenFieldInsTeacher["InsTeacherId"] = Server.HtmlDecode(Request.QueryString["InsTeId"]).ToString();
+        }
+        catch
+        {
+            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+            return;
+        }
+
+        string PageMode = Utility.DecryptQS(HiddenFieldInsTeacher["PageMode"].ToString());
+        string InsId = Utility.DecryptQS(HiddenFieldInsTeacher["InsId"].ToString());
+        if (string.IsNullOrEmpty(PageMode))
+        {
+            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+            return;
+        }
+        else
+        {
+            SetMode(PageMode);
+            //  CheckWorkFlowPermission();
+        }
+    }
+
+    private void SetMode(string PageMode)
+    {
+        if (string.IsNullOrEmpty(PageMode))
+        {
+            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+            return;
+        }
+        switch (PageMode)
+        {
+            case "View":
+                SetViewModeKeys();
+                break;
+        }
+    }
+
+    private void SetViewModeKeys()
+    {
+        string InsTeacherId = Utility.DecryptQS(HiddenFieldInsTeacher["InsTeacherId"].ToString());      
+        FillForm(int.Parse(InsTeacherId));
+
+        RoundPanelInsTeacher.HeaderText = "مشاهده";
+    }
+
+    private void EnabledControls()
+    {
+        txtStartDate.Enabled = true;
+        txtEndDate.Enabled = true;
+        txtDescription.Enabled = true;
+    }
+
+    protected void FillForm(int InsTeacherId)
+    {
+        string PageMode = Utility.DecryptQS(HiddenFieldInsTeacher["PageMode"].ToString());
+
+        TSP.DataManager.InstitueTeachersManager InstitueTeachersManager = new TSP.DataManager.InstitueTeachersManager();
+        TSP.DataManager.TeacherManager TeacherManager = new TSP.DataManager.TeacherManager();
+        InstitueTeachersManager.FindByCode(InsTeacherId);
+        if (InstitueTeachersManager.Count == 1)
+        {
+            txtStartDate.Text = InstitueTeachersManager[0]["StartDate"].ToString();
+            txtEndDate.Text = InstitueTeachersManager[0]["EndDate"].ToString();
+            txtDescription.Text = InstitueTeachersManager[0]["Description"].ToString();
+            string TeId = InstitueTeachersManager[0]["TeId"].ToString();
+            TeacherManager.FindByCode(int.Parse(TeId));
+            if (TeacherManager.Count == 1)
+            {
+                txtFileNo.Text = TeacherManager[0]["FileNo"].ToString();
+                txtName.Text = TeacherManager[0]["Name"].ToString() + " " + TeacherManager[0]["Family"].ToString();
+                txtFileDate.Text = TeacherManager[0]["FileDate"].ToString();
+                //cmbLicence.DataBind();
+                //cmbLicence.SelectedIndex = cmbLicence.Items.FindByValue(TeacherManager[0]["LiId"].ToString()).Index;
+                //cmbMajor.DataBind();
+                //cmbMajor.SelectedIndex = cmbMajor.Items.FindByValue(TeacherManager[0]["MjId"].ToString()).Index;
+            }
+        }
+    }
+
+    protected void ClearForm()
+    {
+        //cmbLicence.SelectedIndex = -1;
+        //cmbMajor.SelectedIndex = -1;
+        txtDescription.Text = "";
+        txtEndDate.Text = "";
+        txtFileDate.Text = "";
+        txtFileNo.Text = "";
+        txtName.Text = "";
+        txtStartDate.Text = "";
+    }
+    #endregion
+}

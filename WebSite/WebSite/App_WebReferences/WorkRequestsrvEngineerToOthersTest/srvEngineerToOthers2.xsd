@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/BIZ.SA" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/BIZ.SA" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="ClsErrorResult">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BizErrors" nillable="true" type="tns:ArrayOfclsBizError" />
+      <xs:element minOccurs="0" name="Requirements" nillable="true" type="tns:ArrayOfClsRequirementItem" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ClsErrorResult" nillable="true" type="tns:ClsErrorResult" />
+  <xs:complexType name="ArrayOfclsBizError">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="clsBizError" nillable="true" type="tns:clsBizError" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfclsBizError" nillable="true" type="tns:ArrayOfclsBizError" />
+  <xs:complexType name="clsBizError">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ErrorAction" type="tns:EumErrorAction" />
+      <xs:element minOccurs="0" name="ErrorKey" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ErrorTitel" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="clsBizError" nillable="true" type="tns:clsBizError" />
+  <xs:simpleType name="EumErrorAction">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Stop" />
+      <xs:enumeration value="Warning" />
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:element name="EumErrorAction" nillable="true" type="tns:EumErrorAction" />
+  <xs:complexType name="ArrayOfClsRequirementItem">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ClsRequirementItem" nillable="true" type="tns:ClsRequirementItem" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfClsRequirementItem" nillable="true" type="tns:ArrayOfClsRequirementItem" />
+  <xs:complexType name="ClsRequirementItem">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="RequireDescription" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RequireKey" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RequireTitel" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RequireType" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RequireValue" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ClsRequirementItem" nillable="true" type="tns:ClsRequirementItem" />
+</xs:schema>

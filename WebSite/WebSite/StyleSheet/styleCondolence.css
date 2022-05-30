@@ -1,0 +1,48 @@
+h1
+{
+    font-family: verdana;
+}
+
+.tasliat
+{
+    padding: 0px;
+    margin: 0px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    vertical-align:middle;
+}
+
+ul li
+{
+    list-style: none;
+    font-family: Tahoma;
+    font-size: 11px;
+    text-align: center;
+}
+
+.tabrik
+{
+    color: #0000FF;
+    padding: 0px;
+    margin: 0px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    vertical-align:middle;
+}
+
+ul li a 
+{
+    text-align: justify;
+    text-decoration: none;
+    color: #000000;
+}
+
+ul li a:hover
+{
+    color: #000000;
+}
+
+ul li a:visited
+{
+    color: #000000;
+}

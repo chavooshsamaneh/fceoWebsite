@@ -1,0 +1,26 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+public partial class UserControl_ComplainUserControl : System.Web.UI.UserControl
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        
+    }
+
+    public void LoadComplain(int ClnID)
+    {
+        TSP.DataManager.EntezamiComplainManager complain = new TSP.DataManager.EntezamiComplainManager();
+        complain.FindByCode(ClnID);
+        if (complain.Count != 0)
+        {
+            txtComplainCode.Text = complain[0]["ClnCode"].ToString();
+            txtComplainStatus.Text = complain[0]["CsName"].ToString();
+            MemoComplainSubject.Text = complain[0]["Subject"].ToString();
+        }
+    }
+}

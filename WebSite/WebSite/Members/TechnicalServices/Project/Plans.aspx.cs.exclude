@@ -1,0 +1,165 @@
+﻿using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+using DevExpress.Web;
+using System.Drawing;
+
+public partial class Members_TechnicalServices_Project_Plans : System.Web.UI.Page
+{
+    string ProjectId;
+    string PrjReId;
+    string PrjPgMode;
+    #region Events
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (string.IsNullOrEmpty(Request.QueryString["ProjectId"]) || string.IsNullOrEmpty(Request.QueryString["PrjReId"]) || string.IsNullOrEmpty(Request.QueryString["PageMode"]))
+        {
+            Response.Redirect("Project.aspx");
+        }
+
+        this.DivReport.Visible = false;
+        this.DivReport.Attributes.Add("onclick", "ChangeVisible(this)");
+        this.DivReport.Attributes.Add("onmouseover", "ChangeIcon(this)");
+
+        if (!IsPostBack)
+        {
+            ObjdsWorkFlowTask.SelectParameters["WorkFlowCode"].DefaultValue = ((int)TSP.DataManager.WorkFlows.TSPlansConfirming).ToString();
+            GridViewPlans.JSProperties["cpIsPostBack"] = 1;
+            Session["SendBackDataTable_EmpPln"] = "";
+
+            SetKeys();
+        }
+    }
+
+    #region btn Click
+    protected void btnView_Click(object sender, EventArgs e)
+    {
+        NextPage("View");
+    }
+
+    protected void btnback_Click(object sender, EventArgs e)
+    {
+        string QS = "ProjectId=" + HiddenFieldPlan["ProjectId"].ToString()
+            + "&PrjReId=" + HiddenFieldPlan["PrjReId"].ToString()
+            + "&PageMode=" + HiddenFieldPlan["PageMode"].ToString();
+        Response.Redirect("ProjectInsert.aspx?" + QS);
+    }
+    #endregion
+
+    protected void MainMenu_ItemClick(object source, DevExpress.Web.MenuItemEventArgs e)
+    {
+        ProjectId = Utility.DecryptQS(HiddenFieldPlan["ProjectId"].ToString());
+        PrjReId = HiddenFieldPlan["PrjReId"].ToString();
+        PrjPgMode = HiddenFieldPlan["PageMode"].ToString();
+        PrjMainMenu MainMenu = new PrjMainMenu("Plans", Convert.ToInt32(ProjectId));
+        Response.Redirect(MainMenu.GetRedirectLink(e.Item.Name, PrjReId, PrjPgMode));
+    }
+
+    protected void GridViewPlanSubRe_BeforePerformDataSelect(object sender, EventArgs e)
+    {
+        Session["PlansId"] = (int)(sender as ASPxGridView).GetMasterRowKeyValue();
+    }
+    #endregion
+
+    #region Methods
+    /***************************************************************** NextPage**************************************************************/
+    private void NextPage(string Mode)
+    {
+        int PlansId = -1;
+        int focucedIndex = -1;
+
+        if (Mode != "New")
+        {
+            if (GridViewPlans.FocusedRowIndex > -1)
+            {
+                focucedIndex = GridViewPlans.FocusedRowIndex;
+                if (focucedIndex > -1)
+                {
+                    DataRow row = GridViewPlans.GetDataRow(focucedIndex);
+                    PlansId = (int)row["PlansId"];
+                }
+            }
+        }
+
+        if (PlansId == -1 && Mode != "New")
+            SetLabelWarning("لطفاً برای مشاهده اطلاعات ابتدا یک رکورد را انتخاب نمائید");
+        else
+        {
+            string QS = "PlnId=" + Utility.EncryptQS(PlansId.ToString())
+                + "&ProjectId=" + HiddenFieldPlan["ProjectId"].ToString()
+                + "&PrjReId=" + HiddenFieldPlan["PrjReId"].ToString()
+                + "&PageMode=" + HiddenFieldPlan["PageMode"].ToString()
+                + "&UrlReferrer=" + Utility.EncryptQS("Plans");
+            Response.Redirect("PlanInfo.aspx?" + QS);
+        }
+    }
+
+    /****************************************************************************************************************************************/
+    private void SetKeys()
+    {
+        try
+        {
+            HiddenFieldPlan["PageMode"] = Request.QueryString["PageMode"];
+            HiddenFieldPlan["PrjReId"] = Request.QueryString["PrjReId"];
+            HiddenFieldPlan["ProjectId"] = Request.QueryString["ProjectId"];
+
+            ProjectId = Utility.DecryptQS(HiddenFieldPlan["ProjectId"].ToString());
+            PrjReId = Utility.DecryptQS(HiddenFieldPlan["PrjReId"].ToString());
+            PrjPgMode = Utility.DecryptQS(HiddenFieldPlan["PageMode"].ToString());
+
+            if (string.IsNullOrEmpty(ProjectId) || string.IsNullOrEmpty(PrjReId) || string.IsNullOrEmpty(PrjPgMode))
+            {
+                this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+                return;
+            }
+            FillProjectInfo(Convert.ToInt32(PrjReId));
+            ObjdsPlans.SelectParameters["ProjectId"].DefaultValue = ProjectId;
+        }
+        catch (Exception err)
+        {
+            Utility.SaveWebsiteError(err);
+            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+            return;
+        }
+    }
+
+    protected void FillProjectInfo(int Id)
+    {
+        prjInfo.Fill(Id);
+    }
+
+    private void SetLabelWarning(string Warning)
+    {
+        this.DivReport.Visible = true;
+        this.LabelWarning.Text = Warning;
+    }
+
+    private void SetProjectMainMenuEnabled()
+    {
+        ProjectId = Utility.DecryptQS(HiddenFieldPlan["ProjectId"].ToString());
+        if (ProjectId == "-1")
+            ProjectId = "-2";
+
+        PrjMainMenu PrjMainMenu = new PrjMainMenu("Plans", Convert.ToInt32(ProjectId));
+        MainMenu.Items.FindByName("Contract").Selected = true; //Contract
+        MainMenu.Items.FindByName("BuildingsLicense").Enabled = PrjMainMenu.GetEnabled("BuildingsLicense");
+        MainMenu.Items.FindByName("Timing").Enabled = PrjMainMenu.GetEnabled("Timing");
+        MainMenu.Items.FindByName("Contract").Enabled = PrjMainMenu.GetEnabled("Contract");
+        MainMenu.Items.FindByName("Implementer").Enabled = PrjMainMenu.GetEnabled("Implementer");
+        MainMenu.Items.FindByName("Observers").Enabled = PrjMainMenu.GetEnabled("Observers");
+        MainMenu.Items.FindByName("Plans").Enabled = PrjMainMenu.GetEnabled("Plans");
+        MainMenu.Items.FindByName("Owner").Enabled = PrjMainMenu.GetEnabled("Owner");
+        MainMenu.Items.FindByName("Project").Enabled = PrjMainMenu.GetEnabled("Project");
+        MainMenu.Items.FindByName("Accounting").Enabled = PrjMainMenu.GetEnabled("Accounting");
+        MainMenu.Items.FindByName("Designer").Enabled = PrjMainMenu.GetEnabled("Designer");
+    }
+    #endregion
+}

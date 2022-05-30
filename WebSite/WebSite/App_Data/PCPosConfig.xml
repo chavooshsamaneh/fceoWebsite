@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<DriverConfig>
+  <PassPhrase>KicccPcPosAgent</PassPhrase>
+  <SerialNo>9012812654</SerialNo>
+  <AcceptorId>000000000041518</AcceptorId>
+  <TerminalId>00042269</TerminalId>
+  <ComPort>COM1</ComPort>
+  <BaudRate>115200</BaudRate>
+  <Parity>0</Parity>
+  <DataBits>8</DataBits>
+  <StopBit>1</StopBit>
+  <TimeOut>220</TimeOut>
+</DriverConfig>

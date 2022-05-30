@@ -1,0 +1,735 @@
+﻿using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+using DevExpress.Web;
+using System.IO;
+
+public partial class Office_TechnicalServices_Project_ImplementerAgentInsert : System.Web.UI.Page
+{
+    Boolean IsPageRefresh = false;
+
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        Page.ClientScript.RegisterStartupScript(GetType(), "key1", "<script> but.DoClick();</script>");
+        Page.ClientScript.RegisterStartupScript(GetType(), "key2", "<script> ibut.DoClick();</script>");     
+
+        this.DivReport.Visible = false;
+        this.DivReport.Attributes.Add("onclick", "ChangeVisible(this)");
+        this.DivReport.Attributes.Add("onmouseover", "ChangeIcon(this)");
+
+        if (!IsPostBack)
+        {
+            ViewState["postids"] = System.Guid.NewGuid().ToString();
+            Session["postid"] = ViewState["postids"].ToString();
+        }
+        else
+        {
+            if (!IsCallback && Session["postid"] != null)
+            {
+                if (ViewState["postids"].ToString() != Session["postid"].ToString()) { IsPageRefresh = true; }
+                Session["postid"] = System.Guid.NewGuid().ToString(); ViewState["postids"] = Session["postid"];
+            }
+        }
+
+        if (!IsPostBack)
+        {
+            Session["AttachJobName"] = null;
+            Session["AttachJob"] = null;
+            Session["AttachFileName"] = null;
+            Session["AttachFile"] = null;
+
+
+            if (string.IsNullOrEmpty(Request.QueryString["ProjectId"]))
+            {
+                Response.Redirect("Project.aspx");
+            }
+            try
+            {
+                PgMode.Value = Server.HtmlDecode(Request.QueryString["PageMode2"].ToString());
+                HDProjectId.Value = Server.HtmlDecode(Request.QueryString["ProjectId"]).ToString();
+                HDImpId.Value = Server.HtmlDecode(Request.QueryString["PrjImpId"]).ToString();
+                RequestId.Value = Server.HtmlDecode(Request.QueryString["PrjReId"]).ToString();
+                HDImpAgentId.Value = Server.HtmlDecode(Request.QueryString["ImpAgentId"]).ToString();
+                //HDMode.Value = Server.HtmlDecode(Request.QueryString["Mode"]).ToString();
+
+            }
+            catch
+            {
+                this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+                return;
+            }
+
+            string PageMode = Utility.DecryptQS(PgMode.Value);
+            string ProjectId = Utility.DecryptQS(HDProjectId.Value);
+            string ImpAgentId = Utility.DecryptQS(HDImpAgentId.Value);
+            string PrjImpId = Utility.DecryptQS(HDImpId.Value);
+
+
+            if (string.IsNullOrEmpty(PageMode) || string.IsNullOrEmpty(ProjectId) || string.IsNullOrEmpty(PrjImpId))
+            {
+                this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+                return;
+            }
+            FillProjectInfo(int.Parse(ProjectId));
+
+            switch (PageMode)
+            {
+                case "View":
+                    Disable();
+                    btnSave.Enabled = false;
+                    btnSave2.Enabled = false;
+                    FillForm(int.Parse(ImpAgentId));
+                    ASPxRoundPanel2.HeaderText = "مشاهده";
+                    break;
+
+
+                case "New":
+                    btnSave.Visible = true;
+                    btnSave2.Visible = true;
+
+                    ASPxRoundPanel2.HeaderText = "جدید";
+                    break;
+
+            }
+
+            TSP.DataManager.TechnicalServices.Project_ImplementerManager ProjectImpManager = new TSP.DataManager.TechnicalServices.Project_ImplementerManager();
+            ProjectImpManager.FindByPrjImpId(int.Parse(PrjImpId));
+            if (ProjectImpManager.Count > 0)
+            {
+                ASPxRoundPanelImp.Visible = true;
+                txtImpName.Text = ProjectImpManager[0]["Name"].ToString();                
+                txtImpId.Text = ProjectImpManager[0]["MeOfficeId"].ToString();
+                txtImpType.Text = ProjectImpManager[0]["MemberTypeTitle"].ToString();
+               
+            }
+
+
+            this.ViewState["BtnSave"] = btnSave.Enabled;
+
+        }
+        if (this.ViewState["BtnSave"] != null)
+            this.btnSave.Enabled = this.btnSave2.Enabled = (bool)this.ViewState["BtnSave"];
+       
+    }
+    protected void Disable()
+    {
+        ComboType.Enabled = false;
+        txtFatherName.Enabled = false;
+        txtFileNo.Enabled = false;
+        txtFileNoDate.Enabled = false;
+        txtFileNoDate.Enabled = false;
+        txtFirstName.Enabled = false;
+        txtLastName.Enabled = false;
+        txtMeNo.Enabled = false;
+        txtSSN.Enabled = false;
+    }
+    protected void Enable()
+    {
+        ComboType.Enabled = true;
+        txtFatherName.Enabled = true;
+        txtFileNo.Enabled = true;
+        txtFileNoDate.Enabled = true;
+        txtFileNoDate.Enabled = true;
+        txtFirstName.Enabled = true;
+        txtLastName.Enabled = true;
+        txtMeNo.Enabled = true;
+        txtSSN.Enabled = true;
+    }
+    protected void txtMeNo_TextChanged(object sender, EventArgs e)
+    {
+        TSP.DataManager.TechnicalServices.ImplementerAgentManager ImpAgentManager = new TSP.DataManager.TechnicalServices.ImplementerAgentManager();
+        TSP.DataManager.MemberManager MeManager = new TSP.DataManager.MemberManager();
+        TSP.DataManager.OtherPersonManager OthpManager = new TSP.DataManager.OtherPersonManager();
+
+         int ID = -1;
+        if (!string.IsNullOrEmpty(txtMeNo.Text))
+        {
+            ID = int.Parse(txtMeNo.Text);
+
+            if (ComboType.Value != null)
+            {
+                string TypeValue = ComboType.Value.ToString();        
+
+                switch (TypeValue)
+                {
+                    case "0"://Member
+                        ImpAgentManager.FindByMemberIdTypeId(ID, (int)TSP.DataManager.TSMemberType.Member);
+                        if (ImpAgentManager.Count > 0)
+                            ChbCheck.Visible = true;
+                        else
+                            ChbCheck.Visible = false;
+
+
+                        MeManager.FindByCode(ID);
+                        if (MeManager.Count == 1)
+                        {
+                            if (Convert.ToInt32(MeManager[0]["MrsId"]) != 1)
+                            {
+                                ClearForm();
+                                SetMember();
+                                this.DivReport.Visible = true;
+                                this.LabelWarning.Text = "وضعیت عضو مورد نظر تایید شده نمی باشد";
+                                return;
+                            }
+                            if (Convert.ToBoolean(MeManager[0]["InActive"]))
+                            {
+                                ClearForm();
+                                SetMember();
+                                this.DivReport.Visible = true;
+                                this.LabelWarning.Text = "عضو مورد نظر غیر فعال می باشد";
+                                return;
+                            }
+
+                            txtFatherName.Text = MeManager[0]["FatherName"].ToString();
+                            txtFirstName.Text = MeManager[0]["FirstName"].ToString();
+                            txtLastName.Text = MeManager[0]["LastName"].ToString();
+                            txtSSN.Text = MeManager[0]["SSN"].ToString();
+                            txtFileNoDate.Text = MeManager[0]["FileDate"].ToString();
+                            txtFileNo.Text = MeManager[0]["FileNo"].ToString();
+                            SetMember();
+                        }
+                        else
+                        {
+                            ClearForm();
+                            SetMember();
+                            this.DivReport.Visible = true;
+                            this.LabelWarning.Text = "چنین کد عضویتی وجود ندارد.مجدداً وارد نمایید";
+                            return;
+                        }
+                        break;
+                  
+                    case "1"://Kardan
+                        ImpAgentManager.FindByMemberIdTypeId(ID, (int)TSP.DataManager.TSMemberType.OtherPerson);
+                        if (ImpAgentManager.Count > 0)
+                            ChbCheck.Visible = true;
+                        else
+                            ChbCheck.Visible = false;
+
+
+                        OthpManager.FindByCode(ID);
+                        if (OthpManager.Count == 1)
+                        {
+                            txtFatherName.Text = OthpManager[0]["FatherName"].ToString();
+                            txtFirstName.Text = OthpManager[0]["FirstName"].ToString();
+                            txtLastName.Text = OthpManager[0]["LastName"].ToString();
+                            txtSSN.Text = OthpManager[0]["SSN"].ToString();
+                            txtFileNoDate.Text = OthpManager[0]["FileNoDate"].ToString();
+                            txtFileNo.Text = OthpManager[0]["FileNo"].ToString();
+                            SetKardan();
+
+                        }
+                        else
+                        {
+                            ClearForm();
+                            SetKardan();
+                            this.DivReport.Visible = true;
+                            this.LabelWarning.Text = "چنین کد عضویتی وجود ندارد.مجدداً وارد نمایید";
+                            return;
+                        }
+                        break;
+                }
+            }
+            else
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "نوع مجری را انتخاب نمایید";
+            }
+        }
+        else
+        {
+            this.DivReport.Visible = true;
+            this.LabelWarning.Text = "کد عضویت را وارد نمایید";
+        }
+
+    }
+    protected void FillForm(int ImpAgentId)
+    {
+        TSP.DataManager.TechnicalServices.ImplementerAgentManager ImpAgentManager = new TSP.DataManager.TechnicalServices.ImplementerAgentManager();
+        TSP.DataManager.TechnicalServices.AttachmentsManager AttachManager = new TSP.DataManager.TechnicalServices.AttachmentsManager();
+
+        try
+        {
+            ImpAgentManager.FindByImplementerAgentId(ImpAgentId);
+            if (ImpAgentManager.Count > 0)
+            {
+                int TypeValue = int.Parse(ImpAgentManager[0]["MemberTypeId"].ToString());
+                if (TypeValue == (int)TSP.DataManager.TSMemberType.Member)
+                {
+                    ComboType.SelectedIndex = 0;
+                    SetMember();
+                }
+                else if (TypeValue == (int)TSP.DataManager.TSMemberType.OtherPerson)
+                {
+                    ComboType.SelectedIndex = 1;
+                    SetKardan();
+
+                    AttachManager.FindByTableTypeId(ImpAgentId, (int)TSP.DataManager.TableCodes.TSImplementerAgent, (int)TSP.DataManager.TSAttachType.ExperimentInformation);
+                    if (AttachManager.Count > 0)
+                    {
+                        Hp_Job.ClientVisible = true;
+                        Hp_Job.NavigateUrl = AttachManager[0]["FilePath"].ToString();
+                        HD_Job["name"] = 1;
+
+
+                    }
+                    AttachManager.FindByTableTypeId(ImpAgentId, (int)TSP.DataManager.TableCodes.TSImplementerAgent, (int)TSP.DataManager.TSAttachType.JobLicense);
+                    if (AttachManager.Count > 0)
+                    {
+                        Hp_File.ClientVisible = true;
+                        Hp_File.NavigateUrl = AttachManager[0]["FilePath"].ToString();
+                        HD_File["name"] = 1;
+
+
+                    }
+                }
+
+                txtFatherName.Text = ImpAgentManager[0]["FatherName"].ToString();
+                txtFileNo.Text = ImpAgentManager[0]["No"].ToString();
+                txtFileNoDate.Text = ImpAgentManager[0]["NoDate"].ToString();
+                txtFirstName.Text = ImpAgentManager[0]["FirstName"].ToString();
+                txtLastName.Text = ImpAgentManager[0]["LastName"].ToString();
+                txtMeNo.Text = ImpAgentManager[0]["MeOPersonId"].ToString();
+                txtSSN.Text = ImpAgentManager[0]["SSN"].ToString();
+
+
+                
+
+            }
+            else
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "امکان مشاهده اطلاعات وجود ندارد.اطلاعات توسط کاربر دیگری تغییر یافته است";
+            }
+        }
+        catch (Exception)
+        {
+            this.DivReport.Visible = true;
+            this.LabelWarning.Text = "خطایی در مشاهده اطلاعات رخ داده است";
+        }
+    }
+    protected void SetMember()
+    {
+        ASPxLabelFile.ClientVisible = false;
+        ASPxLabelJob.ClientVisible = false;
+        Page.ClientScript.RegisterStartupScript(GetType(), "key1", "<script> but.DoClick();</script>");
+        Page.ClientScript.RegisterStartupScript(GetType(), "key2", "<script> ibut.DoClick();</script>");
+
+    }
+    protected void SetKardan()
+    {
+        ASPxLabelFile.ClientVisible = true;
+        ASPxLabelJob.ClientVisible = true;
+        flp_File.ClientVisible = true;
+        flp_Job.ClientVisible = true;
+
+    }
+    protected void Insert()
+    {
+        if (IsPageRefresh)
+            return;
+
+        TSP.DataManager.TransactionManager trans = new TSP.DataManager.TransactionManager();
+        TSP.DataManager.TechnicalServices.ImplementerAgentManager ImpAgentManager = new TSP.DataManager.TechnicalServices.ImplementerAgentManager();
+        TSP.DataManager.TechnicalServices.AttachmentsManager AttachManager = new TSP.DataManager.TechnicalServices.AttachmentsManager();
+        trans.Add(ImpAgentManager);
+        trans.Add(AttachManager);
+
+        TSP.DataManager.MemberManager MeManager = new TSP.DataManager.MemberManager();
+        TSP.DataManager.DocMemberFileManager DocMemberFileManager = new TSP.DataManager.DocMemberFileManager();
+        TSP.DataManager.DocMemberFileDetailManager DocMemberFileDetailManager = new TSP.DataManager.DocMemberFileDetailManager();
+        DocMemberFileManager.ClearBeforeFill = true;
+        TSP.DataManager.OtherPersonManager OthpManager = new TSP.DataManager.OtherPersonManager();
+
+        bool IsAttachJob = false;
+        bool IsAttachFile = false;
+
+        try
+        {
+            if (ComboType.Value == null)
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "نوع نماینده مجری را انتخاب نمایید";
+                return;
+            }
+            if (string.IsNullOrEmpty(txtMeNo.Text))
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "کد عضویت را وارد نمایید";
+                return;
+            }
+            int Id = int.Parse(txtMeNo.Text);
+            if (ComboType.Value.ToString() == "0")//Member
+            {
+
+                MeManager.FindByCode(Id);
+                if (MeManager.Count == 0)
+                {
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "اطلاعات عضو توسط کاربر دیگری تغییر یافته است";
+                    return;
+                }
+                #region CheckLock
+                if (Convert.ToBoolean(MeManager[0]["IsLock"]))
+                {
+                    string LockName = FindLockers(Id, 0, 1);
+
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "امکان ثبت عضو مورد نظر وجود ندارد.عضو مورد نظر توسط " + LockName + " قفل می باشد ";
+                    return;
+                }
+                #endregion
+                #region CheckFileNo
+                DataTable dtMeFile = DocMemberFileManager.SelectLastVersion(Id, 0);
+                if (dtMeFile.Rows.Count > 0)
+                {
+                    int MemberFileId = int.Parse(dtMeFile.Rows[0]["MfId"].ToString());
+
+                    if (!Utility.IsDBNullOrNullValue(dtMeFile.Rows[0]["IsConfirm"]) && dtMeFile.Rows[0]["IsConfirm"].ToString() == "1")
+                    {
+                        //DataTable dtMeDetail = DocMemberFileDetailManager.FindByResponsibility(MemberFileId, ID, (int)TSP.DataManager.DocumentResponsibilityType.Implement);
+                        //if (dtMeDetail.Rows.Count == 0)
+                        //{
+                        //    this.DivReport.Visible = true;
+                        //    this.LabelWarning.Text = "امکان ثبت عضو مورد نظر وجود ندارد.پروانه اشتغال عضو مورد نظر صلاحیت اجرا ندارد  ";
+                        //    return;
+                        //}
+
+
+                    }
+                    else
+                    {
+                        this.DivReport.Visible = true;
+                        this.LabelWarning.Text = "امکان ثبت عضو مورد نظر به عنوان نماینده مجری وجود ندارد.وضعیت پروانه اشتغال عضو نا مشخص می باشد.";
+                        return;
+                    }
+
+                }
+                else
+                {
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "امکان ثبت عضو مورد نظر به عنوان نماینده مجری وجود ندارد.عضو انتخاب شده دارای پروانه اشتغال به کار نمی باشد.";
+                    return;
+                }
+                //DocMemberFileManager.SelectImpDocLastVersionByMeId(ID);
+                //if (DocMemberFileManager.Count == 0)
+                //{
+                //    OfMeManager.FindOffMemberByPersonId(ID, 2);
+                //    if (OfMeManager.Count > 0)
+                //    {
+                //        int OfId = int.Parse(OfMeManager[0]["OfId"].ToString());
+                //        OffManager.FindByCode(OfId);
+                //        if (OffManager.Count > 0)
+                //        {
+                //            if (OffManager[0]["MFType"].ToString() != "2" && OffManager[0]["MFType"].ToString() != "3")
+                //            {
+                //                this.DivReport.Visible = true;
+                //                this.LabelWarning.Text = "امکان ثبت عضو مورد نظر به عنوان مجری وجود ندارد.عضو انتخاب شده دارای مجوز اجرا نمی باشد";
+                //                return;
+                //            }
+                //        }
+                //    }
+
+
+                //}
+                #endregion
+            }
+            else //kardan
+            {
+                OthpManager.FindByCode(Id);
+                if (OthpManager.Count > 0)
+                {
+                    #region CheckLock
+                    if (Convert.ToBoolean(OthpManager[0]["IsLock"]))
+                    {
+                        string LockName = FindLockers(Id, 0, 1);
+
+                        this.DivReport.Visible = true;
+                        this.LabelWarning.Text = "امکان ثبت عضو مورد نظر وجود ندارد.عضو مورد نظر توسط " + LockName + " قفل می باشد ";
+                        return;
+                    }
+                    #endregion
+                    if (Utility.IsDBNullOrNullValue(OthpManager[0]["FileNo"]))
+                    {
+                        this.DivReport.Visible = true;
+                        this.LabelWarning.Text = "امکان ثبت شخص مورد نظر به عنوان نماینده مجری وجود ندارد.شخص انتخاب شده دارای پروانه اشتغال به کار نمی باشد.";
+                        return;
+                    }
+                }
+            }
+
+            DataRow dr = ImpAgentManager.NewRow();
+            dr["PrjImpId"] = Utility.DecryptQS(HDImpId.Value);
+            dr["PrjReId"] = Utility.DecryptQS(RequestId.Value);
+
+            if (ComboType.Value.ToString() == "0")//Member
+                dr["MemberTypeId"] = (int)TSP.DataManager.TSMemberType.Member;
+            if (ComboType.Value.ToString() == "1")//Kardan
+                dr["MemberTypeId"] = (int)TSP.DataManager.TSMemberType.OtherPerson;
+            dr["MeOPersonId"] = txtMeNo.Text;
+            if (!string.IsNullOrEmpty(txtFileNo.Text))
+                dr["JobLicenseNo"] = txtFileNo.Text;
+            else
+                dr["JobLicenseNo"] = DBNull.Value;
+            dr["CreateDate"] = Utility.GetDateOfToday();
+            dr["UserId"] = Utility.GetCurrentUser_UserId();
+            dr["ModifiedDate"] = DateTime.Now;
+            ImpAgentManager.AddRow(dr);
+            trans.BeginSave();
+            int cnt = ImpAgentManager.Save();
+            if (cnt > 0)
+            {
+                if (Session["AttachJob"] != null && Session["AttachJobName"] != null)
+                {
+                    DataRow drAtt = AttachManager.NewRow();
+                    drAtt["TableTypeId"] = ImpAgentManager[0]["ImplementerAgentId"];
+                    drAtt["TableType"] = (int)TSP.DataManager.TableCodes.TSImplementerAgent;
+                    drAtt["AttachTypeId"] = (int)TSP.DataManager.TSAttachType.ExperimentInformation;
+                    drAtt["FilePath"] = "~/Image/TechnicalServices/ImplementerAgent/" + Path.GetFileName(Session["AttachJob"].ToString());
+                    drAtt["FileName"] = Session["AttachJobName"];
+                    drAtt["UserId"] = Utility.GetCurrentUser_UserId();
+                    drAtt["ModifiedDate"] = DateTime.Now;
+                    AttachManager.AddRow(drAtt);
+                    if (AttachManager.Save() > 0)
+                    {
+                        AttachManager.DataTable.AcceptChanges();
+                        IsAttachJob = true;
+                    }
+                }
+              
+                if (Session["AttachFile"] != null && Session["AttachFileName"] != null)
+                {
+                    DataRow drAtt = AttachManager.NewRow();
+                    drAtt["TableTypeId"] = ImpAgentManager[0]["ImplementerAgentId"];
+                    drAtt["TableType"] = (int)TSP.DataManager.TableCodes.TSImplementerAgent;
+                    drAtt["AttachTypeId"] = (int)TSP.DataManager.TSAttachType.JobLicense;
+                    drAtt["FilePath"] = "~/Image/TechnicalServices/ImplementerAgent/" + Path.GetFileName(Session["AttachFile"].ToString());
+                    drAtt["FileName"] = Session["AttachFileName"];
+                    drAtt["UserId"] = Utility.GetCurrentUser_UserId();
+                    drAtt["ModifiedDate"] = DateTime.Now;
+                    AttachManager.AddRow(drAtt);
+                    if (AttachManager.Save() > 0)
+                    {
+                        AttachManager.DataTable.AcceptChanges();
+                        IsAttachFile = true;
+                    }
+                }
+              
+                trans.EndSave();
+
+                HDImpAgentId.Value = Utility.EncryptQS(ImpAgentManager[0]["ImplementerAgentId"].ToString());
+                PgMode.Value = Utility.EncryptQS("View");
+                this.LabelWarning.Text = "ذخیره انجام شد";
+                ASPxRoundPanel2.HeaderText = "مشاهده";
+                Disable();
+                btnSave.Enabled = false;
+                btnSave2.Enabled = false;
+                this.ViewState["BtnSave"] = btnSave.Enabled;
+
+               
+            }
+            else
+            {
+                trans.CancelSave();
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "خطایی در ذخیره اطلاعات انجام گرفته است";
+            }
+         
+
+        }
+        catch (Exception err)
+        {
+            trans.CancelSave();
+
+            if (err.GetType() == typeof(System.Data.SqlClient.SqlException))
+            {
+                System.Data.SqlClient.SqlException se = (System.Data.SqlClient.SqlException)err;
+                if (se.Number == 2601)
+                {
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "اطلاعات تکراری می باشد";
+                }
+                else
+                {
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+                }
+            }
+            else
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+            }
+        }
+        if (ComboType.Value.ToString() == "0")
+            SetMember();
+        else
+            SetKardan();
+
+        if (IsAttachJob)
+        {
+            try
+            {
+                string ImgSoource = Session["AttachJob"].ToString();
+                string ImgTarget = Server.MapPath("~/Image/TechnicalServices/ImplementerAgent/") + Path.GetFileName(Session["AttachJob"].ToString());
+                File.Copy(ImgSoource, ImgTarget, true);
+                Hp_Job.ClientVisible = true;
+                Hp_Job.NavigateUrl = ImgSoource;
+
+                Session["AttachJob"] = null;
+                Session["AttachJobName"] = null;
+
+            }
+            catch (Exception)
+            {
+            }
+        }
+        if (IsAttachFile)
+        {
+            try
+            {
+                string ImgSoource = Session["AttachFile"].ToString();
+                string ImgTarget = Server.MapPath("~/Image/TechnicalServices/ImplementerAgent/") + Path.GetFileName(Session["AttachFile"].ToString());
+                File.Copy(ImgSoource, ImgTarget, true);
+                Hp_File.ClientVisible = true;
+                Hp_File.NavigateUrl = ImgSoource;
+
+                Session["AttachFile"] = null;
+                Session["AttachFileName"] = null;
+
+            }
+            catch (Exception)
+            {
+            }
+        }
+    }
+    protected string FindLockers(int Id, int MemberTypeId, int IsLock)
+    {
+        TSP.DataManager.LockHistoryManager LockHistoryManager = new TSP.DataManager.LockHistoryManager();
+        return LockHistoryManager.FindLockers(Id, MemberTypeId, IsLock);
+
+    }
+    protected void btnBack_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("ImplementerAgent.aspx?ProjectId=" + HDProjectId.Value + "&PageMode=" + Request.QueryString["PageMode"] + "&PrjReId=" + RequestId.Value + "&Mode=" + HDMode.Value + "&PrjImpId=" + HDImpId.Value);
+      
+    }
+    protected void btnSave_Click(object sender, EventArgs e)
+    {
+        Insert();
+    }
+    protected void flp_Job_FileUploadComplete(object sender, FileUploadCompleteEventArgs e)
+    {
+        try
+        {
+            e.CallbackData = SaveImageJob(e.UploadedFile);
+        }
+        catch (Exception ex)
+        {
+            e.IsValid = false;
+            e.ErrorText = ex.Message;
+        }
+    }
+    protected string SaveImageJob(UploadedFile uploadedFile)
+    {
+        string ret = "";
+        if (uploadedFile.IsValid)
+        {
+            do
+            {
+                FileInfo ImageType = new FileInfo(uploadedFile.PostedFile.FileName);
+                Session["AttachJobName"] = Path.GetFileName(uploadedFile.PostedFile.FileName);
+
+                ret = Path.GetRandomFileName() + ImageType.Extension;
+            } while (File.Exists(MapPath("~/Image/TechnicalServices/ImplementerAgent/") + ret) == true || File.Exists(MapPath("~/Image/Temp/") + ret) == true);
+            string tempFileName = MapPath("~/Image/Temp/") + ret;
+            uploadedFile.SaveAs(tempFileName, true);
+            Session["AttachJob"] = tempFileName;
+            //Session["FileOfArm2"] = ret;
+
+        }
+        return ret;
+    }
+    protected void flp_File_FileUploadComplete(object sender, FileUploadCompleteEventArgs e)
+    {
+        try
+        {
+            e.CallbackData = SaveImageFile(e.UploadedFile);
+        }
+        catch (Exception ex)
+        {
+            e.IsValid = false;
+            e.ErrorText = ex.Message;
+        }
+    }
+    protected string SaveImageFile(UploadedFile uploadedFile)
+    {
+        string ret = "";
+        if (uploadedFile.IsValid)
+        {
+            do
+            {
+                FileInfo ImageType = new FileInfo(uploadedFile.PostedFile.FileName);
+                Session["AttachFileName"] = Path.GetFileName(uploadedFile.PostedFile.FileName);
+
+                ret = Path.GetRandomFileName() + ImageType.Extension;
+            } while (File.Exists(MapPath("~/Image/TechnicalServices/ImplementerAgent/") + ret) == true || File.Exists(MapPath("~/Image/Temp/") + ret) == true);
+            string tempFileName = MapPath("~/Image/Temp/") + ret;
+            uploadedFile.SaveAs(tempFileName, true);
+            Session["AttachFile"] = tempFileName;
+            //Session["FileOfArm2"] = ret;
+
+        }
+        return ret;
+    }
+    protected void ClearForm()
+    {
+        txtFatherName.Text = "";
+        txtFileNo.Text = "";
+        txtFileNoDate.Text = "";
+        txtFirstName.Text = "";
+        txtLastName.Text = "";
+        txtMeNo.Text = "";
+        txtSSN.Text = "";
+        
+    }
+    protected void FillProjectInfo(int ProjectId)
+    {
+        TSP.DataManager.TechnicalServices.ProjectManager ProjectManager = new TSP.DataManager.TechnicalServices.ProjectManager();
+        TSP.DataManager.TechnicalServices.OwnerManager OwnerManager = new TSP.DataManager.TechnicalServices.OwnerManager();
+        ProjectManager.FindByProjectId(ProjectId);
+        if (ProjectManager.Count > 0)
+        {
+            if (!Utility.IsDBNullOrNullValue(ProjectManager[0]["CitName"]))
+                txtPrCitName.Text = ProjectManager[0]["CitName"].ToString();
+            if (!Utility.IsDBNullOrNullValue(ProjectManager[0]["FileNo"]))
+                txtPrFileNo.Text = ProjectManager[0]["FileNo"].ToString();
+            if (!Utility.IsDBNullOrNullValue(ProjectManager[0]["MunName"]))
+                txtPrMunName.Text = ProjectManager[0]["MunName"].ToString();
+            if (!Utility.IsDBNullOrNullValue(ProjectManager[0]["RegisteredNo"]))
+                txtPrRegisteredNo.Text = ProjectManager[0]["RegisteredNo"].ToString();
+            if (!Utility.IsDBNullOrNullValue(ProjectManager[0]["LicenseNo"]))
+                txtPrLicenceNo.Text = ProjectManager[0]["LicenseNo"].ToString();
+            if (!Utility.IsDBNullOrNullValue(ProjectManager[0]["GroupName"]))
+                txtPrGroup.Text = ProjectManager[0]["GroupName"].ToString();
+
+            //txtPrStructure.Text = "";
+            OwnerManager.FindOwnerAgent(ProjectId);
+            if (OwnerManager.Count > 0)
+            {
+                if (!Utility.IsDBNullOrNullValue(OwnerManager[0]["Name"]))
+                    txtPrOwnerName.Text = OwnerManager[0]["Name"].ToString();
+            }
+
+        }
+    }
+    
+   
+}

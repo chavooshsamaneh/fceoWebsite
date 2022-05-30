@@ -1,0 +1,253 @@
+.dx-acc-r .dxm-hovered .dxXtraReports_BtnFirstPage_Metropolis:before,
+.dx-acc-r .dxm-hovered .dxXtraReports_BtnLastPage_Metropolis:before,
+.dx-acc-r .dxm-hovered .dxXtraReports_BtnNextPage_Metropolis:before,
+.dx-acc-r .dxm-hovered .dxXtraReports_BtnPrevPage_Metropolis:before,
+.dx-acc-r .dxm-hovered .dxXtraReports_BtnPrint_Metropolis:before,
+.dx-acc-r .dxm-hovered .dxXtraReports_BtnPrintPage_Metropolis:before,
+.dx-acc-r .dxm-hovered .dxXtraReports_BtnSave_Metropolis:before,
+.dx-acc-r .dxm-hovered .dxXtraReports_BtnSaveWindow_Metropolis:before,
+.dx-acc-r .dxm-hovered .dxXtraReports_BtnSearch_Metropolis:before,
+.dx-acc-r .dxXtraReports_BtnFirstPage_Metropolis:before,
+.dx-acc-r .dxXtraReports_BtnFirstPageDisabled_Metropolis:before,
+.dx-acc-r .dxXtraReports_BtnLastPage_Metropolis:before,
+.dx-acc-r .dxXtraReports_BtnLastPageDisabled_Metropolis:before,
+.dx-acc-r .dxXtraReports_BtnNextPage_Metropolis:before,
+.dx-acc-r .dxXtraReports_BtnNextPageDisabled_Metropolis:before,
+.dx-acc-r .dxXtraReports_BtnPrevPage_Metropolis:before,
+.dx-acc-r .dxXtraReports_BtnPrevPageDisabled_Metropolis:before,
+.dx-acc-r .dxXtraReports_BtnPrint_Metropolis:before,
+.dx-acc-r .dxXtraReports_BtnPrintDisabled_Metropolis:before,
+.dx-acc-r .dxXtraReports_BtnPrintPage_Metropolis:before,
+.dx-acc-r .dxXtraReports_BtnPrintPageDisabled_Metropolis:before,
+.dx-acc-r .dxXtraReports_BtnSave_Metropolis:before,
+.dx-acc-r .dxXtraReports_BtnSaveDisabled_Metropolis:before,
+.dx-acc-r .dxXtraReports_BtnSaveWindow_Metropolis:before,
+.dx-acc-r .dxXtraReports_BtnSaveWindowDisabled_Metropolis:before,
+.dx-acc-r .dxXtraReports_BtnSearch_Metropolis:before,
+.dx-acc-r .dxXtraReports_BtnSearchDisabled_Metropolis:before,
+.dx-acc-r .dxXtraReports_PageBorder_blc_Metropolis:before,
+.dx-acc-r .dxXtraReports_PageBorder_brc_Metropolis:before,
+.dx-acc-r .dxXtraReports_PageBorder_tlc_Metropolis:before,
+.dx-acc-r .dxXtraReports_PageBorder_trc_Metropolis:before
+
+{
+    content: url('spriteAccessible.png');
+
+}
+.dx-acc-r .dxm-hovered .dxXtraReports_BtnFirstPage_Metropolis:before
+
+{
+    left: 0px;
+    top: -272px;
+
+}
+.dx-acc-r .dxm-hovered .dxXtraReports_BtnLastPage_Metropolis:before
+
+{
+    left: 0px;
+    top: -68px;
+
+}
+.dx-acc-r .dxm-hovered .dxXtraReports_BtnNextPage_Metropolis:before
+
+{
+    left: 0px;
+    top: -357px;
+
+}
+.dx-acc-r .dxm-hovered .dxXtraReports_BtnPrevPage_Metropolis:before
+
+{
+    left: 0px;
+    top: -51px;
+
+}
+.dx-acc-r .dxm-hovered .dxXtraReports_BtnPrint_Metropolis:before
+
+{
+    left: 0px;
+    top: -187px;
+
+}
+.dx-acc-r .dxm-hovered .dxXtraReports_BtnPrintPage_Metropolis:before
+
+{
+    left: 0px;
+    top: -102px;
+
+}
+.dx-acc-r .dxm-hovered .dxXtraReports_BtnSave_Metropolis:before
+
+{
+    left: 0px;
+    top: -221px;
+
+}
+.dx-acc-r .dxm-hovered .dxXtraReports_BtnSaveWindow_Metropolis:before
+
+{
+    left: 0px;
+    top: -391px;
+
+}
+.dx-acc-r .dxm-hovered .dxXtraReports_BtnSearch_Metropolis:before
+
+{
+    left: 0px;
+    top: -374px;
+
+}
+.dx-acc-r .dxXtraReports_BtnFirstPage_Metropolis:before
+
+{
+    left: 0px;
+    top: -289px;
+
+}
+.dx-acc-r .dxXtraReports_BtnFirstPageDisabled_Metropolis:before
+
+{
+    left: 0px;
+    top: -119px;
+
+}
+.dx-acc-r .dxXtraReports_BtnLastPage_Metropolis:before
+
+{
+    left: 0px;
+    top: -323px;
+
+}
+.dx-acc-r .dxXtraReports_BtnLastPageDisabled_Metropolis:before
+
+{
+    left: 0px;
+    top: -306px;
+
+}
+.dx-acc-r .dxXtraReports_BtnNextPage_Metropolis:before
+
+{
+    left: 0px;
+    top: -17px;
+
+}
+.dx-acc-r .dxXtraReports_BtnNextPageDisabled_Metropolis:before
+
+{
+    left: 0px;
+    top: -136px;
+
+}
+.dx-acc-r .dxXtraReports_BtnPrevPage_Metropolis:before
+
+{
+    left: 0px;
+    top: -255px;
+
+}
+.dx-acc-r .dxXtraReports_BtnPrevPageDisabled_Metropolis:before
+
+{
+    left: 0px;
+    top: -34px;
+
+}
+.dx-acc-r .dxXtraReports_BtnPrint_Metropolis:before
+
+{
+    left: 0px;
+    top: -85px;
+
+}
+.dx-acc-r .dxXtraReports_BtnPrintDisabled_Metropolis:before
+
+{
+    left: 0px;
+    top: -204px;
+
+}
+.dx-acc-r .dxXtraReports_BtnPrintPage_Metropolis:before
+
+{
+    left: 0px;
+    top: -425px;
+
+}
+.dx-acc-r .dxXtraReports_BtnPrintPageDisabled_Metropolis:before
+
+{
+    left: 0px;
+    top: -442px;
+
+}
+.dx-acc-r .dxXtraReports_BtnSave_Metropolis:before
+
+{
+    left: 0px;
+    top: -238px;
+
+}
+.dx-acc-r .dxXtraReports_BtnSaveDisabled_Metropolis:before
+
+{
+    left: 0px;
+    top: -170px;
+
+}
+.dx-acc-r .dxXtraReports_BtnSaveWindow_Metropolis:before
+
+{
+    left: 0px;
+    top: 0px;
+
+}
+.dx-acc-r .dxXtraReports_BtnSaveWindowDisabled_Metropolis:before
+
+{
+    left: 0px;
+    top: -340px;
+
+}
+.dx-acc-r .dxXtraReports_BtnSearch_Metropolis:before
+
+{
+    left: 0px;
+    top: -153px;
+
+}
+.dx-acc-r .dxXtraReports_BtnSearchDisabled_Metropolis:before
+
+{
+    left: 0px;
+    top: -408px;
+
+}
+.dx-acc-r .dxXtraReports_PageBorder_blc_Metropolis:before
+
+{
+    left: 0px;
+    top: -481px;
+
+}
+.dx-acc-r .dxXtraReports_PageBorder_brc_Metropolis:before
+
+{
+    left: 0px;
+    top: -470px;
+
+}
+.dx-acc-r .dxXtraReports_PageBorder_tlc_Metropolis:before
+
+{
+    left: 0px;
+    top: -492px;
+
+}
+.dx-acc-r .dxXtraReports_PageBorder_trc_Metropolis:before
+
+{
+    left: 0px;
+    top: -459px;
+
+}

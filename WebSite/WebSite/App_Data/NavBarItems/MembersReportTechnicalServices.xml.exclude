@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Groups>
+
+
+  <NavBarGroup Text="گزارشات" Expanded="False" Name="grpReport">
+    <NavBarItem NavigateUrl="~/Members/TechnicalServices/Report/ObserversCurrentProjects.aspx" Text="پروژه های در دست اجرا ناظر"/>
+    <NavBarItem NavigateUrl="~/Members/TechnicalServices/Report/ImplementersCurrentProjects.aspx" Text="پروژه های در دست اجرا مجری"/>
+    <NavBarItem NavigateUrl="~/Members/TechnicalServices/Report/MemberObsCapacity.aspx" Text="گزارش ظرفیت نظارت"/>
+    <NavBarItem NavigateUrl="~/Members/TechnicalServices/Report/MemberImpCapacity.aspx" Text="گزارش ظرفیت اجرا"/>
+  </NavBarGroup>
+
+
+</Groups>

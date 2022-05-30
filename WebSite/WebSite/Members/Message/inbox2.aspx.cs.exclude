@@ -1,0 +1,828 @@
+﻿using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+using DevExpress.Web;
+
+
+public partial class Members_Message_inbox2 : System.Web.UI.Page
+{
+    public int RefMsg;
+    public int SenderId;
+    public int SenderType;
+    public bool IsSenderPart;
+
+    #region Events
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        GridViewConfirmMessages.DataBind();
+        //if (Session["Login"] == null || Session["Login"].ToString() == "0")
+        //{
+        //    Response.Redirect("../../Login.aspx?ReferPage=" + Request.Url.AbsoluteUri);
+        //    return;
+        //}
+        this.DivReport.Visible = false;
+        this.DivReport.Attributes.Add("onclick", "ChangeVisible(this)");
+        this.DivReport.Attributes.Add("onmouseover", "ChangeIcon(this)");
+        if (!IsPostBack)
+        {
+            TSP.DataManager.MessageManager MesManager = new TSP.DataManager.MessageManager();
+            TSP.DataManager.MessageReceiverManager MeRManager = new TSP.DataManager.MessageReceiverManager();
+            TSP.DataManager.LoginManager LoManager = new TSP.DataManager.LoginManager();
+
+            DateTime dt = new DateTime();
+            dt = DateTime.Now;
+            System.Globalization.PersianCalendar pDate = new System.Globalization.PersianCalendar();
+
+
+            string PerDate = string.Format("{0}/{1}/{2}", pDate.GetYear(dt).ToString().PadLeft(2, '0'), pDate.GetMonth(dt).ToString().PadLeft(2, '0'), pDate.GetDayOfMonth(dt).ToString().PadLeft(2, '0'));
+
+            DataTable TableExpired = new DataTable();
+            TableExpired = MeRManager.SelectMessageExpired(PerDate, Utility.GetCurrentUser_MeId(), Utility.GetCurrentUser_LoginType(), false);
+            TSP.DataManager.TransactionManager tr = new TSP.DataManager.TransactionManager();
+            tr.Add(MeRManager);
+            tr.Add(MesManager);
+            try
+            {
+                tr.BeginSave();
+                for (int i = 0; i < TableExpired.Rows.Count; i++)
+                {
+                    DataTable dtMsgRe = MeRManager.FindByMsgId(int.Parse(TableExpired.Rows[i]["MsgId"].ToString()), Utility.GetCurrentUser_MeId(), Utility.GetCurrentUser_LoginType(), false, 0);
+                    if (dtMsgRe.Rows.Count > 0)
+                    {
+                        MeRManager.FindByCode(-1, Utility.GetCurrentUser_MeId(),Utility.GetCurrentUser_LoginType(), int.Parse(TableExpired.Rows[i]["MsgId"].ToString()));
+                        if (MeRManager.Count == 1)
+                        {
+                            MeRManager[0].BeginEdit();
+                            MeRManager[0]["Body"] = " این پیام با توجه به قوانین نظام ، تمام شدن مهلت پاسخ آن ساخته شده است";
+                            MesManager.FindByMsgId(int.Parse(MeRManager[0]["MsgId"].ToString()));
+                            if (MesManager.Count > 0)
+                                MeRManager[0]["Answer"] = MesManager[0]["FutureStatus"];
+
+                            dt = DateTime.Now;
+                            pDate = new System.Globalization.PersianCalendar();
+
+
+                            PerDate = string.Format("{0}/{1}/{2}", pDate.GetYear(dt).ToString().PadLeft(2, '0'), pDate.GetMonth(dt).ToString().PadLeft(2, '0'), pDate.GetDayOfMonth(dt).ToString().PadLeft(2, '0'));
+                            MeRManager[0]["Date"] = PerDate;
+                            MeRManager[0]["ModifiedDate"] = DateTime.Now;
+                            MeRManager[0].EndEdit();
+
+                            int cnt = MeRManager.Save();
+                            if (cnt > 0)
+                            {
+                                tr.EndSave();
+                                btnSend.Enabled = false;
+                                btnSend2.Enabled = false;
+                            }
+                            else
+                            {
+                                tr.CancelSave();
+                                this.DivReport.Visible = true;
+                                this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+                            }
+                        }
+                        else
+                        {
+                            this.DivReport.Visible = true;
+                            this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+                        }
+
+                    }
+
+                }
+                tr.EndSave();
+            }
+
+
+            catch (Exception err)
+            {
+                tr.CancelSave();
+                if (err.GetType() == typeof(System.Data.SqlClient.SqlException))
+                {
+                    System.Data.SqlClient.SqlException se = (System.Data.SqlClient.SqlException)err;
+                    if (se.Number == 2601)
+                    {
+                        this.DivReport.Visible = true;
+                        this.LabelWarning.Text = "اطلاعات تکراری می باشد";
+                    }
+                    else
+                    {
+                        this.DivReport.Visible = true;
+                        this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+                        this.LabelWarning.Text = err.Message;
+                    }
+                }
+                else
+                {
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+                    this.LabelWarning.Text = err.Message;
+                }
+
+            }
+
+            ObjdsMsg.SelectParameters["ReceiverId"].DefaultValue = Utility.GetCurrentUser_MeId().ToString();
+            ObjdsMsg.SelectParameters["ReceiverType"].DefaultValue = Utility.GetCurrentUser_LoginType().ToString();
+
+            ObjdsMsgReceiver.SelectParameters["ReceiverId"].DefaultValue = Utility.GetCurrentUser_MeId().ToString();
+            ObjdsMsgReceiver.SelectParameters["ReceiverType"].DefaultValue = Utility.GetCurrentUser_LoginType().ToString();
+
+            lblMsgBody.Visible = false;
+            // Panel1.Visible = false;
+            // Label2.Visible = false;
+            // LabelDescription.Visible = false;
+            // rdbConfirm.Visible = false;
+            btnSend.Enabled = false;
+            btnSend2.Enabled = false;
+
+            this.ViewState["BtnSend"] = btnSend.Enabled;
+        }
+
+        if (this.ViewState["BtnSend"] != null)
+            this.btnSend.Enabled = this.btnSend2.Enabled = (bool)this.ViewState["BtnSend"];
+    }
+
+    protected void LinkButton3_Click(object sender, EventArgs e)
+    {
+        //GridViewConfirmMessages.DetailRows.CollapseAllRows();
+        //TSP.DataManager.LoginManager LoManager = new TSP.DataManager.LoginManager();
+        //int curRow = GridViewConfirmMessages.FocusedRowIndex;
+        //DataRow r = (DataRow)GridViewConfirmMessages.GetDataRow(curRow);
+        //if (r != null)
+        //{
+        //    LoManager.FindByCode(int.Parse(Session["Login"].ToString()));
+        //    if (LoManager.Count > 0)
+        //    {
+        //        if (int.Parse(LoManager[0]["MeId"].ToString()) == int.Parse(r["SenderId"].ToString()) && int.Parse(LoManager[0]["UltId"].ToString()) == int.Parse(r["SenderType"].ToString()))
+        //        {
+
+        //            TSP.DataManager.MessageReceiverManager MessRe = new TSP.DataManager.MessageReceiverManager();
+        //            TSP.DataManager.MemberManager MeManager = new TSP.DataManager.MemberManager();
+        //            TSP.DataManager.EmployeeManager EmpManager = new TSP.DataManager.EmployeeManager();
+
+        //            lblMsgBody.Visible = true;
+        //            //Panel1.Visible = true;
+        //            //RoundPanelMessage.Visible = true;
+        //            //RoundPanelMessage.HeaderText = "نامه تائیدی : " + r["MsgSubject"].ToString();
+        //            lblMsgBody.Text = r["MsgBody"].ToString();
+        //            MsgId.Value = r["MsgId"].ToString();
+        //            MessRe.FindByCode(-1, -1, int.Parse(MsgId.Value));
+        //            string SelectedMembers = "";
+
+
+        //            for (int j = 0; j < MessRe.Count; j++)
+        //            {
+        //                if (int.Parse(MessRe[j]["ReceiverType"].ToString()) == 1)
+        //                {
+        //                    MeManager.FindByCode(int.Parse(MessRe[j]["ReceiverId"].ToString()));
+        //                    if (MeManager.Count == 1)
+        //                    {
+        //                        SelectedMembers += MeManager[0]["FirstName"].ToString();
+        //                        SelectedMembers += " ";
+        //                        SelectedMembers += MeManager[0]["LastName"].ToString();
+        //                        SelectedMembers += ',';
+        //                    }
+        //                }
+        //                else
+        //                {
+        //                    EmpManager.FindByCode(int.Parse(MessRe[j]["ReceiverId"].ToString()));
+        //                    if (EmpManager.Count == 1)
+        //                    {
+        //                        SelectedMembers += EmpManager[0]["FirstName"].ToString();
+        //                        SelectedMembers += " ";
+        //                        SelectedMembers += EmpManager[0]["LastName"].ToString();
+        //                        SelectedMembers += ',';
+        //                    }
+        //                }
+
+        //            }
+
+        //            SelectedMembers = SelectedMembers.Remove(SelectedMembers.Length - 1);
+        //        }
+
+
+        //        else
+        //        {
+        //            TSP.DataManager.MessageManager MessManager = new TSP.DataManager.MessageManager();
+        //            TSP.DataManager.MessageReceiverManager MeRManager = new TSP.DataManager.MessageReceiverManager();
+        //            //RoundPanelMessage.Visible = true;
+        //            lblMsgBody.Text = r["MsgBody"].ToString();
+        //            lblMsgBody.Visible = true;
+        //            // Panel1.Visible = true;
+        //            curMsgId.Value = r["MsgId"].ToString();
+        //            MessManager.FindByMsgId(int.Parse(curMsgId.Value));
+
+        //            try
+        //            {
+        //                MessManager[0].BeginEdit();
+        //                MessManager[0]["IsRead"] = true;
+        //                MessManager[0].EndEdit();
+        //                int cnt = MessManager.Save();
+
+        //                if (cnt <= 0)
+        //                {
+        //                    this.DivReport.Visible = true;
+        //                    this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+
+        //                }
+        //            }
+        //            catch (Exception err)
+        //            {
+        //                if (err.GetType() == typeof(System.Data.SqlClient.SqlException))
+        //                {
+        //                    System.Data.SqlClient.SqlException se = (System.Data.SqlClient.SqlException)err;
+        //                    if (se.Number == 2601)
+        //                    {
+        //                        this.DivReport.Visible = true;
+        //                        this.LabelWarning.Text = "اطلاعات تکراری می باشد";
+        //                    }
+        //                    else
+        //                    {
+        //                        this.DivReport.Visible = true;
+        //                        this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+        //                        this.LabelWarning.Text = err.Message;
+        //                    }
+        //                }
+        //                else
+        //                {
+        //                    this.DivReport.Visible = true;
+        //                    this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+        //                    this.LabelWarning.Text = err.Message;
+        //                }
+
+        //            }
+
+        //            LoManager.FindByCode(int.Parse(Session["Login"].ToString()));
+
+        //            SenderId = int.Parse(LoManager[0]["MeId"].ToString());
+        //            SenderType = int.Parse(LoManager[0]["UltId"].ToString());
+        //            IsSenderPart = false;//
+        //            RefMsg = int.Parse(r["MsgId"].ToString());
+        //            MeRManager.FindByMsgId(int.Parse(r["MsgId"].ToString()), int.Parse(LoManager[0]["MeId"].ToString()), int.Parse(LoManager[0]["UltId"].ToString()), false, 2);
+        //            if (MeRManager.Count == 0)
+        //            {
+        //                rdbConfirm.Visible = true;
+        //               // RoundPanelReply.Visible = true;
+        //                rdbConfirm.SelectedIndex = 0;
+        //                Editor1.Content = "";
+        //                btnSend.Enabled = true;
+        //                btnSend2.Enabled = true;
+        //            }
+        //        }
+        //    }
+        //}
+        //this.ViewState["BtnSend"] = btnSend.Enabled;
+
+    }
+
+    protected void CustomAspxDevGridView6_BeforePerformDataSelect(object sender, EventArgs e)
+    {
+        Session["MsgId3"] = (sender as ASPxGridView).GetMasterRowKeyValue();
+
+    }
+
+    protected void CustomAspxDevGridView6_DetailRowExpandedChanged(object sender, ASPxGridViewDetailRowEventArgs e)
+    {
+        GridViewConfirmMessages.FocusedRowIndex = e.VisibleIndex;
+    }
+
+    protected void LinkButton4_Click(object sender, EventArgs e)
+    {
+
+        TSP.WebControls.CustomAspxDevGridView grid = (TSP.WebControls.CustomAspxDevGridView)GridViewConfirmMessages.FindDetailRowTemplateControl(GridViewConfirmMessages.FocusedRowIndex, "CustomAspxDevGridView6");
+        int curRow = grid.FocusedRowIndex;
+        TSP.DataManager.MessageManager MessManager = new TSP.DataManager.MessageManager();
+        TSP.DataManager.LoginManager LoManager = new TSP.DataManager.LoginManager();
+
+
+        DataRow r = (DataRow)grid.GetDataRow(curRow);
+        if (r != null)
+        {
+            lblMsgBody.Text = r["MsgBody"].ToString();
+            lblMsgBody.Visible = true;
+            //Panel1.Visible = true;
+        }
+
+    }
+
+    protected void CustomAspxDevGridView5_DetailRowExpandedChanged(object sender, ASPxGridViewDetailRowEventArgs e)
+    {
+        GridViewConfirmMessages.FocusedRowIndex = e.VisibleIndex;
+    }
+
+    protected void CustomAspxDevGridView5_HtmlRowCreated(object sender, ASPxGridViewTableRowEventArgs e)
+    {
+        if (e.RowType != GridViewRowType.Data) return;
+
+        int curRow = GridViewConfirmMessages.FocusedRowIndex;
+        DataRow r = (DataRow)GridViewConfirmMessages.GetDataRow(curRow);
+        if (r != null)
+        {
+
+            TSP.DataManager.MessageManager MesManager = new TSP.DataManager.MessageManager();
+            TSP.DataManager.LoginManager LoManager = new TSP.DataManager.LoginManager();
+
+
+
+            LoManager.FindByCode(int.Parse(Session["Login"].ToString()));
+            if (LoManager.Count > 0)
+            {
+
+                Label l = GridViewConfirmMessages.FindRowCellTemplateControl(e.VisibleIndex, null, "LabelCountReply") as Label;
+                if (l != null)
+                {
+                    int Count = MesManager.CountOfReply(int.Parse(e.KeyValue.ToString()), int.Parse(LoManager[0]["MeId"].ToString()), int.Parse(LoManager[0]["UltId"].ToString()), false);
+                    l.Text = Count.ToString();
+                }
+
+
+                if (int.Parse(LoManager[0]["MeId"].ToString()) == int.Parse(r["SenderId"].ToString()) && int.Parse(LoManager[0]["UltId"].ToString()) == int.Parse(r["SenderType"].ToString()))
+                {
+
+                    Label l2 = GridViewConfirmMessages.FindRowCellTemplateControl(e.VisibleIndex, null, "LabelCountRec") as Label;
+                    if (l2 != null)
+                    {
+                        int Count = MesManager.CountOfReceived(int.Parse(e.KeyValue.ToString()));
+                        l2.Text = Count.ToString();
+                    }
+                }
+            }
+        }
+    }
+
+    protected void LinkButton6_Click(object sender, EventArgs e)
+    {
+        TSP.WebControls.CustomAspxDevGridView grid = (TSP.WebControls.CustomAspxDevGridView)GridViewConfirmMessages.FindDetailRowTemplateControl(GridViewConfirmMessages.FocusedRowIndex, "CustomAspxDevGridView6");
+        int curRow = grid.FocusedRowIndex;
+        TSP.DataManager.MessageManager MessManager = new TSP.DataManager.MessageManager();
+        TSP.DataManager.LoginManager LoManager = new TSP.DataManager.LoginManager();
+        DataRow r = (DataRow)grid.GetDataRow(curRow);
+        if (r != null)
+        {
+            lblMsgBody.Text = r["Body"].ToString();
+            lblMsgBody.Visible = true;
+            //Panel1.Visible = true;
+        }
+    }
+
+    protected void CustomAspxDevGridView5_HtmlRowPrepared(object sender, ASPxGridViewTableRowEventArgs e)
+    {
+
+        if (e.RowType != GridViewRowType.Data) return;
+
+        LinkButton l = GridViewConfirmMessages.FindRowCellTemplateControl(e.VisibleIndex, null, "LinkButton3") as LinkButton;
+        if (l != null)
+        {
+            string s = l.Text;
+            if (s.Length >= 20)
+                l.Text = (s.Substring(0, 20)) + "...";
+        }
+
+        TSP.DataManager.MessageManager MesManager = new TSP.DataManager.MessageManager();
+        TSP.DataManager.PartitionManager ParManager = new TSP.DataManager.PartitionManager();
+        TSP.DataManager.EmployeeManager EmpManager = new TSP.DataManager.EmployeeManager();
+
+        Label lbl = GridViewConfirmMessages.FindRowCellTemplateControl(e.VisibleIndex, null, "LabelSender") as Label;
+        if (lbl != null)
+        {
+            if (Convert.ToBoolean(e.GetValue("IsSenderPart")))
+            {
+                EmpManager.FindByCode(int.Parse(e.GetValue("SenderId").ToString()));
+                if (EmpManager.Count > 0)
+                {
+                    ParManager.FindByCode(int.Parse(EmpManager[0]["PartId"].ToString()));
+                    if (ParManager.Count > 0)
+                        lbl.Text = ParManager[0]["PartName"].ToString();
+                }
+
+            }
+
+        }
+        if (Convert.ToBoolean(e.GetValue("IsRead")))
+            e.Row.BackColor = System.Drawing.Color.LightGray;
+    }
+
+    protected void CallbackPanelMsg_Callback(object source, DevExpress.Web.CallbackEventArgsBase e)
+    {
+        int curRow = GridViewConfirmMessages.FocusedRowIndex;
+        DataRow r = (DataRow)GridViewConfirmMessages.GetDataRow(curRow);
+        if (r != null)
+        {
+            TSP.DataManager.MessageManager MessManager = new TSP.DataManager.MessageManager();
+            TSP.DataManager.MessageReceiverManager MeRManager = new TSP.DataManager.MessageReceiverManager();
+            lblMsgBody.Text = r["MsgBody"].ToString();
+            lblMsgBody.Visible = true;
+            //Panel1.Visible = true;
+            curMsgId.Value = r["MsgId"].ToString();
+            MessManager.FindByMsgId(int.Parse(curMsgId.Value));
+            SenderId = Utility.GetCurrentUser_MeId();
+            SenderType = Utility.GetCurrentUser_LoginType();
+            IsSenderPart = false;//
+            RefMsg = int.Parse(r["MsgId"].ToString());
+            int Answer = int.Parse(r["Answer"].ToString());
+            CallbackPanelMsg.JSProperties["cpAnswer"] = Answer;
+            MeRManager.FindByMsgId(int.Parse(r["MsgId"].ToString()), Utility.GetCurrentUser_MeId(), Utility.GetCurrentUser_LoginType(), false, 2);
+            if (MeRManager.Count == 0 && Answer == 0)
+            {
+               // rdbConfirm.ClientEnabled = true;
+               // Editor1.KeyboardEnabled = true;
+              //  Editor1.DefaultContextMenu = true;
+                rdbConfirm.SelectedIndex = 0;
+                lblAnswer.Text = "";
+                btnSend.Enabled = true;
+                btnSend2.Enabled = true;
+
+            }
+            else
+            {
+                
+               // rdbConfirm.ClientEnabled = false;
+                //Editor1.KeyboardEnabled = false;
+                //Editor1.DefaultContextMenu = false;               
+                lblAnswer.Text = r["AnswBody"].ToString();
+                if (Answer == 1)
+                    rdbConfirm.SelectedIndex = 1;
+                else if (Answer == 2)
+                    rdbConfirm.SelectedIndex = 0;
+            }
+
+            try
+            {
+                MeRManager.ClearBeforeFill = true;
+                MeRManager.FindByCode(-1, Utility.GetCurrentUser_MeId(), Utility.GetCurrentUser_LoginType(), int.Parse(r["MsgId"].ToString()));
+                if (MeRManager.Count > 0)
+                {
+                    MeRManager[0].BeginEdit();
+                    MeRManager[0]["IsRead"] = true;
+                    MeRManager[0].EndEdit();
+                    int cnt = MeRManager.Save();
+
+                    if (cnt <= 0)
+                    {
+                        this.DivReport.Visible = true;
+                        this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+
+                    }
+                }
+               
+            }
+            catch (Exception err)
+            {
+                if (err.GetType() == typeof(System.Data.SqlClient.SqlException))
+                {
+                    System.Data.SqlClient.SqlException se = (System.Data.SqlClient.SqlException)err;
+                    if (se.Number == 2601)
+                    {
+                        this.DivReport.Visible = true;
+                        this.LabelWarning.Text = "اطلاعات تکراری می باشد";
+                    }
+                    else
+                    {
+                        this.DivReport.Visible = true;
+                        this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+                        this.LabelWarning.Text = err.Message;
+                    }
+                }
+                else
+                {
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+                    this.LabelWarning.Text = err.Message;
+                }
+
+            }
+        }
+        this.ViewState["BtnSend"] = btnSend.Enabled;
+    }
+
+    protected void btnSend_Click(object sender, EventArgs e)
+    {
+        TSP.DataManager.MessageManager MeManager = new TSP.DataManager.MessageManager();
+        TSP.DataManager.LoginManager LoManager = new TSP.DataManager.LoginManager();
+        TSP.DataManager.MessageReceiverManager MeRecManager = new TSP.DataManager.MessageReceiverManager();
+
+        try
+        {
+            MeRecManager.FindByMsgId(int.Parse(curMsgId.Value), Utility.GetCurrentUser_MeId(), Utility.GetCurrentUser_LoginType(), false, 1);
+            if (MeRecManager.Count > 0)
+            {
+                MeRecManager[0].BeginEdit();
+                MeRecManager[0]["Body"] = lblAnswer.Text;
+                if (rdbConfirm.SelectedItem.Value == "0")
+                {
+                    MeRecManager[0]["Answer"] = 2;
+                }
+                else
+                {
+                    MeRecManager[0]["Answer"] = 1;
+                }
+                MeRecManager[0]["Date"] = Utility.GetDateOfToday();
+                MeRecManager[0]["UserId"] = Utility.GetCurrentUser_UserId();
+                MeRecManager[0]["ModifiedDate"] = DateTime.Now;
+                MeRecManager[0].EndEdit();
+                int cnt = MeRecManager.Save();
+
+                if (cnt > 0)
+                {
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "ذخیره انجام شد";
+                    btnSend.Enabled = false;
+                    btnSend2.Enabled = false;
+                    this.ViewState["BtnSend"] = btnSend.Enabled;
+                    GridViewConfirmMessages.DataBind();
+
+                }
+                else
+                {
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+                }
+
+            }
+        }
+        catch (Exception err)
+        {
+            if (err.GetType() == typeof(System.Data.SqlClient.SqlException))
+            {
+                System.Data.SqlClient.SqlException se = (System.Data.SqlClient.SqlException)err;
+                if (se.Number == 2601)
+                {
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "اطلاعات تکراری می باشد";
+                }
+                else
+                {
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+                    this.LabelWarning.Text = err.Message;
+                }
+            }
+            else
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+                this.LabelWarning.Text = err.Message;
+            }
+        }
+    }
+
+    protected void btnBack_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("messageHome.aspx");
+    }
+
+    protected void GridViewConfirmMessages_CustomDataCallback(object sender, ASPxGridViewCustomDataCallbackEventArgs e)
+    {
+        int curRow = GridViewConfirmMessages.FocusedRowIndex;
+        DataRow r = (DataRow)GridViewConfirmMessages.GetDataRow(curRow);
+        if (r != null)
+        {
+            TSP.DataManager.MessageManager MessManager = new TSP.DataManager.MessageManager();
+            TSP.DataManager.MessageReceiverManager MeRManager = new TSP.DataManager.MessageReceiverManager();
+            lblMsgBody.Text = r["MsgBody"].ToString();
+            lblMsgBody.Visible = true;
+            //Panel1.Visible = true;
+            curMsgId.Value = r["MsgId"].ToString();
+            MessManager.FindByMsgId(int.Parse(curMsgId.Value));
+
+            SenderId = Utility.GetCurrentUser_MeId();
+            SenderType = Utility.GetCurrentUser_LoginType();
+            IsSenderPart = false;//
+            RefMsg = int.Parse(r["MsgId"].ToString());
+            int Answer = int.Parse(r["Answer"].ToString());
+            CallbackPanelMsg.JSProperties["cpAnswer"] = Answer;
+            MeRManager.FindByMsgId(int.Parse(r["MsgId"].ToString()), Utility.GetCurrentUser_MeId(), Utility.GetCurrentUser_LoginType(), false, 2);
+            if (MeRManager.Count == 0 && Answer == 0)
+            {
+                // rdbConfirm.ClientEnabled = true;
+                // Editor1.KeyboardEnabled = true;
+                //  Editor1.DefaultContextMenu = true;
+                rdbConfirm.SelectedIndex = 0;
+                lblAnswer.Text = "";
+                btnSend.Enabled = true;
+                btnSend2.Enabled = true;
+
+            }
+            else
+            {
+
+                // rdbConfirm.ClientEnabled = false;
+                //Editor1.KeyboardEnabled = false;
+                //Editor1.DefaultContextMenu = false;
+                lblAnswer.Text = r["AnswBody"].ToString();
+                if (Answer == 1)
+                    rdbConfirm.SelectedIndex = 1;
+                else if (Answer == 2)
+                    rdbConfirm.SelectedIndex = 0;
+            }
+
+            try
+            {
+                MeRManager.ClearBeforeFill = true;
+                MeRManager.FindByCode(-1, Utility.GetCurrentUser_MeId(), Utility.GetCurrentUser_LoginType(), int.Parse(r["MsgId"].ToString()));
+                if (MeRManager.Count > 0)
+                {
+                    MeRManager[0].BeginEdit();
+                    MeRManager[0]["IsRead"] = true;
+                    MeRManager[0].EndEdit();
+                    int cnt = MeRManager.Save();
+
+                    if (cnt <= 0)
+                    {
+                        this.DivReport.Visible = true;
+                        this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+
+                    }
+                }
+
+            }
+            catch (Exception err)
+            {
+                if (err.GetType() == typeof(System.Data.SqlClient.SqlException))
+                {
+                    System.Data.SqlClient.SqlException se = (System.Data.SqlClient.SqlException)err;
+                    if (se.Number == 2601)
+                    {
+                        this.DivReport.Visible = true;
+                        this.LabelWarning.Text = "اطلاعات تکراری می باشد";
+                    }
+                    else
+                    {
+                        this.DivReport.Visible = true;
+                        this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+                        this.LabelWarning.Text = err.Message;
+                    }
+                }
+                else
+                {
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+                    this.LabelWarning.Text = err.Message;
+                }
+
+            }
+        }
+        this.ViewState["BtnSend"] = btnSend.Enabled;
+    }
+
+    protected void btnDelete_Click(object sender, EventArgs e)
+    {
+        int curRow = GridViewConfirmMessages.FocusedRowIndex;
+        DataRow r = (DataRow)GridViewConfirmMessages.GetDataRow(curRow);
+        if (r != null)
+        {
+            TSP.DataManager.MessageManager MessageManager = new TSP.DataManager.MessageManager();
+            TSP.DataManager.MessageReceiverManager MessageReceiverManager = new TSP.DataManager.MessageReceiverManager();
+            TSP.DataManager.TransactionManager TransactionManager = new TSP.DataManager.TransactionManager();
+            TransactionManager.Add(MessageReceiverManager);
+            TransactionManager.Add(MessageManager);
+            try
+            {
+                int MsgId = (int)r["MsgId"];
+               // int MsgrId = (int)r["MsgrId"];
+                int MsgrId = -1;
+                MessageReceiverManager.FindByCode(-1,Utility.GetCurrentUser_MeId(),Utility.GetCurrentUser_LoginType(),MsgId);
+                if (MessageReceiverManager.Count > 0)
+                {
+                    MsgrId = (int)MessageReceiverManager[0]["MsgrId"];
+                }
+                else
+                {
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "خطایی در حذف انجام گرفته است.";
+                    return;
+                }
+              
+                Boolean MsgInActive = false;
+                TransactionManager.BeginSave();
+                MessageManager.FindByMsgId(MsgId);
+                if (MessageManager.Count == 1)
+                {
+                    MsgInActive = Convert.ToBoolean(MessageManager[0]["Inactive"]);
+                }
+
+                MessageReceiverManager.FindByCode(-1, -1,-1, MsgId);
+                MessageReceiverManager.CurrentFilter = "InActive = 0";
+                if (MessageReceiverManager.Count == 1 && MsgInActive == true)
+                {
+                    MessageReceiverManager.FindByCode(-1, -1,-1, MsgId);
+                    if (MessageReceiverManager.Count > 0)
+                    {
+                        int CountRe = MessageReceiverManager.Count;
+                        for (int i = 0; i < CountRe; i++)
+                        {
+                            MessageReceiverManager[i].Delete();
+                        }
+                        if (MessageReceiverManager.Save() > 0)
+                        {
+                            // MessageManager.FindByMsgId(MsgId);
+                            if (MessageManager.Count == 1)
+                            {
+                                MessageManager[0].Delete();
+                                if (MessageManager.Save() > 0)
+                                {
+                                    TransactionManager.EndSave();
+                                    this.DivReport.Visible = true;
+                                    this.LabelWarning.Text = "حذف انجام شد.";
+                                }
+                                else
+                                {
+                                    TransactionManager.CancelSave();
+                                    this.DivReport.Visible = true;
+                                    this.LabelWarning.Text = "خطایی در حذف انجام گرفته است.";
+                                }
+                            }
+                            else
+                            {
+                                TransactionManager.CancelSave();
+                                this.DivReport.Visible = true;
+                                this.LabelWarning.Text = "خطایی در حذف انجام گرفته است.";
+                            }
+                        }
+                        else
+                        {
+                            TransactionManager.CancelSave();
+                            this.DivReport.Visible = true;
+                            this.LabelWarning.Text = "خطایی در حذف انجام گرفته است.";
+                        }
+                    }
+                    else
+                    {
+                        TransactionManager.CancelSave();
+                        this.DivReport.Visible = true;
+                        this.LabelWarning.Text = "خطایی در حذف انجام گرفته است.";
+                    }
+                }
+                else
+                {
+                    MessageReceiverManager.FindByMsgrId(MsgrId);
+                    if (MessageReceiverManager.Count == 1)
+                    {
+                        MessageReceiverManager[0].BeginEdit();
+
+                        MessageReceiverManager[0]["InActive"] = 1;
+                        MessageReceiverManager[0].EndEdit();
+
+                        if (MessageReceiverManager.Save() > 0)
+                        {
+                            TransactionManager.EndSave();
+                            this.DivReport.Visible = true;
+                            this.LabelWarning.Text = "حذف انجام شد.";
+                        }
+                        else
+                        {
+                            TransactionManager.CancelSave();
+                            this.DivReport.Visible = true;
+                            this.LabelWarning.Text = "خطایی در حذف انجام گرفته است.";
+                        }
+                    }
+                    else
+                    {
+                        TransactionManager.CancelSave();
+                        this.DivReport.Visible = true;
+                        this.LabelWarning.Text = "اطلاعات مورد نظر توسط کاربر دیگری تغییر یافته است.";
+                    }
+                }
+                GridViewConfirmMessages.DataBind();
+            }
+            catch (Exception err)
+            {
+                TransactionManager.CancelSave();
+                SetDeleteError(err);
+            }
+        }
+    }
+    #endregion  
+
+    #region Methods
+    private void SetDeleteError(Exception err)
+    {
+        if (err.GetType() == typeof(System.Data.SqlClient.SqlException))
+        {
+            System.Data.SqlClient.SqlException se = (System.Data.SqlClient.SqlException)err;
+            if (se.Number == 547)
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "به علت وجود اطلاعات وابسته امکان حذف نمی باشد.";
+            }
+            else
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "خطایی در حذف انجام گرفته است.";
+            }
+        }
+        else
+        {
+            this.DivReport.Visible = true;
+            this.LabelWarning.Text = "خطایی در حذف انجام گرفته است.";
+        }
+    }
+    #endregion
+}

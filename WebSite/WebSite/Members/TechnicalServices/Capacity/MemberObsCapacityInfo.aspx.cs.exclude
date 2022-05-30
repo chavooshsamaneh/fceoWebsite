@@ -1,0 +1,202 @@
+﻿using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+
+public partial class Employee_TechnicalServices_Capacity_MemberObsCapacityInfo : System.Web.UI.Page
+{
+    string MeId;
+
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        this.DivReport.Attributes.Add("onclick", "ChangeVisible(this)");
+        this.DivReport.Attributes.Add("onmouseover", "ChangeIcon(this)");
+        this.DivReport.Visible = false;
+
+
+        if (!IsPostBack)
+        {
+            SetKeys();
+        }
+    }
+
+    protected void btnPrint_Click(object sender, EventArgs e)
+    {
+        Print();
+    }
+
+    /*******************************************************************************************************************************************/
+    private void Print()
+    {
+        MeId = ASPxTextBoxMeId.Text;
+
+        string Qs = "MeId=" + Utility.EncryptQS(MeId);
+        Response.Redirect("~/ReportForms/TechnicalServices/MemberObsCapacityInfo.aspx?" + Qs);
+    }
+
+    private void SetKeys()
+    {
+        ASPxTextBoxMeId.Text = (Utility.GetCurrentUser_MeId()).ToString();
+        Search();
+    }
+
+    private void Search()
+    {
+        Capacity Cpcty = new Capacity();
+        ArrayList CapacityInfoArr = new ArrayList();
+        ArrayList MemberArr = new ArrayList();
+        ArrayList StageArr = new ArrayList();
+
+        if (!SetMemberInfo())
+        {
+            Clear();
+            return;
+        }
+
+        SetObservationCapacity(CapacityInfoArr,MemberArr, Cpcty);
+        SetCurrentStage(StageArr, Cpcty);
+        SetCapacityAssignmentObservationCapacity(CapacityInfoArr, Cpcty);
+    }
+
+    /*****************************************************************************************************************************************************/
+    private bool SetMemberInfo()
+    {
+        MeId = ASPxTextBoxMeId.Text;
+        TSP.DataManager.MemberManager MemberManager = new TSP.DataManager.MemberManager();
+        MemberManager.FindByCode(Convert.ToInt32(MeId));
+        if (MemberManager.Count > 0)
+        {
+            ASPxTextBoxMeName.Text = MemberManager[0]["MeName"].ToString();
+            ASPxTextBoxFileNo.Text = MemberManager[0]["FileNo"].ToString();
+            ASPxTextBoxFileDate.Text = MemberManager[0]["FileDate"].ToString();
+            return true;
+        }
+        else
+        {
+            this.DivReport.Visible = true;
+            this.LabelWarning.Text = "کد عضویت معتبر نمی باشد";
+            return false;
+        }
+    }
+
+    private void SetObservationCapacity(ArrayList CapacityInfoArr,ArrayList MemberArr, Capacity Cpcty)
+    {
+        MeId = ASPxTextBoxMeId.Text;
+        if (Convert.ToInt32(MeId) > 0)
+        {
+            // CapacityInfoArr -----> ArrayList[0]: TotalCapacity(int), ArrayList[1]:UsedCapacity(int) , ArrayList[2]: RemainCapacity(int), 
+            //                        ArrayList[3]: ReservedCapacity(int) , ArrayList[4]: ProjectNum(int), ArrayList[5]: MaxJoubCount(string), 
+            //                        ArrayList[6]: MaxFloor(string), ArrayList[7]: ConditionalCapacity(int)
+
+            // MemberArr -----> ArrayList[0]: MaxJobCount, ArrayList[1]: MaxJobCapacity, ArrayList[2]: ObservationPercent, 
+            //                  ArrayList[3]: ObservationCapacity, ArrayList[4]: Grade, ArrayList[5]: MjId, ArrayList[12]: MeId, 
+            //                  ArrayList[13]: MeName, ArrayList[14]: ConditionalCapacity
+            //???????????????
+            //CapacityInfoArr = Cpcty.GetCapacityInformation((int)TSP.DataManager.TSProjectIngridientType.Observer, (int)TSP.DataManager.TSMemberType.Member, Convert.ToInt32(MeId));
+            //MemberArr = Cpcty.GetMembersDsgObsCapacity(Convert.ToInt32(MeId), (int)TSP.DataManager.TSProjectIngridientType.Observer);
+
+            //if (CapacityInfoArr.Count > 0 && MemberArr.Count>0)
+            //{
+            //    SetObsTexts(CapacityInfoArr[0].ToString(), CapacityInfoArr[5].ToString(), CapacityInfoArr[1].ToString(), CapacityInfoArr[2].ToString(), CapacityInfoArr[3].ToString(), CapacityInfoArr[4].ToString(), CapacityInfoArr[7].ToString(), MemberArr[2].ToString(), MemberArr[4].ToString());
+            //}
+            //???????????????
+        }
+    }
+
+    private void SetObsTexts(string TotalCapacity, string MaxJobCount, string TotalUsed, string RemainCapacity, string Reserve, string ProjectCount, string ConditionalCapacity, string ObservationPercent,string Grade)
+    {
+        ASPxTextBoxObsTotalCapacity.Text = TotalCapacity;
+        ASPxTextBoxObsMaxJobCount.Text = MaxJobCount;
+        ASPxTextBoxObsTotalUsed.Text = TotalUsed;
+        ASPxTextBoxObsRemainCapacity.Text = RemainCapacity;
+        ASPxTextBoxObsReserve.Text = Reserve;
+        ASPxTextBoxObsProjectCount.Text = ProjectCount;
+        ASPxTextBoxConditionalCapacity.Text = ConditionalCapacity;
+        ASPxTextBoxObservationPercent.Text = ObservationPercent;
+
+        if (Grade != "" && Grade != "---")
+            ASPxTextBoxGrade.Text = GetGrdName(Convert.ToInt32(Grade));
+        else
+            ASPxTextBoxGrade.Text = "---";
+
+    }
+
+    private void SetCapacityAssignmentObservationCapacity(ArrayList CapacityInfoArr, Capacity Cpcty)
+    {
+        MeId = ASPxTextBoxMeId.Text;
+        if (Convert.ToInt32(MeId) > 0)
+        {
+            // CapacityInfoArr -----> ArrayList[0]: TotalCapacity(int), ArrayList[1]:UsedCapacity(int) , ArrayList[2]: RemainCapacity(int), 
+            //                        ArrayList[3]:ReservedCapacity(int) , ArrayList[4]: ProjectNum(int), ArrayList[5]: MaxJoubCount(string), 
+            //                        ArrayList[6]: MaxFloor(string), ArrayList[7]: ConditionalCapacity(int)
+            //???????????????
+            //CapacityInfoArr = Cpcty.GetCapacityInformationPerStage((int)TSP.DataManager.TSProjectIngridientType.Observer, (int)TSP.DataManager.TSMemberType.Member, Convert.ToInt32(MeId));
+
+
+            //if (CapacityInfoArr.Count > 0)
+            //{
+            //    SetCapacityAssignmentObsTexts(CapacityInfoArr[0].ToString(), CapacityInfoArr[5].ToString(), CapacityInfoArr[1].ToString(), CapacityInfoArr[2].ToString(), CapacityInfoArr[4].ToString(), CapacityInfoArr[7].ToString());
+            //}
+            //???????????????
+        }
+    }
+
+    private void SetCapacityAssignmentObsTexts(string TotalCapacity, string MaxJobCount, string TotalUsed, string RemainCapacity, string ProjectCount, string ConditionalCapacity)
+    {
+        ASPxTextBoxCAObsTotalCapacity.Text = TotalCapacity;
+        ASPxTextBoxCAObsMaxJobCount.Text = MaxJobCount;
+        ASPxTextBoxCAObsTotalUsed.Text = TotalUsed;
+        ASPxTextBoxCAObsRemainCapacity.Text = RemainCapacity;
+        ASPxTextBoxCAObsProjectCount.Text = ProjectCount;
+        ASPxTextBoxCAObsConditionalCapacity.Text = ConditionalCapacity;
+    }
+
+    private void SetCurrentStage(ArrayList StageArr, Capacity Cpcty)
+    {
+        // StageArr -----> ArrayList[0] = Year, ArrayList[1] = StageText, ArrayList[0] = CapacityPrcnt, ArrayList[1] = JobCountPrcnt
+
+        StageArr = Cpcty.GetCurrentStage();
+        if (StageArr.Count != 0)
+        {
+            ASPxTextBoxCAObsYear.Text = StageArr[0].ToString();
+            ASPxTextBoxCAObsStage.Text = StageArr[1].ToString();
+            ASPxTextBoxCAObsCapacityPrcnt.Text = StageArr[2].ToString();
+            ASPxTextBoxCAObsJobCountPrcnt.Text = StageArr[3].ToString();
+        }
+    }
+   
+
+    private void Clear()
+    {
+        ASPxTextBoxMeName.Text = "";
+        ASPxTextBoxFileNo.Text = "";
+        ASPxTextBoxFileDate.Text = "";
+
+        SetObsTexts("", "", "", "", "", "", "", "", "");
+
+        ASPxTextBoxCAObsYear.Text = "";
+        ASPxTextBoxCAObsStage.Text = "";
+        ASPxTextBoxCAObsCapacityPrcnt.Text = "";
+        ASPxTextBoxCAObsJobCountPrcnt.Text = "";
+
+        SetCapacityAssignmentObsTexts("", "", "", "", "", "");
+
+    }
+
+    private string GetGrdName(int GrdId)
+    {
+        TSP.DataManager.GradeManager GradeManager = new TSP.DataManager.GradeManager();
+        GradeManager.FindByCode(GrdId);
+        if (GradeManager.Count > 0)
+            return GradeManager[0]["GrdName"].ToString();
+        else
+            return "";
+    }
+
+}

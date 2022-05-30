@@ -1,0 +1,15 @@
+<%@ Register TagPrefix="dx" Namespace="DevExpress.Data" Assembly="DevExpress.Data.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<%@ Register TagPrefix="dx" Namespace="DevExpress.Web" Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+
+<dx:ASPxNewsControl runat="server" SpriteCssFilePath="{0}/sprite.css" CssPostfix="Metropolis" CssFilePath="{0}/styles.css">
+    <ItemSettings DateVerticalPosition="Header" DateHorizontalPosition="Right" TailPosition="NewLine">
+        <TailImage Url="Web/ncTail.png" />
+    </ItemSettings>
+    <BackToTopImage Url="Web/ncGotoBack.png" />
+    <PagerSettings CurrentPageNumberFormat="{0}">
+        <PageSizeItemSettings ShowPopupShadow="False">
+        </PageSizeItemSettings>
+    </PagerSettings>
+    <PagerStyle ItemSpacing="0px" Spacing="0px" />
+</dx:ASPxNewsControl>
+

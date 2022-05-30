@@ -1,0 +1,35 @@
+﻿using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+
+public partial class Employee_EmpMasterPage : System.Web.UI.MasterPage
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (IsPostBack == false)
+        {
+            ASPxNavBar1.DataBind();
+            ASPxNavBar1.Groups.FindByName("grpTS").Expanded = true;
+            NavBarTS.DataBind();
+            NavBarTS.Groups.FindByName("grpBaseInfo").Expanded = true;
+        }
+        TSP.DataManager.MessageManager MesManager = new TSP.DataManager.MessageManager();
+        TSP.DataManager.LoginManager LoManager = new TSP.DataManager.LoginManager();
+        LoManager.FindByCode(Utility.GetCurrentUser_UserId());
+        if (LoManager.Count > 0)
+        {
+            int Count = MesManager.CountOfUnRead(int.Parse(LoManager[0]["MeId"].ToString()), int.Parse(LoManager[0]["UltId"].ToString()), false);
+            ASPxNavBar1.Items.FindByName("NbiRecieve").Text = "پیام های رسیده" + "(" + Count.ToString() + ")";
+
+            Count = MesManager.CountOfUnRead2(int.Parse(LoManager[0]["MeId"].ToString()), int.Parse(LoManager[0]["UltId"].ToString()), false);
+            Count = MesManager.CountOfUnRead(9, 1, false);
+        }
+    }
+}

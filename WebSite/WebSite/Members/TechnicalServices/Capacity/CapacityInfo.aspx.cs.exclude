@@ -1,0 +1,421 @@
+﻿using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+using System.Drawing;
+
+public partial class Members_TechnicalServices_CapacityInfo : System.Web.UI.Page
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        this.DivReport.Attributes.Add("onclick", "ChangeVisible(this)");
+        this.DivReport.Attributes.Add("onmouseover", "ChangeIcon(this)");
+        this.DivReport.Visible = false;
+
+        if (!IsPostBack)
+        {
+            SetKeys();
+
+            this.ViewState["btnEngOffice"] = btnEngOffice.Visible;
+
+        }
+
+        if (this.ViewState["btnEngOffice"] != null)
+            this.btnEngOffice.Visible = this.btnEngOffice2.Visible = (bool)this.ViewState["btnEngOffice"];
+    }
+
+    protected void btnEngOffice_Click(object sender, EventArgs e)
+    {
+        string Qs = "EngOId=" + PkEngOId.Value;
+        Response.Redirect("EngOCapacity.aspx?" + Qs);
+    }
+
+    protected void btnBack_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("../TsHome.aspx");
+    }
+
+    /*******************************************************************************************************************************************/
+    private void SetKeys()
+    {
+        int MeId = Utility.GetCurrentUser_MeId();
+        int EngOId = CheckEngOffice(MeId, (int)TSP.DataManager.EngOfficeType.Design);
+
+        if (EngOId > 0)
+        {
+            PkEngOId.Value = Utility.EncryptQS(EngOId.ToString());
+            btnEngOffice.Visible = btnEngOffice2.Visible = true;
+        }
+        else
+        {
+            PkEngOId.Value = Utility.EncryptQS("-1");
+            btnEngOffice.Visible = btnEngOffice2.Visible = false;
+        }
+
+        ASPxComboBoxYear.Value = Utility.GetYearOfToday();
+        SetValues(Utility.GetYearOfToday());
+    }
+
+    private void SetValues(string Year)
+    {
+        // CapacityInfoArr -----> ArrayList[0]: TotalCapacity(int), ArrayList[1]:UsedCapacity(int) , ArrayList[2]: RemainCapacity(int), 
+        //                     ArrayList[3]:ReservedCapacity(int) , ArrayList[4]: ProjectNum(int), ArrayList[5]: MaxJoubCount(int)
+
+        // MemberArr -----> ArrayList[0]: MaxJobCount, ArrayList[1]: MaxJobCapacity, ArrayList[2]: ObservationPercent, ArrayList[3]: ObservationCapacity, 
+        //                  ArrayList[4]: Grade, ArrayList[5]: MjId
+
+        int MeId = Utility.GetCurrentUser_MeId();
+        Capacity Cpcty = new Capacity();
+        ArrayList CapacityInfoArr = new ArrayList();
+        ArrayList MemberArr = new ArrayList();
+
+        SetDesignCapacity(MeId, CapacityInfoArr, MemberArr, Cpcty, Year);
+        SetObservationCapacity(MeId, CapacityInfoArr, MemberArr, Cpcty, Year);
+        SetImplimentationCapacity(MeId, CapacityInfoArr, MemberArr, Cpcty, Year);
+    }
+
+    private void SetDesignCapacity(int MeId, ArrayList CapacityInfoArr, ArrayList MemberArr, Capacity Cpcty, string Year)
+    {
+        int EngOId = CheckEngOffice(MeId, (int)TSP.DataManager.EngOfficeType.Design);
+        if (EngOId > 0)
+        {
+            // MembersArr[i]-----> ArrayList[0]: MaxJobCount, ArrayList[1]: MaxJobCapacity, ArrayList[2]: ObservationPercent, ArrayList[3]: ObservationCapacity,
+            //                     ArrayList[4]: Grade, ArrayList[5]: MjId, ArrayList[6]: GradeInOfficeLicense, ArrayList[7]: DesignInc, ArrayList[8]: SameGradeInc, 
+            //                     ArrayList[9]: MajorInc, ArrayList[10]: TotalDsgCapacity, ArrayList[11]: TotalObsCapacity, ArrayList[12]: MeId, ArrayList[13]: MeName,
+            //                     ArrayList[14]: ConditionalCapacity(string)
+
+            //???????????????????????????
+            //???????????????????????????
+            //???????????????????????????
+            //???????????????????????????
+           // MemberArr = Cpcty.GetOfficeMembersDsgObsCapacityInYear(EngOId, (int)TSP.DataManager.TSProjectIngridientType.Designer, (int)TSP.DataManager.DocOffIncreaseJobCapacityType.EngOffice, Year);
+            //???????????????????????????
+            //???????????????????????????
+            //???????????????????????????
+            //???????????????????????????
+            if (MemberArr.Count > 0)
+            {
+                int i = 0;
+                while (i < MemberArr.Count && Convert.ToInt32(((ArrayList)MemberArr[i])[12]) != MeId)
+                    i++;
+
+                if (Convert.ToInt32(((ArrayList)MemberArr[i])[12]) == MeId)
+                {
+                    SetDsgTexts(((ArrayList)MemberArr[i])[10].ToString(), ((ArrayList)MemberArr[i])[0].ToString(), "---", "---", "---", "---", ((ArrayList)MemberArr[i])[2].ToString(), ((ArrayList)MemberArr[i])[4].ToString(), ((ArrayList)MemberArr[i])[14].ToString());
+                }
+            }
+            else
+                SetDsgTexts("---", "---", "---", "---", "---", "---", "---", "---", "---");
+
+            //this.DivReport.Visible = true;
+            //this.LabelWarning.Text = "اطلاعات مربوط به کارکرد را در صفحه دفتر مشاهده نمایید";
+            ASPxRoundPanelDsgn.HeaderText += " : " + "اطلاعات مربوط به کارکرد را در صفحه دفتر مشاهده نمایید";
+            ASPxRoundPanelDsgn.HeaderStyle.ForeColor = Color.Red;
+            ASPxRoundPanelDsgn.HeaderStyle.Font.Bold = false;
+
+        }
+        else
+        {
+            // CapacityInfoArr -----> ArrayList[0]: TotalCapacity(int), ArrayList[1]:UsedCapacity(int) , ArrayList[2]: RemainCapacity(int), 
+            //                        ArrayList[3]:ReservedCapacity(int) , ArrayList[4]: ProjectNum(int), ArrayList[5]: MaxJoubCount(int), 
+            //                        ArrayList[6]: MaxFloor(string), ArrayList[7]: ConditionalCapacity(string)
+
+            // MemberArr -----> ArrayList[0]: MaxJobCount, ArrayList[1]: MaxJobCapacity, ArrayList[2]: ObservationPercent, ArrayList[3]: ObservationCapacity, 
+            //                  ArrayList[4]: Grade, ArrayList[5]: MjId
+
+            //???????????????????????????
+            //???????????????????????????
+            //???????????????????????????
+            //???????????????????????????
+            //CapacityInfoArr = Cpcty.GetCapacityInformationInYear((int)TSP.DataManager.TSProjectIngridientType.Designer, (int)TSP.DataManager.TSMemberType.Member, MeId, Year);
+            //???????????????????????????
+            //???????????????????????????
+            //???????????????????????????
+            //???????????????????????????
+            //MemberArr = Cpcty.GetMembersDsgObsCapacityInYear(MeId, (int)TSP.DataManager.TSProjectIngridientType.Designer, Year);
+            //???????????????????????????
+            //???????????????????????????
+            //???????????????????????????
+            //???????????????????????????
+            if (CapacityInfoArr.Count > 0 && MemberArr.Count > 0)
+            {
+                if (!CheckOffice(MeId, (int)TSP.DataManager.DocumentOfficeResponsibilityType.ObservationAndDesign))
+                    SetDsgTexts(CapacityInfoArr[0].ToString(), CapacityInfoArr[5].ToString(), CapacityInfoArr[1].ToString(), CapacityInfoArr[2].ToString(), CapacityInfoArr[3].ToString(), CapacityInfoArr[4].ToString(), MemberArr[2].ToString(), MemberArr[4].ToString(), CapacityInfoArr[7].ToString());
+                else
+                {
+                    //this.DivReport.Visible = true;
+                    //this.LabelWarning.Text = "اطلاعات مربوط به کارکرد را در پورتال اعضای حقوقی مشاهده نمایید";
+                    ASPxRoundPanelDsgn.HeaderText += " : " + "اطلاعات مربوط به کارکرد را در پورتال اعضای حقوقی مشاهده نمایید";
+                    ASPxRoundPanelDsgn.HeaderStyle.ForeColor = Color.Red;
+                    ASPxRoundPanelDsgn.HeaderStyle.Font.Bold = false;
+
+                    SetDsgTexts(CapacityInfoArr[0].ToString(), CapacityInfoArr[5].ToString(), "0", "0", "0", "0", MemberArr[2].ToString(), MemberArr[4].ToString(), CapacityInfoArr[7].ToString());
+                }
+            }
+            else
+                SetDsgTexts("---", "---", "---", "---", "---", "---", "---", "---", "---");
+
+        }
+        //???????????????
+     //   CustomAspxDevGridViewDsgn.DataSource = Cpcty.GetYearStagesInformation((int)TSP.DataManager.TSProjectIngridientType.Designer, (int)TSP.DataManager.TSMemberType.Member, MeId, Year);
+        //???????????????
+        CustomAspxDevGridViewDsgn.DataBind();
+
+    }
+
+    private void SetObservationCapacity(int MeId, ArrayList CapacityInfoArr, ArrayList MemberArr, Capacity Cpcty, string Year)
+    {
+        // CapacityInfoArr -----> ArrayList[0]: TotalCapacity(int), ArrayList[1]:UsedCapacity(int) , ArrayList[2]: RemainCapacity(int), 
+        //                        ArrayList[3]:ReservedCapacity(int) , ArrayList[4]: ProjectNum(int), ArrayList[5]: MaxJoubCount(int),
+        //                        ArrayList[6]: MaxFloor(string), ArrayList[7]: ConditionalCapacity(string)
+
+        // MemberArr -----> ArrayList[0]: MaxJobCount, ArrayList[1]: MaxJobCapacity, ArrayList[2]: ObservationPercent, ArrayList[3]: ObservationCapacity, 
+        //                  ArrayList[4]: Grade, ArrayList[5]: MjId
+        //???????????????????????????
+        //???????????????????????????
+        //???????????????????????????
+        //???????????????????????????
+        //CapacityInfoArr = Cpcty.GetCapacityInformationInYear((int)TSP.DataManager.TSProjectIngridientType.Observer, (int)TSP.DataManager.TSMemberType.Member, MeId, Year);
+        //???????????????????????????
+        //???????????????????????????
+        //???????????????????????????
+        //???????????????????????????
+        //MemberArr = Cpcty.GetMembersDsgObsCapacityInYear(MeId, (int)TSP.DataManager.TSProjectIngridientType.Observer, Year);
+        //???????????????????????????
+        //???????????????????????????
+        //???????????????????????????
+        //???????????????????????????
+        if (CapacityInfoArr.Count > 0 && MemberArr.Count > 0)
+        {
+            if (!CheckOffice(MeId, (int)TSP.DataManager.DocumentOfficeResponsibilityType.ObservationAndDesign))
+                SetObsTexts(CapacityInfoArr[0].ToString(), CapacityInfoArr[5].ToString(), CapacityInfoArr[1].ToString(), CapacityInfoArr[2].ToString(), CapacityInfoArr[3].ToString(), CapacityInfoArr[4].ToString(), MemberArr[2].ToString(), MemberArr[4].ToString(), CapacityInfoArr[7].ToString());
+            else
+            {
+                ASPxRoundPanelObs.HeaderText += " : " + "اطلاعات مربوط به کارکرد را در پورتال اعضای حقوقی مشاهده نمایید";
+                ASPxRoundPanelObs.HeaderStyle.ForeColor = Color.Red;
+                ASPxRoundPanelObs.HeaderStyle.Font.Bold = false;
+
+                SetObsTexts(CapacityInfoArr[0].ToString(), CapacityInfoArr[5].ToString(), CapacityInfoArr[1].ToString(), CapacityInfoArr[2].ToString(), CapacityInfoArr[3].ToString(), CapacityInfoArr[4].ToString(), MemberArr[2].ToString(), MemberArr[4].ToString(), CapacityInfoArr[7].ToString());
+                //SetObsTexts(CapacityInfoArr[0].ToString(), CapacityInfoArr[5].ToString(), "0", "0", "0", "0", MemberArr[2].ToString(), MemberArr[4].ToString());
+            }
+        }
+        else
+            SetObsTexts("---", "---", "---", "---", "---", "---", "---", "---", "---");
+        //???????????????
+        //CustomAspxDevGridViewObs.DataSource = Cpcty.GetYearStagesInformation((int)TSP.DataManager.TSProjectIngridientType.Observer, (int)TSP.DataManager.TSMemberType.Member, MeId, Year);
+        //???????????????
+        CustomAspxDevGridViewObs.DataBind();
+
+    }
+
+    private void SetImplimentationCapacity(int MeId, ArrayList CapacityInfoArr, ArrayList MemberArr, Capacity Cpcty, string Year)
+    {
+        // CapacityInfoArr -----> ArrayList[0]: TotalCapacity(int), ArrayList[1]:UsedCapacity(int) , ArrayList[2]: RemainCapacity(int), 
+        //                        ArrayList[3]:ReservedCapacity(int) , ArrayList[4]: ProjectNum(int), ArrayList[5]: MaxJoubCount(int),
+        //                        ArrayList[6]: MaxFloor(string), ArrayList[7]: ConditionalCapacity(string)
+
+        // MemberArr -----> ArrayList[0]: MaxFloor, ArrayList[1]: MaxJobCapacity, ArrayList[2]: MaxUnitCount, ArrayList[3]: Grade
+        //???????????????????????????
+        //???????????????????????????
+        //???????????????????????????
+        //???????????????????????????
+        //CapacityInfoArr = Cpcty.GetCapacityInformationInYear((int)TSP.DataManager.TSProjectIngridientType.Implementer, (int)TSP.DataManager.TSMemberType.Member, MeId, Year);
+        //???????????????????????????
+        //???????????????????????????
+        //???????????????????????????
+        //???????????????????????????
+       // MemberArr = Cpcty.GetMembersImpCapacityInYear(MeId, Year);
+
+        if (CapacityInfoArr.Count > 0 && MemberArr.Count > 0)
+        {
+            if (!CheckOffice(MeId, (int)TSP.DataManager.DocumentOfficeResponsibilityType.Implement))
+                SetImpTexts(CapacityInfoArr[0].ToString(), CapacityInfoArr[5].ToString(), CapacityInfoArr[1].ToString(), CapacityInfoArr[2].ToString(), CapacityInfoArr[3].ToString(), CapacityInfoArr[4].ToString(), MemberArr[0].ToString(), MemberArr[3].ToString(), CapacityInfoArr[7].ToString());
+            else
+            {
+                //this.DivReport.Visible = true;
+                //this.LabelWarning.Text = "اطلاعات مربوط به کارکرد را در پورتال اعضای حقوقی مشاهده نمایید";
+                ASPxRoundPanelImp.HeaderText += " : " + "اطلاعات مربوط به کارکرد را در پورتال اعضای حقوقی مشاهده نمایید";
+                ASPxRoundPanelImp.HeaderStyle.ForeColor = Color.Red;
+                ASPxRoundPanelImp.HeaderStyle.Font.Bold = false;
+
+                SetImpTexts(CapacityInfoArr[0].ToString(), CapacityInfoArr[5].ToString(), "0", "0", "0", "0", MemberArr[0].ToString(), MemberArr[3].ToString(), CapacityInfoArr[7].ToString());
+            }
+        }
+        else
+            SetImpTexts("---", "---", "---", "---", "---", "---", "---", "---", "---");
+        //???????????????
+       // CustomAspxDevGridViewImp.DataSource = Cpcty.GetYearStagesInformation((int)TSP.DataManager.TSProjectIngridientType.Implementer, (int)TSP.DataManager.TSMemberType.Member, MeId, Year);
+        //???????????????
+        CustomAspxDevGridViewImp.DataBind();
+
+    }
+
+    private void SetDsgTexts(string TotalCapacity, string MaxJobCount, string TotalUsed, string RemainCapacity, string Reserve, string ProjectCount, string ObservationPercent, string Grade, string ConditionalCapacity)
+    {
+        ASPxTextBoxDsgTotalCapacity.Text = TotalCapacity;
+        ASPxTextBoxDsgMaxJobCount.Text = MaxJobCount;
+        ASPxTextBoxDsgTotalUsed.Text = TotalUsed;
+        ASPxTextBoxDsgRemainCapacity.Text = RemainCapacity;
+        ASPxTextBoxDsgReserve.Text = Reserve;
+        ASPxTextBoxDsgProjectCount.Text = ProjectCount;
+        ASPxTextBoxDsgObservationPercent.Text = ObservationPercent;
+        if (Grade != "" && Grade != "---")
+            ASPxTextBoxDsgGrade.Text = GetGrdName(Convert.ToInt32(Grade));
+        else
+            ASPxTextBoxDsgGrade.Text = "---";
+        ASPxTextBoxDsgnConditionalCapacity.Text = ConditionalCapacity;
+    }
+
+    private void SetObsTexts(string TotalCapacity, string MaxJobCount, string TotalUsed, string RemainCapacity, string Reserve, string ProjectCount, string ObservationPercent, string Grade, string ConditionalCapacity)
+    {
+        ASPxTextBoxObsTotalCapacity.Text = TotalCapacity;
+        ASPxTextBoxObsMaxJobCount.Text = MaxJobCount;
+        ASPxTextBoxObsTotalUsed.Text = TotalUsed;
+        ASPxTextBoxObsRemainCapacity.Text = RemainCapacity;
+        ASPxTextBoxObsReserve.Text = Reserve;
+        ASPxTextBoxObsProjectCount.Text = ProjectCount;
+        ASPxTextBoxObsObservationPercent.Text = ObservationPercent;
+        if (Grade != "" && Grade != "---")
+            ASPxTextBoxObsGrade.Text = GetGrdName(Convert.ToInt32(Grade));
+        else
+            ASPxTextBoxObsGrade.Text = "---";
+        ASPxTextBoxObsConditionalCapacity.Text = ConditionalCapacity;
+    }
+
+    private void SetImpTexts(string TotalCapacity, string MaxJobCount, string TotalUsed, string RemainCapacity, string Reserve, string ProjectCount, string MaxFloor, string Grade, string ConditionalCapacity)
+    {
+        ASPxTextBoxImpTotalCapacity.Text = TotalCapacity;
+        ASPxTextBoxImpMaxJobCount.Text = MaxJobCount;
+        ASPxTextBoxImpTotalUsed.Text = TotalUsed;
+        ASPxTextBoxImpRemainCapacity.Text = RemainCapacity;
+        ASPxTextBoxImpReserve.Text = Reserve;
+        ASPxTextBoxImpProjectCount.Text = ProjectCount;
+        ASPxTextBoxImpMaxFloor.Text = MaxFloor;
+        if (Grade != "" && Grade != "---")
+            ASPxTextBoxImpGrade.Text = GetGrdName(Convert.ToInt32(Grade));
+        else
+            ASPxTextBoxImpGrade.Text = "---";
+        ASPxTextBoxImpConditionalCapacity.Text = ConditionalCapacity;
+    }
+
+    private bool CheckOffice(int MeId, int MFType)
+    {
+        //??????????????????????????? بر اساس سال
+        TSP.DataManager.OfficeMemberManager OfMeManager = new TSP.DataManager.OfficeMemberManager();
+        TSP.DataManager.OfficeManager OfficeManager = new TSP.DataManager.OfficeManager();
+        OfMeManager.FindOffMemberByPersonId(MeId, 2);
+        if (OfMeManager.Count > 0)
+        {
+            OfficeManager.FindByCode(Convert.ToInt32(OfMeManager[0]["OfId"]));
+            if (OfficeManager.Count > 0)
+            {
+                if (Convert.ToInt32(OfficeManager[0]["MFType"]) == MFType)
+                    return true;
+            }
+        }
+
+        return false;
+    }
+
+    private int CheckEngOffice(int MeId, int EngOfficeType)
+    {
+        //??????????????????????????? بر اساس سال
+        TSP.DataManager.OfficeMemberManager OfMeManager = new TSP.DataManager.OfficeMemberManager();
+        TSP.DataManager.EngOfficeManager EngOfficeManager = new TSP.DataManager.EngOfficeManager();
+        OfMeManager.FindEngOfficeMemberByPersonId(MeId);
+        if (OfMeManager.Count > 0)
+        {
+            EngOfficeManager.FindByCode(Convert.ToInt32(OfMeManager[0]["OfId"]));
+            if (EngOfficeManager.Count > 0)
+            {
+                if (Convert.ToInt32(EngOfficeManager[0]["EOfTId"]) == EngOfficeType)
+                    return Convert.ToInt32(OfMeManager[0]["OfId"]);
+            }
+        }
+
+        return -1;
+    }
+
+    private string GetGrdName(int GrdId)
+    {
+        TSP.DataManager.GradeManager GradeManager = new TSP.DataManager.GradeManager();
+        GradeManager.FindByCode(GrdId);
+        if (GradeManager.Count > 0)
+            return GradeManager[0]["GrdName"].ToString();
+        else
+            return "";
+    }
+
+    private void SetComponents()
+    {
+        ASPxRoundPanelDsgn.HeaderText = "ظرفیت طراحی";
+        ASPxRoundPanelDsgn.HeaderStyle.ForeColor = Color.Black;
+        ASPxRoundPanelDsgn.HeaderStyle.Font.Bold = true;
+
+        ASPxRoundPanelObs.HeaderText = "ظرفیت نظارت";
+        ASPxRoundPanelObs.HeaderStyle.ForeColor = Color.Black;
+        ASPxRoundPanelObs.HeaderStyle.Font.Bold = true;
+
+        ASPxRoundPanelImp.HeaderText = "ظرفیت اجرا";
+        ASPxRoundPanelImp.HeaderStyle.ForeColor = Color.Black;
+        ASPxRoundPanelImp.HeaderStyle.Font.Bold = true;
+
+        TSP.DataManager.TechnicalServices.CapacityAssignmentManager CapacityAssignmentManager = new TSP.DataManager.TechnicalServices.CapacityAssignmentManager();
+        CapacityAssignmentManager.FindLastStageInYear("");
+
+        if (ASPxComboBoxYear.Value.ToString() == Utility.GetYearOfToday() || CapacityAssignmentManager.Count == 0 || ASPxComboBoxYear.Value.ToString() == CapacityAssignmentManager[0]["Year"].ToString())
+        {
+            LabelDsgnRemain.Visible = true;
+            LabelObsRemain.Visible = true;
+            LabelImpRemain.Visible = true;
+
+            LableDsgnWaste.Visible = false;
+            LableObsWaste.Visible = false;
+            LableImpWaste.Visible = false;
+
+            LableDsgnReserved.Visible = true;
+            LableObsReserved.Visible = true;
+            LableImpReserved.Visible = true;
+            ASPxTextBoxDsgReserve.Visible = true;
+            ASPxTextBoxObsReserve.Visible = true;
+            ASPxTextBoxImpReserve.Visible = true;
+
+            CustomAspxDevGridViewDsgn.Columns["RemainCapacity"].Caption = "ظرفیت باقیمانده";
+            CustomAspxDevGridViewObs.Columns["RemainCapacity"].Caption = "ظرفیت باقیمانده";
+            CustomAspxDevGridViewImp.Columns["RemainCapacity"].Caption = "ظرفیت باقیمانده";
+        }
+        else
+        {
+            LabelDsgnRemain.Visible = false;
+            LabelObsRemain.Visible = false;
+            LabelImpRemain.Visible = false;
+
+            LableDsgnWaste.Visible = true;
+            LableObsWaste.Visible = true;
+            LableImpWaste.Visible = true;
+
+            LableDsgnReserved.Visible = false;
+            LableObsReserved.Visible = false;
+            LableImpReserved.Visible = false;
+            ASPxTextBoxDsgReserve.Visible = false;
+            ASPxTextBoxObsReserve.Visible = false;
+            ASPxTextBoxImpReserve.Visible = false;
+
+            CustomAspxDevGridViewDsgn.Columns["RemainCapacity"].Caption = "ظرفیت سوخت شده";
+            CustomAspxDevGridViewObs.Columns["RemainCapacity"].Caption = "ظرفیت سوخت شده";
+            CustomAspxDevGridViewImp.Columns["RemainCapacity"].Caption = "ظرفیت سوخت شده";
+        }
+    }
+
+    protected void ASPxComboBoxYear_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        SetComponents();
+        SetValues(ASPxComboBoxYear.Value.ToString());
+    }
+}

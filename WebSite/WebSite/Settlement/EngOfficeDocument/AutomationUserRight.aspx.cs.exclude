@@ -1,0 +1,862 @@
+﻿using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+using DevExpress.Web;
+
+public partial class Employee_Employee_AutomationUserRight : System.Web.UI.Page
+{
+    Boolean IsPageRefresh = false;
+
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (!IsPostBack)
+        {
+            ViewState["postids"] = System.Guid.NewGuid().ToString();
+            Session["postid"] = ViewState["postids"].ToString();
+        }
+        else
+        {
+            if (!IsCallback && Session["postid"] != null)
+            {
+                if (ViewState["postids"].ToString() != Session["postid"].ToString()) { IsPageRefresh = true; }
+                Session["postid"] = System.Guid.NewGuid().ToString(); ViewState["postids"] = Session["postid"];
+            }
+        }
+        this.DivReport.Visible = false;
+        this.DivReport.Attributes.Add("onclick", "ChangeVisible(this)");
+        this.DivReport.Attributes.Add("onmouseover", "ChangeIcon(this)");
+
+        if (!IsPostBack)
+        {
+            ViewState["Mode"] = "New";
+
+            TSP.DataManager.Permission per = TSP.DataManager.Automation.UserRightManager.GetUserPermission(Utility.GetCurrentUser_UserId(), (TSP.DataManager.UserType)Utility.GetCurrentUser_LoginType());
+            btnSave.Enabled = per.CanNew || per.CanEdit;
+            btnSave2.Enabled = per.CanNew || per.CanEdit;
+           
+            Session["GrViewCheched"] = false;
+            Session["GrAttachCheched"] = false;
+
+            CustomAspxDevGridViewFoldersAttach.Selection.UnselectAll();
+            CustomAspxDevGridViewFoldersView.Selection.UnselectAll();
+
+
+            if (string.IsNullOrEmpty(Request.QueryString["EmpId"]))
+            {
+                Response.Redirect("Employee.aspx");
+                return;
+            }
+            try
+            {
+                HDEmpId.Value = Server.HtmlDecode(Request.QueryString["EmpId"].ToString());
+               
+            }
+            catch
+            {
+                this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+                return;
+            }
+
+            string EmpId = Utility.DecryptQS(HDEmpId.Value);
+
+            if (string.IsNullOrEmpty(EmpId))
+            {
+                this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+                return;
+            }
+            TSP.DataManager.EmployeeManager EmpManager = new TSP.DataManager.EmployeeManager();
+            EmpManager.FindByCode(int.Parse(EmpId));
+            if (EmpManager.Count > 0)
+                ASPxRoundPanel3.HeaderText = "تعيين سطح دسترسی : " + EmpManager[0]["FirstName"].ToString() + " " + EmpManager[0]["LastName"].ToString();
+
+            TSP.DataManager.Automation.UserRightManager Manager = new TSP.DataManager.Automation.UserRightManager();
+            Manager.FindByEmpId(int.Parse(EmpId));
+            if (Manager.Count > 0)
+            {
+                ViewState["Mode"] = "Edit";
+                FillForm(Manager);
+            }
+
+
+            this.ViewState["BtnSave"] = btnSave.Enabled;
+ 
+        }
+        if (this.ViewState["BtnSave"] != null)
+            this.btnSave.Enabled = this.btnSave2.Enabled = (bool)this.ViewState["BtnSave"];
+    }
+    protected void btnSave_Click(object sender, EventArgs e)
+    {
+        string EmpId = Utility.DecryptQS(HDEmpId.Value);
+        if (string.IsNullOrEmpty(EmpId) || string.IsNullOrEmpty(ViewState["Mode"].ToString()))
+        {
+            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+            return;
+        }
+
+        if (ViewState["Mode"].ToString() == "New")
+        {
+            Insert(int.Parse(EmpId));
+        }
+        else if (ViewState["Mode"].ToString() == "Edit")
+        {
+            Edit(int.Parse(EmpId));
+        }
+    }
+    protected void Insert(int EmpId)
+    {
+        if (IsPageRefresh)
+            return;
+
+        //bool flagView = false;
+        //bool flagAttach = false;
+
+
+        TSP.DataManager.TransactionManager trans = new TSP.DataManager.TransactionManager();
+        TSP.DataManager.Automation.UserRightManager Manager = new TSP.DataManager.Automation.UserRightManager();
+
+        trans.Add(Manager);
+
+        try
+        {
+            trans.BeginSave();
+            for (int i = 0; i < CustomAspxDevGridViewFoldersView.VisibleRowCount; i++)
+            {
+                DataRow dr = Manager.NewRow();
+
+                if (CustomAspxDevGridViewFoldersView.Selection.IsRowSelected(i))
+                {
+                    DataRow row = CustomAspxDevGridViewFoldersView.GetDataRow(i);
+                    dr["EmpId"] = EmpId;
+                    dr["Type"] = (byte)TSP.DataManager.AutomationUserRightTypes.ViewFolders;
+                    dr["Id"] = int.Parse(row["FolderId"].ToString());
+                    dr["ModifiedDate"] = DateTime.Now;
+                    dr["UserId"] = Utility.GetCurrentUser_UserId();
+                    Manager.AddRow(dr);
+                }
+            }
+
+            for (int i = 0; i < CustomAspxDevGridViewFoldersAttach.VisibleRowCount; i++)
+            {
+                DataRow dr = Manager.NewRow();
+
+                if (CustomAspxDevGridViewFoldersAttach.Selection.IsRowSelected(i))
+                {
+                    DataRow row = CustomAspxDevGridViewFoldersAttach.GetDataRow(i);
+                    dr["EmpId"] = EmpId;
+                    dr["Type"] = (byte)TSP.DataManager.AutomationUserRightTypes.AttachToFolders;
+                    dr["Id"] = int.Parse(row["FolderId"].ToString());
+                    dr["ModifiedDate"] = DateTime.Now;
+                    dr["UserId"] = Utility.GetCurrentUser_UserId();
+                    Manager.AddRow(dr);
+                    //    Manager.FindByEmpIdAndIdAndType(EmpId, int.Parse(row["Id"].ToString()), (byte)TSP.DataManager.AutomationUserRightTypes.ViewFolders);
+                    //    if (Manager.Count != 0)
+                    //    {
+                    //        flagAttach = true;
+                    //        continue;
+                    //    }
+                    //    else
+                    //    {
+
+                    //        dr["EmpId"] = row["EmpId"];
+                    //        dr["Type"] = (byte)TSP.DataManager.AutomationUserRightTypes.AttachToFolders;
+                    //        dr["Id"] = int.Parse(row["Id"].ToString());
+                    //        dr["ModifiedDate"] = DateTime.Now;
+                    //        dr["UserId"] = Utility.GetCurrentUser_UserId();
+                    //        Manager.AddRow(dr);
+                    //        flagAttach = true;
+                    //    }
+                }
+            }
+
+            for (int i = 0; i < CustomAspxDevGridViewSecrateriant.VisibleRowCount; i++)
+            {
+                DataRow dr = Manager.NewRow();
+
+                if (CustomAspxDevGridViewSecrateriant.Selection.IsRowSelected(i))
+                {
+                    DataRow row = CustomAspxDevGridViewSecrateriant.GetDataRow(i);
+                    dr["EmpId"] = EmpId;
+                    dr["Type"] = (byte)TSP.DataManager.AutomationUserRightTypes.Secretariat;
+                    dr["Id"] = int.Parse(row["SId"].ToString());
+                    dr["ModifiedDate"] = DateTime.Now;
+                    dr["UserId"] = Utility.GetCurrentUser_UserId();
+                    Manager.AddRow(dr);
+                }
+            }
+
+            for (int i = 0; i < CustomAspxDevGridViewArchive.VisibleRowCount; i++)
+            {
+                DataRow dr = Manager.NewRow();
+
+                if (CustomAspxDevGridViewArchive.Selection.IsRowSelected(i))
+                {
+                    DataRow row = CustomAspxDevGridViewArchive.GetDataRow(i);
+                    dr["EmpId"] = EmpId;
+                    dr["Type"] = (byte)TSP.DataManager.AutomationUserRightTypes.Archive;
+                    dr["Id"] = int.Parse(row["ArcId"].ToString());
+                    dr["ModifiedDate"] = DateTime.Now;
+                    dr["UserId"] = Utility.GetCurrentUser_UserId();
+                    Manager.AddRow(dr);
+                }
+            }
+
+            //if (flagAttach == true)
+            //{
+            //    Manager.Save();
+            //    Manager.DataTable.AcceptChanges();
+            //}
+
+            for (int i = 0; i < ChbCreationTypes.Items.Count; i++)
+            {
+                if (ChbCreationTypes.Items[i].Selected)
+                {
+                    DataRow drCr = Manager.NewRow();
+                    drCr["EmpId"] = EmpId;
+                    drCr["Id"] = int.Parse(ChbCreationTypes.Items[i].Value.ToString());
+                    drCr["Type"] = (short)TSP.DataManager.AutomationUserRightTypes.CreationTypes;
+                    drCr["ModifiedDate"] = DateTime.Now;
+                    drCr["UserId"] = Utility.GetCurrentUser_UserId();
+                    Manager.AddRow(drCr);
+                }
+
+            }
+            for (int i = 0; i < ChbDivision.Items.Count; i++)
+            {
+                if (ChbDivision.Items[i].Selected)
+                {
+                    DataRow drCr = Manager.NewRow();
+                    drCr["EmpId"] = EmpId;
+                    drCr["Id"] = int.Parse(ChbDivision.Items[i].Value.ToString());
+                    drCr["Type"] = (short)TSP.DataManager.AutomationUserRightTypes.Divisions;
+                    drCr["ModifiedDate"] = DateTime.Now;
+                    drCr["UserId"] = Utility.GetCurrentUser_UserId();
+                    Manager.AddRow(drCr);
+                }
+
+            }
+            for (int i = 0; i < ChbReferenceAims.Items.Count; i++)
+            {
+                if (ChbReferenceAims.Items[i].Selected)
+                {
+                    DataRow drCr = Manager.NewRow();
+                    drCr["EmpId"] = EmpId;
+                    drCr["Id"] = int.Parse(ChbReferenceAims.Items[i].Value.ToString());
+                    drCr["Type"] = (short)TSP.DataManager.AutomationUserRightTypes.ReferenceAims;
+                    drCr["ModifiedDate"] = DateTime.Now;
+                    drCr["UserId"] = Utility.GetCurrentUser_UserId();
+                    Manager.AddRow(drCr);
+                }
+
+            }
+            if (ChbLetterRelaions.Checked)
+            {
+                DataRow drCr = Manager.NewRow();
+                drCr["EmpId"] = EmpId;
+                drCr["Id"] = 0;
+                drCr["Type"] = (short)TSP.DataManager.AutomationUserRightTypes.LetterRelations;
+                drCr["ModifiedDate"] = DateTime.Now;
+                drCr["UserId"] = Utility.GetCurrentUser_UserId();
+                Manager.AddRow(drCr);
+            }
+
+            if (ChbPassword.Checked)
+            {
+                DataRow drCr = Manager.NewRow();
+                drCr["EmpId"] = EmpId;
+                drCr["Id"] = 0;
+                drCr["Type"] = (short)TSP.DataManager.AutomationUserRightTypes.SetPassword;
+                drCr["ModifiedDate"] = DateTime.Now;
+                drCr["UserId"] = Utility.GetCurrentUser_UserId();
+                Manager.AddRow(drCr);
+            }
+
+            int cnt = Manager.Save();
+
+
+            trans.EndSave();
+            this.DivReport.Visible = true;
+            this.LabelWarning.Text = " ذخیره انجام شد";
+            ViewState["Mode"] = "Edit";
+            // CustomAspxDevGridViewFoldersAttach.DataBind();
+            //CustomAspxDevGridViewFoldersView.DataBind();
+
+
+
+
+        }
+
+        catch (Exception err)
+        {
+            trans.CancelSave();
+
+            if (err.GetType() == typeof(System.Data.SqlClient.SqlException))
+            {
+                System.Data.SqlClient.SqlException se = (System.Data.SqlClient.SqlException)err;
+                if (se.Number == 2601)
+                {
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "اطلاعات تکراری می باشد";
+                }
+                else
+                {
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+                }
+            }
+            else
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+            }
+
+        }
+    }
+    protected void Edit(int EmpId)
+    {
+        if (IsPageRefresh)
+            return;
+        TSP.DataManager.TransactionManager trans = new TSP.DataManager.TransactionManager();
+        TSP.DataManager.Automation.UserRightManager Manager = new TSP.DataManager.Automation.UserRightManager();
+        trans.Add(Manager);
+
+        try
+        {
+            trans.BeginSave();
+            Manager.FindByEmpId(EmpId);
+
+
+            for (int i = 0; i < CustomAspxDevGridViewFoldersView.VisibleRowCount; i++)
+            {
+                DataRow row = CustomAspxDevGridViewFoldersView.GetDataRow(i);
+
+                Manager.CurrentFilter = "Type=" + (short)TSP.DataManager.AutomationUserRightTypes.ViewFolders + " And Id=" + row["FolderId"];
+
+                if (Manager.Count > 0)
+                {
+                    if (!CustomAspxDevGridViewFoldersView.Selection.IsRowSelected(i))
+                    {
+                        Manager[0].Delete();
+
+                    }
+
+                }
+                else
+                {
+                    if (CustomAspxDevGridViewFoldersView.Selection.IsRowSelected(i))
+                    {
+                        DataRow dr = Manager.NewRow();
+
+                        DataRow row2 = CustomAspxDevGridViewFoldersView.GetDataRow(i);
+                        dr["EmpId"] = EmpId;
+                        dr["Type"] = (byte)TSP.DataManager.AutomationUserRightTypes.ViewFolders;
+                        dr["Id"] = int.Parse(row2["FolderId"].ToString());
+                        dr["ModifiedDate"] = DateTime.Now;
+                        dr["UserId"] = Utility.GetCurrentUser_UserId();
+                        Manager.AddRow(dr);
+                    }
+                }
+            }
+            for (int i = 0; i < CustomAspxDevGridViewFoldersAttach.VisibleRowCount; i++)
+            {
+                DataRow row = CustomAspxDevGridViewFoldersAttach.GetDataRow(i);
+
+                Manager.CurrentFilter = "Type=" + (short)TSP.DataManager.AutomationUserRightTypes.AttachToFolders + " And Id=" + row["FolderId"];
+
+                if (Manager.Count > 0)
+                {
+                    if (!CustomAspxDevGridViewFoldersAttach.Selection.IsRowSelected(i))
+                    {
+                        Manager[0].Delete();
+
+                    }
+
+                }
+                else
+                {
+                    if (CustomAspxDevGridViewFoldersAttach.Selection.IsRowSelected(i))
+                    {
+                        DataRow row2 = CustomAspxDevGridViewFoldersAttach.GetDataRow(i);
+                        DataRow dr = Manager.NewRow();
+                        dr["EmpId"] = EmpId;
+                        dr["Type"] = (byte)TSP.DataManager.AutomationUserRightTypes.AttachToFolders;
+                        dr["Id"] = int.Parse(row2["FolderId"].ToString());
+                        dr["ModifiedDate"] = DateTime.Now;
+                        dr["UserId"] = Utility.GetCurrentUser_UserId();
+                        Manager.AddRow(dr);
+                    }
+                }
+            }
+
+            for (int i = 0; i < CustomAspxDevGridViewSecrateriant.VisibleRowCount; i++)
+            {
+                DataRow row = CustomAspxDevGridViewSecrateriant.GetDataRow(i);
+
+                Manager.CurrentFilter = "Type=" + (short)TSP.DataManager.AutomationUserRightTypes.Secretariat + " And Id=" + row["SId"];
+
+                if (Manager.Count > 0)
+                {
+                    if (!CustomAspxDevGridViewSecrateriant.Selection.IsRowSelected(i))
+                    {
+                        Manager[0].Delete();
+
+                    }
+
+                }
+                else
+                {
+                    if (CustomAspxDevGridViewSecrateriant.Selection.IsRowSelected(i))
+                    {
+                        DataRow row2 = CustomAspxDevGridViewSecrateriant.GetDataRow(i);
+                        DataRow dr = Manager.NewRow();
+                        dr["EmpId"] = EmpId;
+                        dr["Type"] = (byte)TSP.DataManager.AutomationUserRightTypes.Secretariat;
+                        dr["Id"] = int.Parse(row2["SId"].ToString());
+                        dr["ModifiedDate"] = DateTime.Now;
+                        dr["UserId"] = Utility.GetCurrentUser_UserId();
+                        Manager.AddRow(dr);
+                    }
+                }
+            }
+
+            for (int i = 0; i < CustomAspxDevGridViewArchive.VisibleRowCount; i++)
+            {
+                DataRow row = CustomAspxDevGridViewArchive.GetDataRow(i);
+
+                Manager.CurrentFilter = "Type=" + (short)TSP.DataManager.AutomationUserRightTypes.Archive + " And Id=" + row["ArcId"];
+
+                if (Manager.Count > 0)
+                {
+                    if (!CustomAspxDevGridViewArchive.Selection.IsRowSelected(i))
+                    {
+                        Manager[0].Delete();
+
+                    }
+
+                }
+                else
+                {
+                    if (CustomAspxDevGridViewArchive.Selection.IsRowSelected(i))
+                    {
+                        DataRow row2 = CustomAspxDevGridViewArchive.GetDataRow(i);
+                        DataRow dr = Manager.NewRow();
+                        dr["EmpId"] = EmpId;
+                        dr["Type"] = (byte)TSP.DataManager.AutomationUserRightTypes.Archive;
+                        dr["Id"] = int.Parse(row2["ArcId"].ToString());
+                        dr["ModifiedDate"] = DateTime.Now;
+                        dr["UserId"] = Utility.GetCurrentUser_UserId();
+                        Manager.AddRow(dr);
+                    }
+                }
+            }
+
+            for (int i = 0; i < ChbCreationTypes.Items.Count; i++)
+            {
+
+                Manager.CurrentFilter = "Type=" + (short)TSP.DataManager.AutomationUserRightTypes.CreationTypes + " And Id=" + int.Parse(ChbCreationTypes.Items[i].Value);
+
+                if (Manager.Count > 0)
+                {
+                    if (!ChbCreationTypes.Items[i].Selected)
+                    {
+                        Manager[0].Delete();
+
+                    }
+
+                }
+                else
+                {
+                    if (ChbCreationTypes.Items[i].Selected)
+                    {
+                        DataRow drCr = Manager.NewRow();
+                        drCr["EmpId"] = EmpId;
+                        drCr["Id"] = int.Parse(ChbCreationTypes.Items[i].Value);
+                        drCr["Type"] = (short)TSP.DataManager.AutomationUserRightTypes.CreationTypes;
+                        drCr["ModifiedDate"] = DateTime.Now;
+                        drCr["UserId"] = Utility.GetCurrentUser_UserId();
+                        Manager.AddRow(drCr);
+                    }
+                }
+            }
+            for (int i = 0; i < ChbDivision.Items.Count; i++)
+            {
+
+                Manager.CurrentFilter = "Type=" + (short)TSP.DataManager.AutomationUserRightTypes.Divisions + " And Id=" + int.Parse(ChbDivision.Items[i].Value);
+
+                if (Manager.Count > 0)
+                {
+                    if (!ChbDivision.Items[i].Selected)
+                    {
+                        Manager[0].Delete();
+
+                    }
+
+                }
+                else
+                {
+                    if (ChbDivision.Items[i].Selected)
+                    {
+                        DataRow drCr = Manager.NewRow();
+                        drCr["EmpId"] = EmpId;
+                        drCr["Id"] = int.Parse(ChbDivision.Items[i].Value);
+                        drCr["Type"] = (short)TSP.DataManager.AutomationUserRightTypes.Divisions;
+                        drCr["ModifiedDate"] = DateTime.Now;
+                        drCr["UserId"] = Utility.GetCurrentUser_UserId();
+                        Manager.AddRow(drCr);
+                    }
+                }
+            }
+            for (int i = 0; i < ChbReferenceAims.Items.Count; i++)
+            {
+
+                Manager.CurrentFilter = "Type=" + (short)TSP.DataManager.AutomationUserRightTypes.ReferenceAims + " And Id=" + int.Parse(ChbReferenceAims.Items[i].Value);
+
+                if (Manager.Count > 0)
+                {
+                    if (!ChbReferenceAims.Items[i].Selected)
+                    {
+                        Manager[0].Delete();
+
+                    }
+
+                }
+                else
+                {
+                    if (ChbReferenceAims.Items[i].Selected)
+                    {
+                        DataRow drCr = Manager.NewRow();
+                        drCr["EmpId"] = EmpId;
+                        drCr["Id"] = int.Parse(ChbReferenceAims.Items[i].Value);
+                        drCr["Type"] = (short)TSP.DataManager.AutomationUserRightTypes.ReferenceAims;
+                        drCr["ModifiedDate"] = DateTime.Now;
+                        drCr["UserId"] = Utility.GetCurrentUser_UserId();
+                        Manager.AddRow(drCr);
+                    }
+                }
+            }
+            Manager.CurrentFilter = "Type=" + (short)TSP.DataManager.AutomationUserRightTypes.LetterRelations + " And Id=0";
+
+            if (Manager.Count > 0)
+            {
+                if (!ChbLetterRelaions.Checked)
+                {
+                    Manager[0].Delete();
+
+                }
+
+            }
+            else
+            {
+                if (ChbLetterRelaions.Checked)
+                {
+                    DataRow drCr = Manager.NewRow();
+                    drCr["EmpId"] = EmpId;
+                    drCr["Id"] = 0;
+                    drCr["Type"] = (short)TSP.DataManager.AutomationUserRightTypes.LetterRelations;
+                    drCr["ModifiedDate"] = DateTime.Now;
+                    drCr["UserId"] = Utility.GetCurrentUser_UserId();
+                    Manager.AddRow(drCr);
+                }
+            }
+
+            Manager.CurrentFilter = "Type=" + (short)TSP.DataManager.AutomationUserRightTypes.SetPassword + " And Id=0";
+
+            if (Manager.Count > 0)
+            {
+                if (!ChbPassword.Checked)
+                {
+                    Manager[0].Delete();
+
+                }
+
+            }
+            else
+            {
+                if (ChbPassword.Checked)
+                {
+                    DataRow drCr = Manager.NewRow();
+                    drCr["EmpId"] = EmpId;
+                    drCr["Id"] = 0;
+                    drCr["Type"] = (short)TSP.DataManager.AutomationUserRightTypes.SetPassword;
+                    drCr["ModifiedDate"] = DateTime.Now;
+                    drCr["UserId"] = Utility.GetCurrentUser_UserId();
+                    Manager.AddRow(drCr);
+                }
+            }
+
+            Manager.Save();
+
+            trans.EndSave();
+            this.DivReport.Visible = true;
+            this.LabelWarning.Text = " ذخیره انجام شد";
+            ViewState["Mode"] = "Edit";
+
+
+
+
+        }
+        catch (Exception err)
+        {
+            trans.CancelSave();
+
+            if (err.GetType() == typeof(System.Data.SqlClient.SqlException))
+            {
+                System.Data.SqlClient.SqlException se = (System.Data.SqlClient.SqlException)err;
+                if (se.Number == 2601)
+                {
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "اطلاعات تکراری می باشد";
+                }
+                else if (se.Number == 2627)
+                {
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "کد تکراری می باشد";
+                }
+                else
+                {
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+                    this.LabelWarning.Text = err.Message;
+                }
+            }
+            else
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+                this.LabelWarning.Text = err.Message;
+            }
+        }
+    }
+    protected void FillForm(TSP.DataManager.Automation.UserRightManager Manager)
+    {
+        //TSP.DataManager.Automation.UserRightManager Manager = new TSP.DataManager.Automation.UserRightManager();
+        try
+        {
+            //Manager.FindByEmpId(EmpId);
+            CustomAspxDevGridViewFoldersAttach.DataBind();
+            CustomAspxDevGridViewFoldersView.DataBind();
+            CustomAspxDevGridViewSecrateriant.DataBind();
+            CustomAspxDevGridViewArchive.DataBind();
+            ChbCreationTypes.DataBind();
+            ChbDivision.DataBind();
+            ChbReferenceAims.DataBind();
+
+            Manager.CurrentFilter = "Type=" + (short)TSP.DataManager.AutomationUserRightTypes.AttachToFolders;
+            for (int i = 0; i < Manager.Count; i++)
+            {
+                for (int j = 0; j < CustomAspxDevGridViewFoldersAttach.VisibleRowCount; j++)
+                {
+                    DataRow row = CustomAspxDevGridViewFoldersAttach.GetDataRow(j);
+
+                    if (Manager[i]["Id"].ToString() == row["FolderId"].ToString())
+                        CustomAspxDevGridViewFoldersAttach.Selection.SelectRow(j);
+                        //CustomAspxDevGridViewFoldersAttach.Selection.IsRowSelected(j) = true;
+
+                }
+            }
+
+            Manager.CurrentFilter = "Type=" + (short)TSP.DataManager.AutomationUserRightTypes.ViewFolders;
+            for (int i = 0; i < Manager.Count; i++)
+            {
+                for (int j = 0; j < CustomAspxDevGridViewFoldersView.VisibleRowCount; j++)
+                {
+                    DataRow row = CustomAspxDevGridViewFoldersView.GetDataRow(j);
+
+                    if (Manager[i]["Id"].ToString() == row["FolderId"].ToString())
+                        CustomAspxDevGridViewFoldersView.Selection.SelectRow(j);
+                       
+
+                }
+            }
+
+            Manager.CurrentFilter = "Type=" + (short)TSP.DataManager.AutomationUserRightTypes.Secretariat;
+            for (int i = 0; i < Manager.Count; i++)
+            {
+                for (int j = 0; j < CustomAspxDevGridViewSecrateriant.VisibleRowCount; j++)
+                {
+                    DataRow row = CustomAspxDevGridViewSecrateriant.GetDataRow(j);
+
+                    if (Manager[i]["Id"].ToString() == row["SId"].ToString())
+                        CustomAspxDevGridViewSecrateriant.Selection.SelectRow(j);
+                }
+            }
+
+            Manager.CurrentFilter = "Type=" + (short)TSP.DataManager.AutomationUserRightTypes.Archive;
+            for (int i = 0; i < Manager.Count; i++)
+            {
+                for (int j = 0; j < CustomAspxDevGridViewArchive.VisibleRowCount; j++)
+                {
+                    DataRow row = CustomAspxDevGridViewArchive.GetDataRow(j);
+
+                    if (Manager[i]["Id"].ToString() == row["ArcId"].ToString())
+                        CustomAspxDevGridViewArchive.Selection.SelectRow(j);
+                }
+            }
+
+            Manager.CurrentFilter = "Type=" + (short)TSP.DataManager.AutomationUserRightTypes.CreationTypes;
+            for (int i = 0; i < Manager.Count; i++)
+            {
+                for (int j = 0; j < ChbCreationTypes.Items.Count; j++)
+                {
+                    if (Manager[i]["Id"].ToString() == ChbCreationTypes.Items[j].Value)
+                        ChbCreationTypes.Items[j].Selected = true;
+
+                }
+            }
+
+            Manager.CurrentFilter = "Type=" + (short)TSP.DataManager.AutomationUserRightTypes.Divisions;
+            for (int i = 0; i < Manager.Count; i++)
+            {
+                for (int j = 0; j < ChbDivision.Items.Count; j++)
+                {
+                    if (Manager[i]["Id"].ToString() == ChbDivision.Items[j].Value)
+                        ChbDivision.Items[j].Selected = true;
+
+                }
+            }
+
+            Manager.CurrentFilter = "Type=" + (short)TSP.DataManager.AutomationUserRightTypes.ReferenceAims;
+            for (int i = 0; i < Manager.Count; i++)
+            {
+                for (int j = 0; j < ChbReferenceAims.Items.Count; j++)
+                {
+                    if (Manager[i]["Id"].ToString() == ChbReferenceAims.Items[j].Value)
+                        ChbReferenceAims.Items[j].Selected = true;
+
+                }
+            }
+
+            Manager.CurrentFilter = "Type=" + (short)TSP.DataManager.AutomationUserRightTypes.LetterRelations;
+            if (Manager.Count > 0)
+                ChbLetterRelaions.Checked = true;
+
+            Manager.CurrentFilter = "Type=" + (short)TSP.DataManager.AutomationUserRightTypes.SetPassword;
+            if (Manager.Count > 0)
+                ChbPassword.Checked = true;
+
+        }
+        catch (Exception err)
+        {
+            this.DivReport.Visible = true;
+            this.LabelWarning.Text = "خطايى در مشاهده اطلاعات رخ داده است";
+        }
+    }
+    protected void CustomAspxDevGridViewFoldersView_CommandButtonInitialize(object sender, DevExpress.Web.ASPxGridViewCommandButtonEventArgs e)
+    {
+        if (CustomAspxDevGridViewFoldersView.Selection.Count == CustomAspxDevGridViewFoldersView.VisibleRowCount)
+        {
+            Session["GrViewCheched"] = true;
+            //e.Button.Text = "عدم انتخاب همه";
+            if (e.ButtonType == ColumnCommandButtonType.SelectCheckbox)
+                e.Column.SelectButton.Text = "عدم انتخاب همه";
+
+        }
+        else
+        {
+            Session["GrViewCheched"] = false;
+            if (e.ButtonType == ColumnCommandButtonType.SelectCheckbox)
+                e.Column.SelectButton.Text = "انتخاب همه";
+            // e.Button.Text = "انتخاب همه";
+        }
+    }
+    protected void CustomAspxDevGridViewFoldersView_CustomButtonCallback(object sender, DevExpress.Web.ASPxGridViewCustomButtonCallbackEventArgs e)
+    {
+        if (Convert.ToBoolean(Session["GrViewCheched"]))
+        {
+            Session["GrViewCheched"] = false;
+            CustomAspxDevGridViewFoldersView.Selection.UnselectAll();
+            SelectButtonView.Text = "انتخاب همه";
+
+        }
+        else
+        {
+            Session["GrViewCheched"] = true;
+            CustomAspxDevGridViewFoldersView.Selection.SelectAll();
+            SelectButtonView.Text = "عدم انتخاب همه";
+        }
+    }
+    protected void CustomAspxDevGridViewFoldersAttach_CommandButtonInitialize(object sender, DevExpress.Web.ASPxGridViewCommandButtonEventArgs e)
+    {
+        if (CustomAspxDevGridViewFoldersAttach.Selection.Count == CustomAspxDevGridViewFoldersAttach.VisibleRowCount)
+        {
+            Session["GrAttachCheched"] = true;
+            //e.Button.Text = "عدم انتخاب همه";
+            if (e.ButtonType == ColumnCommandButtonType.SelectCheckbox)
+                e.Column.SelectButton.Text = "عدم انتخاب همه";
+
+        }
+        else
+        {
+            Session["GrAttachCheched"] = false;
+            if (e.ButtonType == ColumnCommandButtonType.SelectCheckbox)
+                e.Column.SelectButton.Text = "انتخاب همه";
+            // e.Button.Text = "انتخاب همه";
+        }
+    }
+    protected void CustomAspxDevGridViewFoldersAttach_CustomButtonCallback(object sender, DevExpress.Web.ASPxGridViewCustomButtonCallbackEventArgs e)
+    {
+        if (Convert.ToBoolean(Session["GrAttachCheched"]))
+        {
+            Session["GrAttachCheched"] = false;
+            CustomAspxDevGridViewFoldersAttach.Selection.UnselectAll();
+            SelectButtonAttach.Text = "انتخاب همه";
+
+        }
+        else
+        {
+            Session["GrAttachCheched"] = true;
+            CustomAspxDevGridViewFoldersAttach.Selection.SelectAll();
+            SelectButtonAttach.Text = "عدم انتخاب همه";
+        }
+    }
+    protected void btnBack_Click(object sender, EventArgs e)
+    {
+        string EmpId = Utility.DecryptQS(HDEmpId.Value);
+
+        if (!string.IsNullOrEmpty(Request.QueryString["GrdFlt"]) && !string.IsNullOrEmpty(EmpId))
+        {
+            string GrdFlt = Server.HtmlDecode(Request.QueryString["GrdFlt"].ToString());
+            Response.Redirect("Employee.aspx?PostId=" + HDEmpId.Value + "&GrdFlt=" + GrdFlt);
+        }
+        else
+        {
+            Response.Redirect("Employee.aspx");
+        }
+    }
+    protected void ASPxMenu1_ItemClick(object source, DevExpress.Web.MenuItemEventArgs e)
+    {
+        String UserId = "", GrdFlt = "", EmpId = ""; ;
+        try
+        {
+            UserId = "UserId=" + Request.QueryString["UserId"];
+            EmpId = "&EmpId=" + Request.QueryString["EmpId"];
+            GrdFlt = "&GrdFlt=" + Request.QueryString["GrdFlt"];
+        }
+        catch (Exception) { }
+
+        switch (e.Item.Name)
+        {
+            case "Pages":
+                Response.Redirect("UserRight1.aspx?" + UserId +EmpId+ GrdFlt);
+                break;
+            case "Session":
+                Response.Redirect("SessionUserRight.aspx?" + UserId + EmpId + GrdFlt);
+                break;
+        }
+    }
+
+    //protected void CustomAspxDevGridViewSecrateriant_CommandButtonInitialize(object sender, ASPxGridViewCommandButtonEventArgs e)
+    //{
+
+    //}
+    //protected void CustomAspxDevGridViewSecrateriant_CustomButtonCallback(object sender, ASPxGridViewCustomButtonCallbackEventArgs e)
+    //{
+
+    //}
+}

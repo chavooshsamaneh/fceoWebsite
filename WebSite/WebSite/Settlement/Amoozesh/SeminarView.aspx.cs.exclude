@@ -1,0 +1,482 @@
+﻿using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+
+public partial class Settlement_Amoozesh_SeminarView : System.Web.UI.Page
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (Session["Login"] == null || Session["Login"].ToString() == "0")
+        {
+            Response.Redirect("../../Login.aspx?ReferPage=" + Request.Url.AbsoluteUri);
+            return;
+        }
+
+       
+        this.DivReport.Visible = false;
+        this.DivReport.Attributes.Add("onclick", "ChangeVisible(this)");
+        this.DivReport.Attributes.Add("onmouseover", "ChangeIcon(this)");
+
+        if (!IsPostBack)
+        {
+            //TSP.DataManager.Permission per = TSP.DataManager.TrainingJudgmentManager.GetUserPermission(int.Parse(Session["Login"].ToString()), (TSP.DataManager.UserType)int.Parse(Session["LoginType"].ToString()));
+            //btnSave.Enabled = per.CanNew;
+            //btnSave2.Enabled = per.CanNew;
+
+            Session["IsEdited_SettSeminarView"] = false;
+
+            if (string.IsNullOrEmpty(Request.QueryString["SeId"]) || string.IsNullOrEmpty(Request.QueryString["PageMode"]))
+            {
+                Response.Redirect("Seminar.aspx");
+                return;
+            }
+
+            try
+            {
+                SeminarId.Value = Server.HtmlDecode(Request.QueryString["SeId"]).ToString();
+                PgMode.Value = Server.HtmlDecode(Request.QueryString["PageMode"]).ToString();
+
+            }
+            catch
+            {
+                this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+                return;
+            }
+
+
+            string SeId = Utility.DecryptQS(SeminarId.Value);
+            string PageMode = Utility.DecryptQS(PgMode.Value);
+
+
+            if (string.IsNullOrEmpty(SeId))
+            {
+                this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+                return;
+            }
+
+            if (string.IsNullOrEmpty(PageMode))
+            {
+                this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+                return;
+            }
+            else
+            {
+                OdbGrades.SelectParameters["PkId"].DefaultValue = SeId;
+                OdbGrades.SelectParameters["Type"].DefaultValue = "1";
+
+                CustomAspxDevGridViewGrade.DataBind();
+
+                InsertWorkFlowStateView((int)TSP.DataManager.TableCodes.Seminar, int.Parse(SeId));
+
+
+                if (PageMode == "View")
+                {
+                    FillForm(int.Parse(SeId));
+                    btnSave.Enabled = false;
+                    btnSave2.Enabled = false;
+                }
+                else if (PageMode == "Judge")
+                {
+                    RoundPanelJudge.Visible = true;
+
+                    FillForm(int.Parse(SeId));
+                }
+
+            }
+            OdbSchedule.FilterParameters[0].DefaultValue = SeId;
+
+        }
+    }
+    protected void FillForm(int SeId)
+    {
+        TSP.DataManager.SeminarManager SeManager = new TSP.DataManager.SeminarManager();
+        TSP.DataManager.TrainingTeachersManager SemTeachManager = new TSP.DataManager.TrainingTeachersManager();
+
+        TSP.DataManager.TrainingJudgmentManager JudgeManager = new TSP.DataManager.TrainingJudgmentManager();
+
+        try
+        {
+            SeManager.FindByCode(SeId);
+            if (SeManager.Count > 0)
+            {
+                txtDate.Text = SeManager[0]["StartDate"].ToString();
+                txtEndDate.Text = SeManager[0]["EndDate"].ToString();
+                txtDesc.Text = SeManager[0]["Description"].ToString();
+                txtPlace.Text = SeManager[0]["Place"].ToString();
+                txtTopic.Text = SeManager[0]["Topic"].ToString();
+                txtDuration.Text = SeManager[0]["Duration"].ToString();
+                txtPoint.Text = SeManager[0]["Point"].ToString();
+                txtTimePoint.Text = SeManager[0]["TimePoint"].ToString();
+
+                decimal SeminarCost = Convert.ToDecimal(SeManager[0]["SeminarCost"].ToString());
+                txtSeminarCost.Text = SeminarCost.ToString("#,#");
+                //decimal TeacherSalary = Convert.ToDecimal(SeManager[0]["TeacherSalary"].ToString());
+                //txtTeacherCost.Text = TeacherSalary.ToString("#,#");
+
+                txtSubject.Text = SeManager[0]["Subject"].ToString();
+                txtTime.Text = SeManager[0]["Time"].ToString();
+
+
+                SemTeachManager.FindByPKCode(SeId, 1);
+                if (SemTeachManager.Count > 0)
+                {
+                    Grdv_Teacher.DataSource = SemTeachManager.DataTable;
+                    Grdv_Teacher.DataBind();
+                }
+
+
+                TSP.DataManager.AttachmentsManager AttManager = new TSP.DataManager.AttachmentsManager();
+                AspxGridFlp.DataSource = AttManager.FindByTablePrimaryKey_AttId((int)TSP.DataManager.TableCodes.Seminar, SeId, 2);
+                AspxGridFlp.DataBind();
+
+
+
+                JudgeManager.FindByPKCode(SeId, 1);
+                if (JudgeManager.Count > 0)
+                {
+                    JudgeId.Value = Utility.EncryptQS(JudgeManager[0]["JudgeId"].ToString());
+                    PgMode.Value = Utility.EncryptQS("Edit");
+                    RoundPanelJudge.Visible = true;
+                    txtJudgeView.Text = JudgeManager[0]["JudgeViewPoint"].ToString();
+
+                    rbtnGrade.SelectedIndex = int.Parse(JudgeManager[0]["IsConfirmed"].ToString());
+
+                }
+                else
+                    PgMode.Value = Utility.EncryptQS("New");
+
+
+            }
+            else
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "امکان مشاهده اطلاعات وجود ندارد";
+            }
+        }
+        catch (Exception err)
+        {
+            this.DivReport.Visible = true;
+            this.LabelWarning.Text = "خطایی در مشاهده اطلاعات رخ داده است";
+
+        }
+
+
+        //TSP.DataManager.AttachmentsManager AttManager = new TSP.DataManager.AttachmentsManager();
+        //AspxGridFlp.DataSource = AttManager.FindByTablePrimaryKey_AttId((int)TSP.DataManager.TableCodes.Seminar, SeId, 2);
+        //AspxGridFlp.DataBind();
+
+        //TSP.DataManager.AttachmentsManager AttManager1 = new TSP.DataManager.AttachmentsManager();
+        //AspxGridFlpTeacher.DataSource = AttManager1.FindByTablePrimaryKey_AttId((int)TSP.DataManager.TableCodes.Seminar, SeId, 3);
+        //AspxGridFlpTeacher.DataBind();
+
+
+    }
+    protected void btnBack_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("Seminar.aspx");
+    }
+    protected void btnSave_Click(object sender, EventArgs e)
+    {
+        string PageMode = Utility.DecryptQS(PgMode.Value);
+        int SeId = int.Parse(Utility.DecryptQS(SeminarId.Value));
+        int SeJudgeId = int.Parse(Utility.DecryptQS(JudgeId.Value));
+
+        if (PageMode == "New")
+            Insert(SeId);
+        else if (PageMode == "Edit")
+            Edit(SeJudgeId);
+    }
+    protected void Edit(int SeJudgeId)
+    {
+        TSP.DataManager.TransactionManager trans = new TSP.DataManager.TransactionManager();
+        TSP.DataManager.TrainingJudgmentManager JudgeManager = new TSP.DataManager.TrainingJudgmentManager();
+        TSP.DataManager.WorkFlowStateManager WorkFlowStateManager = new TSP.DataManager.WorkFlowStateManager(trans);
+        TSP.DataManager.SeminarManager SeminarManager = new TSP.DataManager.SeminarManager();
+
+        trans.Add(JudgeManager);
+        //  trans.Add(SeminarManager);
+        trans.Add(WorkFlowStateManager);
+        trans.Add(SeminarManager);
+
+        try
+        {
+            JudgeManager.FindByCode(SeJudgeId);
+            if (JudgeManager.Count > 0)
+            {
+                JudgeManager[0].BeginEdit();
+                JudgeManager[0]["JudgeViewPoint"] = txtJudgeView.Text;
+                JudgeManager[0]["IsConfirmed"] = rbtnGrade.Value;
+                //JudgeManager[0]["NmcId"] = FindNmcId();
+                JudgeManager[0]["JudgeGrade"] = txtjPoint.Text;
+                JudgeManager[0]["JudgeGradeTime"] = txtjTimePoint.Text;
+                //JudgeManager[0]["EmpId"] = Session["Login"];
+                //JudgeManager[0]["UltId"] = Session["LoginType"];
+                JudgeManager[0]["UserId"] = Utility.GetCurrentUser_UserId();
+                JudgeManager[0]["ModifiedDate"] = DateTime.Now;
+                JudgeManager[0].EndEdit();
+
+                trans.BeginSave();
+                if (JudgeManager.Save() > 0)
+                {
+                    int SeId = int.Parse(Utility.DecryptQS(SeminarId.Value));
+
+                    if (!string.IsNullOrEmpty(txtjPoint.Text))
+                    {
+                        SeminarManager.FindByCode(SeId);
+                        if (SeminarManager.Count == 1)
+                        {
+                            SeminarManager[0].BeginEdit();
+                            SeminarManager[0]["Point"] = txtjPoint.Text;
+                            SeminarManager[0]["TimePoint"] = txtjTimePoint.Text;
+                            SeminarManager[0]["UserId"] = Utility.GetCurrentUser_UserId();
+                            SeminarManager[0].EndEdit();
+                            SeminarManager.Save();
+                        }
+                    }
+
+                    int UpdateState = -1;
+                    if (!(Convert.ToBoolean(Session["IsEdited_SettSeminarView"].ToString())))
+                    {
+                        int TableType = (int)TSP.DataManager.TableCodes.Seminar;
+                        int UpdateTableType = (int)TSP.DataManager.TableCodes.TrainingJudgment;
+                        UpdateState = WorkFlowStateManager.InsertWorkFlowUpdateState(TableType, SeId, UpdateTableType, "Update", int.Parse(Session["Login"].ToString()));
+                    }
+                    if (UpdateState == -4)
+                    {
+                        trans.CancelSave();
+                        this.DivReport.Visible = true;
+                        this.LabelWarning.Text = ".خطایی در ذخیره انجام گرفته است";
+                        return;
+                    }
+
+
+                    Session["IsEdited_SettSeminarView"] = true;
+
+
+
+                    trans.EndSave();
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "ذخیره انجام شد";
+                }
+                else
+                {
+                    trans.CancelSave();
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "خطایی در ذخیره اطلاعات رخ داده است";
+                }
+            }
+            else
+            {
+                trans.CancelSave();
+
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "خطایی در ویرایش اطلاعات رخ داده است";
+
+            }
+        }
+        catch (Exception err)
+        {
+            trans.CancelSave();
+
+            if (err.GetType() == typeof(System.Data.SqlClient.SqlException))
+            {
+                System.Data.SqlClient.SqlException se = (System.Data.SqlClient.SqlException)err;
+                if (se.Number == 2601)
+                {
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "اطلاعات تکراری می باشد";
+                }
+
+                else
+                {
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+                    this.LabelWarning.Text = err.Message;
+                }
+            }
+            else
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+                this.LabelWarning.Text = err.Message;
+            }
+        }
+    }
+    protected void Insert(int SeId)
+    {
+        TSP.DataManager.TransactionManager trans = new TSP.DataManager.TransactionManager();
+        TSP.DataManager.SeminarManager SeminarManager = new TSP.DataManager.SeminarManager();
+
+        TSP.DataManager.TrainingJudgmentManager SemJudgeManager = new TSP.DataManager.TrainingJudgmentManager();
+        TSP.DataManager.WorkFlowStateManager WorkFlowStateManager = new TSP.DataManager.WorkFlowStateManager(trans);
+
+        trans.Add(SemJudgeManager);
+        trans.Add(WorkFlowStateManager);
+        trans.Add(SeminarManager);
+
+        try
+        {
+            DataRow drJudge = SemJudgeManager.NewRow();
+            drJudge["SeId"] = SeId;
+            drJudge["JudgeViewPoint"] = txtJudgeView.Text;
+            drJudge["JudgeGrade"] = txtjPoint.Text;
+            drJudge["JudgeGradeTime"] = txtjTimePoint.Text;
+            drJudge["IsConfirmed"] = rbtnGrade.Value;
+            //drJudge["EmpId"] = Session["Login"];
+            drJudge["UltId"] = Utility.GetCurrentUser_LoginType();
+            drJudge["NmcId"] = FindNmcId();
+            drJudge["Type"] = 1;//seminar
+            drJudge["UserId"] = Utility.GetCurrentUser_UserId();
+            drJudge["CreateDate"] = Utility.GetDateOfToday();
+            drJudge["ModifiedDate"] = DateTime.Now;
+            SemJudgeManager.AddRow(drJudge);
+            trans.BeginSave();
+            if (SemJudgeManager.Save() > 0)
+            {
+                if (!string.IsNullOrEmpty(txtjPoint.Text))
+                {
+                    SeminarManager.FindByCode(SeId);
+                    if (SeminarManager.Count == 1)
+                    {
+                        SeminarManager[0].BeginEdit();
+                        SeminarManager[0]["Point"] = txtjPoint.Text;
+                        SeminarManager[0]["TimePoint"] = txtjTimePoint.Text;
+                        SeminarManager[0]["UserId"] = Utility.GetCurrentUser_UserId();
+                        SeminarManager[0].EndEdit();
+                        SeminarManager.Save();
+                    }
+                }
+
+                int UpdateState = -1;
+                if (!(Convert.ToBoolean(Session["IsEdited_SettSeminarView"].ToString())))
+                {
+                    int TableType = (int)TSP.DataManager.TableCodes.Seminar;
+                    int UpdateTableType = (int)TSP.DataManager.TableCodes.TrainingJudgment;
+                    UpdateState = WorkFlowStateManager.InsertWorkFlowUpdateState(TableType, SeId, UpdateTableType, "Update", int.Parse(Session["Login"].ToString()));
+                }
+                if (UpdateState == -4)
+                {
+                    trans.CancelSave();
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = ".خطایی در ذخیره انجام گرفته است";
+                    return;
+                }
+
+                Session["IsEdited_SettSeminarView"] = true;
+
+
+
+                trans.EndSave();
+
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "ذخیره انجام شد";
+            }
+            else
+            {
+                trans.CancelSave();
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+
+            }
+        }
+        catch (Exception err)
+        {
+            trans.CancelSave();
+
+            if (err.GetType() == typeof(System.Data.SqlClient.SqlException))
+            {
+                System.Data.SqlClient.SqlException se = (System.Data.SqlClient.SqlException)err;
+                if (se.Number == 2601)
+                {
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "اطلاعات تکراری می باشد";
+                }
+
+                else
+                {
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+                    this.LabelWarning.Text = err.Message;
+                }
+            }
+            else
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+                this.LabelWarning.Text = err.Message;
+            }
+        }
+    }
+    private void InsertWorkFlowStateView(int TableType, int TableId)
+    {
+        TSP.DataManager.WorkFlowStateManager WorkFlowStateManager = new TSP.DataManager.WorkFlowStateManager();
+        try
+        {
+            int ViewState = WorkFlowStateManager.InsertWorkFlowViewState(TableType, TableId, "View", int.Parse(Session["Login"].ToString()));
+            if (ViewState == -4)
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+            }
+        }
+        catch (Exception err)
+        {
+            if (err.GetType() == typeof(System.Data.SqlClient.SqlException))
+            {
+                System.Data.SqlClient.SqlException se = (System.Data.SqlClient.SqlException)err;
+                if (se.Number == 2601)
+                {
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "اطلاعات تکراری می باشد";
+                }
+                else
+                {
+                    this.DivReport.Visible = true;
+                    this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+                }
+            }
+            else
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "خطایی در ذخیره انجام گرفته است";
+            }
+        }
+    }
+    private int FindNmcId()
+    {
+        int UserId = (int)Session["Login"];
+        TSP.DataManager.NezamChartManager NezamChartManager = new TSP.DataManager.NezamChartManager();
+        TSP.DataManager.LoginManager LoginManager = new TSP.DataManager.LoginManager();
+
+        LoginManager.FindByCode(UserId);
+        int NmcId = -1;
+        if (LoginManager.Count > 0)
+        {
+            int EmpId = int.Parse(LoginManager[0]["MeId"].ToString());
+            int UltId = int.Parse(LoginManager[0]["UltId"].ToString());
+            NezamChartManager.FindByEmpId(EmpId, UltId);
+            if (NezamChartManager.Count > 0)
+            {
+                NmcId = int.Parse(NezamChartManager[0]["NmcId"].ToString());
+            }
+            else
+            {
+                DivReport.Visible = true;
+                LabelWarning.Text = "کاربری با مشخصات جاری در چارت سازمانی وجود ندارد.";
+            }
+        }
+        else
+        {
+            Response.Redirect("../../Login.aspx?ReferPage=" + Request.Url.AbsoluteUri);
+            return (-1);
+        }
+        return (NmcId);
+    }
+}

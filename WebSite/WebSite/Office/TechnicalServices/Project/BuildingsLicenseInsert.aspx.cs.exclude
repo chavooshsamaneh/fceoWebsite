@@ -1,0 +1,155 @@
+﻿using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+
+public partial class Office_TechnicalServices_Project_BuildingsLicenseInsert : System.Web.UI.Page
+{
+    string PageMode;
+    string ProjectId;
+    string PrjReId;
+    string LicenseRevivalId;
+    string BuildingsLicenseId;
+
+    bool IsPageRefresh = false;
+
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        this.DivReport.Attributes.Add("onclick", "ChangeVisible(this)");
+        this.DivReport.Attributes.Add("onmouseover", "ChangeIcon(this)");
+        this.DivReport.Visible = false;
+
+        if (!IsPostBack)
+        {
+            ViewState["postids"] = System.Guid.NewGuid().ToString();
+            Session["postid"] = ViewState["postids"].ToString();
+        }
+        else
+        {
+            if (!IsCallback && Session["postid"] != null)
+            {
+                if (ViewState["postids"].ToString() != Session["postid"].ToString()) { IsPageRefresh = true; }
+                Session["postid"] = System.Guid.NewGuid().ToString(); ViewState["postids"] = Session["postid"];
+            }
+        }
+
+        if (!IsPostBack)
+        {
+            if ((string.IsNullOrEmpty(Request.QueryString["ProjectId"])) || (string.IsNullOrEmpty(Request.QueryString["PrjReId"])))
+            {
+                Response.Redirect("Project.aspx");
+                return;
+            }
+
+            if ((string.IsNullOrEmpty(Request.QueryString["PageMode"])) || (string.IsNullOrEmpty(Request.QueryString["LicenseRevivalId"])) || (string.IsNullOrEmpty(Request.QueryString["BuildingsLicenseId"])))
+            {
+                Response.Redirect("BuildingsLicense.aspx?ProjectId=" + Server.HtmlDecode(Request.QueryString["ProjectId"]) + "&PrjReId=" + Server.HtmlDecode(Request.QueryString["PrjReId"]));
+                return;
+            }
+            
+            SetKeys();
+        }
+    }
+
+    protected void btnBack_Click(object sender, EventArgs e)
+    {
+        string Qs = "ProjectId=" + PkProjectId.Value + "&PrjReId=" + PkPrjReId.Value + "&PageMode=" + Server.HtmlDecode(Request.QueryString["MainPageMode"]);
+        Response.Redirect("BuildingsLicense.aspx?" + Qs);
+    }
+
+    /********************************************************************************************************************************************/
+    
+    private void SetKeys()
+    {
+        try
+        {
+            PgMode.Value = Server.HtmlDecode(Request.QueryString["PageMode"].ToString());
+            PkProjectId.Value = Server.HtmlDecode(Request.QueryString["ProjectId"]).ToString();
+            PkLicenseRevivalId.Value = Server.HtmlDecode(Request.QueryString["LicenseRevivalId"]).ToString();
+            PkPrjReId.Value = Server.HtmlDecode(Request.QueryString["PrjReId"]).ToString();
+            PkBuildingsLicenseId.Value = Server.HtmlDecode(Request.QueryString["BuildingsLicenseId"]).ToString();
+        }
+        catch
+        {
+            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+            return;
+        }
+
+        PageMode = Utility.DecryptQS(PgMode.Value);
+        PrjReId = Utility.DecryptQS(PkPrjReId.Value);
+
+        if (string.IsNullOrEmpty(PageMode))
+        {
+            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+            return;
+        }
+
+        SetMode();        
+    }
+
+    private void SetMode()
+    {
+        PageMode = Utility.DecryptQS(PgMode.Value);
+
+        if (string.IsNullOrEmpty(PageMode))
+        {
+            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+            return;
+        }
+        
+        SetValues();
+
+        ASPxRoundPanel2.HeaderText = "مشاهده";
+    }
+
+    private void SetValues()
+    {
+        PageMode = Utility.DecryptQS(PgMode.Value);
+        LicenseRevivalId = Utility.DecryptQS(PkLicenseRevivalId.Value);
+        BuildingsLicenseId = Utility.DecryptQS(PkBuildingsLicenseId.Value);
+
+        if ((string.IsNullOrEmpty(LicenseRevivalId)) || (string.IsNullOrEmpty(PageMode)))
+        {
+            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+            return;
+        }
+        TSP.DataManager.TechnicalServices.BuildingsLicenseManager BuildingsLicenseManager = new TSP.DataManager.TechnicalServices.BuildingsLicenseManager();
+        TSP.DataManager.TechnicalServices.LicenseRevivalManager LicenseRevivalManager = new TSP.DataManager.TechnicalServices.LicenseRevivalManager();
+
+        BuildingsLicenseManager.FindByBuildingsLicenseId(Convert.ToInt32(BuildingsLicenseId));
+        if (BuildingsLicenseManager.Count > 0)
+        {
+            ASPxTextBoxLicenseNo.Text = BuildingsLicenseManager[0]["LicenseNo"].ToString();
+            ASPxTextBoxLicenseType.Text = BuildingsLicenseManager[0]["LicenseType"].ToString();
+            ASPxTextBoxFileNo.Text = BuildingsLicenseManager[0]["FileNo"].ToString();
+            ASPxComboBoxSubmissionType.DataBind();
+            ASPxComboBoxSubmissionType.Value = BuildingsLicenseManager[0]["SubmissionTypeId"].ToString();
+            SubmissionDate.Text = BuildingsLicenseManager[0]["SubmissionDate"].ToString();
+
+            if (LicenseRevivalId != "-1")
+            {
+                LicenseRevivalManager.FindByLicenseRevivalId(Convert.ToInt32(LicenseRevivalId));
+                if (LicenseRevivalManager.Count == 1)
+                {
+                    FromDate.Text = LicenseRevivalManager[0]["FromDate"].ToString();
+                    ToDate.Text = LicenseRevivalManager[0]["ExpireDate"].ToString();
+                }
+            }
+        }
+        else
+        {
+            this.DivReport.Visible = true;
+            this.LabelWarning.Text = "خطایی در بازخوانی اطلاعات رخ داده است";
+        }
+    }   
+        
+}

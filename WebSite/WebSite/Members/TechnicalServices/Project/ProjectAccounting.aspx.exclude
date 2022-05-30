@@ -1,0 +1,200 @@
+﻿<%@ Page Title="مالی پروژه" Language="C#" MasterPageFile="~/MasterPagePortals.master"
+    AutoEventWireup="true" CodeFile="ProjectAccounting.aspx.cs" Inherits="Members_TechnicalServices_Project_ProjectAccounting" %>
+
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxhf" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxp" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxuc" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxrp" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxm" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxpc" %>
+<%@ Register Assembly="TSP.WebControls" Namespace="TSP.WebControls" TagPrefix="TSPControls" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxe" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxwgv" %>
+<%@ Register Assembly="AjaxControls" Namespace="AjaxControls" TagPrefix="asp" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
+<%@ Register Src="~/UserControl/ProjectInfoUserControl.ascx" TagPrefix="TSP" TagName="ProjectInfo" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+    <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+        <ContentTemplate>
+            <div style="text-align: right" id="DivReport" class="DivErrors" runat="server">
+                <asp:Label ID="LabelWarning" runat="server" Text="Label"></asp:Label>[<a class="closeLink"
+                    href="#">بستن</a>]</div>
+            <TSPControls:CustomASPxRoundPanelMenu ID="CustomASPxRoundPanelMenu1" runat="server"
+                Width="100%">
+                <PanelCollection>
+                    <dxp:PanelContent>
+                        <table width="100%">
+                            <table style="border-collapse: collapse; background-color: transparent" dir="rtl"
+                                cellpadding="0">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <TSPControls:CustomTextBox runat="server" Text=" "  ToolTip="بازگشت"
+                                                ID="btnback" UseSubmitBehavior="False" EnableViewState="False" EnableTheming="False"
+                                                OnClick="btnback_Click">
+                                                <HoverStyle BackColor="#FFE0C0">
+                                                    <Border BorderWidth="1px" BorderStyle="Outset" BorderColor="Gray"></Border>
+                                                </HoverStyle>
+                                                <Image  Url="~/Images/icons/Back.png">
+                                                </Image>
+                                            </TSPControls:CustomTextBox>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                    </dxp:PanelContent>
+                </PanelCollection>
+            </TSPControls:CustomASPxRoundPanelMenu>
+            <div align="right" style="width: 100%">
+                <TSPControls:CustomAspxMenuHorizontal ID="MainMenu" runat="server" 
+                     SeparatorWidth="1px" SeparatorHeight="100%" SeparatorColor="#A5A6A8"
+                    OnItemClick="MainMenu_ItemClick" ItemSpacing="0px" AutoSeparators="RootOnly"
+                     Font-Size="11px" RightToLeft="True">
+                    <Items>
+                        <dxm:MenuItem Name="Project" Text="مشخصات پروژه">
+                        </dxm:MenuItem>
+                        <dxm:MenuItem Text="مالک" Name="Owner">
+                        </dxm:MenuItem>
+                        <dxm:MenuItem Text="مالی پروژه" Name="Accounting" Selected="true">
+                        </dxm:MenuItem>
+                        <dxm:MenuItem Text="نقشه" Name="Plans">
+                        </dxm:MenuItem>
+                        <dxm:MenuItem Text="طراح" Name="Designer">
+                        </dxm:MenuItem>
+                        <dxm:MenuItem Text="ناظر" Name="Observers">
+                        </dxm:MenuItem>
+                        <dxm:MenuItem Text="مجری" Name="Implementer">
+                        </dxm:MenuItem>
+                        <dxm:MenuItem Text="قرارداد" Name="Contract">
+                        </dxm:MenuItem>
+                        <dxm:MenuItem Text="زمان بندی" Name="Timing">
+                        </dxm:MenuItem>
+                        <dxm:MenuItem Text="پروانه ساخت" Name="BuildingsLicense">
+                        </dxm:MenuItem>
+                    </Items>
+                </TSPControls:CustomAspxMenuHorizontal>
+            </div>
+            <br />
+            <TSP:ProjectInfo ID="prjInfo" runat="server"></TSP:ProjectInfo>
+            <br />
+            <TSPControls:CustomAspxDevGridView ClientInstanceName="grid" Width="100%" ID="DevGridViewOwnerAccounting"
+                runat="server" DataSourceID="ObjectDataSourceTsAcc" 
+                 AutoGenerateColumns="False" KeyFieldName="AccountingId">
+                <ClientSideEvents EndCallback="function(e,s){
+ if(grid.cpPrintFish == 1)
+    {
+        grid.cpPrintFish = 0;
+        window.open(grid.cpPrintFishPath);
+        grid.cpPrintFishPath='';
+    }
+    	        }" />
+                <SettingsCookies Enabled="false" />
+                <Columns>
+                    <dxwgv:GridViewDataTextColumn VisibleIndex="0" FieldName="AccountingId" Visible="false">
+                    </dxwgv:GridViewDataTextColumn>
+                    <dxwgv:GridViewDataTextColumn VisibleIndex="0" FieldName="StatusName" Caption="وضعیت"
+                        Width="120px">
+                        <CellStyle Wrap="False" HorizontalAlign="Center">
+                        </CellStyle>
+                    </dxwgv:GridViewDataTextColumn>
+                    <dxwgv:GridViewDataTextColumn VisibleIndex="0" FieldName="FishPayerName" Caption="نام پرداخت کننده"
+                        Width="170px">
+                        <CellStyle Wrap="False" HorizontalAlign="Right">
+                        </CellStyle>
+                    </dxwgv:GridViewDataTextColumn>
+                    <dxwgv:GridViewDataTextColumn VisibleIndex="2" Width="230px" FieldName="AccTypeName"
+                        Caption="بابت">
+                        <CellStyle Wrap="False" HorizontalAlign="Right">
+                        </CellStyle>
+                    </dxwgv:GridViewDataTextColumn>
+                    <dxwgv:GridViewDataTextColumn VisibleIndex="2" FieldName="Number" Caption="شماره">
+                        <CellStyle Wrap="False" HorizontalAlign="Center">
+                        </CellStyle>
+                    </dxwgv:GridViewDataTextColumn>
+                    <dxwgv:GridViewDataTextColumn VisibleIndex="3" FieldName="Date" Caption="تاریخ فیش"
+                        Width="90px">
+                        <CellStyle Wrap="False" HorizontalAlign="Center">
+                        </CellStyle>
+                    </dxwgv:GridViewDataTextColumn>
+                    <dxwgv:GridViewDataTextColumn Width="200px" VisibleIndex="4" FieldName="Amount" Caption="مبلغ">
+                        <CellStyle Wrap="False" HorizontalAlign="Center">
+                        </CellStyle>
+                        <PropertiesTextEdit DisplayFormatString="#,#">
+                        </PropertiesTextEdit>
+                    </dxwgv:GridViewDataTextColumn>
+                    <dxwgv:GridViewDataTextColumn VisibleIndex="5" FieldName="CreateDate" Caption="تاریخ ایجاد"
+                        Width="90px">
+                        <CellStyle Wrap="False" HorizontalAlign="Center">
+                        </CellStyle>
+                    </dxwgv:GridViewDataTextColumn>
+                    <dxwgv:GridViewDataTextColumn VisibleIndex="5" FieldName="Bank" Caption="بانک">
+                    </dxwgv:GridViewDataTextColumn>
+                    <dxwgv:GridViewDataTextColumn VisibleIndex="5" FieldName="BranchCode" Caption="کد شعبه">
+                        <CellStyle Wrap="False" HorizontalAlign="Center">
+                        </CellStyle>
+                    </dxwgv:GridViewDataTextColumn>
+                    <dxwgv:GridViewDataTextColumn VisibleIndex="5" FieldName="BranchName" Caption="نام شعبه">
+                        <CellStyle HorizontalAlign="Center">
+                        </CellStyle>
+                    </dxwgv:GridViewDataTextColumn>
+                    <dxwgv:GridViewCommandColumn VisibleIndex="6" Caption=" ">
+                        <ClearFilterButton Visible="True">
+                        </ClearFilterButton>
+                    </dxwgv:GridViewCommandColumn>
+                </Columns>
+                <Settings ShowHorizontalScrollBar="true"></Settings>
+            </TSPControls:CustomAspxDevGridView>
+            <asp:ObjectDataSource ID="ObjectDataSourceTsAcc" runat="server" OldValuesParameterFormatString="original_{0}"
+                SelectMethod="SelectAccountingForProject" TypeName="TSP.DataManager.TechnicalServices.AccountingManager">
+                <SelectParameters>
+                    <asp:Parameter Type="Int32" DefaultValue="-1" Name="ProjectId"></asp:Parameter>
+                    <asp:Parameter Type="Int32" DefaultValue="-1" Name="FishPayerId"></asp:Parameter>
+                </SelectParameters>
+            </asp:ObjectDataSource>
+            <dxhf:ASPxHiddenField runat="server" ID="HiddenFieldAcc">
+            </dxhf:ASPxHiddenField>
+            <br />
+            <TSPControls:CustomASPxRoundPanelMenu ID="CustomASPxRoundPanelMenu2" runat="server"
+                Width="100%">
+                <PanelCollection>
+                    <dxp:PanelContent>
+                        <table style="border-collapse: collapse; background-color: transparent" dir="rtl"
+                            cellpadding="0">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <TSPControls:CustomTextBox runat="server" Text=" "  ToolTip="بازگشت"
+                                            ID="ASPxButton1" UseSubmitBehavior="False" EnableViewState="False" EnableTheming="False"
+                                            OnClick="btnback_Click">
+                                            <HoverStyle BackColor="#FFE0C0">
+                                                <Border BorderWidth="1px" BorderStyle="Outset" BorderColor="Gray"></Border>
+                                            </HoverStyle>
+                                            <Image  Url="~/Images/icons/Back.png">
+                                            </Image>
+                                        </TSPControls:CustomTextBox>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </dxp:PanelContent>
+                </PanelCollection>
+            </TSPControls:CustomASPxRoundPanelMenu>
+            <asp:ModalUpdateProgress ID="ModalUpdateProgress2" runat="server" DisplayAfter="0"
+                AssociatedUpdatePanelID="UpdatePanel1" BackgroundCssClass="modalProgressGreyBackground">
+                <ProgressTemplate>
+                    <div class="modalPopup" style="font-family: Tahoma; font-size: 9pt">
+                        <img id="IMG1" src="../../../Image/indicator.gif" align="middle" />
+                        لطفا صبر نمایید ...</div>
+                </ProgressTemplate>
+            </asp:ModalUpdateProgress>
+        </ContentTemplate>
+    </asp:UpdatePanel>
+</asp:Content>

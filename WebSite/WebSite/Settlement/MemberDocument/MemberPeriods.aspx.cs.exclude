@@ -1,0 +1,96 @@
+﻿using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+
+public partial class Settlement_MemberDocument_MemberPeriods : System.Web.UI.Page
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (Request.QueryString["MFId"] == null || Request.QueryString["MeId"] == null || Request.QueryString["PgMd"] == null)
+        {
+            Response.Redirect("MemberFile.aspx");
+        }
+
+        if (!IsPostBack)
+        {
+
+            HiddenFieldMePeriods["PageMode"] = Request.QueryString["PgMd"];
+            HiddenFieldMePeriods["MeId"] = Request.QueryString["MeId"];
+            HiddenFieldMePeriods["MFId"] = Request.QueryString["MFId"];
+            string MeId = Utility.DecryptQS(HiddenFieldMePeriods["MeId"].ToString());
+            OdbMadrak.SelectParameters[0].DefaultValue = MeId;
+        }
+
+        this.DivReport.Visible = false;
+        this.DivReport.Attributes.Add("onclick", "ChangeVisible(this)");
+        this.DivReport.Attributes.Add("onmouseover", "ChangeIcon(this)");
+    }
+
+    protected void btnBack_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("MemberFile.aspx");
+    }
+
+    protected void MenuMemberFile_ItemClick(object source, DevExpress.Web.MenuItemEventArgs e)
+    {
+        switch (e.Item.Name)
+        {
+            case "JobHistory":
+                Response.Redirect("MemberJobHistory.aspx?MFId=" + HiddenFieldMePeriods["MFId"].ToString() + "&PgMd=" + HiddenFieldMePeriods["PageMode"].ToString() + "&DocType=" + Utility.EncryptQS(((int)TSP.DataManager.DocumentTypesOfMember.DocMemberFile).ToString()));
+                break;
+            case "Exam":
+                Response.Redirect("MemberExam.aspx?MFId=" + HiddenFieldMePeriods["MFId"].ToString() + "&PgMd=" + HiddenFieldMePeriods["PageMode"].ToString() + "&DocType=" + Utility.EncryptQS(((int)TSP.DataManager.DocumentTypesOfMember.DocMemberFile).ToString()));
+                break;
+            case "Attachment":
+                Response.Redirect("DocumentAttachment.aspx?MFId=" + HiddenFieldMePeriods["MFId"].ToString() + "&PgMd=" + HiddenFieldMePeriods["PageMode"].ToString() + "&DocType=" + Utility.EncryptQS(((int)TSP.DataManager.DocumentTypesOfMember.DocMemberFile).ToString()));
+                break;
+            case "MeDetail":
+                Response.Redirect("DocResponsibility.aspx?MFId=" + HiddenFieldMePeriods["MFId"].ToString() + "&PgMd=" + HiddenFieldMePeriods["PageMode"].ToString() + "&DocType=" + Utility.EncryptQS(((int)TSP.DataManager.DocumentTypesOfMember.DocMemberFile).ToString()));
+                break;
+            case "Major":
+                Response.Redirect("MemberFileBasicInfo.aspx?MFId=" + HiddenFieldMePeriods["MFId"].ToString() + "&MeId=" + HiddenFieldMePeriods["MeId"].ToString() + "&PgMd=" + HiddenFieldMePeriods["PageMode"].ToString() + "&DocType=" + Utility.EncryptQS(((int)TSP.DataManager.DocumentTypesOfMember.DocMemberFile).ToString()));
+                break;
+
+        }
+    }
+
+    protected void CustomAspxDevGridView1_AutoFilterCellEditorInitialize(object sender, DevExpress.Web.ASPxGridViewEditorEventArgs e)
+    {
+        switch (e.Column.FieldName)
+        {
+            case "StartDate":
+                e.Editor.Style["direction"] = "ltr";
+                break;
+            case "EndDate":
+                e.Editor.Style["direction"] = "ltr";
+                break;
+            case "CreateDate":
+                e.Editor.Style["direction"] = "ltr";
+                break;
+        }
+    }
+
+    protected void CustomAspxDevGridView1_HtmlDataCellPrepared(object sender, DevExpress.Web.ASPxGridViewTableDataCellEventArgs e)
+    {
+        switch (e.DataColumn.FieldName)
+        {
+            case "StartDate":
+                e.Cell.Style["direction"] = "ltr";
+                break;
+            case "EndDate":
+                e.Cell.Style["direction"] = "ltr";
+                break;
+            case "CreateDate":
+                e.Cell.Style["direction"] = "ltr";
+                break;
+
+        }
+    }
+}

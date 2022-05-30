@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Groups>
+	<!--<NavBarGroup Text="اطلاعات عضو" Name="grpMemberInfo">
+
+	</NavBarGroup>-->
+	<NavBarGroup Expanded="False" Text="واحد آموزش" Name="grpAmoozesh" Target="">
+
+		<!--<NavBarItem Name="Teacher"  NavigateUrl="/Settlement/Amoozesh/Teachers.aspx"  Text="مدیریت اساتید">
+		</NavBarItem>
+		<NavBarItem Name="Institue"  NavigateUrl="/Settlement/Amoozesh/Institue.aspx"  Text="مدیریت مؤسسات">
+		</NavBarItem>
+		<NavBarItem Name="Seminar" NavigateUrl="/Settlement/Amoozesh/Seminar.aspx" Text="مدیریت سمینارها">
+		</NavBarItem>-->
+		<NavBarItem Name="Seminar" NavigateUrl="/Settlement/Amoozesh/Periods.aspx" Text="مدیریت دوره های آموزشی">
+		</NavBarItem>
+	</NavBarGroup>
+
+<NavBarGroup Expanded="False" Text="واحد صدور پروانه" Name="grpDocument"  Target="">
+
+		<NavBarItem Name="MemberFile"  NavigateUrl="/Settlement/MemberDocument/MemberFile.aspx"  Text="مدیریت پروانه اشتغال به کار">
+		</NavBarItem>
+		<NavBarItem Name="ImpDoc"  NavigateUrl="/Settlement/ImplementDoc/ImplementDoc.aspx"  Text="مدیریت مجوزفعالیت مجری حقیقی">
+		</NavBarItem>
+	<NavBarItem Name="OfficeRequest"  NavigateUrl="/Settlement/OfficeDocument/OfficeRequest.aspx"  Text="مدیریت پروانه اشخاص حقوقی">
+	</NavBarItem>
+	<NavBarItem Name="EngOffice"  NavigateUrl="/Settlement/EngOfficeDocument/EngOffice.aspx"  Text="مدیریت پروانه دفاتر">
+	</NavBarItem>
+	</NavBarGroup>
+</Groups>

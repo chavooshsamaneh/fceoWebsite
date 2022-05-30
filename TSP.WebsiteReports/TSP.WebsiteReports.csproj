@@ -1,0 +1,371 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{267CFDA2-D0E1-4652-BA50-7342869DE85B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TSP.WebsiteReports</RootNamespace>
+    <AssemblyName>TSP.WebsiteReports</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <DebugSymbols>true</DebugSymbols>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.Charts.v17.1.Core, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Data.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.PivotGrid.v17.1.Core, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Pdf.v17.1.Core, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.RichEdit.v17.1.Export, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Printing.v17.1.Core, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Office.v17.1.Core, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.RichEdit.v17.1.Core, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Utils.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraCharts.v17.1.Wizard, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraCharts.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraEditors.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraGauges.v17.1.Core, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraPivotGrid.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraPrinting.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Sparkline.v17.1.Core, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.CodeParser.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Utils.v17.1.UI, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraReports.v17.1.Extensions, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraReports.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraScheduler.v17.1.Reporting.Extensions, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraBars.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraGrid.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraScheduler.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraScheduler.v17.1.Core, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraScheduler.v17.1.Reporting, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Accounting\BankFish.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Accounting\BankFish.Designer.cs">
+      <DependentUpon>BankFish.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Amoozesh\CertificatePreview.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Amoozesh\CertificatePreview.Designer.cs">
+      <DependentUpon>CertificatePreview.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Amoozesh\PeriodAttenderReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Amoozesh\PeriodAttenderReport.Designer.cs">
+      <DependentUpon>PeriodAttenderReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Document\AllMemberLicenceReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Document\AllMemberLicenceReport.Designer.cs">
+      <DependentUpon>AllMemberLicenceReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Document\DocJobConfirm.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Document\DocJobConfirm.Designer.cs">
+      <DependentUpon>DocJobConfirm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Document\DocMemberBriefReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Document\DocMemberBriefReport.Designer.cs">
+      <DependentUpon>DocMemberBriefReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Document\DocMemberReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Document\DocMemberReport.Designer.cs">
+      <DependentUpon>DocMemberReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Document\DocResponsibilityReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Document\DocResponsibilityReport.Designer.cs">
+      <DependentUpon>DocResponsibilityReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Document\DocumentCountByMajorReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Document\DocumentCountByMajorReport.Designer.cs">
+      <DependentUpon>DocumentCountByMajorReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Document\MemberExamReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Document\MemberExamReport.Designer.cs">
+      <DependentUpon>MemberExamReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Document\MemberJobHistoryReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Document\MemberJobHistoryReport.Designer.cs">
+      <DependentUpon>MemberJobHistoryReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Document\MemberLicenceReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Document\MemberLicenceReport.Designer.cs">
+      <DependentUpon>MemberLicenceReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Document\MemberPeriodsReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Document\MemberPeriodsReport.Designer.cs">
+      <DependentUpon>MemberPeriodsReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Document\ObserverAnnounce.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Document\ObserverAnnounce.Designer.cs">
+      <DependentUpon>ObserverAnnounce.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Document\ReportDocPersonPrePrint.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Document\ReportDocPersonPrePrint.Designer.cs">
+      <DependentUpon>ReportDocPersonPrePrint.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Document\TaxConfirmLetter.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Document\TaxConfirmLetter.Designer.cs">
+      <DependentUpon>TaxConfirmLetter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Members\InQueryMemberLicence.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Members\InQueryMemberLicence.Designer.cs">
+      <DependentUpon>InQueryMemberLicence.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Members\MemberCardRequestReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Members\MemberCardRequestReport.Designer.cs">
+      <DependentUpon>MemberCardRequestReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Members\MemberInfoReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Members\MemberInfoReport.Designer.cs">
+      <DependentUpon>MemberInfoReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReportBuilder\XtraReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ReportBuilder\XtraReport.Designer.cs">
+      <DependentUpon>XtraReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Document\ObserverCommitment.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Document\ObserverCommitment.Designer.cs">
+      <DependentUpon>ObserverCommitment.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TechnicalService\MemberInfoReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalService\MemberInfoReport.Designer.cs">
+      <DependentUpon>MemberInfoReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TechnicalService\ProjectRemainAmount.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalService\ProjectRemainAmount.Designer.cs">
+      <DependentUpon>ProjectRemainAmount.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TechnicalService\ProjectObserverWageByDocuments.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalService\ProjectObserverWageByDocuments.Designer.cs">
+      <DependentUpon>ProjectObserverWageByDocuments.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TechnicalService\ObserverList.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalService\ObserverList.Designer.cs">
+      <DependentUpon>ObserverList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TechnicalService\DesignerPermitted.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalService\DesignerPermitted.Designer.cs">
+      <DependentUpon>DesignerPermitted.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TechnicalService\DesignersList.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalService\DesignersList.Designer.cs">
+      <DependentUpon>DesignersList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TechnicalService\ObserverPermitted.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalService\ObserverPermitted.Designer.cs">
+      <DependentUpon>ObserverPermitted.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TechnicalService\ProjectObserverDetailReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalService\ProjectObserverDetailReport.Designer.cs">
+      <DependentUpon>ProjectObserverDetailReport.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TechnicalService\ProjectRemainAmountSnap.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="TechnicalService\ProjectRemainAmountSnap.Designer.cs">
+      <DependentUpon>ProjectRemainAmountSnap.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Accounting\BankFish.fa-IR.resx">
+      <DependentUpon>BankFish.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Accounting\BankFish.resx">
+      <DependentUpon>BankFish.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Amoozesh\CertificatePreview.resx">
+      <DependentUpon>CertificatePreview.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Amoozesh\PeriodAttenderReport.resx">
+      <DependentUpon>PeriodAttenderReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Document\AllMemberLicenceReport.resx">
+      <DependentUpon>AllMemberLicenceReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Document\DocJobConfirm.resx">
+      <DependentUpon>DocJobConfirm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Document\DocMemberBriefReport.resx">
+      <DependentUpon>DocMemberBriefReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Document\DocMemberReport.resx">
+      <DependentUpon>DocMemberReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Document\DocResponsibilityReport.resx">
+      <DependentUpon>DocResponsibilityReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Document\DocumentCountByMajorReport.resx">
+      <DependentUpon>DocumentCountByMajorReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Document\MemberExamReport.resx">
+      <DependentUpon>MemberExamReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Document\MemberJobHistoryReport.resx">
+      <DependentUpon>MemberJobHistoryReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Document\MemberLicenceReport.resx">
+      <DependentUpon>MemberLicenceReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Document\MemberPeriodsReport.resx">
+      <DependentUpon>MemberPeriodsReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Document\ObserverAnnounce.resx">
+      <DependentUpon>ObserverAnnounce.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Document\ReportDocPersonPrePrint.resx">
+      <DependentUpon>ReportDocPersonPrePrint.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Document\TaxConfirmLetter.resx">
+      <DependentUpon>TaxConfirmLetter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Members\InQueryMemberLicence.resx">
+      <DependentUpon>InQueryMemberLicence.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Members\MemberCardRequestReport.resx">
+      <DependentUpon>MemberCardRequestReport.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Members\MemberInfoReport.resx">
+      <DependentUpon>MemberInfoReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="ReportBuilder\XtraReport.resx">
+      <DependentUpon>XtraReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Document\ObserverCommitment.resx">
+      <DependentUpon>ObserverCommitment.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TechnicalService\MemberInfoReport.resx">
+      <DependentUpon>MemberInfoReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TechnicalService\ProjectRemainAmount.resx">
+      <DependentUpon>ProjectRemainAmount.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TechnicalService\ProjectObserverWageByDocuments.resx">
+      <DependentUpon>ProjectObserverWageByDocuments.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TechnicalService\ObserverList.resx">
+      <DependentUpon>ObserverList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TechnicalService\DesignerPermitted.resx">
+      <DependentUpon>DesignerPermitted.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TechnicalService\DesignersList.resx">
+      <DependentUpon>DesignersList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TechnicalService\ObserverPermitted.resx">
+      <DependentUpon>ObserverPermitted.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TechnicalService\ProjectObserverDetailReport.resx">
+      <DependentUpon>ProjectObserverDetailReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TechnicalService\ProjectRemainAmountSnap.resx">
+      <DependentUpon>ProjectRemainAmountSnap.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Entezami\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

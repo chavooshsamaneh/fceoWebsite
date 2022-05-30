@@ -1,0 +1,114 @@
+﻿using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+using DevExpress.Web;
+
+public partial class Members_TechnicalServices_Capacity_ConditionalCapacity : System.Web.UI.Page
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (!IsPostBack)
+        {
+            ObjectDataSourceConditionalCapacity.SelectParameters[0].DefaultValue = (Utility.GetCurrentUser_MeId()).ToString();
+        }
+
+        this.DivReport.Visible = false;
+        this.DivReport.Attributes.Add("onclick", "ChangeVisible(this)");
+        this.DivReport.Attributes.Add("onmouseover", "ChangeIcon(this)");
+
+        Session["DataTable"] = CustomAspxDevGridViewConditionalCapacity.Columns;
+        Session["DataSource"] = ObjectDataSourceConditionalCapacity;
+        Session["Title"] = "کاهش/افزایش ظرفیت";
+        Session["Header"] = GetRepHeader();
+    }
+
+    protected void btnView_Click(object sender, EventArgs e)
+    {
+        NextPage();
+    }
+
+    protected void btnPrint_Click(object sender, EventArgs e)
+    {
+        Print();
+    }
+
+    /*************************************************************************************************************/
+    private void NextPage()
+    {
+        int ConditionalCapacityId = -1;
+
+        if (CustomAspxDevGridViewConditionalCapacity.FocusedRowIndex > -1)
+        {
+            DataRow row = CustomAspxDevGridViewConditionalCapacity.GetDataRow(CustomAspxDevGridViewConditionalCapacity.FocusedRowIndex);
+            ConditionalCapacityId = (int)row["ConditionalCapacityId"];
+        }
+
+        if (ConditionalCapacityId == -1)
+        {
+            this.DivReport.Visible = true;
+            this.LabelWarning.Text = "لطفاً برای مشاهده اطلاعات ابتدا یک رکورد را انتخاب نمائید";
+        }
+        else
+        {
+            Response.Redirect("ConditionalCapacityView.aspx?ConditionalCapacityId=" + Utility.EncryptQS(ConditionalCapacityId.ToString()));
+        }
+    }
+
+    private void Print()
+    {
+        //string FilterExp;
+        //FilterExp = CustomAspxDevGridViewConditionalCapacity.FilterExpression;
+
+        //Response.Redirect("~/ReportForms/Accounting/ConditionalCapacityReport.aspx?FilterExp=" + Utility.EncryptQS(FilterExp));
+    }
+    
+    /*************************************************************************************************************/
+    private string GetRepHeader()
+    {
+        //string AgentName = GetAgentName();
+        //return "نمایندگی : " + AgentName;
+        return "";
+    }
+
+    private string GetAgentName()
+    {
+        int AgentCode = Utility.GetCurrentUser_AgentId();
+        TSP.DataManager.AccountingAgentManager Manager = new TSP.DataManager.AccountingAgentManager();
+        Manager.FindByCode(AgentCode);
+        if (Manager.Count > 0)
+            return Manager[0]["Name"].ToString();
+        else
+            return "";
+    }
+
+    /*************************************************************************************************************/    
+    protected void CustomAspxDevGridViewConditionalCapacity_HtmlRowPrepared(object sender, DevExpress.Web.ASPxGridViewTableRowEventArgs e)
+    {
+        if (e.RowType != GridViewRowType.Data) return;
+
+        try
+        {
+            string ToDate = e.GetValue("ToDate").ToString();
+
+            if (String.Compare(ToDate, Utility.GetDateOfToday()) < 0)
+                e.Row.ForeColor = System.Drawing.Color.Gray;
+
+            bool InActive = Convert.ToBoolean(e.GetValue("InActive"));
+            if (InActive)
+            {
+                e.Row.BackColor = System.Drawing.Color.LightGray;
+                e.Row.ForeColor = System.Drawing.Color.Black;
+            }
+        }
+        catch
+        {
+        }
+    }
+}

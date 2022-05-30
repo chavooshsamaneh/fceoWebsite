@@ -1,0 +1,311 @@
+﻿using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+using DevExpress.Web;
+
+public partial class Office_OfficeInfo_OfficeGroups : System.Web.UI.Page
+{
+    Boolean IsPageRefresh = false;
+
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (!IsPostBack)
+        {
+            ViewState["postids"] = System.Guid.NewGuid().ToString();
+            Session["postid"] = ViewState["postids"].ToString();
+        }
+        else
+        {
+            if (!IsCallback && Session["postid"] != null)
+            {
+                if (ViewState["postids"].ToString() != Session["postid"].ToString()) { IsPageRefresh = true; }
+                Session["postid"] = System.Guid.NewGuid().ToString(); ViewState["postids"] = Session["postid"];
+            }
+        }
+        this.DivReport.Visible = false;
+        this.DivReport.Attributes.Add("onclick", "ChangeVisible(this)");
+        this.DivReport.Attributes.Add("onmouseover", "ChangeIcon(this)");
+
+        if (!IsPostBack)
+        {
+            if (string.IsNullOrEmpty(Request.QueryString["Dprt"]))
+            {
+                this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+                return;
+            }
+            HiddenFieldOffice["Department"] = Request.QueryString["Dprt"];
+
+
+            if (string.IsNullOrEmpty(Request.QueryString["PageMode"]) || string.IsNullOrEmpty(Request.QueryString["OfId"]))
+            {
+                Response.Redirect("~/Office/OfficeMembershipRequest.aspx");
+                return;
+            }
+            try
+            {
+                PgMode.Value = Server.HtmlDecode(Request.QueryString["PageMode"].ToString());
+                OfficeId.Value = Server.HtmlDecode(Request.QueryString["OfId"]).ToString();
+                OfficeRequest.Value = Server.HtmlDecode(Request.QueryString["OfReId"]).ToString();
+
+            }
+            catch (Exception err)
+            {
+                Utility.SaveWebsiteError(err);
+                this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+                return;
+            }
+
+            string PageMode = Utility.DecryptQS(PgMode.Value);
+            string OfId = Utility.DecryptQS(OfficeId.Value);
+            string OfReId = Utility.DecryptQS(OfficeRequest.Value);
+
+
+            if (string.IsNullOrEmpty(PageMode) || string.IsNullOrEmpty(OfId) || string.IsNullOrEmpty(OfReId))
+            {
+                this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+                return;
+            }
+
+            TSP.DataManager.OfficeManager OfManager = new TSP.DataManager.OfficeManager();
+            OfManager.FindByCode(int.Parse(OfId));
+            if (OfManager.Count > 0)
+                lblOfName.Text = OfManager[0]["OfName"].ToString();
+            ObjectDataSource1.FilterParameters[0].DefaultValue = OfId;
+            ObjectDataSource1.FilterParameters[1].DefaultValue = "2";
+
+            SetMenuItem();
+        }
+
+    }
+    protected void btnBack_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("~/Office/OfficeRequestInsert.aspx?OfId=" + OfficeId.Value + "&PageMode=" + PgMode.Value + "&OfReId=" + Request.QueryString["OfReId"] + "&GrdFlt=" + Request.QueryString["GrdFlt"] + "&SrchFlt=" + Request.QueryString["SrchFlt"]
+             + "&Dprt=" + HiddenFieldOffice["Department"].ToString());
+    }
+    protected void btnBackToManagment_Click(object sender, EventArgs e)
+    {
+        Session["TblOfReImg"] = null;
+        Session["MeReqUpload"] = null;
+        Session["FileOfArm2"] = null;
+        Session["FileOfSign2"] = null;
+        string Dprt = Utility.DecryptQS(HiddenFieldOffice["Department"].ToString());
+        string PageName = "Office.aspx";
+        switch (Dprt)
+        {
+            case "MemberShip":
+                PageName = "Office.aspx";
+                break;
+            case "Document":
+                PageName = "OfficeDocument.aspx";
+                break;
+        }
+        string OfId = Utility.DecryptQS(OfficeId.Value);
+        if (!string.IsNullOrEmpty(Request.QueryString["GrdFlt"]) && !string.IsNullOrEmpty(OfId) && !string.IsNullOrEmpty(Request.QueryString["SrchFlt"]))
+        {
+            string GrdFlt = Server.HtmlDecode(Request.QueryString["GrdFlt"].ToString());
+            string SrchFlt = Server.HtmlDecode(Request.QueryString["SrchFlt"].ToString());
+            Response.Redirect(PageName + "?PostId=" + OfficeId.Value + "&GrdFlt=" + GrdFlt + "&SrchFlt=" + SrchFlt);
+        }
+        else
+        {
+
+            Response.Redirect(PageName);
+        }
+    }
+    protected void ASPxMenu1_ItemClick(object source, DevExpress.Web.MenuItemEventArgs e)
+    {
+        switch (e.Item.Name)
+        {
+            case "Office":
+
+                Response.Redirect("~/Office/OfficeRequestInsert.aspx?OfId=" + OfficeId.Value + "&PageMode=" + PgMode.Value + "&OfReId=" + OfficeRequest.Value + "&GrdFlt=" + Request.QueryString["GrdFlt"] + "&SrchFlt=" + Request.QueryString["SrchFlt"]
+                     + "&Dprt=" + HiddenFieldOffice["Department"].ToString());
+                break;
+            case "Member":
+                Response.Redirect("OfficeMembers.aspx?OfId=" + OfficeId.Value + "&PageMode=" + PgMode.Value + "&OfReId=" + OfficeRequest.Value + "&GrdFlt=" + Request.QueryString["GrdFlt"] + "&SrchFlt=" + Request.QueryString["SrchFlt"]
+                     + "&Dprt=" + HiddenFieldOffice["Department"].ToString());
+                break;
+            case "Letters":
+                Response.Redirect("OfficeLetters.aspx?OfId=" + OfficeId.Value + "&PageMode=" + PgMode.Value + "&OfReId=" + OfficeRequest.Value + "&GrdFlt=" + Request.QueryString["GrdFlt"] + "&SrchFlt=" + Request.QueryString["SrchFlt"]
+                     + "&Dprt=" + HiddenFieldOffice["Department"].ToString());
+                break;
+            case "Attach":
+                Response.Redirect("OfficeAttachment.aspx?OfId=" + OfficeId.Value + "&PageMode=" + PgMode.Value + "&OfReId=" + OfficeRequest.Value + "&GrdFlt=" + Request.QueryString["GrdFlt"] + "&SrchFlt=" + Request.QueryString["SrchFlt"]
+                     + "&Dprt=" + HiddenFieldOffice["Department"].ToString());
+                break;
+            case "Agent":
+                Response.Redirect("OfficeAgent.aspx?OfId=" + OfficeId.Value + "&PageMode=" + PgMode.Value + "&OfReId=" + OfficeRequest.Value + "&GrdFlt=" + Request.QueryString["GrdFlt"] + "&SrchFlt=" + Request.QueryString["SrchFlt"]
+                     + "&Dprt=" + HiddenFieldOffice["Department"].ToString());
+                break;
+            case "Financial":
+                Response.Redirect("OfficeFinancialStatus.aspx?OfId=" + OfficeId.Value + "&PageMode=" + PgMode.Value + "&OfReId=" + OfficeRequest.Value + "&GrdFlt=" + Request.QueryString["GrdFlt"] + "&SrchFlt=" + Request.QueryString["SrchFlt"]
+                     + "&Dprt=" + HiddenFieldOffice["Department"].ToString());
+                break;
+            case "Job":
+                Response.Redirect("OfficeJob.aspx?OfId=" + OfficeId.Value + "&PageMode=" + PgMode.Value + "&OfReId=" + OfficeRequest.Value + "&GrdFlt=" + Request.QueryString["GrdFlt"] + "&SrchFlt=" + Request.QueryString["SrchFlt"]
+                     + "&Dprt=" + HiddenFieldOffice["Department"].ToString());
+                break;
+        }
+    }
+    protected void SetMenuItem()
+    {
+        if (Session["OffMenuArrayList"] != null)
+        {
+            ArrayList arr = (ArrayList)Session["OffMenuArrayList"];
+
+            if ((int)arr[0] == 1)
+            {
+                ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Agent")].Image.Url = "~/Images/icons/Check.png";
+                ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Agent")].Image.Width = Utility.MenuImgSize;
+                ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Agent")].Image.Height = Utility.MenuImgSize;
+            }
+            if ((int)arr[1] == 1)
+            {
+                ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Member")].Image.Url = "~/Images/icons/Check.png";
+                ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Member")].Image.Width = Utility.MenuImgSize;
+                ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Member")].Image.Height = Utility.MenuImgSize;
+            }
+            if ((int)arr[2] == 1)
+            {
+                ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Letters")].Image.Url = "~/Images/icons/Check.png";
+                ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Letters")].Image.Width = Utility.MenuImgSize;
+                ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Letters")].Image.Height = Utility.MenuImgSize;
+            }
+            if ((int)arr[3] == 1)
+            {
+                ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Job")].Image.Url = "~/Images/icons/Check.png";
+                ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Job")].Image.Width = Utility.MenuImgSize;
+                ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Job")].Image.Height = Utility.MenuImgSize;
+            }
+            if ((int)arr[4] == 1)
+            {
+                ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Attach")].Image.Url = "~/Images/icons/Check.png";
+                ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Attach")].Image.Width = Utility.MenuImgSize;
+                ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Attach")].Image.Height = Utility.MenuImgSize;
+            }
+            if ((int)arr[5] == 1)
+            {
+                ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Financial")].Image.Url = "~/Images/icons/Check.png";
+                ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Financial")].Image.Width = Utility.MenuImgSize;
+                ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Financial")].Image.Height = Utility.MenuImgSize;
+            }
+            if ((int)arr[6] == 1)
+            {
+                ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Office")].Image.Url = "~/Images/icons/Check.png";
+                ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Office")].Image.Width = Utility.MenuImgSize;
+                ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Office")].Image.Height = Utility.MenuImgSize;
+            }
+            //if ((int)arr[7] == 1)
+            //{
+            //    ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Group")].Image.Url = "~/Images/icons/Check.png";
+            //    ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Group")].Image.Width = Utility.MenuImgSize;
+            //    ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Group")].Image.Height = Utility.MenuImgSize;
+            //}
+        }
+        else
+        {
+            CheckMenuImage(int.Parse(Utility.DecryptQS(OfficeRequest.Value)));
+
+        }
+    }
+    protected void CheckMenuImage(int OfReId)
+    {
+        TSP.DataManager.OfficeAgentManager OffAgentManager = new TSP.DataManager.OfficeAgentManager();
+        TSP.DataManager.OfficeMemberManager OffMemberManager = new TSP.DataManager.OfficeMemberManager();
+        TSP.DataManager.OfficialLetterManager OffLetterManager = new TSP.DataManager.OfficialLetterManager();
+        TSP.DataManager.ProjectJobHistoryManager ProjectJobHistoryManager = new TSP.DataManager.ProjectJobHistoryManager();
+        TSP.DataManager.AttachmentsManager AttachmentsManager = new TSP.DataManager.AttachmentsManager();
+        TSP.DataManager.DocOffOfficeFinancialStatusManager OffFinancialManager = new TSP.DataManager.DocOffOfficeFinancialStatusManager();
+        TSP.DataManager.GroupDetailManager GrdManager = new TSP.DataManager.GroupDetailManager();
+        TSP.DataManager.OfficeManager officeManager = new TSP.DataManager.OfficeManager();
+        TSP.DataManager.OfficeRequestManager officeRequestManager = new TSP.DataManager.OfficeRequestManager();
+
+
+
+        ArrayList arr = new ArrayList();
+        arr.Add(0);//arr[0]-->Agent
+        arr.Add(0);//arr[1]-->Member
+        arr.Add(0);//arr[2]-->Letters
+        arr.Add(0);//arr[3]-->Job
+        arr.Add(0);//arr[4]-->Attach
+        arr.Add(0);//arr[5]-->Financial
+        arr.Add(0);//arr[6]-->Office
+        arr.Add(0);//arr[7]-->Group
+
+
+        officeRequestManager.FindByCode(OfReId);
+        if (officeRequestManager.Count > 0)
+        {
+            int OfId = Convert.ToInt32(officeRequestManager[0]["OfId"]);
+            officeManager.FindByCode(OfId);
+            if (officeManager.Count > 0)
+            {
+                ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Office")].Image.Url = "~/Images/icons/Check.png";
+                ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Office")].Image.Width = Utility.MenuImgSize;
+                ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Office")].Image.Height = Utility.MenuImgSize;
+                arr[6] = 1;
+            }
+        }
+
+
+        OffAgentManager.FindForDelete(OfReId);
+        if (OffAgentManager.Count > 0)
+        {
+            ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Agent")].Image.Url = "~/Images/icons/Check.png";
+            ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Agent")].Image.Width = Utility.MenuImgSize;
+            ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Agent")].Image.Height = Utility.MenuImgSize;
+            arr[0] = 1;
+        }
+        OffMemberManager.FindForDelete(OfReId, 0);
+        if (OffMemberManager.Count > 0)
+        {
+            ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Member")].Image.Url = "~/Images/icons/Check.png";
+            ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Member")].Image.Width = Utility.MenuImgSize;
+            ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Member")].Image.Height = Utility.MenuImgSize;
+            arr[1] = 1;
+        }
+
+        OffLetterManager.FindForDelete(OfReId);
+        if (OffLetterManager.Count > 0)
+        {
+            ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Letters")].Image.Url = "~/Images/icons/Check.png";
+            ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Letters")].Image.Width = Utility.MenuImgSize;
+            ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Letters")].Image.Height = Utility.MenuImgSize;
+            arr[2] = 1;
+        }
+        ProjectJobHistoryManager.FindForDelete(1, OfReId, (int)TSP.DataManager.TableCodes.OfficeRequest);
+        if (ProjectJobHistoryManager.Count > 0)
+        {
+            ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Job")].Image.Url = "~/Images/icons/Check.png";
+            ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Job")].Image.Width = Utility.MenuImgSize;
+            ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Job")].Image.Height = Utility.MenuImgSize;
+            arr[3] = 1;
+        }
+        AttachmentsManager.FindByTablePrimaryKey_AttId((int)TSP.DataManager.TableCodes.OfficeRequest, OfReId, (short)TSP.DataManager.AttachType.Attachments);
+        if (AttachmentsManager.Count > 0)
+        {
+            ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Attach")].Image.Url = "~/Images/icons/Check.png";
+            ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Attach")].Image.Width = Utility.MenuImgSize;
+            ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Attach")].Image.Height = Utility.MenuImgSize;
+            arr[4] = 1;
+        }
+        OffFinancialManager.FindForDelete(OfReId);
+        if (OffFinancialManager.Count > 0)
+        {
+            ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Financial")].Image.Url = "~/Images/icons/Check.png";
+            ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Financial")].Image.Width = Utility.MenuImgSize;
+            ASPxMenu1.Items[ASPxMenu1.Items.IndexOfName("Financial")].Image.Height = Utility.MenuImgSize;
+            arr[5] = 1;
+        }
+
+        Session["OffMenuArrayList"] = arr;
+    }
+
+}

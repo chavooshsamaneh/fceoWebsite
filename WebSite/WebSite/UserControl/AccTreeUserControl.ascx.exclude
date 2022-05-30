@@ -1,0 +1,264 @@
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="AccTreeUserControl.ascx.cs"
+    Inherits="UserControl_AccTreeUserControl" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dx" %>
+
+<%@ Register Assembly="DevExpress.Xpo.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Xpo" TagPrefix="dx" %>
+
+<%@ Register Assembly="DevExpress.Web.ASPxTreeList.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web.ASPxTreeList" TagPrefix="dx" %>
+
+
+
+
+<%@ Register Assembly="TSP.WebControls" Namespace="TSP.WebControls" TagPrefix="TSPControls" %>
+
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxe" %>
+
+<script type="text/javascript">
+function ShowAccTree()
+{
+   txtAccCode.SetText('');
+   lblErrorMsg.SetVisible(false);
+   PopupAccTree.Show();
+   TreeListAcc.PerformCallback('Bind');
+}
+
+</script>
+
+<dx:ASPxPopupControl ID="PopupAccTree" runat="server" ClientInstanceName="PopupAccTree"
+      HeaderText="نمودار حساب ها"
+    Height="450px" Width="300px" RightToLeft="True" 
+    AllowDragging="True" PopupHorizontalAlign="OutsideRight" PopupVerticalAlign="Above"
+    CloseAction="CloseButton" ShowSizeGrip="True"
+    PopupHorizontalOffset="-700" RenderIFrameForPopupElements="True">
+    <SettingsLoadingPanel Text="در حال بارگذاری" />
+    <LoadingPanelImage Url="~/App_Themes/Glass/Web/Loading.gif">
+    </LoadingPanelImage>
+    <ContentCollection>
+        <dx:PopupControlContentControl runat="server">
+            <dx:ASPxCallbackPanel ID="CallbackPanelAcc" runat="server" ClientInstanceName="CallbackAcc"
+                Width="100%" Height="100%" OnCallback="CallbackPanelAcc_Callback" 
+                 EnableViewState="False">
+                <SettingsLoadingPanel Text="در حال بارگذاری" />
+                <PanelCollection>
+                    <dx:PanelContent runat="server">
+                     <dx:ASPxSplitter ID="ASPxSplitter1" runat="server" 
+                 Orientation="Vertical" Width="100%" Height="450px" PaneMinSize=""
+                RightToLeft="True" ShowCollapseBackwardButton="True">
+                <Panes>
+                    <dx:SplitterPane Size="25%">
+                        <ContentCollection>
+                            <dx:SplitterContentControl runat="server">
+                                <table class="TableBorder" width="100%">
+                                    <tr>
+                                        <td align="right" valign="top">
+                                            <dx:ASPxLabel ID="ASPxLabel1" runat="server" 
+                                                 Text="کد حساب" Width="53px">
+                                            </dx:ASPxLabel>
+                                        </td>
+                                        <td align="right" valign="top">
+                                            <dx:ASPxTextBox ID="txtAccCode_UserControl" runat="server" 
+                                                ClientInstanceName="txtAccCode_UserControl"  
+                                                Width="170px">
+                                                <ClientSideEvents TextChanged="function(s, e) {
+	CallbackAcc.PerformCallback('Search');
+}" />
+                                                <ValidationSettings>
+                                                    <ErrorFrameStyle ImageSpacing="4px">
+                                                        <ErrorTextPaddings PaddingLeft="4px" />
+                                                    </ErrorFrameStyle>
+                                                </ValidationSettings>
+                                            </dx:ASPxTextBox>
+                                            <dx:ASPxLabel ID="lblErrorMsg" runat="server" 
+                                                 Text="کد حساب نامعتبر می باشد" ClientInstanceName="lblErrorMsg"
+                                                ForeColor="Red" ClientVisible="False" Width="144px">
+                                            </dx:ASPxLabel>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="right" valign="top">
+                                            <dx:ASPxLabel ID="ASPxLabel2" runat="server" 
+                                                 Text="نام حساب" Width="53px">
+                                            </dx:ASPxLabel>
+                                        </td>
+                                        <td align="right" valign="top">
+                                            <dx:ASPxTextBox ID="txtAccName_UserControl" runat="server" 
+                                                ClientInstanceName="txtAccName_UserControl"  
+                                                Width="170px">
+                                                <ClientSideEvents TextChanged="function(s, e) {
+	CallbackAcc.PerformCallback('Search');
+}" />
+                                                <ValidationSettings>
+                                                    <ErrorFrameStyle ImageSpacing="4px">
+                                                        <ErrorTextPaddings PaddingLeft="4px" />
+                                                    </ErrorFrameStyle>
+                                                </ValidationSettings>
+                                            </dx:ASPxTextBox>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%">
+                                    <tbody>
+                                        <tr>
+                                            <td align="right" valign="top">
+                                                <table>
+                                                    <tr>
+                                                        <td>
+                                                            <dx:ASPxButton ID="ASPxButton1" runat="server" Text=" " AutoPostBack="False" EnableViewState="False"
+                                                                ToolTip="انتخاب" EnableTheming="False"
+                                                                UseSubmitBehavior="False">
+                                                                <ClientSideEvents Click="function(s, e) {
+CallbackAcc.PerformCallback('NodeClick'+';'+TreeListAcc.GetFocusedNodeKey());
+}" />
+                                                                <Image Height="20px" Width="20px" Url="~/Images/icons/button_ok.png">
+                                                                </Image>
+                                                                <HoverStyle BackColor="#FFE0C0">
+                                                                    <Border BorderColor="Gray" BorderStyle="Outset" BorderWidth="1px" />
+                                                                </HoverStyle>
+                                                            </dx:ASPxButton>
+                                                        </td>
+                                                        <td>
+                                                            <dx:ASPxButton ID="btnCustomWin" runat="server" Text=" " AutoPostBack="False" EnableViewState="False"
+                                                                ToolTip="انتخاب ستون ها" EnableTheming="False" 
+                                                                UseSubmitBehavior="False">
+                                                                <ClientSideEvents Click="function(s, e) {
+  if(!TreeListAcc.IsCustomizationWindowVisible())
+		                                                                TreeListAcc.ShowCustomizationWindow();
+	                                                                else
+		                                                                TreeListAcc.HideCustomizationWindow();
+}" />
+                                                                <Image Height="20px" Width="20px" Url="~/Images/icons/cursor-hand.png">
+                                                                </Image>
+                                                                <HoverStyle BackColor="#FFE0C0">
+                                                                    <Border BorderColor="Gray" BorderStyle="Outset" BorderWidth="1px" />
+                                                                </HoverStyle>
+                                                            </dx:ASPxButton>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </dx:SplitterContentControl>
+                        </ContentCollection>
+                    </dx:SplitterPane>
+                    <dx:SplitterPane ScrollBars="Both">
+                        <ContentCollection>
+                            <dx:SplitterContentControl runat="server">
+                                <table width="100%" style="height: 100%">
+                                    <tr>
+                                        <td align="center" colspan="4" valign="top" dir="ltr">
+                                            <TSPControls:CustomAspxDevTreeList ID="TreeListAcc" runat="server" Width="100%" AutoGenerateColumns="False"
+                                                KeyFieldName="AccId" ParentFieldName="ParentId" KeyboardSupport="True" ClientInstanceName="TreeListAcc"
+                                                  RightToLeft="True" Height="100%" OnCustomCallback="TreeListAcc_CustomCallback" DataSourceID="ObjdsAcc">
+                                                <Styles  >
+                                                    <Header HorizontalAlign="Center">
+                                                    </Header>
+                                                </Styles>
+                                                <SettingsText CommandNew="جدید" CommandDelete="حذف" CommandCancel="انصراف" LoadingPanelText="در حال بارگذاری"
+                                                    ConfirmDelete="آیا مطمئن به حذف این ردیف هستید؟" CommandEdit="ویرایش" CommandUpdate="ذخیره"
+                                                    CustomizationWindowCaption="انتخاب ستون"></SettingsText>
+                                                <SettingsLoadingPanel Text="در حال بارگذاری"></SettingsLoadingPanel>
+                                                <SettingsPager>
+                                                    <AllButton Text="همه رکوردها">
+                                                    </AllButton>
+                                                    <FirstPageButton Text="اولین صفحه">
+                                                    </FirstPageButton>
+                                                    <Summary Text="صفحه: {0} از {1} (تعداد کل:{2})"></Summary>
+                                                    <LastPageButton Text="آخرین صفحه">
+                                                    </LastPageButton>
+                                                    <NextPageButton Text="صفحه بعد">
+                                                    </NextPageButton>
+                                                    <PrevPageButton Text="صفحه قبل">
+                                                    </PrevPageButton>
+                                                </SettingsPager>
+                                                <Columns>
+                                                    <dx:TreeListTextColumn Caption="کد" FieldName="AccCode" VisibleIndex="0" Width="50px">
+                                                        <cellstyle cssclass="Direction_LeftToRight"></cellstyle>
+                                                    </dx:TreeListTextColumn>
+                                                    <dx:TreeListTextColumn Caption="نام حساب" FieldName="AccName" VisibleIndex="1">
+                                                        <headerstyle horizontalalign="Center" />
+                                                    </dx:TreeListTextColumn>
+                                                    <dx:TreeListTextColumn Caption="نوع حساب" FieldName="AccTypeName" Visible="False"
+                                                        VisibleIndex="2">
+                                                    </dx:TreeListTextColumn>
+                                                    <dx:TreeListTextColumn Caption="گروه حساب" FieldName="GroupName" Visible="False"
+                                                        VisibleIndex="3">
+                                                    </dx:TreeListTextColumn>
+                                                    <dx:TreeListTextColumn Caption="نوع گروه حساب" FieldName="GroupTypeName" Visible="False"
+                                                        VisibleIndex="4">
+                                                    </dx:TreeListTextColumn>
+                                                    <dx:TreeListTextColumn Caption="گردش حساب" FieldName="GroupStatusName" Visible="False"
+                                                        VisibleIndex="5">
+                                                    </dx:TreeListTextColumn>
+                                                    <dx:TreeListTextColumn Caption="وضعیت" FieldName="InActiveName" Visible="False" VisibleIndex="6">
+                                                    </dx:TreeListTextColumn>
+                                                    <dx:TreeListTextColumn Caption="توضیحات" FieldName="AccDescription" Visible="False"
+                                                        VisibleIndex="7">
+                                                    </dx:TreeListTextColumn>
+                                                </Columns>
+                                                <Images >
+                                                    <CollapsedButton Height="11px" Url="~/App_Themes/Glass/TreeList/CollapsedButton.png"
+                                                        Width="11px">
+                                                    </CollapsedButton>
+                                                    <ExpandedButton Height="11px" Url="~/App_Themes/Glass/TreeList/ExpandedButton.png"
+                                                        Width="11px">
+                                                    </ExpandedButton>
+                                                    <CustomizationWindowClose Height="17px" Width="17px">
+                                                    </CustomizationWindowClose>
+                                                </Images>
+                                                <SettingsCookies Enabled="True"   StoreColumnsVisiblePosition="True" />
+                                                <SettingsCustomizationWindow Caption="انتخاب ستون" Enabled="True" PopupHorizontalAlign="Center" />
+                                                <ClientSideEvents NodeDblClick="function(s, e) {
+	CallbackAcc.PerformCallback('NodeClick'+';'+TreeListAcc.GetFocusedNodeKey());
+}" EndCallback="function(s, e) {
+	//if(TreeListAcc.cpReqType=='Expand')
+	//{
+	//   TreeListAcc.ExpandNode(TreeListAcc.cpSelectedNodeKey);
+//alert(1);
+	//}
+}" NodeExpanding="function(s, e) {
+	//   TreeListAcc.cpSelectedNodeKey=TreeListAcc.GetFocusedNodeKey()
+	//   TreeListAcc.PerformCallback('Bind');
+	//   TreeListAcc.cpReqType='Expand';
+}" />
+                                                <Settings ShowGroupFooter="True" />
+                                            </TSPControls:CustomAspxDevTreeList>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </dx:SplitterContentControl>
+                        </ContentCollection>
+                    </dx:SplitterPane>
+                </Panes>
+                <Styles  >
+                </Styles>
+                <Images >
+                </Images>
+            </dx:ASPxSplitter>
+                    </dx:PanelContent>
+                </PanelCollection>
+                <LoadingPanelImage Url="~/App_Themes/Glass/Web/Loading.gif">
+                </LoadingPanelImage>
+            </dx:ASPxCallbackPanel>           
+        </dx:PopupControlContentControl>
+    </ContentCollection>
+    <HeaderStyle>
+        <Paddings PaddingLeft="10px" PaddingTop="1px" PaddingRight="6px"></Paddings>
+    </HeaderStyle>
+</dx:ASPxPopupControl>
+<asp:ObjectDataSource ID="ObjdsAcc" runat="server" DeleteMethod="Delete" InsertMethod="Insert"
+    SelectMethod="Search" TypeName="TSP.DataManager.AccountingAccountManager" UpdateMethod="Update">
+    <SelectParameters>
+        <asp:Parameter DefaultValue="-1" Name="AccTypeId" Type="Int32" />
+        <asp:Parameter DefaultValue="%" Name="AccName" Type="String" />
+        <asp:Parameter DefaultValue="%" Name="AccCode" Type="String" />
+        <asp:Parameter DefaultValue="-1" Name="AccGrpId" Type="Int32" />
+        <asp:Parameter DefaultValue="-1" Name="AgentId" Type="Int32" />
+    </SelectParameters>
+</asp:ObjectDataSource>
+&nbsp;

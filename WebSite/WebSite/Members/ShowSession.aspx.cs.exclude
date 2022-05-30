@@ -1,0 +1,77 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+public partial class Members_ShowSession : System.Web.UI.Page
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        int SessionId = 0;
+        try
+        {
+            if (String.IsNullOrEmpty(Request.QueryString["SId"]) == true)
+                Response.Redirect("Sessions.aspx");
+            SessionId = int.Parse(Utility.DecryptQS(Request.QueryString["SId"]));
+        }
+        catch (Exception)
+        {
+            Response.Redirect("Sessions.aspx");
+        }
+
+        if (SessionId == 0)
+            Response.Redirect("Sessions.aspx");
+
+        if (IsPostBack == false)
+        {
+            Load_PageData(SessionId);
+        }
+    }
+
+    void Load_PageData(int SessionId)
+    {
+        try
+        {
+            TSP.DataManager.Session.SessionsManager SessionsManager = new TSP.DataManager.Session.SessionsManager();
+            SessionsManager.FindById(SessionId);
+            txtSessionNumber.Text = SessionsManager[0]["SessionNumber"].ToString();
+            txtSessionCode.Text = SessionsManager[0]["SessionCode"].ToString();
+            txtSessionDescription.Text = SessionsManager[0]["SessionDescription"].ToString();
+            txtSessionTitle.Text = SessionsManager[0]["SessionTitle"].ToString();
+            chkSuspended.Checked = Convert.ToBoolean(SessionsManager[0]["IsSuspended"]);
+            if (chkSuspended.Checked==false)
+            {
+                txtEndDate.Text = SessionsManager[0]["EndDate"].ToString();
+                txtEndTime.Text = SessionsManager[0]["EndTime"].ToString();
+                txtStartDate.Text = SessionsManager[0]["StartDate"].ToString();
+                txtStartTime.Text = SessionsManager[0]["StartTime"].ToString();
+            }
+            txtSessionLocation.Text = SessionsManager[0]["SessionLocationName"].ToString();
+            txtSessionType.Text = SessionsManager[0]["SessionTypeName"].ToString();
+            cmbAgent.DataBind();
+            cmbAgent.Value = SessionsManager[0]["AgentId"].ToString();
+            if (Utility.IsDBNullOrNullValue(SessionsManager[0]["RequestPartitionId"]) == false)
+                cmbPartition.Value = SessionsManager[0]["RequestPartitionId"].ToString();
+            if (Utility.IsDBNullOrNullValue(SessionsManager[0]["OrdererNmcId"]) == false)
+                cmbSessionOrderer.Value = SessionsManager[0]["OrdererNmcId"].ToString();
+
+            if (Convert.ToInt32(SessionsManager[0]["StatusId"]) != (int)TSP.DataManager.Session.SessionStatusManager.Status.Held)
+                ASPxPageControl1.TabPages[2].Visible = false;
+
+            ObjectDataSourceSessionAttachments.SelectParameters["SessionId"].DefaultValue = SessionId.ToString();
+            ObjectDataSourceAgenda.SelectParameters["SessionId"].DefaultValue = SessionId.ToString();
+
+            TSP.DataManager.Session.MeetingMinutesManager MeetingMinutesManager = new TSP.DataManager.Session.MeetingMinutesManager();
+            MeetingMinutesManager.FindBySessionId(SessionId);
+            HtmlEditor.Html = MeetingMinutesManager[0]["MinuteText"].ToString();
+
+            ObjectDataSourceMeetingMinuteAttachments.SelectParameters["MinuteId"].DefaultValue = MeetingMinutesManager[0]["MinuteId"].ToString();
+        }
+        catch (Exception err)
+        {
+            Utility.SaveWebsiteError(err);
+        }
+    }
+}

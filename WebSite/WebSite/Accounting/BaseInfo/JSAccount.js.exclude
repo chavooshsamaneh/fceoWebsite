@@ -1,0 +1,34 @@
+﻿function EndAccCallback(s,e)
+{
+    if(s.cpReqType=='AddAccHd')
+    {
+        txtAccHDCode.SetText('');
+        txtAccHDName.SetText('');      
+        HiddenFieldAccInfo.Set('AccHDId','');
+    }    
+    if(s.cpReqType=='AddMultipleAccHd')
+    {
+       CallbackAccount.PerformCallback('ClearTree');
+    }
+     if(s.cpReqType=='ClearTree')
+    {
+       PopupAccHD.Hide();
+    }
+}
+//***************************************************************
+function AddAccHDByTreeSelection()
+{
+//TreeListAccHD.GetSelectedNodeValues('NmcId;NcName;FullName',GetSelectedTreeNodesAccHD);
+CallbackAccount.PerformCallback('AddMultipleAccHd');
+}
+
+function ResetTree()
+{
+    TreeListAccHD.cpIsNodeSelected=0;
+}
+//**********************Add AccHD Info To Grid********************************************
+function AddAccHDByClickbtn()
+{
+	CallbackAccount.PerformCallback('AddAccHd');
+}
+

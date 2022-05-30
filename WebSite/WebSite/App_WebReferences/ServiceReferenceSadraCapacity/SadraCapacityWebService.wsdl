@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="GetSadraCapacity">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="memCode" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetSadraCapacityResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetSadraCapacityResult" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="AuthSoapHd" type="tns:AuthSoapHd" />
+      <s:complexType name="AuthSoapHd">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="strUserName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="strPassword" type="s:string" />
+        </s:sequence>
+        <s:anyAttribute />
+      </s:complexType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetSadraCapacitySoapIn">
+    <wsdl:part name="parameters" element="tns:GetSadraCapacity" />
+  </wsdl:message>
+  <wsdl:message name="GetSadraCapacitySoapOut">
+    <wsdl:part name="parameters" element="tns:GetSadraCapacityResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetSadraCapacityAuthSoapHd">
+    <wsdl:part name="AuthSoapHd" element="tns:AuthSoapHd" />
+  </wsdl:message>
+  <wsdl:portType name="SadraCapacityWebServiceSoap">
+    <wsdl:operation name="GetSadraCapacity">
+      <wsdl:input message="tns:GetSadraCapacitySoapIn" />
+      <wsdl:output message="tns:GetSadraCapacitySoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="SadraCapacityWebServiceSoap" type="tns:SadraCapacityWebServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetSadraCapacity">
+      <soap:operation soapAction="http://tempuri.org/GetSadraCapacity" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+        <soap:header message="tns:GetSadraCapacityAuthSoapHd" part="AuthSoapHd" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="SadraCapacityWebServiceSoap12" type="tns:SadraCapacityWebServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetSadraCapacity">
+      <soap12:operation soapAction="http://tempuri.org/GetSadraCapacity" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+        <soap12:header message="tns:GetSadraCapacityAuthSoapHd" part="AuthSoapHd" use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="SadraCapacityWebService">
+    <wsdl:port name="SadraCapacityWebServiceSoap" binding="tns:SadraCapacityWebServiceSoap">
+      <soap:address location="http://193.19.144.250:2025/SadraCapacityWebService.asmx" />
+    </wsdl:port>
+    <wsdl:port name="SadraCapacityWebServiceSoap12" binding="tns:SadraCapacityWebServiceSoap12">
+      <soap12:address location="http://193.19.144.250:2025/SadraCapacityWebService.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

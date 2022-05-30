@@ -1,0 +1,241 @@
+﻿using System;
+using System.Data;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.ComponentModel;
+
+[ToolboxData("Tsp")]
+public partial class FormBuilderUserControl : System.Web.UI.UserControl
+{
+    #region Properties
+    private int _FormId;
+    [Browsable(true), Category("TSP")]
+    public int FormId
+    {
+        get
+        {
+            return this._FormId;
+        }
+        set
+        {
+            this._FormId = value;
+            hiddenData["FormId"] = value.ToString();
+        }
+    }
+    #endregion
+
+    #region Events
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (IsPostBack == false)
+        {
+            hiddenData["FormData"] = "";
+            hiddenData["Groups"] = "";
+            hiddenData["Elements"] = "";
+            hiddenData["ElementItems"] = "";
+            hiddenData["InputElements"] = "";
+
+            if (hiddenData.Contains("FormId") == false)
+                hiddenData["FormId"] = "";
+        }
+    }
+
+    protected void CallbackPanelFormBuilder_Callback(object sender, DevExpress.Web.CallbackEventArgsBase e)
+    {
+        PanelMessage.ClientVisible = false;
+        switch (e.Parameter)
+        {
+            case "LoadForm_FromDatabase":
+                LoadForm_FromDatabase();
+                break;
+            case "LoadForm_FromInputData":
+                LoadForm_FromInputData();
+                break;
+        }
+    }
+    #endregion
+
+    #region Methods
+    void LoadForm_FromDatabase()
+    {
+        try
+        {
+            hiddenData["InputElements"] = "";
+
+            int FormId = this.FormId;
+            if (hiddenData["FormId"] != null)
+                FormId = Convert.ToInt32(hiddenData["FormId"]);
+            if (FormId == 0)
+            {
+                PanelForm.ClientVisible = false;
+                PanelMessage.ClientVisible = true;
+                lblMessage.Text = "خطایی در خواندن اطلاعات ایجاد گردیده است";
+                lblMessage.ForeColor = System.Drawing.Color.DarkRed;
+                return;
+            }
+
+            TSP.DataManager.FormBuilder.GroupsManager GroupsManager = new TSP.DataManager.FormBuilder.GroupsManager();
+            GroupsManager.FindByForm(FormId);
+            TSP.DataManager.FormBuilder.ElementsManager ElementsManager = new TSP.DataManager.FormBuilder.ElementsManager();
+            ElementsManager.FindByForm(FormId);
+            TSP.DataManager.FormBuilder.ElementItemsManager ElementItemsManager = new TSP.DataManager.FormBuilder.ElementItemsManager();
+            ElementItemsManager.FindByForm(FormId);
+
+            DataTable dtGroups = TSP.WebControls.FormBuilderComponents.FormBuilder.MakeEmptyDataTableGroupsData();
+            DataTable dtElements = TSP.WebControls.FormBuilderComponents.FormBuilder.MakeEmptyDataTableElementsData();
+            DataTable dtElementItems = TSP.WebControls.FormBuilderComponents.FormBuilder.MakeEmptyDataTableElementItems();
+
+            for (int i = 0; i < GroupsManager.Count; i++)
+            {
+                DataRow drGroup = dtGroups.NewRow();
+                drGroup["GroupId"] = GroupsManager[i]["GroupId"].ToString();
+                drGroup["Title"] = GroupsManager[i]["GroupName"].ToString();
+                dtGroups.Rows.Add(drGroup);
+            }
+            dtGroups.AcceptChanges();
+
+            for (int i = 0; i < ElementsManager.Count; i++)
+            {
+                if (Convert.ToInt32(ElementsManager[i]["TypeId"]) != (int)TSP.DataManager.FormBuilder.ElementTypesManager.ElementTypes.Label)
+                {
+                    if (String.IsNullOrWhiteSpace(hiddenData["InputElements"].ToString()) == false)
+                        hiddenData["InputElements"] += ";";
+                    hiddenData["InputElements"] += "FormBuilder_" + ElementsManager[i]["ElementId"] + ":" + ElementsManager[i]["ElementValue"];
+                }
+
+                DataRow dr = dtElements.NewRow();
+                dr["Id"] = ElementsManager[i]["ElementId"].ToString();
+                dr["Type"] = ElementsManager[i]["TypeId"].ToString();
+                dr["Name"] = ElementsManager[i]["ElementName"].ToString();
+                dr["Value"] = ElementsManager[i]["ElementValue"].ToString();
+                dr["Length"] = ElementsManager[i]["Length"].ToString();
+                dr["SingleInRow"] = (ElementsManager[i]["SingleInRow"].ToString() == "1") ? true : false;
+                dr["IsRequired"] = ElementsManager[i]["IsRequired"].ToString();
+                if (Utility.IsDBNullOrNullValue(ElementsManager[i]["GroupId"]) || String.IsNullOrWhiteSpace(ElementsManager[i]["GroupId"].ToString()))
+                    dr["GroupId"] = 0;
+                else
+                    dr["GroupId"] = ElementsManager[i]["GroupId"].ToString();
+                dr["Color"] = ElementsManager[i]["Color"].ToString();
+                dtElements.Rows.Add(dr);
+            }
+            dtElements.AcceptChanges();
+
+            for (int i = 0; i < ElementItemsManager.Count; i++)
+            {
+                DataRow drItem = dtElementItems.NewRow();
+                drItem["ElementId"] = ElementItemsManager[i]["ElementId"].ToString();
+                drItem["ItemName"] = ElementItemsManager[i]["ItemName"].ToString();
+                dtElementItems.Rows.Add(drItem);
+            }
+            dtElementItems.AcceptChanges();
+
+            PlaceHolderForm.Controls.Add((new TSP.WebControls.FormBuilderComponents.FormBuilder("FormElementValueChanged", dtGroups, dtElements, dtElementItems, "FormBuilder", true, true, false)).Build());
+
+            TSP.DataManager.FormBuilder.FormsManager FormsManager = new TSP.DataManager.FormBuilder.FormsManager();
+            FormsManager.FindById(FormId);
+            CallbackPanelFormBuilder.JSProperties["cpPopupTitle"] = FormsManager[0]["FormName"].ToString();
+            PanelForm.ClientVisible = true;
+            PanelMessage.ClientVisible = true;
+            String Message = "<p style='color:DarkGreen'>" + Utility.Messages.GetMessage(Utility.Messages.MessageTypes.SaveComplete) + "</p>";
+            if (String.IsNullOrWhiteSpace(Message) == false)
+                Message += "<p style='color:" + FormsManager[0]["MessageColor"] + "'>" + FormsManager[0]["Message"] + "</p>";
+            lblMessage.Text = Message;
+        }
+        catch (Exception err)
+        {
+            Utility.SaveWebsiteError(err);
+            PanelForm.ClientVisible = false;
+            PanelMessage.ClientVisible = true;
+            lblMessage.Text = "خطایی در خواندن اطلاعات ایجاد گردیده است";
+            lblMessage.ForeColor = System.Drawing.Color.DarkRed;
+        }
+    }
+
+    void LoadForm_FromInputData()
+    {
+        try
+        {
+            String[] FormData = hiddenData["FormData"].ToString().Split(';');
+            String[] Groups = hiddenData["Groups"].ToString().Split(';');
+            String[] Elements = hiddenData["Elements"].ToString().Split(';');
+            String[] ElementItems = hiddenData["ElementItems"].ToString().Split(';');
+
+            DataTable dtGroups = TSP.WebControls.FormBuilderComponents.FormBuilder.MakeEmptyDataTableGroupsData();
+            DataTable dtElements = TSP.WebControls.FormBuilderComponents.FormBuilder.MakeEmptyDataTableElementsData();
+            DataTable dtElementItems = TSP.WebControls.FormBuilderComponents.FormBuilder.MakeEmptyDataTableElementItems();
+
+            for (int i = 0; i < Groups.Length; i++)
+            {
+                if (String.IsNullOrWhiteSpace(Groups[i]) == false)
+                {
+                    String[] GroupData = Groups[i].Split(',');
+                    DataRow drGroup = dtGroups.NewRow();
+                    drGroup["GroupId"] = GroupData[0];
+                    drGroup["Title"] = GroupData[2];
+                    dtGroups.Rows.Add(drGroup);
+                }
+            }
+            dtGroups.AcceptChanges();
+
+            for (int i = 0; i < Elements.Length; i++)
+            {
+                if (String.IsNullOrWhiteSpace(Elements[i]))
+                    continue;
+
+                String[] ElementData = Elements[i].Split(',');
+                DataRow dr = dtElements.NewRow();
+                dr["Id"] = i;
+                dr["Type"] = TSP.DataManager.FormBuilder.ElementTypesManager.GetElementTypeIdByName(ElementData[8]);
+                dr["Name"] = ElementData[2];
+                dr["Value"] = ElementData[3];
+                dr["Length"] = ElementData[5];
+                dr["SingleInRow"] = (ElementData[6] == "1") ? true : false;
+                dr["IsRequired"] = (ElementData[4] == "1") ? true : false;
+                if (String.IsNullOrWhiteSpace(ElementData[9]))
+                    dr["GroupId"] = 0;
+                else
+                    dr["GroupId"] = ElementData[9];
+                dr["Color"] = ElementData[10];
+                dtElements.Rows.Add(dr);
+
+                String[] ElementItemData = ElementItems[i].Split(',');
+                if (ElementItemData.Length == 1 && (String.IsNullOrEmpty(ElementItemData[0].Trim()) || ElementItemData[0].Trim() == ":")) ;
+                else
+                {
+                    for (int j = 0; j < ElementItemData.Length; j++)
+                    {
+                        String[] tmp = ElementItemData[j].Split(':');
+                        DataRow drItem = dtElementItems.NewRow();
+                        drItem["ElementId"] = i;
+                        drItem["ItemName"] = tmp[0];
+                        dtElementItems.Rows.Add(drItem);
+                    }
+                }
+            }
+            dtElements.AcceptChanges();
+            dtElementItems.AcceptChanges();
+
+            PlaceHolderForm.Controls.Add((new TSP.WebControls.FormBuilderComponents.FormBuilder("FormElementValueChanged", dtGroups, dtElements, dtElementItems, "FormBuilder", true, false, false)).Build());
+
+            CallbackPanelFormBuilder.JSProperties["cpPopupTitle"] = FormData[0];
+            PanelForm.ClientVisible = true;
+            PanelMessage.ClientVisible = true;
+            String Message = "<p style='color:DarkGreen'>" + Utility.Messages.GetMessage(Utility.Messages.MessageTypes.SaveComplete) + "</p>";
+            if (String.IsNullOrWhiteSpace(Message) == false)
+                Message += "<p style='color:" + FormData[2] + "'>" + FormData[1] + "</p>";
+            lblMessage.Text = Message;
+        }
+        catch (Exception err)
+        {
+            Utility.SaveWebsiteError(err);
+            PanelForm.ClientVisible = false;
+            PanelMessage.ClientVisible = true;
+            lblMessage.Text = "خطایی در خواندن اطلاعات ایجاد گردیده است";
+            lblMessage.ForeColor = System.Drawing.Color.DarkRed;
+        }
+    }
+    #endregion
+}

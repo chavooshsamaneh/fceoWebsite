@@ -1,0 +1,101 @@
+.dx-acc-r .dxRichEdit_CenterTabDragHandle_Metropolis:before,
+.dx-acc-r .dxRichEdit_ColumnSeparatorDragHandle_Metropolis:before,
+.dx-acc-r .dxRichEdit_DecimalTabDragHandle_Metropolis:before,
+.dx-acc-r .dxRichEdit_FirstLineIdentDragHandle_Metropolis:before,
+.dx-acc-r .dxRichEdit_LeftIdentDragHandle_Metropolis:before,
+.dx-acc-r .dxRichEdit_LeftTabDragHandle_Metropolis:before,
+.dx-acc-r .dxRichEdit_QuickSearchCloseButton_Metropolis:before,
+.dx-acc-r .dxRichEdit_QuickSearchCollapseButton_Metropolis:before,
+.dx-acc-r .dxRichEdit_QuickSearchNextButton_Metropolis:before,
+.dx-acc-r .dxRichEdit_QuickSearchPrevButton_Metropolis:before,
+.dx-acc-r .dxRichEdit_RightIdentDragHandle_Metropolis:before,
+.dx-acc-r .dxRichEdit_RightTabDragHandle_Metropolis:before
+
+{
+    content: url('spriteAccessible.png');
+
+}
+.dx-acc-r .dxRichEdit_CenterTabDragHandle_Metropolis:before
+
+{
+    left: -16px;
+    top: -65px;
+
+}
+.dx-acc-r .dxRichEdit_ColumnSeparatorDragHandle_Metropolis:before
+
+{
+    left: -16px;
+    top: -50px;
+
+}
+.dx-acc-r .dxRichEdit_DecimalTabDragHandle_Metropolis:before
+
+{
+    left: -16px;
+    top: -73px;
+
+}
+.dx-acc-r .dxRichEdit_FirstLineIdentDragHandle_Metropolis:before
+
+{
+    left: 0px;
+    top: -80px;
+
+}
+.dx-acc-r .dxRichEdit_LeftIdentDragHandle_Metropolis:before
+
+{
+    left: 0px;
+    top: -89px;
+
+}
+.dx-acc-r .dxRichEdit_LeftTabDragHandle_Metropolis:before
+
+{
+    left: -17px;
+    top: -89px;
+
+}
+.dx-acc-r .dxRichEdit_QuickSearchCloseButton_Metropolis:before
+
+{
+    left: 0px;
+    top: -65px;
+
+}
+.dx-acc-r .dxRichEdit_QuickSearchCollapseButton_Metropolis:before
+
+{
+    left: 0px;
+    top: -50px;
+
+}
+.dx-acc-r .dxRichEdit_QuickSearchNextButton_Metropolis:before
+
+{
+    left: 0px;
+    top: 0px;
+
+}
+.dx-acc-r .dxRichEdit_QuickSearchPrevButton_Metropolis:before
+
+{
+    left: 0px;
+    top: -25px;
+
+}
+.dx-acc-r .dxRichEdit_RightIdentDragHandle_Metropolis:before
+
+{
+    left: -10px;
+    top: -80px;
+
+}
+.dx-acc-r .dxRichEdit_RightTabDragHandle_Metropolis:before
+
+{
+    left: -10px;
+    top: -89px;
+
+}

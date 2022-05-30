@@ -1,0 +1,38 @@
+﻿using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+
+public partial class Employee_Amoozesh_EmpMasterPage : System.Web.UI.MasterPage
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (IsPostBack == false)
+        {
+            ASPxNavBar1.DataBind();
+            ASPxNavBar1.Groups.FindByName("grpAmoozesh").Expanded = true;
+           
+        }
+
+        Utility.SetNavigationBarUserAccess(ASPxNavBar1);
+    }
+
+    protected void ASPxNavBar1_OnItemClick(object source, DevExpress.Web.NavBarItemEventArgs e)
+    {
+        int Compare = -2;
+        if (!int.TryParse(ASPxNavBar1.SelectedItem.Name, out Compare))
+            return;
+        switch (Compare)
+        {
+            case (int)TSP.DataManager.TableType.EpaymentPeriodRegister:
+                Response.Redirect("~/Members/Accounting/EpaymentFishes.aspx?PgMd=" + Utility.EncryptQS("NotPayed"));
+                break;
+        }
+    }
+}

@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="Intracter" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsp:Policy wsu:Id="WSHttpBinding_IIntracter_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <wsaw:UsingAddressing />
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://localhost:50000/KicccPosDriver?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:50000/KicccPosDriver?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IIntracter_ChangePassPhrase_InputMessage">
+    <wsdl:part name="parameters" element="tns:ChangePassPhrase" />
+  </wsdl:message>
+  <wsdl:message name="IIntracter_ChangePassPhrase_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ChangePassPhraseResponse" />
+  </wsdl:message>
+  <wsdl:message name="IIntracter_SetConfig_InputMessage">
+    <wsdl:part name="parameters" element="tns:SetConfig" />
+  </wsdl:message>
+  <wsdl:message name="IIntracter_SetConfig_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SetConfigResponse" />
+  </wsdl:message>
+  <wsdl:message name="IIntracter_GetConfig_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetConfig" />
+  </wsdl:message>
+  <wsdl:message name="IIntracter_GetConfig_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetConfigResponse" />
+  </wsdl:message>
+  <wsdl:message name="IIntracter_Transaction_InputMessage">
+    <wsdl:part name="parameters" element="tns:Transaction" />
+  </wsdl:message>
+  <wsdl:message name="IIntracter_Transaction_OutputMessage">
+    <wsdl:part name="parameters" element="tns:TransactionResponse" />
+  </wsdl:message>
+  <wsdl:message name="IIntracter_TerminateService_InputMessage">
+    <wsdl:part name="parameters" element="tns:TerminateService" />
+  </wsdl:message>
+  <wsdl:message name="IIntracter_TerminateService_OutputMessage">
+    <wsdl:part name="parameters" element="tns:TerminateServiceResponse" />
+  </wsdl:message>
+  <wsdl:message name="IIntracter_ResetService_InputMessage">
+    <wsdl:part name="parameters" element="tns:ResetService" />
+  </wsdl:message>
+  <wsdl:message name="IIntracter_ResetService_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ResetServiceResponse" />
+  </wsdl:message>
+  <wsdl:message name="IIntracter_Athenticate_InputMessage">
+    <wsdl:part name="parameters" element="tns:Athenticate" />
+  </wsdl:message>
+  <wsdl:message name="IIntracter_Athenticate_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AthenticateResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IIntracter">
+    <wsdl:operation name="ChangePassPhrase">
+      <wsdl:input wsaw:Action="http://tempuri.org/IIntracter/ChangePassPhrase" message="tns:IIntracter_ChangePassPhrase_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IIntracter/ChangePassPhraseResponse" message="tns:IIntracter_ChangePassPhrase_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SetConfig">
+      <wsdl:input wsaw:Action="http://tempuri.org/IIntracter/SetConfig" message="tns:IIntracter_SetConfig_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IIntracter/SetConfigResponse" message="tns:IIntracter_SetConfig_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetConfig">
+      <wsdl:input wsaw:Action="http://tempuri.org/IIntracter/GetConfig" message="tns:IIntracter_GetConfig_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IIntracter/GetConfigResponse" message="tns:IIntracter_GetConfig_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Transaction">
+      <wsdl:input wsaw:Action="http://tempuri.org/IIntracter/Transaction" message="tns:IIntracter_Transaction_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IIntracter/TransactionResponse" message="tns:IIntracter_Transaction_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="TerminateService">
+      <wsdl:input wsaw:Action="http://tempuri.org/IIntracter/TerminateService" message="tns:IIntracter_TerminateService_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IIntracter/TerminateServiceResponse" message="tns:IIntracter_TerminateService_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ResetService">
+      <wsdl:input wsaw:Action="http://tempuri.org/IIntracter/ResetService" message="tns:IIntracter_ResetService_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IIntracter/ResetServiceResponse" message="tns:IIntracter_ResetService_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Athenticate">
+      <wsdl:input wsaw:Action="http://tempuri.org/IIntracter/Athenticate" message="tns:IIntracter_Athenticate_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IIntracter/AthenticateResponse" message="tns:IIntracter_Athenticate_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="WSHttpBinding_IIntracter" type="tns:IIntracter">
+    <wsp:PolicyReference URI="#WSHttpBinding_IIntracter_policy" />
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="ChangePassPhrase">
+      <soap12:operation soapAction="http://tempuri.org/IIntracter/ChangePassPhrase" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetConfig">
+      <soap12:operation soapAction="http://tempuri.org/IIntracter/SetConfig" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetConfig">
+      <soap12:operation soapAction="http://tempuri.org/IIntracter/GetConfig" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Transaction">
+      <soap12:operation soapAction="http://tempuri.org/IIntracter/Transaction" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="TerminateService">
+      <soap12:operation soapAction="http://tempuri.org/IIntracter/TerminateService" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ResetService">
+      <soap12:operation soapAction="http://tempuri.org/IIntracter/ResetService" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Athenticate">
+      <soap12:operation soapAction="http://tempuri.org/IIntracter/Athenticate" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Intracter">
+    <wsdl:port name="WSHttpBinding_IIntracter" binding="tns:WSHttpBinding_IIntracter">
+      <soap12:address location="http://localhost:50000/KicccPosDriver" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>http://localhost:50000/KicccPosDriver</wsa10:Address>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

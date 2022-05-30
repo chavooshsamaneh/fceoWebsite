@@ -1,0 +1,141 @@
+<%@ Register TagPrefix="dx" Namespace="DevExpress.Data" Assembly="DevExpress.Data.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<%@ Register TagPrefix="dx" Namespace="DevExpress.Web.ASPxScheduler" Assembly="DevExpress.Web.ASPxScheduler.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" %>
+<%@ Register Assembly="DevExpress.XtraScheduler.v17.1.Core, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" Namespace="DevExpress.XtraScheduler" TagPrefix="dx" %>
+
+<dx:ASPxScheduler runat="server">
+    <Styles SelectionColor="#FF8800" CssPostfix="Metropolis" CssFilePath="~/App_Themes/Metropolis/{0}/styles.css" />
+    <Images SpriteCssFilePath="~/App_Themes/Metropolis/{0}/sprite.css">
+    </Images>
+    <OptionsView ResourceColorFillArea="ResourceHeader" />
+    <Views>
+        <DayView>
+            <AppointmentDisplayOptions AppointmentGapWidth="0" ColumnPadding-Left="0" ColumnPadding-Right="0" FirstAllDayAppointmentTopIndent="0" LastAllDayAppointmentBottomIndent="0" />
+        </DayView>
+        <FullWeekView>
+            <AppointmentDisplayOptions AppointmentGapWidth="0" ColumnPadding-Left="0" ColumnPadding-Right="0" FirstAllDayAppointmentTopIndent="0" LastAllDayAppointmentBottomIndent="0" />
+        </FullWeekView>
+        <WorkWeekView>
+            <AppointmentDisplayOptions AppointmentGapWidth="0" ColumnPadding-Left="0" ColumnPadding-Right="0" FirstAllDayAppointmentTopIndent="0" LastAllDayAppointmentBottomIndent="0" />
+        </WorkWeekView>
+        <MonthView>
+            <AppointmentDisplayOptions AppointmentGapWidth="0" AppointmentInterspacing="0" FirstAppointmentTopIndent="0" LastAppointmentBottomIndent="0" />
+        </MonthView>
+        <WeekView>
+            <AppointmentDisplayOptions AppointmentGapWidth="0" AppointmentInterspacing="0" FirstAppointmentTopIndent="0" LastAppointmentBottomIndent="0" />
+        </WeekView>
+        <TimelineView>
+            <AppointmentDisplayOptions AppointmentGapWidth="0" AppointmentInterspacing="0" FirstAppointmentTopIndent="0" LastAppointmentBottomIndent="0" />
+        </TimelineView>
+    </Views>
+
+    <ResourceColorSchemas>
+        <dx:SchedulerColorSchema 
+            Cell="248,248,248"
+            CellBorder="235,235,235"
+            CellBorderDark="223,223,223"
+            CellLight="255,255,255"
+            CellLightBorder="241,241,241"
+            CellLightBorderDark="228,228,228"/>
+        <dx:SchedulerColorSchema 
+            Cell="222,235,248"
+            CellBorder="211,224,237"
+            CellBorderDark="201,214,227"
+            CellLight="226,241,255"
+            CellLightBorder="213,226,239"
+            CellLightBorderDark="203,218,232"
+            ResourceHeaderText="255,255,255"
+            ResourceHeaderBackground="58,159,254"/>
+        <dx:SchedulerColorSchema 
+            Cell="223,240,224"
+            CellBorder="213,229,214"
+            CellBorderDark="203,219,204"
+            CellLight="228,246,229"
+            CellLightBorder="216,234,217"
+            CellLightBorderDark="205,223,206"
+            ResourceHeaderText="255,255,255"
+            ResourceHeaderBackground="75,194,80"/>
+        <dx:SchedulerColorSchema 
+            Cell="248,234,217"
+            CellBorder="237,223,207"
+            CellBorderDark="227,214,196"
+            CellLight="255,240,221"
+            CellLightBorder="243,228,210"
+            CellLightBorderDark="232,217,198"
+            ResourceHeaderText="255,255,255"
+            ResourceHeaderBackground="255,152,30"/>
+        <dx:SchedulerColorSchema 
+            Cell="226,228,240"
+            CellBorder="215,217,229"
+            CellBorderDark="205,207,219"
+            CellLight="231,233,246"
+            CellLightBorder="219,221,234"
+            CellLightBorderDark="208,210,223"
+            ResourceHeaderText="255,255,255"
+            ResourceHeaderBackground="92,107,192"/>
+        <dx:SchedulerColorSchema 
+            Cell="248,225,220"
+            CellBorder="237,214,210"
+            CellBorderDark="227,205,199"
+            CellLight="255,230,224"
+            CellLightBorder="243,218,213"
+            CellLightBorderDark="232,207,201"
+            ResourceHeaderText="255,255,255"
+            ResourceHeaderBackground="255,89,50"/>
+        <dx:SchedulerColorSchema 
+            Cell="235,235,235"
+            CellBorder="224,224,224"
+            CellBorderDark="214,214,214"
+            CellLight="241,241,241"
+            CellLightBorder="229,229,229"
+            CellLightBorderDark="218,218,218"
+            ResourceHeaderText="255,255,255"
+            ResourceHeaderBackground="159,159,159"/>
+        <dx:SchedulerColorSchema 
+            Cell="214,238,240"
+            CellBorder="203,227,230"
+            CellBorderDark="193,217,220"
+            CellLight="217,244,247"
+            CellLightBorder="205,232,235"
+            CellLightBorderDark="194,221,224"
+            ResourceHeaderText="255,255,255"
+            ResourceHeaderBackground="0,182,198"/>
+        <dx:SchedulerColorSchema 
+            Cell="233,241,219"
+            CellBorder="223,231,208"
+            CellBorderDark="213,221,198"
+            CellLight="239,248,223"
+            CellLightBorder="227,236,211"
+            CellLightBorderDark="216,225,200"
+            ResourceHeaderText="255,255,255"
+            ResourceHeaderBackground="150,207,39"/>
+        <dx:SchedulerColorSchema 
+            Cell="236,224,248"
+            CellBorder="225,214,237"
+            CellBorderDark="215,204,227"
+            CellLight="242,229,255"
+            CellLightBorder="230,217,243"
+            CellLightBorderDark="219,206,232"
+            ResourceHeaderText="255,255,255"
+            ResourceHeaderBackground="165,79,254"/>
+        <dx:SchedulerColorSchema 
+            Cell="222,240,248"
+            CellBorder="211,230,237"
+            CellBorderDark="201,220,227"
+            CellLight="226,247,255"
+            CellLightBorder="214,235,243"
+            CellLightBorderDark="203,224,232"
+            ResourceHeaderText="255,255,255"
+            ResourceHeaderBackground="62,198,254"/>
+        <dx:SchedulerColorSchema 
+            Cell="248,238,216"
+            CellBorder="237,228,205"
+            CellBorderDark="227,217,196"
+            CellLight="255,244,220"
+            CellLightBorder="243,233,208"
+            CellLightBorderDark="232,221,197"
+            ResourceHeaderText="255,255,255"
+            ResourceHeaderBackground="253,184,18"/>
+    </ResourceColorSchemas>
+
+</dx:ASPxScheduler>
+

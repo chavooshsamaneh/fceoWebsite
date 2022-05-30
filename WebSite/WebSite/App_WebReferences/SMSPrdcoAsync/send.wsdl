@@ -1,0 +1,532 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="Send" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="Send" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">WebService For Send And Recive Sms </wsdl:documentation>
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="Send">
+      <s:element name="SendSms">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="from" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="to" type="tns:ArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="text" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="flash" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SendSmsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendSmsResult" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Credit">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreditResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CreditResult" type="s:double" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Delivery">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="recId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeliveryResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="DeliveryResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="MultiDelivery">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="recId" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="MultiDeliveryResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="MultiDeliveryResult" type="tns:ArrayOfInt" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfInt">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="int" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetVirtualNumbers">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetVirtualNumbersResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetVirtualNumbersResult" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPhoneGroups">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPhoneGroupsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPhoneGroupsResult" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendToGroup">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="from" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="groupIds" type="tns:ArrayOfInt" />
+            <s:element minOccurs="0" maxOccurs="1" name="text" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="flash" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendToGroupResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SendToGroupResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ScheduledSend">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="from" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="to" type="tns:ArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="groupIds" type="tns:ArrayOfInt" />
+            <s:element minOccurs="0" maxOccurs="1" name="text" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="flash" type="s:boolean" />
+            <s:element minOccurs="1" maxOccurs="1" name="year" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="month" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="day" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="hour" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="minute" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ScheduledSendResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="ScheduledSendResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetScheduleStatus">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="scheduleId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetScheduleStatusResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetScheduleStatusResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RemoveScheduledSend">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="scheduleId" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RemoveScheduledSendResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="RemoveScheduledSendResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetInbox">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="username" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="to" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="year" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="month" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="day" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="hour" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="minute" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetInboxResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetInboxResult" type="tns:ArrayOfString" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="SendSmsSoapIn">
+    <wsdl:part name="parameters" element="tns:SendSms" />
+  </wsdl:message>
+  <wsdl:message name="SendSmsSoapOut">
+    <wsdl:part name="parameters" element="tns:SendSmsResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreditSoapIn">
+    <wsdl:part name="parameters" element="tns:Credit" />
+  </wsdl:message>
+  <wsdl:message name="CreditSoapOut">
+    <wsdl:part name="parameters" element="tns:CreditResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeliverySoapIn">
+    <wsdl:part name="parameters" element="tns:Delivery" />
+  </wsdl:message>
+  <wsdl:message name="DeliverySoapOut">
+    <wsdl:part name="parameters" element="tns:DeliveryResponse" />
+  </wsdl:message>
+  <wsdl:message name="MultiDeliverySoapIn">
+    <wsdl:part name="parameters" element="tns:MultiDelivery" />
+  </wsdl:message>
+  <wsdl:message name="MultiDeliverySoapOut">
+    <wsdl:part name="parameters" element="tns:MultiDeliveryResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetVirtualNumbersSoapIn">
+    <wsdl:part name="parameters" element="tns:GetVirtualNumbers" />
+  </wsdl:message>
+  <wsdl:message name="GetVirtualNumbersSoapOut">
+    <wsdl:part name="parameters" element="tns:GetVirtualNumbersResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPhoneGroupsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPhoneGroups" />
+  </wsdl:message>
+  <wsdl:message name="GetPhoneGroupsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPhoneGroupsResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendToGroupSoapIn">
+    <wsdl:part name="parameters" element="tns:SendToGroup" />
+  </wsdl:message>
+  <wsdl:message name="SendToGroupSoapOut">
+    <wsdl:part name="parameters" element="tns:SendToGroupResponse" />
+  </wsdl:message>
+  <wsdl:message name="ScheduledSendSoapIn">
+    <wsdl:part name="parameters" element="tns:ScheduledSend" />
+  </wsdl:message>
+  <wsdl:message name="ScheduledSendSoapOut">
+    <wsdl:part name="parameters" element="tns:ScheduledSendResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetScheduleStatusSoapIn">
+    <wsdl:part name="parameters" element="tns:GetScheduleStatus" />
+  </wsdl:message>
+  <wsdl:message name="GetScheduleStatusSoapOut">
+    <wsdl:part name="parameters" element="tns:GetScheduleStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="RemoveScheduledSendSoapIn">
+    <wsdl:part name="parameters" element="tns:RemoveScheduledSend" />
+  </wsdl:message>
+  <wsdl:message name="RemoveScheduledSendSoapOut">
+    <wsdl:part name="parameters" element="tns:RemoveScheduledSendResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetInboxSoapIn">
+    <wsdl:part name="parameters" element="tns:GetInbox" />
+  </wsdl:message>
+  <wsdl:message name="GetInboxSoapOut">
+    <wsdl:part name="parameters" element="tns:GetInboxResponse" />
+  </wsdl:message>
+  <wsdl:portType name="SendSoap">
+    <wsdl:operation name="SendSms">
+      <wsdl:input message="tns:SendSmsSoapIn" />
+      <wsdl:output message="tns:SendSmsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Credit">
+      <wsdl:input message="tns:CreditSoapIn" />
+      <wsdl:output message="tns:CreditSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Delivery">
+      <wsdl:input message="tns:DeliverySoapIn" />
+      <wsdl:output message="tns:DeliverySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="MultiDelivery">
+      <wsdl:input message="tns:MultiDeliverySoapIn" />
+      <wsdl:output message="tns:MultiDeliverySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetVirtualNumbers">
+      <wsdl:input message="tns:GetVirtualNumbersSoapIn" />
+      <wsdl:output message="tns:GetVirtualNumbersSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPhoneGroups">
+      <wsdl:input message="tns:GetPhoneGroupsSoapIn" />
+      <wsdl:output message="tns:GetPhoneGroupsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendToGroup">
+      <wsdl:input message="tns:SendToGroupSoapIn" />
+      <wsdl:output message="tns:SendToGroupSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ScheduledSend">
+      <wsdl:input message="tns:ScheduledSendSoapIn" />
+      <wsdl:output message="tns:ScheduledSendSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetScheduleStatus">
+      <wsdl:input message="tns:GetScheduleStatusSoapIn" />
+      <wsdl:output message="tns:GetScheduleStatusSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RemoveScheduledSend">
+      <wsdl:input message="tns:RemoveScheduledSendSoapIn" />
+      <wsdl:output message="tns:RemoveScheduledSendSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetInbox">
+      <wsdl:input message="tns:GetInboxSoapIn" />
+      <wsdl:output message="tns:GetInboxSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="SendSoap" type="tns:SendSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="SendSms">
+      <soap:operation soapAction="Send/SendSms" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Credit">
+      <soap:operation soapAction="Send/Credit" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Delivery">
+      <soap:operation soapAction="Send/Delivery" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MultiDelivery">
+      <soap:operation soapAction="Send/MultiDelivery" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetVirtualNumbers">
+      <soap:operation soapAction="Send/GetVirtualNumbers" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPhoneGroups">
+      <soap:operation soapAction="Send/GetPhoneGroups" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendToGroup">
+      <soap:operation soapAction="Send/SendToGroup" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ScheduledSend">
+      <soap:operation soapAction="Send/ScheduledSend" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetScheduleStatus">
+      <soap:operation soapAction="Send/GetScheduleStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RemoveScheduledSend">
+      <soap:operation soapAction="Send/RemoveScheduledSend" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetInbox">
+      <soap:operation soapAction="Send/GetInbox" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="SendSoap12" type="tns:SendSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="SendSms">
+      <soap12:operation soapAction="Send/SendSms" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Credit">
+      <soap12:operation soapAction="Send/Credit" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Delivery">
+      <soap12:operation soapAction="Send/Delivery" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="MultiDelivery">
+      <soap12:operation soapAction="Send/MultiDelivery" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetVirtualNumbers">
+      <soap12:operation soapAction="Send/GetVirtualNumbers" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPhoneGroups">
+      <soap12:operation soapAction="Send/GetPhoneGroups" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendToGroup">
+      <soap12:operation soapAction="Send/SendToGroup" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ScheduledSend">
+      <soap12:operation soapAction="Send/ScheduledSend" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetScheduleStatus">
+      <soap12:operation soapAction="Send/GetScheduleStatus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RemoveScheduledSend">
+      <soap12:operation soapAction="Send/RemoveScheduledSend" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetInbox">
+      <soap12:operation soapAction="Send/GetInbox" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Send">
+    <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">WebService For Send And Recive Sms </wsdl:documentation>
+    <wsdl:port name="SendSoap" binding="tns:SendSoap">
+      <soap:address location="http://sms.prdco.ir/api/send.asmx" />
+    </wsdl:port>
+    <wsdl:port name="SendSoap12" binding="tns:SendSoap12">
+      <soap12:address location="http://sms.prdco.ir/api/send.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

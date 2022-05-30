@@ -1,0 +1,229 @@
+.dx-acc-r .dxTreeList_CollapsedButton_Metropolis:before,
+.dx-acc-r .dxTreeList_CollapsedButtonRtl_Metropolis:before,
+.dx-acc-r .dxTreeList_CTCollapseRow_Metropolis:before,
+.dx-acc-r .dxTreeList_CTCollapseRowDisabled_Metropolis:before,
+.dx-acc-r .dxTreeList_CTDeleteRow_Metropolis:before,
+.dx-acc-r .dxTreeList_CTDeleteRowDisabled_Metropolis:before,
+.dx-acc-r .dxTreeList_CTEditRow_Metropolis:before,
+.dx-acc-r .dxTreeList_CTEditRowDisabled_Metropolis:before,
+.dx-acc-r .dxTreeList_CTExpandRow_Metropolis:before,
+.dx-acc-r .dxTreeList_CTExpandRowDisabled_Metropolis:before,
+.dx-acc-r .dxTreeList_CTFullCollapse_Metropolis:before,
+.dx-acc-r .dxTreeList_CTFullCollapseDisabled_Metropolis:before,
+.dx-acc-r .dxTreeList_CTFullExpand_Metropolis:before,
+.dx-acc-r .dxTreeList_CTFullExpandDisabled_Metropolis:before,
+.dx-acc-r .dxTreeList_CTNewRow_Metropolis:before,
+.dx-acc-r .dxTreeList_CTNewRowDisabled_Metropolis:before,
+.dx-acc-r .dxTreeList_CTRefresh_Metropolis:before,
+.dx-acc-r .dxTreeList_CTRefreshDisabled_Metropolis:before,
+.dx-acc-r .dxTreeList_CTShowCustomizationWindow_Metropolis:before,
+.dx-acc-r .dxTreeList_CTShowCustomizationWindowDisabled_Metropolis:before,
+.dx-acc-r .dxTreeList_DragAndDropArrowDown_Metropolis:before,
+.dx-acc-r .dxTreeList_DragAndDropArrowUp_Metropolis:before,
+.dx-acc-r .dxTreeList_DragAndDropHide_Metropolis:before,
+.dx-acc-r .dxTreeList_DragAndDropNode_Metropolis:before,
+.dx-acc-r .dxTreeList_ExpandedButton_Metropolis:before,
+.dx-acc-r .dxTreeList_ExpandedButtonRtl_Metropolis:before,
+.dx-acc-r .dxTreeList_SortAsc_Metropolis:before,
+.dx-acc-r .dxTreeList_SortDesc_Metropolis:before
+
+{
+    content: url('spriteAccessible.png');
+
+}
+.dx-acc-r .dxTreeList_CollapsedButton_Metropolis:before
+
+{
+    left: -56px;
+    top: -74px;
+
+}
+.dx-acc-r .dxTreeList_CollapsedButtonRtl_Metropolis:before
+
+{
+    left: -14px;
+    top: -74px;
+
+}
+.dx-acc-r .dxTreeList_CTCollapseRow_Metropolis:before
+
+{
+    left: -17px;
+    top: -23px;
+
+}
+.dx-acc-r .dxTreeList_CTCollapseRowDisabled_Metropolis:before
+
+{
+    left: -68px;
+    top: -57px;
+
+}
+.dx-acc-r .dxTreeList_CTDeleteRow_Metropolis:before
+
+{
+    left: -40px;
+    top: 0px;
+
+}
+.dx-acc-r .dxTreeList_CTDeleteRowDisabled_Metropolis:before
+
+{
+    left: -17px;
+    top: -40px;
+
+}
+.dx-acc-r .dxTreeList_CTEditRow_Metropolis:before
+
+{
+    left: -68px;
+    top: -40px;
+
+}
+.dx-acc-r .dxTreeList_CTEditRowDisabled_Metropolis:before
+
+{
+    left: -17px;
+    top: -57px;
+
+}
+.dx-acc-r .dxTreeList_CTExpandRow_Metropolis:before
+
+{
+    left: -34px;
+    top: -40px;
+
+}
+.dx-acc-r .dxTreeList_CTExpandRowDisabled_Metropolis:before
+
+{
+    left: -68px;
+    top: -23px;
+
+}
+.dx-acc-r .dxTreeList_CTFullCollapse_Metropolis:before
+
+{
+    left: -51px;
+    top: -57px;
+
+}
+.dx-acc-r .dxTreeList_CTFullCollapseDisabled_Metropolis:before
+
+{
+    left: -34px;
+    top: -23px;
+
+}
+.dx-acc-r .dxTreeList_CTFullExpand_Metropolis:before
+
+{
+    left: 0px;
+    top: -23px;
+
+}
+.dx-acc-r .dxTreeList_CTFullExpandDisabled_Metropolis:before
+
+{
+    left: -57px;
+    top: 0px;
+
+}
+.dx-acc-r .dxTreeList_CTNewRow_Metropolis:before
+
+{
+    left: -51px;
+    top: -40px;
+
+}
+.dx-acc-r .dxTreeList_CTNewRowDisabled_Metropolis:before
+
+{
+    left: -23px;
+    top: 0px;
+
+}
+.dx-acc-r .dxTreeList_CTRefresh_Metropolis:before
+
+{
+    left: -51px;
+    top: -23px;
+
+}
+.dx-acc-r .dxTreeList_CTRefreshDisabled_Metropolis:before
+
+{
+    left: -34px;
+    top: -57px;
+
+}
+.dx-acc-r .dxTreeList_CTShowCustomizationWindow_Metropolis:before
+
+{
+    left: 0px;
+    top: -57px;
+
+}
+.dx-acc-r .dxTreeList_CTShowCustomizationWindowDisabled_Metropolis:before
+
+{
+    left: 0px;
+    top: -40px;
+
+}
+.dx-acc-r .dxTreeList_DragAndDropArrowDown_Metropolis:before
+
+{
+    left: -74px;
+    top: 0px;
+
+}
+.dx-acc-r .dxTreeList_DragAndDropArrowUp_Metropolis:before
+
+{
+    left: -75px;
+    top: -13px;
+
+}
+.dx-acc-r .dxTreeList_DragAndDropHide_Metropolis:before
+
+{
+    left: 0px;
+    top: 0px;
+
+}
+.dx-acc-r .dxTreeList_DragAndDropNode_Metropolis:before
+
+{
+    left: -42px;
+    top: -74px;
+
+}
+.dx-acc-r .dxTreeList_ExpandedButton_Metropolis:before
+
+{
+    left: 0px;
+    top: -74px;
+
+}
+.dx-acc-r .dxTreeList_ExpandedButtonRtl_Metropolis:before
+
+{
+    left: -28px;
+    top: -74px;
+
+}
+.dx-acc-r .dxTreeList_SortAsc_Metropolis:before
+
+{
+    left: -59px;
+    top: -17px;
+
+}
+.dx-acc-r .dxTreeList_SortDesc_Metropolis:before
+
+{
+    left: -67px;
+    top: -17px;
+
+}

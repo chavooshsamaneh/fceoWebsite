@@ -1,0 +1,352 @@
+﻿using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+using DevExpress.Web.ASPxGridView;
+
+
+public partial class Members_Message_MessSent : System.Web.UI.Page
+{
+    //public static bool IsSelectAll = false;
+    //public static int f = -1;
+    //public int MsgId;
+    public string SelectedMembers = "";
+    
+ 
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (Session["Login"] == null || Session["Login"].ToString() == "0")
+        {
+            Response.Redirect("../../Login.aspx?ReferPage=" + Request.Url.AbsoluteUri);
+            return;
+        }
+
+        this.DivReport.Visible = false;
+        //  Literal1.Text = "<script>div1.outerHTML='';</script>";
+        // msg.Visible = false;
+        this.DivReport.Attributes.Add("onclick", "ChangeVisible(this)");
+        this.DivReport.Attributes.Add("onmouseover", "ChangeIcon(this)");
+        //this.DivReport.Attributes.Add("style","POSITION: fixed; BACKGROUND-COLOR: yellow; LAYER-BACKGROUND-COLOR: yellow; width: 400; BORDER-LEFT: 1px solid black; BORDER-TOP: 1px solid black; BORDER-BOTTOM: 3px solid black; BORDER-RIGHT: 3px solid black; PADDING: 3px; z-index: 1000");
+
+        if (!IsPostBack)
+        {
+
+            TSP.DataManager.Permission per = TSP.DataManager.MessageManager.GetUserPermission(int.Parse(Session["Login"].ToString()), (TSP.DataManager.UserType)int.Parse(Session["LoginType"].ToString()));
+            if (!per.CanView)
+                CustomAspxDevGridView1.Visible = false;
+
+            if (!per.CanNew)
+            {
+                ASPxButton2.Enabled = false;
+                ASPxButton2.Enabled = false;
+            }
+        }
+
+        TextBoxReceivers.Text = "";
+
+        TSP.DataManager.LoginManager LoManager = new TSP.DataManager.LoginManager();
+        LoManager.FindByCode(int.Parse(Session["Login"].ToString()));
+
+        ObjectDataSource1.SelectParameters["Ult"].DefaultValue = LoManager[0]["UltId"].ToString();
+        ObjectDataSource1.SelectParameters["SenderId"].DefaultValue = LoManager[0]["MeId"].ToString();
+        ObjectDataSource1.SelectParameters["SenderType"].DefaultValue = LoManager[0]["UltId"].ToString();   
+ 
+
+      
+        
+
+
+        //  CustomAspxDevGridView1.FocusedRowIndex = f;
+        //string s = Utility.DecryptQS(Server.HtmlDecode(Request.QueryString["GrId"]).ToString());
+        //if (!string.IsNullOrEmpty(s))
+        // ObjectDataSource1.SelectParameters["ReceiverId"].DefaultValue = Session["Login"].ToString();
+
+
+        //if (string.IsNullOrEmpty(s))
+        //{
+        //    Response.Redirect("../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../../ErrorPage.aspx?ErrorType=1");
+        //    return;
+        //}
+
+    }
+    protected void CustomAspxDevGridView1_CustomButtonCallback(object sender, DevExpress.Web.ASPxGridView.ASPxGridViewCustomButtonCallbackEventArgs e)
+    {
+        if (Convert.ToBoolean(IsSelectAll.Value))
+        {
+            IsSelectAll.Value = "false";
+            CustomAspxDevGridView1.Selection.UnselectAll();
+            customButton.Text = "انتخاب همه";
+
+        }
+        else
+        {
+            IsSelectAll.Value = "true";
+            CustomAspxDevGridView1.Selection.SelectAll();
+            customButton.Text = "عدم انتخاب همه";
+        }
+    }
+    protected void CustomAspxDevGridView1_CustomButtonInitialize(object sender, DevExpress.Web.ASPxGridView.ASPxGridViewCustomButtonEventArgs e)
+    {
+        if (CustomAspxDevGridView1.Selection.Count == CustomAspxDevGridView1.VisibleRowCount)
+        {
+            IsSelectAll.Value = "true";
+            e.Button.Text = "عدم انتخاب همه";
+        }
+        else
+        {
+            IsSelectAll.Value = "false";
+            e.Button.Text = "انتخاب همه";
+
+        }
+
+    }
+    protected void LinkButton1_Click(object sender, EventArgs e)
+    {
+        TSP.DataManager.MessageReceiverManager MessRe = new TSP.DataManager.MessageReceiverManager();
+        TSP.DataManager.MemberManager MeManager = new TSP.DataManager.MemberManager();
+        TSP.DataManager.EmployeeManager EmpManager = new TSP.DataManager.EmployeeManager();
+
+        Label4.Visible = true;
+        Label3.Visible = true;
+        TextBoxReceivers.Height = 68;
+        TextBoxReceivers.Visible = true;
+        Panel1.Visible = true;
+        TextBoxReceivers.Text = "";
+
+        int curRow = CustomAspxDevGridView1.FocusedRowIndex;
+        DataRow r = (DataRow)CustomAspxDevGridView1.GetDataRow(curRow);
+        if (r != null)
+        {
+            // ASPxMemo1.Text=r["MsgBody"].ToString();
+          
+            Label4.Text = r["MsgBody"].ToString();
+            MsgId.Value=r["MsgId"].ToString();
+            MessRe.FindByCode(-1,-1,-1,int.Parse(MsgId.Value));
+           SelectedMembers = "";
+         
+
+            for (int j = 0; j < MessRe.Count; j++)
+            {
+                //SelectedMembers+=arl[j].ToString();
+                if (int.Parse(MessRe[j]["ReceiverType"].ToString()) == 1)
+                {
+                    MeManager.FindByCode(int.Parse(MessRe[j]["ReceiverId"].ToString()));
+                    if (MeManager.Count == 1)
+                    {
+                        SelectedMembers += MeManager[0]["FirstName"].ToString();
+                        SelectedMembers += " ";
+                        SelectedMembers += MeManager[0]["LastName"].ToString();
+                        SelectedMembers += ',';
+                    }
+                }
+                else
+                {
+                    EmpManager.FindByCode(int.Parse(MessRe[j]["ReceiverId"].ToString()));
+                    if(EmpManager.Count == 1)
+                    {
+                        SelectedMembers += EmpManager[0]["FirstName"].ToString();
+                        SelectedMembers += " ";
+                        SelectedMembers += EmpManager[0]["LastName"].ToString();
+                        SelectedMembers += ',';
+                    }
+                }
+
+            }
+
+            SelectedMembers = SelectedMembers.Remove(SelectedMembers.Length - 1);
+            TextBoxReceivers.Text = SelectedMembers;
+
+        }
+
+    }
+    protected void Label2_DataBinding(object sender, EventArgs e)
+    {
+        System.Web.UI.HtmlControls.HtmlGenericControl cont = new HtmlGenericControl("div");
+
+        Label lbl = (Label)sender;
+        string Stripped = System.Text.RegularExpressions.Regex.Replace(lbl.Text, @"<(.|\n)*?>", string.Empty);
+        //ASPxMemo1.Text = Stripped;
+        Label4.Text = Server.HtmlDecode(Stripped).ToString();
+        // ASPxMemo1.Text = Label2.Text;
+
+    }
+    protected void ASPxButton2_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("~/Members/Message/Compose.aspx?MsgId=" + int.Parse(MsgId.Value) + "&F=" + Utility.EncryptQS("1"));
+
+    }
+    protected void CustomAspxDevGridView1_HtmlRowCreated(object sender, DevExpress.Web.ASPxGridView.ASPxGridViewTableRowEventArgs e)
+    {
+        if (e.RowType != GridViewRowType.Data) return;
+
+        TSP.DataManager.MessageManager MesManager = new TSP.DataManager.MessageManager();
+        //if (Convert.ToBoolean(e.GetValue("IsRead")))
+        //    e.Row.BackColor = System.Drawing.Color.Blue;
+
+        MesManager.FindByMsgId(int.Parse(e.GetValue("MsgId").ToString()));
+        Label lbl;
+        if (MesManager.Count > 0)
+        {
+            System.Web.UI.Control cn = CustomAspxDevGridView1.FindControl("IconReply");
+            // lbl = (Label)e.Row.Cells[1].Controls[0];
+            // lbl.Visible = true;
+        }
+
+               
+   
+        //if (int.Parse(CustomAspxDevGridView1.GetDataRow(e.VisibleIndex)["MsgTypeId"].ToString()) == 2)
+        //    CustomAspxDevGridView1.FindControl("IconReply").Visible = true;
+  
+    }
+    protected void CustomAspxDevGridView1_HtmlRowPrepared(object sender, ASPxGridViewTableRowEventArgs e)
+    {
+        if (e.RowType != GridViewRowType.Data) return;
+
+        TSP.DataManager.MessageManager MesManager = new TSP.DataManager.MessageManager();
+        //if (Convert.ToBoolean(e.GetValue("IsRead")))
+        //    e.Row.BackColor = System.Drawing.Color.Blue;
+
+        MesManager.FindByMsgId(int.Parse(e.GetValue("MsgId").ToString()));
+        Label lbl;
+        if (MesManager.Count > 0)
+        {
+            System.Web.UI.Control cn = CustomAspxDevGridView1.FindControl("IconReply");
+            // lbl = (Label)e.Row.Cells[1].Controls[0];
+            // lbl.Visible = true;
+        }
+        LinkButton l = CustomAspxDevGridView1.FindRowCellTemplateControl(e.VisibleIndex, null, "LinkButton1") as LinkButton;
+        if (l != null)
+        {
+            string s = l.Text;
+            if (s.Length >= 40)
+                l.Text = (s.Substring(0, 40))+"...";
+            //int Count = MesManager.CountOfReceived(int.Parse(e.KeyValue.ToString()));
+            // l.Text = Count.ToString();
+        }    
+          
+    }
+    protected void CustomAspxDevGridView1_DataBound(object sender, EventArgs e)
+    {
+        CustomAspxDevGridView1.FocusedRowIndex = -1;
+
+    }
+    protected void CustomAspxDevGridView1_FocusedRowChanged(object sender, EventArgs e)
+    {
+        TSP.DataManager.MessageReceiverManager MessRe = new TSP.DataManager.MessageReceiverManager();
+        TSP.DataManager.MemberManager MeManager = new TSP.DataManager.MemberManager();
+        TSP.DataManager.EmployeeManager EmpManager = new TSP.DataManager.EmployeeManager();
+
+        Label4.Visible = true;
+        Label3.Visible = true;
+        TextBoxReceivers.Height = 68;
+        TextBoxReceivers.Visible = true;
+        Panel1.Visible = true;
+        TextBoxReceivers.Text = "";
+
+        int curRow = CustomAspxDevGridView1.FocusedRowIndex;
+        DataRow r = (DataRow)CustomAspxDevGridView1.GetDataRow(curRow);
+        if (r != null)
+        {
+            // ASPxMemo1.Text=r["MsgBody"].ToString();
+            RoundPanelSendMessage.HeaderText = r["MsgSubject"].ToString();
+            Label4.Text = r["MsgBody"].ToString();
+            MsgId.Value = r["MsgId"].ToString();
+            MessRe.FindByCode(-1,-1,-1,int.Parse(MsgId.Value));
+            SelectedMembers = "";
+
+
+            for (int j = 0; j < MessRe.Count; j++)
+            {
+                //SelectedMembers+=arl[j].ToString();
+                if (int.Parse(MessRe[j]["ReceiverType"].ToString()) == 1)
+                {
+                    MeManager.FindByCode(int.Parse(MessRe[j]["ReceiverId"].ToString()));
+                    if (MeManager.Count == 1)
+                    {
+                        SelectedMembers += MeManager[0]["FirstName"].ToString();
+                        SelectedMembers += " ";
+                        SelectedMembers += MeManager[0]["LastName"].ToString();
+                        SelectedMembers += ',';
+                    }
+                }
+                else
+                {
+                    EmpManager.FindByCode(int.Parse(MessRe[j]["ReceiverId"].ToString()));
+                    if (EmpManager.Count == 1)
+                    {
+                        SelectedMembers += EmpManager[0]["FirstName"].ToString();
+                        SelectedMembers += " ";
+                        SelectedMembers += EmpManager[0]["LastName"].ToString();
+                        SelectedMembers += ',';
+                    }
+                }
+
+            }
+
+            SelectedMembers = SelectedMembers.Remove(SelectedMembers.Length - 1);
+            TextBoxReceivers.Text = SelectedMembers;
+
+        }
+    }
+    protected void ASPxCallbackPanel1_Callback(object source, DevExpress.Web.ASPxClasses.CallbackEventArgsBase e)
+    {
+        if (!IsPostBack)
+        {
+            TSP.DataManager.MessageReceiverManager MessRe = new TSP.DataManager.MessageReceiverManager();
+            TSP.DataManager.MemberManager MeManager = new TSP.DataManager.MemberManager();
+            TSP.DataManager.EmployeeManager EmpManager = new TSP.DataManager.EmployeeManager();
+
+            MessRe.FindByCode(-1,-1,-1,int.Parse(MsgId.Value));
+            SelectedMembers = "";
+
+
+            for (int j = 0; j < MessRe.Count; j++)
+            {
+                //SelectedMembers+=arl[j].ToString();
+                if (int.Parse(MessRe[j]["ReceiverType"].ToString()) == 1)
+                {
+                    MeManager.FindByCode(int.Parse(MessRe[j]["ReceiverId"].ToString()));
+                    if (MeManager.Count == 1)
+                    {
+                        SelectedMembers += MeManager[0]["FirstName"].ToString();
+                        SelectedMembers += " ";
+                        SelectedMembers += MeManager[0]["LastName"].ToString();
+                        SelectedMembers += ',';
+                    }
+                }
+                else
+                {
+                    EmpManager.FindByCode(int.Parse(MessRe[j]["ReceiverId"].ToString()));
+                    if (EmpManager.Count == 1)
+                    {
+                        SelectedMembers += EmpManager[0]["FirstName"].ToString();
+                        SelectedMembers += " ";
+                        SelectedMembers += EmpManager[0]["LastName"].ToString();
+                        SelectedMembers += ',';
+                    }
+                }
+
+            }
+
+            SelectedMembers = SelectedMembers.Remove(SelectedMembers.Length - 1);
+            TextBoxReceivers.Text = SelectedMembers;
+
+        }
+    }
+    protected void CustomAspxDevGridView1_PageIndexChanged(object sender, EventArgs e)
+    {
+        CustomAspxDevGridView1.DataBind();
+
+    }
+
+    protected void btnBack_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("~/Members/Message/messageHome.aspx");
+    }
+}

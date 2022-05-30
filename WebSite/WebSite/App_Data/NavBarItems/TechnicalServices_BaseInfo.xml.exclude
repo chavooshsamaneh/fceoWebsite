@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Groups>
+  <NavBarGroup Text="اطلاعات پایه" Name="grpBaseInfo">
+    <NavBarItem NavigateUrl="~/Employee/TechnicalServices/BaseInfo/DiscountPercent.aspx" Text="درصد تخفیف برای پروژه های خاص">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="~/Employee/TechnicalServices/BaseInfo/ProjectIngridientMajors.aspx" Text="مدیریت رشته های مجاز عوامل پروِژه">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="~/Employee/TechnicalServices/Plan/PlanControler.aspx" Text="مدیریت کنترل کنندگان نقشه">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="~/Employee/TechnicalServices/BaseInfo/MemberDsgnCapacity.aspx" Text="مدیریت ظرفیت اشتغال طراحی/نظارت">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="~/Employee/TechnicalServices/BaseInfo/MemberImpCapacity.aspx" Text="مدیریت ظرفیت اشتغال اجرا">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="~/Employee/TechnicalServices/PriceArchive/PriceArchive.aspx" Text="مدیریت تعرفه خدمات مهندسی طراحی و نظارت">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="~/Employee/TechnicalServices/BaseInfo/Setting.aspx" Text="مدیریت تنظیمات خدمات مهندسی">
+    </NavBarItem>
+  </NavBarGroup>
+</Groups>

@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Groups>
+
+
+  <NavBarGroup Text="اطلاعات پروژه" Expanded="False" Name="grpProject">
+    <NavBarItem NavigateUrl="~/Members/TechnicalServices/Project/Project.aspx" Text="مدیریت پروژه ها"/>
+    <NavBarItem NavigateUrl="~/Members/TechnicalServices/Project/DevelopmentPercent.aspx" Text="مدیریت اعلام های پیشرفت کار"/>
+  </NavBarGroup>
+
+
+</Groups>

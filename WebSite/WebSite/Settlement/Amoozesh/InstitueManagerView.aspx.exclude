@@ -1,0 +1,481 @@
+﻿<%@ Page Language="C#" MasterPageFile="~/Settlement/Amoozesh/SettlmentMaster.master" AutoEventWireup="true"
+    CodeFile="InstitueManagerView.aspx.cs" Inherits="Settlement_Amoozesh_InstitueManagerView"
+    Title="مشخصات هیئت اجرایی موسسه" %>
+
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxcb" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxcp" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxhf" %>
+<%@ Register Assembly="TSP.WebControls" Namespace="TSP.WebControls" TagPrefix="TSPControls" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxrp" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxe" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxm" %>
+<%@ Register Assembly="AjaxControls" Namespace="AjaxControls" TagPrefix="asp" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxp" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxpc" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxwgv" %>
+<%@ Register Assembly="PersianDateControls 2.0" Namespace="PersianDateControls" TagPrefix="pdc" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+    <div align="center">
+        <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+            <contenttemplate>
+<DIV style="WIDTH: 100%" align=center><DIV style="TEXT-ALIGN: right" dir=rtl id="DivReport" class="DivErrors" runat="server"><asp:Label id="LabelWarning" runat="server" Text="Label"></asp:Label>[<A class="closeLink" href="#">بستن</A>]</DIV><DIV style="WIDTH: 100%" dir=ltr  align="right" id="DIV1" onclick="return DIV1_onclick()"><dxrp:ASPxRoundPanel id="RoundPanelHeader" runat="server" Width="100%" ShowHeader="False" HorizontalAlign="Right"  BackColor="#EBF2F4" >
+<LeftEdge>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif"></BackgroundImage>
+</LeftEdge>
+
+<BottomRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpBottomRightCorner.png"></BottomRightCorner>
+
+<HeaderContent>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderBack.gif"></BackgroundImage>
+</HeaderContent>
+
+<ContentPaddings PaddingTop="0px" Padding="0px" PaddingBottom="0px" PaddingLeft="0px"></ContentPaddings>
+
+<NoHeaderTopRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopRightCorner.png"></NoHeaderTopRightCorner>
+
+<RightEdge>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif"></BackgroundImage>
+</RightEdge>
+
+<HeaderRightEdge>
+<BackgroundImage VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderRightEdge.gif"></BackgroundImage>
+</HeaderRightEdge>
+
+<Border BorderWidth="1px" BorderStyle="Solid" BorderColor="#7EACB1"></Border>
+
+<HeaderStyle BackColor="White" Height="23px">
+<Paddings PaddingTop="0px" PaddingBottom="0px" PaddingLeft="2px"></Paddings>
+
+<BorderBottom BorderStyle="None"></BorderBottom>
+</HeaderStyle>
+
+<Content>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpContentBack.gif"></BackgroundImage>
+</Content>
+
+<HeaderLeftEdge>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderLeftEdge.gif"></BackgroundImage>
+</HeaderLeftEdge>
+
+<BottomEdge BackColor="#D7E9F1"></BottomEdge>
+
+<TopRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpTopRightCorner.png"></TopRightCorner>
+
+<NoHeaderTopLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopLeftCorner.png"></NoHeaderTopLeftCorner>
+<PanelCollection>
+<dxp:PanelContent runat="server"><DIV style="WIDTH: 100%" dir=rtl><TABLE style="BORDER-COLLAPSE: collapse; BACKGROUND-COLOR: transparent" dir=rtl cellPadding=0><TBODY><TR><TD ><TSPControls:CustomTextBox runat="server" Text=" "  ToolTip="بازگشت" ID="btnBack" EnableViewState="False" EnableTheming="False" OnClick="btnBack_Click" UseSubmitBehavior="False">
+<HoverStyle BackColor="#FFE0C0">
+<Border BorderWidth="1px" BorderStyle="Outset" BorderColor="Gray"></Border>
+</HoverStyle>
+
+<Image  Url="~/Images/icons/Back.png"></Image>
+</TSPControls:CustomTextBox>
+ </TD></TR></TBODY></TABLE></DIV></dxp:PanelContent>
+</PanelCollection>
+
+<TopLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpTopLeftCorner.png"></TopLeftCorner>
+
+<NoHeaderTopEdge BackColor="#EBF2F4"></NoHeaderTopEdge>
+
+<BottomLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpBottomLeftCorner.png"></BottomLeftCorner>
+</dxrp:ASPxRoundPanel><BR /><dxe:ASPxLabel id="lblInsName" runat="server" Text="ASPxLabel"></dxe:ASPxLabel> </DIV><BR /><DIV dir=ltr><dxrp:ASPxRoundPanel id="RoundPanelInsManager" runat="server" Width="100%" HorizontalAlign="Right"  BackColor="#EBF2F4"  HeaderText="ویرایش">
+<LeftEdge>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif"></BackgroundImage>
+</LeftEdge>
+
+<BottomRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpBottomRightCorner.png"></BottomRightCorner>
+
+<HeaderContent>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderBack.gif"></BackgroundImage>
+</HeaderContent>
+
+<ContentPaddings PaddingTop="10px" PaddingBottom="10px" PaddingLeft="4px"></ContentPaddings>
+
+<NoHeaderTopRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopRightCorner.png"></NoHeaderTopRightCorner>
+
+<RightEdge>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif"></BackgroundImage>
+</RightEdge>
+
+<HeaderRightEdge>
+<BackgroundImage VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderRightEdge.gif"></BackgroundImage>
+</HeaderRightEdge>
+
+<Border BorderWidth="1px" BorderStyle="Solid" BorderColor="#7EACB1"></Border>
+
+<HeaderStyle HorizontalAlign="Right" BackColor="White" Height="23px">
+<Paddings PaddingTop="0px" PaddingBottom="0px" PaddingLeft="2px"></Paddings>
+
+<BorderBottom BorderStyle="None"></BorderBottom>
+</HeaderStyle>
+
+<Content>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpContentBack.gif"></BackgroundImage>
+</Content>
+
+<HeaderLeftEdge>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderLeftEdge.gif"></BackgroundImage>
+</HeaderLeftEdge>
+
+<BottomEdge BackColor="#D7E9F1"></BottomEdge>
+
+<TopRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpTopRightCorner.png"></TopRightCorner>
+
+<NoHeaderTopLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopLeftCorner.png"></NoHeaderTopLeftCorner>
+<PanelCollection>
+<dxp:PanelContent runat="server">
+<div id="Div4" dir="rtl" onclick="return DIV3_onclick()"><TABLE style="VERTICAL-ALIGN: top; TEXT-ALIGN: right" width="100%"><TBODY><TR><TD style="vertical-align: top; text-align: right;" dir=ltr><dxe:ASPxLabel runat="server" Text="وضعیت عضویت در نظام" Width="115px" ID="ASPxLabel14"></dxe:ASPxLabel>
+
+ </TD><TD dir=ltr><ReadOnlyStyle HorizontalAlign="NotSet" VerticalAlign="NotSet" Wrap="Default"></ReadOnlyStyle>
+
+<ButtonStyle Spacing="" Width=""></ButtonStyle>
+     <dxe:ASPxLabel ID="txtMeType" runat="server" Text="- - -">
+     </dxe:ASPxLabel>
+
+ </TD><TD style="vertical-align: top;"></TD><TD dir=ltr></TD></TR>
+                <tr>
+                    <td dir="ltr" style="vertical-align: top; text-align: right">
+                    </td>
+                    <td dir="ltr">
+                    </td>
+                    <td style="vertical-align: top">
+                    </td>
+                    <td dir="ltr">
+                    </td>
+                </tr>
+                <TR><TD style="vertical-align: top; text-align: right;" dir=ltr><dxe:ASPxLabel runat="server" Text="کد عضویت" ID="lblMeNo"></dxe:ASPxLabel>
+
+ </TD><TD dir=ltr>
+     <dxe:ASPxLabel ID="txtMeNo" runat="server" Text="- - -">
+     </dxe:ASPxLabel>
+
+ </TD><TD style="vertical-align: top;" align="right" colspan="2">
+</TD></TR>
+                <tr>
+                    <td dir="ltr" style="vertical-align: top; text-align: right">
+                    </td>
+                    <td dir="ltr">
+                    </td>
+                    <td align="right" colspan="2" style="vertical-align: top">
+                    </td>
+                </tr>
+                <TR><TD style="vertical-align: top; text-align: right;"><dxe:ASPxLabel runat="server" Text="نام" ID="lblName"></dxe:ASPxLabel>
+
+ </TD><TD>
+     <dxe:ASPxLabel ID="txtName" runat="server" Text="- - -">
+     </dxe:ASPxLabel>
+
+</TD><TD style="vertical-align: top; text-align: right;"><dxe:ASPxLabel runat="server" Text="نام خانوادگی" ID="lblFamily"></dxe:ASPxLabel>
+
+ </TD><TD style="vertical-align: top; text-align: right">
+     <dxe:ASPxLabel ID="txtFamily" runat="server" Text="- - -">
+     </dxe:ASPxLabel>
+
+</TD></TR>
+                <tr>
+                    <td style="vertical-align: top; text-align: right">
+                    </td>
+                    <td>
+                    </td>
+                    <td style="vertical-align: top; text-align: right">
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+                <TR><TD style="vertical-align: top; text-align: right;"><dxe:ASPxLabel runat="server" Text="نام پدر" ID="ASPxLabel3"></dxe:ASPxLabel>
+
+ </TD><TD>
+     <dxe:ASPxLabel ID="txtFather" runat="server" Text="- - -">
+     </dxe:ASPxLabel>
+
+</TD><TD style="vertical-align: top; text-align: right;"><dxe:ASPxLabel runat="server" Text="تاریخ تولد" ID="ASPxLabel4"></dxe:ASPxLabel>
+
+ </TD><TD style="vertical-align: top; text-align: right"><%--<asp:RequiredFieldValidator runat="server" ErrorMessage="تاریخ تولد" ToolTip="لطفاً این فیلد را پر کنید." ControlToValidate="txtBrithDate" Width="134px" ID="RequiredFieldValidator1" Display="Dynamic">لطفاً این فیلد را پر کنید.</asp:RequiredFieldValidator>--%>
+
+
+
+
+     <dxe:ASPxLabel ID="txtBrithDate" runat="server" Text="- - -">
+     </dxe:ASPxLabel>
+
+</TD></TR>
+                <tr>
+                    <td style="vertical-align: top; text-align: right">
+                    </td>
+                    <td>
+                    </td>
+                    <td style="vertical-align: top; text-align: right">
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+                <TR><TD style="vertical-align: top; text-align: right;"><dxe:ASPxLabel runat="server" Text="شماره شناسنامه" ID="ASPxLabel5"></dxe:ASPxLabel>
+
+ </TD><TD>
+     <dxe:ASPxLabel ID="txtIdNo" runat="server" Text="- - -">
+     </dxe:ASPxLabel>
+
+</TD><TD style="vertical-align: top; text-align: right;"><dxe:ASPxLabel runat="server" Text="کد ملی" ID="ASPxLabel6"></dxe:ASPxLabel>
+
+ </TD><TD style="vertical-align: top; text-align: right">
+     <dxe:ASPxLabel ID="txtSSN" runat="server" Text="- - -">
+     </dxe:ASPxLabel>
+
+</TD></TR>
+                <tr>
+                    <td style="vertical-align: top; text-align: right">
+                    </td>
+                    <td>
+                    </td>
+                    <td style="vertical-align: top; text-align: right">
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+                <TR><TD style="vertical-align: top; text-align: right;"><dxe:ASPxLabel runat="server" Text="شماره تلفن" ID="ASPxLabel7"></dxe:ASPxLabel>
+
+ </TD><TD>
+     <dxe:ASPxLabel ID="txtTell" runat="server" Text="- - -">
+     </dxe:ASPxLabel>
+
+</TD><TD style="vertical-align: top; text-align: right;"><dxe:ASPxLabel runat="server" Text="تلفن همراه" ID="ASPxLabel8" Width="57px"></dxe:ASPxLabel>
+
+ </TD><TD style="vertical-align: top; text-align: right">
+     <dxe:ASPxLabel ID="txtMobile" runat="server" Text="- - -">
+     </dxe:ASPxLabel>
+
+</TD></TR>
+                <tr>
+                    <td style="vertical-align: top; text-align: right">
+                    </td>
+                    <td>
+                    </td>
+                    <td style="vertical-align: top; text-align: right">
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+                <TR><TD style="vertical-align: top; text-align: right;"><dxe:ASPxLabel runat="server" Text="پست الکترونیکی" ID="ASPxLabel9"></dxe:ASPxLabel>
+
+ </TD><TD>
+     <dxe:ASPxLabel ID="txtEmail" runat="server" Text="- - -">
+     </dxe:ASPxLabel>
+
+</TD><TD style="vertical-align: top;"></TD><TD></TD></TR>
+                <tr>
+                    <td style="vertical-align: top; text-align: right">
+                    </td>
+                    <td>
+                    </td>
+                    <td style="vertical-align: top">
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+                <TR><TD style="vertical-align: top; text-align: right;"><dxe:ASPxLabel runat="server" Text="مدرک تحصیلی" ID="ASPxLabel10"></dxe:ASPxLabel>
+
+ </TD><TD dir=ltr><ReadOnlyStyle HorizontalAlign="NotSet" VerticalAlign="NotSet" Wrap="Default"></ReadOnlyStyle>
+
+<ButtonStyle Spacing="" Width=""></ButtonStyle>
+     <dxe:ASPxLabel ID="txtLicence" runat="server" Text="- - -">
+     </dxe:ASPxLabel>
+
+ </TD><TD style="vertical-align: top; text-align: right;"><dxe:ASPxLabel runat="server" Text="رشته تحصیلی" ID="ASPxLabel11" Width="93px"></dxe:ASPxLabel>
+
+ </TD><TD dir=ltr style="vertical-align: top; text-align: right"><ReadOnlyStyle HorizontalAlign="NotSet" VerticalAlign="NotSet" Wrap="Default"></ReadOnlyStyle>
+
+<ButtonStyle Spacing="" Width=""></ButtonStyle>
+     <dxe:ASPxLabel ID="txtMajor" runat="server" Text="- - -">
+     </dxe:ASPxLabel>
+
+ </TD></TR>
+                <tr>
+                    <td style="vertical-align: top; text-align: right">
+                    </td>
+                    <td dir="ltr">
+                    </td>
+                    <td style="vertical-align: top; text-align: right">
+                    </td>
+                    <td dir="ltr">
+                    </td>
+                </tr>
+                <tr><td style="vertical-align: top; text-align: right;"><dxe:ASPxLabel runat="server" Text="میزان سهم(درصد)" ID="ASPxLabel1"></dxe:ASPxLabel>
+
+ </td><td dir="ltr">
+     <dxe:ASPxLabel ID="txtInsShares" runat="server" Text="- - -">
+     </dxe:ASPxLabel>
+
+ </td><td style="vertical-align: top; text-align: right;"><dxe:ASPxLabel runat="server" Text="مدت سابقه آموزشی" ID="ASPxLabel2" Width="111px"></dxe:ASPxLabel>
+
+ </td><td dir="ltr" style="vertical-align: top; text-align: right">
+     <dxe:ASPxLabel ID="txtJobDuration" runat="server" Text="- - -">
+     </dxe:ASPxLabel>
+
+ </td></tr>
+                <tr>
+                    <td style="vertical-align: top; text-align: right">
+                    </td>
+                    <td dir="ltr">
+                    </td>
+                    <td style="vertical-align: top; text-align: right">
+                    </td>
+                    <td dir="ltr">
+                    </td>
+                </tr>
+                <tr><td style="vertical-align: top; text-align: right;"><dxe:ASPxLabel runat="server" Text="آدرس" ID="ASPxLabel12"></dxe:ASPxLabel>
+
+ </td><td colspan="3" style="vertical-align: top; text-align: right">
+     <dxe:ASPxLabel ID="txtAddress" runat="server" Text="- - -" Width="100%">
+     </dxe:ASPxLabel>
+
+</td></tr>
+                <tr>
+                    <td style="vertical-align: top; text-align: right">
+                    </td>
+                    <td colspan="3">
+                    </td>
+                </tr>
+                <TR><TD style="vertical-align: top; text-align: right;"><dxe:ASPxLabel runat="server" Text="توضیحات" ID="ASPxLabel13"></dxe:ASPxLabel>
+
+ </TD><TD colSpan=3 style="vertical-align: top; text-align: right">
+     <dxe:ASPxLabel ID="txtDescription" runat="server" Text="- - -" Width="100%">
+     </dxe:ASPxLabel>
+
+</TD></TR></TBODY></TABLE></div>
+</dxp:PanelContent>
+</PanelCollection>
+
+<TopLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpTopLeftCorner.png"></TopLeftCorner>
+
+<NoHeaderTopEdge BackColor="#EBF2F4"></NoHeaderTopEdge>
+
+<BottomLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpBottomLeftCorner.png"></BottomLeftCorner>
+</dxrp:ASPxRoundPanel><BR /><DIV style="WIDTH: 100%; TEXT-ALIGN: right" dir=ltr id="Div2" onclick="return DIV1_onclick()"><dxrp:ASPxRoundPanel id="ASPxRoundPanel1" runat="server" Width="100%" ShowHeader="False" HorizontalAlign="Right"  BackColor="#EBF2F4" >
+<LeftEdge>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif"></BackgroundImage>
+</LeftEdge>
+
+<BottomRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpBottomRightCorner.png"></BottomRightCorner>
+
+<HeaderContent>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderBack.gif"></BackgroundImage>
+</HeaderContent>
+
+<ContentPaddings PaddingTop="0px" Padding="0px" PaddingBottom="0px" PaddingLeft="0px"></ContentPaddings>
+
+<NoHeaderTopRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopRightCorner.png"></NoHeaderTopRightCorner>
+
+<RightEdge>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif"></BackgroundImage>
+</RightEdge>
+
+<HeaderRightEdge>
+<BackgroundImage VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderRightEdge.gif"></BackgroundImage>
+</HeaderRightEdge>
+
+<Border BorderWidth="1px" BorderStyle="Solid" BorderColor="#7EACB1"></Border>
+
+<HeaderStyle BackColor="White" Height="23px">
+<Paddings PaddingTop="0px" PaddingBottom="0px" PaddingLeft="2px"></Paddings>
+
+<BorderBottom BorderStyle="None"></BorderBottom>
+</HeaderStyle>
+
+<Content>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpContentBack.gif"></BackgroundImage>
+</Content>
+
+<HeaderLeftEdge>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderLeftEdge.gif"></BackgroundImage>
+</HeaderLeftEdge>
+
+<BottomEdge BackColor="#D7E9F1"></BottomEdge>
+
+<TopRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpTopRightCorner.png"></TopRightCorner>
+
+<NoHeaderTopLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopLeftCorner.png"></NoHeaderTopLeftCorner>
+<PanelCollection>
+<dxp:PanelContent runat="server"><DIV style="WIDTH: 100%" dir=rtl><TABLE style="BORDER-COLLAPSE: collapse; BACKGROUND-COLOR: transparent" dir=rtl cellPadding=0><TBODY><TR><TD ><TSPControls:CustomTextBox runat="server" Text=" "  ToolTip="بازگشت" ID="btnBack2" EnableViewState="False" EnableTheming="False" OnClick="btnBack_Click" UseSubmitBehavior="False">
+<HoverStyle BackColor="#FFE0C0">
+<Border BorderWidth="1px" BorderStyle="Outset" BorderColor="Gray"></Border>
+</HoverStyle>
+
+<Image  Url="~/Images/icons/Back.png"></Image>
+</TSPControls:CustomTextBox>
+ </TD></TR></TBODY></TABLE><dxhf:ASPxHiddenField runat="server" ID="HiddenFieldInsManager"></dxhf:ASPxHiddenField>
+ </DIV></dxp:PanelContent>
+</PanelCollection>
+
+<TopLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpTopLeftCorner.png"></TopLeftCorner>
+
+<NoHeaderTopEdge BackColor="#EBF2F4"></NoHeaderTopEdge>
+
+<BottomLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpBottomLeftCorner.png"></BottomLeftCorner>
+</dxrp:ASPxRoundPanel> </DIV></DIV></DIV><asp:ObjectDataSource id="ObjdsLicence" runat="server" InsertMethod="Insert" TypeName="TSP.DataManager.LicenceManager" DeleteMethod="Delete" SelectMethod="GetData" UpdateMethod="Update"><DeleteParameters>
+<asp:Parameter Type="Int32" Name="Original_LiId"></asp:Parameter>
+<asp:Parameter Type="Object" Name="Original_LastTimeStamp"></asp:Parameter>
+</DeleteParameters>
+<UpdateParameters>
+<asp:Parameter Type="String" Name="LiCode"></asp:Parameter>
+<asp:Parameter Type="String" Name="LiName"></asp:Parameter>
+<asp:Parameter Type="String" Name="Decription"></asp:Parameter>
+<asp:Parameter Type="Int32" Name="UserId"></asp:Parameter>
+<asp:Parameter Type="DateTime" Name="ModifiedDate"></asp:Parameter>
+<asp:Parameter Type="Int32" Name="Original_LiId"></asp:Parameter>
+<asp:Parameter Type="Object" Name="Original_LastTimeStamp"></asp:Parameter>
+<asp:Parameter Type="Int32" Name="LiId"></asp:Parameter>
+</UpdateParameters>
+<InsertParameters>
+<asp:Parameter Type="String" Name="LiCode"></asp:Parameter>
+<asp:Parameter Type="String" Name="LiName"></asp:Parameter>
+<asp:Parameter Type="String" Name="Decription"></asp:Parameter>
+<asp:Parameter Type="Int32" Name="UserId"></asp:Parameter>
+<asp:Parameter Type="DateTime" Name="ModifiedDate"></asp:Parameter>
+</InsertParameters>
+</asp:ObjectDataSource> <asp:ObjectDataSource id="ObjdsMajor" runat="server" InsertMethod="Insert" TypeName="TSP.DataManager.MajorManager" DeleteMethod="Delete" SelectMethod="GetData" UpdateMethod="Update">
+    <DeleteParameters>
+        <asp:Parameter Name="Original_MjId" Type="Int32" />
+        <asp:Parameter Name="Original_LastTimeStamp" Type="Object" />
+    </DeleteParameters>
+    <UpdateParameters>
+        <asp:Parameter Name="MjCode" Type="String" />
+        <asp:Parameter Name="ParentId" Type="Int32" />
+        <asp:Parameter Name="Description" Type="String" />
+        <asp:Parameter Name="UserId" Type="Int32" />
+        <asp:Parameter Name="ModifiedDate" Type="DateTime" />
+        <asp:Parameter Name="Original_MjId" Type="Int32" />
+        <asp:Parameter Name="Original_LastTimeStamp" Type="Object" />
+        <asp:Parameter Name="MjId" Type="Int32" />
+    </UpdateParameters>
+    <InsertParameters>
+        <asp:Parameter Name="MjCode" Type="String" />
+        <asp:Parameter Name="MjName" Type="String" />
+        <asp:Parameter Name="ParentId" Type="Int32" />
+        <asp:Parameter Name="Description" Type="String" />
+        <asp:Parameter Name="UserId" Type="Int32" />
+        <asp:Parameter Name="ModifiedDate" Type="DateTime" />
+    </InsertParameters>
+</asp:ObjectDataSource> 
+</contenttemplate>
+        </asp:UpdatePanel>
+        <asp:ModalUpdateProgress ID="ModalUpdateProgress2" runat="server" AssociatedUpdatePanelID="UpdatePanel1"
+            BackgroundCssClass="modalProgressGreyBackground" DisplayAfter="0">
+            <progresstemplate>
+            <div class="modalPopup">
+                لطفا صبر نمایید
+                <img align="middle" src="../../Image/indicator.gif" />
+            </div>
+        </progresstemplate>
+        </asp:ModalUpdateProgress>
+    </div>
+</asp:Content>

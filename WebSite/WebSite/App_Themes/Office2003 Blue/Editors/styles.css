@@ -1,0 +1,675 @@
+.dxeLoadingDiv_Office2003_Blue
+{
+	background: White;
+    opacity: 0.85;
+    filter: alpha(opacity=85);
+    cursor: wait;
+}
+.dxeLoadingPanel_Office2003_Blue
+{
+	font: 9pt Tahoma;
+	color: #303030;
+}
+.dxeLoadingPanel_Office2003_Blue td.dx
+{
+	white-space: nowrap;
+	text-align: center;
+	padding: 12px 12px 12px 12px;
+}
+
+.dxeBase_Office2003_Blue
+{
+    font-family: Tahoma;
+    font-size: 9pt;
+}
+/* -- ErrorFrame -- */
+.dxeErrorCell_Office2003_Blue, .dxeErrorCell_Office2003_Blue td
+{
+    font-family: Tahoma;
+    font-size: 9pt;
+	color: Red;
+}
+.dxeErrorCell_Office2003_Blue
+{
+	padding-left: 4px;
+	padding-right:5px;		
+}
+.dxeErrorFrame_Office2003_Blue
+{
+	
+}
+.dxeErrorFrameWithoutError_Office2003_Blue {
+    border: 1px solid Red;
+}
+.dxeErrorFrameWithoutError_Office2003_Blue .dxeControlsCell_Office2003_Blue {
+    padding: 2px;
+}
+
+.dxeEditArea_Office2003_Blue 
+{
+	font-family: Tahoma;
+	font-size: 9pt;
+	border: solid 1px #6a8ccb;
+}
+/* -- Buttons -- */
+.dxeButtonEditButton_Office2003_Blue, .dxeCalendarButton_Office2003_Blue,
+.dxeSpinIncButton_Office2003_Blue, .dxeSpinDecButton_Office2003_Blue,
+.dxeSpinLargeIncButton_Office2003_Blue, .dxeSpinLargeDecButton_Office2003_Blue
+{
+	vertical-align: middle;
+	border: solid 1px #6a8ccb;
+	cursor: pointer;
+	cursor: hand;
+} 
+.dxeButtonEditButton_Office2003_Blue, .dxeCalendarButton_Office2003_Blue, .dxeButtonEditButton_Office2003_Blue td.dx, .dxeCalendarButton_Office2003_Blue td.dx,
+.dxeSpinIncButton_Office2003_Blue, .dxeSpinDecButton_Office2003_Blue,
+.dxeSpinLargeIncButton_Office2003_Blue, .dxeSpinLargeDecButton_Office2003_Blue,
+.dxeSpinIncButton_Office2003_Blue td.dx, .dxeSpinDecButton_Office2003_Blue td.dx,
+.dxeSpinLargeIncButton_Office2003_Blue td.dx, .dxeSpinLargeDecButton_Office2003_Blue td.dx
+{	
+    font-family: Tahoma;
+    font-size: 9pt;    
+    font-weight: normal;    
+	text-align: center;
+} 
+.dxeButtonEditButton_Office2003_Blue
+{
+	background: url(edtButtonBack.gif) repeat-x center bottom #d7e8fd;
+    padding: 3px 1px;
+    padding-bottom: 4px;
+    padding-top: 2px;
+}
+.dxeSpinIncButton_Office2003_Blue, .dxeSpinDecButton_Office2003_Blue
+{
+	border-style: none;	
+	padding: 0px;
+}
+.dxeSpinLargeIncButton_Office2003_Blue, .dxeSpinLargeDecButton_Office2003_Blue
+{
+	border: Solid 1px #6787b8;	
+	padding: 0px;
+}
+
+.dxeButtonEditButton_Office2003_Blue table.dxbebt
+{
+	width: 14px;
+}
+.dxeSpinLargeIncButton_Office2003_Blue
+{
+    padding-left: 1px;
+}
+.dxeSpinIncButton_Office2003_Blue
+{
+    background: url('edtSpinIncBtnBack.gif') no-repeat top left #9abbea;
+	border-bottom: Solid 1px #FFFFFF;
+}
+.dxeSpinDecButton_Office2003_Blue
+{
+	background: url('edtSpinDecBtnBack.gif') no-repeat top left #a2c1ec;
+    border-bottom-style: none;
+}
+.dxeSpinLargeIncButton_Office2003_Blue, .dxeSpinLargeDecButton_Office2003_Blue
+{
+   	background: url('edtSpinLargeIncBtnBack.gif') repeat-x top left #93b6e8;
+}
+
+.dxeCalendarButton_Office2003_Blue
+{
+	background: url(edtButtonBack.gif) repeat-x center bottom #d7e8fd;
+	padding: 4px 11px;
+	padding-top: 2px;
+	width: 32px;
+    cursor: default;
+}
+.dxeCalendarButton_Office2003_Blue table.dxbebt
+{
+	width: 100%;
+}
+.dxeCalendarButton_Office2003_Blue td.dx
+{
+	text-align: center;
+	white-space: nowrap;    
+}
+/* SpinButtons */
+.dxeSpinIncButton_Office2003_Blue table.dxbebt, .dxeSpinDecButton_Office2003_Blue table.dxbebt
+{
+	width: 15px;
+}
+.dxeSpinLargeDecButton_Office2003_Blue table.dxbebt
+{
+	width: 13px;
+}
+.dxeSpinLargeIncButton_Office2003_Blue table.dxbebt
+{
+	width: 12px;    
+}
+
+/* -- Pressed -- */
+.dxeCalendarButtonPressed_Office2003_Blue, .dxeButtonEditButtonPressed_Office2003_Blue
+{
+	background: url(edtButtonBackPressed.gif) repeat-x center top #ffcf8b;
+	border: solid 1px #000080;	
+}
+/* SpinButtons */
+.dxeSpinIncButtonPressed_Office2003_Blue, .dxeSpinDecButtonPressed_Office2003_Blue
+{
+    border-style: none;    
+}
+.dxeSpinIncButtonPressed_Office2003_Blue
+{
+	background: url('edtSpinIncBtnPBack.gif') no-repeat top left #ffbc78;
+    border-bottom: Solid 1px #FFFFFF;    
+}
+.dxeSpinDecButtonPressed_Office2003_Blue
+{
+	background: url('edtSpinIncBtnPBack.gif') no-repeat top left #ffbc78;
+    border-bottom-style: none;
+}
+.dxeSpinLargeIncButtonPressed_Office2003_Blue, .dxeSpinLargeDecButtonPressed_Office2003_Blue
+{
+	background: url('edtSpinLargeIncBtnPBack.gif') repeat-x top left #ffc17c;
+}
+/* -- Hover -- */
+.dxeCalendarButtonHover_Office2003_Blue, .dxeButtonEditButtonHover_Office2003_Blue
+{
+	background: url(edtButtonBackHover.gif) repeat-x center bottom #fff2c8;
+	border: solid 1px #000080;
+}
+/* SpinButtons */
+.dxeSpinIncButtonHover_Office2003_Blue, .dxeSpinDecButtonHover_Office2003_Blue
+{
+    border-style: none;    
+}
+.dxeSpinIncButtonHover_Office2003_Blue
+{
+	background: url('edtSpinIncBtnHBack.gif') no-repeat top left #ffdda6;
+    border-bottom: Solid 1px #ffffff;    
+}
+.dxeSpinDecButtonHover_Office2003_Blue
+{
+	background: url('edtSpinIncBtnHBack.gif') no-repeat top left #ffdda6;
+    border-bottom-style: none;
+}
+.dxeSpinLargeIncButtonHover_Office2003_Blue, .dxeSpinLargeDecButtonHover_Office2003_Blue
+{
+	background: url('edtSpinLargeIncBtnHBack.gif') repeat-x top left #ffdaa1;
+	border-left: Solid 1px #000080;
+}
+
+.dxeButtonEdit_Office2003_Blue
+{
+    background-color: white;
+    border: solid 1px #6a8ccb;
+    width: 170px;
+}
+.dxeButtonEdit_Office2003_Blue .dxeEditArea_Office2003_Blue, .dxeButtonEdit_Office2003_Blue td.dxic
+{
+	width: 100%;
+}
+.dxeButtonEdit_Office2003_Blue td.dxic
+{
+    padding: 0px 2px 0px 1px;
+}
+.dxeTextBox_Office2003_Blue, .dxeMemo_Office2003_Blue
+{
+    background-color: white;
+    border: solid 1px #6a8ccb;
+}
+.dxeTextBox_Office2003_Blue td.dxic
+{
+	padding: 1px 2px;
+}
+.dxeTextBox_Office2003_Blue td.dxic 
+{
+	width: 100%;
+}
+.dxeRadioButtonList_Office2003_Blue, .dxeRadioButtonList_Office2003_Blue table
+{
+    font-family: Tahoma;
+    font-size: 9pt;    
+}
+.dxeRadioButtonList_Office2003_Blue
+{
+    border: Solid 1px #6a8ccb;
+}
+.dxeRadioButtonList_Office2003_Blue td.dxe
+{
+    padding: 6px 11px;
+}
+
+/* -- Memo -- */
+.dxeMemo_Office2003_Blue
+{
+	padding-left: 3px;
+}
+.dxeMemoEditArea_Office2003_Blue 
+{
+	font-family: Tahoma;
+	font-size: 9pt;
+}
+.dxeMemo_Office2003_Blue td
+{
+	width: 100%;
+}
+
+/* -- Hyperlink -- */
+.dxeHyperlink_Office2003_Blue
+{
+    font-family: Tahoma;
+    font-size: 9pt;
+	font-weight: normal;    
+    color: black;    
+	text-decoration: underline;
+}
+
+/* -- ListBox -- */
+.dxeListBox_Office2003_Blue
+{
+	background-color: white;
+	border: solid 1px #6a8ccb;
+    font-family: Tahoma;
+    font-size: 9pt;
+    height: 113px;
+    width: 70px;
+}
+.dxeListBox_Office2003_Blue div.dxlbd
+{
+	padding-top: 1px;    
+    height: 112px;
+}
+.dxeListBoxItemRow_Office2003_Blue
+{
+    cursor: default;
+}
+.dxeListBoxItem_Office2003_Blue
+{    
+    border-bottom: solid 1px white;    
+    border-left: solid 1px white;    
+    border-right: solid 1px white;    
+    color: Black;        
+    font-family: Tahoma;
+    font-size: 9pt;  
+    font-weight: normal;
+    padding: 3px 2px 4px 3px;
+    white-space: nowrap;
+    text-align: left;
+}
+.dxeListBoxItemHover_Office2003_Blue        /* inherits dxeListBoxItem */
+{
+    background-color: #cce2fc;
+}
+.dxeListBoxItemSelected_Office2003_Blue     /* inherits dxeListBoxItem */
+{    
+    color: black;
+    background-color: #ffc076;
+}
+.dxeListBox_Office2003_Blue td.dxeI, .dxeListBox_Office2003_Blue td.dxeIM, .dxeListBox_Office2003_Blue .dxeHIC
+{
+    border-right-width: 0px!important;
+}
+.dxeListBox_Office2003_Blue td.dxeIM
+{
+    width: 0;
+}
+.dxeListBox_Office2003_Blue td.dxeT
+{
+    width: 100%;    
+    border-left-width: 0px!important;    
+    padding-left: 0px!important;
+}
+.dxeListBox_Office2003_Blue td.dxeFTM, .dxeListBox_Office2003_Blue td.dxeTM, .dxeListBox_Office2003_Blue td.dxeLTM, .dxeListBox_Office2003_Blue .dxeHFC, .dxeListBox_Office2003_Blue .dxeHC, .dxeListBox_Office2003_Blue .dxeHLC
+{
+    overflow: hidden;
+}
+.dxeListBox_Office2003_Blue td.dxeFTM, .dxeListBox_Office2003_Blue td.dxeTM
+{
+    border-right-width: 0px!important;
+}
+.dxeListBox_Office2003_Blue td.dxeFTM, .dxeListBox_Office2003_Blue td.dxeTM, .dxeListBox_Office2003_Blue .dxeHFC, .dxeListBox_Office2003_Blue .dxeHC
+{
+    padding-right: 6px!important;
+}
+.dxeListBox_Office2003_Blue td.dxeLTM, .dxeListBox_Office2003_Blue td.dxeTM, .dxeListBox_Office2003_Blue .dxeHC,  .dxeListBox_Office2003_Blue .dxeHLC
+{
+    padding-left: 6px!important;
+}
+.dxeListBox_Office2003_Blue td.dxeLTM, .dxeListBox_Office2003_Blue td.dxeTM
+{
+    border-left: 1px solid #BFD3EE !important;
+}
+.dxeListBox_Office2003_Blue td.dxeIM, .dxeListBox_Office2003_Blue td.dxeFTM, .dxeListBox_Office2003_Blue td.dxeTM, .dxeListBox_Office2003_Blue td.dxeLTM
+{
+    border-bottom: solid 1px #BFD3EE;
+}
+/*Header*/
+.dxeListBox_Office2003_Blue .dxeHD
+{
+    background-color: #94B6E8;
+    background-image:url(lbHeaderBackground.gif);
+    background-position:center top;
+    background-repeat:repeat-x;
+    border-bottom: solid 1px #6A8CCB;
+}
+.dxeListBox_Office2003_Blue .dxeHFC, .dxeListBox_Office2003_Blue .dxeHIC, .dxeListBox_Office2003_Blue .dxeHC,  .dxeListBox_Office2003_Blue .dxeHLC
+{
+    border-bottom-width: 0px;
+    padding-top: 4px;
+    padding-bottom: 5px;
+}
+.dxeListBox_Office2003_Blue .dxeHC,  .dxeListBox_Office2003_Blue .dxeHLC
+{
+    border-left: solid 1px #6A8CCB;
+}
+.dxeListBox_Office2003_Blue .dxeHIC, .dxeListBox_Office2003_Blue .dxeHFC
+{
+    border-left:1px solid #94B6E8;
+}
+.dxeListBox_Office2003_Blue .dxeHFC, .dxeListBox_Office2003_Blue .dxeHC
+{
+    border-right-width:0;
+}
+.dxeListBox_Office2003_Blue .dxeHLC
+{
+    border-right: solid 1px #6A8CCB;
+}
+
+
+/* -- Calendar -- */
+.dxeCalendar_Office2003_Blue
+{
+ 	color: black;
+	font-weight: normal; 	
+    border: solid 1px #6a8ccb;
+    background-color: white;
+}
+.dxeCalendar_Office2003_Blue td.dxMonthGrid 
+{
+    padding: 8px 20px;
+    cursor: default;
+}
+.dxeCalendar_Office2003_Blue td.dxMonthGridWithWeekNumbers
+{
+    padding: 8px 20px 8px 8px;
+    cursor: default;
+}
+.dxeCalendarDayHeader_Office2003_Blue
+{
+    font-family: Tahoma;
+    font-size: 9pt;        
+    padding: 4px 4px 5px;    
+    border-bottom: solid 1px #cbe1fc;    
+}
+.dxeCalendarWeekNumber_Office2003_Blue
+{    
+    font-family: Tahoma;
+    font-size: 7pt;    
+    text-align: right;    
+	padding: 6px 8px 2px 4px;  
+    color: #81a9e2;
+}
+.dxeCalendarDay_Office2003_Blue
+{    
+    font-family: Tahoma;
+    font-size: 9pt;
+    padding: 4px;
+    text-align: center;
+}
+.dxeCalendarWeekend_Office2003_Blue          /* inherits dxeCalendarDay */
+{
+    color: #c00000;
+}
+.dxeCalendarOtherMonth_Office2003_Blue     /* inherits dxeCalendarDay */
+{
+    color: #888;
+}
+.dxeCalendarOutOfRange_Office2003_Blue      /* inherits dxeCalendarDay */
+{
+    color: #d0d0d0;    
+}
+.dxeCalendarToday_Office2003_Blue                /* inherits dxeCalendarDay */
+{
+    padding: 3px;
+    border: solid 1px #c00000;
+}
+.dxeCalendarSelected_Office2003_Blue        /* inherits dxeCalendarDay */
+{
+    color: black;
+    background-color: #ffc076;
+}
+.dxeCalendarHeader_Office2003_Blue
+{
+    background: url(edtCalendarHeadBack.gif) repeat-x center bottom #ddecfe;
+    border: solid 1px #bbd1ec;
+	border-width: 1px 0;
+    padding: 4px 7px;
+}
+.dxeCalendarHeader_Office2003_Blue td.dxe
+{
+    font-family: Tahoma;
+    font-size: 9pt;
+    text-align: center;
+	cursor: pointer;
+	cursor: hand;
+}
+.dxeCalendarFooter_Office2003_Blue 
+{
+    background-color: #ddecfe;
+    padding: 8px 0px;    
+    border-top: solid 1px #cbe1fc;
+}
+.dxeCalendarFastNav_Office2003_Blue
+{
+    background: white;
+    border: solid 1px #6a8ccb;
+    border-bottom: 0px;
+    padding: 12px 8px;
+}
+.dxeCalendarFastNavMonthArea_Office2003_Blue
+{
+    padding: 0px 9px;
+}
+.dxeCalendarFastNavFooter_Office2003_Blue
+{
+	color: black;
+    background-color: #ddecfe;
+    padding: 8px 0px;   
+    border: solid 1px #6a8ccb;
+    border-top: solid 1px #cbe1fc;
+}
+.dxeCalendarFastNavMonth_Office2003_Blue, .dxeCalendarFastNavYear_Office2003_Blue
+{
+    font: normal 9pt Tahoma;
+    color: Black;
+    padding: 3px 5px;
+    text-align: center;
+	cursor: pointer;
+	cursor: hand;
+}
+.dxeCalendarFastNavMonth_Office2003_Blue
+{
+	padding: 6px;
+}
+.dxeCalendarFastNavMonthSelected_Office2003_Blue, .dxeCalendarFastNavYearSelected_Office2003_Blue
+{
+    background: url(edtButtonBackPressed.gif) repeat-x center top #ffcf8b;	
+    padding: 2px 4px;
+    border: solid 1px #000080;
+}
+.dxeCalendarFastNavMonthSelected_Office2003_Blue
+{
+	padding: 5px;
+}
+.dxeCalendarFastNavMonthHover_Office2003_Blue, .dxeCalendarFastNavYearHover_Office2003_Blue
+{         
+    background: #ddecfe;
+    padding: 2px 4px;
+    border: solid 1px #6a8ccb;
+}
+.dxeCalendarFastNavMonthHover_Office2003_Blue
+{
+	padding: 5px;
+}
+/* Disabled */
+.dxeDisabled_Office2003_Blue, .dxeDisabled_Office2003_Blue td.dxe
+{
+	color: #aaaaaa;
+	cursor: default;
+}
+.dxeButtonDisabled_Office2003_Blue, .dxeButtonDisabled_Office2003_Blue td.dxe
+{
+    border-color: #bfbfbf;
+    background: #cccccc url(edtButtonBackDis.gif) repeat-x top;
+	color: #808080;
+	cursor: default;
+}
+/* -- Button -- */
+.dxbButton_Office2003_Blue
+{	
+  	color: #000000;    
+	font-size: 9pt;
+	font-family: Tahoma;				    
+	font-weight:normal;
+	vertical-align: middle;	 		
+	border: solid 1px #6a8ccb;
+	background: url('edtButtonBack.gif') repeat-x center bottom #d7e8fd;
+    padding: 1px 1px 1px 1px;
+	cursor: pointer;
+	cursor: hand;
+}
+.dxbButtonHover_Office2003_Blue 
+{
+  	color: #000000;        
+	background: url(edtButtonBackHover.gif) repeat-x center bottom #fff2c8;
+	border: solid 1px #000080;
+}
+.dxbButtonChecked_Office2003_Blue 
+{
+    color: #000000; 
+	background: url(edtButtonBackPressed.gif) repeat-x center top #ffcf8b;	
+    border: solid 1px #000080;	
+}
+.dxbButtonPressed_Office2003_Blue 
+{
+  	color: #000000;        
+	background: url(edtButtonBackPressed.gif) repeat-x center top #ffcf8b;
+    border: solid 1px #000080;	
+}
+.dxbButton_Office2003_Blue div.dxb
+{    
+    padding: 4px 8px 5px 8px;
+	border: 0px;
+}
+.dxbButton_Office2003_Blue div.dxbf
+{     
+    padding: 3px 7px 4px 7px;
+	border: dotted 1px black;		
+}
+.dxbButton_Office2003_Blue div.dxb table
+{    
+  	color: #000000;    
+	font-size: 9pt;
+	font-family: Tahoma;				    
+	font-weight:normal;
+}
+.dxbButton_Office2003_Blue div.dxb td.dxb
+{    
+    background-color: transparent!important;
+    background-image: url('')!important;
+    border-width: 0px!important;
+    padding: 0px!important;
+}
+/* Disabled */
+.dxbDisabled_Office2003_Blue
+{
+    background: #cecece url(edtButtonBackDis.gif) repeat-x top;
+    border-color: #BFBFBF;
+	color: #808080;
+	cursor: default;
+}
+.dxbDisabled_Office2003_Blue td.dxb
+{
+	color: #808080;
+}
+
+/* -- FilterControl -- */
+.dxfcTable_Office2003_Blue
+{
+	border-collapse: separate!important;
+}
+.dxfcTable_Office2003_Blue td.dxfc
+{
+	padding: 0px 0px 0px 3px;
+	vertical-align: middle;
+	font: 9pt Tahoma;
+	color: Black;	
+}
+a.dxfcPropertyName_Office2003_Blue
+{
+	white-space:nowrap!important;
+	color: Blue!important;
+}
+a.dxfcGroupType_Office2003_Blue
+{
+	white-space:nowrap!important;
+	padding:0px 3px 0px 3px!important;
+	color: Red!important;
+}
+a.dxfcOperation_Office2003_Blue
+{
+	white-space:nowrap!important;
+	color: Green!important;
+}
+a.dxfcValue_Office2003_Blue
+{
+	white-space:nowrap!important;
+	color: Gray!important;
+}
+.dxfcImageButton_Office2003_Blue 
+{
+	cursor: pointer;
+}
+.dxfcLoadingPanel_Office2003_Blue
+{
+	border: solid 1px #4f93e3;
+	background-color: white;
+	font: 9pt Tahoma;
+	color: #4B77B8;
+}
+.dxfcLoadingPanel_Office2003_Blue td.dx
+{
+	white-space: nowrap;
+	text-align: center;
+	padding: 12px;
+}
+.dxfcLoadingDiv_Office2003_Blue
+{
+	background: white;
+	opacity: 0.01;
+	filter: alpha(opacity=1);
+}
+
+.dxeMaskHint_Office2003_Blue 
+{
+	background: #ffffe1;
+	border: solid 1px black;
+	padding: 2px 5px 3px;
+	color: Black;
+	font: 9pt Tahoma;
+}
+/* -- ProgressBar -- */
+.dxeProgressBar_Office2003_Blue
+{
+    border: Solid 1px #002d96;
+    background-color: #ddecfe;
+	padding: 1px;    
+}
+.dxeProgressBar_Office2003_Blue, .dxeProgressBar_Office2003_Blue td.dx
+{
+    font-family: Tahoma, Verdana, Arial;
+    font-size: 9pt;
+	color: Black;    
+}
+.dxeProgressBarIndicator_Office2003_Blue
+{
+    background-color: #a6c5f0;
+}

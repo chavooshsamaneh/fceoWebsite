@@ -1,0 +1,668 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:ser="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:tns="http://schemas.datacontract.org/2004/07/DataAccess.Engineers" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/DataAccess.Engineers" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://saraweb.shiraz.ir/EngineerToOthers/srvEngineerToOthers.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:complexType name="ArrayOfSrvGetReferToEngineer_Result">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="SrvGetReferToEngineer_Result" nillable="true" type="tns:SrvGetReferToEngineer_Result" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfSrvGetReferToEngineer_Result" nillable="true" type="tns:ArrayOfSrvGetReferToEngineer_Result" />
+  <xs:complexType name="SrvGetReferToEngineer_Result">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Ability" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ApplyPercent" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="ArchitectureCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Base" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CI_Ability" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="CI_Base" type="xs:short" />
+      <xs:element minOccurs="0" name="CI_CancelType" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="CI_StudyField" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="CI_StudyField1" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="CI_StudyFieldRel" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="CI_Years" type="xs:short" />
+      <xs:element minOccurs="0" name="CancelDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CodeString" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CommitmentDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CommitmentSupervisionDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CommitmentSupervisionNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ConfirmDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DateOfRefrence" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EngFamily" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EngName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IdentityCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IsCanceled" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsCommitment" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsConfirm" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsCoordinator" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsDynamic" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsEngExecuter" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsEngOwner" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsFree" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsFriend" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsRelease" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsSwitchEngineer" type="xs:boolean" />
+      <xs:element minOccurs="0" name="JobAgreementExpireDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="JobAgreementNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Metraj" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Metraj2" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MobileNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MunicipalityCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NIdEng" nillable="true" type="ser:guid" />
+      <xs:element minOccurs="0" name="NIdFil" type="ser:guid" />
+      <xs:element minOccurs="0" name="NIdMem" nillable="true" type="ser:guid" />
+      <xs:element minOccurs="0" name="NIdOff" nillable="true" type="ser:guid" />
+      <xs:element minOccurs="0" name="NIdRef" type="ser:guid" />
+      <xs:element minOccurs="0" name="NidWorkItem" type="xs:long" />
+      <xs:element minOccurs="0" name="OfficeCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Picture" nillable="true" type="xs:base64Binary" />
+      <xs:element minOccurs="0" name="Qta20" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Qta20Remain" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="QtaRemain" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="RefComments" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ReferDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ReferNidUser" nillable="true" type="ser:guid" />
+      <xs:element minOccurs="0" name="ReferTime" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ReferType" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ReferUserName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ReleaseDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ReleaseLetterDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ReleaseLetterNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RequestType" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="StudyField" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SwitchEngineerDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SysCI_ReferType" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="WorkAllowed" nillable="true" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SrvGetReferToEngineer_Result" nillable="true" type="tns:SrvGetReferToEngineer_Result" />
+  <xs:complexType name="EngOrgan_OfficeInfo">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="IdentityCodeCEO" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NidEngCEO" nillable="true" type="ser:guid" />
+      <xs:element minOccurs="0" name="NidEngOrgOff" type="ser:guid" />
+      <xs:element minOccurs="0" name="OfficeAddress" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OfficeCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OfficeFax" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OfficeName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OfficePhone" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RegisterDate" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="EngOrgan_OfficeInfo" nillable="true" type="tns:EngOrgan_OfficeInfo" />
+  <xs:complexType name="ArrayOfEng_CapacityReq">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Eng_CapacityReq" nillable="true" type="tns:Eng_CapacityReq" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfEng_CapacityReq" nillable="true" type="tns:ArrayOfEng_CapacityReq" />
+  <xs:complexType name="Eng_CapacityReq">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CI_Ability" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="CI_Base" type="xs:short" />
+      <xs:element minOccurs="0" name="CI_CapacityReqStatus" type="xs:short" />
+      <xs:element minOccurs="0" name="CI_City" type="xs:short" />
+      <xs:element minOccurs="0" name="CancelDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CancelTime" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CancelUserGuid" nillable="true" type="ser:guid" />
+      <xs:element minOccurs="0" name="CancelUserName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CapacityReqComments" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ConfirmDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ConfirmTime" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ConfirmUserGuid" nillable="true" type="ser:guid" />
+      <xs:element minOccurs="0" name="ConfirmUserName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MeterConfirm" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MeterReq" type="xs:decimal" />
+      <xs:element minOccurs="0" name="NIdCapacityReq" type="ser:guid" />
+      <xs:element minOccurs="0" name="NIdEng" type="ser:guid" />
+      <xs:element minOccurs="0" name="RegDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RegTime" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RegUserGuid" nillable="true" type="ser:guid" />
+      <xs:element minOccurs="0" name="RegUserName" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Eng_CapacityReq" nillable="true" type="tns:Eng_CapacityReq" />
+  <xs:complexType name="ArrayOfSrvGetEng_CapacityReq_Result">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="SrvGetEng_CapacityReq_Result" nillable="true" type="tns:SrvGetEng_CapacityReq_Result" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfSrvGetEng_CapacityReq_Result" nillable="true" type="tns:ArrayOfSrvGetEng_CapacityReq_Result" />
+  <xs:complexType name="SrvGetEng_CapacityReq_Result">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ADPstudyFieldRel" type="xs:short" />
+      <xs:element minOccurs="0" name="Ability" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AccCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Address" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AddressWork" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ArchitectureCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BirthDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BirthPlace" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CI_Ability" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="CI_Ability1" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="CI_Base" type="xs:short" />
+      <xs:element minOccurs="0" name="CI_CapacityReqStatus" type="xs:short" />
+      <xs:element minOccurs="0" name="CI_City" type="xs:short" />
+      <xs:element minOccurs="0" name="CI_Degree" type="xs:short" />
+      <xs:element minOccurs="0" name="CI_EngineerType" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="CI_MilitaryService" type="xs:short" />
+      <xs:element minOccurs="0" name="CI_Region" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="CI_Score" type="xs:short" />
+      <xs:element minOccurs="0" name="CI_University" type="xs:short" />
+      <xs:element minOccurs="0" name="CI_Years_Payoff" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="CancelDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CancelTime" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CancelUserGuid" nillable="true" type="ser:guid" />
+      <xs:element minOccurs="0" name="CancelUserName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CapacityReqComments" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CapacityReqStatus" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="City" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CommitmentDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ConfirmDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ConfirmTime" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ConfirmUserGuid" nillable="true" type="ser:guid" />
+      <xs:element minOccurs="0" name="ConfirmUserName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CreatedDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Email" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EngComments" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EngFamily" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EngName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FatherName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IdExportPlace" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IdNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IdentityCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IsCommitment" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsMale" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsMarried" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsOk" type="xs:boolean" />
+      <xs:element minOccurs="0" name="LastDegreeDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MeterConfirm" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MeterReq" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MobileNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MunicipalityCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NIdCapacityReq" type="ser:guid" />
+      <xs:element minOccurs="0" name="NIdEng" type="ser:guid" />
+      <xs:element minOccurs="0" name="NIdEng_tmp" type="xs:decimal" />
+      <xs:element minOccurs="0" name="NationalCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NidEngOrgOff" nillable="true" type="ser:guid" />
+      <xs:element minOccurs="0" name="Password" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PercentRestriction" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="PostalCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PostalCodeWork" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RegDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RegTime" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RegUserGuid" nillable="true" type="ser:guid" />
+      <xs:element minOccurs="0" name="RegUserName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SaveDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="StudyField" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Tel" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="delegate" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SrvGetEng_CapacityReq_Result" nillable="true" type="tns:SrvGetEng_CapacityReq_Result" />
+  <xs:complexType name="ArrayOfEng_Card">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Eng_Card" nillable="true" type="tns:Eng_Card" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfEng_Card" nillable="true" type="tns:ArrayOfEng_Card" />
+  <xs:complexType name="Eng_Card">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CI_Years" type="xs:short" />
+      <xs:element minOccurs="0" name="CardComments" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ExportDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NIdCard" type="ser:guid" />
+      <xs:element minOccurs="0" name="NIdCard_tmp" type="xs:decimal" />
+      <xs:element minOccurs="0" name="NIdEng" type="ser:guid" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Eng_Card" nillable="true" type="tns:Eng_Card" />
+  <xs:complexType name="ArrayOfEng_Competence">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Eng_Competence" nillable="true" type="tns:Eng_Competence" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfEng_Competence" nillable="true" type="tns:ArrayOfEng_Competence" />
+  <xs:complexType name="Eng_Competence">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CI_Ability" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="CI_Base" type="xs:short" />
+      <xs:element minOccurs="0" name="CompetenceComments" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IsActive" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsArchitecture" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsChecker" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="NIdCompetence" type="ser:guid" />
+      <xs:element minOccurs="0" name="NIdEng" type="ser:guid" />
+      <xs:element minOccurs="0" name="PrecentFreeRefer" nillable="true" type="xs:double" />
+      <xs:element minOccurs="0" name="PrecentLimitation" nillable="true" type="xs:double" />
+      <xs:element minOccurs="0" name="RegDate" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Eng_Competence" nillable="true" type="tns:Eng_Competence" />
+  <xs:complexType name="ArrayOfEng_Holidays">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Eng_Holidays" nillable="true" type="tns:Eng_Holidays" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfEng_Holidays" nillable="true" type="tns:ArrayOfEng_Holidays" />
+  <xs:complexType name="Eng_Holidays">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CI_Years" type="xs:short" />
+      <xs:element minOccurs="0" name="ConfirmDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ConfirmNidUser" nillable="true" type="ser:guid" />
+      <xs:element minOccurs="0" name="ConfirmTime" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ConfirmUserName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="HolidayFromDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="HolidayToDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IsConfirm" type="xs:boolean" />
+      <xs:element minOccurs="0" name="NidEng" type="ser:guid" />
+      <xs:element minOccurs="0" name="NidEngHolidays" type="ser:guid" />
+      <xs:element minOccurs="0" name="SaveDate" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Eng_Holidays" nillable="true" type="tns:Eng_Holidays" />
+  <xs:complexType name="Eng_Info">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ADPstudyFieldRel" type="xs:short" />
+      <xs:element minOccurs="0" name="AccCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Address" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AddressWork" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ArchitectureCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BirthDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BirthPlace" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CI_Ability" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="CI_Degree" type="xs:short" />
+      <xs:element minOccurs="0" name="CI_EngineerType" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="CI_MilitaryService" type="xs:short" />
+      <xs:element minOccurs="0" name="CI_Region" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="CI_Score" type="xs:short" />
+      <xs:element minOccurs="0" name="CI_University" type="xs:short" />
+      <xs:element minOccurs="0" name="CI_Years_Payoff" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="CommitmentDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CreatedDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Email" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EngComments" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EngFamily" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EngName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FatherName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IdExportPlace" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IdNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IdentityCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IsCommitment" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsMale" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsMarried" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsOk" type="xs:boolean" />
+      <xs:element minOccurs="0" name="LastDegreeDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MobileNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MunicipalityCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NIdEng" type="ser:guid" />
+      <xs:element minOccurs="0" name="NIdEng_tmp" type="xs:decimal" />
+      <xs:element minOccurs="0" name="NationalCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NidEngOrgOff" nillable="true" type="ser:guid" />
+      <xs:element minOccurs="0" name="Password" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PercentRestriction" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="PostalCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PostalCodeWork" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SaveDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Score" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="Tel" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="delegate" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Eng_Info" nillable="true" type="tns:Eng_Info" />
+  <xs:complexType name="ArrayOfEng_JobAgreement">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Eng_JobAgreement" nillable="true" type="tns:Eng_JobAgreement" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfEng_JobAgreement" nillable="true" type="tns:ArrayOfEng_JobAgreement" />
+  <xs:complexType name="Eng_JobAgreement">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BasicUpgradeDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CI_JobAgreementBaseExport" type="xs:short" />
+      <xs:element minOccurs="0" name="CI_JobAgreementType" type="xs:short" />
+      <xs:element minOccurs="0" name="CI_Region" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="JAComments" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="JobAgreementExpireDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="JobAgreementExportDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="JobAgreementLastDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="JobAgreementNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NIdEng" type="ser:guid" />
+      <xs:element minOccurs="0" name="NIdJobAgreement" type="ser:guid" />
+      <xs:element minOccurs="0" name="NIdJobAgreement_tmp" type="xs:decimal" />
+      <xs:element minOccurs="0" name="delegateJobAgreementNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="delegateRegisterNo" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Eng_JobAgreement" nillable="true" type="tns:Eng_JobAgreement" />
+  <xs:complexType name="ArrayOfEng_OrganOffCity">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Eng_OrganOffCity" nillable="true" type="tns:Eng_OrganOffCity" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfEng_OrganOffCity" nillable="true" type="tns:ArrayOfEng_OrganOffCity" />
+  <xs:complexType name="Eng_OrganOffCity">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CI_City" type="xs:short" />
+      <xs:element minOccurs="0" name="City" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IsSelected" type="xs:boolean" />
+      <xs:element minOccurs="0" name="NIdEng" type="ser:guid" />
+      <xs:element minOccurs="0" name="NIdOrganOffCity" type="ser:guid" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Eng_OrganOffCity" nillable="true" type="tns:Eng_OrganOffCity" />
+  <xs:complexType name="ArrayOfEng_OtherData">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Eng_OtherData" nillable="true" type="tns:Eng_OtherData" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfEng_OtherData" nillable="true" type="tns:ArrayOfEng_OtherData" />
+  <xs:complexType name="Eng_OtherData">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CI_EngOtherData" nillable="true" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="NIdEng" nillable="true" type="ser:guid" />
+      <xs:element minOccurs="0" name="NidOtherData" type="ser:guid" />
+      <xs:element minOccurs="0" name="OtherDataValue" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Eng_OtherData" nillable="true" type="tns:Eng_OtherData" />
+  <xs:complexType name="Eng_Picture">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="NIdEng" type="ser:guid" />
+      <xs:element minOccurs="0" name="NIdPicture" type="ser:guid" />
+      <xs:element minOccurs="0" name="NIdPicture_tmp" type="xs:decimal" />
+      <xs:element minOccurs="0" name="PicJobAgreement" nillable="true" type="xs:base64Binary" />
+      <xs:element minOccurs="0" name="PicJobAgreementBack" nillable="true" type="xs:base64Binary" />
+      <xs:element minOccurs="0" name="PicMohr" nillable="true" type="xs:base64Binary" />
+      <xs:element minOccurs="0" name="PicMohrWith" nillable="true" type="xs:base64Binary" />
+      <xs:element minOccurs="0" name="PicNationalCode" nillable="true" type="xs:base64Binary" />
+      <xs:element minOccurs="0" name="PicShenasname" nillable="true" type="xs:base64Binary" />
+      <xs:element minOccurs="0" name="PicSignature" nillable="true" type="xs:base64Binary" />
+      <xs:element minOccurs="0" name="PicVoucher" nillable="true" type="xs:base64Binary" />
+      <xs:element minOccurs="0" name="Picture" nillable="true" type="xs:base64Binary" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Eng_Picture" nillable="true" type="tns:Eng_Picture" />
+  <xs:complexType name="ArrayOfSrvGetEngList_InWhere_Result">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="SrvGetEngList_InWhere_Result" nillable="true" type="tns:SrvGetEngList_InWhere_Result" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfSrvGetEngList_InWhere_Result" nillable="true" type="tns:ArrayOfSrvGetEngList_InWhere_Result" />
+  <xs:complexType name="SrvGetEngList_InWhere_Result">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BirthDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BirthPlace" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CI_Ability" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="CI_Base" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="CI_EngineerType" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="CI_StudyField" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="EngFamily" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EngName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IdExportPlace" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IdNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IdentityCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MobileNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NIdEng" type="ser:guid" />
+      <xs:element minOccurs="0" name="NationalCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OffCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TotalCount" nillable="true" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SrvGetEngList_InWhere_Result" nillable="true" type="tns:SrvGetEngList_InWhere_Result" />
+  <xs:complexType name="ArrayOfEng_OtherData_Temp">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Eng_OtherData_Temp" nillable="true" type="tns:Eng_OtherData_Temp" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfEng_OtherData_Temp" nillable="true" type="tns:ArrayOfEng_OtherData_Temp" />
+  <xs:complexType name="Eng_OtherData_Temp">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CI_EngOtherData" nillable="true" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="IsUpdate" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="NIdEng_Temp" nillable="true" type="ser:guid" />
+      <xs:element minOccurs="0" name="NidOtherData_Temp" type="ser:guid" />
+      <xs:element minOccurs="0" name="OtherDataValue" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="UpdateDate" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Eng_OtherData_Temp" nillable="true" type="tns:Eng_OtherData_Temp" />
+  <xs:complexType name="ArrayOfEng_Picture_Change">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Eng_Picture_Change" nillable="true" type="tns:Eng_Picture_Change" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfEng_Picture_Change" nillable="true" type="tns:ArrayOfEng_Picture_Change" />
+  <xs:complexType name="Eng_Picture_Change">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ChangeDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ChangeTime" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NIdChange" type="ser:guid" />
+      <xs:element minOccurs="0" name="NIdEng" type="ser:guid" />
+      <xs:element minOccurs="0" name="NIdUser" nillable="true" type="ser:guid" />
+      <xs:element minOccurs="0" name="PicJobAgreement" nillable="true" type="xs:base64Binary" />
+      <xs:element minOccurs="0" name="PicJobAgreementBack" nillable="true" type="xs:base64Binary" />
+      <xs:element minOccurs="0" name="PicMohr" nillable="true" type="xs:base64Binary" />
+      <xs:element minOccurs="0" name="PicMohrWith" nillable="true" type="xs:base64Binary" />
+      <xs:element minOccurs="0" name="PicNationalCode" nillable="true" type="xs:base64Binary" />
+      <xs:element minOccurs="0" name="PicShenasname" nillable="true" type="xs:base64Binary" />
+      <xs:element minOccurs="0" name="PicSignature" nillable="true" type="xs:base64Binary" />
+      <xs:element minOccurs="0" name="PicVoucher" nillable="true" type="xs:base64Binary" />
+      <xs:element minOccurs="0" name="Picture" nillable="true" type="xs:base64Binary" />
+      <xs:element minOccurs="0" name="UserName" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Eng_Picture_Change" nillable="true" type="tns:Eng_Picture_Change" />
+  <xs:complexType name="ArrayOfRef_Info">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="Ref_Info" nillable="true" type="tns:Ref_Info" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfRef_Info" nillable="true" type="tns:ArrayOfRef_Info" />
+  <xs:complexType name="Ref_Info">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ApplyPercent" type="xs:decimal" />
+      <xs:element minOccurs="0" name="CI_Ability" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="CI_Base" type="xs:short" />
+      <xs:element minOccurs="0" name="CI_CancelType" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="CI_Years" type="xs:short" />
+      <xs:element minOccurs="0" name="CancelDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CommitmentDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CommitmentNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CommitmentSupervisionDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CommitmentSupervisionNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ConfirmCoordinatorDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ConfirmCoordinatorNisUser" nillable="true" type="ser:guid" />
+      <xs:element minOccurs="0" name="ConfirmCoordinatorTime" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ConfirmCoordinatorUserName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ConfirmDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CreditValue" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="DateOfRefrence" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EumCoordinatorStatus" nillable="true" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="IdentityCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IsBuildingExecRepCompleteAndConfirm" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsCanceled" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsCommitment" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsConfirm" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsCoordinator" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsDynamic" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsEngExecuter" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsEngOwner" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsExecuterQta" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsFree" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsFriend" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsRelease" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsSwitchEngineer" type="xs:boolean" />
+      <xs:element minOccurs="0" name="NIdEng" nillable="true" type="ser:guid" />
+      <xs:element minOccurs="0" name="NIdFil" type="ser:guid" />
+      <xs:element minOccurs="0" name="NIdMem" nillable="true" type="ser:guid" />
+      <xs:element minOccurs="0" name="NIdOff" nillable="true" type="ser:guid" />
+      <xs:element minOccurs="0" name="NIdRef" type="ser:guid" />
+      <xs:element minOccurs="0" name="NIdRef_tmp" type="xs:decimal" />
+      <xs:element minOccurs="0" name="NidTask" nillable="true" type="ser:guid" />
+      <xs:element minOccurs="0" name="RefComments" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ReferDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ReferNidUser" nillable="true" type="ser:guid" />
+      <xs:element minOccurs="0" name="ReferTime" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ReferUserName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ReferedMeter" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="ReferedPercent" type="xs:decimal" />
+      <xs:element minOccurs="0" name="ReleaseDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ReleaseLetterDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ReleaseLetterNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ReleaseNidUser" nillable="true" type="ser:guid" />
+      <xs:element minOccurs="0" name="ReleaseUserName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RevokeCoordinatorDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RevokeCoordinatorNisUser" nillable="true" type="ser:guid" />
+      <xs:element minOccurs="0" name="RevokeCoordinatorTime" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RevokeCoordinatorUserName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SwitchEngineerDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SysCI_ReferType" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="TimeOfRefrence" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Ref_Info" nillable="true" type="tns:Ref_Info" />
+  <xs:complexType name="Fil_Info">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AcceptMatchDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Apartment" type="xs:int" />
+      <xs:element minOccurs="0" name="Block" type="xs:int" />
+      <xs:element minOccurs="0" name="Building" type="xs:int" />
+      <xs:element minOccurs="0" name="CI_City" type="xs:short" />
+      <xs:element minOccurs="0" name="CI_ConstructionStage" type="xs:short" />
+      <xs:element minOccurs="0" name="CI_FileRequester" type="xs:short" />
+      <xs:element minOccurs="0" name="CI_FilesType" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="CI_Lab" type="xs:short" />
+      <xs:element minOccurs="0" name="CI_QtaType" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="CI_Region" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="CI_RequestType" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="CI_SazehType" type="xs:short" />
+      <xs:element minOccurs="0" name="CI_UsingType" type="xs:short" />
+      <xs:element minOccurs="0" name="CI_Years" type="xs:short" />
+      <xs:element minOccurs="0" name="ChangeMapControl" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="CodeString" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CommitmentSupervisionDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CommitmentSupervisionNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ComputationalInstructionNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ComputerCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="District" type="xs:int" />
+      <xs:element minOccurs="0" name="EnterDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ExitDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ExportLicenseDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ExportLicenseNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FileComments" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FileDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FileNumber" type="xs:int" />
+      <xs:element minOccurs="0" name="Floor" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="FloorDiff" type="xs:short" />
+      <xs:element minOccurs="0" name="GreenCachetDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="HasSupportedStructure" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="Height" type="xs:decimal" />
+      <xs:element minOccurs="0" name="House" type="xs:int" />
+      <xs:element minOccurs="0" name="IdentityCodeCoordinator" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IsChangeBuildingGroup" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsConfirmStartWork" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsFirefightingConfirmed" type="xs:boolean" />
+      <xs:element minOccurs="0" name="MapNo" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MatchComments" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MetrajGodBardari" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MetrajMojaz" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MetrajMojod" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="MotherCode" type="xs:decimal" />
+      <xs:element minOccurs="0" name="NIdFil" type="ser:guid" />
+      <xs:element minOccurs="0" name="NIdFil_tmp" type="xs:decimal" />
+      <xs:element minOccurs="0" name="NIdKartablItem_tmp" type="xs:decimal" />
+      <xs:element minOccurs="0" name="NidEngCoordinator" nillable="true" type="ser:guid" />
+      <xs:element minOccurs="0" name="NidProc" nillable="true" type="ser:guid" />
+      <xs:element minOccurs="0" name="NidWorkItem" type="xs:long" />
+      <xs:element minOccurs="0" name="ParvanehIdRef" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ParvanehMeterEdit" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="PermanentKartablDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Region" type="xs:int" />
+      <xs:element minOccurs="0" name="RegisterPlack" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RequestDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SaghfMojaz" nillable="true" type="xs:short" />
+      <xs:element minOccurs="0" name="SaraRequestDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Shop" type="xs:int" />
+      <xs:element minOccurs="0" name="StrNoTownDabir" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SysCI_MatchStatus" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="SysCI_RequestBy" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="SysCI_RequestStatus" type="xs:short" />
+      <xs:element minOccurs="0" name="Underground" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="UnitNo" type="xs:short" />
+      <xs:element minOccurs="0" name="UrbanNidKartablItem" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="UrbanNidRequest" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="UrbanRequestType" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ZabeteType" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ZabeteTypeID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="infrastructure" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="infrastructureDiff" type="xs:decimal" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Fil_Info" nillable="true" type="tns:Fil_Info" />
+  <xs:complexType name="BuildingExecRep_Info_Main">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AcceptDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AcceptTime" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ArchiveNidFile" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="BuildingExecDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BuildingExecRepComments" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="BuildingExecTime" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CI_ExecFloor" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="CI_ExecLevel" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="CI_ExecSendStatus" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="CI_InfringementResult" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="CI_Years" type="xs:short" />
+      <xs:element minOccurs="0" name="ChangeStatusDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ChangeStatusTime" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ChangeStatusUserId" nillable="true" type="ser:guid" />
+      <xs:element minOccurs="0" name="ChangeStatusUserName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EumReportStatus" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="IsObservedBuilding" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="IsReportable" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="NIdBuildingExecRep" type="ser:guid" />
+      <xs:element minOccurs="0" name="NIdEng" type="ser:guid" />
+      <xs:element minOccurs="0" name="NIdEng2" nillable="true" type="ser:guid" />
+      <xs:element minOccurs="0" name="NIdEng_Accept" nillable="true" type="ser:guid" />
+      <xs:element minOccurs="0" name="NIdEng_Revoke" nillable="true" type="ser:guid" />
+      <xs:element minOccurs="0" name="NIdFil" type="ser:guid" />
+      <xs:element minOccurs="0" name="OkDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OkTime" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RevisitExecDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RevokeDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="RevokeTime" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SecretariatDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SecretariatNo" nillable="true" type="xs:decimal" />
+      <xs:element minOccurs="0" name="SendCount" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="SerialID" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BuildingExecRep_Info_Main" nillable="true" type="tns:BuildingExecRep_Info_Main" />
+  <xs:complexType name="BuildingExecRep_Detail_Main">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="CI_ExecLevel" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="CI_ExecRep" type="xs:short" />
+      <xs:element minOccurs="0" name="CI_ExecStatus" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="CI_ExecStatusList" nillable="true" type="tns:ArrayOfCI_ExecStatus" />
+      <xs:element minOccurs="0" name="DetailComments" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ExecRep" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NIdBuildingExecRep" type="ser:guid" />
+      <xs:element minOccurs="0" name="NIdDetail" type="ser:guid" />
+      <xs:element minOccurs="0" name="StrDate" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="StrTime" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BuildingExecRep_Detail_Main" nillable="true" type="tns:BuildingExecRep_Detail_Main" />
+  <xs:complexType name="ArrayOfCI_ExecStatus">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="CI_ExecStatus" nillable="true" type="tns:CI_ExecStatus" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfCI_ExecStatus" nillable="true" type="tns:ArrayOfCI_ExecStatus" />
+  <xs:complexType name="CI_ExecStatus">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ID" type="xs:unsignedByte" />
+      <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="CI_ExecStatus" nillable="true" type="tns:CI_ExecStatus" />
+</xs:schema>

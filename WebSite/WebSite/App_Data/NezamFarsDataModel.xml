@@ -1,0 +1,243 @@
+<DATAMODEL FormatVersion="5" ModelVersion="9" Name="NezamFars DataModel" DefQuery="">
+  <DESCRIPTION />
+  <customInfo />
+  <DBPARAMS>
+    <ConnectionString>Data Source=TspServer;Initial Catalog=NezamFars;Persist Security Info=True;User ID=tsp;Password=tsp</ConnectionString>
+    <LoginPrompt>False</LoginPrompt>
+    <GateClass>Korzh.EasyQuery.DataGates.SqlClientGate</GateClass>
+  </DBPARAMS>
+  <TABLES>
+    <TABLE class="db" ALIAS="tblCity" SCHEMA="dbo" DB="" DSGNLAYOUT="" priority="1000" NAME="tblCity" HINTS="" QUOTE="False" />
+    <TABLE class="db" ALIAS="tblCountry" SCHEMA="dbo" DB="" DSGNLAYOUT="" priority="1000" NAME="tblCountry" HINTS="" QUOTE="False" />
+  </TABLES>
+  <LINKS>
+    <LINK TABLE1="tblCountry" TABLE2="tblCity" TYPE="Inner" QF="False">
+      <CONDITION TYPE="FF" EXPR1="CounId" EXPR2="CounId" OP="=" />
+    </LINK>
+    <LINK TABLE1="tblCountry" TABLE2="tblCity" TYPE="Inner" QF="False">
+      <CONDITION TYPE="FF" EXPR1="CounId" EXPR2="CounId" OP="=" />
+    </LINK>
+  </LINKS>
+  <OPERATORS>
+    <OPERATOR ID="Equal" CAPTION="is equal to" EXPR="{expr1} = {expr2}" FORMAT="{expr1} [[is equal to]] {expr2}" CONSTFMT="{const}" KIND="Scalar" CASEINS="False" GROUP="Common operators" cond="False" tables="">
+      <TYPES>String,WideString,Byte,Word,Int,Int64,Bool,Float,Currency,BCD,Autoinc,Memo,FixedChar</TYPES>
+      <EXPRS DefType="Unknown" />
+    </OPERATOR>
+    <OPERATOR ID="NotEqual" CAPTION="is not equal to" EXPR="{expr1} &lt;&gt; {expr2}" FORMAT="{expr1} [[is not equal to]] {expr2}" CONSTFMT="{const}" KIND="Scalar" CASEINS="False" GROUP="Common operators" cond="False" tables="">
+      <TYPES>String,WideString,Byte,Word,Int,Int64,Bool,Float,Currency,BCD,Autoinc,Memo,FixedChar</TYPES>
+      <EXPRS DefType="Unknown" />
+    </OPERATOR>
+    <OPERATOR ID="LessThan" CAPTION="is less than" EXPR="{expr1} &lt; {expr2}" FORMAT="{expr1} [[is less than]] {expr2}" CONSTFMT="{const}" KIND="Scalar" CASEINS="False" GROUP="Common operators" cond="False" tables="">
+      <TYPES>String,WideString,Byte,Word,Int,Int64,Bool,Float,Currency,BCD,Autoinc,Memo,FixedChar</TYPES>
+      <EXPRS DefType="Unknown" />
+    </OPERATOR>
+    <OPERATOR ID="LessOrEqual" CAPTION="is less than or equal to" EXPR="{expr1} &lt;= {expr2}" FORMAT="{expr1} [[is less than or equal to]] {expr2}" CONSTFMT="{const}" KIND="Scalar" CASEINS="False" GROUP="Common operators" cond="False" tables="">
+      <TYPES>String,WideString,Byte,Word,Int,Int64,Bool,Float,Currency,BCD,Autoinc,Memo,FixedChar</TYPES>
+      <EXPRS DefType="Unknown" />
+    </OPERATOR>
+    <OPERATOR ID="GreaterThan" CAPTION="is greater than" EXPR="{expr1} &gt; {expr2}" FORMAT="{expr1} [[is greater than]] {expr2}" CONSTFMT="{const}" KIND="Scalar" CASEINS="False" GROUP="Common operators" cond="False" tables="">
+      <TYPES>String,WideString,Byte,Word,Int,Int64,Bool,Float,Currency,BCD,Autoinc,Memo,FixedChar</TYPES>
+      <EXPRS DefType="Unknown" />
+    </OPERATOR>
+    <OPERATOR ID="GreaterOrEqual" CAPTION="is greater than or equal to" EXPR="{expr1} &gt;= {expr2}" FORMAT="{expr1} [[is greater than or equal to]] {expr2}" CONSTFMT="{const}" KIND="Scalar" CASEINS="False" GROUP="Common operators" cond="False" tables="">
+      <TYPES>String,WideString,Byte,Word,Int,Int64,Bool,Float,Currency,BCD,Autoinc,Memo,FixedChar</TYPES>
+      <EXPRS DefType="Unknown" />
+    </OPERATOR>
+    <OPERATOR ID="IsNull" CAPTION="is null" EXPR="{expr1} IS NULL" FORMAT="{expr1} [[is null]] " CONSTFMT="{const}" KIND="Scalar" CASEINS="False" GROUP="Common operators" cond="False" tables="">
+      <TYPES>String,WideString,Byte,Word,Int,Int64,Bool,Float,Currency,BCD,Autoinc,Memo,FixedChar</TYPES>
+      <EXPRS DefType="Unknown" />
+    </OPERATOR>
+    <OPERATOR ID="IsNotNull" CAPTION="is not null" EXPR="{expr1} IS NOT NULL" FORMAT="{expr1} [[is not null]] " CONSTFMT="{const}" KIND="Scalar" CASEINS="False" GROUP="Common operators" cond="False" tables="">
+      <TYPES>String,WideString,Byte,Word,Int,Int64,Bool,Float,Currency,BCD,Autoinc,Memo,FixedChar</TYPES>
+      <EXPRS DefType="Unknown" />
+    </OPERATOR>
+    <OPERATOR ID="InList" CAPTION="is in list" EXPR="{expr1} in ({expr2})" FORMAT="{expr1} [[is in list]] {expr2}" CONSTFMT="{const}" KIND="List" CASEINS="False" GROUP="Common operators" cond="False" tables="">
+      <TYPES>String,WideString,Byte,Word,Int,Int64,Bool,Float,Currency,BCD,Autoinc,Memo,FixedChar</TYPES>
+      <EXPRS DefType="Unknown" />
+    </OPERATOR>
+    <OPERATOR ID="NotInList" CAPTION="is not in list" EXPR="NOT ({expr1} in ({expr2}))" FORMAT="{expr1} [[is not in list]] {expr2}" CONSTFMT="{const}" KIND="List" CASEINS="False" GROUP="Common operators" cond="False" tables="">
+      <TYPES>String,WideString,Byte,Word,Int,Int64,Bool,Float,Currency,BCD,Autoinc,Memo,FixedChar</TYPES>
+      <EXPRS DefType="Unknown" />
+    </OPERATOR>
+    <OPERATOR ID="Between" CAPTION="is between" EXPR="{expr1} BETWEEN {expr2} AND {expr3}" FORMAT="{expr1} [[is between]] {expr2} and {expr3}" CONSTFMT="{const}" KIND="Scalar" CASEINS="False" GROUP="Common operators" cond="False" tables="">
+      <TYPES>String,WideString,Byte,Word,Int,Int64,Bool,Float,Currency,BCD,Autoinc,Memo,FixedChar</TYPES>
+      <EXPRS DefType="Unknown" />
+    </OPERATOR>
+    <OPERATOR ID="NotBetween" CAPTION="is not between" EXPR="NOT ({expr1} BETWEEN {expr2} AND {expr3})" FORMAT="{expr1} [[is not between]] {expr2} and {expr3}" CONSTFMT="{const}" KIND="Scalar" CASEINS="False" GROUP="Common operators" cond="False" tables="">
+      <TYPES>String,WideString,Byte,Word,Int,Int64,Bool,Float,Currency,BCD,Autoinc,Memo,FixedChar</TYPES>
+      <EXPRS DefType="Unknown" />
+    </OPERATOR>
+    <OPERATOR ID="StartsWith" CAPTION="starts with" EXPR="{expr1} LIKE {expr2}" FORMAT="{expr1} [[starts with]] {expr2}" CONSTFMT="{const}{ws}" KIND="Scalar" CASEINS="False" GROUP="String operators" cond="False" tables="">
+      <TYPES>String,WideString,Memo,FixedChar</TYPES>
+      <EXPRS DefType="Unknown" />
+      <EDITORS>
+        <DEFAULT TYPE="EDIT" />
+      </EDITORS>
+    </OPERATOR>
+    <OPERATOR ID="NotStartsWith" CAPTION="does not start with" EXPR="NOT ({expr1} LIKE {expr2})" FORMAT="{expr1} [[does not start with]] {expr2}" CONSTFMT="{const}{ws}" KIND="Scalar" CASEINS="False" GROUP="String operators" cond="False" tables="">
+      <TYPES>String,WideString,Memo,FixedChar</TYPES>
+      <EXPRS DefType="Unknown" />
+      <EDITORS>
+        <DEFAULT TYPE="EDIT" />
+      </EDITORS>
+    </OPERATOR>
+    <OPERATOR ID="Contains" CAPTION="contains" EXPR="{expr1} LIKE {expr2}" FORMAT="{expr1} [[contains]] {expr2}" CONSTFMT="{ws}{const}{ws}" KIND="Scalar" CASEINS="False" GROUP="String operators" cond="False" tables="">
+      <TYPES>String,WideString,Memo,FixedChar</TYPES>
+      <EXPRS DefType="Unknown" />
+      <EDITORS>
+        <DEFAULT TYPE="EDIT" />
+      </EDITORS>
+    </OPERATOR>
+    <OPERATOR ID="NotContains" CAPTION="does not contain" EXPR="NOT ({expr1} LIKE {expr2})" FORMAT="{expr1} [[does not contain]] {expr2}" CONSTFMT="{ws}{const}{ws}" KIND="Scalar" CASEINS="False" GROUP="String operators" cond="False" tables="">
+      <TYPES>String,WideString,Memo,FixedChar</TYPES>
+      <EXPRS DefType="Unknown" />
+      <EDITORS>
+        <DEFAULT TYPE="EDIT" />
+      </EDITORS>
+    </OPERATOR>
+    <OPERATOR ID="InSubQuery" CAPTION="in sub query" EXPR="{expr1} IN ({expr2})" FORMAT="{expr1} [[in sub query]] {expr2}" CONSTFMT="{const}" KIND="Query" CASEINS="False" GROUP="Common operators" cond="False" tables="">
+      <TYPES>String,WideString,Byte,Word,Int,Int64,Bool,Float,Currency,BCD,Autoinc,Memo,FixedChar</TYPES>
+      <EXPRS DefType="Byte" />
+    </OPERATOR>
+    <OPERATOR ID="DateEqualSpecial" CAPTION="is (special date)" EXPR="{expr1} = {expr2}" FORMAT="{expr1} [[is]] {expr2}" CONSTFMT="{const}" KIND="Scalar" CASEINS="False" GROUP="Date/time operators" cond="False" tables="">
+      <TYPES>Date,DateTime</TYPES>
+      <EXPRS DefType="Unknown" />
+      <EDITORS>
+        <DEFAULT TYPE="CUSTOMLIST" NAME="SpecDateValues" />
+      </EDITORS>
+    </OPERATOR>
+    <OPERATOR ID="DateEqualPrecise" CAPTION="is (precise date)" EXPR="{expr1} = {expr2}" FORMAT="{expr1} [[is]] {expr2}" CONSTFMT="{const}" KIND="Scalar" CASEINS="False" GROUP="Date/time operators" cond="False" tables="">
+      <TYPES>Date,DateTime</TYPES>
+      <EXPRS DefType="Unknown" />
+      <EDITORS>
+        <DEFAULT TYPE="DATETIME" />
+      </EDITORS>
+    </OPERATOR>
+    <OPERATOR ID="DateNotEqualSpecial" CAPTION="is not (special date)" EXPR="{expr1} &lt;&gt; {expr2}" FORMAT="{expr1} [[is not]] {expr2}" CONSTFMT="{const}" KIND="Scalar" CASEINS="False" GROUP="Date/time operators" cond="False" tables="">
+      <TYPES>Date,DateTime</TYPES>
+      <EXPRS DefType="Unknown" />
+      <EDITORS>
+        <DEFAULT TYPE="CUSTOMLIST" NAME="SpecDateValues" />
+      </EDITORS>
+    </OPERATOR>
+    <OPERATOR ID="DateNotEqualPrecise" CAPTION="is not (precise date)" EXPR="{expr1} &lt;&gt; {expr2}" FORMAT="{expr1} [[is not]] {expr2}" CONSTFMT="{const}" KIND="Scalar" CASEINS="False" GROUP="Date/time operators" cond="False" tables="">
+      <TYPES>Date,DateTime</TYPES>
+      <EXPRS DefType="Unknown" />
+      <EDITORS>
+        <DEFAULT TYPE="DATETIME" />
+      </EDITORS>
+    </OPERATOR>
+    <OPERATOR ID="DateBeforeSpecial" CAPTION="is before (special date)" EXPR="{expr1} &lt; {expr2}" FORMAT="{expr1} [[is before]] {expr2}" CONSTFMT="{const}" KIND="Scalar" CASEINS="False" GROUP="Date/time operators" cond="False" tables="">
+      <TYPES>Date,DateTime</TYPES>
+      <EXPRS DefType="Unknown" />
+      <EDITORS>
+        <DEFAULT TYPE="CUSTOMLIST" NAME="SpecDateValues" />
+      </EDITORS>
+    </OPERATOR>
+    <OPERATOR ID="DateBeforePrecise" CAPTION="is before (precise date)" EXPR="{expr1} &lt; {expr2}" FORMAT="{expr1} [[is before]] {expr2}" CONSTFMT="{const}" KIND="Scalar" CASEINS="False" GROUP="Date/time operators" cond="False" tables="">
+      <TYPES>Date,DateTime</TYPES>
+      <EXPRS DefType="Unknown" />
+      <EDITORS>
+        <DEFAULT TYPE="DATETIME" />
+      </EDITORS>
+    </OPERATOR>
+    <OPERATOR ID="DateAfterSpecial" CAPTION="is after (special date)" EXPR="{expr1} &gt;= {expr2}" FORMAT="{expr1} [[is after]] {expr2}" CONSTFMT="{const}" KIND="Scalar" CASEINS="False" GROUP="Date/time operators" cond="False" tables="">
+      <TYPES>Date,DateTime</TYPES>
+      <EXPRS DefType="Unknown" />
+      <EDITORS>
+        <DEFAULT TYPE="CUSTOMLIST" NAME="SpecDateValues" />
+      </EDITORS>
+    </OPERATOR>
+    <OPERATOR ID="DateAfterPrecise" CAPTION="is after (precise date)" EXPR="{expr1} &gt;= {expr2}" FORMAT="{expr1} [[is after]] {expr2}" CONSTFMT="{const}" KIND="Scalar" CASEINS="False" GROUP="Date/time operators" cond="False" tables="">
+      <TYPES>Date,DateTime</TYPES>
+      <EXPRS DefType="Unknown" />
+      <EDITORS>
+        <DEFAULT TYPE="DATETIME" />
+      </EDITORS>
+    </OPERATOR>
+    <OPERATOR ID="DatePeriodPrecise" CAPTION="is between" EXPR="{expr1} BETWEEN {expr2} AND {expr3}" FORMAT="{expr1} [[is between]] {expr2} and {expr3}" CONSTFMT="{const}" KIND="Scalar" CASEINS="False" GROUP="Date/time operators" cond="False" tables="">
+      <TYPES>Date,DateTime</TYPES>
+      <EXPRS DefType="Unknown" />
+      <EDITORS>
+        <DEFAULT TYPE="DATETIME" />
+      </EDITORS>
+    </OPERATOR>
+    <OPERATOR ID="TimeBeforeSpecial" CAPTION="is before (special time)" EXPR="{expr1} &lt; {expr2}" FORMAT="{expr1} [[is before]] {expr2}" CONSTFMT="{const}" KIND="Scalar" CASEINS="False" GROUP="Date/time operators" cond="False" tables="">
+      <TYPES>Time</TYPES>
+      <EXPRS DefType="Unknown" />
+      <EDITORS>
+        <DEFAULT TYPE="CUSTOMLIST" NAME="SpecTimeValues" />
+      </EDITORS>
+    </OPERATOR>
+    <OPERATOR ID="TimeBeforePrecise" CAPTION="is before (precise time)" EXPR="{expr1} &lt; {expr2}" FORMAT="{expr1} [[is before]] {expr2}" CONSTFMT="{const}" KIND="Scalar" CASEINS="False" GROUP="Date/time operators" cond="False" tables="">
+      <TYPES>Time</TYPES>
+      <EXPRS DefType="Unknown" />
+      <EDITORS>
+        <DEFAULT TYPE="DATETIME" />
+      </EDITORS>
+    </OPERATOR>
+    <OPERATOR ID="TimeAfterSpecial" CAPTION="is after (special time)" EXPR="{expr1} &gt;= {expr2}" FORMAT="{expr1} [[is after]] {expr2}" CONSTFMT="{const}" KIND="Scalar" CASEINS="False" GROUP="Date/time operators" cond="False" tables="">
+      <TYPES>Time</TYPES>
+      <EXPRS DefType="Unknown" />
+      <EDITORS>
+        <DEFAULT TYPE="CUSTOMLIST" NAME="SpecTimeValues" />
+      </EDITORS>
+    </OPERATOR>
+    <OPERATOR ID="TimeAfterPrecise" CAPTION="is after (precise time)" EXPR="{expr1} &gt;= {expr2}" FORMAT="{expr1} [[is after]] {expr2}" CONSTFMT="{const}" KIND="Scalar" CASEINS="False" GROUP="Date/time operators" cond="False" tables="">
+      <TYPES>Time</TYPES>
+      <EXPRS DefType="Unknown" />
+      <EDITORS>
+        <DEFAULT TYPE="DATETIME" />
+      </EDITORS>
+    </OPERATOR>
+    <OPERATOR ID="TimePeriodPrecise" CAPTION="is between" EXPR="{expr1} BETWEEN {expr2} AND {expr3}" FORMAT="{expr1} [[is between]] {expr2} and {expr3}" CONSTFMT="{const}" KIND="Scalar" CASEINS="False" GROUP="Date/time operators" cond="False" tables="">
+      <TYPES>Time</TYPES>
+      <EXPRS DefType="Unknown" />
+      <EDITORS>
+        <DEFAULT TYPE="DATETIME" />
+      </EDITORS>
+    </OPERATOR>
+    <OPERATOR ID="MaximumOfAttr" CAPTION="is maximum of" EXPR="{expr1} = (SELECT MAX({expr2.field}) from {expr2.table})" FORMAT="{expr1} [[is equal to maximum of]] {expr2}" CONSTFMT="{const}" KIND="Attribute" CASEINS="False" GROUP="Other operators" cond="False" tables="">
+      <TYPES>String,WideString,Byte,Word,Int,Int64,Bool,Float,Currency,BCD,Autoinc,Memo,FixedChar,Date,DateTime,Time</TYPES>
+      <EXPRS DefType="Unknown" />
+    </OPERATOR>
+  </OPERATORS>
+  <ENTITIES MAXID="0">
+    <ENTITY NAME="شهر ها" UIC="True" UIR="True" UIS="True">
+      <USERDATA />
+      <ATTR ID="tblCity.CitCode" KIND="Data" EXPR="CitCode" CAPTION="کد شهر" TYPE="String" SIZE="15" QUOTE="True" UIC="True" UIR="True" UIS="True" UAL="True" AGGR="False" CustomFunc="" TABLES="tblCity">
+        <OPERATORS>StartsWith,Contains,Equal,NotStartsWith,NotContains,NotEqual,InSubQuery,IsNull,IsNotNull</OPERATORS>
+        <EDITORS />
+        <DESCRIPTION />
+      </ATTR>
+      <ATTR ID="tblCity.CitName" KIND="Data" EXPR="CitName" CAPTION="نام شهر" TYPE="WideString" SIZE="255" QUOTE="True" UIC="True" UIR="True" UIS="True" UAL="True" AGGR="False" CustomFunc="" TABLES="tblCity">
+        <OPERATORS>StartsWith,Contains,Equal,NotStartsWith,NotContains,NotEqual,InSubQuery,IsNull,IsNotNull</OPERATORS>
+        <EDITORS />
+        <DESCRIPTION />
+      </ATTR>
+      <ATTR ID="City.CounId" KIND="Data" EXPR="CounId" CAPTION="کد کشور" TYPE="Int" SIZE="0" QUOTE="False" UIC="True" UIR="True" UIS="True" UAL="True" AGGR="False" CustomFunc="" TABLES="tblCity">
+        <OPERATORS>Equal,Between,LessThan,LessOrEqual,GreaterThan,GreaterOrEqual,NotBetween,NotEqual,MaximumOfAttr,InSubQuery,IsNull,IsNotNull</OPERATORS>
+        <EDITORS />
+        <DESCRIPTION />
+      </ATTR>
+    </ENTITY>
+    <ENTITY NAME="کشور ها" UIC="True" UIR="True" UIS="True">
+      <USERDATA />
+      <ATTR ID="tblCountry.CounCode" KIND="Data" EXPR="CounCode" CAPTION="کد کشور" TYPE="String" SIZE="15" QUOTE="True" UIC="True" UIR="True" UIS="True" UAL="True" AGGR="False" CustomFunc="" TABLES="tblCountry">
+        <OPERATORS>StartsWith,Contains,Equal,NotStartsWith,NotContains,NotEqual,InSubQuery,IsNull,IsNotNull</OPERATORS>
+        <EDITORS />
+        <DESCRIPTION />
+      </ATTR>
+      <ATTR ID="tblCountry.CounName" KIND="Data" EXPR="CounName" CAPTION="نام کشور" TYPE="WideString" SIZE="30" QUOTE="True" UIC="True" UIR="True" UIS="True" UAL="True" AGGR="False" CustomFunc="" TABLES="tblCountry">
+        <OPERATORS>StartsWith,Contains,Equal,NotStartsWith,NotContains,NotEqual,InSubQuery,IsNull,IsNotNull</OPERATORS>
+        <EDITORS />
+        <DESCRIPTION />
+      </ATTR>
+      <ATTR ID="tblCountry.Description" KIND="Data" EXPR="Description" CAPTION="توضیحات" TYPE="WideString" SIZE="255" QUOTE="True" UIC="True" UIR="True" UIS="True" UAL="True" AGGR="False" CustomFunc="" TABLES="tblCountry">
+        <OPERATORS>StartsWith,Contains,Equal,NotStartsWith,NotContains,NotEqual,InSubQuery,IsNull,IsNotNull</OPERATORS>
+        <EDITORS />
+        <DESCRIPTION />
+      </ATTR>
+    </ENTITY>
+  </ENTITIES>
+</DATAMODEL>

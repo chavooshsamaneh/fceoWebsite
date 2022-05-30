@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Groups>
+  <NavBarGroup Text="ظرفیت" Expanded="False" Name="grpCapacity">
+    <NavBarItem NavigateUrl="~/Employee/TechnicalServices/Capacity/CapacityAssignment.aspx" Text="مدیریت اختصاص ظرفیت"/>
+    <NavBarItem NavigateUrl="~/Employee/TechnicalServices/Capacity/ConditionalCapacity.aspx" Text="مدیریت کاهش/افزایش ظرفیت"/>
+  </NavBarGroup>
+</Groups>

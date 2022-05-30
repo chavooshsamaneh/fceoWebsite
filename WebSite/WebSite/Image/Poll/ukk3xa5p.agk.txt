@@ -1,0 +1,3 @@
+update tblMember 
+set  MobileNo =(select MobileNo from tblMemberRequest where IsMeTemp=0 and IsConfirm=1 and MReId=(select MAX(tblReq.MReId) from tblMemberRequest tblReq where tblReq.IsMeTemp=0 and tblReq.MeId=tblMemberRequest.MeId)  and tblMemberRequest.MeId=tblmember.MeId)
+where tblMember.MeId in  (select MeId from tblMember where MobileNo=(select MobileNo from tblTempMember where TMeId=MeId)and MeId<>87)

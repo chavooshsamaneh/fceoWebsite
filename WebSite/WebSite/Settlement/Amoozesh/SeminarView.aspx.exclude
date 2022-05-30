@@ -1,0 +1,1045 @@
+﻿<%@ Page Language="C#" MasterPageFile="~/Settlement/Amoozesh/SettlmentMaster.master"
+    AutoEventWireup="true" CodeFile="SeminarView.aspx.cs" Inherits="Settlement_Amoozesh_SeminarView"
+    Title="سمینارها" %>
+
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxp" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxuc" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxrp" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxm" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxpc" %>
+<%@ Register Assembly="TSP.WebControls" Namespace="TSP.WebControls" TagPrefix="TSPControls" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxe" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxwgv" %>
+<%@ Register Assembly="PersianDateControls 2.0" Namespace="PersianDateControls" TagPrefix="pdc" %>
+<%@ Register Assembly="AjaxControls" Namespace="AjaxControls" TagPrefix="asp" %>
+<%@ Register Assembly="PersianDateControls 2.0" Namespace="PersianDateControls" TagPrefix="pdc" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+    <div id="Content" runat="server" style="width: 100%; display: block;" align="center">
+         <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+        <ContentTemplate>
+        <div style="text-align: right" dir="rtl" id="DivReport" class="DivErrors" runat="server">
+            <asp:label id="LabelWarning" runat="server" text="Label"></asp:label>
+            [<a class="closeLink" href="#">بستن</a>]</div>
+        <div align="right" dir="ltr">
+           <dxrp:ASPxRoundPanel ID="ASPxRoundPanel3" runat="server" Width="100%" ShowHeader="False"
+                 BackColor="#EBF2F4" >
+                <LeftEdge>
+                    <BackgroundImage ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif" Repeat="RepeatX"
+                        VerticalPosition="bottom" />
+                </LeftEdge>
+                <BottomRightCorner Height="5px" Url="~/App_Themes/Glass/Web/rpBottomRightCorner.png"
+                    Width="5px" />
+                <HeaderContent>
+                    <BackgroundImage ImageUrl="~/App_Themes/Glass/Web/rpHeaderBack.gif" Repeat="RepeatX"
+                        VerticalPosition="bottom" />
+                </HeaderContent>
+                <ContentPaddings Padding="0px" />
+                <NoHeaderTopRightCorner Height="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopRightCorner.png"
+                    Width="5px" />
+                <RightEdge>
+                    <BackgroundImage ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif" Repeat="RepeatX"
+                        VerticalPosition="bottom" />
+                </RightEdge>
+                <HeaderRightEdge>
+                    <BackgroundImage ImageUrl="~/App_Themes/Glass/Web/rpHeaderRightEdge.gif" VerticalPosition="bottom" />
+                </HeaderRightEdge>
+                <Border BorderColor="#7EACB1" BorderStyle="Solid" BorderWidth="1px" />
+                <HeaderStyle BackColor="White" Height="23px">
+                    <Paddings PaddingBottom="0px" PaddingLeft="2px" PaddingTop="0px" />
+                    <BorderBottom BorderStyle="None" />
+                </HeaderStyle>
+                <Content>
+                    <BackgroundImage ImageUrl="~/App_Themes/Glass/Web/rpContentBack.gif" Repeat="RepeatX"
+                        VerticalPosition="bottom" />
+                </Content>
+                <HeaderLeftEdge>
+                    <BackgroundImage ImageUrl="~/App_Themes/Glass/Web/rpHeaderLeftEdge.gif" Repeat="RepeatX"
+                        VerticalPosition="bottom" />
+                </HeaderLeftEdge>
+                <BottomEdge BackColor="#D7E9F1">
+                </BottomEdge>
+                <TopRightCorner Height="5px" Url="~/App_Themes/Glass/Web/rpTopRightCorner.png" Width="5px" />
+                <NoHeaderTopLeftCorner Height="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopLeftCorner.png"
+                    Width="5px" />
+                <PanelCollection>
+                    <dxp:PanelContent runat="server">
+                        <div dir="rtl">
+                            <table cellpadding="0" style="display: block; overflow: hidden; border-collapse: collapse"
+                                width="100%">
+                                <tbody>
+                                    <tr>
+                                        <td align="right">
+                                            <table cellpadding="0" dir="rtl" style="border-collapse: collapse; background-color: transparent">
+                                                <tbody>
+                                                    <tr>
+                                                        <td >
+                                                            <TSPControls:CustomTextBox ID="btnSave" runat="server"  EnableTheming="False"
+                                                                EnableViewState="False" OnClick="btnSave_Click" Text=" " ToolTip="ذخیره" UseSubmitBehavior="False"
+                                                                Width="25px">
+                                                                <ClientSideEvents Click="function(s, e) {
+	
+	
+}" />
+                                                                <HoverStyle BackColor="#FFE0C0">
+                                                                    <Border BorderColor="Gray" BorderStyle="Outset" BorderWidth="1px" />
+                                                                </HoverStyle>
+                                                                <Image Height="25px" Url="~/Images/icons/save.png" Width="25px" />
+                                                            </TSPControls:CustomTextBox>
+                                                        </td>
+                                                        <td >
+                                                            <TSPControls:CustomTextBox ID="btnBack" runat="server" CausesValidation="False" 
+                                                                EnableTheming="False" EnableViewState="False" OnClick="btnBack_Click" Text=" "
+                                                                ToolTip="بازگشت" UseSubmitBehavior="False">
+                                                                <HoverStyle BackColor="#FFE0C0">
+                                                                    <Border BorderColor="Gray" BorderStyle="Outset" BorderWidth="1px" />
+                                                                </HoverStyle>
+                                                                <Image Height="25px" Url="~/Images/icons/Back.png" Width="25px" />
+                                                            </TSPControls:CustomTextBox>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </dxp:PanelContent>
+                </PanelCollection>
+                <TopLeftCorner Height="5px" Url="~/App_Themes/Glass/Web/rpTopLeftCorner.png" Width="5px" />
+                <NoHeaderTopEdge BackColor="#EBF2F4">
+                </NoHeaderTopEdge>
+                <BottomLeftCorner Height="5px" Url="~/App_Themes/Glass/Web/rpBottomLeftCorner.png"
+                    Width="5px" />
+            </dxrp:ASPxRoundPanel>
+        </div>
+        <br />
+        <div dir="ltr">
+            <dxrp:ASPxRoundPanel ID="ASPxRoundPanel1" runat="server" Width="100%" 
+                BackColor="#EBF2F4"  HeaderText="سمینار آموزشی">
+                <LeftEdge>
+                    <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif">
+                    </BackgroundImage>
+                </LeftEdge>
+                <BottomRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpBottomRightCorner.png">
+                </BottomRightCorner>
+                <HeaderContent>
+                    <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderBack.gif">
+                    </BackgroundImage>
+                </HeaderContent>
+                <ContentPaddings PaddingTop="10px" PaddingBottom="10px" PaddingLeft="4px"></ContentPaddings>
+                <NoHeaderTopRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopRightCorner.png">
+                </NoHeaderTopRightCorner>
+                <RightEdge>
+                    <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif">
+                    </BackgroundImage>
+                </RightEdge>
+                <HeaderRightEdge>
+                    <BackgroundImage VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderRightEdge.gif">
+                    </BackgroundImage>
+                </HeaderRightEdge>
+                <Border BorderWidth="1px" BorderStyle="Solid" BorderColor="#7EACB1"></Border>
+                <HeaderStyle HorizontalAlign="Right" BackColor="White" Height="23px">
+                    <Paddings PaddingTop="0px" PaddingBottom="0px" PaddingLeft="2px"></Paddings>
+                    <BorderBottom BorderStyle="None"></BorderBottom>
+                </HeaderStyle>
+                <Content>
+                    <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpContentBack.gif">
+                    </BackgroundImage>
+                </Content>
+                <HeaderLeftEdge>
+                    <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderLeftEdge.gif">
+                    </BackgroundImage>
+                </HeaderLeftEdge>
+                <BottomEdge BackColor="#D7E9F1">
+                </BottomEdge>
+                <TopRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpTopRightCorner.png">
+                </TopRightCorner>
+                <NoHeaderTopLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopLeftCorner.png">
+                </NoHeaderTopLeftCorner>
+                <PanelCollection>
+                    <dxp:PanelContent runat="server"><dxrp:ASPxRoundPanel runat="server" ID="ASPxRoundPanel2"
+                         Width="100%" HeaderText="اطلاعات پایه" BackColor="#EBF2F4"
+                        >
+<headerrightedge>
+<BackgroundImage VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderRightEdge.gif"></BackgroundImage>
+</headerrightedge>
+
+<rightedge>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif"></BackgroundImage>
+</rightedge>
+
+<border borderwidth="1px" borderstyle="Solid" bordercolor="#7EACB1"></border>
+<headerleftedge>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderLeftEdge.gif"></BackgroundImage>
+</headerleftedge>
+
+<noheadertoprightcorner height="5px" width="5px" url="~/App_Themes/Glass/Web/rpNoHeaderTopRightCorner.png"></noheadertoprightcorner>
+
+<contentpaddings paddingtop="10px" paddingbottom="10px" paddingleft="4px"></contentpaddings>
+
+<topleftcorner height="5px" width="5px" url="~/App_Themes/Glass/Web/rpTopLeftCorner.png"></topleftcorner>
+
+<bottomedge backcolor="#D7E9F1"></bottomedge>
+
+<bottomrightcorner height="5px" width="5px" url="~/App_Themes/Glass/Web/rpBottomRightCorner.png"></bottomrightcorner>
+
+<noheadertopedge backcolor="#EBF2F4"></noheadertopedge>
+
+<panelcollection>
+<dxp:PanelContent runat="server"><TABLE dir=rtl width="100%"><TBODY><TR><TD vAlign=top align=right><dxe:ASPxLabel runat="server" Text="موضوع سمینار" ID="ASPxLabel10"></dxe:ASPxLabel>
+
+ </TD><TD vAlign=top align=right colSpan=3><TSPControls:CustomTextBox runat="server" Width="266px" ReadOnly="True"   ID="txtSubject">
+<ValidationSettings Display="Dynamic" ErrorTextPosition="Bottom">
+<ErrorImage Height="14px" Url="~/App_Themes/Glass/Editors/edtError.png"></ErrorImage>
+
+<ErrorFrameStyle ImageSpacing="4px">
+<ErrorTextPaddings PaddingLeft="4px"></ErrorTextPaddings>
+</ErrorFrameStyle>
+
+<RequiredField ErrorText="موضوع را وارد نمایید"></RequiredField>
+</ValidationSettings>
+</TSPControls:CustomTextBox>
+
+ </TD></TR><TR><TD vAlign=top align=right><dxe:ASPxLabel runat="server" Text="تاریخ شروع برگزاری" ID="ASPxLabel18"></dxe:ASPxLabel>
+
+ </TD><TD vAlign=top align=right><TSPControls:CustomTextBox runat="server" Width="145px" ReadOnly="True"   ID="txtDate" style="DIRECTION: ltr">
+<ValidationSettings Display="Dynamic" ErrorTextPosition="Bottom">
+<ErrorImage Height="14px" Url="~/App_Themes/Glass/Editors/edtError.png"></ErrorImage>
+
+<ErrorFrameStyle ImageSpacing="4px">
+<ErrorTextPaddings PaddingLeft="4px"></ErrorTextPaddings>
+</ErrorFrameStyle>
+
+<RequiredField ErrorText="زمان را وارد نمایید"></RequiredField>
+</ValidationSettings>
+</TSPControls:CustomTextBox>
+
+ </TD><TD vAlign=top align=right><dxe:ASPxLabel runat="server" Text="تاریخ پایان برگزاری" Width="100px" ID="lblEndDate" __designer:wfdid="w5"></dxe:ASPxLabel>
+
+ </TD><TD vAlign=top align=right><TSPControls:CustomTextBox runat="server" Width="145px" ReadOnly="True"   ID="txtEndDate" style="DIRECTION: ltr" __designer:wfdid="w7">
+<ValidationSettings Display="Dynamic" ErrorTextPosition="Bottom">
+<ErrorImage Height="14px" Url="~/App_Themes/Glass/Editors/edtError.png"></ErrorImage>
+
+<ErrorFrameStyle ImageSpacing="4px">
+<ErrorTextPaddings PaddingLeft="4px"></ErrorTextPaddings>
+</ErrorFrameStyle>
+
+<RequiredField IsRequired="True" ErrorText="هزینه سمینار را وارد نمایید"></RequiredField>
+</ValidationSettings>
+</TSPControls:CustomTextBox>
+
+ </TD></TR><TR><TD vAlign=top align=right><dxe:ASPxLabel runat="server" Text="زمان برگزاری(ساعت)" Width="64px" ID="ASPxLabel2"></dxe:ASPxLabel>
+
+ </TD><TD vAlign=top align=right><TSPControls:CustomTextBox runat="server" Width="145px" ReadOnly="True"   ID="txtTime">
+<ValidationSettings Display="Dynamic" ErrorTextPosition="Bottom">
+<ErrorImage Height="14px" Url="~/App_Themes/Glass/Editors/edtError.png"></ErrorImage>
+
+<ErrorFrameStyle ImageSpacing="4px">
+<ErrorTextPaddings PaddingLeft="4px"></ErrorTextPaddings>
+</ErrorFrameStyle>
+
+<RequiredField ErrorText="زمان را وارد نمایید"></RequiredField>
+</ValidationSettings>
+</TSPControls:CustomTextBox>
+
+ </TD><TD vAlign=top align=right><dxe:ASPxLabel runat="server" Text="مدت زمان برگزاری(ساعت)" ID="ASPxLabel29"></dxe:ASPxLabel>
+
+ </TD><TD vAlign=top align=right><TSPControls:CustomTextBox runat="server" Width="145px" MaxLength="5" ReadOnly="True"   ID="txtDuration" style="DIRECTION: ltr">
+<MaskSettings Mask="HH:mm"></MaskSettings>
+
+<ValidationSettings Display="Dynamic" ErrorTextPosition="Bottom">
+<ErrorImage Height="14px" Url="~/App_Themes/Glass/Editors/edtError.png"></ErrorImage>
+
+<ErrorFrameStyle ImageSpacing="4px">
+<ErrorTextPaddings PaddingLeft="4px"></ErrorTextPaddings>
+</ErrorFrameStyle>
+
+<RequiredField IsRequired="True" ErrorText="زمان را وارد نمایید"></RequiredField>
+</ValidationSettings>
+</TSPControls:CustomTextBox>
+
+ </TD></TR><TR><TD vAlign=top align=right><dxe:ASPxLabel runat="server" Text="ظرفیت" ID="ASPxLabel8" __designer:wfdid="w1"></dxe:ASPxLabel>
+
+ </TD><TD vAlign=top align=right><TSPControls:CustomTextBox runat="server" Width="145px" ReadOnly="True"   ID="txtCapacity" __designer:wfdid="w2">
+<ValidationSettings Display="Dynamic" ErrorTextPosition="Bottom">
+<ErrorImage Height="14px" Url="~/App_Themes/Glass/Editors/edtError.png"></ErrorImage>
+
+<ErrorFrameStyle ImageSpacing="4px">
+<ErrorTextPaddings PaddingLeft="4px"></ErrorTextPaddings>
+</ErrorFrameStyle>
+
+<RequiredField IsRequired="True" ErrorText="ظرفیت را وارد نمایید"></RequiredField>
+</ValidationSettings>
+</TSPControls:CustomTextBox>
+
+ </TD><TD vAlign=top align=right><dxe:ASPxLabel runat="server" Text="هزینه شرکت در سمینار" ID="ASPxLabel1" __designer:wfdid="w3"></dxe:ASPxLabel>
+
+ </TD><TD vAlign=top align=right><TSPControls:CustomTextBox runat="server" Width="145px" ReadOnly="True"   ID="txtSeminarCost" __designer:wfdid="w6">
+<ValidationSettings Display="Dynamic" ErrorTextPosition="Bottom">
+<ErrorImage Height="14px" Url="~/App_Themes/Glass/Editors/edtError.png"></ErrorImage>
+
+<ErrorFrameStyle ImageSpacing="4px">
+<ErrorTextPaddings PaddingLeft="4px"></ErrorTextPaddings>
+</ErrorFrameStyle>
+
+<RequiredField ErrorText="هزینه سمینار را وارد نمایید"></RequiredField>
+</ValidationSettings>
+</TSPControls:CustomTextBox>
+
+ </TD></TR><TR><TD vAlign=top align=right><asp:Label runat="server" Text="امتیاز کل" ID="Label1"></asp:Label>
+
+ </TD><TD vAlign=top align=right><TSPControls:CustomTextBox runat="server" Width="145px" ReadOnly="True"   ID="txtPoint">
+<ValidationSettings>
+<ErrorImage Height="14px" Url="~/App_Themes/Glass/Editors/edtError.png"></ErrorImage>
+
+<ErrorFrameStyle ImageSpacing="4px">
+<ErrorTextPaddings PaddingLeft="4px"></ErrorTextPaddings>
+</ErrorFrameStyle>
+</ValidationSettings>
+</TSPControls:CustomTextBox>
+
+ </TD><TD vAlign=top align=right><asp:Label runat="server" Text="امتیاز ساعتی" ID="Label2" __designer:wfdid="w7"></asp:Label>
+
+ </TD><TD vAlign=top align=right><TSPControls:CustomTextBox runat="server" Width="145px" ReadOnly="True"   ID="txtTimePoint" __designer:wfdid="w8">
+<ValidationSettings>
+<ErrorImage Height="14px" Url="~/App_Themes/Glass/Editors/edtError.png"></ErrorImage>
+
+<ErrorFrameStyle ImageSpacing="4px">
+<ErrorTextPaddings PaddingLeft="4px"></ErrorTextPaddings>
+</ErrorFrameStyle>
+</ValidationSettings>
+</TSPControls:CustomTextBox>
+
+ </TD></TR><TR><TD vAlign=top align=right><dxe:ASPxLabel runat="server" Text="مطالب و سرفصل ها" Width="106px" ID="ASPxLabel20"></dxe:ASPxLabel>
+
+ </TD><TD vAlign=top align=right colSpan=3><TSPControls:CustomASPXMemo runat="server" Height="68px" Width="510px"   ID="txtTopic">
+<ValidationSettings Display="Dynamic" ErrorTextPosition="Bottom">
+<RequiredField ErrorText=""></RequiredField>
+</ValidationSettings>
+</TSPControls:CustomASPXMemo>
+
+ </TD></TR><TR><TD vAlign=top align=right><dxe:ASPxLabel runat="server" Text="محل برگزاری" ID="ASPxLabel7"></dxe:ASPxLabel>
+
+ </TD><TD vAlign=top align=right colSpan=3><TSPControls:CustomASPXMemo runat="server" Height="30px" Width="510px" ReadOnly="True"   ID="txtPlace">
+<ValidationSettings Display="Dynamic" ErrorTextPosition="Bottom">
+<RequiredField ErrorText="محل برگزاری را وارد نمایید"></RequiredField>
+</ValidationSettings>
+</TSPControls:CustomASPXMemo>
+
+ </TD></TR><TR><TD vAlign=top align=right><dxe:ASPxLabel runat="server" Text="توضیحات" ID="ASPxLabel15"></dxe:ASPxLabel>
+
+ </TD><TD vAlign=top align=right colSpan=3><TSPControls:CustomASPXMemo runat="server" Height="37px" Width="510px" ReadOnly="True"   ID="txtDesc"></TSPControls:CustomASPXMemo>
+
+ </TD></TR></TBODY></TABLE><BR /><BR /><dxrp:ASPxRoundPanel runat="server" HeaderText="زمان بندی برنامه های سمینار" HorizontalAlign="Center" Width="100%"   BackColor="#EBF2F4" ID="ASPxRoundPanel8">
+<ContentPaddings PaddingLeft="4px" PaddingTop="10px" PaddingBottom="10px"></ContentPaddings>
+
+<HeaderStyle Height="23px" HorizontalAlign="Right" BackColor="White">
+<Paddings PaddingLeft="2px" PaddingTop="0px" PaddingBottom="0px"></Paddings>
+
+<BorderBottom BorderStyle="None"></BorderBottom>
+</HeaderStyle>
+
+<TopLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpTopLeftCorner.png"></TopLeftCorner>
+
+<NoHeaderTopLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopLeftCorner.png"></NoHeaderTopLeftCorner>
+
+<TopRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpTopRightCorner.png"></TopRightCorner>
+
+<NoHeaderTopRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopRightCorner.png"></NoHeaderTopRightCorner>
+
+<BottomRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpBottomRightCorner.png"></BottomRightCorner>
+
+<BottomLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpBottomLeftCorner.png"></BottomLeftCorner>
+
+<HeaderLeftEdge>
+<BackgroundImage ImageUrl="~/App_Themes/Glass/Web/rpHeaderLeftEdge.gif" Repeat="RepeatX" VerticalPosition="bottom"></BackgroundImage>
+</HeaderLeftEdge>
+
+<HeaderContent>
+<BackgroundImage ImageUrl="~/App_Themes/Glass/Web/rpHeaderBack.gif" Repeat="RepeatX" VerticalPosition="bottom"></BackgroundImage>
+</HeaderContent>
+
+<HeaderRightEdge>
+<BackgroundImage ImageUrl="~/App_Themes/Glass/Web/rpHeaderRightEdge.gif" VerticalPosition="bottom"></BackgroundImage>
+</HeaderRightEdge>
+
+<NoHeaderTopEdge BackColor="#EBF2F4"></NoHeaderTopEdge>
+
+<RightEdge>
+<BackgroundImage ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif" Repeat="RepeatX" VerticalPosition="bottom"></BackgroundImage>
+</RightEdge>
+
+<BottomEdge BackColor="#D7E9F1"></BottomEdge>
+
+<LeftEdge>
+<BackgroundImage ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif" Repeat="RepeatX" VerticalPosition="bottom"></BackgroundImage>
+</LeftEdge>
+
+<Content>
+<BackgroundImage ImageUrl="~/App_Themes/Glass/Web/rpContentBack.gif" Repeat="RepeatX" VerticalPosition="bottom"></BackgroundImage>
+</Content>
+<PanelCollection>
+<dxp:PanelContent runat="server"><DIV dir=rtl><TSPControls:CustomAspxDevGridView runat="server"   KeyFieldName="SeSchId" AutoGenerateColumns="False" RightToLeft="True" DataSourceID="OdbSchedule" Width="100%" ID="AspxGridSchedule" __designer:wfdid="w28"><Columns>
+<dxwgv:GridViewDataTextColumn FieldName="SchId" Visible="False" VisibleIndex="0"></dxwgv:GridViewDataTextColumn>
+<dxwgv:GridViewDataTextColumn FieldName="StartTime" Caption="از ساعت" VisibleIndex="0"></dxwgv:GridViewDataTextColumn>
+<dxwgv:GridViewDataTextColumn FieldName="EndTime" Caption="تا ساعت" VisibleIndex="1"></dxwgv:GridViewDataTextColumn>
+<dxwgv:GridViewDataTextColumn FieldName="Subject" Caption="موضوع فعالیت" VisibleIndex="2"></dxwgv:GridViewDataTextColumn>
+<dxwgv:GridViewDataTextColumn FieldName="Description" Caption="توضیحات" VisibleIndex="3"></dxwgv:GridViewDataTextColumn>
+<dxwgv:GridViewCommandColumn Caption=" " VisibleIndex="4"></dxwgv:GridViewCommandColumn>
+</Columns>
+
+<SettingsBehavior AllowFocusedRow="True" ConfirmDelete="True"></SettingsBehavior>
+
+<SettingsPager>
+<AllButton Text="همه رکوردها"></AllButton>
+
+<FirstPageButton Text="اولین صفحه"></FirstPageButton>
+
+<LastPageButton Text="آخرین صفحه"></LastPageButton>
+
+<NextPageButton Text="صفحه بعد"></NextPageButton>
+
+<PrevPageButton Text="صفحه قبل"></PrevPageButton>
+
+<Summary Text="صفحه: {0} از {1} (تعداد کل:{2})"></Summary>
+</SettingsPager>
+
+<Settings ShowFilterRowMenu="True" ShowGroupPanel="True"></Settings>
+
+<SettingsText GroupPanel="جهت گروه بندی ستون مربوطه را به این قسمت بکشید" ConfirmDelete="آیا مطمئن به حذف این ردیف هستید؟" EmptyDataRow="هیچ داده ای وجود ندارد" CommandEdit="ویرایش" CommandNew="جدید" CommandDelete="حذف" CommandSelect="انتخاب" CommandCancel="انصراف" CommandUpdate="ذخیره" CommandClearFilter="پاک کردن فیلتر"></SettingsText>
+
+<SettingsLoadingPanel Text="در حال بارگذاری"></SettingsLoadingPanel>
+
+<Images ></Images>
+
+<Styles  >
+<Header HorizontalAlign="Center"></Header>
+
+<GroupPanel ForeColor="Black"></GroupPanel>
+</Styles>
+</TSPControls:CustomAspxDevGridView>
+
+
+ </DIV></dxp:PanelContent>
+</PanelCollection>
+
+<Border BorderColor="#7EACB1" BorderStyle="Solid" BorderWidth="1px"></Border>
+</dxrp:ASPxRoundPanel>
+
+ </dxp:PanelContent>
+</panelcollection>
+
+<noheadertopleftcorner height="5px" width="5px" url="~/App_Themes/Glass/Web/rpNoHeaderTopLeftCorner.png"></noheadertopleftcorner>
+
+<headerstyle horizontalalign="Right" backcolor="White" height="23px">
+<Paddings PaddingTop="0px" PaddingBottom="0px" PaddingLeft="2px"></Paddings>
+
+<BorderBottom BorderStyle="None"></BorderBottom>
+</headerstyle>
+
+<content>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpContentBack.gif"></BackgroundImage>
+</content>
+<leftedge>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif"></BackgroundImage>
+</leftedge>
+
+<toprightcorner height="5px" width="5px" url="~/App_Themes/Glass/Web/rpTopRightCorner.png"></toprightcorner>
+
+<bottomleftcorner height="5px" width="5px" url="~/App_Themes/Glass/Web/rpBottomLeftCorner.png"></bottomleftcorner>
+
+<headercontent>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderBack.gif"></BackgroundImage>
+</headercontent>
+
+</dxrp:ASPxRoundPanel>
+ <br /><br /><dxrp:ASPxRoundPanel runat="server" ID="ASPxRoundPanel4" 
+     Width="100%" HeaderText="مشخصات سخنران" HorizontalAlign="Center" BackColor="#EBF2F4"
+     >
+<headerrightedge>
+<BackgroundImage VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderRightEdge.gif"></BackgroundImage>
+</headerrightedge>
+
+<rightedge>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif"></BackgroundImage>
+</rightedge>
+
+<border borderwidth="1px" borderstyle="Solid" bordercolor="#7EACB1"></border>
+<headerleftedge>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderLeftEdge.gif"></BackgroundImage>
+</headerleftedge>
+
+<noheadertoprightcorner height="5px" width="5px" url="~/App_Themes/Glass/Web/rpNoHeaderTopRightCorner.png"></noheadertoprightcorner>
+
+<contentpaddings paddingtop="10px" paddingbottom="10px" paddingleft="4px"></contentpaddings>
+
+<topleftcorner height="5px" width="5px" url="~/App_Themes/Glass/Web/rpTopLeftCorner.png"></topleftcorner>
+
+<bottomedge backcolor="#D7E9F1"></bottomedge>
+
+<bottomrightcorner height="5px" width="5px" url="~/App_Themes/Glass/Web/rpBottomRightCorner.png"></bottomrightcorner>
+
+<noheadertopedge backcolor="#EBF2F4"></noheadertopedge>
+
+<panelcollection>
+<dxp:PanelContent runat="server"><asp:Panel runat="server" Direction="RightToLeft" ScrollBars="Horizontal" Width="100%" ID="Panel1"><TSPControls:CustomAspxDevGridView runat="server" ClientInstanceName="gridTe"   KeyFieldName="TrTeId" AutoGenerateColumns="False" RightToLeft="True" Width="100%" ID="Grdv_Teacher">
+<ClientSideEvents RowDblClick="function(s, e) {
+	//SetControlValuesTe();
+	//btnTe.SetEnabled(false);
+	//if(combo.GetValue()==2)
+	//{
+		//gridfile.SetVisible(false);
+		//hp.SetVisible(false);
+	//}
+	//else
+	//{
+	//	gridfile.SetVisible(true);
+		//hp.SetVisible(true);
+	//}
+}"></ClientSideEvents>
+<Columns>
+<dxwgv:GridViewDataTextColumn FieldName="Id" Visible="False" VisibleIndex="0"></dxwgv:GridViewDataTextColumn>
+<dxwgv:GridViewDataTextColumn FieldName="Name" Caption="نام" VisibleIndex="1"></dxwgv:GridViewDataTextColumn>
+<dxwgv:GridViewDataTextColumn FieldName="Family" Caption="نام خانوادگی" VisibleIndex="2"></dxwgv:GridViewDataTextColumn>
+<dxwgv:GridViewDataTextColumn FieldName="Father" Caption="نام پدر" VisibleIndex="3"></dxwgv:GridViewDataTextColumn>
+<dxwgv:GridViewDataTextColumn FieldName="PracticalSalary" Caption="دستمزد" VisibleIndex="6"></dxwgv:GridViewDataTextColumn>
+<dxwgv:GridViewDataTextColumn FieldName="Type" Visible="False" VisibleIndex="6"></dxwgv:GridViewDataTextColumn>
+<dxwgv:GridViewDataTextColumn FieldName="Description" Caption="توضیحات" VisibleIndex="7"></dxwgv:GridViewDataTextColumn>
+<dxwgv:GridViewDataTextColumn FieldName="TeId" Visible="False" VisibleIndex="6"></dxwgv:GridViewDataTextColumn>
+<dxwgv:GridViewDataTextColumn FieldName="LiName" Caption="مدرک تحصیلی" VisibleIndex="4"></dxwgv:GridViewDataTextColumn>
+<dxwgv:GridViewDataTextColumn FieldName="MjName" Caption="رشته" VisibleIndex="5"></dxwgv:GridViewDataTextColumn>
+<dxwgv:GridViewDataTextColumn FieldName="TypeName" Caption="ارائه دهنده" VisibleIndex="0"></dxwgv:GridViewDataTextColumn>
+</Columns>
+
+<SettingsBehavior AllowFocusedRow="True" ConfirmDelete="True"></SettingsBehavior>
+
+<SettingsPager>
+<AllButton Text="همه رکوردها"></AllButton>
+
+<FirstPageButton Text="اولین صفحه"></FirstPageButton>
+
+<LastPageButton Text="آخرین صفحه"></LastPageButton>
+
+<NextPageButton Text="صفحه بعد"></NextPageButton>
+
+<PrevPageButton Text="صفحه قبل"></PrevPageButton>
+
+<Summary Text="صفحه: {0} از {1} (تعداد کل:{2})"></Summary>
+</SettingsPager>
+
+<Settings ShowFilterRowMenu="True" ShowGroupPanel="True"></Settings>
+
+<SettingsText GroupPanel="جهت گروه بندی ستون مربوطه را به این قسمت بکشید" ConfirmDelete="آیا مطمئن به حذف این ردیف هستید؟" EmptyDataRow="هیچ داده ای وجود ندارد" CommandEdit="ویرایش" CommandNew="جدید" CommandDelete="حذف" CommandSelect="انتخاب" CommandCancel="انصراف" CommandUpdate="ذخیره" CommandClearFilter="پاک کردن فیلتر"></SettingsText>
+
+<SettingsLoadingPanel Text="در حال بارگذاری"></SettingsLoadingPanel>
+
+<Images ></Images>
+
+<Styles  >
+<Header HorizontalAlign="Center"></Header>
+
+<GroupPanel ForeColor="Black"></GroupPanel>
+</Styles>
+</TSPControls:CustomAspxDevGridView>
+
+</asp:Panel>
+
+ </dxp:PanelContent>
+</panelcollection>
+
+<noheadertopleftcorner height="5px" width="5px" url="~/App_Themes/Glass/Web/rpNoHeaderTopLeftCorner.png"></noheadertopleftcorner>
+
+<headerstyle horizontalalign="Right" backcolor="White" height="23px">
+<Paddings PaddingTop="0px" PaddingBottom="0px" PaddingLeft="2px"></Paddings>
+
+<BorderBottom BorderStyle="None"></BorderBottom>
+</headerstyle>
+
+<content>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpContentBack.gif"></BackgroundImage>
+</content>
+<leftedge>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif"></BackgroundImage>
+</leftedge>
+
+<toprightcorner height="5px" width="5px" url="~/App_Themes/Glass/Web/rpTopRightCorner.png"></toprightcorner>
+
+<bottomleftcorner height="5px" width="5px" url="~/App_Themes/Glass/Web/rpBottomLeftCorner.png"></bottomleftcorner>
+
+<headercontent>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderBack.gif"></BackgroundImage>
+</headercontent>
+
+</dxrp:ASPxRoundPanel>
+ <br /><br /><dxrp:ASPxRoundPanel runat="server" ID="ASPxRoundPanel5" 
+     Width="100%" HeaderText="فایل های پیوست" BackColor="#EBF2F4" 
+     HorizontalAlign="Center">
+<headerrightedge>
+<BackgroundImage VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderRightEdge.gif"></BackgroundImage>
+</headerrightedge>
+
+<rightedge>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif"></BackgroundImage>
+</rightedge>
+
+<border borderwidth="1px" borderstyle="Solid" bordercolor="#7EACB1"></border>
+<headerleftedge>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderLeftEdge.gif"></BackgroundImage>
+</headerleftedge>
+
+<noheadertoprightcorner height="5px" width="5px" url="~/App_Themes/Glass/Web/rpNoHeaderTopRightCorner.png"></noheadertoprightcorner>
+
+<contentpaddings paddingtop="10px" paddingbottom="10px" paddingleft="4px"></contentpaddings>
+
+<topleftcorner height="5px" width="5px" url="~/App_Themes/Glass/Web/rpTopLeftCorner.png"></topleftcorner>
+
+<bottomedge backcolor="#D7E9F1"></bottomedge>
+
+<bottomrightcorner height="5px" width="5px" url="~/App_Themes/Glass/Web/rpBottomRightCorner.png"></bottomrightcorner>
+
+<noheadertopedge backcolor="#EBF2F4"></noheadertopedge>
+
+<panelcollection>
+<dxp:PanelContent runat="server"><DIV dir=rtl><TSPControls:CustomAspxDevGridView runat="server"   KeyFieldName="AttachId" AutoGenerateColumns="False" RightToLeft="True" Width="100%" ID="AspxGridFlp" EnableViewState="False" __designer:wfdid="w29"><Columns>
+<dxwgv:GridViewDataTextColumn FieldName="FilePath" Name="FilePath" Caption="فایل" VisibleIndex="0"><DataItemTemplate>
+<asp:HyperLink id="HyperLink2" runat="server" Text="آدرس فایل" NavigateUrl='<%# Bind("FilePath") %>' Target="_blank"></asp:HyperLink> 
+</DataItemTemplate>
+<EditItemTemplate>
+<asp:LinkButton id="LinkButton2" runat="server">LinkButton</asp:LinkButton>
+</EditItemTemplate>
+</dxwgv:GridViewDataTextColumn>
+<dxwgv:GridViewDataTextColumn FieldName="Description" Name="Description" Caption="توضیحات" VisibleIndex="1"></dxwgv:GridViewDataTextColumn>
+</Columns>
+
+<SettingsBehavior AllowFocusedRow="True" ConfirmDelete="True"></SettingsBehavior>
+
+<SettingsPager Mode="ShowAllRecords">
+<AllButton Text="همه رکوردها"></AllButton>
+
+<FirstPageButton Text="اولین صفحه"></FirstPageButton>
+
+<LastPageButton Text="آخرین صفحه"></LastPageButton>
+
+<NextPageButton Text="صفحه بعد"></NextPageButton>
+
+<PrevPageButton Text="صفحه قبل"></PrevPageButton>
+
+<Summary Text="صفحه: {0} از {1} (تعداد کل:{2})"></Summary>
+</SettingsPager>
+
+<Settings ShowFilterRowMenu="True" ShowGroupPanel="True"></Settings>
+
+<SettingsText GroupPanel="برای گروه بندی از این قسمت استفاده کنید" ConfirmDelete="آیا مطمئن به حذف این ردیف هستید؟" EmptyDataRow="هیچ داده ای وجود ندارد" CommandEdit="ویرایش" CommandNew="جدید" CommandDelete="حذف" CommandSelect="انتخاب" CommandCancel="انصراف" CommandUpdate="ذخیره" CommandClearFilter="پاک کردن فیلتر"></SettingsText>
+
+<SettingsLoadingPanel Text="در حال بارگذاری"></SettingsLoadingPanel>
+
+<Images ></Images>
+
+<Styles  >
+<Header HorizontalAlign="Center"></Header>
+
+<SelectedRow BackColor="White" ForeColor="Black"></SelectedRow>
+
+<GroupPanel BackColor="CornflowerBlue" ForeColor="White"></GroupPanel>
+</Styles>
+</TSPControls:CustomAspxDevGridView>
+
+ </DIV></dxp:PanelContent>
+</panelcollection>
+
+<noheadertopleftcorner height="5px" width="5px" url="~/App_Themes/Glass/Web/rpNoHeaderTopLeftCorner.png"></noheadertopleftcorner>
+
+<headerstyle horizontalalign="Right" backcolor="White" height="23px">
+<Paddings PaddingTop="0px" PaddingBottom="0px" PaddingLeft="2px"></Paddings>
+
+<BorderBottom BorderStyle="None"></BorderBottom>
+</headerstyle>
+
+<content>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpContentBack.gif"></BackgroundImage>
+</content>
+<leftedge>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif"></BackgroundImage>
+</leftedge>
+
+<toprightcorner height="5px" width="5px" url="~/App_Themes/Glass/Web/rpTopRightCorner.png"></toprightcorner>
+
+<bottomleftcorner height="5px" width="5px" url="~/App_Themes/Glass/Web/rpBottomLeftCorner.png"></bottomleftcorner>
+
+<headercontent>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderBack.gif"></BackgroundImage>
+</headercontent>
+
+</dxrp:ASPxRoundPanel>
+ <br /><br /><dxrp:ASPxRoundPanel runat="server" ID="ASPxRoundPanel9" 
+     Width="100%" HeaderText="امتیاز بندی برای رشته های مختلف" BackColor="#EBF2F4"
+      HorizontalAlign="Center">
+<headerrightedge>
+<BackgroundImage VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderRightEdge.gif"></BackgroundImage>
+</headerrightedge>
+
+<rightedge>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif"></BackgroundImage>
+</rightedge>
+
+<border borderwidth="1px" borderstyle="Solid" bordercolor="#7EACB1"></border>
+<headerleftedge>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderLeftEdge.gif"></BackgroundImage>
+</headerleftedge>
+
+<noheadertoprightcorner height="5px" width="5px" url="~/App_Themes/Glass/Web/rpNoHeaderTopRightCorner.png"></noheadertoprightcorner>
+
+<contentpaddings paddingtop="10px" paddingbottom="10px" paddingleft="4px"></contentpaddings>
+
+<topleftcorner height="5px" width="5px" url="~/App_Themes/Glass/Web/rpTopLeftCorner.png"></topleftcorner>
+
+<bottomedge backcolor="#D7E9F1"></bottomedge>
+
+<bottomrightcorner height="5px" width="5px" url="~/App_Themes/Glass/Web/rpBottomRightCorner.png"></bottomrightcorner>
+
+<noheadertopedge backcolor="#EBF2F4"></noheadertopedge>
+
+<panelcollection>
+<dxp:PanelContent runat="server"><DIV dir=rtl><BR /><TSPControls:CustomAspxDevGridView runat="server"   KeyFieldName="TrGrId" AutoGenerateColumns="False" RightToLeft="True" DataSourceID="OdbGrades" Width="100%" ID="CustomAspxDevGridViewGrade" EnableViewState="False" __designer:wfdid="w9">
+<ClientSideEvents RowDblClick="function(s, e) {
+	Gradepop.Hide();
+
+	SetControlValuesGrade();
+}"></ClientSideEvents>
+<Columns>
+<dxwgv:GridViewDataTextColumn FieldName="GrdName" Caption="پایه" VisibleIndex="0"></dxwgv:GridViewDataTextColumn>
+<dxwgv:GridViewDataTextColumn FieldName="ResName" Caption="صلاحیت" VisibleIndex="1"></dxwgv:GridViewDataTextColumn>
+<dxwgv:GridViewDataTextColumn FieldName="MjName" Caption="رشته" VisibleIndex="2"></dxwgv:GridViewDataTextColumn>
+<dxwgv:GridViewDataTextColumn FieldName="Description" Caption="توضیحات" VisibleIndex="3"></dxwgv:GridViewDataTextColumn>
+</Columns>
+
+<SettingsBehavior AllowFocusedRow="True" ConfirmDelete="True"></SettingsBehavior>
+
+<SettingsPager>
+<AllButton Text="همه رکوردها"></AllButton>
+
+<FirstPageButton Text="اولین صفحه"></FirstPageButton>
+
+<LastPageButton Text="آخرین صفحه"></LastPageButton>
+
+<NextPageButton Text="صفحه بعد"></NextPageButton>
+
+<PrevPageButton Text="صفحه قبل"></PrevPageButton>
+
+<Summary Text="صفحه: {0} از {1} (تعداد کل:{2})"></Summary>
+</SettingsPager>
+
+<SettingsEditing Mode="PopupEditForm" PopupEditFormModal="True" EditFormColumnCount="1"></SettingsEditing>
+
+<Settings ShowFilterRow="True" ShowFilterRowMenu="True" ShowGroupPanel="True"></Settings>
+
+<SettingsText GroupPanel="جهت گروه بندی ستون مربوطه را به این قسمت بکشید" ConfirmDelete="آیا مطمئن به حذف این ردیف هستید؟" PopupEditFormCaption="تغییر رکورد" EmptyDataRow="هیچ داده ای وجود ندارد" CommandEdit="ویرایش" CommandNew="جدید" CommandDelete="حذف" CommandSelect="انتخاب" CommandCancel="انصراف" CommandUpdate="ذخیره" CommandClearFilter="پاک کردن فیلتر"></SettingsText>
+
+<SettingsLoadingPanel Text="در حال بارگذاری"></SettingsLoadingPanel>
+
+<Images ></Images>
+
+<Styles  >
+<Header HorizontalAlign="Center"></Header>
+
+<GroupPanel ForeColor="Black"></GroupPanel>
+</Styles>
+</TSPControls:CustomAspxDevGridView>
+
+ </DIV></dxp:PanelContent>
+</panelcollection>
+
+<noheadertopleftcorner height="5px" width="5px" url="~/App_Themes/Glass/Web/rpNoHeaderTopLeftCorner.png"></noheadertopleftcorner>
+
+<headerstyle horizontalalign="Right" backcolor="White" height="23px">
+<Paddings PaddingTop="0px" PaddingBottom="0px" PaddingLeft="2px"></Paddings>
+
+<BorderBottom BorderStyle="None"></BorderBottom>
+</headerstyle>
+
+<content>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpContentBack.gif"></BackgroundImage>
+</content>
+<leftedge>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif"></BackgroundImage>
+</leftedge>
+
+<toprightcorner height="5px" width="5px" url="~/App_Themes/Glass/Web/rpTopRightCorner.png"></toprightcorner>
+
+<bottomleftcorner height="5px" width="5px" url="~/App_Themes/Glass/Web/rpBottomLeftCorner.png"></bottomleftcorner>
+
+<headercontent>
+<BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderBack.gif"></BackgroundImage>
+</headercontent>
+
+</dxrp:ASPxRoundPanel>
+ &nbsp;</dxp:PanelContent>
+                </PanelCollection>
+                <TopLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpTopLeftCorner.png">
+                </TopLeftCorner>
+                <NoHeaderTopEdge BackColor="#EBF2F4">
+                </NoHeaderTopEdge>
+                <BottomLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpBottomLeftCorner.png">
+                </BottomLeftCorner>
+            </dxrp:ASPxRoundPanel>
+        </div>
+        <br />
+        <div dir="ltr">
+            <dxrp:ASPxRoundPanel ID="RoundPanelJudge" runat="server" Width="100%" 
+                BackColor="#EBF2F4"  HeaderText="نظر کارشناسی" HorizontalAlign="Right"
+                Visible="False">
+                <LeftEdge>
+                    <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif">
+                    </BackgroundImage>
+                </LeftEdge>
+                <BottomRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpBottomRightCorner.png">
+                </BottomRightCorner>
+                <HeaderContent>
+                    <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderBack.gif">
+                    </BackgroundImage>
+                </HeaderContent>
+                <ContentPaddings PaddingTop="10px" PaddingBottom="10px" PaddingLeft="4px"></ContentPaddings>
+                <NoHeaderTopRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopRightCorner.png">
+                </NoHeaderTopRightCorner>
+                <RightEdge>
+                    <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif">
+                    </BackgroundImage>
+                </RightEdge>
+                <HeaderRightEdge>
+                    <BackgroundImage VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderRightEdge.gif">
+                    </BackgroundImage>
+                </HeaderRightEdge>
+                <Border BorderWidth="1px" BorderStyle="Solid" BorderColor="#7EACB1"></Border>
+                <HeaderStyle HorizontalAlign="Right" BackColor="White" Height="23px">
+                    <Paddings PaddingTop="0px" PaddingBottom="0px" PaddingLeft="2px"></Paddings>
+                    <BorderBottom BorderStyle="None"></BorderBottom>
+                </HeaderStyle>
+                <Content>
+                    <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpContentBack.gif">
+                    </BackgroundImage>
+                </Content>
+                <HeaderLeftEdge>
+                    <BackgroundImage Repeat="RepeatX" VerticalPosition="bottom" ImageUrl="~/App_Themes/Glass/Web/rpHeaderLeftEdge.gif">
+                    </BackgroundImage>
+                </HeaderLeftEdge>
+                <BottomEdge BackColor="#D7E9F1">
+                </BottomEdge>
+                <TopRightCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpTopRightCorner.png">
+                </TopRightCorner>
+                <NoHeaderTopLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopLeftCorner.png">
+                </NoHeaderTopLeftCorner>
+                <PanelCollection>
+                    <dxp:PanelContent runat="server">
+                        <div dir="rtl">
+                            <table width="100%">
+                                <tbody>
+                                    <tr>
+                                        <td align="right" valign="top">
+                                            <asp:label runat="server" text="نظر کارشناسی" width="90px" id="Label8"></asp:label>
+                                        </td>
+                                        <td align="right" valign="top">
+                                            <TSPControls:CustomASPXMemo runat="server" Height="38px"  Width="510px" ID="txtJudgeView"
+                                                >
+                                                <ValidationSettings>
+                                                    <ErrorImage Url="~/App_Themes/Glass/Editors/edtError.png">
+                                                    </ErrorImage>
+                                                    <ErrorFrameStyle ImageSpacing="4px">
+                                                        <ErrorTextPaddings PaddingLeft="4px"></ErrorTextPaddings>
+                                                    </ErrorFrameStyle>
+                                                </ValidationSettings>
+                                            </TSPControls:CustomASPXMemo>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="right" style="vertical-align: top">
+                                            <asp:label id="lblTiPoint" runat="server" text="امتیاز ساعتی" visible="False"></asp:label>
+                                        </td>
+                                        <td align="right" style="vertical-align: top">
+                                            <TSPControls:CustomTextBox ID="txtjTimePoint" runat="server" 
+                                                 Visible="False" Width="68px">
+                                                <ValidationSettings>
+                                                    
+                                                    <ErrorFrameStyle ImageSpacing="4px">
+                                                        <ErrorTextPaddings PaddingLeft="4px" />
+                                                    </ErrorFrameStyle>
+                                                </ValidationSettings>
+                                            </TSPControls:CustomTextBox>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="right" style="vertical-align: top">
+                                            <asp:label id="lblPoint" runat="server" text="امتیاز" visible="False"></asp:label>
+                                        </td>
+                                        <td align="right" style="vertical-align: top">
+                                            <TSPControls:CustomTextBox ID="txtjPoint" runat="server" 
+                                                 Visible="False" Width="68px">
+                                                <ValidationSettings>
+                                                    
+                                                    <ErrorFrameStyle ImageSpacing="4px">
+                                                        <ErrorTextPaddings PaddingLeft="4px" />
+                                                    </ErrorFrameStyle>
+                                                </ValidationSettings>
+                                            </TSPControls:CustomTextBox>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td dir="rtl" colspan="2" align="right" valign="top">
+                                            <dxe:ASPxRadioButtonList runat="server" Width="172px" ID="rbtnGrade">
+                                                <Border BorderWidth="0px" BorderStyle="None"></Border>
+                                                <BorderRight BorderWidth="0px" BorderStyle="None"></BorderRight>
+                                                <Items>
+                                                    <dxe:ListEditItem Value="1" Text="مورد تأیید می باشد"></dxe:ListEditItem>
+                                                    <dxe:ListEditItem Value="0" Text="مورد تأیید نمی باشد"></dxe:ListEditItem>
+                                                </Items>
+                                                <ValidationSettings Display="Dynamic" ErrorTextPosition="Bottom">
+                                                    <RequiredField IsRequired="True" ErrorText="نوع تأیید را انتخاب نمایید"></RequiredField>
+                                                </ValidationSettings>
+                                                <BorderLeft BorderWidth="0px" BorderStyle="None"></BorderLeft>
+                                                <BorderTop BorderWidth="0px" BorderStyle="None"></BorderTop>
+                                                <BorderBottom BorderWidth="0px" BorderStyle="None"></BorderBottom>
+                                            </dxe:ASPxRadioButtonList>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </dxp:PanelContent>
+                </PanelCollection>
+                <TopLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpTopLeftCorner.png">
+                </TopLeftCorner>
+                <NoHeaderTopEdge BackColor="#EBF2F4">
+                </NoHeaderTopEdge>
+                <BottomLeftCorner Height="5px" Width="5px" Url="~/App_Themes/Glass/Web/rpBottomLeftCorner.png">
+                </BottomLeftCorner>
+            </dxrp:ASPxRoundPanel>
+        </div>
+       <br />
+        <div style="width: 100%" align="right" dir="ltr">
+            <dxrp:ASPxRoundPanel ID="ASPxRoundPanel6" runat="server" Width="100%" ShowHeader="False"
+                 BackColor="#EBF2F4" >
+                <LeftEdge>
+                    <BackgroundImage ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif" Repeat="RepeatX"
+                        VerticalPosition="bottom" />
+                </LeftEdge>
+                <BottomRightCorner Height="5px" Url="~/App_Themes/Glass/Web/rpBottomRightCorner.png"
+                    Width="5px" />
+                <HeaderContent>
+                    <BackgroundImage ImageUrl="~/App_Themes/Glass/Web/rpHeaderBack.gif" Repeat="RepeatX"
+                        VerticalPosition="bottom" />
+                </HeaderContent>
+                <ContentPaddings Padding="0px" />
+                <NoHeaderTopRightCorner Height="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopRightCorner.png"
+                    Width="5px" />
+                <RightEdge>
+                    <BackgroundImage ImageUrl="~/App_Themes/Glass/Web/rpLeftRightEdge.gif" Repeat="RepeatX"
+                        VerticalPosition="bottom" />
+                </RightEdge>
+                <HeaderRightEdge>
+                    <BackgroundImage ImageUrl="~/App_Themes/Glass/Web/rpHeaderRightEdge.gif" VerticalPosition="bottom" />
+                </HeaderRightEdge>
+                <Border BorderColor="#7EACB1" BorderStyle="Solid" BorderWidth="1px" />
+                <HeaderStyle BackColor="White" Height="23px">
+                    <Paddings PaddingBottom="0px" PaddingLeft="2px" PaddingTop="0px" />
+                    <BorderBottom BorderStyle="None" />
+                </HeaderStyle>
+                <Content>
+                    <BackgroundImage ImageUrl="~/App_Themes/Glass/Web/rpContentBack.gif" Repeat="RepeatX"
+                        VerticalPosition="bottom" />
+                </Content>
+                <HeaderLeftEdge>
+                    <BackgroundImage ImageUrl="~/App_Themes/Glass/Web/rpHeaderLeftEdge.gif" Repeat="RepeatX"
+                        VerticalPosition="bottom" />
+                </HeaderLeftEdge>
+                <BottomEdge BackColor="#D7E9F1">
+                </BottomEdge>
+                <TopRightCorner Height="5px" Url="~/App_Themes/Glass/Web/rpTopRightCorner.png" Width="5px" />
+                <NoHeaderTopLeftCorner Height="5px" Url="~/App_Themes/Glass/Web/rpNoHeaderTopLeftCorner.png"
+                    Width="5px" />
+                <PanelCollection>
+                    <dxp:PanelContent runat="server">
+                        <div dir="rtl">
+                            <table cellpadding="0" style="display: block; overflow: hidden; border-collapse: collapse"
+                                width="100%">
+                                <tbody>
+                                    <tr>
+                                        <td align="right">
+                                            <table cellpadding="0" dir="rtl" style="border-collapse: collapse; background-color: transparent">
+                                                <tbody>
+                                                    <tr>
+                                                        <td >
+                                                            <TSPControls:CustomTextBox ID="btnSave2" runat="server"  EnableTheming="False"
+                                                                EnableViewState="False" OnClick="btnSave_Click" Text=" " ToolTip="ذخیره" UseSubmitBehavior="False"
+                                                                Width="25px">
+                                                                <ClientSideEvents Click="function(s, e) {
+	
+	
+}" />
+                                                                <HoverStyle BackColor="#FFE0C0">
+                                                                    <Border BorderColor="Gray" BorderStyle="Outset" BorderWidth="1px" />
+                                                                </HoverStyle>
+                                                                <Image Height="25px" Url="~/Images/icons/save.png" Width="25px" />
+                                                            </TSPControls:CustomTextBox>
+                                                        </td>
+                                                        <td >
+                                                            <TSPControls:CustomTextBox ID="ASPxButton1" runat="server" CausesValidation="False" 
+                                                                EnableTheming="False" EnableViewState="False" OnClick="btnBack_Click" Text=" "
+                                                                ToolTip="بازگشت" UseSubmitBehavior="False">
+                                                                <HoverStyle BackColor="#FFE0C0">
+                                                                    <Border BorderColor="Gray" BorderStyle="Outset" BorderWidth="1px" />
+                                                                </HoverStyle>
+                                                                <Image Height="25px" Url="~/Images/icons/Back.png" Width="25px" />
+                                                            </TSPControls:CustomTextBox>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </dxp:PanelContent>
+                </PanelCollection>
+                <TopLeftCorner Height="5px" Url="~/App_Themes/Glass/Web/rpTopLeftCorner.png" Width="5px" />
+                <NoHeaderTopEdge BackColor="#EBF2F4">
+                </NoHeaderTopEdge>
+                <BottomLeftCorner Height="5px" Url="~/App_Themes/Glass/Web/rpBottomLeftCorner.png"
+                    Width="5px" />
+            </dxrp:ASPxRoundPanel>
+        </div>
+        <asp:hiddenfield id="SeminarId" runat="server" visible="False"></asp:hiddenfield>
+        <asp:hiddenfield id="JudgeId" runat="server" visible="False"></asp:hiddenfield>
+        <asp:hiddenfield id="PgMode" runat="server" visible="False"></asp:hiddenfield>
+        <asp:objectdatasource id="OdbGrades" runat="server" typename="TSP.DataManager.TrainingAcceptedGradeManager"
+            selectmethod="FindByPKCode" oldvaluesparameterformatstring="original_{0}"><SelectParameters>
+<asp:Parameter Type="Int32" DefaultValue="-1" Name="PkId"></asp:Parameter>
+<asp:Parameter Type="Byte" DefaultValue="1" Name="Type"></asp:Parameter>
+</SelectParameters>
+</asp:objectdatasource>
+        <asp:objectdatasource id="OdbSchedule" runat="server" typename="TSP.DataManager.ScheduleManager"
+            selectmethod="GetData" filterexpression="TtId={0}">
+                <FilterParameters>
+                    <asp:Parameter Name="newparameter" />
+                </FilterParameters>
+            </asp:objectdatasource>
+        <asp:modalupdateprogress id="ModalUpdateProgress2" runat="server" displayafter="0"
+            backgroundcssclass="modalProgressGreyBackground" associatedupdatepanelid="UpdatePanel1">
+                <ProgressTemplate>
+                    <div class="modalPopup">
+                        لطفا صبر نمایید
+                        <img align="middle" src="../../Image/indicator.gif" />
+                    </div>
+                </ProgressTemplate>
+            </asp:modalupdateprogress>
+        </ContentTemplate> </asp:UpdatePanel>
+    </div>
+</asp:Content>

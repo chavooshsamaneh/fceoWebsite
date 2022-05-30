@@ -1,0 +1,546 @@
+﻿using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+using DevExpress.Web;
+
+public partial class Employee_TechnicalServices_Project_BuildingsLicense : System.Web.UI.Page
+{
+    string ProjectId;
+    string PrjReId;
+    string PageMode;
+
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        this.DivReport.Visible = false;
+        this.DivReport.Attributes.Add("onclick", "ChangeVisible(this)");
+        this.DivReport.Attributes.Add("onmouseover", "ChangeIcon(this)");
+
+        if (!IsPostBack)
+        {
+            TSP.DataManager.Permission per = TSP.DataManager.TechnicalServices.BuildingsLicenseManager.GetUserPermission(Utility.GetCurrentUser_UserId(), (TSP.DataManager.UserType)Utility.GetCurrentUser_LoginType());
+            btnNew.Enabled = per.CanNew;
+            btnNew2.Enabled = per.CanNew;
+            btnEdit.Enabled = per.CanEdit;
+            btnEdit2.Enabled = per.CanEdit;
+            btnView.Enabled = per.CanView;
+            btnView2.Enabled = per.CanView;
+            btnPrint.Enabled = per.CanView;
+            btnPrint2.Enabled = per.CanView;
+
+            if (!per.CanView)
+                CustomAspxDevGridViewLicense.Visible = false;
+
+            if ((string.IsNullOrEmpty(Request.QueryString["PageMode"])) || (string.IsNullOrEmpty(Request.QueryString["PrjReId"])) || (string.IsNullOrEmpty(Request.QueryString["ProjectId"])))
+            {
+                Response.Redirect("Project.aspx");
+                return;
+            }
+
+            Session["BuildingsLicenseId"] = null;
+
+            SetKey();
+            SetProjectMainMenuEnabled();
+
+            if (btnInvalidate.Enabled)
+                btnInvalidate.Enabled = btnInvalidate2.Enabled = per.CanEdit;
+            if (btnvalidate.Enabled)
+                btnvalidate.Enabled = btnvalidate2.Enabled = per.CanEdit;
+
+            this.ViewState["BtnView"] = btnView.Enabled;
+            this.ViewState["BtnEdit"] = btnEdit.Enabled;
+            this.ViewState["btnInvalidate"] = btnInvalidate.Enabled;
+            this.ViewState["btnvalidate"] = btnvalidate.Enabled;
+            this.ViewState["BtnNew"] = btnNew.Enabled;
+            this.ViewState["BtnPrint"] = btnPrint.Enabled;
+
+        }
+        if (this.ViewState["BtnView"] != null)
+            this.btnView.Enabled = this.btnView2.Enabled = (bool)this.ViewState["BtnView"];
+        if (this.ViewState["BtnEdit"] != null)
+            this.btnEdit.Enabled = this.btnEdit2.Enabled = (bool)this.ViewState["BtnEdit"];
+        if (this.ViewState["btnInvalidate"] != null)
+            this.btnInvalidate.Enabled = this.btnInvalidate2.Enabled = (bool)this.ViewState["btnInvalidate"];
+        if (this.ViewState["btnvalidate"] != null)
+            this.btnvalidate.Enabled = this.btnvalidate2.Enabled = (bool)this.ViewState["btnvalidate"];
+        if (this.ViewState["BtnNew"] != null)
+            this.btnNew.Enabled = this.btnNew2.Enabled = (bool)this.ViewState["BtnNew"];
+        if (this.ViewState["BtnPrint"] != null)
+            this.btnPrint.Enabled = this.btnPrint2.Enabled = (bool)this.ViewState["BtnPrint"];
+
+        Session["DataTable"] = CustomAspxDevGridViewLicense.Columns;
+        Session["DataSource"] = ObjectDataSourceBuildingsLicense;
+        Session["Title"] = "پروانه ساخت";
+        Session["Header"] = GetRepHeader();
+    }
+
+    protected void btnView_Click(object sender, EventArgs e)
+    {
+        NextPage("View");
+    }
+
+    protected void btnEdit_Click(object sender, EventArgs e)
+    {
+        NextPage("Edit");
+    }
+
+    protected void btnNew_Click(object sender, EventArgs e)
+    {
+        NextPage("New");
+    }
+
+    protected void btnPrint_Click(object sender, EventArgs e)
+    {
+        Print();
+    }
+
+    protected void btnInvalidate_Click(object sender, EventArgs e)
+    {
+        InvalidateBuildingsLicense();
+    }
+
+    protected void btnvalidate_Click(object sender, EventArgs e)
+    {
+        ValidateBuildingsLicense();
+    }
+
+    protected void btnBack_Click(object sender, EventArgs e)
+    {
+        if (Utility.DecryptQS(PkProjectId.Value) == "-1")
+            Response.Redirect("Project.aspx");
+
+        string GrdFlt = Request.QueryString["GrdFlt"].ToString();
+        string SrchFlt = Request.QueryString["SrchFlt"].ToString();
+        string Qs = "ProjectId=" + PkProjectId.Value + "&PrjReId=" + PkPrjReId.Value + "&PageMode=" + Utility.EncryptQS("View")
+                + "&GrdFlt=" + GrdFlt + "&SrchFlt=" + SrchFlt;
+        Response.Redirect("ProjectInsert.aspx?" + Qs);
+    }
+
+    protected void btnBackToManagment_Click(object sender, EventArgs e)
+    {
+        if (!string.IsNullOrEmpty(Request.QueryString["GrdFlt"]) && !string.IsNullOrEmpty(Request.QueryString["SrchFlt"]))
+        {
+            string GrdFlt = Server.HtmlDecode(Request.QueryString["GrdFlt"].ToString());
+            string SrchFlt = Server.HtmlDecode(Request.QueryString["SrchFlt"].ToString());
+            Response.Redirect("Project.aspx?PostId=" + PkProjectId.Value + "&GrdFlt=" + GrdFlt + "&SrchFlt=" + SrchFlt);
+        }
+        else
+        {
+            Response.Redirect("Project.aspx");
+        }
+    }
+
+    /***********************************************************************************************************************************/
+    private void SetKey()
+    {
+        ProjectId = "-1";
+        PrjReId = "-1";
+
+        try
+        {
+            PgMode.Value = Server.HtmlDecode(Request.QueryString["PageMode"].ToString());
+            PkProjectId.Value = Server.HtmlDecode(Request.QueryString["ProjectId"]).ToString();
+            PkPrjReId.Value = Server.HtmlDecode(Request.QueryString["PrjReId"]).ToString();
+
+            PrjReId = Utility.DecryptQS(PkPrjReId.Value);
+            ProjectId = Utility.DecryptQS(PkProjectId.Value);
+            PageMode = Utility.DecryptQS(PgMode.Value);
+
+            ObjectDataSourceBuildingsLicense.SelectParameters["ProjectId"].DefaultValue = ProjectId;
+
+            FillProjectInfo(int.Parse(PrjReId));
+            CheckWorkFlowPermission();
+        }
+        catch
+        {
+            this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+            return;
+        }
+    }
+
+    private void FillProjectInfo(int Id)
+    {
+        prjInfo.Fill(Convert.ToInt32(Id));
+    }
+
+    /***********************************************************************************************************************************/
+    private void NextPage(string Mode)
+    {
+        int BuildingsLicenseId = -1;
+        ProjectId = Utility.DecryptQS(PkProjectId.Value);
+
+        TSP.DataManager.TechnicalServices.BuildingsLicenseManager BuildingsLicenseManager = new TSP.DataManager.TechnicalServices.BuildingsLicenseManager();
+        BuildingsLicenseManager.FindByProjectId(Convert.ToInt32(ProjectId));
+        if (BuildingsLicenseManager.Count == 1)
+        {
+            BuildingsLicenseId = Convert.ToInt32(BuildingsLicenseManager[0]["BuildingsLicenseId"]);
+        }
+
+        int LicenseRevivalId = -1;
+        //if (CustomAspxDevGridView1.FocusedRowIndex > -1 && Mode != "New")
+        //{
+        //    DataRow row = CustomAspxDevGridView1.GetDataRow(CustomAspxDevGridView1.FocusedRowIndex);
+        //    LicenseRevivalId = (int)row["LicenseRevivalId"];
+        //}
+
+        try
+        {
+            TSP.WebControls.CustomAspxDevGridView grid = (TSP.WebControls.CustomAspxDevGridView)CustomAspxDevGridViewLicense.FindDetailRowTemplateControl(CustomAspxDevGridViewLicense.FocusedRowIndex, "CustomAspxDevGridView1");
+
+            int curRow = grid.FocusedRowIndex;
+            DataRow r = (DataRow)grid.GetDataRow(curRow);
+            if (r != null)
+            {
+                LicenseRevivalId = Convert.ToInt32(r["LicenseRevivalId"]);
+            }
+        }
+        catch (Exception er)
+        {
+            Utility.SaveWebsiteError(er);
+            this.DivReport.Visible = true;
+            this.LabelWarning.Text = "لطفاً برای مشاهده اطلاعات ابتدا یک رکورد تمدید انتخاب نمائید";
+        }
+
+        if (LicenseRevivalId == -1 && Mode != "New")
+        {
+            SetLabelWarning("لطفاً برای مشاهده اطلاعات ابتدا یک رکورد تمدید انتخاب نمائید");
+        }
+        else
+        {
+            string GrdFlt = Request.QueryString["GrdFlt"].ToString();
+            string SrchFlt = Request.QueryString["SrchFlt"].ToString();
+            Response.Redirect("BuildingsLicenseInsert.aspx?LicenseRevivalId=" + Utility.EncryptQS(LicenseRevivalId.ToString())
+                + "&BuildingsLicenseId=" + Utility.EncryptQS(BuildingsLicenseId.ToString())
+                + "&PageMode=" + Utility.EncryptQS(Mode)
+                + "&ProjectId=" + Server.HtmlDecode(Request.QueryString["ProjectId"])
+                + "&PrjReId=" + Server.HtmlDecode(Request.QueryString["PrjReId"])
+                + "&MainPageMode=" + PgMode.Value
+                + "&GrdFlt=" + GrdFlt + "&SrchFlt=" + SrchFlt
+                + "&UrlReferrer=" + Utility.EncryptQS("BuildingsLicense.aspx"));
+        }
+    }
+
+    private void Print()
+    {
+        //string FilterExp;
+        //FilterExp = CustomAspxDevGridView1.FilterExpression;
+
+        //Response.Redirect("~/ReportForms/Accounting/BuildingsLicenseReport.aspx?FilterExp=" + Utility.EncryptQS(FilterExp));
+    }
+
+    private void InvalidateBuildingsLicense()
+    {
+        int BuildingsLicenseId = -1;
+        ProjectId = Utility.DecryptQS(PkProjectId.Value);
+
+        TSP.DataManager.TechnicalServices.BuildingsLicenseManager BuildingsLicenseManager = new TSP.DataManager.TechnicalServices.BuildingsLicenseManager();
+        BuildingsLicenseManager.FindByProjectId(Convert.ToInt32(ProjectId));
+        if (BuildingsLicenseManager.Count == 1)
+        {
+            BuildingsLicenseId = Convert.ToInt32(BuildingsLicenseManager[0]["BuildingsLicenseId"]);
+
+            try
+            {
+                BuildingsLicenseManager[0].BeginEdit();
+                BuildingsLicenseManager[0]["Isvalidate"] = 0;
+                BuildingsLicenseManager[0]["ModifiedDate"] = DateTime.Now;
+                BuildingsLicenseManager[0]["UserId"] = Utility.GetCurrentUser_UserId();
+                BuildingsLicenseManager[0].EndEdit();
+                int cn = BuildingsLicenseManager.Save();
+                if (cn == 1)
+                {
+                    SetLabelWarning("پروانه ساخت باطل شد");
+                }
+                else
+                {
+                    SetLabelWarning("خطایی رخ داده است");
+                }
+            }
+            catch (Exception err)
+            {
+                SetError(err);
+            }
+        }
+        else
+        {
+            SetLabelWarning("پروانه ساخت صادر نشده است");
+        }
+    }
+
+    private void ValidateBuildingsLicense()
+    {
+        int BuildingsLicenseId = -1;
+        ProjectId = Utility.DecryptQS(PkProjectId.Value);
+
+        TSP.DataManager.TechnicalServices.BuildingsLicenseManager BuildingsLicenseManager = new TSP.DataManager.TechnicalServices.BuildingsLicenseManager();
+        BuildingsLicenseManager.FindByProjectId(Convert.ToInt32(ProjectId));
+        if (BuildingsLicenseManager.Count == 1)
+        {
+            BuildingsLicenseId = Convert.ToInt32(BuildingsLicenseManager[0]["BuildingsLicenseId"]);
+
+            try
+            {
+                BuildingsLicenseManager[0].BeginEdit();
+                BuildingsLicenseManager[0]["Isvalidate"] = 1;
+                BuildingsLicenseManager[0]["ModifiedDate"] = DateTime.Now;
+                BuildingsLicenseManager[0]["UserId"] = Utility.GetCurrentUser_UserId();
+                BuildingsLicenseManager[0].EndEdit();
+                int cn = BuildingsLicenseManager.Save();
+                if (cn == 1)
+                {
+                    SetLabelWarning("پروانه ساخت فعال شد");
+                }
+                else
+                {
+                    SetLabelWarning("خطایی رخ داده است");
+                }
+            }
+            catch (Exception err)
+            {
+                SetError(err);
+            }
+        }
+        else
+        {
+            SetLabelWarning("پروانه ساخت صادر نشده است");
+        }
+    }
+
+    private string GetRepHeader()
+    {
+        string LicenseNo = GetLicenseNo();
+        return "شماره پروانه : " + LicenseNo;
+    }
+
+    private string GetLicenseNo()
+    {
+        ProjectId = Utility.DecryptQS(PkProjectId.Value);
+        TSP.DataManager.TechnicalServices.BuildingsLicenseManager BuildingsLicenseManager = new TSP.DataManager.TechnicalServices.BuildingsLicenseManager();
+        BuildingsLicenseManager.FindByProjectId(Convert.ToInt32(ProjectId));
+        if (BuildingsLicenseManager.Count > 0)
+            return BuildingsLicenseManager[0]["LicenseNo"].ToString();
+        else
+            return "";
+    }
+
+    private int GetBuildingsLicenseId()
+    {
+        ProjectId = Utility.DecryptQS(PkProjectId.Value);
+        TSP.DataManager.TechnicalServices.BuildingsLicenseManager BuildingsLicenseManager = new TSP.DataManager.TechnicalServices.BuildingsLicenseManager();
+        BuildingsLicenseManager.FindByProjectId(Convert.ToInt32(ProjectId));
+        if (BuildingsLicenseManager.Count > 0)
+            return Convert.ToInt32(BuildingsLicenseManager[0]["BuildingsLicenseId"]);
+        else
+            return -1;
+    }
+
+    private void SetError(Exception err)
+    {
+        if (err.GetType() == typeof(System.Data.SqlClient.SqlException))
+        {
+            System.Data.SqlClient.SqlException se = (System.Data.SqlClient.SqlException)err;
+
+            if (se.Number == 2601)
+            {
+                SetLabelWarning("اطلاعات تکراری می باشد");
+            }
+            else if (se.Number == 2627)
+            {
+                SetLabelWarning("کد تکراری می باشد");
+            }
+            else if (se.Number == 547)
+            {
+                SetLabelWarning("به علت وجود اطلاعات وابسته امکان حذف نمی باشد");
+            }
+            else
+            {
+                SetLabelWarning("خطایی در ذخیره انجام گرفته است");
+            }
+        }
+        else
+        {
+            SetLabelWarning("خطایی در ذخیره انجام گرفته است");
+        }
+    }
+
+    private void SetLabelWarning(string Warning)
+    {
+        this.DivReport.Visible = true;
+        this.LabelWarning.Text = Warning;
+    }
+
+    /***************************************************** ProjectMainMenu *************************************************************/
+    protected void MainMenu_ItemClick(object source, DevExpress.Web.MenuItemEventArgs e)
+    {
+        ProjectId = Utility.DecryptQS(PkProjectId.Value);
+        PrjReId = PkPrjReId.Value;
+        PageMode = PgMode.Value;
+
+        PrjMainMenu MainMenu = new PrjMainMenu("BuildingsLicense", Convert.ToInt32(ProjectId));
+        string GrdFlt = Request.QueryString["GrdFlt"].ToString();
+        string SrchFlt = Request.QueryString["SrchFlt"].ToString();
+        Response.Redirect(MainMenu.GetRedirectLink(e.Item.Name, PrjReId, PageMode, GrdFlt, SrchFlt));
+    }
+
+    private void SetProjectMainMenuEnabled()
+    {
+        ProjectId = Utility.DecryptQS(PkProjectId.Value);
+        if (ProjectId == "-1")
+            ProjectId = "-2";
+
+        PrjMainMenu PrjMainMenu = new PrjMainMenu("BuildingsLicense", Convert.ToInt32(ProjectId));
+        MainMenu.Items.FindByName("BuildingsLicense").Selected = true; //BuildingsLicense
+        //MainMenu.Items.FindByName("StatusAnnouncement").Enabled = PrjMainMenu.GetEnabled("StatusAnnouncement");
+        MainMenu.Items.FindByName("BuildingsLicense").Enabled = PrjMainMenu.GetEnabled("BuildingsLicense");
+        //MainMenu.Items.FindByName("Timing").Enabled = PrjMainMenu.GetEnabled("Timing");
+        MainMenu.Items.FindByName("Contract").Enabled = PrjMainMenu.GetEnabled("Contract");
+        MainMenu.Items.FindByName("Implementer").Enabled = PrjMainMenu.GetEnabled("Implementer");
+        MainMenu.Items.FindByName("Observers").Enabled = PrjMainMenu.GetEnabled("Observers");
+        MainMenu.Items.FindByName("Plans").Enabled = PrjMainMenu.GetEnabled("Plans");
+        MainMenu.Items.FindByName("Owner").Enabled = PrjMainMenu.GetEnabled("Owner");
+        MainMenu.Items.FindByName("Project").Enabled = PrjMainMenu.GetEnabled("Project");
+        MainMenu.Items.FindByName("Accounting").Enabled = PrjMainMenu.GetEnabled("Accounting");
+        MainMenu.Items.FindByName("Designer").Enabled = PrjMainMenu.GetEnabled("Designer");
+    }
+
+    /************************************************************************************************************************************/
+    protected void CustomAspxDevGridViewLicense_HtmlRowPrepared(object sender, ASPxGridViewTableRowEventArgs e)
+    {
+        if (e.RowType != GridViewRowType.Data)
+            return;
+
+        try
+        {
+            string ExpireDate = e.GetValue("ExpireDate").ToString();
+            int Days = Utility.Date.TotalDaysBetween2PersianDates(Utility.GetDateOfToday(), ExpireDate);
+
+            if (Days < 0)
+                e.Row.Cells[7].Text = ("پایان اعتبار");
+        }
+        catch
+        {
+        }
+    }
+
+    protected void CustomAspxDevGridViewLicense_HtmlDataCellPrepared(object sender, ASPxGridViewTableDataCellEventArgs e)
+    {
+        switch (e.DataColumn.FieldName)
+        {
+            case "SubmissionDate":
+                e.Cell.Style["direction"] = "ltr";
+                break;
+
+            case "ExpireDate":
+                e.Cell.Style["direction"] = "ltr";
+                break;
+        }
+    }
+
+    protected void CustomAspxDevGridViewLicense_AutoFilterCellEditorInitialize(object sender, ASPxGridViewEditorEventArgs e)
+    {
+        switch (e.Column.FieldName)
+        {
+            case "SubmissionDate":
+                e.Editor.Style["direction"] = "ltr";
+                break;
+
+            case "ExpireDate":
+                e.Editor.Style["direction"] = "ltr";
+                break;
+        }
+    }
+
+    protected void CustomAspxDevGridViewLicense_FocusedRowChanged(object sender, EventArgs e)
+    {
+        if (CustomAspxDevGridViewLicense.FocusedRowIndex != -1 && CustomAspxDevGridViewLicense.SettingsDetail.ShowDetailRow)
+            CustomAspxDevGridViewLicense.DetailRows.ExpandRow(CustomAspxDevGridViewLicense.FocusedRowIndex);
+    }
+
+    protected void CustomAspxDevGridViewLicense_DetailRowExpandedChanged(object sender, DevExpress.Web.ASPxGridViewDetailRowEventArgs e)
+    {
+        CustomAspxDevGridViewLicense.FocusedRowIndex = e.VisibleIndex;
+    }
+
+
+    protected void CustomAspxDevGridView1_BeforePerformDataSelect(object sender, EventArgs e)
+    {
+        Session["BuildingsLicenseId"] = (sender as ASPxGridView).GetMasterRowKeyValue();
+    }
+
+    protected void CustomAspxDevGridView1_HtmlRowPrepared(object sender, DevExpress.Web.ASPxGridViewTableRowEventArgs e)
+    {
+        //if (e.RowType != GridViewRowType.Data)
+        //    return;
+        //if (PkPrjReId.Value != null)
+        //{
+        //    string PrjReId = Utility.DecryptQS(PkPrjReId.Value);
+        //    if (e.GetValue("PrjReId") == null)
+        //        return;
+        //    string CurretnPrjReId = e.GetValue("PrjReId").ToString();
+        //    if (PrjReId == CurretnPrjReId)
+        //    {
+        //        e.Row.BackColor = System.Drawing.Color.LightGray;
+        //    }
+        //}
+    }
+
+    protected void CustomAspxDevGridView1_HtmlDataCellPrepared(object sender, ASPxGridViewTableDataCellEventArgs e)
+    {
+        switch (e.DataColumn.FieldName)
+        {
+            case "FromDate":
+                e.Cell.Style["direction"] = "ltr";
+                break;
+
+            case "ExpireDate":
+                e.Cell.Style["direction"] = "ltr";
+                break;
+        }
+    }
+
+    protected void CustomAspxDevGridView1_AutoFilterCellEditorInitialize(object sender, ASPxGridViewEditorEventArgs e)
+    {
+        switch (e.Column.FieldName)
+        {
+            case "FromDate":
+                e.Editor.Style["direction"] = "ltr";
+                break;
+
+            case "ExpireDate":
+                e.Editor.Style["direction"] = "ltr";
+                break;
+        }
+    }
+
+    /************************************************************** WorkFlow *************************************************************/
+    #region WorkFlow Methods
+
+    private void CheckWorkFlowPermission()
+    {
+        CheckWorkFlowPermissionForSave();
+    }
+
+    private void CheckWorkFlowPermissionForSave()
+    {
+        //****TableId
+        PrjReId = Utility.DecryptQS(PkPrjReId.Value);
+        //****TableType
+        int TableType = (int)TSP.DataManager.TableCodes.TSProjectRequest;
+        int WFCode = (int)TSP.DataManager.WorkFlows.TSProjectConfirming;
+        int TaskCode = (int)TSP.DataManager.WorkFlowTask.SaveProjectBaseInfo;
+
+        TSP.DataManager.WFPermission WFPer = TSP.DataManager.WorkFlowPermission.CheckWFPermissionForEditForManagementPage(TaskCode, WFCode, Convert.ToInt32(PrjReId), Utility.GetCurrentUser_UserId());
+        this.ViewState["BtnEdit"] = btnEdit.Enabled = btnEdit2.Enabled = WFPer.BtnEdit;
+        this.ViewState["btnInvalidate"] = btnEdit.Enabled = btnEdit2.Enabled = WFPer.BtnEdit;
+        this.ViewState["btnvalidate"] = btnEdit.Enabled = btnEdit2.Enabled = WFPer.BtnEdit;
+        this.ViewState["BtnNew"] = btnNew.Enabled = btnNew2.Enabled = WFPer.BtnNew;
+    }
+
+    #endregion
+}

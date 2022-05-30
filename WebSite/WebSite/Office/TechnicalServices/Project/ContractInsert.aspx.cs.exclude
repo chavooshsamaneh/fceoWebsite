@@ -1,0 +1,240 @@
+﻿using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+using DevExpress.Web;
+using System.IO;
+
+public partial class Office_TechnicalServices_Project_ContractInsert : System.Web.UI.Page
+{
+    DataTable dtJudgment = new DataTable();
+
+    protected void Page_Load(object sender, EventArgs e)
+    {
+
+        this.DivReport.Visible = false;
+        this.DivReport.Attributes.Add("onclick", "ChangeVisible(this)");
+        this.DivReport.Attributes.Add("onmouseover", "ChangeIcon(this)");
+
+
+        if (!IsPostBack)
+        {
+            Session["Judgment"] = null;
+            if (string.IsNullOrEmpty(Request.QueryString["ProjectId"]) || string.IsNullOrEmpty(Request.QueryString["ContractId"]))
+            {
+                Response.Redirect("Project.aspx");
+            }
+
+            if (Session["Judgment"] == null)
+            {
+                dtJudgment.Columns.Add("TypeId");
+                dtJudgment.Columns.Add("TypeName");
+                dtJudgment.Columns.Add("FirstName");
+                dtJudgment.Columns.Add("LastName");
+                dtJudgment.Columns.Add("FatherName");
+                dtJudgment.Columns.Add("SSN");
+                dtJudgment.Columns.Add("IdNo");
+                dtJudgment.Columns.Add("BirthPlace");
+                dtJudgment.Columns.Add("Tel");
+                dtJudgment.Columns.Add("MobileNo");
+                dtJudgment.Columns.Add("Address");
+                dtJudgment.Columns.Add("Mode");
+                dtJudgment.Columns.Add("Code");
+                dtJudgment.Columns.Add("Id");
+                dtJudgment.Columns["Id"].AutoIncrement = true;
+                dtJudgment.Columns["Id"].AutoIncrementSeed = 1;
+                dtJudgment.Constraints.Add("PK_ID", dtJudgment.Columns["Id"], true);
+
+                Session["Judgment"] = dtJudgment;
+            }
+            else
+            {
+                dtJudgment = (DataTable)Session["Judgment"];
+            }
+            CustomAspxDevGridView1.DataSource = dtJudgment;
+            CustomAspxDevGridView1.DataBind();
+
+
+            try
+            {
+                PgMode.Value = Server.HtmlDecode(Request.QueryString["PageMode"].ToString());
+                HDProjectId.Value = Server.HtmlDecode(Request.QueryString["ProjectId"]).ToString();
+                HDContractId.Value = Server.HtmlDecode(Request.QueryString["ContractId"]).ToString();
+                RequestId.Value = Server.HtmlDecode(Request.QueryString["PrjReId"]).ToString();
+
+
+            }
+            catch
+            {
+                this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+                return;
+            }
+
+            string PageMode = Utility.DecryptQS(PgMode.Value);
+            string ProjectId = Utility.DecryptQS(HDProjectId.Value);
+            string ContractId = Utility.DecryptQS(HDContractId.Value);
+            string PrjReId = Utility.DecryptQS(RequestId.Value);
+
+            if (string.IsNullOrEmpty(PageMode) || string.IsNullOrEmpty(ProjectId) || string.IsNullOrEmpty(ContractId))
+            {
+                this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+                return;
+            }
+
+            FillProjectInfo(int.Parse(PrjReId));
+            FillForm(int.Parse(ContractId));
+
+        }
+
+    }
+    protected void SetImplementer()
+    {
+        ASPxLabelMj.ClientVisible = false;
+        CmbMajor.ClientVisible = false;
+        ASPxLabelImp.ClientVisible = true;
+        ASPxLabelObs.ClientVisible = false;
+        ASPxRoundPanelJudgmentGroup.ClientVisible = true;
+    }
+    protected void SetObsAndDesgn()
+    {
+        ASPxLabelMj.ClientVisible = true;
+        CmbMajor.ClientVisible = true;
+        ASPxLabelImp.ClientVisible = false;
+        ASPxLabelObs.ClientVisible = true;
+        ASPxRoundPanelJudgmentGroup.ClientVisible = false;
+    }
+
+    protected void FillForm(int ContractId)
+    {
+        TSP.DataManager.TechnicalServices.ContractManager ContractManager = new TSP.DataManager.TechnicalServices.ContractManager();
+        TSP.DataManager.TechnicalServices.JudgmentGroupManager JudgmentManager = new TSP.DataManager.TechnicalServices.JudgmentGroupManager();
+        TSP.DataManager.TechnicalServices.AttachmentsManager AttachManager = new TSP.DataManager.TechnicalServices.AttachmentsManager();
+        TSP.DataManager.TechnicalServices.Project_ImplementerManager ImplementerManager = new TSP.DataManager.TechnicalServices.Project_ImplementerManager();
+
+        try
+        {
+            ContractManager.FindByContractId(ContractId);
+            if (ContractManager.Count > 0)
+            {
+                txtAmount.Text = Convert.ToDecimal(ContractManager[0]["Amount"]).ToString("#,#");
+                txtContractDate.Text = ContractManager[0]["ContractDate"].ToString();
+                txtDuration.Text = ContractManager[0]["Duration"].ToString();
+                //txtName.Text = ContractManager[0][""].ToString();
+
+                ChbMaster.Checked = Convert.ToBoolean(ContractManager[0]["HaveMaster"]);
+                if (ChbMaster.Checked)
+                {
+                    ASPxLabelParent.ClientVisible = true;
+                    txtParentId.ClientVisible = true;
+                    txtParentId.Text = ContractManager[0]["ParentId"].ToString();
+
+                }
+
+                //CmbMajor.DataBind();
+                //CmbMajor.SelectedIndex = CmbMajor.Items.IndexOfValue(ContractManager[0][""]);
+
+                if (!Utility.IsDBNullOrNullValue(ContractManager[0]["ProjectIngridientTypeId"]))
+                {
+                    CmbType.DataBind();
+                    CmbType.SelectedIndex = CmbType.Items.IndexOfValue(ContractManager[0]["ProjectIngridientTypeId"].ToString());
+
+                    if (ContractManager[0]["ProjectIngridientTypeId"].ToString() == ((int)TSP.DataManager.TSProjectIngridientType.Implementer).ToString())
+                    {
+                        SetImplementer();
+                        ImplementerManager.FindByPrjImpId(int.Parse(ContractManager[0]["PrjImpObsDsgnId"].ToString()));
+                        if (ImplementerManager.Count > 0)
+                        {
+                            txtName.Text = ImplementerManager[0]["Name"].ToString();
+                            txtType.Text = ImplementerManager[0]["MemberTypeTitle"].ToString();
+
+                        }
+
+                        txtWage.Text = ContractManager[0]["PercentWage"].ToString();
+
+                        ASPxRoundPanelJudgmentGroup.ClientVisible = true;
+                        JudgmentManager.FindByContractId(ContractId);
+                        dtJudgment = (DataTable)Session["Judgment"];
+                        for (int i = 0; i < JudgmentManager.Count; i++)
+                        {
+                            DataRow dr = dtJudgment.NewRow();
+                            dr["TypeId"] = JudgmentManager[i]["AgentType"];
+                            dr["TypeName"] = JudgmentManager[i]["AgentTypeName"];
+                            dr["FirstName"] = JudgmentManager[i]["FirstName"];
+                            dr["LastName"] = JudgmentManager[i]["LastName"];
+                            dr["FatherName"] = JudgmentManager[i]["FatherName"];
+                            dr["SSN"] = JudgmentManager[i]["SSN"];
+                            dr["IdNo"] = JudgmentManager[i]["IdNo"];
+                            dr["BirthPlace"] = JudgmentManager[i]["BirthPlace"];
+                            dr["Tel"] = JudgmentManager[i]["Tel"];
+                            dr["MobileNo"] = JudgmentManager[i]["MobileNo"];
+                            dr["Address"] = JudgmentManager[i]["Address"];
+                            dr["Mode"] = 1;
+                            dr["Code"] = JudgmentManager[i]["JudgmentGroupId"];
+                            dtJudgment.Rows.Add(dr);
+
+                        }
+                        dtJudgment.AcceptChanges();
+                        CustomAspxDevGridView1.DataSource = dtJudgment;
+                        CustomAspxDevGridView1.DataBind();
+                    }
+                    else if (ContractManager[0]["ProjectIngridientTypeId"].ToString() == ((int)TSP.DataManager.TSProjectIngridientType.Observer).ToString())
+                    {
+                        SetObsAndDesgn();
+                        txtWage.Text = ContractManager[0]["ObsDsgnWage"].ToString();
+                    }
+                    else if (ContractManager[0]["ProjectIngridientTypeId"].ToString() == ((int)TSP.DataManager.TSProjectIngridientType.Designer).ToString())
+                    {
+                        SetObsAndDesgn();
+                        txtWage.Text = ContractManager[0]["ObsDsgnWage"].ToString();
+
+                        TSP.DataManager.TechnicalServices.Project_DesignerManager DesignerManager = new TSP.DataManager.TechnicalServices.Project_DesignerManager();
+                        DesignerManager.FindByDesignerId(int.Parse(ContractManager[0]["PrjImpObsDsgnId"].ToString()));
+                        if (DesignerManager.Count > 0)
+                        {
+
+                            txtName.Text = DesignerManager[0]["DesignerName"].ToString();
+                            txtType.Text = DesignerManager[0]["MeTitle"].ToString();
+                        }
+                    }
+                }
+                AttachManager.FindByTableTypeId(ContractId, (int)TSP.DataManager.TableCodes.TSContract, (int)TSP.DataManager.TSAttachType.Contract);
+                if (AttachManager.Count > 0)
+                {
+                    HpContract.ClientVisible = true;
+                    HpContract.NavigateUrl = AttachManager[0]["FilePath"].ToString();
+                    HDFlpContract["name"] = 1;
+
+                }
+
+            }
+            else
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "اطلاعات توسط کاربر دیگری تغییر یافته است";
+            }
+        }
+        catch (Exception)
+        {
+            this.DivReport.Visible = true;
+            this.LabelWarning.Text = "خطایی در مشاهده اطلاعات رخ داده است";
+        }
+    }
+    protected void btnBack_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("Contract.aspx?ProjectId=" + HDProjectId.Value + "&PageMode=" + PgMode.Value + "&PrjReId=" + RequestId.Value);
+
+    }
+
+    private void FillProjectInfo(int Id)
+    {
+        prjInfo.Fill(Id);
+    }
+
+}

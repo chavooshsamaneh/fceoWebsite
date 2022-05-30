@@ -1,0 +1,177 @@
+.dxVerticalGrid_CategoryCollapsed_Metropolis,
+.dxVerticalGrid_CategoryExpanded_Metropolis,
+.dxVerticalGrid_CollapsedButton_Metropolis,
+.dxVerticalGrid_CTClearFilter_Metropolis,
+.dxVerticalGrid_CTClearFilterDisabled_Metropolis,
+.dxVerticalGrid_CTDeleteRow_Metropolis,
+.dxVerticalGrid_CTDeleteRowDisabled_Metropolis,
+.dxVerticalGrid_CTEditRow_Metropolis,
+.dxVerticalGrid_CTEditRowDisabled_Metropolis,
+.dxVerticalGrid_CTNewRow_Metropolis,
+.dxVerticalGrid_CTNewRowDisabled_Metropolis,
+.dxVerticalGrid_CTRefresh_Metropolis,
+.dxVerticalGrid_CTRefreshDisabled_Metropolis,
+.dxVerticalGrid_CTShowFilterEditor_Metropolis,
+.dxVerticalGrid_CTShowFilterEditorDisabled_Metropolis,
+.dxVerticalGrid_CTShowSearchPanel_Metropolis,
+.dxVerticalGrid_CTShowSearchPanelDisabled_Metropolis,
+.dxVerticalGrid_ExpandedButton_Metropolis,
+.dxVerticalGrid_gvCellError_Metropolis,
+.dxVerticalGrid_gvFilterRowButton_Metropolis,
+.dxVerticalGrid_gvHeaderFilter_Metropolis,
+.dxVerticalGrid_gvHeaderFilterActive_Metropolis,
+.dxVerticalGrid_gvHeaderSortDown_Metropolis,
+.dxVerticalGrid_gvHeaderSortUp_Metropolis
+{
+    background-image: url('sprite.png');
+    background-repeat: no-repeat;
+    background-color: transparent;
+}
+.dxVerticalGrid_CategoryCollapsed_Metropolis
+{
+    background-position: 0px 0px;
+    width: 24px;
+    height: 24px;
+}
+.dxVerticalGrid_CategoryExpanded_Metropolis
+{
+    background-position: 0px -25px;
+    width: 24px;
+    height: 24px;
+}
+.dxVerticalGrid_CollapsedButton_Metropolis
+{
+    background-position: -34px -135px;
+    width: 13px;
+    height: 13px;
+}
+.dxVerticalGrid_CTClearFilter_Metropolis
+{
+    background-position: 0px -101px;
+    width: 16px;
+    height: 16px;
+}
+.dxVerticalGrid_CTClearFilterDisabled_Metropolis
+{
+    background-position: -17px -101px;
+    width: 16px;
+    height: 16px;
+}
+.dxVerticalGrid_CTDeleteRow_Metropolis
+{
+    background-position: 0px -135px;
+    width: 16px;
+    height: 16px;
+}
+.dxVerticalGrid_CTDeleteRowDisabled_Metropolis
+{
+    background-position: -25px 0px;
+    width: 16px;
+    height: 16px;
+}
+.dxVerticalGrid_CTEditRow_Metropolis
+{
+    background-position: -17px -135px;
+    width: 16px;
+    height: 16px;
+}
+.dxVerticalGrid_CTEditRowDisabled_Metropolis
+{
+    background-position: -25px -25px;
+    width: 16px;
+    height: 16px;
+}
+.dxVerticalGrid_CTNewRow_Metropolis
+{
+    background-position: 0px -50px;
+    width: 16px;
+    height: 16px;
+}
+.dxVerticalGrid_CTNewRowDisabled_Metropolis
+{
+    background-position: -17px -84px;
+    width: 16px;
+    height: 16px;
+}
+.dxVerticalGrid_CTRefresh_Metropolis
+{
+    background-position: -17px -118px;
+    width: 16px;
+    height: 16px;
+}
+.dxVerticalGrid_CTRefreshDisabled_Metropolis
+{
+    background-position: 0px -118px;
+    width: 16px;
+    height: 16px;
+}
+.dxVerticalGrid_CTShowFilterEditor_Metropolis
+{
+    background-position: -17px -50px;
+    width: 16px;
+    height: 16px;
+}
+.dxVerticalGrid_CTShowFilterEditorDisabled_Metropolis
+{
+    background-position: 0px -84px;
+    width: 16px;
+    height: 16px;
+}
+.dxVerticalGrid_CTShowSearchPanel_Metropolis
+{
+    background-position: 0px -67px;
+    width: 16px;
+    height: 16px;
+}
+.dxVerticalGrid_CTShowSearchPanelDisabled_Metropolis
+{
+    background-position: -17px -67px;
+    width: 16px;
+    height: 16px;
+}
+.dxVerticalGrid_ExpandedButton_Metropolis
+{
+    background-position: -34px -118px;
+    width: 13px;
+    height: 13px;
+}
+.dxVerticalGrid_gvCellError_Metropolis
+{
+    background-position: -34px -101px;
+    width: 14px;
+    height: 14px;
+}
+.dxVerticalGrid_gvFilterRowButton_Metropolis
+{
+    background-position: -34px -84px;
+    width: 14px;
+    height: 14px;
+}
+.dxVerticalGrid_gvHeaderFilter_Metropolis
+{
+    background-position: -34px -50px;
+    width: 14px;
+    height: 16px;
+}
+.dxVerticalGrid_gvHeaderFilterActive_Metropolis
+{
+    background-position: -34px -67px;
+    width: 14px;
+    height: 16px;
+}
+.dxVerticalGrid_gvHeaderSortDown_Metropolis
+{
+    background-position: -33px -19px;
+    width: 7px;
+    height: 5px;
+}
+.dxVerticalGrid_gvHeaderSortUp_Metropolis
+{
+    background-position: -41px -19px;
+    width: 7px;
+    height: 5px;
+}
+.dxVerticalGrid_gvHeaderFilterActive_Metropolis
+{
+	background-color: #ff8800;
+} 

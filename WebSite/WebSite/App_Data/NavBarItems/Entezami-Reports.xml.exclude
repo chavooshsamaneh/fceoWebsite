@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Groups>
+  <NavBarGroup Expanded="False" Text="شورای انتظامی" Name="grpEntezami" Target="800" >
+
+    <NavBarItem NavigateUrl="~/Employee/Entezami/Report/ComplainReport.aspx" Text="گزارش شکوائیه ها" Name="">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="~/Employee/Entezami/Report/ShakiReport.aspx" Text="گزارش شاکیان" Name="">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="~/Employee/Entezami/Report/MoteshakiReport.aspx" Text="گزارش متشاکیان" Name="">
+    </NavBarItem>
+
+    <NavBarItem NavigateUrl="~/Employee/Entezami/Report/AnnualPerformanceReport.aspx" Text="گزارش عملکرد سالانه شورای انتظامی" Name="">
+    </NavBarItem>
+    <NavBarItem NavigateUrl="~/Employee/Entezami/Report/Sessions.aspx" Text="گزارش جلسات شورای انتظامی" Name="">
+    </NavBarItem>
+  </NavBarGroup>
+</Groups>

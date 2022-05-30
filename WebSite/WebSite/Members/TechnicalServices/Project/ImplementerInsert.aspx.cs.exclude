@@ -1,0 +1,183 @@
+﻿using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+using DevExpress.Web;
+using System.IO;
+
+public partial class Members_TechnicalServices_Project_ImplementerInsert : System.Web.UI.Page
+{
+
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        this.DivReport.Visible = false;
+        this.DivReport.Attributes.Add("onclick", "ChangeVisible(this)");
+        this.DivReport.Attributes.Add("onmouseover", "ChangeIcon(this)");
+
+        if (!IsPostBack)
+        {
+
+            if (string.IsNullOrEmpty(Request.QueryString["ProjectId"]) || string.IsNullOrEmpty(Request.QueryString["PrjImpId"]))
+            {
+                Response.Redirect("Project.aspx");
+            }
+
+            try
+            {
+                PgMode.Value = Server.HtmlDecode(Request.QueryString["PageMode"].ToString());
+                HDProjectId.Value = Server.HtmlDecode(Request.QueryString["ProjectId"]).ToString();
+                HDImpId.Value = Server.HtmlDecode(Request.QueryString["PrjImpId"]).ToString();
+                RequestId.Value = Server.HtmlDecode(Request.QueryString["PrjReId"]).ToString();
+
+
+            }
+            catch
+            {
+                this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+                return;
+            }
+
+            string PageMode = Utility.DecryptQS(PgMode.Value);
+            string ProjectId = Utility.DecryptQS(HDProjectId.Value);
+            string PrjImpId = Utility.DecryptQS(HDImpId.Value);
+            string PrjReId = Utility.DecryptQS(RequestId.Value);
+
+            if (string.IsNullOrEmpty(PrjImpId) || string.IsNullOrEmpty(ProjectId))
+            {
+                this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+
+                return;
+            }
+
+            FillProjectInfo(int.Parse(PrjReId));
+            FillForm(int.Parse(PrjImpId));
+        }
+
+    }
+
+    protected void SetMemberKardan()
+    {
+        ASPxLabelFatherName.ClientVisible = true;
+        ASPxLabelFirstName.ClientVisible = true;
+        ASPxLabelLastName.ClientVisible = true;
+        ASPxLabelSSN.ClientVisible = true;
+        txtFatherName.ClientVisible = true;
+        txtFirstName.ClientVisible = true;
+        txtLastName.ClientVisible = true;
+        txtSSN.ClientVisible = true;
+
+        txtManager.ClientVisible = false;
+        txtOrgName.ClientVisible = false;
+        ASPxLabelManager.ClientVisible = false;
+        ASPxLabelOrgName.ClientVisible = false;
+
+        CmbType.SelectedIndex = 0;
+
+    }
+    protected void SetOffice()
+    {
+        ASPxLabelFatherName.ClientVisible = false;
+        ASPxLabelFirstName.ClientVisible = false;
+        ASPxLabelLastName.ClientVisible = false;
+        ASPxLabelSSN.ClientVisible = false;
+        txtFatherName.ClientVisible = false;
+        txtFirstName.ClientVisible = false;
+        txtLastName.ClientVisible = false;
+        txtSSN.ClientVisible = false;
+
+        txtManager.ClientVisible = true;
+        txtOrgName.ClientVisible = true;
+        ASPxLabelManager.ClientVisible = true;
+        ASPxLabelOrgName.ClientVisible = true;
+
+        CmbType.SelectedIndex = 1;
+    }
+    protected void FillForm(int PrjImpId)
+    {
+        TSP.DataManager.TechnicalServices.Project_ImplementerManager ProjectImpManager = new TSP.DataManager.TechnicalServices.Project_ImplementerManager();
+        TSP.DataManager.TechnicalServices.AttachmentsManager AttachManager = new TSP.DataManager.TechnicalServices.AttachmentsManager();
+
+        try
+        {
+            ProjectImpManager.FindByPrjImpId(PrjImpId);
+            if (ProjectImpManager.Count > 0)
+            {
+                string TypeValue = ProjectImpManager[0]["MemberTypeId"].ToString();
+                CmbType.DataBind();
+                CmbType.SelectedIndex = CmbType.Items.IndexOfValue(TypeValue);
+                txtID.Text = ProjectImpManager[0]["MeOfficeId"].ToString();
+                txtFatherName.Text = ProjectImpManager[0]["FatherName"].ToString();
+                txtFileDate.Text = ProjectImpManager[0]["FileDate"].ToString();
+                txtFileNo.Text = ProjectImpManager[0]["No"].ToString();
+                txtFirstName.Text = ProjectImpManager[0]["FirstName"].ToString();
+                txtLastName.Text = ProjectImpManager[0]["LastName"].ToString();
+                txtManager.Text = ProjectImpManager[0]["Manager"].ToString();
+                txtOrgName.Text = ProjectImpManager[0]["Name"].ToString();
+                txtSSN.Text = ProjectImpManager[0]["SSN"].ToString();
+                ChbMother.Checked = Convert.ToBoolean(ProjectImpManager[0]["IsMother"]);
+                ChbOwner.Checked = Convert.ToBoolean(ProjectImpManager[0]["IsOwner"]);
+
+                if (TypeValue == "1" || TypeValue == "4")
+                    SetMemberKardan();
+                else
+                    SetOffice();
+
+                AttachManager.FindByTableTypeId(PrjImpId, (int)TSP.DataManager.TableCodes.TSProject_Implementer, (int)TSP.DataManager.TSAttachType.Commitment);
+                if (AttachManager.Count > 0)
+                {
+                    HpCommit.ClientVisible = true;
+                    HpCommit.NavigateUrl = AttachManager[0]["FilePath"].ToString();
+                    HDFlpCommit["name"] = 1;
+
+
+                }
+
+            }
+            else
+            {
+                this.DivReport.Visible = true;
+                this.LabelWarning.Text = "امکان مشاهده اطلاعات وجود ندارد.اطلاعات توسط کاربر دیگری تغییر یافته است";
+            }
+        }
+        catch (Exception)
+        {
+            this.DivReport.Visible = true;
+            this.LabelWarning.Text = "خطایی در مشاهده اطلاعات رخ داده است";
+        }
+    }
+    protected void btnBack_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("Implementer.aspx?ProjectId=" + HDProjectId.Value + "&PageMode=" + PgMode.Value + "&PrjReId=" + RequestId.Value);
+
+    }
+    protected void ASPxMenu1_ItemClick(object source, DevExpress.Web.MenuItemEventArgs e)
+    {
+        switch (e.Item.Name)
+        {
+            case "Job":
+                Response.Redirect("JobHistory.aspx?ProjectId=" + HDProjectId.Value + "&PageMode=" + PgMode.Value + "&PrjReId="
+                    + RequestId.Value + "&PrjImpId=" + HDImpId.Value + "&MemberTypeId=" + Utility.EncryptQS(CmbType.Value.ToString()));
+                break;
+            case "Entezami":
+
+                break;
+            case "Control":
+                Response.Redirect("ProjectQC.aspx?ProjectId=" + HDProjectId.Value + "&PageMode=" + PgMode.Value + "&PrjReId=" 
+                    + RequestId.Value + "&PrjImpId=" + HDImpId.Value + "&MemberTypeId=" + Utility.EncryptQS(CmbType.Value.ToString()));
+
+                break;
+        }
+    }
+    private void FillProjectInfo(int Id)
+    {
+        prjInfo.Fill(Id);
+    }
+
+}
+

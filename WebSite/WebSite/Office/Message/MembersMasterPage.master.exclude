@@ -1,0 +1,50 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MembersMasterPage.master.cs"
+    Inherits="Office_MembersMasterPage" MasterPageFile="~/MainMasterPage.master" %>
+<%@ Register Assembly="TSP.WebControls" Namespace="TSP.WebControls" TagPrefix="TSPControls" %>
+<%@ Register Assembly="DevExpress.Web.v17.1, Version=17.1.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a"
+    Namespace="DevExpress.Web" TagPrefix="dxnb" %>
+<asp:Content ID="TopOfMenuContent" ContentPlaceHolderID="TopOfMenuMasterPageContentPlaceHolder"
+    runat="Server">
+      <div dir="rtl" style="direction: rtl; text-align: right;">
+        <asp:Image runat="server" ID="Image6" ImageUrl="~/flash/Home/EmailBanner.png" CssClass="SideBarMenue" />
+        <TSPControls:CustomASPxNavBar ID="ASPxNavBar2" runat="server" CssClass="SideBarMenue"
+            ShowGroupHeaders="false">
+            <Groups>
+                <dxnb:navbargroup text=" پیام ها">
+                                            <Items>
+                                              <%--  <dxnb:NavBarItem NavigateUrl="~/Members/Message/Compose.aspx" Text="ارسال پیام">
+                                                </dxnb:NavBarItem>--%>
+                                                <dxnb:NavBarItem Name="NbiRecieve" NavigateUrl="~/Office/Message/Inbox.aspx" Text="پیام های رسیده">
+                                                </dxnb:NavBarItem>
+                                              <%--  <dxnb:NavBarItem Name="NbiConfirmMsg" NavigateUrl="~/Office/Message/InboxConfirmMsg.aspx" Text="پیام های تأییدی">
+                                                </dxnb:NavBarItem>--%>
+                                               <%-- <dxnb:NavBarItem NavigateUrl="~/Members/Message/MessSent.aspx" Text="پیام های ارسال شده">
+                                                </dxnb:NavBarItem>--%>
+                                                <%--<dxnb:NavBarItem Text="ارسال پیام تأییدی" NavigateUrl="~/Members/Message/MessSent.aspx">
+                                                </dxnb:NavBarItem>--%>
+                                            </Items>
+                                        </dxnb:navbargroup>
+            </Groups>
+        </TSPControls:CustomASPxNavBar>
+    </div>
+</asp:Content>
+<asp:Content ID="MenuContent" ContentPlaceHolderID="MenuMasterPageContentPlaceHolder"
+    runat="Server">
+    <div id="SideBarMenue" class="SideBarMenue" runat="server" dir="rtl">
+        <TSPControls:CustomASPxNavBar ID="ASPxNavBar1" runat="server" Width="100%" DataSourceID="XmlDataSource1">
+        </TSPControls:CustomASPxNavBar>
+        <asp:XmlDataSource ID="XmlDataSource1" runat="server" DataFile="~/App_Data/NavBarItems/Office.xml"
+            XPath="/Groups/*" />
+    </div>
+</asp:Content>
+<asp:Content ID="BottomOfMenuContent" ContentPlaceHolderID="BottomOfMenuMasterPageContentPlaceHolder"
+    runat="Server">
+</asp:Content>
+<asp:Content ID="DataContent" ContentPlaceHolderID="DataMasterPageContentPlaceHolder"
+    runat="Server">
+
+    <script type="text/javascript" src="../Script/Utility.js"></script>
+
+    <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+    </asp:ContentPlaceHolder>
+</asp:Content>

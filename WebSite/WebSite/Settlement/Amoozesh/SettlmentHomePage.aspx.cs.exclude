@@ -1,0 +1,79 @@
+﻿using System;
+using System.Data;
+using System.Configuration;
+using System.Collections;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Web.UI.HtmlControls;
+
+public partial class Settlement_Amoozesh_SettlmentHomePage : System.Web.UI.Page
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+
+        this.DivReport.Visible = false;
+        this.DivReport.Attributes.Add("onclick", "ChangeVisible(this)");
+        this.DivReport.Attributes.Add("onmouseover", "ChangeIcon(this)");
+
+        if (Session["Login"] == null || Session["Login"].ToString() == "0")
+        {
+            Response.Redirect("../../Login.aspx?ReferPage=" + Request.Url.AbsoluteUri);
+            return;
+        }
+
+        if (!IsPostBack)
+        {
+            if (Request.QueryString["MeId"] != null || Session["MeId"] != null)
+            {
+                if (Request.QueryString["MeId"] != null)
+                    MeId.Value = Server.HtmlDecode(Request.QueryString["MeId"]);
+                else
+                    MeId.Value = Utility.EncryptQS(Session["MeId"].ToString());
+
+
+                string MEID = Utility.DecryptQS(MeId.Value);
+                if (string.IsNullOrEmpty(MEID))
+                {
+                    this.Response.Redirect("~/ErrorPage.aspx?ErrorNo=" + ((int)ErrorCodes.ErrorType.PageInputsNotValid).ToString());
+                    return;
+                }
+                else
+                {
+                    TSP.DataManager.SettlementAgentManager SettlementAgentManager = new TSP.DataManager.SettlementAgentManager();
+                    TSP.DataManager.TelManager TelManager = new TSP.DataManager.TelManager();
+                    int TableType =(int) TSP.DataManager.TableCodes.SettlementAgent;
+                    SettlementAgentManager.FindByCode(int.Parse(MEID));
+                    if (SettlementAgentManager.Count > 0)
+                    {                        
+                        //lblTel.Text = SettlementAgentManager[0][""].ToString();
+                        lblSSN.Text = SettlementAgentManager[0]["SSN"].ToString();
+                        lblIdNo.Text = SettlementAgentManager[0]["IdNo"].ToString();
+                        lblFather.Text = SettlementAgentManager[0]["Father"].ToString();
+                        lblFamily.Text = SettlementAgentManager[0]["Family"].ToString();
+                        lblEmail.Text = SettlementAgentManager[0]["Email"].ToString();
+                        lblDesc.Text = SettlementAgentManager[0]["Description"].ToString();
+                        lblBirthDate.Text = SettlementAgentManager[0]["BirthDate"].ToString();
+                        lblAddress.Text = SettlementAgentManager[0]["Address"].ToString();
+                        lblName.Text = SettlementAgentManager[0]["Name"].ToString();
+                        lblMobileNo.Text = SettlementAgentManager[0]["MobileNo"].ToString();
+
+                        TelManager.FindByTablePrimaryKey(int.Parse(MEID), TableType);
+                        if (TelManager.Count == 1)
+                        {
+                            lblTel.Text = TelManager[0]["Number"].ToString();
+                        }
+                    }
+                    else
+                    {
+                        this.DivReport.Visible = true;
+                        this.LabelWarning.Text = "امکان مشاهده اطلاعات وجود ندارد";
+                        return;
+                    }
+                }
+            }
+        }
+    }
+}
